@@ -280,6 +280,15 @@ import '../styles/main.scss';
 
     &-nav {
       // ナビゲーション要素
+      @include tablet-up {
+        display: flex;
+        flex-direction: column;
+        padding-top: tpx(70);
+        padding-bottom: tpx(60);
+        height: 100%;
+      }
+      @include desktop-up {
+      }
 
       &[role='navigation'] {
         // role属性付きのnavigation
@@ -335,9 +344,11 @@ import '../styles/main.scss';
         display: flex;
         gap: tpx(10);
         justify-content: center;
+        margin-top: tpx(573);
       }
       @include desktop-up {
         gap: ppx(10);
+        margin-top: ppx(573);
       }
 
       &-item {
@@ -359,6 +370,10 @@ import '../styles/main.scss';
           padding-top: tpx(16);
           display: flex;
           align-items: center;
+          transition:
+            color 0.3s ease,
+            background-color 0.3s ease,
+            border-color 0.3s ease;
         }
         @include desktop-up {
           font-size: ppx(30);
@@ -371,6 +386,22 @@ import '../styles/main.scss';
 
         &[type='button'] {
           // type属性付きボタン
+        }
+        @include hover {
+          &:hover {
+            color: white;
+            background-color: $green_2;
+            border-color: $green_2;
+          }
+        }
+
+        &[aria-label] {
+          // aria-label属性付き要素
+          @include tablet-up {
+            writing-mode: vertical-lr;
+          }
+          @include desktop-up {
+          }
         }
       }
 
@@ -390,6 +421,10 @@ import '../styles/main.scss';
           padding-top: tpx(16);
           display: flex;
           align-items: center;
+          transition:
+            color 0.3s ease,
+            background-color 0.3s ease,
+            border-color 0.3s ease;
         }
         @include desktop-up {
           font-size: ppx(30);
@@ -403,6 +438,13 @@ import '../styles/main.scss';
         &[href] {
           // href属性付きリンク
         }
+        @include hover {
+          &:hover {
+            color: white;
+            background-color: $green_2;
+            border-color: $green_2;
+          }
+        }
       }
 
       &-toggle {
@@ -412,10 +454,12 @@ import '../styles/main.scss';
           margin-inline: auto;
           width: tpx(76);
           height: tpx(79);
+          margin-top: tpx(114);
         }
         @include desktop-up {
           width: ppx(76);
           height: ppx(79);
+          margin-top: ppx(114);
         }
 
         &[type='button'] {
@@ -437,6 +481,19 @@ import '../styles/main.scss';
 
           path {
             // SVGパス要素
+            fill: $blue_6;
+            stroke: $blue_6;
+            transition:
+              fill 0.3s ease,
+              stroke 0.3s ease;
+          }
+          @include hover {
+            &:hover {
+              path {
+                fill: $green_2;
+                stroke: $green_2;
+              }
+            }
           }
         }
       }
@@ -449,9 +506,11 @@ import '../styles/main.scss';
         flex-flow: column;
         gap: tpx(23);
         align-items: center;
+        margin-top: tpx(106);
       }
       @include desktop-up {
         gap: ppx(23);
+        margin-top: ppx(106);
       }
 
       &[role='contentinfo'] {
@@ -487,6 +546,15 @@ import '../styles/main.scss';
 
           path {
             // SVGパス要素
+            fill: $blue_6;
+            transition: fill 0.3s ease;
+          }
+          @include hover {
+            &:hover {
+              path {
+                fill: $green_2;
+              }
+            }
           }
         }
       }
