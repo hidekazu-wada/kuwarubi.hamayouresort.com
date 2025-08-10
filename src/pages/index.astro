@@ -285,19 +285,22 @@ import '../styles/main.scss';
     const menuOverlay = document.getElementById('menu-overlay');
     const sidebar = document.querySelector('.sidebar');
 
-    let isMenuOpen = false;
+    // 必要な要素が全て存在することを確認
+    if (menuToggle && menuOverlay && sidebar) {
+      let isMenuOpen = false;
 
-    menuToggle.addEventListener('click', () => {
-      isMenuOpen = !isMenuOpen;
+      menuToggle.addEventListener('click', () => {
+        isMenuOpen = !isMenuOpen;
 
-      if (isMenuOpen) {
-        menuOverlay.style.display = 'block';
-        sidebar.classList.add('menu-open');
-      } else {
-        menuOverlay.style.display = 'none';
-        sidebar.classList.remove('menu-open');
-      }
-    });
+        if (isMenuOpen) {
+          menuOverlay.style.display = 'block';
+          sidebar.classList.add('menu-open');
+        } else {
+          menuOverlay.style.display = 'none';
+          sidebar.classList.remove('menu-open');
+        }
+      });
+    }
   </script>
 </html>
 
