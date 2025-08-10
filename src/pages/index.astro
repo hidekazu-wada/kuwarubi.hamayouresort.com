@@ -293,10 +293,12 @@ import '../styles/main.scss';
         isMenuOpen = !isMenuOpen;
 
         if (isMenuOpen) {
-          menuOverlay.style.display = 'block';
+          // メニューを開く：トランジション付きで表示
+          menuOverlay.classList.add('show');
           sidebar.classList.add('menu-open');
         } else {
-          menuOverlay.style.display = 'none';
+          // メニューを閉じる：トランジション付きで非表示
+          menuOverlay.classList.remove('show');
           sidebar.classList.remove('menu-open');
         }
       });
@@ -326,14 +328,25 @@ import '../styles/main.scss';
   /* メニューオーバーレイ */
   .menu-overlay {
     // メニュー開閉時に表示される全画面オーバーレイ
-    display: none; // 初期状態では非表示
+    display: block; // 常に存在させる
+    opacity: 0; // 初期状態では透明
+    visibility: hidden; // 初期状態では非表示
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); // 半透明黒背景
+    background: linear-gradient(270deg, #026995 0%, #0098bf 100%);
     z-index: 10; // サイドバー(z-index: 20)より下の層
+    transition: 
+      opacity 0.3s ease,
+      visibility 0.3s ease; // フェードイン・アウト効果
+    
+    &.show {
+      // メニューが開いている状態
+      opacity: 1;
+      visibility: visible;
+    }
   }
 
   /* サイドバーの固定 */
@@ -664,7 +677,7 @@ import '../styles/main.scss';
 
     &.menu-open {
       // メニューが開いている状態のスタイル（JavaScriptで.menu-openクラスが追加される）
-      
+
       .sidebar-menu-button,
       .sidebar-menu-link {
         // 宿泊予約・団体利用ボタンを白色に変更
@@ -695,11 +708,19 @@ import '../styles/main.scss';
 
       @include hover {
         // メニュー開閉状態でのホバー演出（ホバー対応デバイスでのみ動作）
+        .sidebar-menu-button:hover,
+        .sidebar-menu-link:hover {
+          // 宿泊予約・団体利用ボタンのホバー時（白→緑）
+          color: white;
+          background-color: $green_2;
+          border-color: $green_2;
+        }
+        
         .sidebar-social-link:hover svg path {
           // ソーシャルアイコンのホバー時色変化
           fill: $green_2;
         }
-        
+
         .sidebar-menu-toggle:hover .menu-close-icon path {
           // ×アイコンのホバー時色変化（白→緑）
           fill: $green_2;
