@@ -571,27 +571,57 @@ import '../styles/main.scss';
   </body>
 
   <script>
-    const menuToggle = document.getElementById('menu-toggle');
+    const pcMenuToggle = document.getElementById('menu-toggle');
+    const mobileMenuToggle = document.querySelector('.bottom-bar__toggle');
+    const mobileMenuClose = document.querySelector('.menu-overlay__close');
     const menuOverlay = document.getElementById('menu-overlay');
     const sidebar = document.querySelector('.sidebar');
 
-    // 必要な要素が全て存在することを確認
-    if (menuToggle && menuOverlay && sidebar) {
-      let isMenuOpen = false;
+    // メニュー状態管理
+    let isMenuOpen = false;
 
-      menuToggle.addEventListener('click', () => {
-        isMenuOpen = !isMenuOpen;
+    // メニュー開閉の共通関数
+    function toggleMenu() {
+      isMenuOpen = !isMenuOpen;
 
-        if (isMenuOpen) {
-          // メニューを開く：トランジション付きで表示
-          menuOverlay.classList.add('show');
+      if (isMenuOpen) {
+        menuOverlay.classList.add('show');
+        if (sidebar) {
           sidebar.classList.add('menu-open');
-        } else {
-          // メニューを閉じる：トランジション付きで非表示
-          menuOverlay.classList.remove('show');
+        }
+      } else {
+        menuOverlay.classList.remove('show');
+        if (sidebar) {
           sidebar.classList.remove('menu-open');
         }
-      });
+      }
+    }
+
+    // メニューを閉じる関数
+    function closeMenu() {
+      isMenuOpen = false;
+      menuOverlay.classList.remove('show');
+      if (sidebar) {
+        sidebar.classList.remove('menu-open');
+      }
+    }
+
+    // 必要な要素が存在することを確認してイベントリスナーを設定
+    if (menuOverlay) {
+      // PCメニューボタン
+      if (pcMenuToggle) {
+        pcMenuToggle.addEventListener('click', toggleMenu);
+      }
+
+      // スマホメニュー開くボタン
+      if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', toggleMenu);
+      }
+
+      // スマホメニュー閉じるボタン
+      if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', closeMenu);
+      }
     }
   </script>
 </html>
