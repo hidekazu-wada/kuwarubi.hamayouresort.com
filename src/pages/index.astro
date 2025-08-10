@@ -509,10 +509,10 @@ import '../styles/main.scss';
     grid-template-columns: 1fr;
     min-height: 100vh;
     @include tablet-up {
-      grid-template-columns: tpx(224) 1fr;
+      grid-template-columns: tpx($sidebar-width) 1fr;
     }
     @include desktop-up {
-      grid-template-columns: ppx(224) 1fr;
+      grid-template-columns: ppx($sidebar-width) 1fr;
     }
   }
 
@@ -547,7 +547,7 @@ import '../styles/main.scss';
     @include desktop-up {
       grid-template:
         'sidebar content'
-        / ppx(224) 1fr;
+        / ppx($sidebar-width) 1fr;
     }
     .mobile-menu-header {
       display: block;
