@@ -509,10 +509,10 @@ import '../styles/main.scss';
     grid-template-columns: 1fr;
     min-height: 100vh;
     @include tablet-up {
-      grid-template-columns: #{tpx($sidebar-width)} 1fr;
+      grid-template-columns: tpx(224) 1fr;
     }
     @include desktop-up {
-      grid-template-columns: #{ppx($sidebar-width)} 1fr;
+      grid-template-columns: ppx(224) 1fr;
     }
   }
 
@@ -542,12 +542,12 @@ import '../styles/main.scss';
       display: grid;
       grid-template:
         'sidebar content'
-        / #{tpx($sidebar-width)} 1fr;
+        / tpx(244) 1fr;
     }
     @include desktop-up {
       grid-template:
         'sidebar content'
-        / #{ppx($sidebar-width)} 1fr;
+        / ppx(224) 1fr;
     }
     .mobile-menu-header {
       display: block;
@@ -640,7 +640,6 @@ import '../styles/main.scss';
         margin-top: unset;
         margin-left: unset;
         justify-self: center;
-
         align-self: center;
       }
       @include desktop-up {
