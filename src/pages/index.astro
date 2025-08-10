@@ -582,6 +582,8 @@ import '../styles/main.scss';
 
     // メニュー開閉の共通関数
     function toggleMenu() {
+      if (!menuOverlay) return;
+      
       isMenuOpen = !isMenuOpen;
 
       if (isMenuOpen) {
@@ -603,6 +605,8 @@ import '../styles/main.scss';
 
     // メニューを閉じる関数
     function closeMenu() {
+      if (!menuOverlay) return;
+      
       isMenuOpen = false;
       menuOverlay.classList.remove('show');
       if (sidebar) {
