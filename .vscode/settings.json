@@ -2,15 +2,17 @@
   "cSpell.words": [
     "contenteditable",
     "destyle",
+    "hamayou",
     "hamayouresort",
+    "izumi",
     "kaku",
     "kuwarubi",
     "stylable",
     "styleable"
   ],
   "editor.codeActionsOnSave": {
-		"source.fixAll": "explicit"
-	},
+    "source.fixAll": "explicit"
+  },
   "editor.formatOnSave": true,
   "editor.insertSpaces": false,
   "editor.tabSize": 2,

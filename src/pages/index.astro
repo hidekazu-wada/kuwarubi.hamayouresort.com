@@ -30,10 +30,105 @@ import Sidebar from '../components/Sidebar.astro';
       <!-- メニューオーバーレイ -->
       <MenuOverlay />
       <!-- メインコンテンツ -->
-      <main>
+      <main class="main-content">
         <h1>ようこそ！</h1>
         <p>これはAstroプロジェクトの基本的な構造です。</p>
       </main>
+      <!-- フッター -->
+      <footer class="footer">
+        <a href="" class="footer__logo-link">
+          <img
+            src="../../src/assets/images/logo_kuwarubi.svg"
+            alt="くわるび ロゴ"
+            class="footer__logo-image"
+          />
+        </a>
+        <address class="footer__contact">
+          TEL 0555-82-2922<br />
+          〒401-0332 山梨県南都留郡富士河口湖町西湖９９７
+        </address>
+        <nav class="footer__nav" aria-label="フッターナビゲーション">
+          <ul class="footer__nav-list">
+            <li class="footer__nav-item">
+              <a href="" class="footer__nav-link">
+                <div class="footer__nav-text">
+                  <span class="footer__nav-title">ご宿泊の</span>
+                  <span class="footer__nav-subtitle">ご予約はこちら</span>
+                </div>
+                <svg
+                  class="footer__nav-arrow"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="42"
+                  viewBox="0 0 22 42"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M1 41L21 21L1 1"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </a>
+            </li>
+            <li class="footer__nav-item">
+              <a href="" class="footer__nav-link">
+                <div class="footer__nav-text">
+                  <span class="footer__nav-title">ご宿泊・アクティビティの</span
+                  >
+                  <span class="footer__nav-subtitle">お問い合わせはこちら</span>
+                </div>
+                <svg
+                  class="footer__nav-arrow"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="42"
+                  viewBox="0 0 22 42"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M1 41L21 21L1 1"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <hr class="footer__divider" />
+        <div class="footer__partners">
+          <a href="" class="footer__partner-link footer__partner-link--main">
+            <img
+              src="../../src/assets/images/logo_hamayou_yoko.svg"
+              alt="浜遊リゾート ロゴ"
+              class="footer__partner-image"
+            />
+          </a>
+          <div class="footer__partner-group">
+            <a href="" class="footer__partner-link footer__partner-link--sub">
+              <img
+                src="../../src/assets/images/logo_gnome.svg"
+                alt="ノーム ロゴ"
+                class="footer__partner-image"
+              />
+            </a>
+            <a href="" class="footer__partner-link footer__partner-link--sub">
+              <img
+                src="../../src/assets/images/logo_izumi.webp"
+                alt="いずみ ロゴ"
+                class="footer__partner-image"
+              />
+            </a>
+          </div>
+        </div>
+        <p class="footer__copyright">© 2008 - 2025 HAMAYOU RESORT</p>
+        <hr class="footer__divider" />
+      </footer>
     </div>
 
     <script>
@@ -111,13 +206,108 @@ import Sidebar from '../components/Sidebar.astro';
     /* 基本構造 */
     .layout-container {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template:
+        'main'
+        'footer'
+        /1fr;
       min-height: 100vh;
       @include tablet-up {
-        grid-template-columns: tpx($sidebar-width) 1fr;
+        grid-template:
+          'sidebar main'
+          'sidebar footer'
+          / tpx($sidebar-width) 1fr;
       }
       @include desktop-up {
-        grid-template-columns: ppx($sidebar-width) 1fr;
+        grid-template:
+          'sidebar main'
+          'sidebar footer'
+          / ppx($sidebar-width) 1fr;
+      }
+    }
+
+    /* メインコンテンツ */
+    .main-content {
+      grid-area: main;
+    }
+
+    // フッター全体
+    .footer {
+      grid-area: footer;
+      background-color: $blue_6;
+      &__logo-link {
+        // ロゴリンク
+      }
+
+      &__logo-image {
+        // ロゴ画像
+      }
+
+      &__contact {
+        // 住所・連絡先
+      }
+
+      &__nav {
+        // ナビゲーション全体
+      }
+
+      &__nav-list {
+        // ナビゲーションリスト
+      }
+
+      &__nav-item {
+        // ナビゲーションアイテム
+      }
+
+      &__nav-link {
+        // ナビゲーションリンク
+      }
+
+      &__nav-text {
+        // ナビゲーションテキストコンテナ
+      }
+
+      &__nav-title {
+        // ナビゲーションタイトル
+      }
+
+      &__nav-subtitle {
+        // ナビゲーションサブタイトル
+      }
+
+      &__nav-arrow {
+        // ナビゲーション矢印アイコン
+      }
+
+      &__divider {
+        // 区切り線
+      }
+
+      &__partners {
+        // パートナーロゴ全体
+      }
+
+      &__partner-link {
+        // パートナーリンク
+
+        &--main {
+          // メインパートナー（浜遊リゾート）
+        }
+
+        &--sub {
+          // サブパートナー（ノーム、いずみ）
+        }
+      }
+
+      &__partner-group {
+        // パートナーグループ（後半2つのロゴ）
+      }
+
+      &__partner-image {
+        // パートナー画像
+      }
+
+      &__copyright {
+        // コピーライト
       }
     }
   </style>
