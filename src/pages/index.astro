@@ -589,11 +589,15 @@ import '../styles/main.scss';
         if (sidebar) {
           sidebar.classList.add('menu-open');
         }
+        // スクロールを禁止
+        document.body.style.overflow = 'hidden';
       } else {
         menuOverlay.classList.remove('show');
         if (sidebar) {
           sidebar.classList.remove('menu-open');
         }
+        // スクロールを復元
+        document.body.style.overflow = '';
       }
     }
 
@@ -604,6 +608,8 @@ import '../styles/main.scss';
       if (sidebar) {
         sidebar.classList.remove('menu-open');
       }
+      // スクロールを復元
+      document.body.style.overflow = '';
     }
 
     // 必要な要素が存在することを確認してイベントリスナーを設定
