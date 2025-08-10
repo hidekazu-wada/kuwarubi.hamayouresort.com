@@ -583,7 +583,7 @@ import '../styles/main.scss';
     // メニュー開閉の共通関数
     function toggleMenu() {
       if (!menuOverlay) return;
-      
+
       isMenuOpen = !isMenuOpen;
 
       if (isMenuOpen) {
@@ -606,7 +606,7 @@ import '../styles/main.scss';
     // メニューを閉じる関数
     function closeMenu() {
       if (!menuOverlay) return;
-      
+
       isMenuOpen = false;
       menuOverlay.classList.remove('show');
       if (sidebar) {
@@ -889,6 +889,24 @@ import '../styles/main.scss';
       }
 
       &-link {
+        position: relative;
+        &:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: spx(-3);
+          width: 0;
+          height: 1px;
+          background-color: #fff;
+          transition: width 0.3s ease;
+        }
+        @include hover {
+          &:hover:before {
+            width: 100%;
+          }
+        }
+        @include desktop-up {
+        }
       }
     }
     .mobile-menu-footer {
