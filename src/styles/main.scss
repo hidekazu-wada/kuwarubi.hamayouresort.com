@@ -26,4 +26,7 @@ html {
     font-weight: 400;
     font-style: normal;
   }
+  main {
+    min-height: 100vh; // 開発用　不要になったら削除
+  }
 }

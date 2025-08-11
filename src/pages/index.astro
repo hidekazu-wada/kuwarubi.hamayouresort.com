@@ -100,9 +100,9 @@ import Sidebar from '../components/Sidebar.astro';
             </li>
           </ul>
         </nav>
-        <hr class="footer__divider" />
+        <hr class="footer__divider first" />
         <div class="footer__partners">
-          <a href="" class="footer__partner-link footer__partner-link--main">
+          <a href="" class="footer__partner-link footer__partner-link--first">
             <img
               src="../../src/assets/images/logo_hamayou_yoko.svg"
               alt="浜遊リゾート ロゴ"
@@ -110,14 +110,17 @@ import Sidebar from '../components/Sidebar.astro';
             />
           </a>
           <div class="footer__partner-group">
-            <a href="" class="footer__partner-link footer__partner-link--sub">
+            <a
+              href=""
+              class="footer__partner-link footer__partner-link--second"
+            >
               <img
                 src="../../src/assets/images/logo_gnome.svg"
                 alt="ノーム ロゴ"
                 class="footer__partner-image"
               />
             </a>
-            <a href="" class="footer__partner-link footer__partner-link--sub">
+            <a href="" class="footer__partner-link footer__partner-link--third">
               <img
                 src="../../src/assets/images/logo_izumi.webp"
                 alt="いずみ ロゴ"
@@ -127,7 +130,7 @@ import Sidebar from '../components/Sidebar.astro';
           </div>
         </div>
         <p class="footer__copyright">© 2008 - 2025 HAMAYOU RESORT</p>
-        <hr class="footer__divider" />
+        <hr class="footer__divider second" />
       </footer>
     </div>
 
@@ -235,15 +238,39 @@ import Sidebar from '../components/Sidebar.astro';
       grid-area: footer;
       background-color: $blue_6;
       &__logo-link {
-        // ロゴリンク
+        display: block;
+        margin-inline: auto;
+        width: spx(310);
+        height: spx(188);
+        @include tablet-up {
+          width: ppx(310) * 1.2;
+          height: ppx(188) * 1.2;
+        }
+        @include desktop-up {
+          width: ppx(310);
+          height: ppx(188);
+        }
       }
 
       &__logo-image {
-        // ロゴ画像
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
 
       &__contact {
-        // 住所・連絡先
+        color: #fff;
+        text-align: center;
+        font-size: spx(27);
+        line-height: spx(48.6);
+        @include tablet-up {
+          font-size: ppx(27) * 1.2;
+          line-height: ppx(40.5) * 1.2;
+        }
+        @include desktop-up {
+          font-size: ppx(27);
+          line-height: ppx(40.5);
+        }
       }
 
       &__nav {
@@ -251,63 +278,226 @@ import Sidebar from '../components/Sidebar.astro';
       }
 
       &__nav-list {
-        // ナビゲーションリスト
+        display: flex;
+        flex-flow: column;
+        gap: spx(30);
+        align-items: center;
+        @include tablet-up {
+          flex-direction: row;
+          gap: ppx(49) * 1.2;
+          justify-content: center;
+          align-items: unset;
+        }
+        @include desktop-up {
+          gap: ppx(49);
+        }
       }
 
       &__nav-item {
-        // ナビゲーションアイテム
       }
 
       &__nav-link {
-        // ナビゲーションリンク
+        width: spx(640);
+        height: spx(152);
+        border: solid 1px #fff;
+        display: grid;
+        place-items: center;
+        position: relative;
+        @include tablet-up {
+          width: ppx(749) * 1.2;
+          height: ppx(152) * 1.2;
+          border-radius: ppx(30) * 1.2;
+        }
+        @include desktop-up {
+          width: ppx(749);
+          height: ppx(152);
+          border-radius: ppx(30);
+        }
       }
 
       &__nav-text {
-        // ナビゲーションテキストコンテナ
+        display: flex;
+        flex-direction: column;
+        gap: spx(8);
+
+        @include tablet-up {
+          gap: ppx(8) * 1.2;
+        }
+        @include desktop-up {
+          gap: ppx(8);
+        }
       }
 
       &__nav-title {
-        // ナビゲーションタイトル
+        display: block;
+        color: #fff;
+        text-align: center;
+        font-size: spx(27);
+        line-height: spx(27);
+        letter-spacing: spx(5.4);
+        @include tablet-up {
+          font-size: ppx(27) * 1.2;
+          line-height: ppx(27) * 1.2;
+          letter-spacing: ppx(5.4) * 1.2;
+        }
+        @include desktop-up {
+          font-size: ppx(27);
+          line-height: ppx(27);
+          letter-spacing: ppx(5.4);
+        }
       }
 
       &__nav-subtitle {
-        // ナビゲーションサブタイトル
+        display: block;
+        color: #fff;
+        text-align: center;
+        font-size: spx(38);
+        line-height: spx(57);
+        letter-spacing: spx(7.6);
+        @include tablet-up {
+          font-size: ppx(38) * 1.2;
+          line-height: ppx(57) * 1.2;
+          letter-spacing: ppx(7.6) * 1.2;
+        }
+        @include desktop-up {
+          font-size: ppx(38);
+          line-height: ppx(57);
+          letter-spacing: ppx(7.6);
+        }
       }
 
       &__nav-arrow {
-        // ナビゲーション矢印アイコン
+        display: block;
+        width: spx(20);
+        height: spx(40);
+        margin-inline: auto;
+        position: absolute;
+        top: 50%;
+        right: spx(43);
+        transform: translateY(-50%);
+        @include tablet-up {
+          width: ppx(20) * 1.2;
+          height: ppx(40) * 1.2;
+          right: ppx(43) * 1.2;
+        }
+        @include desktop-up {
+          width: ppx(20);
+          height: ppx(40);
+          right: ppx(43);
+        }
       }
 
       &__divider {
-        // 区切り線
+        width: 100%;
+        height: 1px;
+        background-color: #eee;
+        &.first {
+          display: block;
+        }
+        &.second {
+          display: block;
+          @include tablet-up {
+            display: none;
+          }
+          @include desktop-up {
+          }
+        }
       }
 
       &__partners {
-        // パートナーロゴ全体
+        @include tablet-up {
+          display: flex;
+          gap: ppx(80) * 1.2;
+          align-items: center;
+          justify-content: center;
+        }
+        @include desktop-up {
+          gap: ppx(80);
+        }
       }
 
       &__partner-link {
         // パートナーリンク
 
-        &--main {
-          // メインパートナー（浜遊リゾート）
+        &--first {
+          width: spx(457);
+          height: spx(40);
+          display: block;
+          margin-inline: auto;
+          @include tablet-up {
+            width: ppx(375) * 1.2;
+            height: ppx(32) * 1.2;
+            margin-inline: unset;
+          }
+          @include desktop-up {
+            width: ppx(375);
+            height: ppx(32);
+          }
         }
 
-        &--sub {
-          // サブパートナー（ノーム、いずみ）
+        &--second {
+          width: spx(204);
+          height: spx(102);
+          display: block;
+          @include tablet-up {
+            width: ppx(230) * 1.2;
+            height: ppx(115) * 1.2;
+          }
+          @include desktop-up {
+            width: ppx(230);
+            height: ppx(115);
+          }
+        }
+
+        &--third {
+          width: spx(246);
+          height: spx(93);
+          display: block;
+          @include tablet-up {
+            width: ppx(259) * 1.2;
+            height: ppx(98) * 1.2;
+          }
+          @include desktop-up {
+            width: ppx(259);
+            height: ppx(98);
+          }
         }
       }
 
       &__partner-group {
-        // パートナーグループ（後半2つのロゴ）
+        display: flex;
+        gap: spx(64);
+        justify-content: center;
+        @include tablet-up {
+          gap: ppx(80) * 1.2;
+        }
+        @include desktop-up {
+          gap: ppx(80);
+        }
       }
 
       &__partner-image {
-        // パートナー画像
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
 
       &__copyright {
-        // コピーライト
+        color: #fff;
+        text-align: center;
+        font-size: spx(24);
+        line-height: spx(48);
+        letter-spacing: spx(4.08);
+        @include tablet-up {
+          font-size: ppx(24) * 1.2;
+          line-height: ppx(48) * 1.2;
+          letter-spacing: ppx(4.08) * 1.2;
+        }
+        @include desktop-up {
+          font-size: ppx(24);
+          line-height: ppx(48);
+          letter-spacing: ppx(4.08);
+        }
       }
     }
   </style>
