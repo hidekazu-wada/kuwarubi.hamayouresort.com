@@ -237,6 +237,13 @@ import Sidebar from '../components/Sidebar.astro';
     .footer {
       grid-area: footer;
       background-color: $blue_6;
+      padding: spx(120) 0 spx(129);
+      @include tablet-up {
+        padding: ppx(158) * 1.2 ppx(0) ppx(94) * 1.2;
+      }
+      @include desktop-up {
+        padding: ppx(158) ppx(0) ppx(94);
+      }
       &__logo-link {
         display: block;
         margin-inline: auto;
@@ -263,18 +270,27 @@ import Sidebar from '../components/Sidebar.astro';
         text-align: center;
         font-size: spx(27);
         line-height: spx(48.6);
+        margin-top: spx(100);
         @include tablet-up {
           font-size: ppx(27) * 1.2;
           line-height: ppx(40.5) * 1.2;
+          margin-top: ppx(44) * 1.2;
         }
         @include desktop-up {
           font-size: ppx(27);
           line-height: ppx(40.5);
+          margin-top: ppx(44);
         }
       }
 
       &__nav {
-        // ナビゲーション全体
+        margin-top: spx(40);
+        @include tablet-up {
+          margin-top: ppx(60) * 1.2;
+        }
+        @include desktop-up {
+          margin-top: ppx(60);
+        }
       }
 
       &__nav-list {
@@ -393,6 +409,13 @@ import Sidebar from '../components/Sidebar.astro';
         background-color: #eee;
         &.first {
           display: block;
+          margin-top: spx(60);
+          @include tablet-up {
+            margin-top: ppx(138) * 1.2;
+          }
+          @include desktop-up {
+            margin-top: ppx(138);
+          }
         }
         &.second {
           display: block;
@@ -405,14 +428,17 @@ import Sidebar from '../components/Sidebar.astro';
       }
 
       &__partners {
+        margin-top: spx(89);
         @include tablet-up {
           display: flex;
           gap: ppx(80) * 1.2;
           align-items: center;
           justify-content: center;
+          margin-top: ppx(66) * 1.2;
         }
         @include desktop-up {
           gap: ppx(80);
+          margin-top: ppx(66);
         }
       }
 
@@ -468,8 +494,10 @@ import Sidebar from '../components/Sidebar.astro';
         display: flex;
         gap: spx(64);
         justify-content: center;
+        margin-top: spx(43);
         @include tablet-up {
           gap: ppx(80) * 1.2;
+          margin-top: 0;
         }
         @include desktop-up {
           gap: ppx(80);
@@ -488,15 +516,18 @@ import Sidebar from '../components/Sidebar.astro';
         font-size: spx(24);
         line-height: spx(48);
         letter-spacing: spx(4.08);
+        margin-top: spx(69);
         @include tablet-up {
           font-size: ppx(24) * 1.2;
           line-height: ppx(48) * 1.2;
           letter-spacing: ppx(4.08) * 1.2;
+          margin-top: ppx(70) * 1.2;
         }
         @include desktop-up {
           font-size: ppx(24);
           line-height: ppx(48);
           letter-spacing: ppx(4.08);
+          margin-top: ppx(70);
         }
       }
     }
