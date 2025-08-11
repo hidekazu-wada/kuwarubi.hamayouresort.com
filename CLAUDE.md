@@ -273,3 +273,54 @@ if (menuToggle && mobileMenuToggle && menuOverlay && sidebar) {
 - タブレット専用メニューも同じ仕組みで追加可能
 - メニュー内容の動的変更も容易
 - アニメーション効果の追加も既存構造で対応可能
+
+## レイアウト設計思想
+
+### CSS Grid + 固定要素ハイブリッド設計
+
+このプロジェクトでは、メインレイアウトにCSS Gridを使用しながらも、サイドバーなど一部の要素は意図的にグリッドエリアに含めない設計を採用しています。
+
+#### 設計の狙い
+
+**1. スクロール動作の最適化**
+- サイドバーを`grid-area: sidebar`で指定すると、右側コンテンツ（main + footer）の自然なスクロール動作が阻害される
+- サイドバーを`position: fixed`で浮遊させることで、メインコンテンツエリア全体が一体となってスクロールできる
+
+**2. レイアウト余白の適切な確保**
+- CSS Gridで`grid-template-columns: sidebar-width 1fr`を指定することで、浮遊しているサイドバー分の余白を確実に確保
+- サイドバーの幅変更時も、グリッド定義を変更するだけで全体レイアウトが自動調整される
+
+#### 実装パターン
+
+```scss
+.layout-container {
+  display: grid;
+  // サイドバー分の余白を確保するが、サイドバー自体はグリッドに含めない
+  grid-template:
+    'main'
+    'footer'
+    / 1fr;
+  
+  @include tablet-up {
+    grid-template:
+      'sidebar main'
+      'sidebar footer'
+      / tpx($sidebar-width) 1fr; // サイドバー用の余白を確保
+  }
+}
+
+// サイドバーは浮遊要素として別途配置
+.sidebar {
+  position: fixed; // グリッドに依存しない独立した配置
+  // grid-area: sidebar; ← 意図的に指定しない
+}
+```
+
+#### この設計の利点
+
+- **UX向上**: 自然なページスクロール動作
+- **保守性**: サイドバー幅の変更が容易
+- **柔軟性**: 固定要素（BottomBar、MenuOverlayなど）も同様に配置可能
+- **レスポンシブ対応**: スマホ時はグリッドが`'main' 'footer'`に自動変化
+
+この設計思想により、モダンなWebアプリケーションに適したレイアウトシステムを実現しています。
