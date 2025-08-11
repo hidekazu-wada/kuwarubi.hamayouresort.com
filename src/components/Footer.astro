@@ -1,0 +1,403 @@
+---
+
+---
+
+<footer class="footer">
+  <a href="" class="footer__logo-link">
+    <img
+      src="../../src/assets/images/logo_kuwarubi.svg"
+      alt="くわるび ロゴ"
+      class="footer__logo-image"
+    />
+  </a>
+  <address class="footer__contact">
+    TEL 0555-82-2922<br />
+    〒401-0332 山梨県南都留郡富士河口湖町西湖９９７
+  </address>
+  <nav class="footer__nav" aria-label="フッターナビゲーション">
+    <ul class="footer__nav-list">
+      <li class="footer__nav-item">
+        <a href="" class="footer__nav-link">
+          <div class="footer__nav-text">
+            <span class="footer__nav-title">ご宿泊の</span>
+            <span class="footer__nav-subtitle">ご予約はこちら</span>
+          </div>
+          <svg
+            class="footer__nav-arrow"
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="42"
+            viewBox="0 0 22 42"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M1 41L21 21L1 1"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </li>
+      <li class="footer__nav-item">
+        <a href="" class="footer__nav-link">
+          <div class="footer__nav-text">
+            <span class="footer__nav-title">ご宿泊・アクティビティの</span>
+            <span class="footer__nav-subtitle">お問い合わせはこちら</span>
+          </div>
+          <svg
+            class="footer__nav-arrow"
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="42"
+            viewBox="0 0 22 42"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M1 41L21 21L1 1"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <hr class="footer__divider first" />
+  <div class="footer__partners">
+    <a href="" class="footer__partner-link footer__partner-link--first">
+      <img
+        src="../../src/assets/images/logo_hamayou_yoko.svg"
+        alt="浜遊リゾート ロゴ"
+        class="footer__partner-image"
+      />
+    </a>
+    <div class="footer__partner-group">
+      <a href="" class="footer__partner-link footer__partner-link--second">
+        <img
+          src="../../src/assets/images/logo_gnome.svg"
+          alt="ノーム ロゴ"
+          class="footer__partner-image"
+        />
+      </a>
+      <a href="" class="footer__partner-link footer__partner-link--third">
+        <img
+          src="../../src/assets/images/logo_izumi.webp"
+          alt="いずみ ロゴ"
+          class="footer__partner-image"
+        />
+      </a>
+    </div>
+  </div>
+  <p class="footer__copyright">© 2008 - 2025 HAMAYOU RESORT</p>
+  <hr class="footer__divider second" />
+</footer>
+
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../styles/variables';
+  @import '../styles/functions';
+  @import '../styles/mixins';
+
+  // フッター全体
+  .footer {
+    grid-area: footer;
+    background-color: $blue_6;
+    padding: spx(120) 0 spx(129);
+    @include tablet-up {
+      padding: ppx(158) * 1.2 ppx(0) ppx(94) * 1.2;
+    }
+    @include desktop-up {
+      padding: ppx(158) ppx(0) ppx(94);
+    }
+    &__logo-link {
+      display: block;
+      margin-inline: auto;
+      width: spx(310);
+      height: spx(188);
+      @include tablet-up {
+        width: ppx(310) * 1.2;
+        height: ppx(188) * 1.2;
+      }
+      @include desktop-up {
+        width: ppx(310);
+        height: ppx(188);
+      }
+    }
+
+    &__logo-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &__contact {
+      color: #fff;
+      text-align: center;
+      font-size: spx(27);
+      line-height: spx(48.6);
+      margin-top: spx(100);
+      @include tablet-up {
+        font-size: ppx(27) * 1.2;
+        line-height: ppx(40.5) * 1.2;
+        margin-top: ppx(44) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+        line-height: ppx(40.5);
+        margin-top: ppx(44);
+      }
+    }
+
+    &__nav {
+      margin-top: spx(40);
+      @include tablet-up {
+        margin-top: ppx(60) * 1.2;
+      }
+      @include desktop-up {
+        margin-top: ppx(60);
+      }
+    }
+
+    &__nav-list {
+      display: flex;
+      flex-flow: column;
+      gap: spx(30);
+      align-items: center;
+      @include tablet-up {
+        flex-direction: row;
+        gap: ppx(49) * 1.2;
+        justify-content: center;
+        align-items: unset;
+      }
+      @include desktop-up {
+        gap: ppx(49);
+      }
+    }
+
+    &__nav-item {
+    }
+
+    &__nav-link {
+      width: spx(640);
+      height: spx(152);
+      border: solid 1px #fff;
+      display: grid;
+      place-items: center;
+      position: relative;
+      @include tablet-up {
+        width: ppx(749) * 1.2;
+        height: ppx(152) * 1.2;
+        border-radius: ppx(30) * 1.2;
+      }
+      @include desktop-up {
+        width: ppx(749);
+        height: ppx(152);
+        border-radius: ppx(30);
+      }
+    }
+
+    &__nav-text {
+      display: flex;
+      flex-direction: column;
+      gap: spx(8);
+
+      @include tablet-up {
+        gap: ppx(8) * 1.2;
+      }
+      @include desktop-up {
+        gap: ppx(8);
+      }
+    }
+
+    &__nav-title {
+      display: block;
+      color: #fff;
+      text-align: center;
+      font-size: spx(27);
+      line-height: spx(27);
+      letter-spacing: spx(5.4);
+      @include tablet-up {
+        font-size: ppx(27) * 1.2;
+        line-height: ppx(27) * 1.2;
+        letter-spacing: ppx(5.4) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+        line-height: ppx(27);
+        letter-spacing: ppx(5.4);
+      }
+    }
+
+    &__nav-subtitle {
+      display: block;
+      color: #fff;
+      text-align: center;
+      font-size: spx(38);
+      line-height: spx(57);
+      letter-spacing: spx(7.6);
+      @include tablet-up {
+        font-size: ppx(38) * 1.2;
+        line-height: ppx(57) * 1.2;
+        letter-spacing: ppx(7.6) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(38);
+        line-height: ppx(57);
+        letter-spacing: ppx(7.6);
+      }
+    }
+
+    &__nav-arrow {
+      display: block;
+      width: spx(20);
+      height: spx(40);
+      margin-inline: auto;
+      position: absolute;
+      top: 50%;
+      right: spx(43);
+      transform: translateY(-50%);
+      @include tablet-up {
+        width: ppx(20) * 1.2;
+        height: ppx(40) * 1.2;
+        right: ppx(43) * 1.2;
+      }
+      @include desktop-up {
+        width: ppx(20);
+        height: ppx(40);
+        right: ppx(43);
+      }
+    }
+
+    &__divider {
+      width: 100%;
+      height: 1px;
+      background-color: #eee;
+      &.first {
+        display: block;
+        margin-top: spx(60);
+        @include tablet-up {
+          margin-top: ppx(138) * 1.2;
+        }
+        @include desktop-up {
+          margin-top: ppx(138);
+        }
+      }
+      &.second {
+        display: block;
+        @include tablet-up {
+          display: none;
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__partners {
+      margin-top: spx(89);
+      @include tablet-up {
+        display: flex;
+        gap: ppx(80) * 1.2;
+        align-items: center;
+        justify-content: center;
+        margin-top: ppx(66) * 1.2;
+      }
+      @include desktop-up {
+        gap: ppx(80);
+        margin-top: ppx(66);
+      }
+    }
+
+    &__partner-link {
+      // パートナーリンク
+
+      &--first {
+        width: spx(457);
+        height: spx(40);
+        display: block;
+        margin-inline: auto;
+        @include tablet-up {
+          width: ppx(375) * 1.2;
+          height: ppx(32) * 1.2;
+          margin-inline: unset;
+        }
+        @include desktop-up {
+          width: ppx(375);
+          height: ppx(32);
+        }
+      }
+
+      &--second {
+        width: spx(204);
+        height: spx(102);
+        display: block;
+        @include tablet-up {
+          width: ppx(230) * 1.2;
+          height: ppx(115) * 1.2;
+        }
+        @include desktop-up {
+          width: ppx(230);
+          height: ppx(115);
+        }
+      }
+
+      &--third {
+        width: spx(246);
+        height: spx(93);
+        display: block;
+        @include tablet-up {
+          width: ppx(259) * 1.2;
+          height: ppx(98) * 1.2;
+        }
+        @include desktop-up {
+          width: ppx(259);
+          height: ppx(98);
+        }
+      }
+    }
+
+    &__partner-group {
+      display: flex;
+      gap: spx(64);
+      justify-content: center;
+      margin-top: spx(43);
+      @include tablet-up {
+        gap: ppx(80) * 1.2;
+        margin-top: 0;
+      }
+      @include desktop-up {
+        gap: ppx(80);
+      }
+    }
+
+    &__partner-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &__copyright {
+      color: #fff;
+      text-align: center;
+      font-size: spx(24);
+      line-height: spx(48);
+      letter-spacing: spx(4.08);
+      margin-top: spx(69);
+      @include tablet-up {
+        font-size: ppx(24) * 1.2;
+        line-height: ppx(48) * 1.2;
+        letter-spacing: ppx(4.08) * 1.2;
+        margin-top: ppx(70) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(24);
+        line-height: ppx(48);
+        letter-spacing: ppx(4.08);
+        margin-top: ppx(70);
+      }
+    }
+  }
+</style>
