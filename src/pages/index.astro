@@ -1,10 +1,96 @@
 ---
 // メインSCSSファイルをインポート
 import '../styles/main.scss';
+// Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 import BottomBar from '../components/BottomBar.astro';
 import MenuOverlay from '../components/MenuOverlay.astro';
 import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
+
+import { getImage } from 'astro:assets';
+import hero1Desktop from '../assets/images/top/hero_1_desktop.png';
+import hero1Tablet from '../assets/images/top/hero_1_tablet.png';
+import hero1Mobile from '../assets/images/top/hero_1_mobile.png';
+
+import hero2Desktop from '../assets/images/top/hero_2_desktop.png';
+import hero2Tablet from '../assets/images/top/hero_2_tablet.png';
+import hero2Mobile from '../assets/images/top/hero_2_mobile.png';
+
+import hero3Desktop from '../assets/images/top/hero_3_desktop.png';
+import hero3Tablet from '../assets/images/top/hero_3_tablet.png';
+import hero3Mobile from '../assets/images/top/hero_3_mobile.png';
+
+import hero4Desktop from '../assets/images/top/hero_4_desktop.png';
+import hero4Tablet from '../assets/images/top/hero_4_tablet.png';
+import hero4Mobile from '../assets/images/top/hero_4_mobile.png';
+
+const hero1DesktopWebp = await getImage({
+  src: hero1Desktop,
+  format: 'webp',
+  widths: [1280, 1920],
+});
+const hero1TabletWebp = await getImage({
+  src: hero1Tablet,
+  format: 'webp',
+  widths: [640, 768],
+});
+const hero1MobileWebp = await getImage({
+  src: hero1Mobile,
+  format: 'webp',
+  widths: [360, 640],
+});
+
+const hero2DesktopWebp = await getImage({
+  src: hero2Desktop,
+  format: 'webp',
+  widths: [1280, 1920],
+});
+const hero2TabletWebp = await getImage({
+  src: hero2Tablet,
+  format: 'webp',
+  widths: [640, 768],
+});
+const hero2MobileWebp = await getImage({
+  src: hero2Mobile,
+  format: 'webp',
+  widths: [360, 640],
+});
+
+const hero3DesktopWebp = await getImage({
+  src: hero3Desktop,
+  format: 'webp',
+  widths: [1280, 1920],
+});
+const hero3TabletWebp = await getImage({
+  src: hero3Tablet,
+  format: 'webp',
+  widths: [640, 768],
+});
+const hero3MobileWebp = await getImage({
+  src: hero3Mobile,
+  format: 'webp',
+  widths: [360, 640],
+});
+
+const hero4DesktopWebp = await getImage({
+  src: hero4Desktop,
+  format: 'webp',
+  widths: [1280, 1920],
+});
+const hero4TabletWebp = await getImage({
+  src: hero4Tablet,
+  format: 'webp',
+  widths: [640, 768],
+});
+const hero4MobileWebp = await getImage({
+  src: hero4Mobile,
+  format: 'webp',
+  widths: [360, 640],
+});
 ---
 
 <html lang="ja">
@@ -32,37 +118,261 @@ import Footer from '../components/Footer.astro';
       <MenuOverlay />
       <!-- メインコンテンツ -->
       <main class="main-content">
-        <h1>ようこそ！</h1>
-        <p>これはAstroプロジェクトの基本的な構造です。</p>
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="slide-content">
+                <picture>
+                  <source
+                    srcset={hero1DesktopWebp.src}
+                    media="(min-width:1024px)"
+                    sizes="100vw"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset={hero1TabletWebp.srcSet.attribute}
+                    media="(min-width:744px)"
+                    sizes="100vw"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset={hero1MobileWebp.srcSet.attribute}
+                    sizes="100vw"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset={hero1Desktop.src}
+                    media="(min-width:1024px)"
+                    type="image/png"
+                    sizes="100vw"
+                  />
+                  <source
+                    srcset={hero1Tablet.src}
+                    media="(min-width:744px)"
+                    type="image/png"
+                    sizes="100vw"
+                  />
+                  <source
+                    srcset={hero1Mobile.src}
+                    type="image/png"
+                    sizes="100vw"
+                  />
+                  <img
+                    src={hero1Mobile.src}
+                    width={hero1Mobile.width}
+                    height={hero1Mobile.height}
+                    alt="ヒーローイメージ"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="slide-content">
+                <picture>
+                  <source
+                    srcset={hero2DesktopWebp.src}
+                    media="(min-width:1024px)"
+                    sizes="100vw"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset={hero2TabletWebp.srcSet.attribute}
+                    media="(min-width:744px)"
+                    sizes="100vw"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset={hero2MobileWebp.srcSet.attribute}
+                    sizes="100vw"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset={hero2Desktop.src}
+                    media="(min-width:1024px)"
+                    type="image/png"
+                    sizes="100vw"
+                  />
+                  <source
+                    srcset={hero2Tablet.src}
+                    media="(min-width:744px)"
+                    type="image/png"
+                    sizes="100vw"
+                  />
+                  <source
+                    srcset={hero2Mobile.src}
+                    type="image/png"
+                    sizes="100vw"
+                  />
+                  <img
+                    src={hero2Mobile.src}
+                    width={hero2Mobile.width}
+                    height={hero2Mobile.height}
+                    alt="ヒーローイメージ"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="slide-content">
+                <picture>
+                  <source
+                    srcset={hero3DesktopWebp.src}
+                    media="(min-width:1024px)"
+                    sizes="100vw"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset={hero3TabletWebp.srcSet.attribute}
+                    media="(min-width:744px)"
+                    sizes="100vw"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset={hero3MobileWebp.srcSet.attribute}
+                    sizes="100vw"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset={hero3Desktop.src}
+                    media="(min-width:1024px)"
+                    type="image/png"
+                    sizes="100vw"
+                  />
+                  <source
+                    srcset={hero3Tablet.src}
+                    media="(min-width:744px)"
+                    type="image/png"
+                    sizes="100vw"
+                  />
+                  <source
+                    srcset={hero3Mobile.src}
+                    type="image/png"
+                    sizes="100vw"
+                  />
+                  <img
+                    src={hero3Mobile.src}
+                    width={hero3Mobile.width}
+                    height={hero3Mobile.height}
+                    alt="ヒーローイメージ"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="slide-content">
+                <picture>
+                  <source
+                    srcset={hero4DesktopWebp.src}
+                    media="(min-width:1024px)"
+                    sizes="100vw"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset={hero4TabletWebp.srcSet.attribute}
+                    media="(min-width:744px)"
+                    sizes="100vw"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset={hero4MobileWebp.srcSet.attribute}
+                    sizes="100vw"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset={hero4Desktop.src}
+                    media="(min-width:1024px)"
+                    type="image/png"
+                    sizes="100vw"
+                  />
+                  <source
+                    srcset={hero4Tablet.src}
+                    media="(min-width:744px)"
+                    type="image/png"
+                    sizes="100vw"
+                  />
+                  <source
+                    srcset={hero4Mobile.src}
+                    type="image/png"
+                    sizes="100vw"
+                  />
+                  <img
+                    src={hero4Mobile.src}
+                    width={hero4Mobile.width}
+                    height={hero4Mobile.height}
+                    alt="ヒーローイメージ"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
       <!-- フッター -->
       <Footer />
     </div>
 
     <script>
-      const pcMenuToggle = document.getElementById('menu-toggle');
-      const mobileMenuToggle = document.querySelector('.bottom-bar__toggle');
-      const mobileMenuClose = document.querySelector('.menu-overlay__close');
-      const menuOverlay = document.getElementById('menu-overlay');
-      const sidebar = document.querySelector('.sidebar');
+      // Swiperインポート
+      import Swiper from 'swiper';
+      import { Autoplay, EffectFade } from 'swiper/modules';
 
-      // メニュー状態管理
-      let isMenuOpen = false;
+      // DOMロード後に実行
+      document.addEventListener('DOMContentLoaded', () => {
+        // Swiper初期化
+        const swiper = new Swiper('.swiper', {
+          modules: [Autoplay, EffectFade],
+          effect: 'fade',
+          loop: true,
+          autoplay: { delay: 5000, disableOnInteraction: false }, // スライド表示時間: 5秒
+          speed: 2500, // フェード切り替え速度: 2.5秒（独立して調整可能）
+        });
 
-      // メニュー開閉の共通関数
-      function toggleMenu() {
-        if (!menuOverlay) return;
+        // メニュー機能
+        const pcMenuToggle = document.getElementById('menu-toggle');
+        const mobileMenuToggle = document.querySelector('.bottom-bar__toggle');
+        const mobileMenuClose = document.querySelector('.menu-overlay__close');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const sidebar = document.querySelector('.sidebar');
 
-        isMenuOpen = !isMenuOpen;
+        // メニュー状態管理
+        let isMenuOpen = false;
 
-        if (isMenuOpen) {
-          menuOverlay.classList.add('show');
-          if (sidebar) {
-            sidebar.classList.add('menu-open');
+        // メニュー開閉の共通関数
+        function toggleMenu() {
+          if (!menuOverlay) return;
+
+          isMenuOpen = !isMenuOpen;
+
+          if (isMenuOpen) {
+            menuOverlay.classList.add('show');
+            if (sidebar) {
+              sidebar.classList.add('menu-open');
+            }
+            // スクロールを禁止
+            document.body.style.overflow = 'hidden';
+          } else {
+            menuOverlay.classList.remove('show');
+            if (sidebar) {
+              sidebar.classList.remove('menu-open');
+            }
+            // スクロールを復元
+            document.body.style.overflow = '';
           }
-          // スクロールを禁止
-          document.body.style.overflow = 'hidden';
-        } else {
+        }
+
+        // メニューを閉じる関数
+        function closeMenu() {
+          if (!menuOverlay) return;
+
+          isMenuOpen = false;
           menuOverlay.classList.remove('show');
           if (sidebar) {
             sidebar.classList.remove('menu-open');
@@ -70,38 +380,25 @@ import Footer from '../components/Footer.astro';
           // スクロールを復元
           document.body.style.overflow = '';
         }
-      }
 
-      // メニューを閉じる関数
-      function closeMenu() {
-        if (!menuOverlay) return;
+        // 必要な要素が存在することを確認してイベントリスナーを設定
+        if (menuOverlay) {
+          // PCメニューボタン
+          if (pcMenuToggle) {
+            pcMenuToggle.addEventListener('click', toggleMenu);
+          }
 
-        isMenuOpen = false;
-        menuOverlay.classList.remove('show');
-        if (sidebar) {
-          sidebar.classList.remove('menu-open');
+          // スマホメニュー開くボタン
+          if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', toggleMenu);
+          }
+
+          // スマホメニュー閉じるボタン
+          if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', closeMenu);
+          }
         }
-        // スクロールを復元
-        document.body.style.overflow = '';
-      }
-
-      // 必要な要素が存在することを確認してイベントリスナーを設定
-      if (menuOverlay) {
-        // PCメニューボタン
-        if (pcMenuToggle) {
-          pcMenuToggle.addEventListener('click', toggleMenu);
-        }
-
-        // スマホメニュー開くボタン
-        if (mobileMenuToggle) {
-          mobileMenuToggle.addEventListener('click', toggleMenu);
-        }
-
-        // スマホメニュー閉じるボタン
-        if (mobileMenuClose) {
-          mobileMenuClose.addEventListener('click', closeMenu);
-        }
-      }
+      });
     </script>
   </body>
 
@@ -136,6 +433,68 @@ import Footer from '../components/Footer.astro';
     /* メインコンテンツ */
     .main-content {
       grid-area: main;
+      position: relative;
+    }
+
+    /* Swiperスタイル */
+    .swiper {
+      width: 100%;
+      height: 100svh;
+      overflow: hidden;
+    }
+
+    .swiper-slide {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide-content {
+      display: block;
+      width: 100%;
+      height: 100%;
+      picture {
+        display: block;
+        width: 100%;
+        height: 100%;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+      }
+    }
+
+    @keyframes hero-zoom-out {
+      0% {
+        transform: scale(1.12);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* 基本状態: 拡大 */
+    .swiper-slide img {
+      transform: scale(1.12);
+    }
+
+    /* アクティブ時: ズームアウト実行 */
+    .swiper-slide-active img {
+      animation: hero-zoom-out 4s ease-out forwards;
+      /* 
+       * アニメーション時間の調整について:
+       * - 必須条件: アニメーション時間 < autoplay.delay（スライド表示時間）
+       * - 現在の設定: 4秒アニメーション < 5秒表示時間 = OK
+       * - 推奨計算: アニメーション時間 ≤ 表示時間 - 1秒（余裕を持たせる）
+       * - 例: 表示時間5秒なら、アニメーション時間は4秒以下が安全
+       */
+    }
+
+    /* 非アクティブ時: 完了状態保持 */
+    .swiper-slide:not(.swiper-slide-active) img {
+      transform: scale(1);
     }
   </style>
 </html>
