@@ -12,21 +12,23 @@ import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
 
 import { getImage } from 'astro:assets';
-import hero1Desktop from '../assets/images/top/hero_1_desktop.png';
-import hero1Tablet from '../assets/images/top/hero_1_tablet.png';
-import hero1Mobile from '../assets/images/top/hero_1_mobile.png';
+import hero1Desktop from '../assets/images/top/hero-slide/hero_1_desktop.png';
+import hero1Tablet from '../assets/images/top/hero-slide/hero_1_tablet.png';
+import hero1Mobile from '../assets/images/top/hero-slide/hero_1_mobile.png';
 
-import hero2Desktop from '../assets/images/top/hero_2_desktop.png';
-import hero2Tablet from '../assets/images/top/hero_2_tablet.png';
-import hero2Mobile from '../assets/images/top/hero_2_mobile.png';
+import hero2Desktop from '../assets/images/top/hero-slide/hero_2_desktop.png';
+import hero2Tablet from '../assets/images/top/hero-slide/hero_2_tablet.png';
+import hero2Mobile from '../assets/images/top/hero-slide/hero_2_mobile.png';
 
-import hero3Desktop from '../assets/images/top/hero_3_desktop.png';
-import hero3Tablet from '../assets/images/top/hero_3_tablet.png';
-import hero3Mobile from '../assets/images/top/hero_3_mobile.png';
+import hero3Desktop from '../assets/images/top/hero-slide/hero_3_desktop.png';
+import hero3Tablet from '../assets/images/top/hero-slide/hero_3_tablet.png';
+import hero3Mobile from '../assets/images/top/hero-slide/hero_3_mobile.png';
 
-import hero4Desktop from '../assets/images/top/hero_4_desktop.png';
-import hero4Tablet from '../assets/images/top/hero_4_tablet.png';
-import hero4Mobile from '../assets/images/top/hero_4_mobile.png';
+import hero4Desktop from '../assets/images/top/hero-slide/hero_4_desktop.png';
+import hero4Tablet from '../assets/images/top/hero-slide/hero_4_tablet.png';
+import hero4Mobile from '../assets/images/top/hero-slide/hero_4_mobile.png';
+
+import heroMovieThumb from '../assets/images/top/play-movie/thumbnail.png';
 
 const hero1DesktopWebp = await getImage({
   src: hero1Desktop,
@@ -90,6 +92,12 @@ const hero4MobileWebp = await getImage({
   src: hero4Mobile,
   format: 'webp',
   widths: [360, 640],
+});
+
+const heroMovieThumbWebp = await getImage({
+  src: heroMovieThumb,
+  format: 'webp',
+  widths: [309, 515],
 });
 ---
 
