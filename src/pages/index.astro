@@ -118,201 +118,213 @@ const hero4MobileWebp = await getImage({
       <MenuOverlay />
       <!-- メインコンテンツ -->
       <main class="main-content">
-        <div class="swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="slide-content">
-                <picture>
-                  <source
-                    srcset={hero1DesktopWebp.src}
-                    media="(min-width:1024px)"
-                    sizes="100vw"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset={hero1TabletWebp.srcSet.attribute}
-                    media="(min-width:744px)"
-                    sizes="100vw"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset={hero1MobileWebp.srcSet.attribute}
-                    sizes="100vw"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset={hero1Desktop.src}
-                    media="(min-width:1024px)"
-                    type="image/png"
-                    sizes="100vw"
-                  />
-                  <source
-                    srcset={hero1Tablet.src}
-                    media="(min-width:744px)"
-                    type="image/png"
-                    sizes="100vw"
-                  />
-                  <source
-                    srcset={hero1Mobile.src}
-                    type="image/png"
-                    sizes="100vw"
-                  />
-                  <img
-                    src={hero1Mobile.src}
-                    width={hero1Mobile.width}
-                    height={hero1Mobile.height}
-                    alt="ヒーローイメージ"
-                    loading="eager"
-                    decoding="async"
-                  />
-                </picture>
+        <!-- ヒーローセクション -->
+        <div class="hero">
+          <div class="swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="slide-content">
+                  <picture>
+                    <source
+                      srcset={hero1DesktopWebp.src}
+                      media="(min-width:1024px)"
+                      sizes="100vw"
+                      type="image/webp"
+                    />
+                    <source
+                      srcset={hero1TabletWebp.srcSet.attribute}
+                      media="(min-width:744px)"
+                      sizes="100vw"
+                      type="image/webp"
+                    />
+                    <source
+                      srcset={hero1MobileWebp.srcSet.attribute}
+                      sizes="100vw"
+                      type="image/webp"
+                    />
+                    <source
+                      srcset={hero1Desktop.src}
+                      media="(min-width:1024px)"
+                      type="image/png"
+                      sizes="100vw"
+                    />
+                    <source
+                      srcset={hero1Tablet.src}
+                      media="(min-width:744px)"
+                      type="image/png"
+                      sizes="100vw"
+                    />
+                    <source
+                      srcset={hero1Mobile.src}
+                      type="image/png"
+                      sizes="100vw"
+                    />
+                    <img
+                      src={hero1Mobile.src}
+                      width={hero1Mobile.width}
+                      height={hero1Mobile.height}
+                      alt="ヒーローイメージ"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  </picture>
+                </div>
               </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="slide-content">
-                <picture>
-                  <source
-                    srcset={hero2DesktopWebp.src}
-                    media="(min-width:1024px)"
-                    sizes="100vw"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset={hero2TabletWebp.srcSet.attribute}
-                    media="(min-width:744px)"
-                    sizes="100vw"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset={hero2MobileWebp.srcSet.attribute}
-                    sizes="100vw"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset={hero2Desktop.src}
-                    media="(min-width:1024px)"
-                    type="image/png"
-                    sizes="100vw"
-                  />
-                  <source
-                    srcset={hero2Tablet.src}
-                    media="(min-width:744px)"
-                    type="image/png"
-                    sizes="100vw"
-                  />
-                  <source
-                    srcset={hero2Mobile.src}
-                    type="image/png"
-                    sizes="100vw"
-                  />
-                  <img
-                    src={hero2Mobile.src}
-                    width={hero2Mobile.width}
-                    height={hero2Mobile.height}
-                    alt="ヒーローイメージ"
-                    loading="eager"
-                    decoding="async"
-                  />
-                </picture>
+              <div class="swiper-slide">
+                <div class="slide-content">
+                  <picture>
+                    <source
+                      srcset={hero2DesktopWebp.src}
+                      media="(min-width:1024px)"
+                      sizes="100vw"
+                      type="image/webp"
+                    />
+                    <source
+                      srcset={hero2TabletWebp.srcSet.attribute}
+                      media="(min-width:744px)"
+                      sizes="100vw"
+                      type="image/webp"
+                    />
+                    <source
+                      srcset={hero2MobileWebp.srcSet.attribute}
+                      sizes="100vw"
+                      type="image/webp"
+                    />
+                    <source
+                      srcset={hero2Desktop.src}
+                      media="(min-width:1024px)"
+                      type="image/png"
+                      sizes="100vw"
+                    />
+                    <source
+                      srcset={hero2Tablet.src}
+                      media="(min-width:744px)"
+                      type="image/png"
+                      sizes="100vw"
+                    />
+                    <source
+                      srcset={hero2Mobile.src}
+                      type="image/png"
+                      sizes="100vw"
+                    />
+                    <img
+                      src={hero2Mobile.src}
+                      width={hero2Mobile.width}
+                      height={hero2Mobile.height}
+                      alt="ヒーローイメージ"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  </picture>
+                </div>
               </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="slide-content">
-                <picture>
-                  <source
-                    srcset={hero3DesktopWebp.src}
-                    media="(min-width:1024px)"
-                    sizes="100vw"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset={hero3TabletWebp.srcSet.attribute}
-                    media="(min-width:744px)"
-                    sizes="100vw"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset={hero3MobileWebp.srcSet.attribute}
-                    sizes="100vw"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset={hero3Desktop.src}
-                    media="(min-width:1024px)"
-                    type="image/png"
-                    sizes="100vw"
-                  />
-                  <source
-                    srcset={hero3Tablet.src}
-                    media="(min-width:744px)"
-                    type="image/png"
-                    sizes="100vw"
-                  />
-                  <source
-                    srcset={hero3Mobile.src}
-                    type="image/png"
-                    sizes="100vw"
-                  />
-                  <img
-                    src={hero3Mobile.src}
-                    width={hero3Mobile.width}
-                    height={hero3Mobile.height}
-                    alt="ヒーローイメージ"
-                    loading="eager"
-                    decoding="async"
-                  />
-                </picture>
+              <div class="swiper-slide">
+                <div class="slide-content">
+                  <picture>
+                    <source
+                      srcset={hero3DesktopWebp.src}
+                      media="(min-width:1024px)"
+                      sizes="100vw"
+                      type="image/webp"
+                    />
+                    <source
+                      srcset={hero3TabletWebp.srcSet.attribute}
+                      media="(min-width:744px)"
+                      sizes="100vw"
+                      type="image/webp"
+                    />
+                    <source
+                      srcset={hero3MobileWebp.srcSet.attribute}
+                      sizes="100vw"
+                      type="image/webp"
+                    />
+                    <source
+                      srcset={hero3Desktop.src}
+                      media="(min-width:1024px)"
+                      type="image/png"
+                      sizes="100vw"
+                    />
+                    <source
+                      srcset={hero3Tablet.src}
+                      media="(min-width:744px)"
+                      type="image/png"
+                      sizes="100vw"
+                    />
+                    <source
+                      srcset={hero3Mobile.src}
+                      type="image/png"
+                      sizes="100vw"
+                    />
+                    <img
+                      src={hero3Mobile.src}
+                      width={hero3Mobile.width}
+                      height={hero3Mobile.height}
+                      alt="ヒーローイメージ"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  </picture>
+                </div>
               </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="slide-content">
-                <picture>
-                  <source
-                    srcset={hero4DesktopWebp.src}
-                    media="(min-width:1024px)"
-                    sizes="100vw"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset={hero4TabletWebp.srcSet.attribute}
-                    media="(min-width:744px)"
-                    sizes="100vw"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset={hero4MobileWebp.srcSet.attribute}
-                    sizes="100vw"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset={hero4Desktop.src}
-                    media="(min-width:1024px)"
-                    type="image/png"
-                    sizes="100vw"
-                  />
-                  <source
-                    srcset={hero4Tablet.src}
-                    media="(min-width:744px)"
-                    type="image/png"
-                    sizes="100vw"
-                  />
-                  <source
-                    srcset={hero4Mobile.src}
-                    type="image/png"
-                    sizes="100vw"
-                  />
-                  <img
-                    src={hero4Mobile.src}
-                    width={hero4Mobile.width}
-                    height={hero4Mobile.height}
-                    alt="ヒーローイメージ"
-                    loading="eager"
-                    decoding="async"
-                  />
-                </picture>
+              <div class="swiper-slide">
+                <div class="slide-content">
+                  <picture>
+                    <source
+                      srcset={hero4DesktopWebp.src}
+                      media="(min-width:1024px)"
+                      sizes="100vw"
+                      type="image/webp"
+                    />
+                    <source
+                      srcset={hero4TabletWebp.srcSet.attribute}
+                      media="(min-width:744px)"
+                      sizes="100vw"
+                      type="image/webp"
+                    />
+                    <source
+                      srcset={hero4MobileWebp.srcSet.attribute}
+                      sizes="100vw"
+                      type="image/webp"
+                    />
+                    <source
+                      srcset={hero4Desktop.src}
+                      media="(min-width:1024px)"
+                      type="image/png"
+                      sizes="100vw"
+                    />
+                    <source
+                      srcset={hero4Tablet.src}
+                      media="(min-width:744px)"
+                      type="image/png"
+                      sizes="100vw"
+                    />
+                    <source
+                      srcset={hero4Mobile.src}
+                      type="image/png"
+                      sizes="100vw"
+                    />
+                    <img
+                      src={hero4Mobile.src}
+                      width={hero4Mobile.width}
+                      height={hero4Mobile.height}
+                      alt="ヒーローイメージ"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  </picture>
+                </div>
               </div>
             </div>
           </div>
+          <h1 class="hero__title">
+            <span class="hero__title-text hero__title-text--first">自然</span>
+            <span class="hero__title-text hero__title-text--second">から</span>
+            <span class="hero__title-text hero__title-text--third">学ぶ</span>
+            <span class="hero__title-text hero__title-text--fourth"
+              >Learn from Nature</span
+            >
+          </h1>
+          <div class="play-movie"></div>
         </div>
       </main>
       <!-- フッター -->
@@ -436,11 +448,106 @@ const hero4MobileWebp = await getImage({
       position: relative;
     }
 
+    /* ヒーローセクション */
+    .hero {
+      width: 100%;
+      height: 100svh; // スライドの高さを画面全体に合わせる
+      overflow: hidden;
+      position: relative;
+
+      &__title {
+        // タイトルのスタイル
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #fff;
+        z-index: 5;
+      }
+
+      &__title-text {
+        // テキスト共通スタイル
+        display: block;
+
+        &--first {
+          // 「自然」のスタイル
+          font-size: spx(164);
+          line-height: spx(213);
+          letter-spacing: spx(65);
+          @include tablet-up {
+            font-size: ppx(229) * 1.2;
+            line-height: ppx(298) * 1.2;
+            letter-spacing: ppx(91) * 1.2;
+          }
+          @include desktop-up {
+            font-size: ppx(229);
+            line-height: ppx(298);
+            letter-spacing: ppx(91);
+          }
+        }
+
+        &--second {
+          // 「から」のスタイル
+          font-size: spx(87);
+          line-height: 146%;
+          letter-spacing: spx(17);
+          @include tablet-up {
+            font-size: ppx(121) * 1.2;
+            line-height: 146%;
+            letter-spacing: ppx(24) * 1.2;
+          }
+          @include desktop-up {
+            font-size: ppx(121);
+            line-height: 146%;
+            letter-spacing: ppx(24);
+          }
+        }
+
+        &--third {
+          // 「学ぶ」のスタイル
+          font-size: spx(164);
+          line-height: spx(213);
+          letter-spacing: spx(65);
+          @include tablet-up {
+            font-size: ppx(229) * 1.2;
+            line-height: ppx(298) * 1.2;
+            letter-spacing: ppx(91) * 1.2;
+          }
+          @include desktop-up {
+            font-size: ppx(229);
+            line-height: ppx(298);
+            letter-spacing: ppx(91);
+          }
+        }
+
+        &--fourth {
+          // 「Learn from Nature」のスタイル
+          text-align: center;
+          font-size: spx(32.276);
+          font-weight: 500;
+          line-height: apx(41.959);
+          letter-spacing: spx(3.228);
+          margin-top: spx(22);
+          @include tablet-up {
+            font-size: ppx(45) * 1.2;
+            line-height: ppx(58) * 1.2;
+            letter-spacing: ppx(4.5) * 1.2;
+            margin-top: ppx(28) * 1.2;
+          }
+          @include desktop-up {
+            font-size: ppx(45);
+            line-height: ppx(58);
+            letter-spacing: ppx(4.5);
+            margin-top: ppx(28);
+          }
+        }
+      }
+    }
     /* Swiperスタイル */
     .swiper {
       width: 100%;
-      height: 100svh;
-      overflow: hidden;
+      height: 100%;
     }
 
     .swiper-slide {
