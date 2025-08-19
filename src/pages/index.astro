@@ -406,6 +406,23 @@ const heroMovieThumbWebp = await getImage({
           document.body.style.overflow = '';
         }
 
+        // ヒーロームービー関連の要素
+        const heroMovie = document.querySelector('.hero__movie') as HTMLElement | null;
+        const heroMovieClose = document.querySelector('.hero__movie-close') as HTMLElement | null;
+
+        // ヒーロームービーを閉じる関数
+        function closeHeroMovie() {
+          if (heroMovie) {
+            heroMovie.style.opacity = '0';
+            heroMovie.style.visibility = 'hidden';
+          }
+        }
+
+        // ヒーロームービーのクローズボタン
+        if (heroMovieClose) {
+          heroMovieClose.addEventListener('click', closeHeroMovie);
+        }
+
         // 必要な要素が存在することを確認してイベントリスナーを設定
         if (menuOverlay) {
           // PCメニューボタン
@@ -583,6 +600,9 @@ const heroMovieThumbWebp = await getImage({
         right: spx(32);
         bottom: spx(25);
         z-index: 5;
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
 
         cursor: pointer;
         @include tablet-up {
@@ -624,6 +644,16 @@ const heroMovieThumbWebp = await getImage({
             object-fit: cover;
             object-position: center;
           }
+
+          @include desktop-up {
+            @include hover {
+              &:hover {
+                ~ .hero__movie-controls .hero__movie-play-icon {
+                  transform: scale(1.2); // 画像ホバー時にアイコンを拡大
+                }
+              }
+            }
+          }
         }
 
         &-close {
@@ -649,8 +679,29 @@ const heroMovieThumbWebp = await getImage({
             width: 100%;
             height: 100%;
             circle {
+              @include desktop-up {
+                transition: fill 0.3s ease; // ホバー時の背景色変化
+              }
             }
             path {
+              @include desktop-up {
+                transition: stroke 0.3s ease; // ホバー時の線色変化
+              }
+            }
+          }
+
+          @include desktop-up {
+            @include hover {
+              &:hover {
+                svg {
+                  circle {
+                    fill: $green-2; // 背景を緑色に
+                  }
+                  path {
+                    stroke: white; // 線を白色に
+                  }
+                }
+              }
             }
           }
         }
@@ -718,12 +769,8 @@ const heroMovieThumbWebp = await getImage({
           }
         }
 
-        @include hover {
-          &:hover {
-            .hero__movie-play-icon {
-              transform: scale(1.2); // ホバー時にアイコンを拡大
-            }
-          }
+        &-controls {
+          // 操作エリアのスタイル（ホバー効果は画像側で制御）
         }
       }
     }
