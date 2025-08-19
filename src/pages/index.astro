@@ -125,6 +125,47 @@ const heroMovieThumbWebp = await getImage({
       <BottomBar />
       <!-- メニューオーバーレイ -->
       <MenuOverlay />
+      <!-- 動画モーダル（メニューオーバーレイより上位階層） -->
+      <div class="video-modal" id="video-modal">
+        <div class="video-modal__overlay">
+          <div class="video-modal__container">
+            <div class="video-modal__content">
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/kFndXFT2bbE?si=jzYQBtsAED26-HCu&autoplay=1&mute=1"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen></iframe>
+            </div>
+            <button class="video-modal__close">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="80"
+                height="80"
+                viewBox="0 0 80 80"
+                fill="none"
+              >
+                <circle cx="40" cy="40" r="40" fill="#59A1C0"></circle>
+                <path
+                  d="M27.0762 51.6953L51.6916 27.0799"
+                  stroke="white"
+                  stroke-width="4.06111"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M27.0762 27.0781L51.6916 51.6935"
+                  stroke="white"
+                  stroke-width="4.06111"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
       <!-- メインコンテンツ -->
       <main class="main-content">
         <!-- ヒーローセクション -->
@@ -407,8 +448,12 @@ const heroMovieThumbWebp = await getImage({
         }
 
         // ヒーロームービー関連の要素
-        const heroMovie = document.querySelector('.hero__movie') as HTMLElement | null;
-        const heroMovieClose = document.querySelector('.hero__movie-close') as HTMLElement | null;
+        const heroMovie = document.querySelector(
+          '.hero__movie'
+        ) as HTMLElement | null;
+        const heroMovieClose = document.querySelector(
+          '.hero__movie-close'
+        ) as HTMLElement | null;
 
         // ヒーロームービーを閉じる関数
         function closeHeroMovie() {
@@ -421,6 +466,67 @@ const heroMovieThumbWebp = await getImage({
         // ヒーロームービーのクローズボタン
         if (heroMovieClose) {
           heroMovieClose.addEventListener('click', closeHeroMovie);
+        }
+
+        // 動画モーダル関連の要素
+        const videoModal = document.querySelector('.video-modal') as HTMLElement | null;
+        const videoModalClose = document.querySelector('.video-modal__close') as HTMLElement | null;
+        const heroMovieThumbnail = document.querySelector('.hero__movie-thumbnail') as HTMLElement | null;
+        const heroMoviePlayIcon = document.querySelector('.hero__movie-play-icon') as HTMLElement | null;
+        const heroMoviePlayText = document.querySelector('.hero__movie-play-text') as HTMLElement | null;
+        const videoIframe = document.querySelector('.video-modal iframe') as HTMLIFrameElement | null;
+
+        // 動画モーダルを開く関数
+        function openVideoModal() {
+          if (videoModal) {
+            videoModal.style.opacity = '1';
+            videoModal.style.visibility = 'visible';
+            // スクロールを禁止
+            document.body.style.overflow = 'hidden';
+          }
+        }
+
+        // 動画モーダルを閉じる関数
+        function closeVideoModal() {
+          if (videoModal && videoIframe) {
+            videoModal.style.opacity = '0';
+            videoModal.style.visibility = 'hidden';
+            // 動画を停止（iframe srcを再設定）
+            const currentSrc = videoIframe.src;
+            videoIframe.src = '';
+            videoIframe.src = currentSrc;
+            // スクロールを復元
+            document.body.style.overflow = '';
+          }
+        }
+
+        // サムネイルクリックで動画モーダルを開く
+        if (heroMovieThumbnail) {
+          heroMovieThumbnail.addEventListener('click', openVideoModal);
+        }
+
+        // 再生アイコンクリックで動画モーダルを開く
+        if (heroMoviePlayIcon) {
+          heroMoviePlayIcon.addEventListener('click', openVideoModal);
+        }
+
+        // 再生テキストクリックで動画モーダルを開く
+        if (heroMoviePlayText) {
+          heroMoviePlayText.addEventListener('click', openVideoModal);
+        }
+
+        // モーダル閉じるボタン
+        if (videoModalClose) {
+          videoModalClose.addEventListener('click', closeVideoModal);
+        }
+
+        // オーバーレイクリックで閉じる（任意）
+        if (videoModal) {
+          videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal || (e.target as HTMLElement).classList.contains('video-modal__overlay')) {
+              closeVideoModal();
+            }
+          });
         }
 
         // 必要な要素が存在することを確認してイベントリスナーを設定
@@ -602,7 +708,9 @@ const heroMovieThumbWebp = await getImage({
         z-index: 5;
         opacity: 1;
         visibility: visible;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
+        transition:
+          opacity 0.3s ease,
+          visibility 0.3s ease;
 
         cursor: pointer;
         @include tablet-up {
@@ -770,7 +878,34 @@ const heroMovieThumbWebp = await getImage({
         }
 
         &-controls {
-          // 操作エリアのスタイル（ホバー効果は画像側で制御）
+          // 操作エリアのスタイル
+          position: absolute;
+          left: 50%;
+          top: spx(48);
+          transform: translateX(-50%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: spx(27);
+          @include tablet-up {
+            top: ppx(81) * 1.2;
+            gap: ppx(48) * 1.2;
+          }
+          @include desktop-up {
+            top: ppx(81);
+            gap: ppx(48);
+          }
+
+          // Controls全体のホバー効果
+          @include desktop-up {
+            @include hover {
+              &:hover {
+                .hero__movie-play-icon {
+                  transform: scale(1.2); // Controlsホバー時にアイコンを拡大
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -832,6 +967,101 @@ const heroMovieThumbWebp = await getImage({
     /* 非アクティブ時: 完了状態保持 */
     .swiper-slide:not(.swiper-slide-active) img {
       transform: scale(1);
+    }
+
+    /* 動画モーダル */
+    .video-modal {
+      // 動画モーダルのスタイル
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      &__overlay {
+        // オーバーレイ背景のスタイル
+        background-color: rgba(255, 255, 255, 0.95);
+        width: 100vw;
+        height: 100svh;
+        display: grid;
+        place-items: center;
+      }
+
+      &__container {
+        // モーダルコンテナのスタイル
+        position: relative;
+      }
+
+      &__content {
+        // 動画コンテンツのスタイル
+        overflow: hidden;
+        border-radius: spx(30);
+        background-color: red;
+        width: spx(627);
+        height: spx(448);
+        position: relative;
+        @include tablet-up {
+          border-radius: ppx(20) * 1.2;
+          width: ppx(1680) * 1.2;
+          height: ppx(945) * 1.2;
+        }
+        @include desktop-up {
+          border-radius: ppx(20);
+          width: ppx(1680);
+          height: ppx(945);
+        }
+        iframe {
+          width: 100%;
+          height: 100%;
+          border: none;
+        }
+      }
+
+      &__close {
+        // 閉じるボタンのスタイル
+        position: absolute;
+        left: 50%;
+        bottom: spx(-10);
+        transform: translate(-50%, 100%);
+        width: spx(80);
+        height: spx(80);
+        cursor: pointer;
+        @include tablet-up {
+          bottom: ppx(-25) * 1.2;
+          width: ppx(80) * 1.2;
+          height: ppx(80) * 1.2;
+        }
+        @include desktop-up {
+          bottom: ppx(-25);
+          width: ppx(80);
+          height: ppx(80);
+        }
+        svg {
+          width: 100%;
+          height: 100%;
+          circle {
+            @include desktop-up {
+              transition: fill 0.3s ease; // ホバー時の背景色変化
+            }
+          }
+          path {
+            // パスの色は白のまま（変更なし）
+          }
+        }
+
+        @include desktop-up {
+          @include hover {
+            &:hover {
+              svg {
+                circle {
+                  fill: $green-2; // 背景を緑色に
+                }
+              }
+            }
+          }
+        }
+      }
     }
   </style>
 </html>
