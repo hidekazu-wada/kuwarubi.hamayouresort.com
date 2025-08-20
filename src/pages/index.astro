@@ -625,6 +625,74 @@ const heroMovieThumbWebp = await getImage({
           });
         }
 
+        // ブッキングモーダル関連の要素
+        const bookingModal = document.querySelector('.booking-modal') as HTMLElement | null;
+        const bookingModalClose = document.querySelector('.booking-modal__close') as HTMLElement | null;
+        const sidebarBookingButton = document.querySelector('.sidebar-menu-button') as HTMLElement | null;
+        const menuOverlayBookingButton = document.querySelector('.menu-overlay__button') as HTMLElement | null;
+        const bottomBarBookingButton = document.querySelector('.bottom-bar__button') as HTMLElement | null;
+
+        // ブッキングモーダルを開く関数
+        function openBookingModal() {
+          if (bookingModal) {
+            bookingModal.style.opacity = '1';
+            bookingModal.style.visibility = 'visible';
+            // スクロールを禁止
+            document.body.style.overflow = 'hidden';
+          }
+        }
+
+        // ブッキングモーダルを閉じる関数
+        function closeBookingModal() {
+          if (bookingModal) {
+            bookingModal.style.opacity = '0';
+            bookingModal.style.visibility = 'hidden';
+            // スクロールを復元
+            document.body.style.overflow = '';
+          }
+        }
+
+        // ブッキングモーダル閉じるボタン
+        if (bookingModalClose) {
+          bookingModalClose.addEventListener('click', closeBookingModal);
+        }
+
+        // サイドバーの宿泊予約ボタンクリック（タブレット・デスクトップ）
+        if (sidebarBookingButton) {
+          sidebarBookingButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openBookingModal();
+          });
+        }
+
+        // メニューオーバーレイの宿泊予約ボタンクリック（スマホメニュー内）
+        if (menuOverlayBookingButton) {
+          menuOverlayBookingButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openBookingModal();
+          });
+        }
+
+        // スマホ下部バーの宿泊予約ボタンクリック
+        if (bottomBarBookingButton) {
+          bottomBarBookingButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openBookingModal();
+          });
+        }
+
+        // ブッキングモーダルオーバーレイクリックで閉じる
+        if (bookingModal) {
+          bookingModal.addEventListener('click', (e) => {
+            if (
+              e.target === bookingModal ||
+              (e.target as HTMLElement).classList.contains('booking-modal__overlay')
+            ) {
+              closeBookingModal();
+            }
+          });
+        }
+
         // 必要な要素が存在することを確認してイベントリスナーを設定
         if (menuOverlay) {
           // PCメニューボタン
@@ -1166,7 +1234,10 @@ const heroMovieThumbWebp = await getImage({
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 100;
+      z-index: 110;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
       &__overlay {
         background-color: rgba(255, 255, 255, 0.95);
         width: 100vw;
