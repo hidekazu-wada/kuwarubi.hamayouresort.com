@@ -626,11 +626,21 @@ const heroMovieThumbWebp = await getImage({
         }
 
         // ブッキングモーダル関連の要素
-        const bookingModal = document.querySelector('.booking-modal') as HTMLElement | null;
-        const bookingModalClose = document.querySelector('.booking-modal__close') as HTMLElement | null;
-        const sidebarBookingButton = document.querySelector('.sidebar-menu-button') as HTMLElement | null;
-        const menuOverlayBookingButton = document.querySelector('.menu-overlay__button') as HTMLElement | null;
-        const bottomBarBookingButton = document.querySelector('.bottom-bar__button') as HTMLElement | null;
+        const bookingModal = document.querySelector(
+          '.booking-modal'
+        ) as HTMLElement | null;
+        const bookingModalClose = document.querySelector(
+          '.booking-modal__close'
+        ) as HTMLElement | null;
+        const sidebarBookingButton = document.querySelector(
+          '.sidebar-menu-button'
+        ) as HTMLElement | null;
+        const menuOverlayBookingButton = document.querySelector(
+          '.menu-overlay__button'
+        ) as HTMLElement | null;
+        const bottomBarBookingButton = document.querySelector(
+          '.bottom-bar__button'
+        ) as HTMLElement | null;
 
         // ブッキングモーダルを開く関数
         function openBookingModal() {
@@ -686,11 +696,57 @@ const heroMovieThumbWebp = await getImage({
           bookingModal.addEventListener('click', (e) => {
             if (
               e.target === bookingModal ||
-              (e.target as HTMLElement).classList.contains('booking-modal__overlay')
+              (e.target as HTMLElement).classList.contains(
+                'booking-modal__overlay'
+              )
             ) {
               closeBookingModal();
             }
           });
+        }
+
+        // BottomBarスクロール表示制御（トップページのみ）
+        const bottomBar = document.querySelector(
+          '.bottom-bar'
+        ) as HTMLElement | null;
+        const isTopPage =
+          window.location.pathname === '/' ||
+          window.location.pathname === '/index.html';
+
+        if (bottomBar && isTopPage) {
+          // トップページでは初期状態で非表示
+          bottomBar.classList.add('hide-on-top');
+
+          let scrollTimeout: number | null = null;
+
+          // スクロールイベント（スロットリング付き）
+          function handleScroll() {
+            if (scrollTimeout) {
+              clearTimeout(scrollTimeout);
+            }
+
+            scrollTimeout = window.setTimeout(() => {
+              if (!bottomBar) return; // bottomBarがnullの場合は早期リターン
+
+              const scrollY = window.scrollY;
+              const scrollThreshold = 30; // 30px閾値
+
+              if (scrollY > scrollThreshold) {
+                // 30px以上スクロール：表示
+                bottomBar.classList.remove('hide-on-top');
+                bottomBar.classList.add('show-on-scroll');
+              } else {
+                // 30px以下：非表示
+                bottomBar.classList.add('hide-on-top');
+                bottomBar.classList.remove('show-on-scroll');
+              }
+            }, 16); // 60FPSに合わせて16ms間隔
+          }
+
+          window.addEventListener('scroll', handleScroll);
+
+          // 初期スクロール位置チェック
+          handleScroll();
         }
 
         // 必要な要素が存在することを確認してイベントリスナーを設定
@@ -1237,7 +1293,9 @@ const heroMovieThumbWebp = await getImage({
       z-index: 110;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+      transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
       &__overlay {
         background-color: rgba(255, 255, 255, 0.95);
         width: 100vw;
@@ -1280,7 +1338,7 @@ const heroMovieThumbWebp = await getImage({
         border: solid 1px $blue_6;
         border-radius: spx(15);
         position: relative;
-        transition: 
+        transition:
           background-color 0.3s ease,
           border-color 0.3s ease;
         @include tablet-up {

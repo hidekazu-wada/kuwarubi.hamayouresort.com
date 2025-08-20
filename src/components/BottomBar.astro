@@ -58,8 +58,23 @@
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 20;
+    transform: translateY(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
     @include tablet-up {
       display: none;
+    }
+
+    &.hide-on-top {
+      /* トップページで上部にいる時の非表示状態 */
+      transform: translateY(100%);
+      opacity: 0;
+    }
+
+    &.show-on-scroll {
+      /* スクロール時の表示状態 */
+      transform: translateY(0);
+      opacity: 1;
     }
     &__nav {
       display: flex;
