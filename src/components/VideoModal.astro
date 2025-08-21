@@ -1,0 +1,148 @@
+---
+
+---
+
+<div class="video-modal" id="video-modal">
+  <div class="video-modal__overlay">
+    <div class="video-modal__container">
+      <div class="video-modal__content">
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/kFndXFT2bbE?si=jzYQBtsAED26-HCu&autoplay=1&mute=1"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
+      </div>
+      <button class="video-modal__close">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="80"
+          height="80"
+          viewBox="0 0 80 80"
+          fill="none"
+        >
+          <circle cx="40" cy="40" r="40" fill="#59A1C0"></circle>
+          <path
+            d="M27.0762 51.6953L51.6916 27.0799"
+            stroke="white"
+            stroke-width="4.06111"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+          <path
+            d="M27.0762 27.0781L51.6916 51.6935"
+            stroke="white"
+            stroke-width="4.06111"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../styles/variables';
+  @import '../styles/functions';
+  @import '../styles/mixins';
+
+  /* 動画モーダル */
+  .video-modal {
+    // 動画モーダルのスタイル
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+    &__overlay {
+      // オーバーレイ背景のスタイル
+      background-color: rgba(255, 255, 255, 0.95);
+      width: 100vw;
+      height: 100svh;
+      display: grid;
+      place-items: center;
+    }
+
+    &__container {
+      // モーダルコンテナのスタイル
+      position: relative;
+    }
+
+    &__content {
+      // 動画コンテンツのスタイル
+      overflow: hidden;
+      border-radius: spx(30);
+      background-color: red;
+      width: spx(627);
+      height: spx(448);
+      position: relative;
+      @include tablet-up {
+        border-radius: ppx(20) * 1.2;
+        width: ppx(1680) * 1.2;
+        height: ppx(945) * 1.2;
+      }
+      @include desktop-up {
+        border-radius: ppx(20);
+        width: ppx(1680);
+        height: ppx(945);
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    }
+
+    &__close {
+      // 閉じるボタンのスタイル
+      position: absolute;
+      left: 50%;
+      bottom: spx(-10);
+      transform: translate(-50%, 100%);
+      width: spx(80);
+      height: spx(80);
+      cursor: pointer;
+      @include tablet-up {
+        bottom: ppx(-25) * 1.2;
+        width: ppx(80) * 1.2;
+        height: ppx(80) * 1.2;
+      }
+      @include desktop-up {
+        bottom: ppx(-25);
+        width: ppx(80);
+        height: ppx(80);
+      }
+      svg {
+        width: 100%;
+        height: 100%;
+        circle {
+          @include desktop-up {
+            transition: fill 0.3s ease; // ホバー時の背景色変化
+          }
+        }
+        path {
+          // パスの色は白のまま（変更なし）
+        }
+      }
+
+      @include desktop-up {
+        @include hover {
+          &:hover {
+            svg {
+              circle {
+                fill: $green-2; // 背景を緑色に
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
