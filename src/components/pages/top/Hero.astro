@@ -1,0 +1,723 @@
+---
+import { getImage } from 'astro:assets';
+// Swiper CSS
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import hero1Desktop from '../../../assets/images/top/hero-slide/hero_1_desktop.png';
+import hero1Tablet from '../../../assets/images/top/hero-slide/hero_1_tablet.png';
+import hero1Mobile from '../../../assets/images/top/hero-slide/hero_1_mobile.png';
+import hero2Desktop from '../../../assets/images/top/hero-slide/hero_2_desktop.png';
+import hero2Tablet from '../../../assets/images/top/hero-slide/hero_2_tablet.png';
+import hero2Mobile from '../../../assets/images/top/hero-slide/hero_2_mobile.png';
+import hero3Desktop from '../../../assets/images/top/hero-slide/hero_3_desktop.png';
+import hero3Tablet from '../../../assets/images/top/hero-slide/hero_3_tablet.png';
+import hero3Mobile from '../../../assets/images/top/hero-slide/hero_3_mobile.png';
+import hero4Desktop from '../../../assets/images/top/hero-slide/hero_4_desktop.png';
+import hero4Tablet from '../../../assets/images/top/hero-slide/hero_4_tablet.png';
+import hero4Mobile from '../../../assets/images/top/hero-slide/hero_4_mobile.png';
+import logoKuwarubi from '../../../assets/images/logo_kuwarubi.svg';
+import heroMovieThumb from '../../../assets/images/top/play-movie/thumbnail.png';
+
+const hero1DesktopWebp = await getImage({
+  src: hero1Desktop,
+  format: 'webp',
+  widths: [1280, 1920],
+});
+const hero1TabletWebp = await getImage({
+  src: hero1Tablet,
+  format: 'webp',
+  widths: [640, 768],
+});
+const hero1MobileWebp = await getImage({
+  src: hero1Mobile,
+  format: 'webp',
+  widths: [360, 640],
+});
+
+const hero2DesktopWebp = await getImage({
+  src: hero2Desktop,
+  format: 'webp',
+  widths: [1280, 1920],
+});
+const hero2TabletWebp = await getImage({
+  src: hero2Tablet,
+  format: 'webp',
+  widths: [640, 768],
+});
+const hero2MobileWebp = await getImage({
+  src: hero2Mobile,
+  format: 'webp',
+  widths: [360, 640],
+});
+
+const hero3DesktopWebp = await getImage({
+  src: hero3Desktop,
+  format: 'webp',
+  widths: [1280, 1920],
+});
+const hero3TabletWebp = await getImage({
+  src: hero3Tablet,
+  format: 'webp',
+  widths: [640, 768],
+});
+const hero3MobileWebp = await getImage({
+  src: hero3Mobile,
+  format: 'webp',
+  widths: [360, 640],
+});
+
+const hero4DesktopWebp = await getImage({
+  src: hero4Desktop,
+  format: 'webp',
+  widths: [1280, 1920],
+});
+const hero4TabletWebp = await getImage({
+  src: hero4Tablet,
+  format: 'webp',
+  widths: [640, 768],
+});
+const hero4MobileWebp = await getImage({
+  src: hero4Mobile,
+  format: 'webp',
+  widths: [360, 640],
+});
+
+const heroMovieThumbWebp = await getImage({
+  src: heroMovieThumb,
+  format: 'webp',
+  widths: [309, 515],
+});
+---
+
+<div class="hero">
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <picture>
+            <source
+              srcset={hero1DesktopWebp.src}
+              media="(min-width:1024px)"
+              sizes="100vw"
+              type="image/webp"
+            />
+            <source
+              srcset={hero1TabletWebp.srcSet.attribute}
+              media="(min-width:744px)"
+              sizes="100vw"
+              type="image/webp"
+            />
+            <source
+              srcset={hero1MobileWebp.srcSet.attribute}
+              sizes="100vw"
+              type="image/webp"
+            />
+            <img
+              src={hero1Mobile.src}
+              width={hero1Mobile.width}
+              height={hero1Mobile.height}
+              alt="ヒーローイメージ"
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <picture>
+            <source
+              srcset={hero2DesktopWebp.src}
+              media="(min-width:1024px)"
+              sizes="100vw"
+              type="image/webp"
+            />
+            <source
+              srcset={hero2TabletWebp.srcSet.attribute}
+              media="(min-width:744px)"
+              sizes="100vw"
+              type="image/webp"
+            />
+            <source
+              srcset={hero2MobileWebp.srcSet.attribute}
+              sizes="100vw"
+              type="image/webp"
+            />
+            <img
+              src={hero2Mobile.src}
+              width={hero2Mobile.width}
+              height={hero2Mobile.height}
+              alt="ヒーローイメージ"
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <picture>
+            <source
+              srcset={hero3DesktopWebp.src}
+              media="(min-width:1024px)"
+              sizes="100vw"
+              type="image/webp"
+            />
+            <source
+              srcset={hero3TabletWebp.srcSet.attribute}
+              media="(min-width:744px)"
+              sizes="100vw"
+              type="image/webp"
+            />
+            <source
+              srcset={hero3MobileWebp.srcSet.attribute}
+              sizes="100vw"
+              type="image/webp"
+            />
+            <img
+              src={hero3Mobile.src}
+              width={hero3Mobile.width}
+              height={hero3Mobile.height}
+              alt="ヒーローイメージ"
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="slide-content">
+          <picture>
+            <source
+              srcset={hero4DesktopWebp.src}
+              media="(min-width:1024px)"
+              sizes="100vw"
+              type="image/webp"
+            />
+            <source
+              srcset={hero4TabletWebp.srcSet.attribute}
+              media="(min-width:744px)"
+              sizes="100vw"
+              type="image/webp"
+            />
+            <source
+              srcset={hero4MobileWebp.srcSet.attribute}
+              sizes="100vw"
+              type="image/webp"
+            />
+            <img
+              src={hero4Mobile.src}
+              width={hero4Mobile.width}
+              height={hero4Mobile.height}
+              alt="ヒーローイメージ"
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h1 class="hero__logo">
+    <img
+      src={logoKuwarubi.src}
+      alt="光風閣くわるび"
+      class="hero__logo only-sp"
+      loading="lazy"
+      decoding="async"
+    />
+  </h1>
+  <h2 class="hero__title">
+    <span class="hero__title-text hero__title-text--first">自然</span>
+    <span class="hero__title-text hero__title-text--second">から</span>
+    <span class="hero__title-text hero__title-text--third">学ぶ</span>
+    <span class="hero__title-text hero__title-text--fourth"
+      >Learn from Nature</span
+    >
+  </h2>
+  <div class="hero__movie">
+    <div class="hero__movie-container">
+      <picture class="hero__movie-thumbnail">
+        <source
+          srcset={heroMovieThumbWebp.srcSet.attribute}
+          sizes="(min-width: 744px) 515px, 309px"
+          type="image/webp"
+        />
+        <img
+          src={heroMovieThumb.src}
+          width={heroMovieThumb.width}
+          height={heroMovieThumb.height}
+          alt="動画サムネイル"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+      <div class="hero__movie-close">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="65"
+          height="65"
+          viewBox="0 0 65 65"
+          fill="none"
+        >
+          <circle cx="32.5" cy="32.5" r="32.5" fill="#E7F3F9"></circle>
+          <path
+            d="M22 42L42 22"
+            stroke="#026995"
+            stroke-width="3.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+          <path
+            d="M22 22L42 42"
+            stroke="#026995"
+            stroke-width="3.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <div class="hero__movie-controls">
+        <div class="hero__movie-play-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="109"
+            height="109"
+            viewBox="0 0 109 109"
+            fill="none"
+          >
+            <circle cx="54.5" cy="54.5" r="53" stroke="white" stroke-width="3"
+            ></circle>
+            <path
+              d="M75.9951 54.768C77.3285 55.5378 77.3284 57.4623 75.9951 58.2321L45.2451 75.9856C43.9118 76.7554 42.2451 75.7931 42.2451 74.2535L42.2451 38.7465C42.2451 37.2069 43.9118 36.2446 45.2451 37.0144L75.9951 54.768Z"
+              fill="white"></path>
+          </svg>
+        </div>
+        <div class="hero__movie-play-text">PLAY MOVIE</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  /* ヒーローセクション */
+  .hero {
+    width: 100%;
+    height: 100svh; // スライドの高さを画面全体に合わせる
+    overflow: hidden;
+    position: relative;
+
+    &__logo {
+      position: absolute;
+      top: spx(50);
+      left: spx(40);
+      width: spx(194);
+      height: spx(117);
+      z-index: 5;
+      @include tablet-up {
+        display: none;
+      }
+      @include desktop-up {
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &__title {
+      // タイトルのスタイル
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #fff;
+      z-index: 5;
+    }
+
+    &__title-text {
+      // テキスト共通スタイル
+      display: block;
+
+      &--first {
+        // 「自然」のスタイル
+        font-size: spx(164);
+        line-height: spx(213);
+        letter-spacing: spx(65);
+        white-space: nowrap;
+        @include tablet-up {
+          font-size: ppx(229) * 1.2;
+          line-height: ppx(298) * 1.2;
+          letter-spacing: ppx(91) * 1.2;
+        }
+        @include desktop-up {
+          font-size: ppx(229);
+          line-height: ppx(298);
+          letter-spacing: ppx(91);
+        }
+      }
+
+      &--second {
+        // 「から」のスタイル
+        font-size: spx(87);
+        line-height: 146%;
+        letter-spacing: spx(17);
+        @include tablet-up {
+          font-size: ppx(121) * 1.2;
+          line-height: 146%;
+          letter-spacing: ppx(24) * 1.2;
+        }
+        @include desktop-up {
+          font-size: ppx(121);
+          line-height: 146%;
+          letter-spacing: ppx(24);
+        }
+      }
+
+      &--third {
+        // 「学ぶ」のスタイル
+        font-size: spx(164);
+        line-height: spx(213);
+        letter-spacing: spx(65);
+        @include tablet-up {
+          font-size: ppx(229) * 1.2;
+          line-height: ppx(298) * 1.2;
+          letter-spacing: ppx(91) * 1.2;
+        }
+        @include desktop-up {
+          font-size: ppx(229);
+          line-height: ppx(298);
+          letter-spacing: ppx(91);
+        }
+      }
+
+      &--fourth {
+        // 「Learn from Nature」のスタイル
+        text-align: center;
+        font-size: spx(32.276);
+        font-weight: 500;
+        line-height: apx(41.959);
+        letter-spacing: spx(3.228);
+        margin-top: spx(22);
+        @include tablet-up {
+          font-size: ppx(45) * 1.2;
+          line-height: ppx(58) * 1.2;
+          letter-spacing: ppx(4.5) * 1.2;
+          margin-top: ppx(28) * 1.2;
+        }
+        @include desktop-up {
+          font-size: ppx(45);
+          line-height: ppx(58);
+          letter-spacing: ppx(4.5);
+          margin-top: ppx(28);
+        }
+      }
+    }
+
+    &__movie {
+      // 動画セクションのスタイル
+      position: absolute;
+      right: spx(32);
+      bottom: spx(25);
+      z-index: 5;
+      opacity: 1;
+      visibility: visible;
+      transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+
+      cursor: pointer;
+      @include tablet-up {
+        right: ppx(50) * 1.2;
+        bottom: ppx(60) * 1.2;
+      }
+      @include desktop-up {
+        right: ppx(50);
+        bottom: ppx(60);
+      }
+
+      &-container {
+        // 動画コンテナのスタイル
+        border: solid 1px #fff;
+        border-radius: spx(12);
+        overflow: hidden;
+        width: spx(309);
+        height: spx(220);
+        @include tablet-up {
+          border-radius: ppx(20) * 1.2;
+          width: ppx(515) * 1.2;
+          height: ppx(369) * 1.2;
+        }
+        @include desktop-up {
+          border-radius: ppx(20);
+          width: ppx(515);
+          height: ppx(369);
+        }
+      }
+
+      &-thumbnail {
+        // サムネイル画像のスタイル
+        width: 100%;
+        height: 100%;
+        display: block;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+
+        @include desktop-up {
+          @include hover {
+            &:hover {
+              ~ .hero__movie-controls .hero__movie-play-icon {
+                transform: scale(1.2); // 画像ホバー時にアイコンを拡大
+              }
+            }
+          }
+        }
+      }
+
+      &-close {
+        // 閉じるボタンのスタイル
+        position: absolute;
+        top: spx(-15);
+        right: spx(-13);
+        width: spx(45);
+        height: spx(45);
+        @include tablet-up {
+          top: ppx(-22) * 1.2;
+          right: ppx(-23) * 1.2;
+          width: ppx(65) * 1.2;
+          height: ppx(65) * 1.2;
+        }
+        @include desktop-up {
+          top: ppx(-22);
+          right: ppx(-23);
+          width: ppx(65);
+          height: ppx(65);
+        }
+        svg {
+          width: 100%;
+          height: 100%;
+          circle {
+            @include desktop-up {
+              transition: fill 0.3s ease; // ホバー時の背景色変化
+            }
+          }
+          path {
+            @include desktop-up {
+              transition: stroke 0.3s ease; // ホバー時の線色変化
+            }
+          }
+        }
+
+        @include desktop-up {
+          @include hover {
+            &:hover {
+              svg {
+                circle {
+                  fill: $green-2; // 背景を緑色に
+                }
+                path {
+                  stroke: white; // 線を白色に
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &-controls {
+        // 操作エリアのスタイル
+        position: absolute;
+        left: 50%;
+        top: spx(48);
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: spx(27);
+        @include tablet-up {
+          top: ppx(81) * 1.2;
+          gap: ppx(48) * 1.2;
+        }
+        @include desktop-up {
+          top: ppx(81);
+          gap: ppx(48);
+        }
+      }
+
+      &-play-icon {
+        // 再生アイコンのスタイル
+        width: spx(65);
+        height: spx(65);
+        @include tablet-up {
+          width: ppx(109) * 1.2;
+          height: ppx(109) * 1.2;
+        }
+        @include desktop-up {
+          width: ppx(109);
+          height: ppx(109);
+          transform: scale(1);
+          transition: transform 0.3s ease; // ホバー時の拡大効果
+        }
+        svg {
+          width: 100%;
+          height: 100%;
+          circle {
+          }
+          path {
+          }
+        }
+      }
+
+      &-play-text {
+        // 再生テキストのスタイル
+        color: #fff;
+        text-align: center;
+        font-size: spx(24);
+        line-height: spx(20);
+        letter-spacing: spx(1.2);
+        @include tablet-up {
+          font-size: ppx(34) * 1.2;
+          line-height: ppx(34) * 1.2;
+          letter-spacing: ppx(1.7) * 1.2;
+        }
+        @include desktop-up {
+          font-size: ppx(34);
+          line-height: ppx(34);
+          letter-spacing: ppx(1.7);
+        }
+      }
+
+      &-controls {
+        // 操作エリアのスタイル
+        position: absolute;
+        left: 50%;
+        top: spx(48);
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: spx(27);
+        @include tablet-up {
+          top: ppx(81) * 1.2;
+          gap: ppx(48) * 1.2;
+        }
+        @include desktop-up {
+          top: ppx(81);
+          gap: ppx(48);
+        }
+
+        // Controls全体のホバー効果
+        @include desktop-up {
+          @include hover {
+            &:hover {
+              .hero__movie-play-icon {
+                transform: scale(1.2); // Controlsホバー時にアイコンを拡大
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  /* Swiperスタイル */
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slide-content {
+    display: block;
+    width: 100%;
+    height: 100%;
+    picture {
+      display: block;
+      width: 100%;
+      height: 100%;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+  }
+
+  @keyframes hero-zoom-out {
+    0% {
+      transform: scale(1.12);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* 基本状態: 拡大 */
+  .swiper-slide img {
+    transform: scale(1.12);
+  }
+
+  /* アクティブ時: ズームアウト実行 */
+  .swiper-slide-active img {
+    animation: hero-zoom-out 4s ease-out forwards;
+    /* 
+       * アニメーション時間の調整について:
+       * - 必須条件: アニメーション時間 < autoplay.delay（スライド表示時間）
+       * - 現在の設定: 4秒アニメーション < 5秒表示時間 = OK
+       * - 推奨計算: アニメーション時間 ≤ 表示時間 - 1秒（余裕を持たせる）
+       * - 例: 表示時間5秒なら、アニメーション時間は4秒以下が安全
+       */
+  }
+
+  /* 非アクティブ時: 完了状態保持 */
+  .swiper-slide:not(.swiper-slide-active) img {
+    transform: scale(1);
+  }
+</style>
+
+<script>
+// Swiper初期化（Hero専用）
+import Swiper from 'swiper';
+import { Autoplay, EffectFade } from 'swiper/modules';
+
+// DOMロード後にSwiper初期化
+document.addEventListener('DOMContentLoaded', () => {
+  // Swiper初期化
+  new Swiper('.swiper', {
+    modules: [Autoplay, EffectFade],
+    effect: 'fade',
+    loop: true,
+    autoplay: { delay: 5000, disableOnInteraction: false }, // スライド表示時間: 5秒
+    speed: 2500, // フェード切り替え速度: 2.5秒（独立して調整可能）
+  });
+
+  // ヒーロームービー閉じる機能
+  const heroMovieClose = document.querySelector('.hero__movie-close') as HTMLElement | null;
+  
+  function closeHeroMovie() {
+    const heroMovie = document.querySelector('.hero__movie') as HTMLElement | null;
+    if (heroMovie) {
+      heroMovie.style.opacity = '0';
+      heroMovie.style.visibility = 'hidden';
+    }
+  }
+
+  if (heroMovieClose) {
+    heroMovieClose.addEventListener('click', closeHeroMovie);
+  }
+});
+</script>
