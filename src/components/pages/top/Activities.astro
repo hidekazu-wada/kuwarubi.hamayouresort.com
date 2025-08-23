@@ -1,0 +1,826 @@
+---
+import { getImage } from 'astro:assets';
+// Swiper CSS
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+import TitleImage from '../../../assets/images/top/activities/picture-tree.png';
+import SlideImg1 from '../../../assets/images/top/activities/slide-01.png';
+import SlideImg2 from '../../../assets/images/top/activities/slide-02.png';
+import SlideImg3 from '../../../assets/images/top/activities/slide-03.png';
+import SlideImg4 from '../../../assets/images/top/activities/slide-04.png';
+
+const TitleTree = await getImage({
+  src: TitleImage,
+  format: 'webp',
+  widths: [170, 210],
+});
+const ActivitiesSlide1 = await getImage({
+  src: SlideImg1,
+  format: 'webp',
+  widths: [800],
+});
+const ActivitiesSlide2 = await getImage({
+  src: SlideImg2,
+  format: 'webp',
+  widths: [800],
+});
+const ActivitiesSlide3 = await getImage({
+  src: SlideImg3,
+  format: 'webp',
+  widths: [800],
+});
+const ActivitiesSlide4 = await getImage({
+  src: SlideImg4,
+  format: 'webp',
+  widths: [800],
+});
+---
+
+<section class="activities">
+  <header class="activities__header">
+    <h2 class="activities__title">ACTIVITIES</h2>
+    <div class="activities__subtitle">
+      <span class="activities__subtitle-line">自然とふれあい学べる</span>
+      <span class="activities__subtitle-line">２０種類以上の</span>
+      <span class="activities__subtitle-line">アクティビティ</span>
+    </div>
+    <picture class="activities__tree">
+      <!-- デスクトップ（1024px以上） -->
+      <source
+        media="(min-width: 1024px)"
+        srcset={TitleTree.srcSet.toString()}
+      />
+      <!-- タブレット（744px以上） -->
+      <source media="(min-width: 744px)" srcset={TitleTree.srcSet.toString()} />
+      <!-- スマホ（744px未満） -->
+      <img src={TitleTree.src} alt="木のイラスト" />
+    </picture>
+  </header>
+
+  <!-- Swiper コンテナ -->
+  <div class="top-activities__swiper">
+    <div class="swiper-wrapper">
+      <!-- スライド1 -->
+      <div class="swiper-slide">
+        <div class="top-activities__item">
+          <a
+            href="#"
+            class="top-activities__link"
+            aria-label="SUP体験の詳細を見る"
+          >
+            <div class="top-activities__image-wrapper">
+              <picture class="top-activities__image">
+                <!-- デスクトップ（1024px以上） -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={ActivitiesSlide1.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上） -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={ActivitiesSlide1.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満） -->
+                <img src={ActivitiesSlide1.src} alt="SUP体験の様子" />
+              </picture>
+              <h3 class="top-activities__title">水の上を歩く</h3>
+              <footer class="top-activities__meta">
+                <p class="top-activities__name">ＳＵＰ体験</p>
+                <svg
+                  class="top-activities__arrow"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="18"
+                  viewBox="0 0 10 18"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M1 17L9 9L1 1"
+                    stroke="#054965"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </footer>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- スライド2 -->
+      <div class="swiper-slide">
+        <div class="top-activities__item">
+          <a
+            href="#"
+            class="top-activities__link"
+            aria-label="キャンプファイヤーの詳細を見る"
+          >
+            <div class="top-activities__image-wrapper">
+              <picture class="top-activities__image">
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={ActivitiesSlide2.srcSet.toString()}
+                />
+                <source
+                  media="(min-width: 744px)"
+                  srcset={ActivitiesSlide2.srcSet.toString()}
+                />
+                <img
+                  src={ActivitiesSlide2.src}
+                  alt="キャンプファイヤーの様子"
+                />
+              </picture>
+              <h3 class="top-activities__title">火と向き合う</h3>
+              <footer class="top-activities__meta">
+                <p class="top-activities__name">キャンプファイヤー</p>
+                <svg
+                  class="top-activities__arrow"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="18"
+                  viewBox="0 0 10 18"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M1 17L9 9L1 1"
+                    stroke="#054965"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </footer>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- スライド3 -->
+      <div class="swiper-slide">
+        <div class="top-activities__item">
+          <a
+            href="#"
+            class="top-activities__link"
+            aria-label="サイクリングの詳細を見る"
+          >
+            <div class="top-activities__image-wrapper">
+              <picture class="top-activities__image">
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={ActivitiesSlide3.srcSet.toString()}
+                />
+                <source
+                  media="(min-width: 744px)"
+                  srcset={ActivitiesSlide3.srcSet.toString()}
+                />
+                <img src={ActivitiesSlide3.src} alt="サイクリングの様子" />
+              </picture>
+              <h3 class="top-activities__title color-blue">風を感じる</h3>
+              <footer class="top-activities__meta">
+                <p class="top-activities__name">サイクリング</p>
+                <svg
+                  class="top-activities__arrow"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="18"
+                  viewBox="0 0 10 18"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M1 17L9 9L1 1"
+                    stroke="#054965"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </footer>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- スライド4 -->
+      <div class="swiper-slide">
+        <div class="top-activities__item">
+          <a
+            href="#"
+            class="top-activities__link"
+            aria-label="樹海トレイルの詳細を見る"
+          >
+            <div class="top-activities__image-wrapper">
+              <picture class="top-activities__image">
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={ActivitiesSlide4.srcSet.toString()}
+                />
+                <source
+                  media="(min-width: 744px)"
+                  srcset={ActivitiesSlide4.srcSet.toString()}
+                />
+                <img src={ActivitiesSlide4.src} alt="樹海トレイルの様子" />
+              </picture>
+              <h3 class="top-activities__title">森に触れる</h3>
+              <footer class="top-activities__meta">
+                <p class="top-activities__name">樹海トレイル</p>
+                <svg
+                  class="top-activities__arrow"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="18"
+                  viewBox="0 0 10 18"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M1 17L9 9L1 1"
+                    stroke="#054965"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </footer>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ページネーションとmoreリンクのコンテナ -->
+    <div class="top-activities__footer">
+      <!-- ページネーション -->
+      <div class="swiper-pagination top-activities__swiper-pagination"></div>
+      <a
+        href="#"
+        class="top-activities__more-link"
+        aria-label="アクティビティをもっと見る"
+      >
+        <p class="top-activities__more-text">more</p>
+        <span class="top-activities__more-icon"
+          ><svg
+            class="top-activities__more-arrow"
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="22"
+            viewBox="0 0 12 22"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M1 21L11 11L1 1"
+              stroke="#026995"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg></span
+        >
+      </a>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  /* TOPページ アクティビティーズセクション */
+  .activities {
+    padding-top: spx(120);
+    position: relative;
+
+    @include tablet-up {
+      padding-top: ppx(100) * 1.2;
+    }
+    @include desktop-up {
+      padding-top: ppx(100);
+    }
+    &__header {
+      position: relative;
+      width: max-content;
+      padding-left: spx(50);
+      @include tablet-up {
+        padding-left: ppx(230) * 1.2;
+      }
+      @include desktop-up {
+        padding-left: ppx(230);
+      }
+    }
+
+    &__title {
+      color: var(--blue_4, #59a1c0);
+      font-size: spx(34);
+      font-weight: 900;
+      line-height: spx(34);
+      letter-spacing: spx(2.38);
+      position: relative;
+      width: max-content;
+      @include tablet-up {
+        font-size: ppx(34) * 1.2;
+        line-height: ppx(34) * 1.2;
+        letter-spacing: ppx(2.38) * 1.2;
+        margin-left: ppx(11) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        line-height: ppx(34);
+        letter-spacing: ppx(2.38);
+        margin-left: ppx(11);
+      }
+      // タイトル下線部
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: spx(-20);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
+          /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
+          /* 透明開始 */ transparent 51.4%,
+          /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
+            51.4%,
+          /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
+        );
+        @include tablet-up {
+          bottom: ppx(-20) * 1.2;
+          height: ppx(5) * 1.2;
+        }
+        @include desktop-up {
+          bottom: ppx(-20);
+          height: ppx(5);
+        }
+      }
+    }
+
+    &__subtitle {
+      color: var(--blue_6, #054965);
+      font-size: spx(50);
+      line-height: 150%;
+      margin-top: spx(40);
+
+      @include tablet-up {
+        font-size: ppx(68) * 1.2;
+        line-height: 150%;
+        margin-top: ppx(50) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(68);
+        line-height: 150%;
+        margin-top: ppx(50);
+      }
+    }
+
+    &__subtitle-line {
+      display: block;
+      @include tablet-up {
+        display: inline-block;
+      }
+      @include desktop-up {
+      }
+      &:nth-of-type(1) {
+        display: block;
+      }
+    }
+
+    &__tree {
+      position: absolute;
+      top: spx(161);
+      right: spx(-140);
+      width: spx(170);
+      height: spx(234);
+      @include tablet-up {
+        width: ppx(210) * 1.2;
+        height: ppx(288) * 1.2;
+        right: ppx(-222) * 1.2;
+        top: ppx(21) * 1.2;
+      }
+      @include desktop-up {
+        width: ppx(210);
+        height: ppx(288);
+        right: ppx(-222);
+        top: ppx(21);
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  /* TOPページ Activities Swiper専用スタイル */
+  .top-activities {
+    &__swiper {
+      margin-top: spx(117);
+      overflow: hidden;
+      position: relative;
+
+      @include tablet-up {
+        margin-top: ppx(130) * 1.2;
+        margin-left: ppx(360 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(130);
+        margin-left: ppx(360);
+      }
+      .swiper-wrapper {
+      }
+      .swiper-slide {
+        // 画像コンテナのサイズ指定
+        width: spx(500);
+        height: spx(600);
+
+        @include tablet-up {
+          width: ppx(500) * 1.2;
+          height: ppx(600) * 1.2;
+        }
+        @include desktop-up {
+          width: ppx(500);
+          height: ppx(600);
+        }
+      }
+    }
+
+    &__item {
+      width: 100%;
+      height: 100%;
+    }
+
+    &__link {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: spx(30);
+      overflow: hidden;
+      position: relative;
+      transition: all 0.3s ease;
+      @include tablet-up {
+        border-radius: ppx(30) * 1.2;
+      }
+      @include desktop-up {
+        border-radius: ppx(30);
+      }
+
+      // ホバーエフェクト
+      @include hover {
+        &:hover {
+          .top-activities__image::after {
+            opacity: 1;
+          }
+
+          .top-activities__meta {
+            background-color: var(--green_2, #adc400);
+          }
+
+          .top-activities__name {
+            color: var(--white, #fff);
+          }
+
+          .top-activities__arrow path {
+            stroke: var(--white, #fff);
+          }
+        }
+      }
+    }
+
+    &__image-wrapper {
+      width: 100%;
+      height: 100%;
+    }
+
+    &__image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; // 画像の縦横比維持
+      }
+
+      // 半透明白オーバーレイ
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.2);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+    }
+
+    &__title {
+      position: absolute;
+      top: spx(37);
+      left: spx(43);
+      color: var(--white, #fff);
+      font-size: spx(34);
+      line-height: 122%;
+      writing-mode: vertical-rl;
+      @include tablet-up {
+        top: ppx(37) * 1.2;
+        left: ppx(43) * 1.2;
+        font-size: ppx(34) * 1.2;
+      }
+      @include desktop-up {
+        top: ppx(37);
+        left: ppx(43);
+        font-size: ppx(34);
+      }
+      &.color-blue {
+        color: var(--blue_6, #054965);
+      }
+    }
+
+    &__meta {
+      position: absolute;
+      bottom: spx(30);
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba($color: #fff, $alpha: 0.9);
+      border-radius: spx(130);
+      width: spx(390);
+      height: spx(66);
+      display: grid;
+      place-items: center;
+      transition: background-color 0.3s ease;
+      @include tablet-up {
+        bottom: ppx(30) * 1.2;
+        border-radius: ppx(130) * 1.2;
+        width: ppx(390) * 1.2;
+        height: ppx(66) * 1.2;
+      }
+      @include desktop-up {
+        bottom: ppx(30);
+        border-radius: ppx(130);
+        width: ppx(390);
+        height: ppx(66);
+      }
+    }
+
+    &__name {
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-size: spx(32);
+      line-height: 100%;
+      letter-spacing: spx(-1.6);
+      transition: color 0.3s ease;
+      @include tablet-up {
+        font-size: ppx(32) * 1.2;
+        letter-spacing: ppx(-1.6) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(32);
+        letter-spacing: ppx(-1.6);
+      }
+    }
+
+    &__arrow {
+      display: block;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: spx(25);
+      width: spx(8);
+      height: spx(16);
+      transition: stroke 0.3s ease;
+      @include tablet-up {
+        right: ppx(25) * 1.2;
+        width: ppx(8) * 1.2;
+        height: ppx(16) * 1.2;
+      }
+      @include desktop-up {
+        right: ppx(25);
+        width: ppx(8);
+        height: ppx(16);
+      }
+
+      path {
+        transition: stroke 0.3s ease;
+      }
+    }
+
+    // Swiperナビゲーションのカスタマイズ
+
+    &__swiper-pagination {
+      position: static;
+    }
+
+    &__footer {
+      margin-top: spx(50);
+      margin-inline: auto;
+      position: relative;
+      display: flex;
+      flex-flow: column;
+      gap: spx(30);
+      align-items: center;
+      @include tablet-up {
+        margin-top: ppx(96) * 1.2;
+        margin-left: auto;
+        margin-right: ppx(221) * 1.2;
+        flex-flow: row;
+        gap: ppx(75) * 1.2;
+      }
+      @include desktop-up {
+        margin-top: ppx(96);
+        margin-right: ppx(221);
+        gap: ppx(75);
+      }
+    }
+
+    &__more-link {
+      display: flex;
+      gap: spx(20);
+      align-items: center;
+      transition: all 0.3s ease;
+      @include tablet-up {
+        gap: ppx(20) * 1.2;
+      }
+      @include desktop-up {
+        gap: ppx(20);
+      }
+      
+      // ホバーエフェクト
+      @include hover {
+        &:hover {
+          .top-activities__more-text {
+            color: var(--green_2, #adc400);
+          }
+          
+          .top-activities__more-arrow path {
+            stroke: var(--green_2, #adc400);
+          }
+        }
+      }
+    }
+
+    &__more-text {
+      display: block;
+      color: var(--blue_5, #026995);
+      font-size: spx(33);
+      line-height: 100%;
+      letter-spacing: spx(1.65);
+      transition: color 0.3s ease;
+      @include tablet-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(1.65);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(1.65);
+      }
+    }
+
+    &__more-icon {
+      display: block;
+    }
+
+    &__more-arrow {
+      display: block;
+      width: spx(10);
+      height: spx(20);
+      @include tablet-up {
+        width: ppx(10) * 1.2;
+        height: ppx(20) * 1.2;
+      }
+      @include desktop-up {
+        width: ppx(10);
+        height: ppx(20);
+      }
+      
+      path {
+        transition: stroke 0.3s ease;
+      }
+    }
+  }
+
+  // Swiperページネーション専用スタイル（:global()でAstroスコープを回避）
+  .top-activities__swiper-pagination {
+    // ページネーションドット（通常状態）
+    @include tablet-up {
+      text-align: end;
+    }
+    @include desktop-up {
+    }
+    :global(.swiper-pagination-bullet) {
+      width: spx(20);
+      height: spx(20);
+      background-color: white;
+      border-radius: 50%;
+      border: solid 1px var(--blue_5, #026995);
+      opacity: 1;
+      margin: 0 spx(12);
+      transition: all 0.3s ease;
+      @include tablet-up {
+        width: ppx(20) * 1.2;
+        height: ppx(20) * 1.2;
+        margin: 0 ppx(12) * 1.2;
+      }
+      @include desktop-up {
+        width: ppx(20);
+        height: ppx(20);
+        margin: 0 ppx(12);
+      }
+    }
+
+    // ページネーションドット（アクティブ状態）
+    :global(.swiper-pagination-bullet-active) {
+      background-color: var(--blue_5, #026995);
+    }
+
+    // ページネーションが水平の場合
+    &:global(.swiper-pagination-horizontal) {
+      bottom: spx(-50);
+      @include tablet-up {
+        bottom: ppx(-50) * 1.2;
+      }
+      @include desktop-up {
+        bottom: ppx(-50);
+      }
+    }
+
+    // ページネーションが垂直の場合
+    &:global(.swiper-pagination-vertical) {
+    }
+
+    // カスタム分数表示の場合
+    &:global(.swiper-pagination-fraction) {
+    }
+
+    // プログレスバー表示の場合
+    &:global(.swiper-pagination-progressbar) {
+      :global(.swiper-pagination-progressbar-fill) {
+      }
+    }
+
+    // クリック可能な状態
+    &:global(.swiper-pagination-clickable) {
+      :global(.swiper-pagination-bullet) {
+        cursor: pointer;
+        &:hover {
+          background-color: var(--green_2, #adc400);
+          border-color: var(--green_2, #adc400);
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  // Swiper初期化（Activities専用）
+  import Swiper from 'swiper';
+  import { Pagination, Autoplay } from 'swiper/modules';
+
+  // DOMロード後にSwiper初期化
+  document.addEventListener('DOMContentLoaded', () => {
+    // TOPページ Activities Swiper 初期化
+    new Swiper('.top-activities__swiper', {
+      modules: [Pagination, Autoplay],
+      // スライダー設定
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      spaceBetween: 20,
+
+      // ブレイクポイント設定
+      breakpoints: {
+        744: {
+          centeredSlides: false,
+          slidesPerView: 'auto',
+          spaceBetween: 20,
+        },
+        1024: {
+          centeredSlides: false,
+          slidesPerView: 'auto',
+          spaceBetween: 20,
+        },
+      },
+
+      // ページネーション
+      pagination: {
+        el: '.top-activities__swiper-pagination',
+        clickable: true,
+      },
+
+      // オートプレイ（オプション）
+      // autoplay: {
+      //   delay: 5000,
+      //   disableOnInteraction: false,
+      // },
+    });
+  });
+</script>

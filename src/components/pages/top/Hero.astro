@@ -90,10 +90,10 @@ const heroMovieThumbWebp = await getImage({
 ---
 
 <div class="hero">
-  <div class="swiper">
+  <div class="top-hero__swiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide">
-        <div class="slide-content">
+        <div class="top-hero__slide-content">
           <picture>
             <source
               srcset={hero1DesktopWebp.src}
@@ -124,7 +124,7 @@ const heroMovieThumbWebp = await getImage({
         </div>
       </div>
       <div class="swiper-slide">
-        <div class="slide-content">
+        <div class="top-hero__slide-content">
           <picture>
             <source
               srcset={hero2DesktopWebp.src}
@@ -155,7 +155,7 @@ const heroMovieThumbWebp = await getImage({
         </div>
       </div>
       <div class="swiper-slide">
-        <div class="slide-content">
+        <div class="top-hero__slide-content">
           <picture>
             <source
               srcset={hero3DesktopWebp.src}
@@ -186,7 +186,7 @@ const heroMovieThumbWebp = await getImage({
         </div>
       </div>
       <div class="swiper-slide">
-        <div class="slide-content">
+        <div class="top-hero__slide-content">
           <picture>
             <source
               srcset={hero4DesktopWebp.src}
@@ -628,19 +628,19 @@ const heroMovieThumbWebp = await getImage({
       }
     }
   }
-  /* Swiperスタイル */
-  .swiper {
+  /* TOP Hero専用Swiperスタイル */
+  .top-hero__swiper {
     width: 100%;
     height: 100%;
   }
 
-  .swiper-slide {
+  .top-hero__swiper .swiper-slide {
     display: block;
     width: 100%;
     height: 100%;
   }
 
-  .slide-content {
+  .top-hero__slide-content {
     display: block;
     width: 100%;
     height: 100%;
@@ -657,7 +657,7 @@ const heroMovieThumbWebp = await getImage({
     }
   }
 
-  @keyframes hero-zoom-out {
+  @keyframes top-hero-zoom-out {
     0% {
       transform: scale(1.12);
     }
@@ -667,13 +667,13 @@ const heroMovieThumbWebp = await getImage({
   }
 
   /* 基本状態: 拡大 */
-  .swiper-slide img {
+  .top-hero__swiper .swiper-slide img {
     transform: scale(1.12);
   }
 
   /* アクティブ時: ズームアウト実行 */
-  .swiper-slide-active img {
-    animation: hero-zoom-out 4s ease-out forwards;
+  .top-hero__swiper .swiper-slide-active img {
+    animation: top-hero-zoom-out 4s ease-out forwards;
     /* 
        * アニメーション時間の調整について:
        * - 必須条件: アニメーション時間 < autoplay.delay（スライド表示時間）
@@ -684,7 +684,7 @@ const heroMovieThumbWebp = await getImage({
   }
 
   /* 非アクティブ時: 完了状態保持 */
-  .swiper-slide:not(.swiper-slide-active) img {
+  .top-hero__swiper .swiper-slide:not(.swiper-slide-active) img {
     transform: scale(1);
   }
 </style>
@@ -696,8 +696,8 @@ import { Autoplay, EffectFade } from 'swiper/modules';
 
 // DOMロード後にSwiper初期化
 document.addEventListener('DOMContentLoaded', () => {
-  // Swiper初期化
-  new Swiper('.swiper', {
+  // TOPページHero専用Swiper初期化
+  new Swiper('.top-hero__swiper', {
     modules: [Autoplay, EffectFade],
     effect: 'fade',
     loop: true,
