@@ -258,7 +258,7 @@ const ActivitiesSlide4 = await getImage({
         class="top-activities__more-link"
         aria-label="アクティビティをもっと見る"
       >
-        <p class="top-activities__more-text">more</p>
+        <span class="top-activities__more-text">more</span>
         <span class="top-activities__more-icon"
           ><svg
             class="top-activities__more-arrow"
@@ -635,6 +635,7 @@ const ActivitiesSlide4 = await getImage({
         margin-right: ppx(221) * 1.2;
         flex-flow: row;
         gap: ppx(75) * 1.2;
+        align-items: baseline;
       }
       @include desktop-up {
         margin-top: ppx(96);
@@ -654,14 +655,14 @@ const ActivitiesSlide4 = await getImage({
       @include desktop-up {
         gap: ppx(20);
       }
-      
+
       // ホバーエフェクト
       @include hover {
         &:hover {
           .top-activities__more-text {
             color: var(--green_2, #adc400);
           }
-          
+
           .top-activities__more-arrow path {
             stroke: var(--green_2, #adc400);
           }
@@ -694,6 +695,7 @@ const ActivitiesSlide4 = await getImage({
       display: block;
       width: spx(10);
       height: spx(20);
+      margin-top: 0.3em;
       @include tablet-up {
         width: ppx(10) * 1.2;
         height: ppx(20) * 1.2;
@@ -702,7 +704,7 @@ const ActivitiesSlide4 = await getImage({
         width: ppx(10);
         height: ppx(20);
       }
-      
+
       path {
         transition: stroke 0.3s ease;
       }
@@ -817,10 +819,10 @@ const ActivitiesSlide4 = await getImage({
       },
 
       // オートプレイ（オプション）
-      // autoplay: {
-      //   delay: 5000,
-      //   disableOnInteraction: false,
-      // },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
     });
   });
 </script>
