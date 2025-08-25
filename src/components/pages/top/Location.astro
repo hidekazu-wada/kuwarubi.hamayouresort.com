@@ -1,0 +1,275 @@
+---
+import { getImage } from 'astro:assets';
+import LocationImg1 from '../../../assets/images/top/location/img1.png';
+import LocationImg2 from '../../../assets/images/top/location/img2.png';
+
+const locationImg1 = await getImage({
+  src: LocationImg1,
+  format: 'webp',
+  widths: [606, 900, 1180], // スマホ、タブレット、デスクトップ
+});
+const locationImg2 = await getImage({
+  src: LocationImg2,
+  format: 'webp',
+  widths: [546, 750, 867], // スマホ、タブレット、デスクトップ
+});
+---
+
+<section class="location">
+  <header class="location__header">
+    <h2 class="location__title">LOCATION</h2>
+    <div class="location__subtitle">
+      <span class="location__subtitle-line">山と湖の</span>
+      <span class="location__subtitle-line">大自然に包まれた</span>
+      <span class="location__subtitle-line">湖畔のホテル</span>
+    </div>
+  </header>
+  <div class="location__content">
+    <picture class="location__image location__image--main">
+      <!-- デスクトップ（1024px以上） -->
+      <source
+        media="(min-width: 1024px)"
+        srcset={locationImg1.srcSet.toString()}
+      />
+      <!-- タブレット（744px以上） -->
+      <source
+        media="(min-width: 744px)"
+        srcset={locationImg1.srcSet.toString()}
+      />
+      <!-- スマホ（744px未満） -->
+      <img src={locationImg1.src} alt="西湖の美しい湖畔の風景" />
+    </picture>
+    <div class="location__description">
+      <span class="location__description-line"
+        >西湖は富士五湖の中でも特別な存在で、</span
+      >
+      <span class="location__description-line"
+        >自然のままの美しさを保ち、</span
+      >
+      <span class="location__description-line"
+        >富士山の構成資産としても認定されています。</span
+      >
+      <span class="location__description-line"
+        >この湖は、絶滅したと思われていた</span
+      >
+      <span class="location__description-line"
+        >クニマスが生息する日本で唯一の湖です。</span
+      >
+      <span class="location__description-line"
+        >開発が進んでいないため、</span
+      >
+      <span class="location__description-line"
+        >自然のグラデーションが際立ち、</span
+      >
+      <span class="location__description-line"
+        >日常のストレスを忘れさせてくれる</span
+      >
+      <span class="location__description-line">心地よい場所です。</span>
+    </div>
+    <picture class="location__image location__image--sub">
+      <!-- デスクトップ（1024px以上） -->
+      <source
+        media="(min-width: 1024px)"
+        srcset={locationImg2.srcSet.toString()}
+      />
+      <!-- タブレット（744px以上） -->
+      <source
+        media="(min-width: 744px)"
+        srcset={locationImg2.srcSet.toString()}
+      />
+      <!-- スマホ（744px未満） -->
+      <img src={locationImg2.src} alt="樹海の美しい風景" />
+    </picture>
+  </div>
+</section>
+
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  /* ロケーションセクション */
+  .location {
+    padding-top: spx(140);
+    @include tablet-up {
+      padding-top: ppx(226) * 1.2;
+    }
+    @include desktop-up {
+      padding-top: ppx(226);
+    }
+    &__header {
+    }
+
+    &__title {
+      color: var(--blue_4, #59a1c0);
+      font-size: spx(34);
+      font-weight: 900;
+      line-height: spx(34);
+      letter-spacing: spx(2.38);
+      position: relative;
+      width: max-content;
+      margin-inline: auto;
+      @include tablet-up {
+        font-size: ppx(34) * 1.2;
+        line-height: ppx(34) * 1.2;
+        letter-spacing: ppx(2.38) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        line-height: ppx(34);
+        letter-spacing: ppx(2.38);
+      }
+      // タイトル下線部
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: spx(-20);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
+          /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
+          /* 透明開始 */ transparent 51.4%,
+          /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
+            51.4%,
+          /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
+        );
+        @include tablet-up {
+          bottom: ppx(-20) * 1.2;
+          height: ppx(5) * 1.2;
+        }
+        @include desktop-up {
+          bottom: ppx(-20);
+          height: ppx(5);
+        }
+      }
+    }
+
+    &__subtitle {
+      color: var(--blue_6, #054965);
+      font-size: spx(60);
+      line-height: 120%;
+      writing-mode: vertical-rl;
+      margin: spx(60) auto 0;
+      display: flex;
+      flex-flow: column;
+      gap: spx(40);
+
+      @include tablet-up {
+        font-size: ppx(60) * 1.2;
+        line-height: 120%;
+        margin-top: ppx(60) * 1.2;
+        gap: ppx(45) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(60);
+        line-height: 120%;
+        margin-top: ppx(60);
+        gap: ppx(45);
+      }
+    }
+
+    &__subtitle-line {
+      display: block;
+    }
+
+    &__content {
+      position: relative;
+      margin-top: spx(90);
+      @include tablet-up {
+        margin-top: 3vw;
+      }
+      @include desktop-up {
+        margin-top: ppx(17);
+      }
+    }
+
+    &__image {
+      display: block;
+      &--main {
+        width: spx(606);
+        height: spx(464);
+        border-radius: 0 spx(30) spx(30) 0;
+        overflow: hidden;
+        @include tablet-up {
+          width: 36vw;
+          height: ppx(948) * 1.2;
+          border-radius: ppx(30) * 1.2;
+          position: absolute;
+          top: ppx(179) * 1.2;
+          left: ppx(150) * 1.2;
+        }
+        @include desktop-up {
+          width: ppx(1180);
+          height: ppx(948);
+          border-radius: ppx(30);
+          top: ppx(179);
+          left: ppx(150);
+        }
+      }
+
+      &--sub {
+        width: spx(546);
+        height: spx(410);
+        border-radius: spx(30) 0 0 spx(30);
+        overflow: hidden;
+        margin-left: auto;
+        margin-right: 0;
+        margin-top: spx(50);
+        @include tablet-up {
+          width: ppx(867) * 1.2;
+          height: ppx(651) * 1.2;
+          border-radius: ppx(30) * 1.2 0 0 ppx(30) * 1.2;
+          margin-top: ppx(139) * 1.2;
+        }
+        @include desktop-up {
+          width: ppx(867);
+          height: ppx(651);
+          border-radius: ppx(30) 0 0 ppx(30);
+          margin-top: ppx(139);
+        }
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &__description {
+      color: var(--blue_6, #054965);
+      font-size: spx(34);
+      line-height: 122%;
+      writing-mode: vertical-rl;
+      margin: spx(113) auto 0;
+      display: flex;
+      flex-flow: column;
+      gap: spx(20);
+      @include tablet-up {
+        font-size: ppx(34) * 1.2;
+        line-height: 122%;
+        margin-left: auto;
+        margin-right: 6vw;
+        margin-top: 0;
+        gap: ppx(35) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        line-height: 122%;
+        margin-left: auto;
+        margin-right: ppx(273);
+        gap: ppx(35);
+      }
+    }
+
+    &__description-line {
+      display: block;
+    }
+  }
+</style>
