@@ -1,0 +1,778 @@
+---
+// SVGファイルは直接インポート（最適化不要）
+import TitleTreeSp from '../../../assets/images/top/enjoy/title-tree-sp.svg';
+import TitleTreeTabletUp from '../../../assets/images/top/enjoy/title-tree-tablet-up.svg';
+
+import { getImage } from 'astro:assets';
+import content01Sp from '../../../assets/images/top/enjoy/image-01-sp.png';
+import content01TabletUp from '../../../assets/images/top/enjoy/image-01-tablet-up.png';
+import content02Sp from '../../../assets/images/top/enjoy/image-02-sp.png';
+import content02TabletUp from '../../../assets/images/top/enjoy/image-02-tablet-up.png';
+import content03Sp from '../../../assets/images/top/enjoy/image-03-sp.png';
+import content03TabletUp from '../../../assets/images/top/enjoy/image-03-tablet-up.png';
+import content04Sp from '../../../assets/images/top/enjoy/image-04-sp.png';
+import content04TabletUp from '../../../assets/images/top/enjoy/image-04-tablet-up.png';
+import content05Sp from '../../../assets/images/top/enjoy/image-05-sp.png';
+import content05TabletUp from '../../../assets/images/top/enjoy/image-05-tablet-up.png';
+import bottomImageSp from '../../../assets/images/top/enjoy/section-bottom-sp.svg';
+import bottomImageTabletUp from '../../../assets/images/top/enjoy/section-bottom-tablet-up.svg';
+
+const contentImage01Sp = await getImage({
+  src: content01Sp,
+  format: 'webp', // WebP形式で最適化
+  widths: [640],
+});
+const contentImage01TabletUp = await getImage({
+  src: content01TabletUp,
+  format: 'webp', // WebP形式で最適化
+  widths: [1680],
+});
+
+const contentImage02Sp = await getImage({
+  src: content02Sp,
+  format: 'webp', // WebP形式で最適化
+  widths: [640],
+});
+const contentImage02TabletUp = await getImage({
+  src: content02TabletUp,
+  format: 'webp', // WebP形式で最適化
+  widths: [1680],
+});
+
+const contentImage03Sp = await getImage({
+  src: content03Sp,
+  format: 'webp', // WebP形式で最適化
+  widths: [640],
+});
+const contentImage03TabletUp = await getImage({
+  src: content03TabletUp,
+  format: 'webp', // WebP形式で最適化
+  widths: [1680],
+});
+
+const contentImage04Sp = await getImage({
+  src: content04Sp,
+  format: 'webp', // WebP形式で最適化
+  widths: [640],
+});
+const contentImage04TabletUp = await getImage({
+  src: content04TabletUp,
+  format: 'webp', // WebP形式で最適化
+  widths: [1680],
+});
+
+const contentImage05Sp = await getImage({
+  src: content05Sp,
+  format: 'webp', // WebP形式で最適化
+  widths: [640],
+});
+const contentImage05TabletUp = await getImage({
+  src: content05TabletUp,
+  format: 'webp', // WebP形式で最適化
+  widths: [1680],
+});
+---
+
+<section class="enjoy">
+  <header class="enjoy__header">
+    <h2 class="enjoy__title">ENJOY</h2>
+    <div class="enjoy__subtitle">
+      <span class="enjoy__subtitle-line">スタッフおすすめの</span>
+      <span class="enjoy__subtitle-line">過ごし方</span>
+    </div>
+    <picture class="enjoy__tree">
+      <!-- デスクトップ（1024px以上） -->
+      <source media="(min-width: 1024px)" srcset={TitleTreeTabletUp.src} />
+      <!-- タブレット（744px以上） -->
+      <source media="(min-width: 744px)" srcset={TitleTreeTabletUp.src} />
+      <!-- スマホ（744px未満） -->
+      <img src={TitleTreeSp.src} alt="木のイラスト" />
+    </picture>
+  </header>
+  <div class="enjoy__content">
+    <ul class="enjoy__list">
+      <li class="enjoy__item">
+        <a href="#">
+          <article class="enjoy__card">
+            <header class="enjoy__card-header">
+              <h3 class="enjoy__card-title">
+                <span class="enjoy__card-title-line first">子供と一緒に</span>
+                <span class="enjoy__card-title-line second"
+                  >自然に触れたい方</span
+                >
+              </h3>
+            </header>
+            <div class="enjoy__card-content">
+              <div class="enjoy__card-media">
+                <picture class="enjoy__card-image">
+                  <!-- デスクトップ（1024px以上） -->
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={contentImage01TabletUp.src}
+                  />
+                  <!-- タブレット（744px以上） -->
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={contentImage01Sp.src}
+                  />
+                  <!-- スマホ（744px未満） -->
+                  <img src={contentImage01Sp.src} alt="自然に触れたい方" />
+                </picture>
+                <p class="enjoy__card-category">Family</p>
+                <button
+                  class="enjoy__card-button"
+                  type="button"
+                  aria-label="自然に触れたい方の詳細を見る"
+                >
+                  <svg
+                    class="enjoy__card-arrow"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="70"
+                    height="70"
+                    viewBox="0 0 70 70"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle cx="35" cy="35" r="35" fill="white"></circle>
+                    <path
+                      d="M30.333 46.6654L41.9997 34.9987L30.333 23.332"
+                      stroke="#026995"
+                      stroke-width="3.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+        </a>
+      </li>
+
+      <li class="enjoy__item">
+        <a href="#">
+          <article class="enjoy__card">
+            <header class="enjoy__card-header">
+              <h3 class="enjoy__card-title">
+                <span class="enjoy__card-title-line first"
+                  >カップル・夫婦で</span
+                >
+                <span class="enjoy__card-title-line second"
+                  >自然体験をしたい方</span
+                >
+              </h3>
+            </header>
+            <div class="enjoy__card-content">
+              <div class="enjoy__card-media">
+                <picture class="enjoy__card-image">
+                  <!-- デスクトップ（1024px以上） -->
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={contentImage02TabletUp.src}
+                  />
+                  <!-- タブレット（744px以上） -->
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={contentImage02Sp.src}
+                  />
+                  <!-- スマホ（744px未満） -->
+                  <img src={contentImage02Sp.src} alt="自然体験をしたい方" />
+                </picture>
+                <p class="enjoy__card-category">Couple</p>
+                <button
+                  class="enjoy__card-button"
+                  type="button"
+                  aria-label="自然体験をしたい方の詳細を見る"
+                >
+                  <svg
+                    class="enjoy__card-arrow"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="70"
+                    height="70"
+                    viewBox="0 0 70 70"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle cx="35" cy="35" r="35" fill="white"></circle>
+                    <path
+                      d="M30.333 46.6654L41.9997 34.9987L30.333 23.332"
+                      stroke="#026995"
+                      stroke-width="3.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+        </a>
+      </li>
+
+      <li class="enjoy__item">
+        <a href="#">
+          <article class="enjoy__card">
+            <header class="enjoy__card-header">
+              <h3 class="enjoy__card-title">
+                <span class="enjoy__card-title-line first">非日常を満喫</span>
+                <span class="enjoy__card-title-line second"
+                  >ゆったりと過ごしたい方</span
+                >
+              </h3>
+            </header>
+            <div class="enjoy__card-content">
+              <div class="enjoy__card-media">
+                <picture class="enjoy__card-image">
+                  <!-- デスクトップ（1024px以上） -->
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={contentImage03TabletUp.src}
+                  />
+                  <!-- タブレット（744px以上） -->
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={contentImage03Sp.src}
+                  />
+                  <!-- スマホ（744px未満） -->
+                  <img
+                    src={contentImage03Sp.src}
+                    alt="ゆったりと過ごしたい方"
+                  />
+                </picture>
+                <p class="enjoy__card-category">Comfortable</p>
+                <button
+                  class="enjoy__card-button"
+                  type="button"
+                  aria-label="ゆったりと過ごしたい方の詳細を見る"
+                >
+                  <svg
+                    class="enjoy__card-arrow"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="70"
+                    height="70"
+                    viewBox="0 0 70 70"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle cx="35" cy="35" r="35" fill="white"></circle>
+                    <path
+                      d="M30.333 46.6654L41.9997 34.9987L30.333 23.332"
+                      stroke="#026995"
+                      stroke-width="3.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+        </a>
+      </li>
+
+      <li class="enjoy__item">
+        <a href="#">
+          <article class="enjoy__card">
+            <header class="enjoy__card-header">
+              <h3 class="enjoy__card-title">
+                <span class="enjoy__card-title-line first"
+                  >近隣観光メインで</span
+                >
+                <span class="enjoy__card-title-line second"
+                  >西湖を拠点に楽しみたい方</span
+                >
+              </h3>
+            </header>
+            <div class="enjoy__card-content">
+              <div class="enjoy__card-media">
+                <picture class="enjoy__card-image">
+                  <!-- デスクトップ（1024px以上） -->
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={contentImage04TabletUp.src}
+                  />
+                  <!-- タブレット（744px以上） -->
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={contentImage04Sp.src}
+                  />
+                  <!-- スマホ（744px未満） -->
+                  <img
+                    src={contentImage04Sp.src}
+                    alt="西湖を拠点に楽しみたい方"
+                  />
+                </picture>
+                <p class="enjoy__card-category">Tourism</p>
+                <button
+                  class="enjoy__card-button"
+                  type="button"
+                  aria-label="西湖を拠点に楽しみたい方の詳細を見る"
+                >
+                  <svg
+                    class="enjoy__card-arrow"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="70"
+                    height="70"
+                    viewBox="0 0 70 70"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle cx="35" cy="35" r="35" fill="white"></circle>
+                    <path
+                      d="M30.333 46.6654L41.9997 34.9987L30.333 23.332"
+                      stroke="#026995"
+                      stroke-width="3.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+        </a>
+      </li>
+
+      <li class="enjoy__item">
+        <a href="#">
+          <article class="enjoy__card">
+            <header class="enjoy__card-header">
+              <h3 class="enjoy__card-title">
+                <span class="enjoy__card-title-line first">雨の日でも</span>
+                <span class="enjoy__card-title-line second"
+                  >特別な体験をしたい方</span
+                >
+              </h3>
+            </header>
+            <div class="enjoy__card-content">
+              <div class="enjoy__card-media">
+                <picture class="enjoy__card-image">
+                  <!-- デスクトップ（1024px以上） -->
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={contentImage05TabletUp.src}
+                  />
+                  <!-- タブレット（744px以上） -->
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={contentImage05Sp.src}
+                  />
+                  <!-- スマホ（744px未満） -->
+                  <img src={contentImage05Sp.src} alt="特別な体験をしたい方" />
+                </picture>
+                <p class="enjoy__card-category">Rainy Day</p>
+                <button
+                  class="enjoy__card-button"
+                  type="button"
+                  aria-label="特別な体験をしたい方の詳細を見る"
+                >
+                  <svg
+                    class="enjoy__card-arrow"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="70"
+                    height="70"
+                    viewBox="0 0 70 70"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle cx="35" cy="35" r="35" fill="white"></circle>
+                    <path
+                      d="M30.333 46.6654L41.9997 34.9987L30.333 23.332"
+                      stroke="#026995"
+                      stroke-width="3.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="enjoy__bottom-image">
+    <picture>
+      <source media="(min-width: 1024px)" srcset={bottomImageTabletUp.src} />
+      <img src={bottomImageSp.src} alt="" />
+    </picture>
+  </div>
+</section>
+
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  /* TOPページ エンジョイセクション */
+  .enjoy {
+    background-color: var(--blue_2, #e7f3f9);
+    padding-top: spx(145);
+    padding-bottom: spx(153);
+    position: relative;
+
+    @include tablet-up {
+      padding-top: ppx(266) * 1.2;
+      padding-bottom: ppx(423) * 1.2;
+    }
+    @include desktop-up {
+      padding-top: ppx(266);
+      padding-bottom: ppx(423);
+    }
+    &__header {
+      position: relative;
+      @include tablet-up {
+        padding-left: ppx(230) * 1.2;
+      }
+      @include desktop-up {
+        padding-left: ppx(230);
+      }
+    }
+
+    &__title {
+      color: var(--blue_4, #59a1c0);
+      font-size: spx(34);
+      font-weight: 900;
+      line-height: spx(34);
+      letter-spacing: spx(2.38);
+      position: relative;
+      width: max-content;
+      margin: 0 auto;
+      @include tablet-up {
+        font-size: ppx(34) * 1.2;
+        line-height: ppx(34) * 1.2;
+        letter-spacing: ppx(2.38) * 1.2;
+        margin-left: ppx(11) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        line-height: ppx(34);
+        letter-spacing: ppx(2.38);
+        margin-left: ppx(11);
+      }
+      // タイトル下線部
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: spx(-20);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
+          /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
+          /* 透明開始 */ transparent 51.4%,
+          /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
+            51.4%,
+          /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
+        );
+        @include tablet-up {
+          bottom: ppx(-20) * 1.2;
+          height: ppx(5) * 1.2;
+        }
+        @include desktop-up {
+          bottom: ppx(-20);
+          height: ppx(5);
+        }
+      }
+    }
+
+    &__subtitle {
+      color: var(--blue_6, #054965);
+      font-size: spx(50);
+      line-height: 150%;
+      margin-top: spx(40);
+      text-align: center;
+      @include tablet-up {
+        font-size: ppx(68) * 1.2;
+        line-height: 150%;
+        margin-top: ppx(50) * 1.2;
+        text-align: left;
+      }
+      @include desktop-up {
+        font-size: ppx(68);
+        line-height: 150%;
+        margin-top: ppx(50);
+      }
+    }
+
+    &__subtitle-line {
+      display: block;
+    }
+
+    &__tree {
+      position: absolute;
+      top: spx(254);
+      right: 50%;
+      transform: translateX(50%);
+      width: spx(290);
+      height: spx(105);
+      z-index: 1;
+      @include tablet-up {
+        width: ppx(717) * 1.2;
+        height: ppx(315) * 1.2;
+        right: ppx(87) * 1.2;
+        top: ppx(139) * 1.2;
+        transform: unset;
+      }
+      @include desktop-up {
+        width: ppx(717);
+        height: ppx(315);
+        right: ppx(87);
+        top: ppx(139);
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; // SVGは全体を表示
+      }
+    }
+
+    &__content {
+      margin-top: spx(195);
+      @include tablet-up {
+        margin-top: ppx(114) * 1.2;
+      }
+      @include desktop-up {
+        margin-top: ppx(114);
+      }
+    }
+
+    &__list {
+      display: flex;
+      flex-flow: column;
+      gap: spx(50);
+      @include tablet-up {
+        gap: ppx(90) * 1.2;
+      }
+      @include desktop-up {
+        gap: ppx(90);
+      }
+    }
+
+    &__item {
+      width: spx(640);
+      border-radius: spx(20) 0 0 spx(20);
+      overflow: hidden;
+      box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.25);
+
+      // ホバーエフェクト
+      @include hover {
+        &:hover {
+          .enjoy__card-image::after {
+            opacity: 1;
+          }
+
+          .enjoy__card-arrow {
+            circle {
+              fill: var(--green_2, #adc400);
+            }
+
+            path {
+              stroke: var(--white, #fff);
+            }
+          }
+        }
+      }
+      margin-left: auto;
+      margin-right: 0;
+      @include tablet-up {
+        width: 70vw;
+        border-radius: ppx(20) * 1.2;
+        filter: drop-shadow(3px 3px 7px rgba(0, 0, 0, 0.1));
+        margin-inline: auto;
+      }
+      @include desktop-up {
+        width: ppx(1917);
+        border-radius: ppx(20);
+      }
+    }
+
+    &__card {
+      display: grid;
+      grid-template:
+        'content' spx(420)
+        'header' spx(135);
+      @include tablet-up {
+        grid-template:
+          'header content' #{ppx(700) * 1.2}
+          / 237fr 1680fr;
+      }
+      @include desktop-up {
+        grid-template:
+          'header content' #{ppx(700)}
+          / 237fr 1680fr;
+      }
+    }
+
+    &__card-header {
+      grid-area: header;
+      background-color: #fff;
+      padding-top: spx(20);
+      padding-left: spx(50);
+      @include tablet-up {
+        padding-top: 0;
+        padding-left: 0;
+        display: grid;
+        place-items: center;
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__card-title {
+      display: flex;
+      flex-flow: column;
+      gap: spx(5);
+      @include tablet-up {
+        writing-mode: vertical-rl;
+        gap: ppx(26) * 1.2;
+      }
+      @include desktop-up {
+        gap: ppx(26);
+      }
+    }
+
+    &__card-title-line {
+      display: block;
+      @include tablet-up {
+        writing-mode: vertical-rl;
+      }
+      @include desktop-up {
+      }
+      &.first {
+        color: var(--green_2, #adc400);
+        font-size: spx(30);
+        line-height: 120%;
+        @include tablet-up {
+          font-size: ppx(30) * 1.2;
+        }
+        @include desktop-up {
+          font-size: ppx(30);
+        }
+      }
+      &.second {
+        color: var(--blue_6, #054965);
+        font-size: spx(39);
+        line-height: 120%;
+        letter-spacing: spx(3.9);
+        @include tablet-up {
+          font-size: ppx(41) * 1.2;
+          letter-spacing: ppx(8.2) * 1.2;
+          margin-top: ppx(9) * 1.2;
+        }
+        @include desktop-up {
+          font-size: ppx(41);
+          letter-spacing: ppx(8.2);
+          margin-top: ppx(9);
+        }
+      }
+    }
+
+    &__card-content {
+      grid-area: content;
+    }
+
+    &__card-media {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__card-image {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      // 半透明白オーバーレイ
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.2);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &__card-category {
+      color: var(--white, #fff);
+      font-family: 'Allura', cursive;
+      font-size: spx(111);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%;
+      position: absolute;
+      top: spx(29);
+      right: spx(36);
+      @include tablet-up {
+        font-size: ppx(130) * 1.2;
+        top: ppx(115) * 1.2;
+        right: ppx(100) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(130);
+        top: ppx(115);
+        right: ppx(100);
+      }
+    }
+
+    &__card-button {
+      display: none;
+      @include tablet-up {
+        display: block;
+        position: absolute;
+        bottom: ppx(30) * 1.2;
+        right: ppx(50) * 1.2;
+        transition: transform 0.3s ease;
+      }
+      @include desktop-up {
+        bottom: ppx(30);
+        right: ppx(50);
+      }
+    }
+
+    &__card-arrow {
+      @include tablet-up {
+        display: block;
+        width: ppx(70) * 1.2;
+        height: ppx(70) * 1.2;
+        transition: transform 0.3s ease;
+      }
+      @include desktop-up {
+        width: ppx(70);
+        height: ppx(70);
+      }
+
+      circle {
+        transition: fill 0.3s ease;
+      }
+
+      path {
+        transition: stroke 0.3s ease;
+      }
+    }
+    &__bottom-image {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    }
+  }
+</style>

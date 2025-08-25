@@ -10,6 +10,8 @@ import BookingModal from '../components/Booking-modal.astro';
 import Hero from '../components/pages/top/Hero.astro';
 import Location from '../components/pages/top/Location.astro';
 import Activities from '../components/pages/top/Activities.astro';
+import Enjoy from '../components/pages/top/Enjoy.astro';
+import Hospitality from '../components/pages/top/Hospitality.astro';
 ---
 
 <html lang="ja">
@@ -23,7 +25,7 @@ import Activities from '../components/pages/top/Activities.astro';
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Allura&family=Zen+Kaku+Gothic+New:wght@400;500;900&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -48,6 +50,10 @@ import Activities from '../components/pages/top/Activities.astro';
         <Location />
         <!-- アクティビティーズセクション -->
         <Activities />
+        <!-- エンジョイセクション -->
+        <Enjoy />
+        <!-- ホスピタリティセクション -->
+        <Hospitality />
       </main>
       <!-- フッター -->
       <Footer />
@@ -314,6 +320,5 @@ import Activities from '../components/pages/top/Activities.astro';
       grid-area: main;
       position: relative;
     }
-
   </style>
 </html>

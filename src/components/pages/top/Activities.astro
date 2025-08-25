@@ -291,13 +291,16 @@ const ActivitiesSlide4 = await getImage({
   /* TOPページ アクティビティーズセクション */
   .activities {
     padding-top: spx(120);
+    padding-bottom: spx(130);
     position: relative;
 
     @include tablet-up {
       padding-top: ppx(100) * 1.2;
+      padding-bottom: ppx(255) * 1.2;
     }
     @include desktop-up {
       padding-top: ppx(100);
+      padding-bottom: ppx(255);
     }
     &__header {
       position: relative;
