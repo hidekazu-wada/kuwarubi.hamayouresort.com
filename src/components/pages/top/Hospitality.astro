@@ -3,6 +3,8 @@ import { getImage } from 'astro:assets';
 import RoomImage from '../../../assets/images/top/hospitality/room.png';
 import foodImage from '../../../assets/images/top/hospitality/food.png';
 import OnsenImage from '../../../assets/images/top/hospitality/onsen.png';
+import leaf1Url from '../../../assets/images/top/hospitality/leaf-1.svg?url';
+import leaf2Url from '../../../assets/images/top/hospitality/leaf-2.svg?url';
 
 const Room = await getImage({
   src: RoomImage,
@@ -74,7 +76,7 @@ const Onsen = await getImage({
         <span class="hospitality__subtitle-text">お料理</span>
       </div>
       <p class="hospitality__description">
-        地元の新鮮な食材を使った、季節の味覚をお楽しみください。美味しいお料理で心も満たされることでしょう。
+        何から食べようか迷うのも楽しいビュッフェスタイル。この土地ならではの味覚も織り交ぜ、心もお腹も満たす時間をどうぞ。
       </p>
     </header>
     <div class="hospitality__content">
@@ -87,6 +89,11 @@ const Onsen = await getImage({
           <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img src={Food.src} alt="お料理の画像" class="hospitality__img" />
         </picture>
+        <img
+          src={leaf1Url}
+          alt="葉の画像"
+          class="hospitality__leaf hospitality__leaf--1"
+        />
       </div>
       <a href="#" class="hospitality__link">
         <span class="hospitality__link-text">more</span>
@@ -135,6 +142,11 @@ const Onsen = await getImage({
           <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img src={Onsen.src} alt="天然温泉の画像" class="hospitality__img" />
         </picture>
+        <img
+          src={leaf2Url}
+          alt="葉の画像"
+          class="hospitality__leaf hospitality__leaf--2"
+        />
       </div>
       <a href="#" class="hospitality__link">
         <span class="hospitality__link-text">more</span>
@@ -170,17 +182,177 @@ const Onsen = await getImage({
   /* ホスピタリティセクション */
   .hospitality {
     background: var(--green_1, #e2ecc4);
+    padding-top: spx(181);
+    padding-bottom: spx(120);
+    @include tablet-up {
+      padding-top: ppx(314) * 1.2;
+      padding-bottom: ppx(362) * 1.2;
+    }
+    @include desktop-up {
+      padding-top: ppx(314);
+      padding-bottom: ppx(362);
+    }
 
     &__article {
+      position: relative;
       &--room {
+        .hospitality__header {
+          @include tablet-up {
+            margin-left: auto;
+            margin-right: 6vw;
+          }
+          @include desktop-up {
+            margin-right: ppx(285);
+          }
+        }
+        .hospitality__media {
+          @include tablet-up {
+            position: absolute;
+            top: ppx(-143) * 1.2;
+            left: 4vw;
+          }
+          @include desktop-up {
+            top: ppx(-143);
+            left: ppx(228);
+          }
+        }
+        .hospitality__link {
+          @include tablet-up {
+            margin-right: 6vw;
+          }
+          @include desktop-up {
+            margin-right: ppx(285);
+          }
+        }
       }
       &--food {
+        margin-top: spx(120);
+        @include tablet-up {
+          margin-top: ppx(376) * 1.2;
+        }
+        @include desktop-up {
+          margin-top: ppx(376);
+        }
+        .hospitality__header {
+          @include tablet-up {
+            margin-left: 6vw;
+          }
+          @include desktop-up {
+            margin-left: ppx(290);
+          }
+        }
+        .hospitality__media {
+          @include tablet-up {
+            position: absolute;
+            top: ppx(-143) * 1.2;
+            right: 4vw;
+          }
+          @include desktop-up {
+            top: ppx(-143);
+            right: ppx(223);
+          }
+        }
+        .hospitality__leaf--1 {
+          position: absolute;
+          top: spx(-37);
+          right: spx(-27);
+          display: block;
+          width: spx(153);
+          height: spx(84);
+          @include tablet-up {
+            top: ppx(-65) * 1.2;
+            right: ppx(-7) * 1.2;
+            width: ppx(201) * 1.2;
+            height: ppx(110) * 1.2;
+          }
+          @include desktop-up {
+            top: ppx(-65);
+            right: ppx(-7);
+            width: ppx(201);
+            height: ppx(110);
+          }
+        }
+        .hospitality__link {
+          @include tablet-up {
+            margin-left: 33vw;
+          }
+          @include desktop-up {
+            margin-left: ppx(861);
+          }
+        }
       }
       &--onsen {
+        margin-top: spx(120);
+        @include tablet-up {
+          margin-top: ppx(333) * 1.2;
+        }
+        @include desktop-up {
+          margin-top: ppx(333);
+        }
+        .hospitality__header {
+          @include tablet-up {
+            margin-left: auto;
+            margin-right: 6vw;
+          }
+          @include desktop-up {
+            margin-right: ppx(285);
+          }
+        }
+        .hospitality__media {
+          @include tablet-up {
+            position: absolute;
+            top: ppx(-143) * 1.2;
+            left: 4vw;
+          }
+          @include desktop-up {
+            top: ppx(-143);
+            left: ppx(228);
+          }
+        }
+        .hospitality__leaf--2 {
+          position: absolute;
+          top: spx(-43);
+          right: spx(45);
+          display: block;
+          width: spx(105);
+          height: spx(110);
+          transform: scaleX(-1); // スマホのみ左右反転
+          @include tablet-up {
+            top: ppx(-82) * 1.2;
+            right: unset;
+            left: ppx(-28) * 1.2;
+            width: ppx(144) * 1.2;
+            height: ppx(151) * 1.2;
+            transform: none; // タブレット以上では反転しない
+          }
+          @include desktop-up {
+            top: ppx(-82);
+            left: ppx(-28);
+            width: ppx(144);
+            height: ppx(151);
+          }
+        }
+        .hospitality__link {
+          @include tablet-up {
+            margin-right: 6vw;
+          }
+          @include desktop-up {
+            margin-right: ppx(285);
+          }
+        }
       }
     }
 
     &__header {
+      width: spx(620);
+      margin-inline: auto;
+      @include tablet-up {
+        width: ppx(690) * 1.2;
+        margin-inline: unset;
+      }
+      @include desktop-up {
+        width: ppx(690);
+      }
     }
 
     &__title {
@@ -190,9 +362,11 @@ const Onsen = await getImage({
       letter-spacing: spx(4.9);
       position: relative;
       width: max-content;
+      margin-inline: auto;
       @include tablet-up {
         font-size: ppx(70) * 1.2;
         letter-spacing: ppx(4.9) * 1.2;
+        margin-inline: unset;
       }
       @include desktop-up {
         font-size: ppx(70);
@@ -227,54 +401,161 @@ const Onsen = await getImage({
     }
 
     &__subtitle {
-      color: var(--green_3, #43512a);
-      font-size: spx(38);
-      line-height: 150%;
-      letter-spacing: spx(7.6);
       margin-top: spx(40);
+      text-align: center;
       @include tablet-up {
-        font-size: ppx(38) * 1.2;
-        letter-spacing: ppx(7.6) * 1.2;
         margin-top: ppx(42) * 1.2;
+        text-align: unset;
       }
       @include desktop-up {
-        font-size: ppx(38);
-        letter-spacing: ppx(7.6);
         margin-top: ppx(42);
       }
     }
 
     &__subtitle-text {
+      color: var(--green_3, #43512a);
+      font-size: spx(38);
+      line-height: 150%;
+      letter-spacing: spx(7.6);
+      @include tablet-up {
+        font-size: ppx(38) * 1.2;
+        letter-spacing: ppx(7.6) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(38);
+        letter-spacing: ppx(7.6);
+      }
     }
 
     &__description {
+      color: var(--green_3, #43512a);
+      font-size: spx(29);
+      line-height: 160%;
+      margin-top: spx(25);
+      @include tablet-up {
+        font-size: ppx(27) * 1.2;
+        line-height: 160%;
+        letter-spacing: ppx(1.35) * 1.2;
+        margin-top: ppx(58) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+        line-height: 160%;
+        letter-spacing: ppx(1.35);
+        margin-top: ppx(58);
+      }
     }
 
     &__content {
+      margin-top: spx(30);
+      @include tablet-up {
+        margin-top: ppx(30) * 1.2;
+      }
+      @include desktop-up {
+      }
+      margin-top: ppx(30);
     }
 
     &__media {
+      width: max-content;
+      margin-inline: auto;
+      position: relative;
+      margin-bottom: spx(30);
+      @include tablet-up {
+        margin-inline: unset;
+        position: absolute;
+        margin-bottom: 0;
+      }
+      @include desktop-up {
+      }
     }
 
     &__image {
     }
 
     &__img {
+      width: spx(637);
+      height: spx(421);
+      object-fit: cover;
+      @include tablet-up {
+        width: ppx(1003) * 1.1;
+        height: ppx(663) * 1.1;
+      }
+      @include desktop-up {
+        width: ppx(1003);
+        height: ppx(663);
+      }
     }
 
     &__link {
+      display: flex;
+      align-items: center;
+      gap: spx(20);
+      justify-content: center;
+
+      width: max-content;
+      margin-inline: auto;
+      text-decoration: none;
+      @include tablet-up {
+        gap: ppx(20) * 1.2;
+        justify-content: unset;
+      }
+      @include desktop-up {
+        gap: ppx(20);
+      }
+
+      // ホバーエフェクト
+      @include hover {
+        &:hover {
+          .hospitality__link-text {
+            color: var(--green_2, #adc400);
+          }
+
+          .hospitality__arrow-path {
+            stroke: var(--green_2, #adc400);
+          }
+        }
+      }
     }
 
     &__link-text {
+      color: var(--green_3, #43512a);
+      font-size: spx(33);
+      line-height: 1;
+      letter-spacing: spx(1.65);
+      transition: color 0.3s ease;
+      @include tablet-up {
+        font-size: ppx(33) * 1.2;
+        letter-spacing: ppx(1.65) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(1.65);
+      }
     }
 
     &__link-icon {
     }
 
     &__arrow {
+      display: block;
+      width: spx(10);
+      height: spx(20);
+      transform: translateY(spx(4));
+      @include tablet-up {
+        width: ppx(10) * 1.2;
+        height: ppx(20) * 1.2;
+        transform: translateY(ppx(3));
+      }
+      @include desktop-up {
+        width: ppx(10);
+        height: ppx(20);
+        transform: translateY(ppx(4));
+      }
     }
 
     &__arrow-path {
+      transition: stroke 0.3s ease;
     }
   }
 </style>
