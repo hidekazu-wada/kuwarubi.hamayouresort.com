@@ -1,18 +1,164 @@
 ---
+import { getImage } from 'astro:assets';
+import RoomImage from '../../../assets/images/top/hospitality/room.png';
+import foodImage from '../../../assets/images/top/hospitality/food.png';
+import OnsenImage from '../../../assets/images/top/hospitality/onsen.png';
 
+const Room = await getImage({
+  src: RoomImage,
+  format: 'webp',
+  widths: [637, 768, 1003],
+});
+const Food = await getImage({
+  src: foodImage,
+  format: 'webp',
+  widths: [637, 768, 1003],
+});
+const Onsen = await getImage({
+  src: OnsenImage,
+  format: 'webp',
+  widths: [637, 768, 1003],
+});
 ---
 
-<section class="room">
-  <header class="room__header">
-    <h2 class="room__title">Room</h2>
-    <div class="room__subtitle">
-      <span class="room__subtitle-line">お部屋</span>
+<section class="hospitality">
+  <article class="hospitality__article hospitality__article--room">
+    <header class="hospitality__header">
+      <h2 class="hospitality__title">Room</h2>
+      <div class="hospitality__subtitle">
+        <span class="hospitality__subtitle-text">お部屋</span>
+      </div>
+      <p class="hospitality__description">
+        シンプルで快適な当ホテルのお部屋からは、自然に囲まれた穏やかな景色をお楽しみいただけます。
+      </p>
+    </header>
+    <div class="hospitality__content">
+      <div class="hospitality__media">
+        <picture class="hospitality__image">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source media="(min-width: 1024px)" srcset={Room.srcSet.toString()} />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source media="(min-width: 744px)" srcset={Room.srcSet.toString()} />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img src={Room.src} alt="お部屋の画像" class="hospitality__img" />
+        </picture>
+      </div>
+      <a href="#" class="hospitality__link">
+        <span class="hospitality__link-text">more</span>
+        <span class="hospitality__link-icon">
+          <svg
+            class="hospitality__arrow"
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="22"
+            viewBox="0 0 12 22"
+            fill="none"
+          >
+            <path
+              class="hospitality__arrow-path"
+              d="M1 21L11 11L1 1"
+              stroke="#43512A"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </span>
+      </a>
     </div>
-    <p class="room__description">
-      シンプルで快適な当ホテルのお部屋からは、自然に囲まれた穏やかな景色をお楽しみいただけます。
-    </p>
-  </header>
-  <div class="room__content"></div>
+  </article>
+
+  <article class="hospitality__article hospitality__article--food">
+    <header class="hospitality__header">
+      <h2 class="hospitality__title">Food</h2>
+      <div class="hospitality__subtitle">
+        <span class="hospitality__subtitle-text">お料理</span>
+      </div>
+      <p class="hospitality__description">
+        地元の新鮮な食材を使った、季節の味覚をお楽しみください。美味しいお料理で心も満たされることでしょう。
+      </p>
+    </header>
+    <div class="hospitality__content">
+      <div class="hospitality__media">
+        <picture class="hospitality__image">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source media="(min-width: 1024px)" srcset={Food.srcSet.toString()} />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source media="(min-width: 744px)" srcset={Food.srcSet.toString()} />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img src={Food.src} alt="お料理の画像" class="hospitality__img" />
+        </picture>
+      </div>
+      <a href="#" class="hospitality__link">
+        <span class="hospitality__link-text">more</span>
+        <span class="hospitality__link-icon">
+          <svg
+            class="hospitality__arrow"
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="22"
+            viewBox="0 0 12 22"
+            fill="none"
+          >
+            <path
+              class="hospitality__arrow-path"
+              d="M1 21L11 11L1 1"
+              stroke="#43512A"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </span>
+      </a>
+    </div>
+  </article>
+
+  <article class="hospitality__article hospitality__article--onsen">
+    <header class="hospitality__header">
+      <h2 class="hospitality__title">Onsen</h2>
+      <div class="hospitality__subtitle">
+        <span class="hospitality__subtitle-text">天然温泉</span>
+      </div>
+      <p class="hospitality__description">
+        当施設の天然温泉では、富士山の麓の豊かな自然から湧き出る温泉水を楽しむことができます。リラックスして心身を癒す、素晴らしい湯を体験ください。
+      </p>
+    </header>
+    <div class="hospitality__content">
+      <div class="hospitality__media">
+        <picture class="hospitality__image">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={Onsen.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source media="(min-width: 744px)" srcset={Onsen.srcSet.toString()} />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img src={Onsen.src} alt="天然温泉の画像" class="hospitality__img" />
+        </picture>
+      </div>
+      <a href="#" class="hospitality__link">
+        <span class="hospitality__link-text">more</span>
+        <span class="hospitality__link-icon">
+          <svg
+            class="hospitality__arrow"
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="22"
+            viewBox="0 0 12 22"
+            fill="none"
+          >
+            <path
+              class="hospitality__arrow-path"
+              d="M1 21L11 11L1 1"
+              stroke="#43512A"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </span>
+      </a>
+    </div>
+  </article>
 </section>
 
 <style lang="scss">
@@ -21,7 +167,114 @@
   @import '../../../styles/functions';
   @import '../../../styles/mixins';
 
-  /* お部屋セクション */
-  .room {
+  /* ホスピタリティセクション */
+  .hospitality {
+    background: var(--green_1, #e2ecc4);
+
+    &__article {
+      &--room {
+      }
+      &--food {
+      }
+      &--onsen {
+      }
+    }
+
+    &__header {
+    }
+
+    &__title {
+      color: var(--green_3, #43512a);
+      font-size: spx(70);
+      line-height: 100%;
+      letter-spacing: spx(4.9);
+      position: relative;
+      width: max-content;
+      @include tablet-up {
+        font-size: ppx(70) * 1.2;
+        letter-spacing: ppx(4.9) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(70);
+        letter-spacing: ppx(4.9);
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: spx(-20);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          var(--green_2, #adc400) 48.6%,
+          transparent 48.6%,
+          transparent 51.4%,
+          var(--blue_4, #59a1c0) 51.4%,
+          var(--blue_4, #59a1c0) 100%
+        );
+        @include tablet-up {
+          bottom: ppx(-20) * 1.2;
+          height: ppx(5) * 1.2;
+        }
+        @include desktop-up {
+          bottom: ppx(-20);
+          height: ppx(5);
+        }
+      }
+    }
+
+    &__subtitle {
+      color: var(--green_3, #43512a);
+      font-size: spx(38);
+      line-height: 150%;
+      letter-spacing: spx(7.6);
+      margin-top: spx(40);
+      @include tablet-up {
+        font-size: ppx(38) * 1.2;
+        letter-spacing: ppx(7.6) * 1.2;
+        margin-top: ppx(42) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(38);
+        letter-spacing: ppx(7.6);
+        margin-top: ppx(42);
+      }
+    }
+
+    &__subtitle-text {
+    }
+
+    &__description {
+    }
+
+    &__content {
+    }
+
+    &__media {
+    }
+
+    &__image {
+    }
+
+    &__img {
+    }
+
+    &__link {
+    }
+
+    &__link-text {
+    }
+
+    &__link-icon {
+    }
+
+    &__arrow {
+    }
+
+    &__arrow-path {
+    }
   }
 </style>
