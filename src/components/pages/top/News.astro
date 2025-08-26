@@ -1,113 +1,165 @@
 ---
-
+import MoreButton from '../../ui/MoreButton.astro';
 ---
 
-<div>
-  <h2 class="">INFORMATION</h2>
-  <p>お知らせ</p>
+<section class="news">
+  <div class="news__container">
+    <article class="news__section news__section--information">
+      <header class="news__header">
+        <h2 class="news__title">INFORMATION</h2>
+        <p class="news__subtitle">お知らせ</p>
+      </header>
 
-  <div class="">
-    <ul>
-      <li>
-        <div>
-          <p>2025.01.01</p>
-          <p>ホームページをリニューアルいたしました。</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <p>2025.01.01</p>
-          <p>ホームページをリニューアルいたしました。</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <p>2025.01.01</p>
-          <p>ホームページをリニューアルいたしました。</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <p>2025.01.01</p>
-          <p>ホームページをリニューアルいたしました。</p>
-        </div>
-      </li>
-    </ul>
+      <div class="news__content">
+        <ul class="news__list">
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">ホームページをリニューアルいたしました。</p>
+              </article>
+            </a>
+          </li>
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">ホームページをリニューアルいたしました。</p>
+              </article>
+            </a>
+          </li>
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">ホームページをリニューアルいたしました。</p>
+              </article>
+            </a>
+          </li>
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">ホームページをリニューアルいたしました。</p>
+              </article>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="news__more">
+        <MoreButton
+          href="#"
+          textColor="var(--green_3, #43512A)"
+          hoverColor="var(--green_2, #adc400)"
+          arrowColor="#43512A"
+        />
+      </div>
+    </article>
+
+    <article class="news__section news__section--event">
+      <header class="news__header">
+        <h2 class="news__title">EVENT</h2>
+        <p class="news__subtitle">イベント情報</p>
+      </header>
+
+      <div class="news__content">
+        <ul class="news__list">
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">ホームページをリニューアルいたしました。</p>
+              </article>
+            </a>
+          </li>
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">ホームページをリニューアルいたしました。</p>
+              </article>
+            </a>
+          </li>
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">ホームページをリニューアルいたしました。</p>
+              </article>
+            </a>
+          </li>
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">ホームページをリニューアルいたしました。</p>
+              </article>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="news__more">
+        <MoreButton
+          href="#"
+          textColor="var(--green_3, #43512A)"
+          hoverColor="var(--blue_5, #026995)"
+          arrowColor="#43512A"
+        />
+      </div>
+    </article>
   </div>
-  <a href="#" class="">
-    <span class="">more</span>
-    <span class="">
-      <svg
-        class=""
-        xmlns="http://www.w3.org/2000/svg"
-        width="12"
-        height="22"
-        viewBox="0 0 12 22"
-        fill="none"
-      >
-        <path
-          class=""
-          d="M1 21L11 11L1 1"
-          stroke="#43512A"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"></path>
-      </svg>
-    </span>
-  </a>
-</div>
+</section>
 
-<div>
-  <h2 class="">EVENT</h2>
-  <p>イベント情報</p>
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
 
-  <div class="">
-    <ul>
-      <li>
-        <div>
-          <p>2025.01.01</p>
-          <p>ホームページをリニューアルいたしました。</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <p>2025.01.01</p>
-          <p>ホームページをリニューアルいたしました。</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <p>2025.01.01</p>
-          <p>ホームページをリニューアルいたしました。</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <p>2025.01.01</p>
-          <p>ホームページをリニューアルいたしました。</p>
-        </div>
-      </li>
-    </ul>
-  </div>
-  <a href="#" class="">
-    <span class="">more</span>
-    <span class="">
-      <svg
-        class=""
-        xmlns="http://www.w3.org/2000/svg"
-        width="12"
-        height="22"
-        viewBox="0 0 12 22"
-        fill="none"
-      >
-        <path
-          class=""
-          d="M1 21L11 11L1 1"
-          stroke="#43512A"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"></path>
-      </svg>
-    </span>
-  </a>
-</div>
+  /* ニュースセクション */
+  .news {
+    
+    &__container {
+    }
+    
+    &__section {
+      &--information {
+      }
+      &--event {
+      }
+    }
+    
+    &__header {
+    }
+    
+    &__title {
+    }
+    
+    &__subtitle {
+    }
+    
+    &__content {
+    }
+    
+    &__list {
+    }
+    
+    &__item {
+    }
+    
+    &__link {
+    }
+    
+    &__article {
+    }
+    
+    &__date {
+    }
+    
+    &__text {
+    }
+    
+    &__more {
+    }
+  }
+</style>

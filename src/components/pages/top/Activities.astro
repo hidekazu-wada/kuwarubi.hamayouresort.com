@@ -1,5 +1,6 @@
 ---
 import { getImage } from 'astro:assets';
+import MoreButton from '../../ui/MoreButton.astro';
 // Swiper CSS
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -253,31 +254,14 @@ const ActivitiesSlide4 = await getImage({
     <div class="top-activities__footer">
       <!-- ページネーション -->
       <div class="swiper-pagination top-activities__swiper-pagination"></div>
-      <a
-        href="#"
-        class="top-activities__more-link"
-        aria-label="アクティビティをもっと見る"
-      >
-        <span class="top-activities__more-text">more</span>
-        <span class="top-activities__more-icon"
-          ><svg
-            class="top-activities__more-arrow"
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="22"
-            viewBox="0 0 12 22"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M1 21L11 11L1 1"
-              stroke="#026995"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"></path>
-          </svg></span
-        >
-      </a>
+      <div class="top-activities__more-link">
+        <MoreButton
+          href="#"
+          textColor="var(--blue_5, #026995)"
+          hoverColor="var(--green_2, #adc400)"
+          arrowColor="#026995"
+        />
+      </div>
     </div>
   </div>
 </section>
@@ -648,69 +632,7 @@ const ActivitiesSlide4 = await getImage({
     }
 
     &__more-link {
-      display: flex;
-      gap: spx(20);
-      align-items: center;
-      transition: all 0.3s ease;
-      @include tablet-up {
-        gap: ppx(20) * 1.2;
-      }
-      @include desktop-up {
-        gap: ppx(20);
-      }
-
-      // ホバーエフェクト
-      @include hover {
-        &:hover {
-          .top-activities__more-text {
-            color: var(--green_2, #adc400);
-          }
-
-          .top-activities__more-arrow path {
-            stroke: var(--green_2, #adc400);
-          }
-        }
-      }
-    }
-
-    &__more-text {
-      display: block;
-      color: var(--blue_5, #026995);
-      font-size: spx(33);
-      line-height: 100%;
-      letter-spacing: spx(1.65);
-      transition: color 0.3s ease;
-      @include tablet-up {
-        font-size: ppx(33);
-        letter-spacing: ppx(1.65);
-      }
-      @include desktop-up {
-        font-size: ppx(33);
-        letter-spacing: ppx(1.65);
-      }
-    }
-
-    &__more-icon {
-      display: block;
-    }
-
-    &__more-arrow {
-      display: block;
-      width: spx(10);
-      height: spx(20);
-      margin-top: 0.3em;
-      @include tablet-up {
-        width: ppx(10) * 1.2;
-        height: ppx(20) * 1.2;
-      }
-      @include desktop-up {
-        width: ppx(10);
-        height: ppx(20);
-      }
-
-      path {
-        transition: stroke 0.3s ease;
-      }
+      // MoreButtonコンポーネントを使用するため、旧スタイルは削除
     }
   }
 

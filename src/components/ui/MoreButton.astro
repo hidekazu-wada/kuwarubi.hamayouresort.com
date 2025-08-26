@@ -1,0 +1,125 @@
+---
+export interface Props {
+  href: string; // リンク先URL
+  textColor?: string; // テキスト色（CSS変数）
+  hoverColor?: string; // ホバー色（CSS変数）
+  arrowColor?: string; // 矢印色（stroke値）
+  text?: string; // ボタンテキスト（デフォルト: "more"）
+  className?: string; // 追加CSSクラス
+}
+
+const {
+  href,
+  textColor = 'var(--green_3, #43512a)',
+  hoverColor = 'var(--green_2, #adc400)',
+  arrowColor = '#43512A',
+  text = 'more',
+  className = '',
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class={`more-button ${className}`}
+  style={`--text-color: ${textColor}; --hover-color: ${hoverColor}; --arrow-color: ${arrowColor};`}
+>
+  <span class="more-button__text">{text}</span>
+  <span class="more-button__icon">
+    <svg
+      class="more-button__arrow"
+      xmlns="http://www.w3.org/2000/svg"
+      width="12"
+      height="22"
+      viewBox="0 0 12 22"
+      fill="none"
+    >
+      <path
+        class="more-button__arrow-path"
+        d="M1 21L11 11L1 1"
+        stroke={arrowColor}
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+      </path>
+    </svg>
+  </span>
+</a>
+
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../../styles/variables';
+  @import '../../styles/functions';
+  @import '../../styles/mixins';
+
+  .more-button {
+    display: flex;
+    align-items: center;
+    gap: spx(20);
+    width: max-content;
+    text-decoration: none;
+
+    @include tablet-up {
+      gap: ppx(20) * 1.2;
+    }
+    @include desktop-up {
+      gap: ppx(20);
+    }
+
+    // ホバーエフェクト
+    @include hover {
+      &:hover {
+        .more-button__text {
+          color: var(--hover-color);
+        }
+
+        .more-button__arrow-path {
+          stroke: var(--hover-color);
+        }
+      }
+    }
+
+    &__text {
+      color: var(--text-color);
+      font-size: spx(33);
+      line-height: 1;
+      letter-spacing: spx(1.65);
+      transition: color 0.3s ease;
+
+      @include tablet-up {
+        font-size: ppx(33) * 1.2;
+        letter-spacing: ppx(1.65) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(1.65);
+      }
+    }
+
+    &__icon {
+      // アイコンコンテナ（必要に応じてスタイル追加）
+    }
+
+    &__arrow {
+      display: block;
+      width: spx(10);
+      height: spx(20);
+      transform: translateY(spx(4));
+
+      @include tablet-up {
+        width: ppx(10) * 1.2;
+        height: ppx(20) * 1.2;
+        transform: translateY(ppx(3));
+      }
+      @include desktop-up {
+        width: ppx(10);
+        height: ppx(20);
+        transform: translateY(ppx(4));
+      }
+    }
+
+    &__arrow-path {
+      transition: stroke 0.3s ease;
+    }
+  }
+</style>

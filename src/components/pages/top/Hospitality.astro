@@ -5,6 +5,7 @@ import foodImage from '../../../assets/images/top/hospitality/food.png';
 import OnsenImage from '../../../assets/images/top/hospitality/onsen.png';
 import leaf1Url from '../../../assets/images/top/hospitality/leaf-1.svg?url';
 import leaf2Url from '../../../assets/images/top/hospitality/leaf-2.svg?url';
+import MoreButton from '../../ui/MoreButton.astro';
 
 const Room = await getImage({
   src: RoomImage,
@@ -45,27 +46,14 @@ const Onsen = await getImage({
           <img src={Room.src} alt="お部屋の画像" class="hospitality__img" />
         </picture>
       </div>
-      <a href="#" class="hospitality__link">
-        <span class="hospitality__link-text">more</span>
-        <span class="hospitality__link-icon">
-          <svg
-            class="hospitality__arrow"
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="22"
-            viewBox="0 0 12 22"
-            fill="none"
-          >
-            <path
-              class="hospitality__arrow-path"
-              d="M1 21L11 11L1 1"
-              stroke="#43512A"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"></path>
-          </svg>
-        </span>
-      </a>
+      <div class="hospitality__link">
+        <MoreButton
+          href="#"
+          textColor="var(--green_3, #43512a)"
+          hoverColor="var(--green_2, #adc400)"
+          arrowColor="#43512A"
+        />
+      </div>
     </div>
   </article>
 
@@ -95,27 +83,14 @@ const Onsen = await getImage({
           class="hospitality__leaf hospitality__leaf--1"
         />
       </div>
-      <a href="#" class="hospitality__link">
-        <span class="hospitality__link-text">more</span>
-        <span class="hospitality__link-icon">
-          <svg
-            class="hospitality__arrow"
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="22"
-            viewBox="0 0 12 22"
-            fill="none"
-          >
-            <path
-              class="hospitality__arrow-path"
-              d="M1 21L11 11L1 1"
-              stroke="#43512A"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"></path>
-          </svg>
-        </span>
-      </a>
+      <div class="hospitality__link">
+        <MoreButton
+          href="#"
+          textColor="var(--green_3, #43512a)"
+          hoverColor="var(--green_2, #adc400)"
+          arrowColor="#43512A"
+        />
+      </div>
     </div>
   </article>
 
@@ -148,27 +123,14 @@ const Onsen = await getImage({
           class="hospitality__leaf hospitality__leaf--2"
         />
       </div>
-      <a href="#" class="hospitality__link">
-        <span class="hospitality__link-text">more</span>
-        <span class="hospitality__link-icon">
-          <svg
-            class="hospitality__arrow"
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="22"
-            viewBox="0 0 12 22"
-            fill="none"
-          >
-            <path
-              class="hospitality__arrow-path"
-              d="M1 21L11 11L1 1"
-              stroke="#43512A"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"></path>
-          </svg>
-        </span>
-      </a>
+      <div class="hospitality__link">
+        <MoreButton
+          href="#"
+          textColor="var(--green_3, #43512a)"
+          hoverColor="var(--green_2, #adc400)"
+          arrowColor="#43512A"
+        />
+      </div>
     </div>
   </article>
 </section>
@@ -217,8 +179,13 @@ const Onsen = await getImage({
           }
         }
         .hospitality__link {
+          display: flex;
+          justify-content: center;
           @include tablet-up {
+            display: block;
+            width: max-content;
             margin-right: 6vw;
+            margin-left: auto;
           }
           @include desktop-up {
             margin-right: ppx(285);
@@ -273,8 +240,12 @@ const Onsen = await getImage({
           }
         }
         .hospitality__link {
+          display: flex;
+          justify-content: center;
           @include tablet-up {
+            width: max-content;
             margin-left: 33vw;
+            display: block;
           }
           @include desktop-up {
             margin-left: ppx(861);
@@ -333,8 +304,13 @@ const Onsen = await getImage({
           }
         }
         .hospitality__link {
+          display: flex;
+          justify-content: center;
           @include tablet-up {
+            width: max-content;
             margin-right: 6vw;
+            margin-left: auto;
+            display: block;
           }
           @include desktop-up {
             margin-right: ppx(285);
@@ -488,74 +464,7 @@ const Onsen = await getImage({
     }
 
     &__link {
-      display: flex;
-      align-items: center;
-      gap: spx(20);
-      justify-content: center;
-
-      width: max-content;
-      margin-inline: auto;
-      text-decoration: none;
-      @include tablet-up {
-        gap: ppx(20) * 1.2;
-        justify-content: unset;
-      }
-      @include desktop-up {
-        gap: ppx(20);
-      }
-
-      // ホバーエフェクト
-      @include hover {
-        &:hover {
-          .hospitality__link-text {
-            color: var(--green_2, #adc400);
-          }
-
-          .hospitality__arrow-path {
-            stroke: var(--green_2, #adc400);
-          }
-        }
-      }
-    }
-
-    &__link-text {
-      color: var(--green_3, #43512a);
-      font-size: spx(33);
-      line-height: 1;
-      letter-spacing: spx(1.65);
-      transition: color 0.3s ease;
-      @include tablet-up {
-        font-size: ppx(33) * 1.2;
-        letter-spacing: ppx(1.65) * 1.2;
-      }
-      @include desktop-up {
-        font-size: ppx(33);
-        letter-spacing: ppx(1.65);
-      }
-    }
-
-    &__link-icon {
-    }
-
-    &__arrow {
-      display: block;
-      width: spx(10);
-      height: spx(20);
-      transform: translateY(spx(4));
-      @include tablet-up {
-        width: ppx(10) * 1.2;
-        height: ppx(20) * 1.2;
-        transform: translateY(ppx(3));
-      }
-      @include desktop-up {
-        width: ppx(10);
-        height: ppx(20);
-        transform: translateY(ppx(4));
-      }
-    }
-
-    &__arrow-path {
-      transition: stroke 0.3s ease;
+      // MoreButtonコンポーネントの位置調整用コンテナ
     }
   }
 </style>
