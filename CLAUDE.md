@@ -44,11 +44,29 @@ npm run astro -- --help
 ├── src/
 │   ├── assets/      # 画像などのアセット
 │   │   └── images/  # 画像ファイル
+│   │       ├── top/ # TOPページ専用画像
+│   │       │   ├── hero/         # ヒーローセクション
+│   │       │   ├── location/     # ロケーションセクション
+│   │       │   ├── activities/   # アクティビティセクション
+│   │       │   ├── enjoy/        # エンジョイセクション
+│   │       │   └── hospitality/  # ホスピタリティセクション
 │   ├── components/  # Astroコンポーネント
-│   │   ├── BottomBar.astro   # スマホ用下部固定バー
-│   │   ├── Footer.astro      # フッターコンポーネント
-│   │   ├── MenuOverlay.astro # メニューオーバーレイ
-│   │   └── Sidebar.astro     # PC用サイドバー
+│   │   ├── ui/      # 再利用可能UIコンポーネント
+│   │   │   └── MoreButton.astro  # 共通Moreボタンコンポーネント
+│   │   ├── pages/   # ページ固有コンポーネント
+│   │   │   └── top/ # TOPページコンポーネント
+│   │   │       ├── Hero.astro        # ヒーローセクション
+│   │   │       ├── Location.astro    # ロケーションセクション
+│   │   │       ├── Activities.astro  # アクティビティセクション
+│   │   │       ├── Enjoy.astro       # エンジョイセクション
+│   │   │       ├── Hospitality.astro # ホスピタリティセクション
+│   │   │       └── News.astro        # ニュースセクション
+│   │   ├── BottomBar.astro       # スマホ用下部固定バー
+│   │   ├── Footer.astro          # フッターコンポーネント
+│   │   ├── MenuOverlay.astro     # メニューオーバーレイ
+│   │   ├── Sidebar.astro         # PC用サイドバー
+│   │   ├── VideoModal.astro      # 動画モーダル
+│   │   └── Booking-modal.astro   # 宿泊予約モーダル
 │   ├── pages/       # ページコンポーネント（ファイルベースルーティング）
 │   │   └── index.astro
 │   └── styles/      # SCSSファイル
@@ -74,10 +92,27 @@ npm run astro -- --help
 このプロジェクトでは、**Astroらしいコンポーネント分割**を採用しています：
 
 #### 1. コンポーネントの責務分離
+
+**レイアウト・ナビゲーション:**
 - **Sidebar**: PC用固定サイドバー（ロゴ、メニューボタン、ソーシャルリンク）
 - **BottomBar**: スマホ用下部固定バー（メニューボタンとアクション）
 - **MenuOverlay**: 全画面メニューオーバーレイ（PC・スマホ共通）
 - **Footer**: ページフッター（連絡先、パートナーロゴ、コピーライト）
+
+**モーダル:**
+- **VideoModal**: 動画再生用モーダル
+- **BookingModal**: 宿泊予約サイト選択モーダル
+
+**TOPページセクション:**
+- **Hero**: ヒーローセクション（動画・画像スライダー）
+- **Location**: ロケーション紹介セクション
+- **Activities**: アクティビティ紹介セクション（Swiperスライダー）
+- **Enjoy**: おすすめの過ごし方セクション
+- **Hospitality**: ホスピタリティセクション（Room・Food・Onsen）
+- **News**: お知らせ・イベント情報セクション
+
+**共通UIコンポーネント:**
+- **MoreButton**: 再利用可能なMoreボタンコンポーネント
 
 #### 2. JavaScript管理の中央集権化
 ```astro
@@ -556,13 +591,39 @@ document.addEventListener('DOMContentLoaded', () => {
 ✅ **レイアウトシステム**: CSS Grid + 固定要素ハイブリッド設計完了  
 ✅ **メニューシステム**: PC・スマホ統一メニュー制御完了  
 ✅ **スタイル管理**: BEM記法 + SCSS ミックスイン活用完了  
+✅ **モーダルシステム**: VideoModal・BookingModal実装完了
+✅ **Swiperシステム**: Hero・Activitiesセクションでの独立実装完了
+✅ **TOPページセクション**: 全6セクション（Hero・Location・Activities・Enjoy・Hospitality・News）実装完了
+✅ **MoreButtonコンポーネント**: 再利用可能UIコンポーネント実装・各セクションで活用中
+✅ **ホバーエフェクト**: Activities・Enjoy・Hospitalityで統一されたホバー演出実装完了
+✅ **レスポンシブ画像**: 全セクションでAstro getImage() + WebP最適化完了
+✅ **セマンティックHTML**: 適切なHTML要素・構造でアクセシビリティ対応完了
 
 ### 現在のコンポーネント構成
-- **index.astro**: メインページ（JavaScript中央管理、レイアウト定義）
+
+**メインページ:**
+- **index.astro**: メインページ（JavaScript中央管理、レイアウト定義、全セクション統合）
+
+**レイアウト・ナビゲーション:**
 - **Sidebar.astro**: PC用固定サイドバー
-- **BottomBar.astro**: スマホ用下部固定バー
+- **BottomBar.astro**: スマホ用下部固定バー（スクロール連動表示制御付き）
 - **MenuOverlay.astro**: 全画面メニューオーバーレイ
 - **Footer.astro**: ページフッター
+
+**モーダル:**
+- **VideoModal.astro**: 動画再生用モーダル
+- **BookingModal.astro**: 宿泊予約サイト選択モーダル
+
+**TOPページセクション（実装順）:**
+1. **Hero.astro**: ヒーローセクション（Swiper fadeエフェクト、動画サムネイル）
+2. **Location.astro**: ロケーション紹介セクション（レスポンシブ画像、縦書きテキスト）
+3. **Activities.astro**: アクティビティ紹介セクション（Swiper横スライド、ページネーション、ホバーエフェクト）
+4. **Enjoy.astro**: おすすめの過ごし方セクション（5つのカード、ホバーエフェクト、装飾画像）
+5. **Hospitality.astro**: ホスピタリティセクション（Room・Food・Onsen、装飾リーフ、レスポンシブレイアウト）
+6. **News.astro**: お知らせ・イベント情報セクション（Information・Event、セマンティックHTML）
+
+**共通UIコンポーネント:**
+- **MoreButton.astro**: 再利用可能Moreボタン（Props対応、カスタマイズ可能）
 
 ### 技術的特徴
 - **Astroらしい設計**: サーバーサイドレンダリング中心、最小限のクライアントJS
@@ -575,6 +636,12 @@ document.addEventListener('DOMContentLoaded', () => {
 2. **スタイル**: 各コンポーネント内でSCSS完結、必要な関数・ミックスインをインポート
 3. **レイアウト**: サイドバー等の固定要素はグリッドエリアに含めない
 4. **クラス命名**: BEM記法を厳守（`.block__element--modifier`）
+5. **Swiper実装**: 必ず名前空間による独立化を行う（`{page}-{section}__swiper`）
+6. **画像最適化**: Astro getImage()でWebP変換・複数解像度対応
+7. **ホバーエフェクト**: `@include hover`で対応デバイス限定・統一トランジション
+8. **セマンティックHTML**: `<time>`, `<article>`, `<header>`等を適切に使用
+9. **再利用コンポーネント**: 共通UI要素（MoreButton等）は`ui/`ディレクトリに配置
+10. **レスポンシブ設計**: spx/ppx/tpx関数でデバイス別最適化
 
 ## モーダルシステムの実装
 
@@ -796,3 +863,80 @@ if (bottomBar && isTopPage) {
 - **スマートな制御**: トップページでのみ動作、他ページは常時表示
 - **ユーザビリティ**: 自然なスクロール連動でアクセスしやすさ向上
 - **パフォーマンス**: 最小限のJavaScript実行でバッテリー効率化
+
+## 再利用可能UIコンポーネント
+
+### MoreButtonコンポーネント
+
+プロジェクト内で統一された「もっと見る」ボタンを提供する再利用可能コンポーネントです。
+
+#### ファイル場所
+`src/components/ui/MoreButton.astro`
+
+#### Props Interface
+```typescript
+export interface Props {
+  href: string;              // リンク先URL
+  textColor?: string;        // テキスト色（CSS変数）
+  hoverColor?: string;       // ホバー色（CSS変数）
+  arrowColor?: string;       // 矢印色（stroke値）
+  text?: string;             // ボタンテキスト（デフォルト: "more"）
+  className?: string;        // 追加CSSクラス
+}
+```
+
+#### 使用例
+```astro
+<!-- 基本的な使用（緑系） -->
+<MoreButton 
+  href="#"
+  textColor="var(--green_3, #43512a)"
+  hoverColor="var(--green_2, #adc400)"
+  arrowColor="#43512A"
+/>
+
+<!-- 青系バリエーション -->
+<MoreButton 
+  href="/news"
+  textColor="var(--blue_5, #026995)"
+  hoverColor="var(--blue_4, #59a1c0)"
+  arrowColor="#026995"
+  text="ニュース一覧へ"
+/>
+
+<!-- 位置調整用コンテナとの組み合わせ -->
+<div class="section__more-link">
+  <MoreButton href="#" ... />
+</div>
+```
+
+#### デザイン特徴
+- **レスポンシブ対応**: spx/ppx関数による自動サイズ調整
+- **ホバーエフェクト**: テキストと矢印が同時に色変化（0.3s ease）
+- **アクセシビリティ**: セマンティックなHTML構造
+- **カスタマイズ性**: 色・テキスト・リンク先を自由に設定
+
+#### 実装済み使用箇所
+- **Activities.astro**: `top-activities__more-link`コンテナ内
+- **Hospitality.astro**: `hospitality__link`コンテナ内
+- **News.astro**: `news__more`コンテナ内
+
+#### 実装パターン
+```astro
+<!-- コンテナクラスで位置調整 -->
+<div class="component__more-link">
+  <MoreButton ... />
+</div>
+
+<!-- SCSS側でコンテナをレイアウト -->
+.component {
+  &__more-link {
+    // 位置調整、マージン設定等
+    display: flex;
+    justify-content: center;
+    @include tablet-up {
+      margin-left: auto;
+    }
+  }
+}
+```
