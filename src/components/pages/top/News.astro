@@ -16,7 +16,9 @@ import MoreButton from '../../ui/MoreButton.astro';
             <a href="#" class="news__link">
               <article class="news__article">
                 <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">ホームページをリニューアルいたしました。</p>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
               </article>
             </a>
           </li>
@@ -24,7 +26,9 @@ import MoreButton from '../../ui/MoreButton.astro';
             <a href="#" class="news__link">
               <article class="news__article">
                 <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">ホームページをリニューアルいたしました。</p>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
               </article>
             </a>
           </li>
@@ -32,7 +36,9 @@ import MoreButton from '../../ui/MoreButton.astro';
             <a href="#" class="news__link">
               <article class="news__article">
                 <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">ホームページをリニューアルいたしました。</p>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
               </article>
             </a>
           </li>
@@ -40,7 +46,9 @@ import MoreButton from '../../ui/MoreButton.astro';
             <a href="#" class="news__link">
               <article class="news__article">
                 <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">ホームページをリニューアルいたしました。</p>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
               </article>
             </a>
           </li>
@@ -68,7 +76,9 @@ import MoreButton from '../../ui/MoreButton.astro';
             <a href="#" class="news__link">
               <article class="news__article">
                 <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">ホームページをリニューアルいたしました。</p>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
               </article>
             </a>
           </li>
@@ -76,7 +86,9 @@ import MoreButton from '../../ui/MoreButton.astro';
             <a href="#" class="news__link">
               <article class="news__article">
                 <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">ホームページをリニューアルいたしました。</p>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
               </article>
             </a>
           </li>
@@ -84,7 +96,9 @@ import MoreButton from '../../ui/MoreButton.astro';
             <a href="#" class="news__link">
               <article class="news__article">
                 <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">ホームページをリニューアルいたしました。</p>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
               </article>
             </a>
           </li>
@@ -92,7 +106,9 @@ import MoreButton from '../../ui/MoreButton.astro';
             <a href="#" class="news__link">
               <article class="news__article">
                 <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">ホームページをリニューアルいたしました。</p>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
               </article>
             </a>
           </li>
@@ -118,48 +134,108 @@ import MoreButton from '../../ui/MoreButton.astro';
 
   /* ニュースセクション */
   .news {
-    
+    background: var(--green_1, #e2ecc4);
     &__container {
     }
-    
+
     &__section {
       &--information {
+        .news__title {
+          color: var(--green_2, #adc400);
+        }
       }
       &--event {
+        .news__title {
+          color: var(--blue_4, #59a1c0);
+        }
       }
     }
-    
+
     &__header {
     }
-    
+
     &__title {
+      font-size: spx(48);
+      font-weight: 900;
+      line-height: 70.833%;
+      letter-spacing: spx(3.36);
+      @include tablet-up {
+        font-size: ppx(34) * 1.2;
+        letter-spacing: ppx(2.38) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        letter-spacing: ppx(2.38);
+      }
     }
-    
+
     &__subtitle {
+      color: var(--green_3, #43512a);
+      font-size: spx(27);
+      line-height: 122.222%;
+      @include tablet-up {
+        font-size: ppx(33) * 1.2;
+        line-height: 100%;
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+      }
     }
-    
+
     &__content {
     }
-    
+
     &__list {
     }
-    
+
     &__item {
     }
-    
+
     &__link {
     }
-    
+
     &__article {
+      display: grid;
+      grid-template-columns: max-content auto;
+      gap: 0.5em;
+      @include tablet-up {
+        gap: ppx(40) * 1.2;
+      }
+      @include desktop-up {
+        gap: ppx(40);
+      }
     }
-    
+
     &__date {
+      color: var(--green_3, #43512a);
+      font-size: spx(27);
+      line-height: 165%;
+      letter-spacing: spx(1.35);
+      @include tablet-up {
+        font-size: ppx(27) * 1.2;
+        line-height: 150%;
+        letter-spacing: ppx(1.62) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+        letter-spacing: ppx(1.62);
+      }
     }
-    
+
     &__text {
+      color: var(--green_3, #43512a);
+      font-size: spx(29);
+      line-height: 150%;
+      @include tablet-up {
+        font-size: ppx(27) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+      }
     }
-    
+
     &__more {
+      width: max-content;
     }
   }
 </style>
