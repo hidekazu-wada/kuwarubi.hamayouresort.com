@@ -476,6 +476,12 @@ const BlogSlide4 = await getImage({
             // タイトルリンク要素に対して
             color: var(--green_2, #adc400); // 文字色を緑色に変更
           }
+
+          .top-blog__date-month,
+          .top-blog__date-day {
+            // 日付要素（月・日）に対して
+            color: var(--green_2, #adc400); // 文字色を緑色に変更
+          }
         }
       }
     }
@@ -565,6 +571,7 @@ const BlogSlide4 = await getImage({
       font-size: spx(22);
       line-height: 100%;
       letter-spacing: spx(0.44);
+      transition: color 0.3s ease; // ホバー時の色変化にトランジション効果を追加
       @include tablet-up {
         font-size: ppx(22) * 1.2;
         letter-spacing: ppx(1.1) * 1.2;
@@ -579,6 +586,7 @@ const BlogSlide4 = await getImage({
       color: var(--blue_6, #054965);
       font-size: spx(71);
       line-height: 100%;
+      transition: color 0.3s ease; // ホバー時の色変化にトランジション効果を追加
       @include tablet-up {
         font-size: ppx(71) * 1.2;
         letter-spacing: ppx(3.55) * 1.2;
