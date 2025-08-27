@@ -43,9 +43,7 @@ const locationImg2 = await getImage({
       <span class="location__description-line"
         >西湖は富士五湖の中でも特別な存在で、</span
       >
-      <span class="location__description-line"
-        >自然のままの美しさを保ち、</span
-      >
+      <span class="location__description-line">自然のままの美しさを保ち、</span>
       <span class="location__description-line"
         >富士山の構成資産としても認定されています。</span
       >
@@ -55,9 +53,7 @@ const locationImg2 = await getImage({
       <span class="location__description-line"
         >クニマスが生息する日本で唯一の湖です。</span
       >
-      <span class="location__description-line"
-        >開発が進んでいないため、</span
-      >
+      <span class="location__description-line">開発が進んでいないため、</span>
       <span class="location__description-line"
         >自然のグラデーションが際立ち、</span
       >
@@ -92,6 +88,8 @@ const locationImg2 = await getImage({
   /* ロケーションセクション */
   .location {
     padding-top: spx(140);
+    position: relative;
+    z-index: 3;
     @include tablet-up {
       padding-top: ppx(226) * 1.2;
     }
