@@ -2,6 +2,7 @@
 import { getImage } from 'astro:assets';
 import LocationImg1 from '../../../assets/images/top/location/img1.png';
 import LocationImg2 from '../../../assets/images/top/location/img2.png';
+import ParallaxImage from '../../../assets/images/top/parallax/parallax.png';
 
 const locationImg1 = await getImage({
   src: LocationImg1,
@@ -12,6 +13,11 @@ const locationImg2 = await getImage({
   src: LocationImg2,
   format: 'webp',
   widths: [546, 750, 867], // スマホ、タブレット、デスクトップ
+});
+const Parallax = await getImage({
+  src: ParallaxImage,
+  format: 'webp',
+  widths: [720, 2316],
 });
 ---
 
@@ -77,6 +83,15 @@ const locationImg2 = await getImage({
       <img src={locationImg2.src} alt="樹海の美しい風景" />
     </picture>
   </div>
+
+  <!-- パララックス画像 -->
+  <div class="parallax-image">
+    <picture>
+      <source media="(min-width: 1024px)" srcset={Parallax.srcSet.toString()} />
+      <source media="(min-width: 744px)" srcset={Parallax.srcSet.toString()} />
+      <img src={Parallax.src} alt="湖畔のイラスト" />
+    </picture>
+  </div>
 </section>
 
 <style lang="scss">
@@ -97,6 +112,8 @@ const locationImg2 = await getImage({
       padding-top: ppx(226);
     }
     &__header {
+      position: relative;
+      z-index: 2;
     }
 
     &__title {
@@ -178,6 +195,7 @@ const locationImg2 = await getImage({
 
     &__content {
       position: relative;
+      z-index: 2;
       margin-top: spx(90);
       @include tablet-up {
         margin-top: 3vw;
@@ -270,4 +288,93 @@ const locationImg2 = await getImage({
       display: block;
     }
   }
+  /* パララックス画像 */
+  .parallax-image {
+    position: absolute; // レイアウトフローから除外
+    top: 0; // main-contentの最上部から
+    left: 0;
+    width: 100%;
+    z-index: 1; // Locationより背景に
+    pointer-events: none; // クリック無効化（背景として）
+    img {
+      width: 100%;
+      height: 100svh;
+      object-fit: cover;
+    }
+  }
 </style>
+
+<script>
+  // GSAP ScrollTrigger 初期化
+  const initScrollTrigger = async () => {
+    try {
+      // GSAPライブラリを動的インポート
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+
+      // ScrollTriggerプラグインを登録
+      gsap.registerPlugin(ScrollTrigger);
+
+      // パララックス要素を取得（シンプル構造対応）
+      const parallaxImage = document.querySelector('.parallax-image');
+      const activitiesSection = document.querySelector('.activities');
+
+      if (parallaxImage && activitiesSection) {
+        console.log('GSAP ScrollTrigger 初期化完了');
+        console.log('パララックス要素を検出:', {
+          parallaxImage,
+          activitiesSection,
+        });
+
+        // パララックス画像の固定制御とGSAP fromTo透明度アニメーション
+        gsap.fromTo(parallaxImage, 
+          {
+            // 開始状態
+            opacity: 1
+          },
+          {
+            // 終了状態
+            opacity: 0,
+            ease: "none", // リニアなアニメーション
+            scrollTrigger: {
+              trigger: document.querySelector('.location'), // トリガー：Locationセクション
+              start: 'top top', // 開始：Location上端が画面上端に到達
+              endTrigger: activitiesSection, // 終了トリガー：Activitiesセクション
+              end: 'bottom bottom', // 終了：Activities下端が画面下端に到達
+              pin: parallaxImage, // 固定する要素：パララックス画像
+              pinSpacing: false, // 固定時に余分なスペースを作らない
+              markers: true, // 開発用マーカー表示
+              scrub: true, // スクロールに完全同期
+              onUpdate: (self) => {
+                console.log('スクロール進捗:', self.progress);
+                console.log('パララックス画像透明度:', (1 - self.progress).toFixed(2));
+              },
+              onToggle: (self) => {
+                if (self.isActive) {
+                  console.log('パララックス画像が固定されました（fromTo透明化開始）');
+                } else {
+                  console.log('パララックス画像の固定が解除されました（fromTo範囲外）');
+                }
+              },
+              onEnter: () => {
+                console.log('fromTo透明化範囲に入りました');
+              },
+              onLeave: () => {
+                console.log('fromTo透明化範囲から出ました');
+              }
+            }
+          }
+        );
+      } else {
+        console.warn('パララックス要素が見つかりません');
+      }
+
+      return { gsap, ScrollTrigger };
+    } catch (error) {
+      console.error('GSAP ScrollTrigger の初期化に失敗:', error);
+    }
+  };
+
+  // ScrollTrigger初期化を実行
+  initScrollTrigger();
+</script>

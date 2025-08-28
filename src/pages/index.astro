@@ -14,16 +14,6 @@ import Enjoy from '../components/pages/top/Enjoy.astro';
 import Hospitality from '../components/pages/top/Hospitality.astro';
 import News from '../components/pages/top/News.astro';
 import Blog from '../components/pages/top/Blog.astro';
-
-// 画像
-import { getImage } from 'astro:assets';
-import ParallaxImage from '../assets/images/top/parallax/parallax.png';
-
-const Parallax = await getImage({
-  src: ParallaxImage,
-  format: 'webp',
-  widths: [720, 2316],
-});
 ---
 
 <html lang="ja">
@@ -58,27 +48,10 @@ const Parallax = await getImage({
       <main class="main-content">
         <!-- ヒーローセクション -->
         <Hero />
-        <!-- パララックスラッパー -->
-        <div class="parallax-wrapper">
-          <!-- ロケーションセクション -->
-          <Location />
-          <!-- アクティビティーズセクション -->
-          <Activities />
-          <!-- パララックス画像 -->
-          <div class="parallax-image">
-            <picture>
-              <source
-                media="(min-width: 1024px)"
-                srcset={Parallax.srcSet.toString()}
-              />
-              <source
-                media="(min-width: 744px)"
-                srcset={Parallax.srcSet.toString()}
-              />
-              <img src={Parallax.src} alt="湖畔のイラスト" />
-            </picture>
-          </div>
-        </div>
+        <!-- ロケーションセクション -->
+        <Location />
+        <!-- アクティビティーズセクション -->
+        <Activities />
         <!-- エンジョイセクション -->
         <Enjoy />
         <!-- ホスピタリティセクション -->
@@ -352,28 +325,6 @@ const Parallax = await getImage({
     .main-content {
       grid-area: main;
       position: relative;
-    }
-
-    // パララックス効果用ラッパー
-    .parallax-wrapper {
-      background: var(
-        --gradation_1,
-        linear-gradient(180deg, #e7f3f9 0%, #fff 100%)
-      );
-      position: relative;
-      z-index: 1;
-      .parallax-image {
-        position: absolute;
-        z-index: 2;
-        top: 0;
-        left: 0;
-        mix-blend-mode: color-burn;
-        img {
-          width: 100%;
-          height: auto;
-          object-fit: cover;
-        }
-      }
     }
   </style>
 </html>
