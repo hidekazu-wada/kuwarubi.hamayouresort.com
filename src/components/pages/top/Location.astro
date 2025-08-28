@@ -294,11 +294,12 @@ const Parallax = await getImage({
     top: 0; // main-contentの最上部から
     left: 0;
     width: 100%;
+    height: 100svh;
     z-index: 1; // Locationより背景に
     pointer-events: none; // クリック無効化（背景として）
     img {
       width: 100%;
-      height: 100svh;
+      height: 100%;
       object-fit: cover;
     }
   }
@@ -327,15 +328,16 @@ const Parallax = await getImage({
         });
 
         // パララックス画像の固定制御とGSAP fromTo透明度アニメーション
-        gsap.fromTo(parallaxImage, 
+        gsap.fromTo(
+          parallaxImage,
           {
             // 開始状態
-            opacity: 1
+            opacity: 1,
           },
           {
             // 終了状態
             opacity: 0,
-            ease: "none", // リニアなアニメーション
+            ease: 'none', // リニアなアニメーション
             scrollTrigger: {
               trigger: document.querySelector('.location'), // トリガー：Locationセクション
               start: 'top top', // 開始：Location上端が画面上端に到達
@@ -343,17 +345,24 @@ const Parallax = await getImage({
               end: 'bottom bottom', // 終了：Activities下端が画面下端に到達
               pin: parallaxImage, // 固定する要素：パララックス画像
               pinSpacing: false, // 固定時に余分なスペースを作らない
-              markers: true, // 開発用マーカー表示
+              //markers: true, // 開発用マーカー表示
               scrub: true, // スクロールに完全同期
               onUpdate: (self) => {
                 console.log('スクロール進捗:', self.progress);
-                console.log('パララックス画像透明度:', (1 - self.progress).toFixed(2));
+                console.log(
+                  'パララックス画像透明度:',
+                  (1 - self.progress).toFixed(2)
+                );
               },
               onToggle: (self) => {
                 if (self.isActive) {
-                  console.log('パララックス画像が固定されました（fromTo透明化開始）');
+                  console.log(
+                    'パララックス画像が固定されました（fromTo透明化開始）'
+                  );
                 } else {
-                  console.log('パララックス画像の固定が解除されました（fromTo範囲外）');
+                  console.log(
+                    'パララックス画像の固定が解除されました（fromTo範囲外）'
+                  );
                 }
               },
               onEnter: () => {
@@ -361,8 +370,8 @@ const Parallax = await getImage({
               },
               onLeave: () => {
                 console.log('fromTo透明化範囲から出ました');
-              }
-            }
+              },
+            },
           }
         );
       } else {
