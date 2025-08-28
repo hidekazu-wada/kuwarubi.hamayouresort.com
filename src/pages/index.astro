@@ -316,6 +316,48 @@ const Parallax = await getImage({
             mobileMenuClose.addEventListener('click', closeMenu);
           }
         }
+
+        // GSAP ScrollTrigger 初期化
+        const initScrollTrigger = async () => {
+          try {
+            // GSAPライブラリを動的インポート
+            const { gsap } = await import('gsap');
+            const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+
+            // ScrollTriggerプラグインを登録
+            gsap.registerPlugin(ScrollTrigger);
+
+            // パララックス要素を取得
+            const parallaxWrapper = document.querySelector('.parallax-wrapper');
+            const parallaxImage = document.querySelector('.parallax-image');
+            
+            if (parallaxWrapper && parallaxImage) {
+              console.log('GSAP ScrollTrigger 初期化完了');
+              console.log('パララックス要素を検出:', { parallaxWrapper, parallaxImage });
+              
+              // 開発用マーカーを有効にしたScrollTriggerの基本設定
+              ScrollTrigger.create({
+                trigger: parallaxWrapper,        // スクロール監視の基準となる要素（.parallax-wrapper）
+                start: "top bottom",             // トリガー開始：要素の上端が画面下端に到達した時
+                end: "bottom top",               // トリガー終了：要素の下端が画面上端に到達した時
+                markers: true,                   // 開発用のマーカー（緑・赤の線とラベル）を画面に表示
+                onUpdate: self => {              // スクロール中に実行される関数
+                  console.log('スクロール進捗:', self.progress); // 進捗度（0〜1）をコンソール出力
+                }
+              });
+              
+            } else {
+              console.warn('パララックス要素が見つかりません');
+            }
+
+            return { gsap, ScrollTrigger };
+          } catch (error) {
+            console.error('GSAP ScrollTrigger の初期化に失敗:', error);
+          }
+        };
+
+        // ScrollTrigger初期化を実行
+        initScrollTrigger();
       });
     </script>
   </body>
