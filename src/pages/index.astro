@@ -14,16 +14,6 @@ import Enjoy from '../components/pages/top/Enjoy.astro';
 import Hospitality from '../components/pages/top/Hospitality.astro';
 import News from '../components/pages/top/News.astro';
 import Blog from '../components/pages/top/Blog.astro';
-
-// 画像
-import { getImage } from 'astro:assets';
-import ParallaxImage from '../assets/images/top/parallax/parallax.png';
-
-const Parallax = await getImage({
-  src: ParallaxImage,
-  format: 'webp',
-  widths: [720, 2316],
-});
 ---
 
 <html lang="ja">
@@ -58,27 +48,10 @@ const Parallax = await getImage({
       <main class="main-content">
         <!-- ヒーローセクション -->
         <Hero />
-        <!-- パララックスラッパー -->
-        <div class="parallax-wrapper">
-          <!-- ロケーションセクション -->
-          <Location />
-          <!-- アクティビティーズセクション -->
-          <Activities />
-          <!-- パララックス画像 -->
-          <div class="parallax-image">
-            <picture>
-              <source
-                media="(min-width: 1024px)"
-                srcset={Parallax.srcSet.toString()}
-              />
-              <source
-                media="(min-width: 744px)"
-                srcset={Parallax.srcSet.toString()}
-              />
-              <img src={Parallax.src} alt="湖畔のイラスト" />
-            </picture>
-          </div>
-        </div>
+        <!-- ロケーションセクション -->
+        <Location />
+        <!-- アクティビティーズセクション -->
+        <Activities />
         <!-- エンジョイセクション -->
         <Enjoy />
         <!-- ホスピタリティセクション -->
@@ -316,48 +289,6 @@ const Parallax = await getImage({
             mobileMenuClose.addEventListener('click', closeMenu);
           }
         }
-
-        // GSAP ScrollTrigger 初期化
-        const initScrollTrigger = async () => {
-          try {
-            // GSAPライブラリを動的インポート
-            const { gsap } = await import('gsap');
-            const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-
-            // ScrollTriggerプラグインを登録
-            gsap.registerPlugin(ScrollTrigger);
-
-            // パララックス要素を取得
-            const parallaxWrapper = document.querySelector('.parallax-wrapper');
-            const parallaxImage = document.querySelector('.parallax-image');
-            
-            if (parallaxWrapper && parallaxImage) {
-              console.log('GSAP ScrollTrigger 初期化完了');
-              console.log('パララックス要素を検出:', { parallaxWrapper, parallaxImage });
-              
-              // 開発用マーカーを有効にしたScrollTriggerの基本設定
-              ScrollTrigger.create({
-                trigger: parallaxWrapper,        // スクロール監視の基準となる要素（.parallax-wrapper）
-                start: "top bottom",             // トリガー開始：要素の上端が画面下端に到達した時
-                end: "bottom top",               // トリガー終了：要素の下端が画面上端に到達した時
-                markers: true,                   // 開発用のマーカー（緑・赤の線とラベル）を画面に表示
-                onUpdate: self => {              // スクロール中に実行される関数
-                  console.log('スクロール進捗:', self.progress); // 進捗度（0〜1）をコンソール出力
-                }
-              });
-              
-            } else {
-              console.warn('パララックス要素が見つかりません');
-            }
-
-            return { gsap, ScrollTrigger };
-          } catch (error) {
-            console.error('GSAP ScrollTrigger の初期化に失敗:', error);
-          }
-        };
-
-        // ScrollTrigger初期化を実行
-        initScrollTrigger();
       });
     </script>
   </body>
@@ -394,28 +325,6 @@ const Parallax = await getImage({
     .main-content {
       grid-area: main;
       position: relative;
-    }
-
-    // パララックス効果用ラッパー
-    .parallax-wrapper {
-      background: var(
-        --gradation_1,
-        linear-gradient(180deg, #e7f3f9 0%, #fff 100%)
-      );
-      position: relative;
-      z-index: 1;
-      .parallax-image {
-        position: absolute;
-        z-index: 2;
-        top: 0;
-        left: 0;
-        mix-blend-mode: color-burn;
-        img {
-          width: 100%;
-          height: auto;
-          object-fit: cover;
-        }
-      }
     }
   </style>
 </html>
