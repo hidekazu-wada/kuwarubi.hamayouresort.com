@@ -9,10 +9,13 @@
 ## 技術スタック
 
 - **フレームワーク**: Astro v5.12.8
-- **言語**: TypeScript（tsconfig.json設定済み）
+- **言語**: TypeScript（tsconfig.json設定済み、カスタム型定義対応）
 - **スタイル**: SCSS（sass v1.89.2）
+- **アニメーション**: GSAP v3.13.0（ScrollTriggerでパララックス効果）
+- **UIライブラリ**: Swiper v11.2.10（独立実装パターン）
 - **パッケージマネージャー**: npm
 - **開発環境**: Node.js
+- **型定義**: カスタム型定義ファイル（`src/types/`）でSwiper・Astroコンポーネントをサポート
 
 ## 開発コマンド
 
@@ -45,14 +48,18 @@ npm run astro -- --help
 │   ├── assets/      # 画像などのアセット
 │   │   └── images/  # 画像ファイル
 │   │       ├── top/ # TOPページ専用画像
-│   │       │   ├── hero/         # ヒーローセクション
+│   │       │   ├── hero-slide/   # ヒーローセクションスライダー画像
 │   │       │   ├── location/     # ロケーションセクション
 │   │       │   ├── activities/   # アクティビティセクション
 │   │       │   ├── enjoy/        # エンジョイセクション
-│   │       │   └── hospitality/  # ホスピタリティセクション
+│   │       │   ├── hospitality/  # ホスピタリティセクション
+│   │       │   ├── blog/         # ブログセクション
+│   │       │   ├── parallax/     # パララックス効果用画像
+│   │       │   └── play-movie/   # 動画再生関連画像
 │   ├── components/  # Astroコンポーネント
 │   │   ├── ui/      # 再利用可能UIコンポーネント
-│   │   │   └── MoreButton.astro  # 共通Moreボタンコンポーネント
+│   │   │   ├── MoreButton.astro  # 共通Moreボタンコンポーネント
+│   │   │   └── SectionWave.astro # 共通Waveコンポーネント
 │   │   ├── pages/   # ページ固有コンポーネント
 │   │   │   └── top/ # TOPページコンポーネント
 │   │   │       ├── Hero.astro        # ヒーローセクション
@@ -60,6 +67,7 @@ npm run astro -- --help
 │   │   │       ├── Activities.astro  # アクティビティセクション
 │   │   │       ├── Enjoy.astro       # エンジョイセクション
 │   │   │       ├── Hospitality.astro # ホスピタリティセクション
+│   │   │       ├── Blog.astro        # ブログセクション
 │   │   │       └── News.astro        # ニュースセクション
 │   │   ├── BottomBar.astro       # スマホ用下部固定バー
 │   │   ├── Footer.astro          # フッターコンポーネント
@@ -69,12 +77,15 @@ npm run astro -- --help
 │   │   └── Booking-modal.astro   # 宿泊予約モーダル
 │   ├── pages/       # ページコンポーネント（ファイルベースルーティング）
 │   │   └── index.astro
-│   └── styles/      # SCSSファイル
-│       ├── reset.scss      # リセットCSS
-│       ├── _variables.scss # 変数・定数
-│       ├── _functions.scss # カスタム関数
-│       ├── _mixins.scss    # ミックスイン
-│       └── main.scss       # メインSCSSファイル
+│   ├── styles/      # SCSSファイル
+│   │   ├── reset.scss      # リセットCSS
+│   │   ├── _variables.scss # 変数・定数
+│   │   ├── _functions.scss # カスタム関数
+│   │   ├── _mixins.scss    # ミックスイン
+│   │   └── main.scss       # メインSCSSファイル
+│   └── types/       # TypeScript型定義ファイル
+│       ├── astro-components.d.ts # Astroコンポーネント・アセット型定義
+│       └── swiper.d.ts           # Swiper v11型定義
 ├── astro.config.mjs # Astro設定ファイル
 ├── package.json     # プロジェクト設定と依存関係
 └── tsconfig.json    # TypeScript設定
@@ -572,6 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 - **top-hero__swiper**: TOPページHeroセクション（フェード効果、オートプレイ）
 - **top-activities__swiper**: TOPページActivitiesセクション（横スライド、ページネーション）
+- **top-blog__swiper**: TOPページBlogセクション（横スライド、ページネーション、オートプレイ）
 
 ### 注意事項・トラブルシューティング
 
@@ -583,6 +595,154 @@ document.addEventListener('DOMContentLoaded', () => {
 
 この方針により、サイト内で複数のSwiperを使用しても完全に独立し、互いに干渉することがありません。
 
+## GSAPパララックス効果システム
+
+### 概要
+
+プロジェクトではGSAP（GreenSock Animation Platform）v3.13.0とScrollTriggerプラグインを使用して、洗練されたパララックススクロール効果を実装しています。
+
+### 技術仕様
+
+- **ライブラリ**: GSAP v3.13.0 + ScrollTrigger プラグイン
+- **実装場所**: `src/pages/index.astro`のメインスクリプト内
+- **対象要素**: `.parallax-image`クラスの付いた画像要素
+
+### 実装パターン
+
+```javascript
+// GSAP ScrollTriggerによるパララックス効果
+gsap.registerPlugin(ScrollTrigger);
+
+// パララックス画像の初期化と設定
+function initParallax() {
+  const parallaxImages = document.querySelectorAll('.parallax-image');
+  
+  parallaxImages.forEach((img) => {
+    gsap.to(img, {
+      yPercent: -50,
+      ease: "none",
+      scrollTrigger: {
+        trigger: img.parentElement,
+        start: "top bottom",
+        end: "bottom top", 
+        scrub: true,
+        onToggle: self => {
+          console.log(`Parallax effect toggled for`, img, self.isActive);
+        }
+      }
+    });
+  });
+}
+
+// DOMロード完了後にパララックス効果を初期化
+document.addEventListener('DOMContentLoaded', initParallax);
+```
+
+### 使用箇所
+
+- **Locationセクション**: 背景パララックス画像でセクション間の視覚的つながりを演出
+- **その他のセクション**: 必要に応じてパララックス画像を追加可能
+
+### HTML構造パターン
+
+```astro
+<!-- パララックス画像用のコンテナ -->
+<div class="parallax-container">
+  <picture>
+    <!-- レスポンシブ対応画像 -->
+    <source media="(min-width: 1024px)" srcset={parallaxImage.src} />
+    <img 
+      class="parallax-image"
+      src={parallaxImage.src} 
+      alt="" 
+    />
+  </picture>
+</div>
+```
+
+### CSS設計
+
+```scss
+.parallax-container {
+  position: relative;
+  overflow: hidden;
+  
+  .parallax-image {
+    width: 100%;
+    height: auto;
+    will-change: transform; // パフォーマンス最適化
+  }
+}
+```
+
+### パフォーマンス考慮事項
+
+- **will-change**: CSSで`will-change: transform`を指定してGPUアクセラレーション有効化
+- **scrub**: ScrollTriggerの`scrub: true`でスムーズなスクロール連動
+- **コンソールログ**: 開発時のデバッグ用ログ出力（本番環境では削除推奨）
+
+### 拡張方法
+
+新しいセクションにパララックス効果を追加する場合：
+1. 画像に`parallax-image`クラスを付与
+2. 親要素にoverflow設定
+3. 必要に応じて`yPercent`や`scrollTrigger`設定をカスタマイズ
+
+この実装により、モダンで洗練された視覚的体験を提供しています。
+
+## プロジェクト開発マイルストーン
+
+### 🎯 フェーズ1: TOPページ開発 [完了]
+
+**期間**: プロジェクト開始 〜 現在  
+**目標**: 完全な機能を持つTOPページの構築
+
+**主要成果物**:
+- ✅ 基本アーキテクチャとプロジェクト構造
+- ✅ 7つの主要セクション（Hero・Location・Activities・Enjoy・Hospitality・Blog・News）
+- ✅ レスポンシブデザイン（モバイル・タブレット・デスクトップ）
+- ✅ ナビゲーション・メニューシステム（PC・モバイル統合）
+- ✅ モーダルシステム（動画再生・宿泊予約）
+- ✅ 再利用可能UIコンポーネント（MoreButton・SectionWave）
+- ✅ 高度なアニメーション（Swiper・GSAPパララックス）
+- ✅ TypeScript型安全性の確保
+
+**技術的成果**:
+- Astroらしい設計思想の確立
+- BEM記法によるスケーラブルなCSS設計
+- コンポーネント間の適切な責務分離
+- パフォーマンス最適化（WebP画像、レスポンシブ対応）
+
+### 🚀 フェーズ2: 下層ページ開発 [次期開始予定]
+
+**目標**: サイト全体のページ構造完成
+
+**予定作業内容**:
+- 各下層ページのテンプレート作成
+- 共通レイアウトの抽出・リファクタリング
+- ページ間遷移とルーティングの実装
+- パンくずナビゲーション
+- サイトマップ構築
+
+### 🔄 フェーズ3: CMS統合・動的コンテンツ [将来実装]
+
+**目標**: コンテンツ管理機能の実装
+
+**予定技術スタック**:
+- ヘッドレスCMS（検討中）
+- 動的データ取得・表示機能
+- 管理画面との連携
+
+### 📊 フェーズ4: 最終調整・デプロイ [最終段階]
+
+**目標**: 本番環境への対応準備
+
+**予定作業**:
+- パフォーマンス最終調整
+- SEO最適化
+- アクセシビリティ監査
+- 本番デプロイ準備
+
 ## プロジェクト現在のステータス
 
 ### 完了済み実装
@@ -592,12 +752,14 @@ document.addEventListener('DOMContentLoaded', () => {
 ✅ **メニューシステム**: PC・スマホ統一メニュー制御完了  
 ✅ **スタイル管理**: BEM記法 + SCSS ミックスイン活用完了  
 ✅ **モーダルシステム**: VideoModal・BookingModal実装完了
-✅ **Swiperシステム**: Hero・Activitiesセクションでの独立実装完了
-✅ **TOPページセクション**: 全6セクション（Hero・Location・Activities・Enjoy・Hospitality・News）実装完了
-✅ **MoreButtonコンポーネント**: 再利用可能UIコンポーネント実装・各セクションで活用中
-✅ **ホバーエフェクト**: Activities・Enjoy・Hospitalityで統一されたホバー演出実装完了
+✅ **Swiperシステム**: Hero・Activities・Blogセクションでの独立実装完了
+✅ **TOPページセクション**: 全7セクション（Hero・Location・Activities・Enjoy・Hospitality・Blog・News）実装完了
+✅ **GSAPパララックス効果**: ScrollTrigger使用したパララックス画像統合完了
+✅ **共通UIコンポーネント**: MoreButton・SectionWave実装・各セクションで活用中
+✅ **ホバーエフェクト**: Activities・Enjoy・Hospitality・Blogで統一されたホバー演出実装完了
 ✅ **レスポンシブ画像**: 全セクションでAstro getImage() + WebP最適化完了
 ✅ **セマンティックHTML**: 適切なHTML要素・構造でアクセシビリティ対応完了
+✅ **TypeScript型定義**: カスタム型定義でSwiper・Astroコンポーネント警告解消完了
 
 ### 現在のコンポーネント構成
 
@@ -615,12 +777,13 @@ document.addEventListener('DOMContentLoaded', () => {
 - **BookingModal.astro**: 宿泊予約サイト選択モーダル
 
 **TOPページセクション（実装順）:**
-1. **Hero.astro**: ヒーローセクション（Swiper fadeエフェクト、動画サムネイル）
-2. **Location.astro**: ロケーション紹介セクション（レスポンシブ画像、縦書きテキスト）
+1. **Hero.astro**: ヒーローセクション（Swiper fadeエフェクト、動画サムネイル、GSAPパララックス対応）
+2. **Location.astro**: ロケーション紹介セクション（レスポンシブ画像、縦書きテキスト、GSAPパララックス統合）
 3. **Activities.astro**: アクティビティ紹介セクション（Swiper横スライド、ページネーション、ホバーエフェクト）
 4. **Enjoy.astro**: おすすめの過ごし方セクション（5つのカード、ホバーエフェクト、装飾画像）
 5. **Hospitality.astro**: ホスピタリティセクション（Room・Food・Onsen、装飾リーフ、レスポンシブレイアウト）
-6. **News.astro**: お知らせ・イベント情報セクション（Information・Event、セマンティックHTML）
+6. **Blog.astro**: ブログセクション（Swiper横スライド、ページネーション、ホバーエフェクト）
+7. **News.astro**: お知らせ・イベント情報セクション（Information・Event、セマンティックHTML）
 
 **共通UIコンポーネント:**
 - **MoreButton.astro**: 再利用可能Moreボタン（Props対応、カスタマイズ可能）
@@ -940,3 +1103,362 @@ export interface Props {
   }
 }
 ```
+
+## TypeScript型定義システム
+
+### 概要
+
+プロジェクトではTypeScript警告を解消し、開発体験を向上させるためにカスタム型定義システムを導入しています。
+
+### 型定義ファイル
+
+#### 1. `src/types/astro-components.d.ts`
+- **目的**: Astroコンポーネントとアセットファイルの型定義
+- **対象**: `.astro`, `.svg`, `.png`, `.jpg`, `.webp`ファイル
+
+```typescript
+// Astroコンポーネントの汎用型定義
+declare module '*.astro' {
+  const Component: any;
+  export default Component;
+}
+
+// 画像アセットの型定義
+declare module '*.png' {
+  const src: string;
+  export default src;
+}
+```
+
+#### 2. `src/types/swiper.d.ts`
+- **目的**: Swiper v11ライブラリの型定義
+- **対象**: `swiper`, `swiper/modules`, `swiper/css/*`
+
+```typescript
+// Swiper本体の型定義
+declare module 'swiper' {
+  export default class Swiper {
+    constructor(element: string | HTMLElement, options?: any);
+    // メソッド定義...
+  }
+}
+
+// モジュールの型定義
+declare module 'swiper/modules' {
+  export class Navigation { static moduleName: string; }
+  export class Pagination { static moduleName: string; }
+  export class Autoplay { static moduleName: string; }
+  export class EffectFade { static moduleName: string; }
+  // オプション interfaces...
+}
+```
+
+### tsconfig.json設定
+
+```json
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [
+    ".astro/types.d.ts", 
+    "**/*", 
+    "src/types/**/*.d.ts"
+  ],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "typeRoots": ["./node_modules/@types", "./src/types"]
+  }
+}
+```
+
+### 依存関係
+
+- `@types/swiper`: Swiper用の基本型定義（devDependencies）
+
+### 効果
+
+- TypeScript警告の解消
+- IntelliSense（コード補完）の改善
+- 開発時のコード品質向上
+- 型安全なプログラミング体験
+
+### 新しいライブラリ追加時の手順
+
+1. `npm install library-name`
+2. 対応する`@types/library-name`があるかチェック
+3. なければ`src/types/`に独自の型定義ファイルを作成
+4. `tsconfig.json`の設定確認
+
+この型定義システムにより、警告のない快適な開発環境を実現しています。
+
+## SectionWave共通コンポーネント
+
+### 概要
+
+セクション上部に表示されるwave（波）要素を再利用可能なコンポーネント化しました。
+
+### ファイル場所
+`src/components/ui/SectionWave.astro`
+
+### Props Interface
+```typescript
+export interface Props {
+  fillColor: string;      // pathのfill色（必須）
+  className?: string;     // 追加CSSクラス（オプション）
+}
+```
+
+### 使用例
+```astro
+<!-- Blog.astroでの使用 -->
+<SectionWave 
+  fillColor="var(--green_1, #e2ecc4)"
+  className="blog__wave"
+/>
+
+<!-- Enjoy.astroでの使用 -->
+<SectionWave 
+  fillColor="white"
+  className="enjoy__wave"
+/>
+```
+
+### デザイン特徴
+- **統一されたSVGパス**: 全セクションで同じ波形状を使用
+- **カスタマイズ可能な色**: セクションごとに適切な色を設定
+- **基本配置スタイル**: `position: absolute; top: -1px; left: 0; width: 100%`
+- **BEM記法対応**: `className`プロパティで既存クラス名継続使用
+
+### 実装済み使用箇所
+- **Blog.astro**: 緑系の背景（`var(--green_1, #e2ecc4)`）
+- **Enjoy.astro**: 白背景（`white`）
+
+### コンポーネント化の利点
+1. **再利用性**: 他のセクションでも簡単に使用可能
+2. **一貫性**: 同じSVGパスで統一された見た目
+3. **保守性**: SVG変更時は1箇所のみ修正
+4. **柔軟性**: セクションごとに色をカスタマイズ可能
+
+## 開発方針・ベストプラクティス集
+
+### 🎯 基本開発方針
+
+#### 1. Astroファーストな設計思想
+- **サーバーサイドレンダリング優先**: 可能な限りサーバー側で処理
+- **Islands Architecture活用**: 必要な部分のみでクライアントサイドJavaScript実行
+- **静的生成の最大化**: パフォーマンスとSEO最適化を重視
+
+#### 2. コンポーネント設計原則
+- **単一責任の原則**: 各コンポーネントは1つの明確な役割を持つ
+- **再利用可能性**: `ui/`ディレクトリの共通コンポーネントを積極活用
+- **Props型安全性**: TypeScriptのPropsインターフェースを明確に定義
+
+#### 3. ファイル命名・構造規則
+```
+pages/           # ファイルベースルーティング
+  index.astro    # TOPページ
+  about.astro    # 下層ページ例
+  
+components/
+  ui/           # 再利用可能コンポーネント
+    MoreButton.astro
+    SectionWave.astro
+  pages/        # ページ固有コンポーネント
+    top/        # TOPページ専用
+    about/      # Aboutページ専用
+```
+
+### 🎨 スタイリング・デザインベストプラクティス
+
+#### 1. BEM記法の厳格遵守
+```scss
+.block {
+  &__element {
+    &--modifier {
+      // スタイル定義
+    }
+  }
+}
+
+// 良い例
+.hero__title--large
+.blog__article
+.enjoy__card-button
+
+// 悪い例  
+.heroTitle
+.blogPost
+.btn
+```
+
+#### 2. SCSS設計パターン
+```scss
+// 必須インポート順序（重要）
+@import '../../../styles/variables';  // 最初
+@import '../../../styles/functions';   // 変数の後
+@import '../../../styles/mixins';     // 関数の後
+
+.component {
+  // モバイルファーストでスタイル定義
+  font-size: spx(16);
+  
+  // タブレット以上で拡張
+  @include tablet-up {
+    font-size: tpx(20);
+  }
+  
+  // デスクトップで最適化
+  @include desktop-up {
+    font-size: ppx(24);
+  }
+}
+```
+
+#### 3. レスポンシブデザイン指針
+- **モバイルファースト**: スマホ基準で設計してPC拡張
+- **3ブレイクポイント**: スマホ（〜743px）・タブレット（744px〜）・PC（1024px〜）
+- **関数活用**: `spx()`, `tpx()`, `ppx()`でvw変換による滑らかなスケーリング
+
+### ⚛️ JavaScript・インタラクション設計
+
+#### 1. 責務分離の原則
+```javascript
+// ✅ 複数コンポーネント間の協調 → index.astro
+const menuToggle = document.getElementById('menu-toggle');
+const menuOverlay = document.getElementById('menu-overlay');
+
+// ✅ 単一コンポーネント内完結 → 各コンポーネント内<script>
+// または client:load ディレクティブ使用検討
+```
+
+#### 2. Swiper実装のベストプラクティス
+```javascript
+// 必須: 完全独立した名前空間
+new Swiper('.{page}-{section}__swiper', {
+  modules: [Navigation, Pagination, Autoplay],
+  // 設定...
+});
+```
+
+#### 3. GSAP活用指針
+```javascript
+// ScrollTriggerは index.astro で一元管理
+gsap.registerPlugin(ScrollTrigger);
+
+// パフォーマンス重視の設定
+gsap.to(element, {
+  yPercent: -50,
+  ease: "none",
+  scrollTrigger: {
+    trigger: element.parentElement,
+    scrub: true // スムーズな連動
+  }
+});
+```
+
+### 🖼️ アセット・画像最適化戦略
+
+#### 1. 画像最適化パターン
+```astro
+// 必須: Astro getImage() でWebP変換
+const optimizedImage = await getImage({
+  src: originalImage,
+  format: 'webp',
+  widths: [640, 1024, 1680], // デバイス別最適化
+});
+
+// レスポンシブ画像の実装
+<picture>
+  <source media="(min-width: 1024px)" srcset={optimizedImage.srcSet} />
+  <source media="(min-width: 744px)" srcset={tabletImage.srcSet} />
+  <img src={mobileImage.src} alt="適切なalt属性" />
+</picture>
+```
+
+#### 2. ディレクトリ構造
+```
+src/assets/images/
+  top/              # TOPページ専用
+    hero-slide/     # セクション別整理
+    activities/
+    blog/
+  common/           # 共通画像（将来追加予定）
+```
+
+### 🔄 コンポーネント間連携パターン
+
+#### 1. Propsによるデータ受け渡し
+```astro
+<!-- 親コンポーネント -->
+<MoreButton 
+  href="/activities"
+  textColor="var(--blue_5, #026995)"
+  hoverColor="var(--green_2, #adc400)"
+  text="詳細を見る"
+/>
+```
+
+#### 2. 共通コンポーネントの活用例
+```astro
+<!-- セクション上部のwave要素 -->
+<SectionWave 
+  fillColor="var(--green_1, #e2ecc4)"
+  className="section__wave"
+/>
+
+<!-- セクション内のMoreボタン -->
+<div class="section__more-link">
+  <MoreButton href="#" textColor="..." />
+</div>
+```
+
+### 🛠️ 開発・デバッグ効率化
+
+#### 1. TypeScript型定義活用
+- カスタム型定義で警告解消（`src/types/`）
+- Props型安全性の確保
+- IntelliSense活用で開発効率向上
+
+#### 2. 開発サーバー最適活用
+```bash
+# ホットリロード付き開発サーバー
+npm run dev
+
+# 本番ビルドでパフォーマンスチェック
+npm run build
+npm run preview
+```
+
+#### 3. Git運用方針
+- **機能単位でのコミット**: セクション完成ごとにコミット
+- **わかりやすいコミットメッセージ**: `feat: Heroセクション実装完了`
+
+### 📏 コード品質維持指針
+
+#### 1. 一貫性の重要性
+- BEM記法の厳格な適用
+- インデント・改行の統一
+- コメントの適切な配置
+
+#### 2. パフォーマンス考慮
+- 画像最適化の徹底
+- 不要なJavaScriptの排除
+- CSS/SCSS の効率的な設計
+
+#### 3. アクセシビリティ対応
+- セマンティックHTMLの使用
+- 適切なARIAラベル
+- キーボードナビゲーション対応
+
+### 🚀 次期開発における留意点
+
+#### 1. 下層ページ開発時
+- TOPページで確立した設計パターンの踏襲
+- 共通レイアウトの抽出検討
+- ナビゲーション・パンくず対応
+
+#### 2. CMS統合時
+- 現在の静的設計を活かした段階的移行
+- コンテンツ型とコンポーネントの適切なマッピング
+- SEO・パフォーマンスの維持
+
+この開発方針により、一貫性のある高品質なコードベースを維持し、スケーラブルな開発を実現しています。
