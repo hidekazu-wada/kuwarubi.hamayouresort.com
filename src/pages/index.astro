@@ -5,6 +5,15 @@ import BottomBar from '../components/BottomBar.astro';
 import MenuOverlay from '../components/MenuOverlay.astro';
 import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
+import VideoModal from '../components/VideoModal.astro';
+import BookingModal from '../components/Booking-modal.astro';
+import Hero from '../components/pages/top/Hero.astro';
+import Location from '../components/pages/top/Location.astro';
+import Activities from '../components/pages/top/Activities.astro';
+import Enjoy from '../components/pages/top/Enjoy.astro';
+import Hospitality from '../components/pages/top/Hospitality.astro';
+import News from '../components/pages/top/News.astro';
+import Blog from '../components/pages/top/Blog.astro';
 ---
 
 <html lang="ja">
@@ -18,7 +27,7 @@ import Footer from '../components/Footer.astro';
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Allura&family=Zen+Kaku+Gothic+New:wght@400;500;900&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -30,39 +39,73 @@ import Footer from '../components/Footer.astro';
       <BottomBar />
       <!-- メニューオーバーレイ -->
       <MenuOverlay />
+      <!-- 動画モーダル（メニューオーバーレイより上位階層） -->
+      <VideoModal />
+      <!-- 宿泊予約モーダル（動画モーダルと同等階層） -->
+      <BookingModal />
+
       <!-- メインコンテンツ -->
       <main class="main-content">
-        <h1>ようこそ！</h1>
-        <p>これはAstroプロジェクトの基本的な構造です。</p>
+        <!-- ヒーローセクション -->
+        <Hero />
+        <!-- ロケーションセクション -->
+        <Location />
+        <!-- アクティビティーズセクション -->
+        <Activities />
+        <!-- エンジョイセクション -->
+        <Enjoy />
+        <!-- ホスピタリティセクション -->
+        <Hospitality />
+        <!-- ホスピタリティセクション -->
+        <News />
+        <!-- ブログセクション -->
+        <Blog />
       </main>
       <!-- フッター -->
       <Footer />
     </div>
 
     <script>
-      const pcMenuToggle = document.getElementById('menu-toggle');
-      const mobileMenuToggle = document.querySelector('.bottom-bar__toggle');
-      const mobileMenuClose = document.querySelector('.menu-overlay__close');
-      const menuOverlay = document.getElementById('menu-overlay');
-      const sidebar = document.querySelector('.sidebar');
+      // DOMロード後に実行
+      document.addEventListener('DOMContentLoaded', () => {
+        // メニュー機能
+        const pcMenuToggle = document.getElementById('menu-toggle');
+        const mobileMenuToggle = document.querySelector('.bottom-bar__toggle');
+        const mobileMenuClose = document.querySelector('.menu-overlay__close');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const sidebar = document.querySelector('.sidebar');
 
-      // メニュー状態管理
-      let isMenuOpen = false;
+        // メニュー状態管理
+        let isMenuOpen = false;
 
-      // メニュー開閉の共通関数
-      function toggleMenu() {
-        if (!menuOverlay) return;
+        // メニュー開閉の共通関数
+        function toggleMenu() {
+          if (!menuOverlay) return;
 
-        isMenuOpen = !isMenuOpen;
+          isMenuOpen = !isMenuOpen;
 
-        if (isMenuOpen) {
-          menuOverlay.classList.add('show');
-          if (sidebar) {
-            sidebar.classList.add('menu-open');
+          if (isMenuOpen) {
+            menuOverlay.classList.add('show');
+            if (sidebar) {
+              sidebar.classList.add('menu-open');
+            }
+            // スクロールを禁止
+            document.body.style.overflow = 'hidden';
+          } else {
+            menuOverlay.classList.remove('show');
+            if (sidebar) {
+              sidebar.classList.remove('menu-open');
+            }
+            // スクロールを復元
+            document.body.style.overflow = '';
           }
-          // スクロールを禁止
-          document.body.style.overflow = 'hidden';
-        } else {
+        }
+
+        // メニューを閉じる関数
+        function closeMenu() {
+          if (!menuOverlay) return;
+
+          isMenuOpen = false;
           menuOverlay.classList.remove('show');
           if (sidebar) {
             sidebar.classList.remove('menu-open');
@@ -70,38 +113,183 @@ import Footer from '../components/Footer.astro';
           // スクロールを復元
           document.body.style.overflow = '';
         }
-      }
 
-      // メニューを閉じる関数
-      function closeMenu() {
-        if (!menuOverlay) return;
+        // 動画モーダル関連の要素
+        const videoModal = document.querySelector(
+          '.video-modal'
+        ) as HTMLElement | null;
+        const videoModalClose = document.querySelector(
+          '.video-modal__close'
+        ) as HTMLElement | null;
+        const heroMovieThumbnail = document.querySelector(
+          '.hero__movie-thumbnail'
+        ) as HTMLElement | null;
+        const heroMoviePlayIcon = document.querySelector(
+          '.hero__movie-play-icon'
+        ) as HTMLElement | null;
+        const heroMoviePlayText = document.querySelector(
+          '.hero__movie-play-text'
+        ) as HTMLElement | null;
+        const videoIframe = document.querySelector(
+          '.video-modal iframe'
+        ) as HTMLIFrameElement | null;
 
-        isMenuOpen = false;
-        menuOverlay.classList.remove('show');
-        if (sidebar) {
-          sidebar.classList.remove('menu-open');
+        // 動画モーダルを開く関数
+        function openVideoModal() {
+          if (videoModal) {
+            videoModal.style.opacity = '1';
+            videoModal.style.visibility = 'visible';
+            // スクロールを禁止
+            document.body.style.overflow = 'hidden';
+          }
         }
-        // スクロールを復元
-        document.body.style.overflow = '';
-      }
 
-      // 必要な要素が存在することを確認してイベントリスナーを設定
-      if (menuOverlay) {
-        // PCメニューボタン
-        if (pcMenuToggle) {
-          pcMenuToggle.addEventListener('click', toggleMenu);
+        // 動画モーダルを閉じる関数
+        function closeVideoModal() {
+          if (videoModal && videoIframe) {
+            videoModal.style.opacity = '0';
+            videoModal.style.visibility = 'hidden';
+            // 動画を停止（iframe srcを再設定）
+            const currentSrc = videoIframe.src;
+            videoIframe.src = '';
+            videoIframe.src = currentSrc;
+            // スクロールを復元
+            document.body.style.overflow = '';
+          }
         }
 
-        // スマホメニュー開くボタン
-        if (mobileMenuToggle) {
-          mobileMenuToggle.addEventListener('click', toggleMenu);
+        // サムネイルクリックで動画モーダルを開く
+        if (heroMovieThumbnail) {
+          heroMovieThumbnail.addEventListener('click', openVideoModal);
         }
 
-        // スマホメニュー閉じるボタン
-        if (mobileMenuClose) {
-          mobileMenuClose.addEventListener('click', closeMenu);
+        // 再生アイコンクリックで動画モーダルを開く
+        if (heroMoviePlayIcon) {
+          heroMoviePlayIcon.addEventListener('click', openVideoModal);
         }
-      }
+
+        // 再生テキストクリックで動画モーダルを開く
+        if (heroMoviePlayText) {
+          heroMoviePlayText.addEventListener('click', openVideoModal);
+        }
+
+        // モーダル閉じるボタン
+        if (videoModalClose) {
+          videoModalClose.addEventListener('click', closeVideoModal);
+        }
+
+        // オーバーレイクリックで閉じる（任意）
+        if (videoModal) {
+          videoModal.addEventListener('click', (e) => {
+            if (
+              e.target === videoModal ||
+              (e.target as HTMLElement).classList.contains(
+                'video-modal__overlay'
+              )
+            ) {
+              closeVideoModal();
+            }
+          });
+        }
+
+        // ブッキングモーダル関連の要素
+        const bookingModal = document.querySelector(
+          '.booking-modal'
+        ) as HTMLElement | null;
+        const bookingModalClose = document.querySelector(
+          '.booking-modal__close'
+        ) as HTMLElement | null;
+        const sidebarBookingButton = document.querySelector(
+          '.sidebar-menu-button'
+        ) as HTMLElement | null;
+        const menuOverlayBookingButton = document.querySelector(
+          '.menu-overlay__button'
+        ) as HTMLElement | null;
+        const bottomBarBookingButton = document.querySelector(
+          '.bottom-bar__button'
+        ) as HTMLElement | null;
+
+        // ブッキングモーダルを開く関数
+        function openBookingModal() {
+          if (bookingModal) {
+            bookingModal.style.opacity = '1';
+            bookingModal.style.visibility = 'visible';
+            // スクロールを禁止
+            document.body.style.overflow = 'hidden';
+          }
+        }
+
+        // ブッキングモーダルを閉じる関数
+        function closeBookingModal() {
+          if (bookingModal) {
+            bookingModal.style.opacity = '0';
+            bookingModal.style.visibility = 'hidden';
+            // スクロールを復元
+            document.body.style.overflow = '';
+          }
+        }
+
+        // ブッキングモーダル閉じるボタン
+        if (bookingModalClose) {
+          bookingModalClose.addEventListener('click', closeBookingModal);
+        }
+
+        // サイドバーの宿泊予約ボタンクリック（タブレット・デスクトップ）
+        if (sidebarBookingButton) {
+          sidebarBookingButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openBookingModal();
+          });
+        }
+
+        // メニューオーバーレイの宿泊予約ボタンクリック（スマホメニュー内）
+        if (menuOverlayBookingButton) {
+          menuOverlayBookingButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openBookingModal();
+          });
+        }
+
+        // スマホ下部バーの宿泊予約ボタンクリック
+        if (bottomBarBookingButton) {
+          bottomBarBookingButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openBookingModal();
+          });
+        }
+
+        // ブッキングモーダルオーバーレイクリックで閉じる
+        if (bookingModal) {
+          bookingModal.addEventListener('click', (e) => {
+            if (
+              e.target === bookingModal ||
+              (e.target as HTMLElement).classList.contains(
+                'booking-modal__overlay'
+              )
+            ) {
+              closeBookingModal();
+            }
+          });
+        }
+
+        // 必要な要素が存在することを確認してイベントリスナーを設定
+        if (menuOverlay) {
+          // PCメニューボタン
+          if (pcMenuToggle) {
+            pcMenuToggle.addEventListener('click', toggleMenu);
+          }
+
+          // スマホメニュー開くボタン
+          if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', toggleMenu);
+          }
+
+          // スマホメニュー閉じるボタン
+          if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', closeMenu);
+          }
+        }
+      });
     </script>
   </body>
 
@@ -136,6 +324,7 @@ import Footer from '../components/Footer.astro';
     /* メインコンテンツ */
     .main-content {
       grid-area: main;
+      position: relative;
     }
   </style>
 </html>

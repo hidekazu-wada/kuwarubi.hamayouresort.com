@@ -1,0 +1,767 @@
+---
+import { getImage } from 'astro:assets';
+import MoreButton from '../../ui/MoreButton.astro';
+import SectionWave from '../../ui/SectionWave.astro';
+// Swiper CSS
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+import SlideImg1 from '../../../assets/images/top/blog/slide-01.png';
+import SlideImg2 from '../../../assets/images/top/blog/slide-02.png';
+import SlideImg3 from '../../../assets/images/top/blog/slide-03.png';
+import SlideImg4 from '../../../assets/images/top/blog/slide-04.png';
+
+const BlogSlide1 = await getImage({
+  src: SlideImg1,
+  format: 'webp',
+  widths: [500],
+});
+const BlogSlide2 = await getImage({
+  src: SlideImg2,
+  format: 'webp',
+  widths: [500],
+});
+const BlogSlide3 = await getImage({
+  src: SlideImg3,
+  format: 'webp',
+  widths: [500],
+});
+const BlogSlide4 = await getImage({
+  src: SlideImg4,
+  format: 'webp',
+  widths: [500],
+});
+---
+
+<section class="blog">
+  <SectionWave 
+    fillColor="var(--green_1, #e2ecc4)"
+    className="blog__wave"
+  />
+  <header class="blog__header">
+    <h2 class="blog__title">BLOG</h2>
+    <div class="blog__subtitle">
+      <span class="blog__subtitle-line">ブログ</span>
+    </div>
+  </header>
+
+  <!-- Swiper コンテナ -->
+  <div class="top-blog__swiper">
+    <div class="swiper-wrapper">
+      <!-- スライド1 -->
+      <div class="swiper-slide">
+        <article class="top-blog__article">
+          <div class="top-blog__image-container">
+            <a href="#" class="top-blog__image-link">
+              <picture class="top-blog__image">
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={BlogSlide1.srcSet.toString()}
+                />
+                <source
+                  media="(min-width: 744px)"
+                  srcset={BlogSlide1.srcSet.toString()}
+                />
+                <img src={BlogSlide1.src} alt="『coolturf』エリア完成！" />
+              </picture>
+              <time class="top-blog__date" datetime="2024-06-25">
+                <span class="top-blog__date-month">2024.06</span>
+                <span class="top-blog__date-day">25</span>
+              </time>
+            </a>
+          </div>
+          <h3 class="top-blog__title">
+            <a href="#" class="top-blog__title-link">
+              『coolturf』エリア完成！
+            </a>
+          </h3>
+        </article>
+      </div>
+
+      <!-- スライド2 -->
+      <div class="swiper-slide">
+        <article class="top-blog__article">
+          <div class="top-blog__image-container">
+            <a href="#" class="top-blog__image-link">
+              <picture class="top-blog__image">
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={BlogSlide2.srcSet.toString()}
+                />
+                <source
+                  media="(min-width: 744px)"
+                  srcset={BlogSlide2.srcSet.toString()}
+                />
+                <img src={BlogSlide2.src} alt="改めて湖サウナについて考える" />
+              </picture>
+              <time class="top-blog__date" datetime="2024-06-25">
+                <span class="top-blog__date-month">2024.06</span>
+                <span class="top-blog__date-day">25</span>
+              </time>
+            </a>
+          </div>
+          <h3 class="top-blog__title">
+            <a href="#" class="top-blog__title-link">
+              改めて湖サウナについて考える
+            </a>
+          </h3>
+        </article>
+      </div>
+
+      <!-- スライド3 -->
+      <div class="swiper-slide">
+        <article class="top-blog__article">
+          <div class="top-blog__image-container">
+            <a href="#" class="top-blog__image-link">
+              <picture class="top-blog__image">
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={BlogSlide3.srcSet.toString()}
+                />
+                <source
+                  media="(min-width: 744px)"
+                  srcset={BlogSlide3.srcSet.toString()}
+                />
+                <img src={BlogSlide3.src} alt="『coolturf』エリア完成！" />
+              </picture>
+              <time class="top-blog__date" datetime="2024-03-06">
+                <span class="top-blog__date-month">2024.03</span>
+                <span class="top-blog__date-day">06</span>
+              </time>
+            </a>
+          </div>
+          <h3 class="top-blog__title">
+            <a href="#" class="top-blog__title-link">
+              『coolturf』エリア完成！
+            </a>
+          </h3>
+        </article>
+      </div>
+
+      <!-- スライド4 -->
+      <div class="swiper-slide">
+        <article class="top-blog__article">
+          <div class="top-blog__image-container">
+            <a href="#" class="top-blog__image-link">
+              <picture class="top-blog__image">
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={BlogSlide4.srcSet.toString()}
+                />
+                <source
+                  media="(min-width: 744px)"
+                  srcset={BlogSlide4.srcSet.toString()}
+                />
+                <img
+                  src={BlogSlide4.src}
+                  alt="HAMAYOUスノーリゾートでっかくOPEN！？"
+                />
+              </picture>
+              <time class="top-blog__date" datetime="2024-02-19">
+                <span class="top-blog__date-month">2024.02</span>
+                <span class="top-blog__date-day">19</span>
+              </time>
+            </a>
+          </div>
+          <h3 class="top-blog__title">
+            <a href="#" class="top-blog__title-link">
+              HAMAYOUスノーリゾートでっかくOPEN！？
+            </a>
+          </h3>
+        </article>
+      </div>
+
+      <!-- スライド4(demo) -->
+      <div class="swiper-slide">
+        <article class="top-blog__article">
+          <div class="top-blog__image-container">
+            <a href="#" class="top-blog__image-link">
+              <picture class="top-blog__image">
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={BlogSlide4.srcSet.toString()}
+                />
+                <source
+                  media="(min-width: 744px)"
+                  srcset={BlogSlide4.srcSet.toString()}
+                />
+                <img src={BlogSlide4.src} alt="西湖のスケートリンク" />
+              </picture>
+              <time class="top-blog__date" datetime="2024-02-10">
+                <span class="top-blog__date-month">2024.02</span>
+                <span class="top-blog__date-day">10</span>
+              </time>
+            </a>
+          </div>
+          <h3 class="top-blog__title">
+            <a href="#" class="top-blog__title-link"> 西湖のスケートリンク </a>
+          </h3>
+        </article>
+      </div>
+      <div class="swiper-slide">
+        <article class="top-blog__article">
+          <div class="top-blog__image-container">
+            <a href="#" class="top-blog__image-link">
+              <picture class="top-blog__image">
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={BlogSlide4.srcSet.toString()}
+                />
+                <source
+                  media="(min-width: 744px)"
+                  srcset={BlogSlide4.srcSet.toString()}
+                />
+                <img src={BlogSlide4.src} alt="『coolturf』エリア完成！" />
+              </picture>
+              <time class="top-blog__date" datetime="2024-06-25">
+                <span class="top-blog__date-month">2024.06</span>
+                <span class="top-blog__date-day">25</span>
+              </time>
+            </a>
+          </div>
+          <h3 class="top-blog__title">
+            <a href="#" class="top-blog__title-link">
+              『coolturf』エリア完成！
+            </a>
+          </h3>
+        </article>
+      </div>
+      <div class="swiper-slide">
+        <article class="top-blog__article">
+          <div class="top-blog__image-container">
+            <a href="#" class="top-blog__image-link">
+              <picture class="top-blog__image">
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={BlogSlide4.srcSet.toString()}
+                />
+                <source
+                  media="(min-width: 744px)"
+                  srcset={BlogSlide4.srcSet.toString()}
+                />
+                <img src={BlogSlide4.src} alt="『coolturf』エリア完成！" />
+              </picture>
+              <time class="top-blog__date" datetime="2024-06-25">
+                <span class="top-blog__date-month">2024.06</span>
+                <span class="top-blog__date-day">25</span>
+              </time>
+            </a>
+          </div>
+          <h3 class="top-blog__title">
+            <a href="#" class="top-blog__title-link">
+              『coolturf』エリア完成！
+            </a>
+          </h3>
+        </article>
+      </div>
+      <div class="swiper-slide">
+        <article class="top-blog__article">
+          <div class="top-blog__image-container">
+            <a href="#" class="top-blog__image-link">
+              <picture class="top-blog__image">
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={BlogSlide4.srcSet.toString()}
+                />
+                <source
+                  media="(min-width: 744px)"
+                  srcset={BlogSlide4.srcSet.toString()}
+                />
+                <img src={BlogSlide4.src} alt="『coolturf』エリア完成！" />
+              </picture>
+              <time class="top-blog__date" datetime="2024-06-25">
+                <span class="top-blog__date-month">2024.06</span>
+                <span class="top-blog__date-day">25</span>
+              </time>
+            </a>
+          </div>
+          <h3 class="top-blog__title">
+            <a href="#" class="top-blog__title-link">
+              『coolturf』エリア完成！
+            </a>
+          </h3>
+        </article>
+      </div>
+      <div class="swiper-slide">
+        <article class="top-blog__article">
+          <div class="top-blog__image-container">
+            <a href="#" class="top-blog__image-link">
+              <picture class="top-blog__image">
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={BlogSlide4.srcSet.toString()}
+                />
+                <source
+                  media="(min-width: 744px)"
+                  srcset={BlogSlide4.srcSet.toString()}
+                />
+                <img src={BlogSlide4.src} alt="『coolturf』エリア完成！" />
+              </picture>
+              <time class="top-blog__date" datetime="2024-06-25">
+                <span class="top-blog__date-month">2024.06</span>
+                <span class="top-blog__date-day">25</span>
+              </time>
+            </a>
+          </div>
+          <h3 class="top-blog__title">
+            <a href="#" class="top-blog__title-link">
+              『coolturf』エリア完成！
+            </a>
+          </h3>
+        </article>
+      </div>
+    </div>
+
+    <!-- ページネーションとmoreリンクのコンテナ -->
+    <div class="top-blog__footer">
+      <!-- ページネーション -->
+      <div class="swiper-pagination top-blog__swiper-pagination"></div>
+      <div class="top-blog__more-link">
+        <MoreButton
+          href="#"
+          textColor="var(--blue_5, #026995)"
+          hoverColor="var(--green_2, #adc400)"
+          arrowColor="#026995"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  /* TOPページ アクティビティーズセクション */
+  .blog {
+    padding-top: spx(130);
+    padding-bottom: spx(120);
+    position: relative;
+    background-color: var(--blue_2, #e7f3f9);
+
+    @include tablet-up {
+      padding-top: ppx(238) * 1.2;
+      padding-bottom: ppx(267) * 1.2;
+    }
+    @include desktop-up {
+      padding-top: ppx(238);
+      padding-bottom: ppx(267);
+    }
+    &__header {
+      position: relative;
+      width: max-content;
+      margin-inline: auto;
+      @include tablet-up {
+        margin-left: ppx(423) * 1.2;
+      }
+      @include desktop-up {
+        margin-left: ppx(423);
+      }
+    }
+
+    &__title {
+      color: var(--blue_4, #59a1c0);
+      font-size: spx(34);
+      font-weight: 900;
+      line-height: spx(34);
+      letter-spacing: spx(2.38);
+      position: relative;
+      width: max-content;
+      margin-inline: auto;
+      @include tablet-up {
+        font-size: ppx(34) * 1.2;
+        line-height: ppx(34) * 1.2;
+        letter-spacing: ppx(2.38) * 1.2;
+        margin-left: ppx(11) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        line-height: ppx(34);
+        letter-spacing: ppx(2.38);
+        margin-left: ppx(11);
+      }
+      // タイトル下線部
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: spx(-20);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
+          /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
+          /* 透明開始 */ transparent 51.4%,
+          /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
+            51.4%,
+          /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
+        );
+        @include tablet-up {
+          bottom: ppx(-20) * 1.2;
+          height: ppx(5) * 1.2;
+        }
+        @include desktop-up {
+          bottom: ppx(-20);
+          height: ppx(5);
+        }
+      }
+    }
+
+    &__subtitle {
+      color: var(--blue_6, #054965);
+      font-size: spx(50);
+      line-height: 150%;
+      margin-top: spx(40);
+
+      @include tablet-up {
+        font-size: ppx(68) * 1.2;
+        line-height: 150%;
+        margin-top: ppx(27) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(68);
+        line-height: 150%;
+        margin-top: ppx(27);
+      }
+    }
+
+    &__subtitle-line {
+      display: block;
+      @include tablet-up {
+        display: inline-block;
+      }
+      @include desktop-up {
+      }
+      &:nth-of-type(1) {
+        display: block;
+      }
+    }
+  }
+
+  /* TOPページ blog Swiper専用スタイル */
+  .top-blog {
+    &__swiper {
+      overflow: hidden;
+      margin-top: spx(60);
+      @include tablet-up {
+        margin-top: ppx(75) * 1.2;
+      }
+      @include desktop-up {
+        margin-top: ppx(75);
+      }
+      .swiper-wrapper {
+      }
+
+      .swiper-slide {
+        width: fit-content;
+      }
+    }
+
+    &__article {
+      width: fit-content;
+
+      // どちらかのリンクがホバーされた時の統合エフェクト
+      @include hover {
+        // ホバー可能デバイス（マウス等）でのみ動作するミックスイン
+        &:has(.top-blog__image-link:hover), // この記事が「画像リンクがホバーされている」子要素を持つ時 OR
+        &:has(.top-blog__title-link:hover) {
+          // この記事が「タイトルリンクがホバーされている」子要素を持つ時
+          .top-blog__image::after {
+            // 画像要素の疑似要素（オーバーレイ）に対して
+            opacity: 1; // 透明度を1にして白いオーバーレイを表示
+          }
+
+          .top-blog__title-link {
+            // タイトルリンク要素に対して
+            color: var(--green_2, #adc400); // 文字色を緑色に変更
+          }
+
+          .top-blog__date-month,
+          .top-blog__date-day {
+            // 日付要素（月・日）に対して
+            color: var(--green_2, #adc400); // 文字色を緑色に変更
+          }
+        }
+      }
+    }
+
+    &__image-container {
+      position: relative;
+      width: fit-content;
+    }
+
+    &__image-link {
+      display: block;
+      width: spx(500);
+      height: spx(500);
+      border-radius: spx(20);
+      overflow: hidden;
+      @include tablet-up {
+        width: ppx(500) * 1.2;
+        height: ppx(500) * 1.2;
+        border-radius: ppx(20) * 1.2;
+      }
+      @include desktop-up {
+        width: ppx(500);
+        height: ppx(500);
+        border-radius: ppx(20);
+      }
+    }
+
+    &__image {
+      position: relative;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      // 半透明白オーバーレイ
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.2);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+    }
+
+    &__date {
+      width: spx(110);
+      height: spx(115);
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      justify-content: center;
+      background-color: white;
+      border-radius: spx(20);
+      position: absolute;
+      top: spx(15);
+      left: spx(15);
+      @include tablet-up {
+        width: ppx(110) * 1.2;
+        height: ppx(115) * 1.2;
+        border-radius: ppx(20) * 1.2;
+        top: ppx(20) * 1.2;
+        left: ppx(20) * 1.2;
+      }
+      @include desktop-up {
+        width: ppx(110);
+        height: ppx(115);
+        border-radius: ppx(20);
+        top: ppx(20);
+        left: ppx(20);
+      }
+    }
+
+    &__date-month {
+      color: var(--blue_6, #054965);
+      font-size: spx(22);
+      line-height: 100%;
+      letter-spacing: spx(0.44);
+      transition: color 0.3s ease; // ホバー時の色変化にトランジション効果を追加
+      @include tablet-up {
+        font-size: ppx(22) * 1.2;
+        letter-spacing: ppx(1.1) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(22);
+        letter-spacing: ppx(1.1);
+      }
+    }
+
+    &__date-day {
+      color: var(--blue_6, #054965);
+      font-size: spx(71);
+      line-height: 100%;
+      transition: color 0.3s ease; // ホバー時の色変化にトランジション効果を追加
+      @include tablet-up {
+        font-size: ppx(71) * 1.2;
+        letter-spacing: ppx(3.55) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(71);
+        letter-spacing: ppx(3.55);
+      }
+    }
+
+    &__title {
+      color: var(--blue_6, #054965);
+      font-size: spx(29);
+      line-height: 150%;
+      margin-top: spx(12);
+      @include tablet-up {
+        font-size: ppx(27) * 1.2;
+        margin-top: ppx(24) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+        margin-top: ppx(24);
+      }
+    }
+
+    &__title-link {
+      transition: color 0.3s ease;
+    }
+
+    &__footer {
+      margin-top: spx(50);
+      margin-inline: auto;
+      position: relative;
+      display: flex;
+      flex-flow: column;
+      gap: spx(30);
+      align-items: center;
+      @include tablet-up {
+        margin-top: ppx(96) * 1.2;
+        margin-left: auto;
+        margin-right: ppx(221) * 1.2;
+        flex-flow: row;
+        gap: ppx(75) * 1.2;
+        align-items: baseline;
+      }
+      @include desktop-up {
+        margin-top: ppx(96);
+        margin-right: ppx(221);
+        gap: ppx(75);
+      }
+    }
+
+    &__more-link {
+      // MoreButtonコンポーネントを使用するため、旧スタイルは削除
+    }
+  }
+
+  // Swiperページネーション専用スタイル（:global()でAstroスコープを回避）
+  .top-blog__swiper-pagination {
+    position: static;
+    // ページネーションドット（通常状態）
+    @include tablet-up {
+      text-align: end;
+    }
+    @include desktop-up {
+    }
+    :global(.swiper-pagination-bullet) {
+      width: spx(20);
+      height: spx(20);
+      background-color: white;
+      border-radius: 50%;
+      border: solid 1px var(--blue_5, #026995);
+      opacity: 1;
+      margin: 0 spx(12);
+      transition: all 0.3s ease;
+      @include tablet-up {
+        width: ppx(20) * 1.2;
+        height: ppx(20) * 1.2;
+        margin: 0 ppx(12) * 1.2;
+      }
+      @include desktop-up {
+        width: ppx(20);
+        height: ppx(20);
+        margin: 0 ppx(12);
+      }
+    }
+
+    // ページネーションドット（アクティブ状態）
+    :global(.swiper-pagination-bullet-active) {
+      background-color: var(--blue_5, #026995);
+    }
+
+    // ページネーションが水平の場合
+    &:global(.swiper-pagination-horizontal) {
+      bottom: spx(-50);
+      @include tablet-up {
+        bottom: ppx(-50) * 1.2;
+      }
+      @include desktop-up {
+        bottom: ppx(-50);
+      }
+    }
+
+    // ページネーションが垂直の場合
+    &:global(.swiper-pagination-vertical) {
+    }
+
+    // カスタム分数表示の場合
+    &:global(.swiper-pagination-fraction) {
+    }
+
+    // プログレスバー表示の場合
+    &:global(.swiper-pagination-progressbar) {
+      :global(.swiper-pagination-progressbar-fill) {
+      }
+    }
+
+    // クリック可能な状態
+    &:global(.swiper-pagination-clickable) {
+      :global(.swiper-pagination-bullet) {
+        cursor: pointer;
+        &:hover {
+          background-color: var(--green_2, #adc400);
+          border-color: var(--green_2, #adc400);
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  // Swiper初期化（blog専用）
+  import Swiper from 'swiper';
+  import { Pagination, Autoplay } from 'swiper/modules';
+
+  // DOMロード後にSwiper初期化
+  document.addEventListener('DOMContentLoaded', () => {
+    // TOPページ blog Swiper 初期化
+    new Swiper('.top-blog__swiper', {
+      modules: [Pagination, Autoplay],
+      // スライダー設定
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      spaceBetween: 20,
+
+      // ブレイクポイント設定
+      breakpoints: {
+        744: {
+          centeredSlides: false,
+          slidesPerView: 'auto',
+          spaceBetween: 20,
+        },
+        1024: {
+          centeredSlides: false,
+          slidesPerView: 'auto',
+          spaceBetween: 20,
+        },
+      },
+
+      // ページネーション
+      pagination: {
+        el: '.top-blog__swiper-pagination',
+        clickable: true,
+      },
+
+      // オートプレイ（オプション）
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+    });
+  });
+</script>

@@ -185,9 +185,13 @@
       width: spx(640);
       height: spx(152);
       border: solid 1px #fff;
+      color: white;
       display: grid;
       place-items: center;
       position: relative;
+      transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
       @include tablet-up {
         width: ppx(749) * 1.2;
         height: ppx(152) * 1.2;
@@ -197,6 +201,16 @@
         width: ppx(749);
         height: ppx(152);
         border-radius: ppx(30);
+      }
+      @include hover {
+        &:hover {
+          background-color: white;
+          color: $blue_6;
+          
+          .footer__nav-arrow path {
+            stroke: $blue_6;
+          }
+        }
       }
     }
 
@@ -215,7 +229,6 @@
 
     &__nav-title {
       display: block;
-      color: #fff;
       text-align: center;
       font-size: spx(27);
       line-height: spx(27);
@@ -234,7 +247,6 @@
 
     &__nav-subtitle {
       display: block;
-      color: #fff;
       text-align: center;
       font-size: spx(38);
       line-height: spx(57);

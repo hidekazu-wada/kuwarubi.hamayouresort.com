@@ -58,8 +58,23 @@
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 20;
+    transform: translateY(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
     @include tablet-up {
       display: none;
+    }
+
+    &.hide-on-top {
+      /* トップページで上部にいる時の非表示状態 */
+      transform: translateY(100%);
+      opacity: 0;
+    }
+
+    &.show-on-scroll {
+      /* スクロール時の表示状態 */
+      transform: translateY(0);
+      opacity: 1;
     }
     &__nav {
       display: flex;
@@ -114,3 +129,47 @@
     }
   }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // BottomBarスクロール表示制御（トップページのみ）
+  const bottomBar = document.querySelector('.bottom-bar') as HTMLElement | null;
+  const isTopPage = window.location.pathname === '/' || window.location.pathname === '/index.html';
+
+  if (bottomBar && isTopPage) {
+    // トップページでは初期状態で非表示
+    bottomBar.classList.add('hide-on-top');
+    
+    let scrollTimeout: number | null = null;
+
+    // スクロールイベント（スロットリング付き）
+    function handleScroll() {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+
+      scrollTimeout = window.setTimeout(() => {
+        if (!bottomBar) return; // bottomBarがnullの場合は早期リターン
+
+        const scrollY = window.scrollY;
+        const scrollThreshold = 30; // 30px閾値
+
+        if (scrollY > scrollThreshold) {
+          // 30px以上スクロール：表示
+          bottomBar.classList.remove('hide-on-top');
+          bottomBar.classList.add('show-on-scroll');
+        } else {
+          // 30px以下：非表示
+          bottomBar.classList.add('hide-on-top');
+          bottomBar.classList.remove('show-on-scroll');
+        }
+      }, 16); // 60FPSに合わせて16ms間隔
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    
+    // 初期スクロール位置チェック
+    handleScroll();
+  }
+});
+</script>

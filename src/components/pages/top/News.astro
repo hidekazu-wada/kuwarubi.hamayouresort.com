@@ -1,0 +1,336 @@
+---
+import MoreButton from '../../ui/MoreButton.astro';
+---
+
+<section class="news">
+  <div class="news__container">
+    <article class="news__section news__section--information">
+      <header class="news__header">
+        <h2 class="news__title">INFORMATION</h2>
+        <p class="news__subtitle">お知らせ</p>
+      </header>
+
+      <div class="news__content">
+        <ul class="news__list">
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
+              </article>
+            </a>
+          </li>
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
+              </article>
+            </a>
+          </li>
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
+              </article>
+            </a>
+          </li>
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
+              </article>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="news__more">
+        <MoreButton
+          href="#"
+          textColor="var(--green_3, #43512A)"
+          hoverColor="var(--green_2, #adc400)"
+          arrowColor="#43512A"
+        />
+      </div>
+    </article>
+
+    <article class="news__section news__section--event">
+      <header class="news__header">
+        <h2 class="news__title">EVENT</h2>
+        <p class="news__subtitle">イベント情報</p>
+      </header>
+
+      <div class="news__content">
+        <ul class="news__list">
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
+              </article>
+            </a>
+          </li>
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
+              </article>
+            </a>
+          </li>
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
+              </article>
+            </a>
+          </li>
+          <li class="news__item">
+            <a href="#" class="news__link">
+              <article class="news__article">
+                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
+                <p class="news__text">
+                  ホームページをリニューアルいたしました。
+                </p>
+              </article>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="news__more">
+        <MoreButton
+          href="#"
+          textColor="var(--green_3, #43512A)"
+          hoverColor="var(--blue_5, #026995)"
+          arrowColor="#43512A"
+        />
+      </div>
+    </article>
+  </div>
+</section>
+
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  /* ニュースセクション */
+  .news {
+    background: var(--green_1, #e2ecc4);
+    padding-bottom: spx(120);
+    @include tablet-up {
+      padding-bottom: ppx(272) * 1.2;
+    }
+    @include desktop-up {
+      padding-bottom: ppx(272);
+    }
+    &__container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: spx(100);
+      width: spx(620);
+      margin-inline: auto;
+      @include tablet-up {
+        width: max-content;
+        grid-template-columns: ppx(868) ppx(868);
+        gap: ppx(122) * 1.2;
+      }
+      @include desktop-up {
+        grid-template-columns: ppx(868) ppx(868);
+        gap: ppx(122);
+      }
+    }
+
+    &__section {
+      &--information {
+        .news__title {
+          color: var(--green_2, #adc400);
+        }
+
+        .news__link {
+          @include hover {
+            &:hover {
+              .news__date,
+              .news__text {
+                color: var(--green_2, #adc400);
+              }
+            }
+          }
+        }
+      }
+
+      &--event {
+        .news__title {
+          color: var(--blue_4, #59a1c0);
+        }
+
+        .news__link {
+          @include hover {
+            &:hover {
+              .news__date,
+              .news__text {
+                color: var(--blue_5, #026995);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__header {
+    }
+
+    &__title {
+      font-size: spx(48);
+      font-weight: 900;
+      line-height: 70.833%;
+      letter-spacing: spx(3.36);
+      @include tablet-up {
+        font-size: ppx(34) * 1.2;
+        letter-spacing: ppx(2.38) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        letter-spacing: ppx(2.38);
+      }
+    }
+
+    &__subtitle {
+      color: var(--green_3, #43512a);
+      font-size: spx(27);
+      line-height: 122.222%;
+      margin-top: spx(20);
+      @include tablet-up {
+        font-size: ppx(33) * 1.2;
+        line-height: 100%;
+        margin-top: ppx(20) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        margin-top: ppx(20);
+      }
+    }
+
+    &__content {
+    }
+
+    &__list {
+      margin-top: spx(40);
+      display: flex;
+      flex-flow: column;
+      gap: spx(20);
+      @include tablet-up {
+        margin-top: ppx(63) * 1.2;
+        gap: ppx(20) * 1.2;
+      }
+      @include desktop-up {
+        margin-top: ppx(63);
+        gap: ppx(20);
+      }
+    }
+
+    &__item {
+      &::after {
+        content: '';
+        display: block;
+        background: linear-gradient(
+            to right,
+            rgba(67, 81, 42, 0.5),
+            rgba(67, 81, 42, 0.5) 25%,
+            rgba(0, 0, 0, 0) 25%,
+            rgba(0, 0, 0, 0) 100%
+          )
+          0% 0%;
+        background-size: 4px 1px;
+        width: 100%;
+        height: 1px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: spx(20);
+        @include tablet-up {
+          margin-top: ppx(20) * 1.2;
+        }
+        @include desktop-up {
+          margin-top: ppx(20);
+        }
+      }
+    }
+
+    &__link {
+      display: block;
+    }
+
+    &__article {
+      display: grid;
+      grid-template-columns: max-content auto;
+      gap: 0.5em;
+      @include tablet-up {
+        gap: ppx(40) * 1.2;
+      }
+      @include desktop-up {
+        gap: ppx(40);
+      }
+    }
+
+    &__date {
+      color: var(--green_3, #43512a);
+      font-size: spx(27);
+      line-height: 165%;
+      letter-spacing: spx(1.35);
+      transition: color 0.3s ease;
+      @include tablet-up {
+        font-size: ppx(27) * 1.2;
+        line-height: 150%;
+        letter-spacing: ppx(1.62) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+        letter-spacing: ppx(1.62);
+      }
+    }
+
+    &__text {
+      color: var(--green_3, #43512a);
+      font-size: spx(29);
+      line-height: 150%;
+      transition: color 0.3s ease;
+      @include tablet-up {
+        font-size: ppx(27) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+      }
+    }
+
+    &__more {
+      width: max-content;
+      margin-left: auto;
+      margin-right: 0;
+      margin-top: spx(25);
+      @include tablet-up {
+        margin-top: ppx(30) * 1.2;
+      }
+      @include desktop-up {
+        margin-top: ppx(30);
+      }
+    }
+  }
+</style>
