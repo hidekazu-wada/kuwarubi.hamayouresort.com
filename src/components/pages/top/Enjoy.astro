@@ -2,6 +2,7 @@
 // SVGファイルは直接インポート（最適化不要）
 import TitleTreeSp from '../../../assets/images/top/enjoy/title-tree-sp.svg';
 import TitleTreeTabletUp from '../../../assets/images/top/enjoy/title-tree-tablet-up.svg';
+import SectionWave from '../../ui/SectionWave.astro';
 
 import { getImage } from 'astro:assets';
 import content01Sp from '../../../assets/images/top/enjoy/image-01-sp.png';
@@ -74,6 +75,10 @@ const contentImage05TabletUp = await getImage({
 ---
 
 <section class="enjoy">
+  <SectionWave 
+    fillColor="white"
+    className="enjoy__wave"
+  />
   <header class="enjoy__header">
     <h2 class="enjoy__title">ENJOY</h2>
     <div class="enjoy__subtitle">
@@ -416,6 +421,7 @@ const contentImage05TabletUp = await getImage({
       padding-top: ppx(266);
       padding-bottom: ppx(423);
     }
+
     &__header {
       position: relative;
       @include tablet-up {

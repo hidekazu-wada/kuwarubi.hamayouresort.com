@@ -1,0 +1,33 @@
+---
+export interface Props {
+  fillColor: string;      // pathのfill色（必須）
+  className?: string;     // 追加CSSクラス（オプション）
+}
+
+const { 
+  fillColor, 
+  className = "" 
+} = Astro.props;
+---
+
+<svg
+  class={`section-wave ${className}`}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 2559 170"
+  fill="none"
+>
+  <path
+    d="M2559 0H0.00146484V70C0.00146484 70 315.501 170 639.751 170C964.001 170 1481.5 20 1812 20C2142.5 20 2559 120 2559 120V0Z"
+    fill={fillColor}>
+  </path>
+</svg>
+
+<style lang="scss">
+  /* 基本的なwave配置スタイル */
+  .section-wave {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 100%;
+  }
+</style>

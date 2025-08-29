@@ -1,6 +1,7 @@
 ---
 import { getImage } from 'astro:assets';
 import MoreButton from '../../ui/MoreButton.astro';
+import SectionWave from '../../ui/SectionWave.astro';
 // Swiper CSS
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -34,6 +35,10 @@ const BlogSlide4 = await getImage({
 ---
 
 <section class="blog">
+  <SectionWave 
+    fillColor="var(--green_1, #e2ecc4)"
+    className="blog__wave"
+  />
   <header class="blog__header">
     <h2 class="blog__title">BLOG</h2>
     <div class="blog__subtitle">
@@ -332,7 +337,7 @@ const BlogSlide4 = await getImage({
 
   /* TOPページ アクティビティーズセクション */
   .blog {
-    padding-top: spx(50);
+    padding-top: spx(130);
     padding-bottom: spx(120);
     position: relative;
     background-color: var(--blue_2, #e7f3f9);
