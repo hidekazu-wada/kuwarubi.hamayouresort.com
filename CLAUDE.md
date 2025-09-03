@@ -76,7 +76,12 @@ npm run astro -- --help
 │   │   ├── VideoModal.astro      # 動画モーダル
 │   │   └── Booking-modal.astro   # 宿泊予約モーダル
 │   ├── pages/       # ページコンポーネント（ファイルベースルーティング）
-│   │   └── index.astro
+│   │   ├── index.astro           # TOPページ
+│   │   └── activities/           # アクティビティページ
+│   │       ├── index.astro       # アクティビティ一覧 (/activities)
+│   │       └── [slug].astro      # アクティビティ詳細 (/activities/*)
+│   ├── data/        # 静的データファイル
+│   │   └── activities.ts         # アクティビティデータ・型定義
 │   ├── styles/      # SCSSファイル
 │   │   ├── reset.scss      # リセットCSS
 │   │   ├── _variables.scss # 変数・定数
@@ -760,15 +765,20 @@ document.addEventListener('DOMContentLoaded', initParallax);
 ✅ **レスポンシブ画像**: 全セクションでAstro getImage() + WebP最適化完了
 ✅ **セマンティックHTML**: 適切なHTML要素・構造でアクセシビリティ対応完了
 ✅ **TypeScript型定義**: カスタム型定義でSwiper・Astroコンポーネント警告解消完了
+✅ **アクティビティページ基盤**: 一覧・詳細ページの動的ルーティングと静的データ管理システム完了
 
 ### 現在のコンポーネント構成
 
 **メインページ:**
-- **index.astro**: メインページ（JavaScript中央管理、レイアウト定義、全セクション統合）
+- **index.astro**: TOPページ（JavaScript中央管理、レイアウト定義、全セクション統合）
+
+**下層ページ:**
+- **activities/index.astro**: アクティビティ一覧ページ（フィルタリング・ソート対応予定）
+- **activities/[slug].astro**: アクティビティ詳細ページ（動的ルーティング対応）
 
 **レイアウト・ナビゲーション:**
 - **Sidebar.astro**: PC用固定サイドバー
-- **BottomBar.astro**: スマホ用下部固定バー（スクロール連動表示制御付き）
+- **BottomBar.astro**: スマホ用下部固定バー（TOPページのみスクロール連動、下層ページは常時表示）
 - **MenuOverlay.astro**: 全画面メニューオーバーレイ
 - **Footer.astro**: ページフッター
 
@@ -787,6 +797,10 @@ document.addEventListener('DOMContentLoaded', initParallax);
 
 **共通UIコンポーネント:**
 - **MoreButton.astro**: 再利用可能Moreボタン（Props対応、カスタマイズ可能）
+- **SectionWave.astro**: 再利用可能Waveコンポーネント（色カスタマイズ対応）
+
+**データ管理:**
+- **activities.ts**: アクティビティの静的データと型定義（将来的にCMS統合予定）
 
 ### 技術的特徴
 - **Astroらしい設計**: サーバーサイドレンダリング中心、最小限のクライアントJS
@@ -1462,3 +1476,83 @@ npm run preview
 - SEO・パフォーマンスの維持
 
 この開発方針により、一貫性のある高品質なコードベースを維持し、スケーラブルな開発を実現しています。
+
+## アクティビティページシステム
+
+### 概要
+
+TOPページ完成後の第二フェーズとして、アクティビティの一覧ページと詳細ページを実装。Astroのファイルベースルーティングと動的ルーティング機能を活用した構造を採用。
+
+### 実装済み構造
+
+#### ページ構成
+- **一覧ページ**: `/activities/` - 全アクティビティのリスト表示
+- **詳細ページ**: `/activities/[slug]` - 個別アクティビティの詳細情報表示
+
+#### データ管理システム
+```typescript
+// src/data/activities.ts
+export interface Activity {
+  slug: string;                    // URL用識別子
+  title: string;                   // アクティビティ名
+  category: string;                // カテゴリ分類
+  description: string;             // 概要説明
+  images: {
+    thumbnail: string;             // 一覧用サムネイル
+    hero: string;                  // 詳細ページメイン画像
+    gallery: string[];             // ギャラリー画像配列
+  };
+  
+  // フィルタリング・ソート対応データ
+  targetAge: { min: number; max?: number };  // 対象年齢
+  season: string[];                          // 実施時期
+  capacity: { min: number; max: number };    // 参加人数
+  duration: number;                          // 所要時間（分）
+  price: { adult: number; child?: number };  // 料金設定
+  weather: string[];                         // 実施可能天気
+  
+  // 詳細ページ専用データ
+  highlights: string[];            // おすすめポイント
+  program: Array<{time: string; content: string}>; // プログラム流れ
+  notes: string[];                 // 注意事項
+  bookingUrl?: string;             // 予約リンク
+}
+```
+
+#### 実装済みアクティビティデータ
+1. **SUP体験** (`sup-experience`) - 水上体験・初心者向け
+2. **キャンプファイヤー体験** (`campfire-experience`) - 自然体験・ファミリー向け
+3. **レンタルサイクル** (`rental-cycle`) - 陸上体験・自由度高
+4. **樹海トレイル** (`forest-trail`) - 自然体験・ガイド付き
+
+### 動的ルーティング実装
+
+#### 詳細ページ (`[slug].astro`)
+```astro
+export async function getStaticPaths() {
+  return activities.map((activity: Activity) => ({
+    params: { slug: activity.slug },
+    props: { activity }
+  }));
+}
+
+const { activity } = Astro.props;
+const pageTitle = `${activity.title} | クワルビリゾート`;
+```
+
+### レイアウト継承
+- **共通レイアウト**: TOPページと同じSidebar・BottomBar・Footer構成
+- **BottomBar動作**: 下層ページでは常時表示（TOPページのスクロール連動なし）
+- **モーダル**: VideoModal・BookingModalも全ページで利用可能
+
+### 今後の実装予定
+- **一覧ページ**: フィルタリング・ソート機能
+- **詳細ページ**: 画像ギャラリー（Swiper）・予約システム連携
+- **TOPページ連携**: ActivitiesセクションからのリンクとMoreButton経由遷移
+
+### 設計の利点
+1. **型安全性**: TypeScript型定義でデータ整合性保証
+2. **一元管理**: activities.tsで全アクティビティ情報を管理
+3. **拡張性**: CMS統合時もインターフェース維持で移行容易
+4. **SEO対応**: 各詳細ページが独立URL・メタ情報設定済み
+5. **保守性**: TOPページの設計パターン踏襲で一貫した開発体験
