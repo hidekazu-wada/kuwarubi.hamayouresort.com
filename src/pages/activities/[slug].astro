@@ -15,12 +15,18 @@ import { activities, type Activity } from '../../data/activities';
 // 画像
 import { getImage } from 'astro:assets';
 import slide01 from '../../assets/images/activities/01_jukai-trail.jpg';
+import bg from '../../assets/images/activities/bg_jukai-trail.png';
 
 // フォーマット
 const slideImage01 = await getImage({
   src: slide01,
   format: 'webp',
   widths: [580, 900, 1050],
+});
+const bgImage = await getImage({
+  src: bg,
+  format: 'webp',
+  widths: [720, 1080, 2316],
 });
 
 // 動的ルーティング用のパス生成
@@ -166,6 +172,96 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
             >
           </nav>
         </article>
+        <section class="point">
+          <figure class="point__figure">
+            <picture class="point__picture">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={bgImage.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={bgImage.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                class="point__image"
+                src={bgImage.src}
+                alt="樹海トレイル体験の風景"
+              />
+            </picture>
+          </figure>
+          <article class="point__content">
+            <header class="point__header">
+              <div class="point__header-wrapper">
+                <p class="point__label">POINT</p>
+                <hgroup class="point__title-group">
+                  <h3 class="point__title">
+                    <span class="point__title-line">樹海の不思議に触れ</span>
+                    <span class="point__title-line"
+                      >観察力と考える力を育てる</span
+                    >
+                  </h3>
+                </hgroup>
+              </div>
+            </header>
+            <div class="point__description">
+              ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。
+            </div>
+          </article>
+        </section>
+        <section class="about">
+          <header class="about__header">
+            <h4 class="about__title">About</h4>
+            <p class="about__subtitle">概要</p>
+          </header>
+          <div class="about__content">
+            <dl class="about__list">
+              <div class="about__item">
+                <dt class="about__term">対象年齢</dt>
+                <dd class="about__description">６歳〜</dd>
+              </div>
+              <div class="about__item">
+                <dt class="about__term">実施時期</dt>
+                <dd class="about__description">通年</dd>
+              </div>
+              <div class="about__item">
+                <dt class="about__term">人数</dt>
+                <dd class="about__description">
+                  １０名～２００名
+                  <small class="about__note">＊人数が多い場合や少ない場合などはご相談ください</small>
+                </dd>
+              </div>
+              <div class="about__item">
+                <dt class="about__term">所要時間</dt>
+                <dd class="about__description">１時間半～２時間</dd>
+              </div>
+              <div class="about__item">
+                <dt class="about__term">料金</dt>
+                <dd class="about__description">1,100円（税込）～</dd>
+              </div>
+              <div class="about__item">
+                <dt class="about__term">キャンセル料</dt>
+                <dd class="about__description">
+                  当日 100%　前日 50%
+                  <small class="about__note">＊天候により実施が難しい場合には、キャンセル料はいただきません。</small>
+                </dd>
+              </div>
+              <div class="about__item">
+                <dt class="about__term">服装</dt>
+                <dd class="about__description">
+                  筆記用具、雨具、動きやすい服装、歩きやすい靴
+                </dd>
+              </div>
+              <div class="about__item">
+                <dt class="about__term">持ち物</dt>
+                <dd class="about__description">とくになし</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
 
         <!-- ここから下におすすめポイントなどのセクションが追加される -->
       </main>
@@ -853,6 +949,265 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
             background-color: var(--green_2, #adc400);
             border-color: var(--green_2, #adc400);
           }
+        }
+      }
+    }
+
+    /* POINTセクション */
+    .point {
+      background: var(--blue_2, #e7f3f9);
+      position: relative;
+      padding-top: spx(370);
+      padding-bottom: spx(80);
+      @include tablet-up {
+        background: white;
+        padding-top: ppx(426 * 1.2);
+        padding-bottom: 0;
+      }
+      @include desktop-up {
+        padding-top: ppx(426);
+      }
+
+      &__figure {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__picture {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__image {
+        display: block;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: spx(520);
+        object-fit: cover;
+        object-position: center top;
+        @include tablet-up {
+          height: ppx(1088 * 1.2);
+        }
+        @include desktop-up {
+          height: ppx(1088);
+        }
+      }
+
+      &__content {
+        position: relative;
+        z-index: 2;
+        width: spx(660);
+        border-radius: spx(20);
+        background: rgba(255, 255, 255, 0.95);
+        padding-top: spx(60);
+        padding-bottom: spx(60);
+        padding-inline: spx(65);
+        margin-inline: auto;
+        @include tablet-up {
+          width: ppx(960 * 1.2);
+          border-radius: ppx(30 * 1.2);
+          padding-top: ppx(100 * 1.2);
+          padding-bottom: ppx(74 * 1.2);
+          padding-inline: ppx(110 * 1.2);
+          margin-left: auto;
+          margin-right: ppx(140 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx(960);
+          border-radius: ppx(30);
+          padding-top: ppx(100);
+          padding-bottom: ppx(74);
+          padding-inline: ppx(110);
+          margin-right: ppx(140);
+        }
+      }
+
+      &__header {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__header-wrapper {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+        &:after {
+          content: '';
+          display: block;
+          width: spx(231);
+          height: spx(5);
+          background: linear-gradient(
+            to right,
+            var(--green_2, #adc400) 0%,
+            /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
+            /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
+            /* 透明開始 */ transparent 51.4%,
+            /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
+              51.4%,
+            /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
+          );
+          margin-top: spx(30);
+          @include tablet-up {
+            height: ppx(5) * 1.2;
+            width: ppx(231) * 1.2;
+            margin-top: ppx(34 * 1.2);
+          }
+          @include desktop-up {
+            height: ppx(5);
+            width: ppx(231);
+            margin-top: ppx(34);
+          }
+        }
+      }
+
+      &__label {
+        color: var(--blue_6, #054965);
+        font-size: spx(30);
+        font-weight: 400;
+        line-height: 150%; /* 45px */
+        @include tablet-up {
+          color: var(--blue_5, #026995);
+          font-size: ppx(32 * 1.2);
+          line-height: ppx(32 * 1.2); /* 100% */
+        }
+        @include desktop-up {
+          font-size: ppx(32);
+          line-height: ppx(32); /* 100% */
+        }
+      }
+
+      &__title-group {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__title {
+        color: var(--blue_6, #054965);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(44);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%; /* 61.6px */
+        margin-top: spx(10);
+        @include tablet-up {
+          color: var(--blue_5, #026995);
+          font-size: ppx(60 * 1.2);
+          margin-top: ppx(14 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(60);
+          margin-top: ppx(14);
+        }
+      }
+
+      &__title-line {
+        display: block;
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__description {
+        color: var(--blue_6, #054965);
+        font-size: spx(30);
+        font-weight: 400;
+        line-height: 150%; /* 45px */
+        margin-top: spx(30);
+        @include tablet-up {
+          color: var(--blue_5, #026995);
+          font-size: ppx(32 * 1.2);
+          line-height: 180%; /* 57.6px */
+          letter-spacing: ppx(1.6 * 1.2);
+          margin-top: ppx(51 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(32);
+          letter-spacing: ppx(1.6);
+          margin-top: ppx(51);
+        }
+      }
+    }
+
+    /* ABOUTセクション */
+    .about {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &__header {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__title {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__subtitle {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__content {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__list {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__item {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__term {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__description {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__note {
+        @include tablet-up {
+        }
+        @include desktop-up {
         }
       }
     }
