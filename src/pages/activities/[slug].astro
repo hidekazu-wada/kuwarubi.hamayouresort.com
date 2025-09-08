@@ -77,7 +77,9 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
         <article class="activity-detail">
           <header class="activity-detail__header">
             <div class="activity-detail__title-wrapper">
-              <div class="activity-detail__category">JUKAI TRAIL</div>
+              <div class="activity-detail__category">
+                JUKAI TRAIL TRAIL TRAIL
+              </div>
             </div>
             <h1 class="activity-detail__title">樹海トレイル</h1>
           </header>
@@ -476,13 +478,18 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
       }
 
       &__title-wrapper {
+        width: spx(600);
+        margin-inline: auto;
         @include tablet-up {
+          margin-inline: unset;
           padding-top: ppx(580 * 1.2);
-          margin-left: ppx(233 * 1.2);
+          margin-left: ppx(233 * 0.5);
+          width: ppx(790 * 1.2);
         }
         @include desktop-up {
           padding-top: ppx(580);
           margin-left: ppx(233);
+          width: ppx(790);
         }
         &:after {
           content: '';
@@ -542,20 +549,29 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
         font-weight: 400;
         line-height: spx(34); /* 103.03% */
         margin-top: spx(20);
+        width: spx(600);
+        margin-inline: auto;
         @include tablet-up {
+          margin-inline: unset;
           text-align: left;
           font-size: ppx(34 * 1.2);
           line-height: ppx(34 * 1.2); /* 100% */
           margin-top: ppx(25 * 1.2);
-          margin-left: ppx(233 * 1.2);
+          margin-left: ppx(233 * 0.5);
+          width: ppx(790 * 1.2);
         }
         @include desktop-up {
           font-size: ppx(34);
           line-height: ppx(34); /* 100% */
           margin-top: ppx(25);
           margin-left: ppx(233);
+          width: ppx(790);
         }
       }
+
+      $slide-width-spx: 580;
+      $slide-width-tpx: 1050 * 1;
+      $slide-width-ppx: 1050;
 
       &__gallery {
         margin-top: spx(60);
@@ -564,12 +580,12 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           position: absolute;
           top: ppx(80 * 1.2);
           right: ppx(50 * 1.2);
-          width: ppx(1050 * 1.2);
+          width: ppx($slide-width-tpx);
         }
         @include desktop-up {
           top: ppx(80);
           right: ppx(50);
-          width: ppx(1050);
+          width: ppx($slide-width-ppx);
         }
       }
 
@@ -583,19 +599,19 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
         @include desktop-up {
         }
         img {
-          width: spx(580);
+          width: spx($slide-width-spx);
           height: spx(746);
           object-fit: cover;
           flex-shrink: 0;
           aspect-ratio: 283/364;
           border-radius: spx(30);
           @include tablet-up {
-            width: ppx(1050 * 1.2);
+            width: ppx($slide-width-tpx);
             height: ppx(1350 * 1.2);
             border-radius: ppx(30 * 1.2);
           }
           @include desktop-up {
-            width: ppx(1050);
+            width: ppx($slide-width-ppx);
             height: ppx(1350);
             border-radius: ppx(30);
           }
@@ -642,7 +658,7 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           margin-top: ppx(181 * 1.2);
           width: ppx(790 * 1.2);
           margin-inline: unset;
-          margin-left: ppx(233 * 1.2);
+          margin-left: ppx(233 * 0.5);
         }
         @include desktop-up {
           font-size: ppx(73);
@@ -669,7 +685,7 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           width: ppx(790 * 1.2);
           margin-inline: unset;
           margin-top: ppx(172 * 1.2);
-          margin-left: ppx(233 * 1.2);
+          margin-left: ppx(233 * 0.5);
         }
         @include desktop-up {
           font-size: ppx(34);
@@ -790,26 +806,57 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
       width: 100%;
     }
 
-    /* ページネーションのカスタマイズ（既存のactivity-detail__pagerと共存） */
+    /* ページネーションのカスタマイズ（TOPページActivitiesスタイルに合わせ） */
     .activity-detail__pager.swiper-pagination {
       position: static !important;
       text-align: center;
-      margin-top: 40px;
+      margin-top: spx(40);
+      @include tablet-up {
+        margin-top: ppx(40 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(40);
+      }
     }
 
-    .activity-detail__pager .swiper-pagination-bullet {
-      width: 12px;
-      height: 12px;
-      background: var(--blue_4, #59a1c0);
-      opacity: 0.3;
-      margin: 0 6px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
+    .activity-detail__pager {
+      // ページネーションドット（通常状態）
+      :global(.swiper-pagination-bullet) {
+        width: spx(20);
+        height: spx(20);
+        background-color: white;
+        border-radius: 50%;
+        border: solid 1px var(--blue_5, #026995);
+        opacity: 1;
+        margin: 0 spx(12);
+        transition: all 0.3s ease;
+        @include tablet-up {
+          width: ppx(20) * 1.2;
+          height: ppx(20) * 1.2;
+          margin: 0 ppx(12) * 1.2;
+        }
+        @include desktop-up {
+          width: ppx(20);
+          height: ppx(20);
+          margin: 0 ppx(12);
+        }
+      }
 
-    .activity-detail__pager .swiper-pagination-bullet-active {
-      opacity: 1;
-      background: var(--blue_5, #026995);
+      // ページネーションドット（アクティブ状態）
+      :global(.swiper-pagination-bullet-active) {
+        background-color: var(--blue_5, #026995);
+      }
+
+      // クリック可能な状態
+      &:global(.swiper-pagination-clickable) {
+        :global(.swiper-pagination-bullet) {
+          cursor: pointer;
+          &:hover {
+            background-color: var(--green_2, #adc400);
+            border-color: var(--green_2, #adc400);
+          }
+        }
+      }
     }
   </style>
 </html>
