@@ -1,6 +1,9 @@
 ---
 // メインSCSSファイルをインポート
 import '../../styles/main.scss';
+// Swiper CSS
+import 'swiper/css';
+import 'swiper/css/pagination';
 import BottomBar from '../../components/BottomBar.astro';
 import MenuOverlay from '../../components/MenuOverlay.astro';
 import Sidebar from '../../components/Sidebar.astro';
@@ -80,26 +83,52 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           </header>
 
           <section class="activity-detail__gallery">
-            <picture class="activity-detail__picture">
-              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-              <source
-                media="(min-width: 1024px)"
-                srcset={slideImage01.srcSet.toString()}
-              />
-              <!-- タブレット（744px以上）→ 中解像度版 -->
-              <source
-                media="(min-width: 744px)"
-                srcset={slideImage01.srcSet.toString()}
-              />
-              <!-- スマホ（744px未満）→ 最小解像度版 -->
-              <img
-                src={slideImage01.src}
-                alt="樹海トレイルの風景"
-                class="activity-detail__image"
-              />
-            </picture>
-
-            <div class="activity-detail__pager">ここにpager</div>
+            <div class="activities-detail__swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <picture class="activity-detail__picture">
+                    <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                    <source
+                      media="(min-width: 1024px)"
+                      srcset={slideImage01.srcSet.toString()}
+                    />
+                    <!-- タブレット（744px以上）→ 中解像度版 -->
+                    <source
+                      media="(min-width: 744px)"
+                      srcset={slideImage01.srcSet.toString()}
+                    />
+                    <!-- スマホ（744px未満）→ 最小解像度版 -->
+                    <img
+                      src={slideImage01.src}
+                      alt="樹海トレイルの風景"
+                      class="activity-detail__image"
+                    />
+                  </picture>
+                </div>
+                <!-- テスト用スライド2 -->
+                <div class="swiper-slide">
+                  <picture class="activity-detail__picture">
+                    <img
+                      src={slideImage01.src}
+                      alt="樹海トレイルの風景2"
+                      class="activity-detail__image"
+                    />
+                  </picture>
+                </div>
+                <!-- テスト用スライド3 -->
+                <div class="swiper-slide">
+                  <picture class="activity-detail__picture">
+                    <img
+                      src={slideImage01.src}
+                      alt="樹海トレイルの風景3"
+                      class="activity-detail__image"
+                    />
+                  </picture>
+                </div>
+              </div>
+              <!-- ページネーション（既存のクラス名も維持） -->
+              <div class="swiper-pagination activity-detail__pager"></div>
+            </div>
           </section>
 
           <section class="activity-detail__intro">
@@ -145,8 +174,27 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
     </div>
 
     <script>
+      // Swiperのインポート
+      import Swiper from 'swiper';
+      import { Pagination, Autoplay } from 'swiper/modules';
+
       // DOMロード後に実行
       document.addEventListener('DOMContentLoaded', () => {
+        // Swiper初期化（activities-detail専用・完全独立）
+        new Swiper('.activities-detail__swiper', {
+          modules: [Pagination, Autoplay],
+          slidesPerView: 1,
+          spaceBetween: 20,
+          autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+          },
+          pagination: {
+            el: '.activity-detail__pager',
+            clickable: true,
+          },
+        });
+
         // メニュー機能
         const pcMenuToggle = document.getElementById('menu-toggle');
         const mobileMenuToggle = document.querySelector('.bottom-bar__toggle');
@@ -516,10 +564,12 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           position: absolute;
           top: ppx(80 * 1.2);
           right: ppx(50 * 1.2);
+          width: ppx(1050 * 1.2);
         }
         @include desktop-up {
           top: ppx(80);
           right: ppx(50);
+          width: ppx(1050);
         }
       }
 
@@ -722,6 +772,44 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           letter-spacing: ppx(1.65);
         }
       }
+    }
+
+    /* Swiper基本スタイル（既存レイアウト保持） */
+    .activities-detail__swiper {
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+    }
+
+    .activities-detail__swiper .swiper-wrapper {
+      display: flex;
+    }
+
+    .activities-detail__swiper .swiper-slide {
+      flex-shrink: 0;
+      width: 100%;
+    }
+
+    /* ページネーションのカスタマイズ（既存のactivity-detail__pagerと共存） */
+    .activity-detail__pager.swiper-pagination {
+      position: static !important;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .activity-detail__pager .swiper-pagination-bullet {
+      width: 12px;
+      height: 12px;
+      background: var(--blue_4, #59a1c0);
+      opacity: 0.3;
+      margin: 0 6px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .activity-detail__pager .swiper-pagination-bullet-active {
+      opacity: 1;
+      background: var(--blue_5, #026995);
     }
   </style>
 </html>
