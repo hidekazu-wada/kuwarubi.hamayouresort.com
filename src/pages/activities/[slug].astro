@@ -9,11 +9,22 @@ import VideoModal from '../../components/VideoModal.astro';
 import BookingModal from '../../components/Booking-modal.astro';
 import { activities, type Activity } from '../../data/activities';
 
+// 画像
+import { getImage } from 'astro:assets';
+import slide01 from '../../assets/images/activities/01_jukai-trail.jpg';
+
+// フォーマット
+const slideImage01 = await getImage({
+  src: slide01,
+  format: 'webp',
+  widths: [580, 900, 1050],
+});
+
 // 動的ルーティング用のパス生成
 export async function getStaticPaths() {
   return activities.map((activity: Activity) => ({
     params: { slug: activity.slug },
-    props: { activity }
+    props: { activity },
   }));
 }
 
@@ -59,7 +70,76 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
       <BookingModal />
 
       <!-- メインコンテンツ -->
-      <main class="main-content"></main>
+      <main class="main-content">
+        <article class="activity-detail">
+          <header class="activity-detail__header">
+            <div class="activity-detail__title-wrapper">
+              <div class="activity-detail__category">JUKAI TRAIL</div>
+            </div>
+            <h1 class="activity-detail__title">樹海トレイル</h1>
+          </header>
+
+          <section class="activity-detail__gallery">
+            <picture class="activity-detail__picture">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={slideImage01.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={slideImage01.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={slideImage01.src}
+                alt="樹海トレイルの風景"
+                class="activity-detail__image"
+              />
+            </picture>
+
+            <div class="activity-detail__pager">ここにpager</div>
+          </section>
+
+          <section class="activity-detail__intro">
+            <h2 class="activity-detail__intro-title">
+              不思議の森の<br />
+              不思議な冒険
+            </h2>
+
+            <div class="activity-detail__intro-content">
+              <p class="activity-detail__intro-text">
+                樹海ってどんな森？太古の森？土がほとんどない森、樹海の不思議に迫ります。
+              </p>
+              <p class="activity-detail__intro-text">
+                スライドで樹海の成り立ちを学んだあと、テーマを決めて樹海へ入ります。原生林を歩きながら、それぞれの課題をクリアしていく冒険。終了後は時間があればそれぞれの観察を互いに発表をするのもおすすめです。
+              </p>
+            </div>
+          </section>
+
+          <span class="activity-detail__divider"></span>
+
+          <nav class="activity-detail__nav">
+            <a href="#highlights" class="activity-detail__nav-item"
+              ><span class="activity-detail__nav-text">おすすめポイント</span
+              ></a
+            >
+            <a href="#overview" class="activity-detail__nav-item"
+              ><span class="activity-detail__nav-text">概要・料金</span></a
+            >
+            <a href="#program" class="activity-detail__nav-item"
+              ><span class="activity-detail__nav-text">プログラムの流れ</span
+              ></a
+            >
+            <a href="#booking" class="activity-detail__nav-item"
+              ><span class="activity-detail__nav-text">ご予約</span></a
+            >
+          </nav>
+        </article>
+
+        <!-- ここから下におすすめポイントなどのセクションが追加される -->
+      </main>
       <!-- フッター -->
       <Footer />
     </div>
@@ -324,6 +404,324 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
     .main-content {
       grid-area: main;
       position: relative;
+    }
+
+    /* アクティビティ詳細 */
+    .activity-detail {
+      background: var(--blue_2, #e7f3f9);
+      padding-top: spx(110);
+      padding-bottom: spx(30);
+      position: relative;
+      @include tablet-up {
+        padding-top: 0;
+        padding-bottom: ppx(51 * 1.2);
+      }
+      @include desktop-up {
+        padding-bottom: ppx(51);
+      }
+
+      &__header {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__title-wrapper {
+        @include tablet-up {
+          padding-top: ppx(580 * 1.2);
+          margin-left: ppx(233 * 1.2);
+        }
+        @include desktop-up {
+          padding-top: ppx(580);
+          margin-left: ppx(233);
+        }
+        &:after {
+          content: '';
+          display: block;
+          width: spx(231);
+          height: spx(5);
+          background: linear-gradient(
+            to right,
+            var(--green_2, #adc400) 0%,
+            /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
+            /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
+            /* 透明開始 */ transparent 51.4%,
+            /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
+              51.4%,
+            /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
+          );
+          margin-inline: auto;
+          margin-top: spx(5);
+          @include tablet-up {
+            height: ppx(5) * 1.2;
+            width: ppx(231) * 1.2;
+            margin-inline: unset;
+            margin-top: ppx(20 * 1.2);
+          }
+          @include desktop-up {
+            height: ppx(5);
+            width: ppx(231);
+            margin-top: ppx(20);
+          }
+        }
+      }
+
+      &__category {
+        color: var(--blue_5, #026995);
+        text-align: center;
+        font-size: spx(84);
+        font-weight: 700;
+        line-height: spx(115); /* 136.905% */
+        letter-spacing: spx(2.52);
+        @include tablet-up {
+          text-align: left;
+          font-size: ppx(115 * 1.2);
+          line-height: ppx(115 * 1.2); /* 100% */
+          letter-spacing: ppx(3.45 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(115);
+          line-height: ppx(115); /* 100% */
+          letter-spacing: ppx(3.45);
+        }
+      }
+
+      &__title {
+        color: var(--blue_6, #054965);
+        text-align: center;
+        font-size: spx(33);
+        font-weight: 400;
+        line-height: spx(34); /* 103.03% */
+        margin-top: spx(20);
+        @include tablet-up {
+          text-align: left;
+          font-size: ppx(34 * 1.2);
+          line-height: ppx(34 * 1.2); /* 100% */
+          margin-top: ppx(25 * 1.2);
+          margin-left: ppx(233 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(34);
+          line-height: ppx(34); /* 100% */
+          margin-top: ppx(25);
+          margin-left: ppx(233);
+        }
+      }
+
+      &__gallery {
+        margin-top: spx(60);
+        @include tablet-up {
+          margin-top: 0;
+          position: absolute;
+          top: ppx(80 * 1.2);
+          right: ppx(50 * 1.2);
+        }
+        @include desktop-up {
+          top: ppx(80);
+          right: ppx(50);
+        }
+      }
+
+      &__picture {
+        display: block;
+        width: max-content;
+        margin-inline: auto;
+        @include tablet-up {
+          margin-inline: unset;
+        }
+        @include desktop-up {
+        }
+        img {
+          width: spx(580);
+          height: spx(746);
+          object-fit: cover;
+          flex-shrink: 0;
+          aspect-ratio: 283/364;
+          border-radius: spx(30);
+          @include tablet-up {
+            width: ppx(1050 * 1.2);
+            height: ppx(1350 * 1.2);
+            border-radius: ppx(30 * 1.2);
+          }
+          @include desktop-up {
+            width: ppx(1050);
+            height: ppx(1350);
+            border-radius: ppx(30);
+          }
+        }
+      }
+
+      &__image {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__pager {
+        margin-top: spx(40);
+        @include tablet-up {
+          margin-top: ppx(40 * 1.2);
+        }
+        @include desktop-up {
+          margin-top: ppx(40);
+        }
+      }
+
+      &__intro {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__intro-title {
+        color: var(--blue_5, #026995);
+        font-size: spx(52);
+        font-weight: 400;
+        line-height: 150%; /* 78px */
+        letter-spacing: spx(2.6);
+        margin-top: spx(60);
+        width: spx(600);
+        margin-inline: auto;
+        @include tablet-up {
+          font-size: ppx(73 * 1.2);
+          line-height: 160%; /* 116.8px */
+          letter-spacing: ppx(3.65 * 1.2);
+          margin-top: ppx(181 * 1.2);
+          width: ppx(790 * 1.2);
+          margin-inline: unset;
+          margin-left: ppx(233 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(73);
+          line-height: 160%; /* 116.8px */
+          letter-spacing: ppx(3.65);
+          margin-top: ppx(181);
+          width: ppx(790);
+          margin-left: ppx(233);
+        }
+      }
+
+      &__intro-content {
+        color: var(--blue_5, #026995);
+        font-size: spx(30);
+        font-weight: 400;
+        line-height: 160%; /* 48px */
+        width: spx(600);
+        margin-inline: auto;
+        margin-top: spx(40);
+        @include tablet-up {
+          font-size: ppx(34 * 1.2);
+          line-height: 180%; /* 61.2px */
+          letter-spacing: ppx(1.7 * 1.2);
+          width: ppx(790 * 1.2);
+          margin-inline: unset;
+          margin-top: ppx(172 * 1.2);
+          margin-left: ppx(233 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(34);
+          line-height: 180%; /* 61.2px */
+          letter-spacing: ppx(1.7);
+          width: ppx(790);
+          margin-top: ppx(172);
+          margin-left: ppx(233);
+        }
+      }
+
+      &__intro-text {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__divider {
+        display: block;
+        width: spx(640);
+        height: 1px;
+        background: #59a1c0;
+        margin-inline: auto;
+        margin-top: spx(60);
+        margin-bottom: spx(70);
+        @include tablet-up {
+          width: ppx(2316 * 1.2);
+          margin-top: ppx(191 * 1.2);
+          margin-bottom: ppx(50 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx(2316);
+          margin-top: ppx(191);
+          margin-bottom: ppx(50);
+        }
+      }
+
+      &__nav {
+        display: grid;
+        grid-template-columns: max-content max-content;
+        gap: spx(10);
+        justify-content: center;
+        @include tablet-up {
+          grid-template-columns: repeat(4, max-content);
+          gap: ppx(18 * 1.2);
+        }
+        @include desktop-up {
+          gap: ppx(18);
+        }
+      }
+
+      &__nav-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: spx(15);
+        border: spx(2) solid var(--blue_5, #026995);
+        background: var(--white, #fff);
+        width: spx(300);
+        height: spx(63);
+        transition: background 0.3s ease;
+        @include tablet-up {
+          width: ppx(454 * 1.2);
+          height: ppx(99 * 1.2);
+          border-radius: ppx(20 * 1.2);
+          border: ppx(2 * 1.2) solid var(--blue_5, #026995);
+        }
+        @include desktop-up {
+          width: ppx(454);
+          height: ppx(99);
+          border-radius: ppx(20);
+          border: ppx(2) solid var(--blue_5, #026995);
+        }
+        @include hover {
+          &:hover {
+            background: var(--blue_5, #026995);
+            & .activity-detail__nav-text {
+              color: var(--white, #fff);
+            }
+          }
+        }
+      }
+
+      &__nav-text {
+        color: var(--blue_5, #026995);
+        text-align: center;
+        font-size: spx(27);
+        font-weight: 400;
+        line-height: 85%; /* 22.95px */
+        transition: color 0.3s ease;
+        @include tablet-up {
+          font-size: ppx(33 * 1.2);
+          line-height: ppx(33 * 1.2); /* 100% */
+          letter-spacing: ppx(1.65 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(33);
+          line-height: ppx(33); /* 100% */
+          letter-spacing: ppx(1.65);
+        }
+      }
     }
   </style>
 </html>
