@@ -1,11 +1,14 @@
 ---
-
+import logoKuwarubi from '../../src/assets/images/logo_kuwarubi.svg';
+import logoHamayou from '../../src/assets/images/logo_hamayou_yoko.svg';
+import logoGnome from '../../src/assets/images/logo_gnome.svg';
+import logoIzumi from '../../src/assets/images/logo_izumi.webp';
 ---
 
 <footer class="footer">
   <a href="" class="footer__logo-link">
     <img
-      src="../../src/assets/images/logo_kuwarubi.svg"
+      src={logoKuwarubi.src}
       alt="くわるび ロゴ"
       class="footer__logo-image"
     />
@@ -70,7 +73,7 @@
   <div class="footer__partners">
     <a href="" class="footer__partner-link footer__partner-link--first">
       <img
-        src="../../src/assets/images/logo_hamayou_yoko.svg"
+        src={logoHamayou.src}
         alt="浜遊リゾート ロゴ"
         class="footer__partner-image"
       />
@@ -78,14 +81,14 @@
     <div class="footer__partner-group">
       <a href="" class="footer__partner-link footer__partner-link--second">
         <img
-          src="../../src/assets/images/logo_gnome.svg"
+          src={logoGnome.src}
           alt="ノーム ロゴ"
           class="footer__partner-image"
         />
       </a>
       <a href="" class="footer__partner-link footer__partner-link--third">
         <img
-          src="../../src/assets/images/logo_izumi.webp"
+          src={logoIzumi.src}
           alt="いずみ ロゴ"
           class="footer__partner-image"
         />
@@ -206,7 +209,7 @@
         &:hover {
           background-color: white;
           color: $blue_6;
-          
+
           .footer__nav-arrow path {
             stroke: $blue_6;
           }
