@@ -16,6 +16,7 @@ import { activities, type Activity } from '../../data/activities';
 import { getImage } from 'astro:assets';
 import slide01 from '../../assets/images/activities/01_jukai-trail.jpg';
 import bg from '../../assets/images/activities/bg_jukai-trail.png';
+import ImageSup from '../../assets/images/activities/image-sup.png';
 
 // フォーマット
 const slideImage01 = await getImage({
@@ -27,6 +28,11 @@ const bgImage = await getImage({
   src: bg,
   format: 'webp',
   widths: [720, 1080, 2316],
+});
+const supImage = await getImage({
+  src: ImageSup,
+  format: 'webp',
+  widths: [460, 480, 500],
 });
 
 // 動的ルーティング用のパス生成
@@ -341,7 +347,9 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           <address class="reservation__contact">
             <div class="reservation__method">
               <dt class="reservation__method-label">TEL</dt>
-              <dd class="reservation__method-value">0555-82-2922</dd>
+              <dd class="reservation__method-value">
+                <a href="tel:0555822922">0555-82-2922</a>
+              </dd>
               <dd class="reservation__method-time">
                 受付時間　10：00 〜 17：00
               </dd>
@@ -349,10 +357,114 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
             <span class="reservation__divider"></span>
             <div class="reservation__method">
               <dt class="reservation__method-label">E-mail</dt>
-              <dd class="reservation__method-value">info@hamayouresort.com</dd>
+              <dd class="reservation__method-value">
+                <a href="mailto:info@hamayouresort.com"
+                  >info@hamayouresort.com</a
+                >
+              </dd>
               <dd class="reservation__method-time">受付時間　24時間</dd>
             </div>
           </address>
+        </section>
+
+        <section class="popular-activities">
+          <header class="popular-activities__header">
+            <h2 class="popular-activities__title">人気のアクティビティ</h2>
+          </header>
+
+          <div class="popular-activities__slider">
+            <article class="popular-activities__card">
+              <div class="popular-activities__card-image">
+                <picture class="popular-activities__picture">
+                  <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={supImage.srcSet.toString()}
+                  />
+                  <!-- タブレット（744px以上）→ 中解像度版 -->
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={supImage.srcSet.toString()}
+                  />
+                  <!-- スマホ（744px未満）→ 最小解像度版 -->
+                  <img
+                    src={supImage.src}
+                    alt="SUP体験の様子"
+                    class="popular-activities__img"
+                  />
+                </picture>
+              </div>
+              <div class="popular-activities__card-title">
+                <h3 class="popular-activities__activity-name">ＳＵＰ体験</h3>
+                <svg
+                  class="popular-activities__arrow-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="17"
+                  viewBox="0 0 10 17"
+                  fill="none"
+                >
+                  <path
+                    d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
+                    stroke="#054965"
+                    stroke-width="1.84"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </article>
+            <div class="popular-activities__card-info">
+              <div class="popular-activities__pricing">
+                <div class="popular-activities__badges">
+                  <div class="popular-activities__badge-group">
+                    <span class="popular-activities__badge popular-activities__badge--reservation">
+                      事前<br />
+                      予約
+                    </span>
+                  </div>
+                  <div class="popular-activities__badge-group">
+                    <span class="popular-activities__badge popular-activities__badge--group">団体</span>
+                  </div>
+                </div>
+                <div class="popular-activities__price">¥4,400〜</div>
+              </div>
+              <dl class="popular-activities__details">
+                <div class="popular-activities__detail-item">
+                  <dt class="popular-activities__detail-term">所要時間：</dt>
+                  <dd class="popular-activities__detail-desc">2時間</dd>
+                </div>
+                <div class="popular-activities__detail-item">
+                  <dt class="popular-activities__detail-term">対象年齢：</dt>
+                  <dd class="popular-activities__detail-desc">0歳〜75歳</dd>
+                </div>
+                <div class="popular-activities__detail-item">
+                  <dt class="popular-activities__detail-term">実施時期：</dt>
+                  <dd class="popular-activities__detail-desc">1月、2月、3月</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          <div class="popular-activities__pagination">ここにpager</div>
+
+          <div class="popular-activities__more">
+            <span class="popular-activities__more-text">more</span>
+            <svg
+              class="popular-activities__more-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="23"
+              viewBox="0 0 22 23"
+              fill="none"
+            >
+              <path
+                d="M1.88672 21.4004L20.1146 11.4004L1.88672 1.40039"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </div>
         </section>
 
         <!-- ここから下におすすめポイントなどのセクションが追加される -->
@@ -1617,9 +1729,23 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
 
     /* RESERVATIONセクション */
     .reservation {
+      display: flex;
+      flex-flow: column;
+      gap: spx(60);
+      padding-top: spx(100);
+      padding-bottom: spx(110);
       @include tablet-up {
+        flex-flow: row;
+        gap: ppx(181 * 0.7);
+        padding-left: ppx(196 * 0.7);
+        padding-top: ppx(173 * 1.2);
+        padding-bottom: ppx(214 * 1.2);
       }
       @include desktop-up {
+        gap: ppx(181);
+        padding-left: ppx(196);
+        padding-top: ppx(173);
+        padding-bottom: ppx(214);
       }
 
       &__header {
@@ -1806,13 +1932,265 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
         height: 1px;
         background: #59a1c0;
         margin-inline: auto;
+        margin-top: spx(70);
+        margin-bottom: spx(60);
         @include tablet-up {
           width: 1px;
           height: ppx(150 * 1.2);
           margin-inline: unset;
+          margin-top: 0;
+          margin-bottom: 0;
+          margin-left: ppx(141 * 0.7);
+          margin-right: ppx(100 * 0.7);
         }
         @include desktop-up {
           height: ppx(150);
+          margin-left: ppx(141);
+          margin-right: ppx(100);
+        }
+      }
+    }
+
+    /* 人気のアクティビティセクション */
+    .popular-activities {
+      @include tablet-up {
+        
+      }
+      @include desktop-up {
+        
+      }
+
+      &__header {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__title {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__slider {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__card {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__card-image {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__picture {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__img {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__card-title {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__activity-name {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__arrow-icon {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__card-info {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__pricing {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__badges {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__badge-group {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__badge {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+
+        &--reservation {
+          @include tablet-up {
+            
+          }
+          @include desktop-up {
+            
+          }
+        }
+
+        &--group {
+          @include tablet-up {
+            
+          }
+          @include desktop-up {
+            
+          }
+        }
+      }
+
+      &__price {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__details {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__detail-item {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__detail-term {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__detail-desc {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__pagination {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__more {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__more-text {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
+        }
+      }
+
+      &__more-icon {
+        @include tablet-up {
+          
+        }
+        @include desktop-up {
+          
         }
       }
     }
