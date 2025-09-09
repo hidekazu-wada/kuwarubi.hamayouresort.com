@@ -231,7 +231,9 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
                 <dt class="about__term">人数</dt>
                 <dd class="about__description">
                   １０名～２００名
-                  <small class="about__note">＊人数が多い場合や少ない場合などはご相談ください</small>
+                  <small class="about__note"
+                    >＊人数が多い場合や少ない場合などはご相談ください</small
+                  >
                 </dd>
               </div>
               <div class="about__item">
@@ -246,7 +248,9 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
                 <dt class="about__term">キャンセル料</dt>
                 <dd class="about__description">
                   当日 100%　前日 50%
-                  <small class="about__note">＊天候により実施が難しい場合には、キャンセル料はいただきません。</small>
+                  <small class="about__note"
+                    >＊天候により実施が難しい場合には、キャンセル料はいただきません。</small
+                  >
                 </dd>
               </div>
               <div class="about__item">
@@ -261,6 +265,94 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
               </div>
             </dl>
           </div>
+        </section>
+
+        <section class="flow">
+          <header class="flow__header">
+            <h4 class="flow__title">Flow</h4>
+            <p class="flow__subtitle">プログラムの流れ</p>
+          </header>
+          <div class="flow__content">
+            <ol class="flow__list">
+              <li class="flow__item">
+                <article class="flow__step">
+                  <header class="flow__step-header">
+                    <span class="flow__step-number">STEP 1</span>
+                    <h5 class="flow__step-title">導入</h5>
+                  </header>
+                  <p class="flow__step-description">
+                    スライドで樹海の成り立ちと基礎知識を学びます。
+                  </p>
+                </article>
+              </li>
+              <li class="flow__item">
+                <article class="flow__step">
+                  <header class="flow__step-header">
+                    <span class="flow__step-number">STEP 2</span>
+                    <h5 class="flow__step-title">テーマ設定</h5>
+                  </header>
+                  <p class="flow__step-description">
+                    観察のテーマの説明をします。
+                  </p>
+                </article>
+              </li>
+              <li class="flow__item">
+                <article class="flow__step">
+                  <header class="flow__step-header">
+                    <span class="flow__step-number">STEP 3</span>
+                    <h5 class="flow__step-title">移動</h5>
+                  </header>
+                  <p class="flow__step-description">
+                    バスで樹海の入り口へ移動します。
+                  </p>
+                </article>
+              </li>
+              <li class="flow__item">
+                <article class="flow__step">
+                  <header class="flow__step-header">
+                    <span class="flow__step-number">STEP 4</span>
+                    <h5 class="flow__step-title">散策</h5>
+                  </header>
+                  <p class="flow__step-description">
+                    テーマに沿って観察しながら樹海を散策します。（４５分～６０分）
+                  </p>
+                </article>
+              </li>
+              <li class="flow__item">
+                <article class="flow__step">
+                  <header class="flow__step-header">
+                    <span class="flow__step-number">STEP 5</span>
+                    <h5 class="flow__step-title">まとめ</h5>
+                  </header>
+                  <p class="flow__step-description">
+                    クロージング（観察力と考える力）
+                  </p>
+                </article>
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="reservation">
+          <header class="reservation__header">
+            <p class="reservation__subtitle">Reservation</p>
+            <h3 class="reservation__title">ご予約</h3>
+          </header>
+          <address class="reservation__contact">
+            <div class="reservation__method">
+              <dt class="reservation__method-label">TEL</dt>
+              <dd class="reservation__method-value">0555-82-2922</dd>
+              <dd class="reservation__method-time">
+                受付時間　10：00 〜 17：00
+              </dd>
+            </div>
+            <span class="reservation__divider"></span>
+            <div class="reservation__method">
+              <dt class="reservation__method-label">E-mail</dt>
+              <dd class="reservation__method-value">info@hamayouresort.com</dd>
+              <dd class="reservation__method-time">受付時間　24時間</dd>
+            </div>
+          </address>
         </section>
 
         <!-- ここから下におすすめポイントなどのセクションが追加される -->
@@ -1095,9 +1187,7 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
 
       &__title {
         color: var(--blue_6, #054965);
-        font-family: 'Zen Kaku Gothic New';
         font-size: spx(44);
-        font-style: normal;
         font-weight: 400;
         line-height: 140%; /* 61.6px */
         margin-top: spx(10);
@@ -1143,9 +1233,23 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
 
     /* ABOUTセクション */
     .about {
+      display: flex;
+      flex-flow: column;
+      gap: spx(80);
+      padding-top: spx(100);
+      padding-bottom: spx(80);
       @include tablet-up {
+        flex-flow: row;
+        gap: ppx(248 * 1);
+        padding-left: ppx(196 * 0.7);
+        padding-top: ppx(203 * 1.2);
+        padding-bottom: ppx(106 * 1.2);
       }
       @include desktop-up {
+        gap: ppx(248);
+        padding-left: ppx(196);
+        padding-top: ppx(203);
+        padding-bottom: ppx(106);
       }
 
       &__header {
@@ -1156,16 +1260,43 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
       }
 
       &__title {
+        color: var(--blue_5, #026995);
+        text-align: center;
+        font-size: spx(55);
+        font-weight: 400;
+        line-height: 100%; /* 55px */
+        letter-spacing: spx(2.75);
         @include tablet-up {
+          text-align: left;
+          font-size: ppx(60 * 1.2);
+          line-height: 160%; /* 96px */
+          letter-spacing: ppx(3 * 1.2);
         }
         @include desktop-up {
+          font-size: ppx(60);
+          letter-spacing: ppx(3);
         }
       }
 
       &__subtitle {
+        color: var(--blue_5, #026995);
+        text-align: center;
+        font-size: spx(30);
+        font-weight: 400;
+        line-height: 100%; /* 30px */
+        letter-spacing: spx(1.5);
+        margin-top: spx(12);
         @include tablet-up {
+          text-align: left;
+          font-size: ppx(40 * 1.2);
+          line-height: 160%; /* 64px */
+          letter-spacing: ppx(2 * 1.2);
+          margin-top: ppx(5 * 1.2);
         }
         @include desktop-up {
+          font-size: ppx(40);
+          letter-spacing: ppx(2);
+          margin-top: ppx(5);
         }
       }
 
@@ -1177,20 +1308,67 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
       }
 
       &__list {
+        display: flex;
+        flex-direction: column;
+        gap: spx(20);
+        width: spx(570);
+        margin-inline: auto;
         @include tablet-up {
+          gap: ppx(50 * 1.2);
+          width: ppx(1560 * 1);
+          margin-inline: unset;
+          margin-top: ppx(46 * 1.2);
         }
         @include desktop-up {
+          gap: ppx(50);
+          width: ppx(1560);
+          margin-top: ppx(46);
         }
       }
 
       &__item {
+        color: var(--blue_6, #054965);
+        font-size: spx(30);
+        font-weight: 400;
+        line-height: 150%; /* 45px */
+        display: grid;
+        grid-template-columns: spx(180) auto;
+        gap: spx(20);
+        position: relative;
+        padding-bottom: spx(20);
+        padding-inline: spx(5);
         @include tablet-up {
+          color: var(--blue_5, #026995);
+          font-size: ppx(34 * 1.2);
+          line-height: 160%; /* 54.4px */
+          letter-spacing: ppx(1.7 * 1.2);
+          grid-template-columns: ppx(319 * 1.2) auto;
+          align-items: center;
+          padding-bottom: ppx(50 * 1.2);
+          padding-inline: ppx(35 * 1.2);
+          gap: 0;
         }
         @include desktop-up {
+          font-size: ppx(34);
+          letter-spacing: ppx(1.7);
+          grid-template-columns: ppx(319) auto;
+          padding-bottom: ppx(50);
+          padding-inline: ppx(35);
+        }
+        &:after {
+          content: '';
+          display: block;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background: var(--blue_4, #59a1c0);
         }
       }
 
       &__term {
+        font-weight: 400;
         @include tablet-up {
         }
         @include desktop-up {
@@ -1205,9 +1383,436 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
       }
 
       &__note {
+        color: var(--blue_6, #054965);
+        font-size: spx(24);
+        font-weight: 400;
+        line-height: 150%;
+        display: block;
+        @include tablet-up {
+          color: var(--blue_5, #026995);
+          font-size: ppx(26 * 1.2);
+          line-height: 160%;
+          letter-spacing: ppx(1.3 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(26);
+          letter-spacing: ppx(1.3);
+        }
+      }
+    }
+
+    /* FLOWセクション */
+    .flow {
+      background: var(--blue_2, #e7f3f9);
+      display: flex;
+      flex-flow: column;
+      gap: spx(60);
+      padding-top: spx(100);
+      padding-bottom: spx(100);
+      @include tablet-up {
+        flex-flow: row;
+        gap: ppx(86 * 1);
+        padding-left: ppx(196 * 0.7);
+        padding-top: ppx(300 * 1.2);
+        padding-bottom: ppx(300 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(86);
+        padding-left: ppx(196);
+        padding-top: ppx(300);
+        padding-bottom: ppx(300);
+      }
+
+      &__header {
         @include tablet-up {
         }
         @include desktop-up {
+        }
+      }
+
+      &__title {
+        color: var(--blue_5, #026995);
+        text-align: center;
+        font-size: spx(55);
+        font-weight: 400;
+        line-height: 100%; /* 55px */
+        letter-spacing: spx(2.75);
+        @include tablet-up {
+          font-size: ppx(60 * 1.2);
+          line-height: 160%; /* 96px */
+          letter-spacing: ppx(3 * 1.2);
+          text-align: left;
+        }
+        @include desktop-up {
+          font-size: ppx(60);
+          letter-spacing: ppx(3);
+        }
+      }
+
+      &__subtitle {
+        color: var(--blue_5, #026995);
+        text-align: center;
+        font-size: spx(30);
+        font-weight: 400;
+        line-height: 100%; /* 30px */
+        letter-spacing: spx(1.5);
+        margin-top: spx(12);
+        @include tablet-up {
+          font-size: ppx(40 * 1.2);
+          line-height: 160%; /* 64px */
+          letter-spacing: ppx(2 * 1.2);
+          text-align: left;
+          margin-top: ppx(5 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(40);
+          letter-spacing: ppx(2);
+          margin-top: ppx(5);
+        }
+      }
+
+      &__content {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__list {
+        display: flex;
+        flex-flow: column;
+        gap: spx(50);
+        @include tablet-up {
+          gap: ppx(86 * 1.2);
+        }
+        @include desktop-up {
+          gap: ppx(86);
+        }
+      }
+
+      &__item {
+        width: spx(620);
+        margin-inline: auto;
+        position: relative;
+        @include tablet-up {
+          width: ppx(1560 * 1);
+          margin-inline: unset;
+        }
+        @include desktop-up {
+          width: ppx(1560);
+        }
+        &:after {
+          content: '';
+          display: block;
+          width: 1px;
+          height: spx(30);
+          position: absolute;
+          left: 50%;
+          bottom: calc((#{spx(30)} + #{spx(10)}) * -1);
+          background: linear-gradient(
+            to bottom,
+            var(--blue_4, #59a1c0) 25%,
+            transparent 25%,
+            transparent 75%,
+            var(--blue_4, #59a1c0) 75%
+          );
+          background-size: 1px 4px;
+          transform: translateX(-50%);
+          @include tablet-up {
+            height: ppx(52 * 1.2);
+            bottom: calc((#{ppx(52 * 1.2)} + #{ppx(17 * 1.2)}) * -1);
+          }
+          @include desktop-up {
+            height: ppx(52);
+            bottom: calc((#{ppx(52)} + #{ppx(17)}) * -1);
+          }
+        }
+        &:last-child:after {
+          display: none;
+        }
+      }
+
+      &__step {
+        display: flex;
+        padding: spx(30) spx(35);
+        flex-direction: column;
+        gap: spx(5);
+        border-radius: spx(20);
+        background: var(--white, #fff);
+        @include tablet-up {
+          padding: ppx(40 * 1.2) ppx(60 * 1.2);
+          align-items: flex-start;
+          gap: ppx(8 * 1.2);
+          align-self: stretch;
+          border-radius: ppx(20 * 1.2);
+        }
+        @include desktop-up {
+          padding: ppx(40) ppx(60);
+          gap: ppx(8);
+          border-radius: ppx(20);
+        }
+      }
+
+      &__step-header {
+        display: grid;
+        grid-template-columns: spx(110) auto;
+        @include tablet-up {
+          grid-template-columns: ppx(145 * 1.2) auto;
+        }
+        @include desktop-up {
+          grid-template-columns: ppx(145) auto;
+        }
+      }
+
+      &__step-number {
+        color: var(--green_2, #adc400);
+        font-size: spx(30);
+        font-weight: 700;
+        line-height: 180%; /* 54px */
+        @include tablet-up {
+          font-size: ppx(34 * 1.2);
+          line-height: 200%; /* 68px */
+        }
+        @include desktop-up {
+          font-size: ppx(34);
+        }
+      }
+
+      &__step-title {
+        color: var(--blue_6, #054965);
+        font-size: spx(36);
+        font-weight: 400;
+        line-height: 150%; /* 54px */
+        @include tablet-up {
+          color: var(--blue_5, #026995);
+          font-size: ppx(44 * 1.2);
+          letter-spacing: ppx(2.2 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(44);
+          letter-spacing: ppx(2.2);
+        }
+      }
+
+      &__step-description {
+        color: var(--blue_6, #054965);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(30);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%; /* 42px */
+        letter-spacing: spx(-1.2);
+        @include tablet-up {
+          color: var(--blue_5, #026995);
+          font-size: ppx(34 * 1.2);
+          line-height: 160%; /* 54.4px */
+          letter-spacing: ppx(1.7 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(34);
+          letter-spacing: ppx(1.7);
+        }
+      }
+    }
+
+    /* RESERVATIONセクション */
+    .reservation {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &__header {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__subtitle {
+        color: var(--blue_5, #026995);
+        text-align: center;
+        font-size: spx(51);
+        font-weight: 400;
+        line-height: 120%; /* 61.2px */
+        letter-spacing: spx(2.55);
+        position: relative;
+        @include tablet-up {
+          text-align: left;
+          font-size: ppx(60 * 1.2);
+          line-height: 160%; /* 96px */
+          letter-spacing: ppx(3 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(60);
+          letter-spacing: ppx(3);
+        }
+        &:after {
+          content: '';
+          display: block;
+          width: spx(231);
+          height: spx(5);
+          background: linear-gradient(
+            to right,
+            var(--green_2, #adc400) 0%,
+            /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
+            /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
+            /* 透明開始 */ transparent 51.4%,
+            /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
+              51.4%,
+            /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
+          );
+          margin-top: spx(20);
+          margin-inline: auto;
+          @include tablet-up {
+            height: ppx(5) * 1.2;
+            width: ppx(231) * 1.2;
+            margin-inline: unset;
+            margin-top: 0;
+          }
+          @include desktop-up {
+            height: ppx(5);
+            width: ppx(231);
+          }
+        }
+      }
+
+      &__title {
+        color: var(--blue_6, #054965);
+        text-align: center;
+        font-size: spx(33);
+        font-weight: 400;
+        line-height: spx(34); /* 103.03% */
+        margin-top: spx(20);
+        @include tablet-up {
+          text-align: left;
+          color: var(--blue_5, #026995);
+          font-size: ppx(40 * 1.2);
+          line-height: 160%; /* 64px */
+          letter-spacing: ppx(2 * 1.2);
+          margin-top: ppx(11 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(40);
+          letter-spacing: ppx(2);
+          margin-top: ppx(11);
+        }
+      }
+
+      &__contact {
+        @include tablet-up {
+          display: flex;
+          align-items: center;
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__method {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__method-label {
+        color: var(--blue_5, #026995);
+        text-align: center;
+        font-size: spx(34);
+        font-weight: 700;
+        line-height: spx(34); /* 100% */
+        letter-spacing: spx(1.7);
+        @include tablet-up {
+          font-size: ppx(34 * 1.2);
+          line-height: ppx(34 * 1.2); /* 100% */
+          letter-spacing: ppx(1.7 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(34);
+          line-height: ppx(34); /* 100% */
+          letter-spacing: ppx(1.7);
+        }
+      }
+
+      &__method-value {
+        color: var(--blue_5, #026995);
+        text-align: center;
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(60);
+        font-style: normal;
+        font-weight: 700;
+        line-height: spx(61); /* 101.667% */
+        letter-spacing: spx(9);
+        margin-top: spx(10);
+        margin-bottom: spx(10);
+        @include tablet-up {
+          font-size: ppx(66 * 1.2);
+          line-height: ppx(61 * 1.2); /* 92.424% */
+          letter-spacing: ppx(9.9 * 1.2);
+          margin-top: ppx(39 * 1.2);
+          margin-bottom: ppx(24 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(66);
+          line-height: ppx(61); /* 92.424% */
+          letter-spacing: ppx(9.9);
+          margin-top: ppx(39);
+          margin-bottom: ppx(24);
+        }
+      }
+
+      // E-mail用（divider後のmethod-value）
+      &__method:last-child &__method-value {
+        font-size: spx(38);
+        line-height: spx(61); /* 160.526% */
+        letter-spacing: 0;
+        margin-top: spx(10);
+        margin-bottom: spx(10);
+        @include tablet-up {
+          font-size: ppx(50 * 1.2);
+          line-height: ppx(50 * 1.2); /* 100% */
+          margin-top: ppx(43 * 1.2);
+          margin-bottom: ppx(31 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(50);
+          line-height: ppx(50); /* 100% */
+          margin-top: ppx(43);
+          margin-bottom: ppx(31);
+        }
+      }
+
+      &__method-time {
+        color: var(--blue_5, #026995);
+        text-align: center;
+        font-size: spx(28);
+        font-weight: 400;
+        line-height: spx(30); /* 107.143% */
+        @include tablet-up {
+          font-size: ppx(30 * 1.2);
+          line-height: ppx(30 * 1.2); /* 100% */
+          letter-spacing: ppx(1.5 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(30);
+          line-height: ppx(30); /* 100% */
+          letter-spacing: ppx(1.5);
+        }
+      }
+
+      &__divider {
+        display: block;
+        width: spx(460);
+        height: 1px;
+        background: #59a1c0;
+        margin-inline: auto;
+        @include tablet-up {
+          width: 1px;
+          height: ppx(150 * 1.2);
+          margin-inline: unset;
+        }
+        @include desktop-up {
+          height: ppx(150);
         }
       }
     }
