@@ -372,83 +372,447 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
             <h2 class="popular-activities__title">人気のアクティビティ</h2>
           </header>
 
-          <div class="popular-activities__slider">
-            <article class="popular-activities__card">
-              <div class="popular-activities__card-image">
-                <picture class="popular-activities__picture">
-                  <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                  <source
-                    media="(min-width: 1024px)"
-                    srcset={supImage.srcSet.toString()}
-                  />
-                  <!-- タブレット（744px以上）→ 中解像度版 -->
-                  <source
-                    media="(min-width: 744px)"
-                    srcset={supImage.srcSet.toString()}
-                  />
-                  <!-- スマホ（744px未満）→ 最小解像度版 -->
-                  <img
-                    src={supImage.src}
-                    alt="SUP体験の様子"
-                    class="popular-activities__img"
-                  />
-                </picture>
-              </div>
-              <div class="popular-activities__card-title">
-                <h3 class="popular-activities__activity-name">ＳＵＰ体験</h3>
-                <svg
-                  class="popular-activities__arrow-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 10 17"
-                  fill="none"
-                >
-                  <path
-                    d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
-                    stroke="#054965"
-                    stroke-width="1.84"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                </svg>
-              </div>
-            </article>
-            <div class="popular-activities__card-info">
-              <div class="popular-activities__pricing">
-                <div class="popular-activities__badges">
-                  <div class="popular-activities__badge-group">
-                    <span
-                      class="popular-activities__badge popular-activities__badge--reservation"
-                    >
-                      事前<br />
-                      予約
-                    </span>
+          <div
+            class="popular-activities__slider activities-detail-popular__swiper"
+          >
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <article class="popular-activities__card">
+                  <div class="popular-activities__card-image">
+                    <picture class="popular-activities__picture">
+                      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                      <source
+                        media="(min-width: 1024px)"
+                        srcset={supImage.srcSet.toString()}
+                      />
+                      <!-- タブレット（744px以上）→ 中解像度版 -->
+                      <source
+                        media="(min-width: 744px)"
+                        srcset={supImage.srcSet.toString()}
+                      />
+                      <!-- スマホ（744px未満）→ 最小解像度版 -->
+                      <img
+                        src={supImage.src}
+                        alt="SUP体験の様子"
+                        class="popular-activities__img"
+                      />
+                    </picture>
                   </div>
-                  <div class="popular-activities__badge-group">
-                    <span
-                      class="popular-activities__badge popular-activities__badge--group"
-                      >団体</span
+                  <div class="popular-activities__card-title">
+                    <h3 class="popular-activities__activity-name">
+                      ＳＵＰ体験
+                    </h3>
+                    <svg
+                      class="popular-activities__arrow-icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 10 17"
+                      fill="none"
                     >
+                      <path
+                        d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
+                        stroke="#054965"
+                        stroke-width="1.84"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                    </svg>
                   </div>
+                </article>
+                <div class="popular-activities__card-info">
+                  <div class="popular-activities__pricing">
+                    <div class="popular-activities__badges">
+                      <div class="popular-activities__badge-group">
+                        <span
+                          class="popular-activities__badge popular-activities__badge--reservation"
+                        >
+                          事前<br />
+                          予約
+                        </span>
+                      </div>
+                      <div class="popular-activities__badge-group">
+                        <span
+                          class="popular-activities__badge popular-activities__badge--group"
+                          >団体</span
+                        >
+                      </div>
+                    </div>
+                    <div class="popular-activities__price">¥4,400〜</div>
+                  </div>
+                  <dl class="popular-activities__details">
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        所要時間：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">2時間</dd>
+                    </div>
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        対象年齢：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">0歳〜75歳</dd>
+                    </div>
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        実施時期：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">
+                        1月、2月、3月
+                      </dd>
+                    </div>
+                  </dl>
                 </div>
-                <div class="popular-activities__price">¥4,400〜</div>
               </div>
-              <dl class="popular-activities__details">
-                <div class="popular-activities__detail-item">
-                  <dt class="popular-activities__detail-term">所要時間：</dt>
-                  <dd class="popular-activities__detail-desc">2時間</dd>
+
+              <!-- demo -->
+              <div class="swiper-slide">
+                <article class="popular-activities__card">
+                  <div class="popular-activities__card-image">
+                    <picture class="popular-activities__picture">
+                      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                      <source
+                        media="(min-width: 1024px)"
+                        srcset={supImage.srcSet.toString()}
+                      />
+                      <!-- タブレット（744px以上）→ 中解像度版 -->
+                      <source
+                        media="(min-width: 744px)"
+                        srcset={supImage.srcSet.toString()}
+                      />
+                      <!-- スマホ（744px未満）→ 最小解像度版 -->
+                      <img
+                        src={supImage.src}
+                        alt="SUP体験の様子"
+                        class="popular-activities__img"
+                      />
+                    </picture>
+                  </div>
+                  <div class="popular-activities__card-title">
+                    <h3 class="popular-activities__activity-name">
+                      ＳＵＰ体験
+                    </h3>
+                    <svg
+                      class="popular-activities__arrow-icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 10 17"
+                      fill="none"
+                    >
+                      <path
+                        d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
+                        stroke="#054965"
+                        stroke-width="1.84"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                </article>
+                <div class="popular-activities__card-info">
+                  <div class="popular-activities__pricing">
+                    <div class="popular-activities__badges">
+                      <div class="popular-activities__badge-group">
+                        <span
+                          class="popular-activities__badge popular-activities__badge--reservation"
+                        >
+                          事前<br />
+                          予約
+                        </span>
+                      </div>
+                      <div class="popular-activities__badge-group">
+                        <span
+                          class="popular-activities__badge popular-activities__badge--group"
+                          >団体</span
+                        >
+                      </div>
+                    </div>
+                    <div class="popular-activities__price">¥4,400〜</div>
+                  </div>
+                  <dl class="popular-activities__details">
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        所要時間：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">2時間</dd>
+                    </div>
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        対象年齢：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">0歳〜75歳</dd>
+                    </div>
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        実施時期：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">
+                        1月、2月、3月
+                      </dd>
+                    </div>
+                  </dl>
                 </div>
-                <div class="popular-activities__detail-item">
-                  <dt class="popular-activities__detail-term">対象年齢：</dt>
-                  <dd class="popular-activities__detail-desc">0歳〜75歳</dd>
+              </div>
+
+              <div class="swiper-slide">
+                <article class="popular-activities__card">
+                  <div class="popular-activities__card-image">
+                    <picture class="popular-activities__picture">
+                      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                      <source
+                        media="(min-width: 1024px)"
+                        srcset={supImage.srcSet.toString()}
+                      />
+                      <!-- タブレット（744px以上）→ 中解像度版 -->
+                      <source
+                        media="(min-width: 744px)"
+                        srcset={supImage.srcSet.toString()}
+                      />
+                      <!-- スマホ（744px未満）→ 最小解像度版 -->
+                      <img
+                        src={supImage.src}
+                        alt="SUP体験の様子"
+                        class="popular-activities__img"
+                      />
+                    </picture>
+                  </div>
+                  <div class="popular-activities__card-title">
+                    <h3 class="popular-activities__activity-name">
+                      ＳＵＰ体験
+                    </h3>
+                    <svg
+                      class="popular-activities__arrow-icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 10 17"
+                      fill="none"
+                    >
+                      <path
+                        d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
+                        stroke="#054965"
+                        stroke-width="1.84"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                </article>
+                <div class="popular-activities__card-info">
+                  <div class="popular-activities__pricing">
+                    <div class="popular-activities__badges">
+                      <div class="popular-activities__badge-group">
+                        <span
+                          class="popular-activities__badge popular-activities__badge--reservation"
+                        >
+                          事前<br />
+                          予約
+                        </span>
+                      </div>
+                      <div class="popular-activities__badge-group">
+                        <span
+                          class="popular-activities__badge popular-activities__badge--group"
+                          >団体</span
+                        >
+                      </div>
+                    </div>
+                    <div class="popular-activities__price">¥4,400〜</div>
+                  </div>
+                  <dl class="popular-activities__details">
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        所要時間：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">2時間</dd>
+                    </div>
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        対象年齢：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">0歳〜75歳</dd>
+                    </div>
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        実施時期：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">
+                        1月、2月、3月
+                      </dd>
+                    </div>
+                  </dl>
                 </div>
-                <div class="popular-activities__detail-item">
-                  <dt class="popular-activities__detail-term">実施時期：</dt>
-                  <dd class="popular-activities__detail-desc">1月、2月、3月</dd>
+              </div>
+
+              <div class="swiper-slide">
+                <article class="popular-activities__card">
+                  <div class="popular-activities__card-image">
+                    <picture class="popular-activities__picture">
+                      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                      <source
+                        media="(min-width: 1024px)"
+                        srcset={supImage.srcSet.toString()}
+                      />
+                      <!-- タブレット（744px以上）→ 中解像度版 -->
+                      <source
+                        media="(min-width: 744px)"
+                        srcset={supImage.srcSet.toString()}
+                      />
+                      <!-- スマホ（744px未満）→ 最小解像度版 -->
+                      <img
+                        src={supImage.src}
+                        alt="SUP体験の様子"
+                        class="popular-activities__img"
+                      />
+                    </picture>
+                  </div>
+                  <div class="popular-activities__card-title">
+                    <h3 class="popular-activities__activity-name">
+                      ＳＵＰ体験
+                    </h3>
+                    <svg
+                      class="popular-activities__arrow-icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 10 17"
+                      fill="none"
+                    >
+                      <path
+                        d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
+                        stroke="#054965"
+                        stroke-width="1.84"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                </article>
+                <div class="popular-activities__card-info">
+                  <div class="popular-activities__pricing">
+                    <div class="popular-activities__badges">
+                      <div class="popular-activities__badge-group">
+                        <span
+                          class="popular-activities__badge popular-activities__badge--reservation"
+                        >
+                          事前<br />
+                          予約
+                        </span>
+                      </div>
+                      <div class="popular-activities__badge-group">
+                        <span
+                          class="popular-activities__badge popular-activities__badge--group"
+                          >団体</span
+                        >
+                      </div>
+                    </div>
+                    <div class="popular-activities__price">¥4,400〜</div>
+                  </div>
+                  <dl class="popular-activities__details">
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        所要時間：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">2時間</dd>
+                    </div>
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        対象年齢：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">0歳〜75歳</dd>
+                    </div>
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        実施時期：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">
+                        1月、2月、3月
+                      </dd>
+                    </div>
+                  </dl>
                 </div>
-              </dl>
+              </div>
+
+              <div class="swiper-slide">
+                <article class="popular-activities__card">
+                  <div class="popular-activities__card-image">
+                    <picture class="popular-activities__picture">
+                      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                      <source
+                        media="(min-width: 1024px)"
+                        srcset={supImage.srcSet.toString()}
+                      />
+                      <!-- タブレット（744px以上）→ 中解像度版 -->
+                      <source
+                        media="(min-width: 744px)"
+                        srcset={supImage.srcSet.toString()}
+                      />
+                      <!-- スマホ（744px未満）→ 最小解像度版 -->
+                      <img
+                        src={supImage.src}
+                        alt="SUP体験の様子"
+                        class="popular-activities__img"
+                      />
+                    </picture>
+                  </div>
+                  <div class="popular-activities__card-title">
+                    <h3 class="popular-activities__activity-name">
+                      ＳＵＰ体験
+                    </h3>
+                    <svg
+                      class="popular-activities__arrow-icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 10 17"
+                      fill="none"
+                    >
+                      <path
+                        d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
+                        stroke="#054965"
+                        stroke-width="1.84"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                </article>
+                <div class="popular-activities__card-info">
+                  <div class="popular-activities__pricing">
+                    <div class="popular-activities__badges">
+                      <div class="popular-activities__badge-group">
+                        <span
+                          class="popular-activities__badge popular-activities__badge--reservation"
+                        >
+                          事前<br />
+                          予約
+                        </span>
+                      </div>
+                      <div class="popular-activities__badge-group">
+                        <span
+                          class="popular-activities__badge popular-activities__badge--group"
+                          >団体</span
+                        >
+                      </div>
+                    </div>
+                    <div class="popular-activities__price">¥4,400〜</div>
+                  </div>
+                  <dl class="popular-activities__details">
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        所要時間：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">2時間</dd>
+                    </div>
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        対象年齢：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">0歳〜75歳</dd>
+                    </div>
+                    <div class="popular-activities__detail-item">
+                      <dt class="popular-activities__detail-term">
+                        実施時期：
+                      </dt>
+                      <dd class="popular-activities__detail-desc">
+                        1月、2月、3月
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="popular-activities__pagination">ここにpager</div>
+          <div
+            class="popular-activities__pagination swiper-pagination activities-detail-popular__swiper-pagination"
+          >
+          </div>
 
           <div class="popular-activities__more">
             <span class="popular-activities__more-text">more</span>
@@ -493,6 +857,37 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           pagination: {
             el: '.activity-detail__pager',
             clickable: true,
+          },
+        });
+
+        // 人気のアクティビティSwiper初期化（activities-detail-popular専用・完全独立）
+        new Swiper('.activities-detail-popular__swiper', {
+          modules: [Pagination, Autoplay],
+          slidesPerView: 1.2,
+          spaceBetween: 0, // CSS gapに制御を委譲（公式推奨）
+          centeredSlides: true, // スマホでセンターモード有効
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+          },
+          pagination: {
+            el: '.activities-detail-popular__swiper-pagination',
+            clickable: true,
+          },
+          // レスポンシブ設定（variables.scssのブレイクポイントに対応）
+          breakpoints: {
+            // タブレット以上（744px以上）
+            744: {
+              slidesPerView: 'auto',
+              spaceBetween: 0, // CSS gapに制御を委譲
+              centeredSlides: false, // タブレット以上ではセンターモード無効
+            },
+            // デスクトップ以上（1024px以上）
+            1024: {
+              slidesPerView: 'auto',
+              spaceBetween: 0, // CSS gapに制御を委譲
+              centeredSlides: false, // デスクトップでもセンターモード無効
+            },
           },
         });
 
@@ -1997,16 +2392,24 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
 
       &__slider {
         width: spx($card-width-spx);
-        display: flex;
-        flex-flow: column;
-        gap: spx(12);
         @include tablet-up {
-          width: ppx($card-width-tpx);
-          gap: ppx(20 * 1.2);
+          width: ppx(1720 * 1.2);
+          overflow-x: hidden;
+          margin-inline: auto;
         }
         @include desktop-up {
-          width: ppx($card-width-ppx);
-          gap: ppx(20);
+          width: ppx(1720);
+        }
+        .swiper-slide {
+          width: spx($card-width-spx);
+          @include tablet-up {
+            width: ppx($card-width-tpx);
+            margin-right: ppx(90 * 1.2);
+          }
+          @include desktop-up {
+            width: ppx($card-width-ppx);
+            margin-top: 0 ppx(90);
+          }
         }
       }
 
@@ -2120,11 +2523,14 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
         display: flex;
         flex-flow: column;
         gap: spx(21.6);
+        margin-top: spx(12);
         @include tablet-up {
           gap: ppx(25 * 1.2);
+          margin-top: ppx(20 * 1.2);
         }
         @include desktop-up {
           gap: ppx(25);
+          margin-top: ppx(20);
         }
       }
 
