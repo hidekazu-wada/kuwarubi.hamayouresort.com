@@ -399,8 +399,6 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
                 <svg
                   class="popular-activities__arrow-icon"
                   xmlns="http://www.w3.org/2000/svg"
-                  width="10"
-                  height="17"
                   viewBox="0 0 10 17"
                   fill="none"
                 >
@@ -417,13 +415,18 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
               <div class="popular-activities__pricing">
                 <div class="popular-activities__badges">
                   <div class="popular-activities__badge-group">
-                    <span class="popular-activities__badge popular-activities__badge--reservation">
+                    <span
+                      class="popular-activities__badge popular-activities__badge--reservation"
+                    >
                       事前<br />
                       予約
                     </span>
                   </div>
                   <div class="popular-activities__badge-group">
-                    <span class="popular-activities__badge popular-activities__badge--group">団体</span>
+                    <span
+                      class="popular-activities__badge popular-activities__badge--group"
+                      >団体</span
+                    >
                   </div>
                 </div>
                 <div class="popular-activities__price">¥4,400〜</div>
@@ -452,8 +455,6 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
             <svg
               class="popular-activities__more-icon"
               xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="23"
               viewBox="0 0 22 23"
               fill="none"
             >
@@ -1953,244 +1954,436 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
 
     /* 人気のアクティビティセクション */
     .popular-activities {
+      background: var(--blue_2, #e7f3f9);
+      padding-top: spx(100);
       @include tablet-up {
-        
+        padding-top: ppx(242 * 1.2);
       }
       @include desktop-up {
-        
+        padding-top: ppx(242);
       }
 
       &__header {
+        margin-bottom: spx(60);
         @include tablet-up {
-          
+          margin-bottom: ppx(125 * 1.2);
         }
         @include desktop-up {
-          
+          margin-bottom: ppx(125);
         }
       }
 
       &__title {
+        color: var(--blue_5, #026995);
+        text-align: center;
+        font-size: spx(30);
+        font-weight: 400;
+        line-height: 100%; /* 30px */
+        letter-spacing: spx(1.5);
         @include tablet-up {
-          
+          font-size: ppx(40 * 1.2);
+          line-height: 160%; /* 64px */
+          letter-spacing: ppx(2 * 1.2);
         }
         @include desktop-up {
-          
+          font-size: ppx(40);
+          letter-spacing: ppx(2);
         }
       }
 
+      $card-width-spx: 460;
+      $card-width-tpx: 500 * 1.2;
+      $card-width-ppx: 500;
+
       &__slider {
+        width: spx($card-width-spx);
+        display: flex;
+        flex-flow: column;
+        gap: spx(12);
         @include tablet-up {
-          
+          width: ppx($card-width-tpx);
+          gap: ppx(20 * 1.2);
         }
         @include desktop-up {
-          
+          width: ppx($card-width-ppx);
+          gap: ppx(20);
         }
       }
 
       &__card {
+        position: relative;
+        width: spx($card-width-spx);
         @include tablet-up {
-          
+          width: ppx($card-width-tpx);
         }
         @include desktop-up {
-          
+          width: ppx($card-width-ppx);
         }
       }
 
       &__card-image {
         @include tablet-up {
-          
         }
         @include desktop-up {
-          
         }
       }
 
       &__picture {
         @include tablet-up {
-          
         }
         @include desktop-up {
-          
         }
       }
 
       &__img {
+        display: block;
+        width: spx($card-width-spx);
+        height: spx(460.8);
+        flex-shrink: 0;
+        aspect-ratio: 1/1;
+        border-radius: spx(20);
         @include tablet-up {
-          
+          width: ppx($card-width-tpx);
+          height: ppx(500 * 1.2);
+          border-radius: ppx(20 * 1.2);
         }
         @include desktop-up {
-          
+          width: ppx($card-width-ppx);
+          height: ppx(500);
+          border-radius: ppx(20);
         }
       }
 
       &__card-title {
+        width: spx(358.4);
+        height: spx(60.8);
+        flex-shrink: 0;
+        border-radius: spx(120);
+        background: rgba($color: #fff, $alpha: 0.9);
+        display: grid;
+        place-items: center;
+        position: absolute;
+        bottom: spx(28);
+        left: 50%;
+        transform: translateX(-50%);
         @include tablet-up {
-          
+          width: ppx(390 * 1.2);
+          height: ppx(66 * 1.2);
+          border-radius: ppx(130 * 1.2);
+          bottom: ppx(30 * 1.2);
         }
         @include desktop-up {
-          
+          width: ppx(390);
+          height: ppx(66);
+          border-radius: ppx(130);
+          bottom: ppx(30);
         }
       }
 
       &__activity-name {
+        color: var(--blue_6, #054965);
+        text-align: center;
+        font-size: spx(28.8);
+        font-weight: 400;
+        line-height: spx(28.8); /* 100% */
+        letter-spacing: spx(-1.44);
         @include tablet-up {
-          
+          font-size: ppx(32 * 1.2);
+          line-height: ppx(32 * 1.2); /* 100% */
+          letter-spacing: ppx(-1.6 * 1.2);
         }
         @include desktop-up {
-          
+          font-size: ppx(32);
+          line-height: ppx(32); /* 100% */
+          letter-spacing: ppx(-1.6);
         }
       }
 
       &__arrow-icon {
+        display: block;
+        width: spx(7.36);
+        position: absolute;
+        top: 50%;
+        right: spx(21);
+        transform: translateY(-50%);
         @include tablet-up {
-          
+          width: ppx(8 * 1.2);
+          right: ppx(24 * 1.2);
         }
         @include desktop-up {
-          
+          width: ppx(8);
+          right: ppx(24);
         }
       }
 
       &__card-info {
+        display: flex;
+        flex-flow: column;
+        gap: spx(21.6);
         @include tablet-up {
-          
+          gap: ppx(25 * 1.2);
         }
         @include desktop-up {
-          
+          gap: ppx(25);
         }
       }
 
       &__pricing {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         @include tablet-up {
-          
         }
         @include desktop-up {
-          
         }
       }
 
       &__badges {
+        display: flex;
+        gap: spx(6.4);
         @include tablet-up {
-          
+          gap: ppx(5 * 1.2);
         }
         @include desktop-up {
-          
+          gap: ppx(5);
         }
       }
 
       &__badge-group {
+        width: spx(80);
+        height: spx(80);
+        flex-shrink: 0;
+        aspect-ratio: 1/1;
+        border-radius: spx(11.04);
+        background: var(--blue_5, #026995);
+        display: grid;
+        place-items: center;
         @include tablet-up {
-          
+          width: ppx(88 * 1.2);
+          height: ppx(88 * 1.2);
+          border-radius: ppx(12 * 1.2);
         }
         @include desktop-up {
-          
+          width: ppx(88);
+          height: ppx(88);
+          border-radius: ppx(12);
         }
       }
 
       &__badge {
+        color: var(--white, #fff);
+        text-align: center;
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(21.6);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%; /* 28.08px */
+        letter-spacing: spx(2.16);
         @include tablet-up {
-          
+          font-size: ppx(24 * 1.2);
+          line-height: 130%; /* 31.2px */
+          letter-spacing: ppx(2.4 * 1.2);
         }
         @include desktop-up {
-          
+          font-size: ppx(24);
+          line-height: 130%; /* 31.2px */
+          letter-spacing: ppx(2.4);
         }
 
         &--reservation {
           @include tablet-up {
-            
           }
           @include desktop-up {
-            
           }
         }
 
         &--group {
           @include tablet-up {
-            
           }
           @include desktop-up {
-            
           }
         }
       }
 
       &__price {
+        color: var(--blue_5, #026995);
+        text-align: right;
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(36.8);
+        font-style: normal;
+        font-weight: 700;
+        line-height: 130%; /* 47.84px */
         @include tablet-up {
-          
+          font-size: ppx(40 * 1.2);
+          line-height: 130%; /* 52px */
         }
         @include desktop-up {
-          
+          font-size: ppx(40);
+          line-height: 130%; /* 52px */
         }
       }
 
       &__details {
+        display: flex;
+        flex-flow: column;
+        gap: spx(9.6);
         @include tablet-up {
-          
+          gap: ppx(12 * 1.2);
         }
         @include desktop-up {
-          
+          gap: ppx(12);
         }
       }
 
       &__detail-item {
+        display: grid;
+        grid-template-columns: 21vw auto;
+        position: relative;
+        padding-bottom: spx(9.6);
+        padding-inline: spx(16);
         @include tablet-up {
-          
+          grid-template-columns: 6.4vw * 1.2 auto;
+          padding-bottom: ppx(10 * 1.2);
+          padding-inline: ppx(18 * 1.2);
         }
         @include desktop-up {
-          
+          grid-template-columns: 6.4vw auto;
+          padding-bottom: ppx(10);
+          padding-inline: ppx(18);
+        }
+
+        &:after {
+          content: '';
+          display: block;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background: linear-gradient(
+              to right,
+              #026995,
+              #026995 25%,
+              rgba(0, 0, 0, 0) 25%,
+              rgba(0, 0, 0, 0) 100%
+            )
+            0% 0%;
+          background-size: 4px 1px;
         }
       }
 
       &__detail-term {
+        color: var(--blue_5, #026995);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(24.8);
+        font-style: normal;
+        font-weight: 700;
+        line-height: 135%; /* 33.48px */
+        letter-spacing: spx(4.96);
         @include tablet-up {
-          
+          font-size: ppx(27 * 1.2);
+          line-height: 150%; /* 40.5px */
+          letter-spacing: ppx(5.4 * 1.2);
         }
         @include desktop-up {
-          
+          font-size: ppx(27);
+          line-height: 150%; /* 40.5px */
+          letter-spacing: ppx(5.4);
         }
       }
 
       &__detail-desc {
+        color: var(--blue_5, #026995);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(24.8);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%; /* 32.24px */
+        letter-spacing: spx(4.96);
         @include tablet-up {
-          
+          font-size: ppx(27 * 1.2);
+          line-height: 150%;
+          letter-spacing: ppx(5.4 * 1.2);
         }
         @include desktop-up {
-          
+          font-size: ppx(27);
+          line-height: 150%;
+          letter-spacing: ppx(5.4);
         }
       }
 
       &__pagination {
+        margin-top: spx(70);
         @include tablet-up {
-          
+          margin-top: ppx(143 * 1.2);
         }
         @include desktop-up {
-          
+          margin-top: ppx(143);
         }
       }
 
       &__more {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: spx(70);
+        border-radius: spx(15);
+        background: var(--blue_5, #026995);
+        width: spx(258);
+        position: relative;
+        margin-inline: auto;
+        margin-top: spx(60);
         @include tablet-up {
-          
+          width: ppx(250 * 1.2);
+          height: ppx(70 * 1.2);
+          flex-shrink: 0;
+          border-radius: ppx(20 * 1.2);
+          margin-top: ppx(70 * 1.2);
         }
         @include desktop-up {
-          
+          width: ppx(250);
+          height: ppx(70);
+          flex-shrink: 0;
+          border-radius: ppx(20);
+          margin-top: ppx(70);
         }
       }
 
       &__more-text {
+        color: var(--white, #fff);
+        text-align: center;
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(31);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 100%; /* 31px */
+        letter-spacing: spx(1.55);
         @include tablet-up {
-          
+          font-size: ppx(33 * 1.2);
+          line-height: ppx(33 * 1.2); /* 100% */
+          letter-spacing: ppx(1.65 * 1.2);
         }
         @include desktop-up {
-          
+          font-size: ppx(33);
+          line-height: ppx(33); /* 100% */
+          letter-spacing: ppx(1.65);
         }
       }
 
       &__more-icon {
+        display: block;
+        width: spx(18);
+        position: absolute;
+        top: 50%;
+        right: spx(20);
+        transform: translateY(-50%);
         @include tablet-up {
-          
+          width: ppx(12 * 1.2);
+          right: ppx(20 * 1.2);
         }
         @include desktop-up {
-          
+          width: ppx(12);
+          right: ppx(20);
         }
       }
     }
