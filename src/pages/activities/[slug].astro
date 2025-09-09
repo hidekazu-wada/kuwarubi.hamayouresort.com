@@ -864,7 +864,6 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
         new Swiper('.activities-detail-popular__swiper', {
           modules: [Pagination, Autoplay],
           slidesPerView: 1.2,
-          spaceBetween: 0, // CSS gapに制御を委譲（公式推奨）
           centeredSlides: true, // スマホでセンターモード有効
           autoplay: {
             delay: 5000,
@@ -878,14 +877,12 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           breakpoints: {
             // タブレット以上（744px以上）
             744: {
-              slidesPerView: 'auto',
-              spaceBetween: 0, // CSS gapに制御を委譲
+              slidesPerView: 3,
               centeredSlides: false, // タブレット以上ではセンターモード無効
             },
             // デスクトップ以上（1024px以上）
             1024: {
-              slidesPerView: 'auto',
-              spaceBetween: 0, // CSS gapに制御を委譲
+              slidesPerView: 3,
               centeredSlides: false, // デスクトップでもセンターモード無効
             },
           },
@@ -2077,6 +2074,7 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
         font-size: spx(30);
         font-weight: 700;
         line-height: 180%; /* 54px */
+
         @include tablet-up {
           font-size: ppx(34 * 1.2);
           line-height: 200%; /* 68px */
@@ -2391,7 +2389,7 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
       $card-width-ppx: 500;
 
       &__slider {
-        width: spx($card-width-spx);
+        width: 100%;
         @include tablet-up {
           width: ppx(1720 * 1.2);
           overflow-x: hidden;
@@ -2401,14 +2399,12 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           width: ppx(1720);
         }
         .swiper-slide {
-          width: spx($card-width-spx);
+          display: flex;
+          flex-flow: column;
+          align-items: center;
           @include tablet-up {
-            width: ppx($card-width-tpx);
-            margin-right: ppx(90 * 1.2);
           }
           @include desktop-up {
-            width: ppx($card-width-ppx);
-            margin-top: 0 ppx(90);
           }
         }
       }
@@ -2524,13 +2520,16 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
         flex-flow: column;
         gap: spx(21.6);
         margin-top: spx(12);
+        width: spx($card-width-spx);
         @include tablet-up {
           gap: ppx(25 * 1.2);
           margin-top: ppx(20 * 1.2);
+          width: ppx($card-width-tpx);
         }
         @include desktop-up {
           gap: ppx(25);
           margin-top: ppx(20);
+          width: ppx($card-width-ppx);
         }
       }
 
@@ -2719,12 +2718,49 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
       }
 
       &__pagination {
+        position: relative;
         margin-top: spx(70);
+        text-align: center;
         @include tablet-up {
           margin-top: ppx(143 * 1.2);
         }
         @include desktop-up {
           margin-top: ppx(143);
+        }
+        // ページネーションドット（通常状態）
+        :global(.swiper-pagination-bullet) {
+          width: spx(20);
+          height: spx(20);
+          background-color: white;
+          border-radius: 50%;
+          border: solid 1px var(--blue_5, #026995);
+          opacity: 1;
+          margin: 0 spx(12);
+          transition: all 0.3s ease;
+          @include tablet-up {
+            width: ppx(20) * 1.2;
+            height: ppx(20) * 1.2;
+            margin: 0 ppx(12) * 1.2;
+          }
+          @include desktop-up {
+            width: ppx(20);
+            height: ppx(20);
+            margin: 0 ppx(12);
+          }
+        }
+        // ページネーションドット（アクティブ状態）
+        :global(.swiper-pagination-bullet-active) {
+          background-color: var(--blue_5, #026995);
+        }
+        // クリック可能な状態
+        &:global(.swiper-pagination-clickable) {
+          :global(.swiper-pagination-bullet) {
+            cursor: pointer;
+            &:hover {
+              background-color: var(--green_2, #adc400);
+              border-color: var(--green_2, #adc400);
+            }
+          }
         }
       }
 
