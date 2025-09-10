@@ -1129,6 +1129,66 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
           // 初期化時に利用可能な選択肢のみを表示
           updateFilterOptions();
         }
+
+        // フィルタモーダル機能
+        const filterModal = document.getElementById('filter-modal');
+        const filterModalTrigger = document.querySelector('.filter-section__mobile-button');
+        const filterModalClose = document.querySelector('.filter-modal__close');
+        const filterModalOverlay = document.querySelector('.filter-modal__overlay');
+        const filterModalSearchButton = document.querySelector('.filter-modal__search-button');
+
+        // フィルタモーダル状態管理
+        let isFilterModalOpen = false;
+
+        // フィルタモーダルを開く関数
+        function openFilterModal() {
+          if (!filterModal) return;
+          
+          isFilterModalOpen = true;
+          filterModal.classList.add('show');
+          // スクロールを禁止
+          document.body.style.overflow = 'hidden';
+        }
+
+        // フィルタモーダルを閉じる関数
+        function closeFilterModal() {
+          if (!filterModal) return;
+          
+          isFilterModalOpen = false;
+          filterModal.classList.remove('show');
+          // スクロールを復元
+          document.body.style.overflow = '';
+        }
+
+        // イベントリスナーの設定
+        if (filterModalTrigger) {
+          filterModalTrigger.addEventListener('click', openFilterModal);
+        }
+
+        if (filterModalClose) {
+          filterModalClose.addEventListener('click', closeFilterModal);
+        }
+
+        if (filterModalSearchButton) {
+          filterModalSearchButton.addEventListener('click', () => {
+            closeFilterModal();
+            // ページの最上部にスムーズにスクロール
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+          });
+        }
+
+        // オーバーレイクリックで閉じる
+        if (filterModalOverlay) {
+          filterModalOverlay.addEventListener('click', (e) => {
+            // オーバーレイ自体がクリックされた場合のみ閉じる（バブリング防止）
+            if (e.target === filterModalOverlay) {
+              closeFilterModal();
+            }
+          });
+        }
       });
     </script>
   </body>
@@ -1750,13 +1810,26 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
       left: 0;
       z-index: 20;
       padding: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
       @include tablet-up {
         display: none;
       }
       @include desktop-up {
       }
 
+      &.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
       &__overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
         background: rgba(255, 255, 255, 0.95);
         @include tablet-up {
         }
