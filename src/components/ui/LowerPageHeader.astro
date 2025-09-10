@@ -1,0 +1,106 @@
+---
+// LowerPageHeader.astro - 下層ページヘッダーコンポーネント
+
+export interface Props {
+  titleEn: string;    // 英語タイトル
+  titleJa: string;    // 日本語タイトル
+}
+
+const { titleEn, titleJa } = Astro.props;
+---
+
+<header class="lower-page-header">
+  <div class="lower-page-header__title-group">
+    <h2 class="lower-page-header__title-en">{titleEn}</h2>
+    <p class="lower-page-header__title-ja">{titleJa}</p>
+  </div>
+</header>
+
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../../styles/variables';
+  @import '../../styles/functions';
+  @import '../../styles/mixins';
+
+  .lower-page-header {
+    @include tablet-up {
+    }
+    @include desktop-up {
+    }
+
+    &__title-group {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__title-en {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(84);
+      font-style: normal;
+      font-weight: 700;
+      line-height: spx(115); /* 136.905% */
+      letter-spacing: spx(2.52);
+      @include tablet-up {
+        text-align: left;
+        font-size: ppx(115 * 1.2);
+        line-height: ppx(115 * 1.2); /* 100% */
+        letter-spacing: ppx(3.45 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(115);
+        line-height: ppx(115); /* 100% */
+        letter-spacing: ppx(3.45);
+      }
+      &:after {
+        content: '';
+        display: block;
+        width: spx(231);
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
+          /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
+          /* 48.6% から透明 */ transparent 51.4%,
+          /* 92/179 ≈ 51.4% まで透明 */ var(--blue_5, #026995) 51.4%,
+          /* 51.4% から青 */ var(--blue_5, #026995) 100%
+          /* 右：青色 */
+        );
+        margin: spx(35) auto spx(30);
+        @include tablet-up {
+          width: ppx(231 * 1.2);
+          height: ppx(5 * 1.2);
+          margin: ppx(35 * 1.2) 0 ppx(30 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx(231);
+          height: ppx(5);
+          margin: ppx(35) 0 ppx(30);
+        }
+      }
+    }
+
+    &__title-ja {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(32);
+      font-style: normal;
+      font-weight: 400;
+      line-height: spx(34); /* 106.25% */
+      @include tablet-up {
+        text-align: left;
+        font-size: ppx(32 * 1.2);
+        line-height: ppx(34 * 1.2); /* 100% */
+      }
+      @include desktop-up {
+        font-size: ppx(32);
+        line-height: ppx(34); /* 100% */
+      }
+    }
+  }
+</style>

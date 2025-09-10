@@ -109,16 +109,17 @@ export const activities: Activity[] = [
         '初心者でも安心して楽しめるSUP体験。経験豊富なインストラクターによる丁寧なレクチャーで、美しい湖面での特別な時間をお過ごしいただけます。バランス感覚を養いながら、自然との一体感を味わえる贅沢なアクティビティです。',
     },
     about: [
-      { term: '対象年齢', description: '12歳〜65歳' },
-      { term: '実施時期', description: '春・夏・秋' },
+      { term: '対象年齢', description: '中学生以上' },
+      { term: '実施時期', description: '夏' },
       {
         term: '人数',
-        description: '2名〜8名',
+        description: '10名未満',
         note: '＊人数が多い場合や少ない場合などはご相談ください',
       },
-      { term: '所要時間', description: '2時間' },
-      { term: '料金', description: '大人4,500円、子供3,500円（税込）' },
-      { term: '実施可能天気', description: '晴れ・曇り' },
+      { term: '所要時間', description: '2時間以上' },
+      { term: '料金', description: '3000円から5000円' },
+      { term: '実施可能天気', description: '晴れ' },
+      { term: 'ご予約', description: '事前予約' },
       { term: '持ち物', description: '水着・タオル' },
     ],
     flow: [
@@ -221,12 +222,13 @@ export const activities: Activity[] = [
         '満天の星空の下でのキャンプファイヤー体験。暖かな炎を囲みながら、マシュマロ焼きやホットドリンクをお楽しみいただけます。都市では味わえない静寂な夜に、家族や友人との絆を深める特別な時間をお過ごしください。',
     },
     about: [
-      { term: '対象年齢', description: '3歳〜' },
+      { term: '対象年齢', description: '未就学児以上' },
       { term: '実施時期', description: '通年' },
-      { term: '人数', description: '4名〜20名' },
-      { term: '所要時間', description: '1時間30分' },
-      { term: '料金', description: '大人2,000円、子供1,500円（税込）' },
-      { term: '実施可能天気', description: '晴れ・曇り' },
+      { term: '人数', description: '20名以上' },
+      { term: '所要時間', description: '1時間以上' },
+      { term: '料金', description: '1000円から3000円' },
+      { term: '実施可能天気', description: '晴れ' },
+      { term: 'ご予約', description: '事前予約' },
       { term: '持ち物', description: '防寒着' },
       {
         term: '注意事項',
@@ -333,12 +335,13 @@ export const activities: Activity[] = [
         '美しい自然の中を自転車で巡る爽快な体験。3つのコースから選択でき、電動アシスト付き自転車もご用意。マップとおすすめスポット案内で、リゾート周辺の魅力を存分にお楽しみいただけます。',
     },
     about: [
-      { term: '対象年齢', description: '8歳〜' },
-      { term: '実施時期', description: '春・夏・秋' },
-      { term: '人数', description: '1名〜10名' },
-      { term: '所要時間', description: '3時間' },
-      { term: '料金', description: '大人1,500円（税込）' },
-      { term: '実施可能天気', description: '晴れ・曇り' },
+      { term: '対象年齢', description: '小学生以上' },
+      { term: '実施時期', description: '春' },
+      { term: '人数', description: '10名未満' },
+      { term: '所要時間', description: '2時間以上' },
+      { term: '料金', description: '1000円から3000円' },
+      { term: '実施可能天気', description: '晴れ' },
+      { term: 'ご予約', description: '当日予約' },
       { term: '持ち物', description: 'ヘルメット（貸出あり）' },
       {
         term: '注意事項',
@@ -442,12 +445,13 @@ export const activities: Activity[] = [
         '神秘的な樹海を歩くトレッキング体験。経験豊富なガイドが案内し、珍しい植物や野鳥観察を通じて自然の不思議を発見できます。観察力と考える力を育みながら、自然との深いつながりを感じられる特別な体験です。',
     },
     about: [
-      { term: '対象年齢', description: '10歳〜70歳' },
-      { term: '実施時期', description: '春・夏・秋' },
-      { term: '人数', description: '3名〜12名' },
-      { term: '所要時間', description: '2時間30分' },
-      { term: '料金', description: '大人3,000円、子供2,500円（税込）' },
-      { term: '実施可能天気', description: '晴れ・曇り・小雨' },
+      { term: '対象年齢', description: '小学生以上' },
+      { term: '実施時期', description: '秋' },
+      { term: '人数', description: '10名未満' },
+      { term: '所要時間', description: '2時間以上' },
+      { term: '料金', description: '1000円から3000円' },
+      { term: '実施可能天気', description: '全天候' },
+      { term: 'ご予約', description: '事前予約' },
       { term: '持ち物', description: '歩きやすい靴、虫除けスプレー' },
       { term: '注意事項', description: '体力に自信のない方はご相談ください' },
     ],
@@ -530,5 +534,290 @@ export const activities: Activity[] = [
       '体力に自信のない方はご相談ください',
     ],
     bookingUrl: 'https://example.com/booking/trail',
+  },
+  // === フィルタリング機能テスト用デモデータ ===
+  {
+    slug: 'yoga-meditation',
+    title: 'ヨガ・瞑想体験',
+    category: 'Wellness',
+    description:
+      '朝の静寂な湖畔でヨガと瞑想を体験。心身のバランスを整える贅沢な時間をお過ごしください。',
+    images: {
+      thumbnail: '/images/activities/yoga-thumbnail.jpg',
+      hero: '/images/activities/yoga-hero.jpg',
+      gallery: [
+        '/images/activities/yoga-gallery1.jpg',
+        '/images/activities/yoga-gallery2.jpg',
+      ],
+    },
+    intro: {
+      title: '心と身体の調和を求めて',
+      text: '美しい湖畔の朝、静寂な空間でヨガと瞑想を通じて内なる平和を見つけましょう。経験豊富なインストラクターが初心者の方にも丁寧に指導いたします。',
+    },
+    point: {
+      image: '/images/activities/yoga-point.jpg',
+      titleLines: ['朝の湖畔で', '心身の調和体験'],
+      description:
+        '朝の清々しい空気の中で行うヨガ・瞑想体験。初心者でも安心してご参加いただけます。',
+    },
+    about: [
+      { term: '対象年齢', description: '高校生以上' },
+      { term: '実施時期', description: '夏' },
+      { term: '人数', description: '10名未満' },
+      { term: '所要時間', description: '1時間未満' },
+      { term: '料金', description: '1000円から3000円' },
+      { term: '実施可能天気', description: '晴れ' },
+      { term: 'ご予約', description: '当日予約' },
+      { term: '持ち物', description: '動きやすい服装、タオル' },
+    ],
+    flow: [
+      {
+        stepNumber: 'STEP 1',
+        title: '集合・準備',
+        description: '受付と準備体操を行います。',
+      },
+      {
+        stepNumber: 'STEP 2',
+        title: 'ヨガ',
+        description: '湖畔でのヨガ体験（40分）。',
+      },
+      {
+        stepNumber: 'STEP 3',
+        title: '瞑想',
+        description: '瞑想とクールダウン（15分）。',
+      },
+    ],
+    reservation: [
+      {
+        label: 'TEL',
+        value: '0555-82-2922',
+        link: 'tel:0555822922',
+        hours: '受付時間　10:00 〜 17:00',
+      },
+    ],
+    badges: [], // 予約不要
+    isPopular: false,
+    targetAge: { min: 16, max: 70 },
+    season: ['春', '夏', '秋'],
+    capacity: { min: 1, max: 12 },
+    duration: 60, // 1時間
+    price: { adult: 2800, child: undefined },
+    weather: ['晴れ', '曇り'],
+    highlights: ['初心者歓迎', '少人数制', '朝の特別体験'],
+    program: [
+      { time: '06:30', content: '集合・準備' },
+      { time: '06:45', content: 'ヨガ体験' },
+      { time: '07:25', content: '瞑想・クールダウン' },
+      { time: '07:40', content: '終了' },
+    ],
+    notes: ['動きやすい服装でお越しください', '雨天中止'],
+  },
+  {
+    slug: 'fishing-experience',
+    title: '釣り体験',
+    category: 'Fishing',
+    description:
+      '湖での釣り体験。初心者でも楽しめる手軽な釣りから、本格的なフライフィッシングまで対応。',
+    images: {
+      thumbnail: '/images/activities/fishing-thumbnail.jpg',
+      hero: '/images/activities/fishing-hero.jpg',
+      gallery: ['/images/activities/fishing-gallery1.jpg'],
+    },
+    intro: {
+      title: '湖での静寂な釣り体験',
+      text: '美しい湖で釣りを楽しみませんか。初心者から上級者まで楽しめる釣り体験をご用意しています。',
+    },
+    point: {
+      image: '/images/activities/fishing-point.jpg',
+      titleLines: ['静寂な湖で', '心落ち着く釣り時間'],
+      description: '初心者にも優しい指導で、釣りの醍醐味を味わえます。',
+    },
+    about: [
+      { term: '対象年齢', description: '小学生以上' },
+      { term: '実施時期', description: '通年' },
+      { term: '人数', description: '10名未満' },
+      { term: '所要時間', description: '2時間以上' },
+      { term: '料金', description: '3000円から5000円' },
+      { term: '実施可能天気', description: '雨' },
+      { term: 'ご予約', description: '事前予約' },
+      { term: '持ち物', description: '汚れても良い服装' },
+    ],
+    flow: [
+      {
+        stepNumber: 'STEP 1',
+        title: '受付・説明',
+        description: '釣り道具の説明と基本技術指導。',
+      },
+      {
+        stepNumber: 'STEP 2',
+        title: '釣り体験',
+        description: '湖での釣り体験（2.5時間）。',
+      },
+      { stepNumber: 'STEP 3', title: '終了', description: '釣果確認と終了。' },
+    ],
+    reservation: [
+      {
+        label: 'TEL',
+        value: '0555-82-2922',
+        link: 'tel:0555822922',
+        hours: '受付時間　10:00 〜 17:00',
+      },
+    ],
+    badges: [{ type: 'reservation', text: '事前\n予約' }],
+    isPopular: true,
+    targetAge: { min: 8, max: undefined },
+    season: ['春', '夏', '秋', '冬'], // 通年
+    capacity: { min: 1, max: 6 },
+    duration: 180, // 3時間
+    price: { adult: 5500, child: 4000 },
+    weather: ['晴れ', '曇り', '小雨'],
+    highlights: ['道具レンタル込み', '初心者指導', '通年実施'],
+    program: [
+      { time: '09:00', content: '受付・道具説明' },
+      { time: '09:30', content: '釣り体験開始' },
+      { time: '12:00', content: '終了・片付け' },
+    ],
+    notes: ['道具は全てレンタルします', '汚れても良い服装でお越しください'],
+  },
+  {
+    slug: 'stargazing',
+    title: '星空観察',
+    category: 'Astronomy',
+    description:
+      '都市部では見ることのできない満天の星空を観察。天体望遠鏡を使った本格的な星空観察体験。',
+    images: {
+      thumbnail: '/images/activities/stargazing-thumbnail.jpg',
+      hero: '/images/activities/stargazing-hero.jpg',
+      gallery: ['/images/activities/stargazing-gallery1.jpg'],
+    },
+    intro: {
+      title: '満天の星空との出会い',
+      text: '光害のない環境で、本物の星空をご覧ください。天体望遠鏡を使った観察で、宇宙の神秘に触れる体験です。',
+    },
+    point: {
+      image: '/images/activities/stargazing-point.jpg',
+      titleLines: ['都市では見えない', '本物の星空体験'],
+      description: '天体望遠鏡を使った本格的な星空観察をお楽しみいただけます。',
+    },
+    about: [
+      { term: '対象年齢', description: '大人以上' },
+      { term: '実施時期', description: '通年' },
+      { term: '人数', description: '10名以上' },
+      { term: '所要時間', description: '1時間以上' },
+      { term: '料金', description: '1000円から3000円' },
+      { term: '実施可能天気', description: '晴れ' },
+      { term: 'ご予約', description: '事前予約' },
+      { term: '持ち物', description: '防寒着' },
+    ],
+    flow: [
+      {
+        stepNumber: 'STEP 1',
+        title: '集合・説明',
+        description: '今夜見える星座の説明。',
+      },
+      {
+        stepNumber: 'STEP 2',
+        title: '観察',
+        description: '天体望遠鏡での星空観察。',
+      },
+      { stepNumber: 'STEP 3', title: '終了', description: '質疑応答と終了。' },
+    ],
+    reservation: [
+      {
+        label: 'TEL',
+        value: '0555-82-2922',
+        link: 'tel:0555822922',
+        hours: '受付時間　10:00 〜 17:00',
+      },
+    ],
+    badges: [
+      { type: 'reservation', text: '事前\n予約' },
+      { type: 'group', text: '団体' },
+    ],
+    isPopular: false,
+    targetAge: { min: 5, max: undefined },
+    season: ['春', '夏', '秋', '冬'], // 通年
+    capacity: { min: 2, max: 15 },
+    duration: 90, // 1時間30分
+    price: { adult: 3200, child: 2500 },
+    weather: ['晴れ'], // 晴れのみ
+    highlights: ['天体望遠鏡使用', '専門ガイド', '子供から大人まで'],
+    program: [
+      { time: '19:30', content: '集合・説明' },
+      { time: '19:45', content: '星空観察' },
+      { time: '21:00', content: '終了' },
+    ],
+    notes: ['防寒着必須', '曇り・雨天中止', '小さなお子様は保護者同伴'],
+  },
+  {
+    slug: 'pottery-workshop',
+    title: '陶芸体験',
+    category: 'Crafts',
+    description:
+      '地元の粘土を使った陶芸体験。初心者でも楽しく作品作りができます。雨の日でも安心の屋内アクティビティ。',
+    images: {
+      thumbnail: '/images/activities/pottery-thumbnail.jpg',
+      hero: '/images/activities/pottery-hero.jpg',
+      gallery: ['/images/activities/pottery-gallery1.jpg'],
+    },
+    intro: {
+      title: '土に触れる創作体験',
+      text: '地元の粘土を使った陶芸体験で、オリジナルの作品を作りませんか。天候に関係なく楽しめる屋内アクティビティです。',
+    },
+    point: {
+      image: '/images/activities/pottery-point.jpg',
+      titleLines: ['手作りの', '世界に一つの作品'],
+      description: '初心者でも安心の指導で、素敵な作品を作ることができます。',
+    },
+    about: [
+      { term: '対象年齢', description: '未就学児以上' },
+      { term: '実施時期', description: '通年' },
+      { term: '人数', description: '10名未満' },
+      { term: '所要時間', description: '2時間以上' },
+      { term: '料金', description: '3000円から5000円' },
+      { term: '実施可能天気', description: '全天候' },
+      { term: 'ご予約', description: '事前予約' },
+      { term: '持ち物', description: 'エプロン（貸出可）' },
+    ],
+    flow: [
+      {
+        stepNumber: 'STEP 1',
+        title: '準備',
+        description: 'エプロン装着と道具説明。',
+      },
+      {
+        stepNumber: 'STEP 2',
+        title: '制作',
+        description: '陶芸作品制作（1.5時間）。',
+      },
+      {
+        stepNumber: 'STEP 3',
+        title: '仕上げ',
+        description: '作品仕上げと乾燥。',
+      },
+    ],
+    reservation: [
+      {
+        label: 'TEL',
+        value: '0555-82-2922',
+        link: 'tel:0555822922',
+        hours: '受付時間　10:00 〜 17:00',
+      },
+    ],
+    badges: [{ type: 'reservation', text: '事前\n予約' }],
+    isPopular: true,
+    targetAge: { min: 6, max: undefined },
+    season: ['春', '夏', '秋', '冬'], // 通年
+    capacity: { min: 2, max: 8 },
+    duration: 120, // 2時間
+    price: { adult: 4200, child: 3500 },
+    weather: ['晴れ', '曇り', '雨天'], // 天候不問
+    highlights: ['屋内アクティビティ', '作品お持ち帰り', '雨天でも実施'],
+    program: [
+      { time: '10:00', content: '受付・準備' },
+      { time: '10:15', content: '陶芸体験' },
+      { time: '11:45', content: '仕上げ・終了' },
+    ],
+    notes: ['作品は後日お渡し（要相談）', 'エプロン貸出あり'],
   },
 ];

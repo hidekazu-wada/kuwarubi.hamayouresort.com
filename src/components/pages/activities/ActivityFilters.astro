@@ -1,0 +1,317 @@
+---
+// ActivityFilters.astro - アクティビティフィルターコンポーネント
+
+export interface FilterOption {
+  value: string;
+  label: string;
+}
+
+export interface Props {
+  targetAgeOptions: FilterOption[];
+  seasonOptions: FilterOption[];
+  capacityOptions: FilterOption[];
+  priceOptions: FilterOption[];
+  durationOptions: FilterOption[];
+  weatherOptions: FilterOption[];
+  bookingOptions: FilterOption[];
+}
+
+const { 
+  targetAgeOptions,
+  seasonOptions, 
+  capacityOptions,
+  priceOptions,
+  durationOptions,
+  weatherOptions,
+  bookingOptions 
+} = Astro.props;
+---
+
+<nav class="activity-filters" aria-label="アクティビティフィルター">
+  <!-- 対象年齢 -->
+  <div class="activity-filters__wrapper">
+    <select class="activity-filters__select" name="target-age">
+      <option value="">対象年齢</option>
+      {targetAgeOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
+    </select>
+    <svg
+      class="activity-filters__icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="12"
+      height="22"
+      viewBox="0 0 12 22"
+      fill="none"
+    >
+      <path
+        d="M1 21L11 11L1 1"
+        stroke="#054965"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </div>
+
+  <!-- 実施時期 -->
+  <div class="activity-filters__wrapper">
+    <select class="activity-filters__select" name="season">
+      <option value="">実施時期</option>
+      {seasonOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
+    </select>
+    <svg
+      class="activity-filters__icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="12"
+      height="22"
+      viewBox="0 0 12 22"
+      fill="none"
+    >
+      <path
+        d="M1 21L11 11L1 1"
+        stroke="#054965"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </div>
+
+  <!-- 人数 -->
+  <div class="activity-filters__wrapper">
+    <select class="activity-filters__select" name="capacity">
+      <option value="">人数</option>
+      {capacityOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
+    </select>
+    <svg
+      class="activity-filters__icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="12"
+      height="22"
+      viewBox="0 0 12 22"
+      fill="none"
+    >
+      <path
+        d="M1 21L11 11L1 1"
+        stroke="#054965"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </div>
+
+  <!-- 料金 -->
+  <div class="activity-filters__wrapper">
+    <select class="activity-filters__select" name="price">
+      <option value="">料金</option>
+      {priceOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
+    </select>
+    <svg
+      class="activity-filters__icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="12"
+      height="22"
+      viewBox="0 0 12 22"
+      fill="none"
+    >
+      <path
+        d="M1 21L11 11L1 1"
+        stroke="#054965"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </div>
+
+  <!-- 所要時間 -->
+  <div class="activity-filters__wrapper">
+    <select class="activity-filters__select" name="duration">
+      <option value="">所要時間</option>
+      {durationOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
+    </select>
+    <svg
+      class="activity-filters__icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="12"
+      height="22"
+      viewBox="0 0 12 22"
+      fill="none"
+    >
+      <path
+        d="M1 21L11 11L1 1"
+        stroke="#054965"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </div>
+
+  <!-- 天気 -->
+  <div class="activity-filters__wrapper">
+    <select class="activity-filters__select" name="weather">
+      <option value="">天気</option>
+      {weatherOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
+    </select>
+    <svg
+      class="activity-filters__icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="12"
+      height="22"
+      viewBox="0 0 12 22"
+      fill="none"
+    >
+      <path
+        d="M1 21L11 11L1 1"
+        stroke="#054965"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </div>
+
+  <!-- ご予約 -->
+  <div class="activity-filters__wrapper">
+    <select class="activity-filters__select" name="booking">
+      <option value="">ご予約</option>
+      {bookingOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
+    </select>
+    <svg
+      class="activity-filters__icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="12"
+      height="22"
+      viewBox="0 0 12 22"
+      fill="none"
+    >
+      <path
+        d="M1 21L11 11L1 1"
+        stroke="#054965"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </div>
+</nav>
+
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  .activity-filters {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    gap: spx(30);
+    @include tablet-up {
+      display: flex;
+      gap: ppx(10 * 1.2);
+    }
+    @include desktop-up {
+      gap: ppx(10);
+    }
+
+    &__wrapper {
+      position: relative;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__select {
+      width: spx(225);
+      height: spx(70);
+      flex-shrink: 0;
+      border-radius: spx(10);
+      border: spx(2) solid var(--blue_5, #026995);
+      padding-left: spx(30);
+      padding-right: spx(50);
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(28);
+      font-style: normal;
+      font-weight: 400;
+      line-height: spx(33);
+      letter-spacing: spx(0.84);
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: transparent;
+      @include tablet-up {
+        width: ppx(225 * 1.2);
+        height: ppx(70 * 1.2);
+        border-radius: ppx(10 * 1.2);
+        border: ppx(2 * 1.2) solid var(--blue_5, #026995);
+        padding-left: ppx(30 * 1.2);
+        padding-right: ppx(50 * 1.2);
+        font-size: ppx(28 * 1.2);
+        line-height: ppx(33 * 1.2);
+        letter-spacing: ppx(0.84 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(225);
+        height: ppx(70);
+        border-radius: ppx(10);
+        border: ppx(2) solid var(--blue_5, #026995);
+        padding-left: ppx(30);
+        padding-right: ppx(50);
+        font-size: ppx(28);
+        line-height: ppx(33);
+        letter-spacing: ppx(0.84);
+      }
+
+      &:focus {
+        outline: none;
+        border-color: var(--blue_4, #59a1c0);
+      }
+
+      @include hover {
+        border-color: var(--blue_4, #59a1c0);
+      }
+    }
+
+    &__icon {
+      width: spx(10);
+      height: spx(20);
+      flex-shrink: 0;
+      stroke-width: spx(2);
+      stroke: var(--blue_6, #054965);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: spx(20);
+      @include tablet-up {
+        width: ppx(10 * 1.2);
+        height: ppx(20 * 1.2);
+        stroke-width: ppx(2 * 1.2);
+        right: ppx(20 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(10);
+        height: ppx(20);
+        stroke-width: ppx(2);
+        right: ppx(20);
+      }
+    }
+  }
+</style>
