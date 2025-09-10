@@ -1906,3 +1906,810 @@ const featuredActivities = activities
 3. **拡張性**: CMS統合時もインターフェース維持で移行容易
 4. **SEO対応**: 各詳細ページが独立URL・メタ情報設定済み
 5. **保守性**: TOPページの設計パターン踏襲で一貫した開発体験
+
+## アクティビティ一覧ページのフィルタリングシステム
+
+### 概要
+
+アクティビティ一覧ページ（`/activities/`）では、**コネクテッドフィルタリングシステム**を実装しています。これは、一つのフィルタを選択すると他のフィルタの選択肢が動的に更新される高度な絞り込み機能です。
+
+### 技術的特徴
+
+#### 1. コネクテッドフィルタリング（連動絞り込み）
+```javascript
+// フィルタ選択時に他のオプションを動的更新
+function updateFilterOptions() {
+  // 現在の選択状態で利用可能なアクティビティを取得
+  const availableActivities = getFilteredActivities(currentFilters);
+  
+  // 各フィルタのオプションを利用可能なデータに基づき更新
+  updateTargetAgeOptions(availableActivities);
+  updateSeasonOptions(availableActivities);
+  updateCapacityOptions(availableActivities);
+  // 他のフィルタも同様に更新
+}
+```
+
+#### 2. 範囲マッチング機能
+数値範囲を持つフィルタ（年齢・人数・料金・時間）で重複判定を実装：
+
+```javascript
+function hasOverlap(range1, range2) {
+  return range1.max >= range2.min && range2.max >= range1.min;
+}
+
+// 実際の使用例：対象年齢フィルタ
+function matchesTargetAge(activity, selectedAge) {
+  const activityAge = { min: activity.targetAge.min, max: activity.targetAge.max || 100 };
+  const filterAge = getAgeRange(selectedAge); // '中学生以上' → {min: 13, max: 100}
+  return hasOverlap(activityAge, filterAge);
+}
+```
+
+#### 3. 統一されたフィルタ項目
+
+全てのアクティビティデータは以下の統一されたカテゴリを使用：
+
+**対象年齢:**
+- `'未就学児以上'` (3歳〜)
+- `'小学生以上'` (6歳〜) 
+- `'中学生以上'` (13歳〜)
+- `'高校生以上'` (16歳〜)
+- `'大人以上'` (20歳〜)
+
+**実施時期:**
+- `'春'` (3-5月)
+- `'夏'` (6-8月)
+- `'秋'` (9-11月)
+- `'通年'` (年間実施)
+
+**人数:**
+- `'10名未満'` (1-9名)
+- `'10名以上'` (10-19名)
+- `'20名以上'` (20名〜)
+
+**料金:**
+- `'500円から1000円'`
+- `'1000円から3000円'`
+- `'3000円から5000円'`
+- `'5000円から1万円'`
+
+**所要時間:**
+- `'1時間未満'` (〜60分)
+- `'1時間以上'` (60-119分)
+- `'2時間以上'` (120分〜)
+
+**実施可能天気:**
+- `'晴れ'` (晴天のみ)
+- `'雨'` (雨天でも実施)
+- `'全天候'` (天候不問)
+
+**ご予約:**
+- `'事前予約'` (要事前予約)
+- `'当日予約'` (当日受付可)
+
+### フィルタ項目の編集・追加・削除方法
+
+#### 1. 新しいフィルタ項目の追加
+
+**手順:**
+1. `activities.ts`のActivityインターフェースに新フィールドを追加
+2. 全アクティビティデータに該当フィールドを追加
+3. `activities/index.astro`でフィルタオプション生成ロジックを追加
+4. `ActivityFilters.astro`にUI要素を追加
+
+**具体例：「レベル」フィルタの追加**
+
+```typescript
+// 1. src/data/activities.ts - インターフェース拡張
+export interface Activity {
+  // 既存フィールド...
+  level: '初心者' | '中級者' | '上級者'; // 新フィールド追加
+}
+
+// 2. 各アクティビティデータに追加
+export const activities: Activity[] = [
+  {
+    slug: 'sup-experience',
+    // 既存データ...
+    about: [
+      { term: 'レベル', description: '初心者' }, // about配列に追加
+      // 他のabout項目...
+    ],
+  },
+  // 他のアクティビティも同様...
+];
+```
+
+```astro
+<!-- 3. src/pages/activities/index.astro - フィルタオプション生成 -->
+---
+// レベルオプション生成
+const levelSet = new Set<string>();
+filteredActivities.forEach(activity => {
+  const levelItem = activity.about.find(item => item.term === 'レベル');
+  if (levelItem) levelSet.add(levelItem.description);
+});
+
+// カスタム順序定義（必要に応じて）
+const levelOrder = ['初心者', '中級者', '上級者'];
+const levelOptions: FilterOption[] = levelOrder
+  .filter(level => levelSet.has(level))
+  .map(level => ({ value: level, label: level }));
+---
+```
+
+```astro
+<!-- 4. src/components/pages/activities/ActivityFilters.astro - UI追加 -->
+<!-- 既存のフィルタの後に追加 -->
+<div class="activity-filters__wrapper">
+  <select class="activity-filters__select" name="level">
+    <option value="">レベル</option>
+    {levelOptions.map(option => (
+      <option value={option.value}>{option.label}</option>
+    ))}
+  </select>
+  <svg class="activity-filters__icon"><!-- 矢印アイコン --></svg>
+</div>
+```
+
+#### 2. 既存フィルタ項目の修正
+
+**手順:**
+1. `activities.ts`内の該当データを一括更新
+2. 必要に応じて統一カテゴリを変更
+
+**具体例：天気カテゴリの変更**
+
+```typescript
+// src/data/activities.ts
+// 変更前: '晴れ', '雨', '全天候'
+// 変更後: '屋外のみ', '屋内可', '天候不問'
+
+export const activities: Activity[] = [
+  {
+    slug: 'sup-experience',
+    about: [
+      { term: '実施可能天気', description: '屋外のみ' }, // '晴れ' → '屋外のみ'
+    ],
+  },
+  {
+    slug: 'pottery-workshop', 
+    about: [
+      { term: '実施可能天気', description: '天候不問' }, // '全天候' → '天候不問'
+    ],
+  },
+];
+```
+
+#### 3. フィルタ項目の削除
+
+**手順:**
+1. `activities.ts`から該当フィールド削除
+2. `activities/index.astro`から対応するフィルタロジック削除
+3. `ActivityFilters.astro`からUI要素削除
+
+**具体例：料金フィルタの削除**
+
+```typescript
+// 1. src/data/activities.ts - about配列から削除
+export const activities: Activity[] = [
+  {
+    slug: 'sup-experience',
+    about: [
+      { term: '対象年齢', description: '中学生以上' },
+      // { term: '料金', description: '3000円から5000円' }, // この行を削除
+      { term: '所要時間', description: '2時間以上' },
+    ],
+  },
+];
+```
+
+```astro
+<!-- 2. src/pages/activities/index.astro - フィルタロジック削除 -->
+---
+// const priceSet = new Set<string>(); // 削除
+// const priceOptions: FilterOption[] = []; // 削除
+---
+```
+
+```astro
+<!-- 3. src/components/pages/activities/ActivityFilters.astro - UI削除 -->
+<!-- 料金フィルタのHTML要素を削除 -->
+<!-- <div class="activity-filters__wrapper"> -->
+<!--   <select name="price">...</select> -->
+<!-- </div> -->
+```
+
+### フィルタオプションの表示順序制御
+
+#### 1. カスタム順序配列による制御
+
+```javascript
+// src/pages/activities/index.astro
+
+// 対象年齢の順序定義（年齢順）
+const targetAgeOrder = ['未就学児以上', '小学生以上', '中学生以上', '高校生以上', '大人以上'];
+const targetAgeOptions: FilterOption[] = targetAgeOrder
+  .filter(age => targetAgeSet.has(age))  // 実際にデータに存在するもののみ
+  .map(age => ({ value: age, label: age }));
+
+// 実施時期の順序定義（季節順）
+const seasonOrder = ['春', '夏', '秋', '通年'];
+const seasonOptions: FilterOption[] = seasonOrder
+  .filter(season => seasonSet.has(season))
+  .map(season => ({ value: season, label: season }));
+
+// 人数の順序定義（少数→多数）
+const capacityOrder = ['10名未満', '10名以上', '20名以上'];
+const capacityOptions: FilterOption[] = capacityOrder
+  .filter(capacity => capacitySet.has(capacity))
+  .map(capacity => ({ value: capacity, label: capacity }));
+
+// 料金の順序定義（低価格→高価格）
+const priceOrder = ['500円から1000円', '1000円から3000円', '3000円から5000円', '5000円から1万円'];
+const priceOptions: FilterOption[] = priceOrder
+  .filter(price => priceSet.has(price))
+  .map(price => ({ value: price, label: price }));
+
+// 所要時間の順序定義（短時間→長時間）
+const durationOrder = ['1時間未満', '1時間以上', '2時間以上'];
+const durationOptions: FilterOption[] = durationOrder
+  .filter(duration => durationSet.has(duration))
+  .map(duration => ({ value: duration, label: duration }));
+
+// 天気の順序定義（制限あり→制限なし）
+const weatherOrder = ['晴れ', '雨', '全天候'];
+const weatherOptions: FilterOption[] = weatherOrder
+  .filter(weather => weatherSet.has(weather))
+  .map(weather => ({ value: weather, label: weather }));
+
+// 予約の順序定義（事前→当日）
+const bookingOrder = ['事前予約', '当日予約'];
+const bookingOptions: FilterOption[] = bookingOrder
+  .filter(booking => bookingSet.has(booking))
+  .map(booking => ({ value: booking, label: booking }));
+```
+
+#### 2. 動的ソート関数による制御
+
+```javascript
+// 文字列の自然順序ソート
+const sortByNaturalOrder = (options: FilterOption[]) => {
+  return options.sort((a, b) => a.label.localeCompare(b.label, 'ja'));
+};
+
+// 数値ベースのソート（料金など）
+const sortByNumericValue = (options: FilterOption[]) => {
+  return options.sort((a, b) => {
+    const aNum = parseInt(a.value.match(/\d+/)?.[0] || '0');
+    const bNum = parseInt(b.value.match(/\d+/)?.[0] || '0');
+    return aNum - bNum;
+  });
+};
+```
+
+#### 3. 順序変更の具体例
+
+**現在の対象年齢順序を逆順（高年齢→低年齢）に変更:**
+
+```javascript
+// 変更前
+const targetAgeOrder = ['未就学児以上', '小学生以上', '中学生以上', '高校生以上', '大人以上'];
+
+// 変更後  
+const targetAgeOrder = ['大人以上', '高校生以上', '中学生以上', '小学生以上', '未就学児以上'];
+```
+
+**季節順序を月順に変更:**
+
+```javascript
+// 変更前
+const seasonOrder = ['春', '夏', '秋', '通年'];
+
+// 変更後
+const seasonOrder = ['春', '夏', '秋', '冬', '通年']; // 冬を追加
+```
+
+### フィルタリング機能の拡張方法
+
+#### 1. 複合条件フィルタの実装
+
+```javascript
+// 価格帯 × 所要時間の複合フィルタ例
+function getFilteredActivitiesAdvanced(filters) {
+  return activities.filter(activity => {
+    // 基本フィルタ適用
+    if (!matchesBasicFilters(activity, filters)) return false;
+    
+    // 複合条件：3000円以下 かつ 2時間未満
+    if (filters.quickAndCheap) {
+      const price = activity.price.adult;
+      const duration = activity.duration;
+      return price <= 3000 && duration < 120;
+    }
+    
+    return true;
+  });
+}
+```
+
+#### 2. 検索機能の追加
+
+```javascript
+// テキスト検索フィルタ
+function addTextSearchFilter() {
+  const searchInput = document.getElementById('activity-search');
+  
+  searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    
+    const filteredActivities = activities.filter(activity => {
+      return activity.title.toLowerCase().includes(searchTerm) ||
+             activity.description.toLowerCase().includes(searchTerm) ||
+             activity.category.toLowerCase().includes(searchTerm);
+    });
+    
+    updateActivityDisplay(filteredActivities);
+  });
+}
+```
+
+#### 3. ソート機能の拡充
+
+```javascript
+// 複数ソート条件
+const sortOptions = {
+  popularity: (a, b) => b.isPopular - a.isPopular, // 人気順
+  priceAsc: (a, b) => a.price.adult - b.price.adult, // 価格安い順
+  priceDesc: (a, b) => b.price.adult - a.price.adult, // 価格高い順
+  durationAsc: (a, b) => a.duration - b.duration, // 時間短い順
+  durationDesc: (a, b) => b.duration - a.duration, // 時間長い順
+  alphabetical: (a, b) => a.title.localeCompare(b.title, 'ja') // 五十音順
+};
+
+function applySorting(activities, sortKey) {
+  return [...activities].sort(sortOptions[sortKey]);
+}
+```
+
+### デバッグ・トラブルシューティング
+
+#### 1. よくある問題と解決方法
+
+**問題: フィルタを選択しても選択肢が更新されない**
+```javascript
+// 解決方法：コンソールでデバッグ
+console.log('Current filters:', currentFilters);
+console.log('Filtered activities:', getFilteredActivities(currentFilters));
+console.log('Available options:', getAvailableOptions(filteredActivities));
+```
+
+**問題: 特定のアクティビティが表示されない**
+```javascript
+// デバッグ用：アクティビティが除外される理由を確認
+function debugActivityFiltering(activity, filters) {
+  console.log(`Debug: ${activity.title}`);
+  console.log('Age match:', matchesTargetAge(activity, filters.targetAge));
+  console.log('Season match:', matchesSeason(activity, filters.season));
+  console.log('Capacity match:', matchesCapacity(activity, filters.capacity));
+}
+```
+
+#### 2. パフォーマンス最適化
+
+```javascript
+// 大量データ対応：メモ化による最適化
+const memoizedFilter = useMemo(() => {
+  return getFilteredActivities(filters);
+}, [filters]);
+
+// 検索のデバウンス処理
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+const debouncedSearch = debounce(performSearch, 300);
+```
+
+### まとめ
+
+このフィルタリングシステムにより、以下が実現されています：
+
+1. **直感的なUX**: 選択に応じて動的にオプションが更新される
+2. **保守性**: 統一されたデータ構造により一貫した管理
+3. **拡張性**: 新しいフィルタ項目の追加が容易
+4. **カスタマイズ性**: オプション表示順序の柔軟な制御
+5. **型安全性**: TypeScriptによる開発時エラー検出
+
+このシステムを基盤として、将来的にはより高度な検索機能やレコメンデーション機能の追加も可能です。
+
+## 8つ目以降のフィルタ項目追加手順（詳細ガイド）
+
+### 現在のフィルタ項目数
+現在実装済み：**7つのフィルタ項目**
+1. 対象年齢
+2. 実施時期  
+3. 人数
+4. 料金
+5. 所要時間
+6. 天気
+7. ご予約
+
+### 8つ目以降を追加する完全な手順
+
+#### 例：「難易度」フィルタを8つ目として追加する場合
+
+#### ステップ1: データ構造の拡張（activities.ts）
+
+**ファイル:** `src/data/activities.ts`
+
+**1-1. Activityインターフェースは変更不要**
+```typescript
+// インターフェースには手を加えない
+// aboutの配列形式でデータを管理するため
+export interface Activity {
+  // 既存のフィールドはそのまま
+  about: Array<{
+    term: string;
+    description: string; 
+    note?: string;
+  }>;
+}
+```
+
+**1-2. 全アクティビティデータにabout項目を追加**
+```typescript
+export const activities: Activity[] = [
+  {
+    slug: 'sup-experience',
+    // 既存データ...
+    about: [
+      { term: '対象年齢', description: '中学生以上' },
+      { term: '実施時期', description: '夏' },
+      { term: '人数', description: '10名未満' },
+      { term: '所要時間', description: '2時間以上' },
+      { term: '料金', description: '3000円から5000円' },
+      { term: '実施可能天気', description: '晴れ' },
+      { term: 'ご予約', description: '事前予約' },
+      { term: '難易度', description: '初級' }, // ← 8つ目として追加
+      { term: '持ち物', description: '水着・タオル' },
+    ],
+  },
+  {
+    slug: 'campfire-experience', 
+    // 既存データ...
+    about: [
+      { term: '対象年齢', description: '未就学児以上' },
+      { term: '実施時期', description: '通年' },
+      { term: '人数', description: '20名以上' },
+      { term: '所要時間', description: '1時間以上' },
+      { term: '料金', description: '1000円から3000円' },
+      { term: '実施可能天気', description: '晴れ' },
+      { term: 'ご予約', description: '事前予約' },
+      { term: '難易度', description: '初級' }, // ← 全てのアクティビティに追加
+      { term: '持ち物', description: '防寒着' },
+    ],
+  },
+  // 残り6つのアクティビティにも同様に { term: '難易度', description: '...' } を追加
+  // ※難易度の値は: '初級', '中級', '上級' のいずれかを設定
+];
+```
+
+**1-3. 統一カテゴリの定義**
+```typescript
+// ドキュメント用コメントとして追加（実際のコードには不要）
+/*
+難易度カテゴリ:
+- '初級' - 初心者・未経験者向け
+- '中級' - ある程度の経験者向け  
+- '上級' - 経験豊富な方向け
+*/
+```
+
+#### ステップ2: フィルタオプション生成ロジックの追加（activities/index.astro）
+
+**ファイル:** `src/pages/activities/index.astro`
+
+**2-1. フィルタオプション生成処理の追加**
+```astro
+---
+// 既存のフィルタオプション生成処理の後に追加
+
+// 8. 難易度オプション生成（←新規追加）
+const difficultySet = new Set<string>();
+filteredActivities.forEach(activity => {
+  const difficultyItem = activity.about.find(item => item.term === '難易度');
+  if (difficultyItem) difficultySet.add(difficultyItem.description);
+});
+
+// 難易度の希望する順序を定義（初級→上級の順）
+const difficultyOrder = ['初級', '中級', '上級'];
+const difficultyOptions: FilterOption[] = difficultyOrder
+  .filter(difficulty => difficultySet.has(difficulty))
+  .map(difficulty => ({
+    value: difficulty,
+    label: difficulty
+  }));
+---
+```
+
+**2-2. フィルタコンポーネントにpropsとして渡す**
+```astro
+<!-- 既存のprops設定を拡張 -->
+<ActivityFilters 
+  targetAgeOptions={targetAgeOptions}
+  seasonOptions={seasonOptions} 
+  capacityOptions={capacityOptions}
+  priceOptions={priceOptions}
+  durationOptions={durationOptions}
+  weatherOptions={weatherOptions}
+  bookingOptions={bookingOptions}
+  difficultyOptions={difficultyOptions}
+/>
+```
+
+#### ステップ3: フィルタUIコンポーネントの拡張（ActivityFilters.astro）
+
+**ファイル:** `src/components/pages/activities/ActivityFilters.astro`
+
+**3-1. Propsインターフェースの拡張**
+```astro
+---
+export interface Props {
+  targetAgeOptions: FilterOption[];
+  seasonOptions: FilterOption[];
+  capacityOptions: FilterOption[];
+  priceOptions: FilterOption[];
+  durationOptions: FilterOption[];
+  weatherOptions: FilterOption[];
+  bookingOptions: FilterOption[];
+  difficultyOptions: FilterOption[]; // ← 8つ目として追加
+}
+
+const { 
+  targetAgeOptions,
+  seasonOptions, 
+  capacityOptions,
+  priceOptions,
+  durationOptions,
+  weatherOptions,
+  bookingOptions,
+  difficultyOptions // ← destructuring に追加
+} = Astro.props;
+---
+```
+
+**3-2. HTML要素の追加**
+```astro
+<!-- 既存の7つのフィルタ要素の後に追加 -->
+
+<!-- 難易度（8つ目） -->
+<div class="activity-filters__wrapper">
+  <select class="activity-filters__select" name="difficulty">
+    <option value="">難易度</option>
+    {difficultyOptions.map(option => (
+      <option value={option.value}>{option.label}</option>
+    ))}
+  </select>
+  <svg
+    class="activity-filters__icon"
+    xmlns="http://www.w3.org/2000/svg"
+    width="12"
+    height="22"
+    viewBox="0 0 12 22"
+    fill="none"
+  >
+    <path
+      d="M1 21L11 11L1 1"
+      stroke="#054965"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></path>
+  </svg>
+</div>
+```
+
+#### ステップ4: フィルタリングロジックの拡張（activities/index.astro）
+
+**ファイル:** `src/pages/activities/index.astro`
+
+**4-1. フィルタリング関数の拡張**
+```javascript
+<script>
+// 既存のフィルタリング関数を拡張
+function getFilteredActivities(filters) {
+  return activities.filter(activity => {
+    // 1-7の既存フィルタ条件...
+    
+    // 8. 難易度フィルタ（新規追加）
+    if (filters.difficulty) {
+      const difficultyItem = activity.about.find(item => item.term === '難易度');
+      if (!difficultyItem || difficultyItem.description !== filters.difficulty) {
+        return false;
+      }
+    }
+    
+    return true;
+  });
+}
+
+// フィルタ変更イベントリスナーに追加
+document.addEventListener('change', function(e) {
+  // 既存のフィルタ処理...
+  
+  // 8つ目のフィルタ追加
+  if (e.target.name === 'difficulty') {
+    currentFilters.difficulty = e.target.value;
+    updateFilteredResults();
+  }
+});
+</script>
+```
+
+### 9つ目以降のフィルタ追加手順
+
+#### 手順テンプレート
+
+**新フィルタ項目: 「[フィルタ名]」を追加する場合**
+
+1. **データ追加** (`src/data/activities.ts`)
+   ```typescript
+   // 全アクティビティの about 配列に追加
+   { term: '[フィルタ名]', description: '[統一カテゴリ値]' }
+   ```
+
+2. **オプション生成** (`src/pages/activities/index.astro`)
+   ```astro
+   ---
+   // [フィルタ名]オプション生成
+   const [フィルタ名]Set = new Set<string>();
+   filteredActivities.forEach(activity => {
+     const [フィルタ名]Item = activity.about.find(item => item.term === '[フィルタ名]');
+     if ([フィルタ名]Item) [フィルタ名]Set.add([フィルタ名]Item.description);
+   });
+   
+   const [フィルタ名]Options: FilterOption[] = Array.from([フィルタ名]Set)
+     .map([フィルタ名] => ({ value: [フィルタ名], label: [フィルタ名] }));
+   ---
+   ```
+
+3. **Props追加** (`ActivityFilters.astro`)
+   ```astro
+   export interface Props {
+     // 既存props...
+     [フィルタ名]Options: FilterOption[];
+   }
+   ```
+
+4. **UI追加** (`ActivityFilters.astro`)
+   ```astro
+   <!-- [フィルタ名] -->
+   <div class="activity-filters__wrapper">
+     <select class="activity-filters__select" name="[フィルタ名]">
+       <option value="">[フィルタ名]</option>
+       {[フィルタ名]Options.map(option => (
+         <option value={option.value}>{option.label}</option>
+       ))}
+     </select>
+     <svg class="activity-filters__icon"><!-- アイコン --></svg>
+   </div>
+   ```
+
+5. **フィルタリング追加** (`activities/index.astro`)
+   ```javascript
+   // getFilteredActivities関数内に追加
+   if (filters.[フィルタ名]) {
+     const [フィルタ名]Item = activity.about.find(item => item.term === '[フィルタ名]');
+     if (![フィルタ名]Item || [フィルタ名]Item.description !== filters.[フィルタ名]) {
+       return false;
+     }
+   }
+   
+   // イベントリスナーに追加
+   if (e.target.name === '[フィルタ名]') {
+     currentFilters.[フィルタ名] = e.target.value;
+     updateFilteredResults();
+   }
+   ```
+
+### 具体的な追加例（10つ目: 「エリア」フィルタ）
+
+#### 実装サンプル
+
+**1. データ追加:**
+```typescript
+// 全アクティビティに追加
+{ term: 'エリア', description: '湖エリア' } // または '山エリア', '森エリア'
+```
+
+**2. オプション生成:**
+```astro
+const areaSet = new Set<string>();
+filteredActivities.forEach(activity => {
+  const areaItem = activity.about.find(item => item.term === 'エリア');
+  if (areaItem) areaSet.add(areaItem.description);
+});
+
+const areaOrder = ['湖エリア', '山エリア', '森エリア'];
+const areaOptions: FilterOption[] = areaOrder
+  .filter(area => areaSet.has(area))
+  .map(area => ({ value: area, label: area }));
+```
+
+**3. UI追加:**
+```astro
+<!-- エリア（10つ目） -->
+<div class="activity-filters__wrapper">
+  <select class="activity-filters__select" name="area">
+    <option value="">エリア</option>
+    {areaOptions.map(option => (
+      <option value={option.value}>{option.label}</option>
+    ))}
+  </select>
+  <svg class="activity-filters__icon"><!-- アイコン --></svg>
+</div>
+```
+
+### 注意事項・ベストプラクティス
+
+#### 1. データ整合性の確保
+- **全アクティビティに同じterm名で追加**：漏れがないよう注意
+- **統一カテゴリの定義**：事前に値の種類を決める（3-5個程度が適切）
+- **型安全性**：TypeScript型定義で警告を確認
+
+#### 2. UI/UXの考慮
+- **フィルタ数の上限**：10個を超えるとUIが複雑になるため注意
+- **レスポンシブ対応**：スマホでの表示を確認
+- **並び順**：重要度の高いフィルタを上位に配置
+
+#### 3. パフォーマンス
+- **フィルタオプション生成**：大量データ時はパフォーマンス監視
+- **DOM更新頻度**：フィルタ変更時の再描画コストを考慮
+
+#### 4. 保守性
+- **命名規則の統一**：変数名、関数名を一貫させる
+- **コメント追加**：新フィルタの説明を残す
+- **テスト実装**：フィルタ動作の確認手順を文書化
+
+### トラブルシューティング
+
+#### よくあるエラーと解決方法
+
+**1. フィルタオプションが表示されない**
+```javascript
+// デバッグ: データ確認
+console.log('Filter data check:', 
+  activities.map(act => 
+    act.about.find(item => item.term === '[フィルタ名]')
+  )
+);
+```
+
+**2. フィルタリングが効かない**
+```javascript
+// イベントリスナー確認
+document.querySelector('[name="[フィルタ名]"]')
+  .addEventListener('change', (e) => {
+    console.log('Filter changed:', e.target.value);
+  });
+```
+
+**3. TypeScript型エラー**
+```typescript
+// Props型定義の確認・修正
+export interface Props {
+  [フィルタ名]Options: FilterOption[]; // 型定義漏れがないか確認
+}
+```
+
+この手順に従うことで、8つ目以降のフィルタ項目も安全かつ確実に追加できます。

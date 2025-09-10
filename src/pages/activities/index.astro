@@ -17,82 +17,117 @@ import type { FilterOption } from '../../components/pages/activities/ActivityFil
 function generateFilterOptions() {
   // 実際のabout配列から各フィールドの値を抽出
   
-  // 対象年齢の選択肢を生成
+  // 対象年齢の選択肢を生成（カスタム順序）
   const targetAgeSet = new Set<string>();
   activities.forEach(activity => {
     const ageItem = activity.about.find(item => item.term === '対象年齢');
     if (ageItem) targetAgeSet.add(ageItem.description);
   });
-  const targetAgeOptions: FilterOption[] = Array.from(targetAgeSet).sort().map(age => ({
-    value: age,
-    label: age
-  }));
+  
+  // 対象年齢の希望する順序を定義
+  const targetAgeOrder = ['未就学児以上', '小学生以上', '中学生以上', '高校生以上', '大人以上'];
+  const targetAgeOptions: FilterOption[] = targetAgeOrder
+    .filter(age => targetAgeSet.has(age))
+    .map(age => ({
+      value: age,
+      label: age
+    }));
 
-  // 実施時期の選択肢を生成
+  // 実施時期の選択肢を生成（カスタム順序）
   const seasonSet = new Set<string>();
   activities.forEach(activity => {
     const seasonItem = activity.about.find(item => item.term === '実施時期');
     if (seasonItem) seasonSet.add(seasonItem.description);
   });
-  const seasonOptions: FilterOption[] = Array.from(seasonSet).sort().map(season => ({
-    value: season,
-    label: season
-  }));
+  
+  // 実施時期の希望する順序を定義
+  const seasonOrder = ['春', '夏', '秋', '通年'];
+  const seasonOptions: FilterOption[] = seasonOrder
+    .filter(season => seasonSet.has(season))
+    .map(season => ({
+      value: season,
+      label: season
+    }));
 
-  // 人数の選択肢を生成
+  // 人数の選択肢を生成（カスタム順序）
   const capacitySet = new Set<string>();
   activities.forEach(activity => {
     const capacityItem = activity.about.find(item => item.term === '人数');
     if (capacityItem) capacitySet.add(capacityItem.description);
   });
-  const capacityOptions: FilterOption[] = Array.from(capacitySet).sort().map(capacity => ({
-    value: capacity,
-    label: capacity
-  }));
+  
+  // 人数の希望する順序を定義
+  const capacityOrder = ['10名未満', '10名以上', '20名以上'];
+  const capacityOptions: FilterOption[] = capacityOrder
+    .filter(capacity => capacitySet.has(capacity))
+    .map(capacity => ({
+      value: capacity,
+      label: capacity
+    }));
 
-  // 料金の選択肢を生成
+  // 料金の選択肢を生成（カスタム順序）
   const priceSet = new Set<string>();
   activities.forEach(activity => {
     const priceItem = activity.about.find(item => item.term === '料金');
     if (priceItem) priceSet.add(priceItem.description);
   });
-  const priceOptions: FilterOption[] = Array.from(priceSet).sort().map(price => ({
-    value: price,
-    label: price
-  }));
+  
+  // 料金の希望する順序を定義（安い順）
+  const priceOrder = ['500円から1000円', '1000円から3000円', '3000円から5000円', '5000円から1万円'];
+  const priceOptions: FilterOption[] = priceOrder
+    .filter(price => priceSet.has(price))
+    .map(price => ({
+      value: price,
+      label: price
+    }));
 
-  // 所要時間の選択肢を生成
+  // 所要時間の選択肢を生成（カスタム順序）
   const durationSet = new Set<string>();
   activities.forEach(activity => {
     const durationItem = activity.about.find(item => item.term === '所要時間');
     if (durationItem) durationSet.add(durationItem.description);
   });
-  const durationOptions: FilterOption[] = Array.from(durationSet).sort().map(duration => ({
-    value: duration,
-    label: duration
-  }));
+  
+  // 所要時間の希望する順序を定義（短い順）
+  const durationOrder = ['1時間未満', '1時間以上', '2時間以上'];
+  const durationOptions: FilterOption[] = durationOrder
+    .filter(duration => durationSet.has(duration))
+    .map(duration => ({
+      value: duration,
+      label: duration
+    }));
 
-  // 天気の選択肢を生成
+  // 天気の選択肢を生成（カスタム順序）
   const weatherSet = new Set<string>();
   activities.forEach(activity => {
     const weatherItem = activity.about.find(item => item.term === '実施可能天気');
     if (weatherItem) weatherSet.add(weatherItem.description);
   });
-  const weatherOptions: FilterOption[] = Array.from(weatherSet).sort().map(weather => ({
-    value: weather,
-    label: weather
-  }));
+  
+  // 天気の希望する順序を定義
+  const weatherOrder = ['晴れ', '雨', '全天候'];
+  const weatherOptions: FilterOption[] = weatherOrder
+    .filter(weather => weatherSet.has(weather))
+    .map(weather => ({
+      value: weather,
+      label: weather
+    }));
 
-  // ご予約の選択肢を生成
+  // ご予約の選択肢を生成（カスタム順序）
   const bookingSet = new Set<string>();
   activities.forEach(activity => {
     const bookingItem = activity.about.find(item => item.term === 'ご予約');
     if (bookingItem) bookingSet.add(bookingItem.description);
   });
-  const bookingOptions: FilterOption[] = Array.from(bookingSet).sort().map(booking => ({
-    value: booking,
-    label: booking
-  }));
+  
+  // ご予約の希望する順序を定義
+  const bookingOrder = ['当日予約', '事前予約'];
+  const bookingOptions: FilterOption[] = bookingOrder
+    .filter(booking => bookingSet.has(booking))
+    .map(booking => ({
+      value: booking,
+      label: booking
+    }));
 
   return {
     targetAgeOptions,
