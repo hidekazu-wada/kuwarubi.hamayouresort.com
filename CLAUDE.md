@@ -59,7 +59,8 @@ npm run astro -- --help
 │   ├── components/  # Astroコンポーネント
 │   │   ├── ui/      # 再利用可能UIコンポーネント
 │   │   │   ├── MoreButton.astro  # 共通Moreボタンコンポーネント
-│   │   │   └── SectionWave.astro # 共通Waveコンポーネント
+│   │   │   ├── SectionWave.astro # 共通Waveコンポーネント
+│   │   │   └── Breadcrumb.astro  # 共通パンくずナビゲーションコンポーネント
 │   │   ├── pages/   # ページ固有コンポーネント
 │   │   │   └── top/ # TOPページコンポーネント
 │   │   │       ├── Hero.astro        # ヒーローセクション
@@ -129,6 +130,7 @@ npm run astro -- --help
 
 **共通UIコンポーネント:**
 - **MoreButton**: 再利用可能なMoreボタンコンポーネント
+- **Breadcrumb**: 再利用可能なパンくずナビゲーションコンポーネント
 
 #### 2. JavaScript管理の中央集権化
 ```astro
@@ -798,6 +800,7 @@ document.addEventListener('DOMContentLoaded', initParallax);
 **共通UIコンポーネント:**
 - **MoreButton.astro**: 再利用可能Moreボタン（Props対応、カスタマイズ可能）
 - **SectionWave.astro**: 再利用可能Waveコンポーネント（色カスタマイズ対応）
+- **Breadcrumb.astro**: 再利用可能パンくずナビゲーション（2-4+レベル対応）
 
 **データ管理:**
 - **activities.ts**: アクティビティの静的データと型定義（将来的にCMS統合予定）
@@ -1477,6 +1480,88 @@ npm run preview
 
 この開発方針により、一貫性のある高品質なコードベースを維持し、スケーラブルな開発を実現しています。
 
+## Breadcrumb共通コンポーネント
+
+### 概要
+
+サイト内のページ階層を表示するパンくずナビゲーションを再利用可能なコンポーネント化しました。アクティビティ詳細ページをはじめ、サイト全体で一貫したナビゲーション体験を提供します。
+
+### ファイル場所
+`src/components/ui/Breadcrumb.astro`
+
+### Props Interface
+```typescript
+export interface BreadcrumbItem {
+  text: string;    // 表示テキスト
+  href?: string;   // リンク先（現在ページの場合はundefined）
+}
+
+export interface Props {
+  items: BreadcrumbItem[]; // パンくず項目の配列
+}
+```
+
+### 使用例
+```astro
+<!-- 2レベル階層（HOME > 現在ページ） -->
+<Breadcrumb items={[
+  { text: 'TOP', href: '/' },
+  { text: 'アクティビティ一覧' }
+]} />
+
+<!-- 3レベル階層（HOME > 中間ページ > 現在ページ） -->
+<Breadcrumb items={[
+  { text: 'TOP', href: '/' },
+  { text: 'アクティビティ', href: '/activities' },
+  { text: 'SUP体験' }
+]} />
+
+<!-- 4+レベル階層も対応 -->
+<Breadcrumb items={[
+  { text: 'TOP', href: '/' },
+  { text: 'アクティビティ', href: '/activities' },
+  { text: '水上アクティビティ', href: '/activities/water' },
+  { text: 'SUP体験詳細' }
+]} />
+```
+
+### デザイン特徴
+- **セマンティックHTML**: `<nav>`と`<ol>`を使用したアクセシブルな構造
+- **区切り文字**: 「>」（\003E）を使用してレベル間を区切り
+- **現在ページ表示**: リンクなしの`<span>`で現在ページを明示
+- **レスポンシブ対応**: spx/ppx関数による自動サイズ調整
+
+#### HTML構造
+```astro
+<nav class="breadcrumb" aria-label="パンくずナビゲーション">
+  <ol class="breadcrumb__list">
+    <li class="breadcrumb__item">
+      <a href="/" class="breadcrumb__link">TOP</a>
+    </li>
+    <li class="breadcrumb__item">
+      <a href="/activities" class="breadcrumb__link">アクティビティ</a>
+    </li>
+    <li class="breadcrumb__item breadcrumb__item--current">
+      <span class="breadcrumb__current">SUP体験</span>
+    </li>
+  </ol>
+</nav>
+```
+
+### 実装済み使用箇所
+- **activities/[slug].astro**: アクティビティ詳細ページ
+
+### アクセシビリティ対応
+- **aria-label**: ナビゲーションの目的を明示
+- **セマンティック構造**: 順序リストによる階層表現
+- **視覚的区別**: 現在ページは`breadcrumb__item--current`クラスで識別
+
+### コンポーネント化の利点
+1. **再利用性**: サイト全体で統一されたパンくずナビゲーション
+2. **保守性**: デザイン変更時は1箇所のみ修正
+3. **柔軟性**: 2-4+レベルの任意の階層に対応
+4. **型安全性**: TypeScript型定義による確実なデータ構造
+
 ## アクティビティページシステム
 
 ### 概要
@@ -1520,8 +1605,8 @@ export interface Activity {
 ```
 
 #### 実装済みアクティビティデータ
-1. **SUP体験** (`sup-experience`) - 水上体験・初心者向け
-2. **キャンプファイヤー体験** (`campfire-experience`) - 自然体験・ファミリー向け
+1. **SUP体験** (`sup-experience`) - 水上体験・初心者向け・人気アクティビティ
+2. **キャンプファイヤー体験** (`campfire-experience`) - 自然体験・ファミリー向け・人気アクティビティ
 3. **レンタルサイクル** (`rental-cycle`) - 陸上体験・自由度高
 4. **樹海トレイル** (`forest-trail`) - 自然体験・ガイド付き
 
@@ -1544,6 +1629,271 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
 - **共通レイアウト**: TOPページと同じSidebar・BottomBar・Footer構成
 - **BottomBar動作**: 下層ページでは常時表示（TOPページのスクロール連動なし）
 - **モーダル**: VideoModal・BookingModalも全ページで利用可能
+
+### データ連動システムの詳細設計
+
+#### 1. データフローの全体像
+
+```mermaid
+graph TD
+    A[activities.ts] --> B[アクティビティ詳細ページ]
+    A --> C[アクティビティ一覧ページ]
+    A --> D[TOPページActivitiesセクション]
+    B --> E[人気アクティビティセクション]
+    E --> F[Swiperスライダー動的表示]
+    C --> G[フィルタリング・ソート機能]
+    D --> H[TOPページカード表示]
+```
+
+#### 2. 中央データ管理システム (`src/data/activities.ts`)
+
+**データ構造の設計思想:**
+```typescript
+// 完全な型定義によるデータ整合性確保
+export interface Activity {
+  // 基本情報（必須）
+  slug: string;                    // URL生成・ルーティング用
+  title: string;                   // 表示名・SEO用
+  category: string;                // カテゴリ分類・フィルタ用
+  description: string;             // 概要・メタ情報用
+  
+  // 画像管理（最適化対応）
+  images: {
+    thumbnail: string;             // 一覧・カード表示用
+    hero: string;                  // 詳細ページメイン画像
+    gallery: string[];             // 詳細ページギャラリー用
+  };
+  
+  // フィルタリング・検索対応データ
+  targetAge: { min: number; max?: number };  // 年齢フィルタ用
+  season: string[];                          // 季節フィルタ用
+  capacity: { min: number; max: number };    // 人数フィルタ用
+  duration: number;                          // 時間フィルタ・表示用
+  price: { adult: number; child?: number };  // 価格ソート・表示用
+  weather: string[];                         // 天気フィルタ用
+  
+  // 表示制御フラグ
+  isPopular: boolean;              // 人気アクティビティ表示制御
+  isRecommended?: boolean;         // おすすめ表示制御（将来実装）
+  isNew?: boolean;                 // 新着表示制御（将来実装）
+  
+  // UI表示用データ
+  badges: Array<{                  // 動的バッジ表示用
+    type: 'reservation' | 'group' | 'beginner' | 'advanced';
+    text: string;
+  }>;
+  
+  // 詳細ページ専用データ
+  highlights: string[];            // おすすめポイント
+  about: {                         // 詳細情報
+    duration: string;              // 表示用時間文字列
+    targetAge: string;             // 表示用年齢文字列
+    season: string;                // 表示用季節文字列
+  };
+  program: Array<{                 // プログラム流れ
+    time: string;
+    content: string;
+  }>;
+  notes: string[];                 // 注意事項
+  bookingUrl?: string;             // 予約システム連携用
+}
+```
+
+#### 3. 動的ルーティングとデータ連携
+
+**詳細ページ (`[slug].astro`) の実装パターン:**
+```astro
+---
+import { activities, type Activity } from '../../data/activities.ts';
+
+// 1. 静的パス生成（ビルド時）
+export async function getStaticPaths() {
+  return activities.map((activity: Activity) => ({
+    params: { slug: activity.slug },     // URLパラメータ
+    props: { activity }                  // ページpropsとして渡す
+  }));
+}
+
+// 2. Props型定義
+interface Props {
+  activity: Activity;
+}
+
+const { activity } = Astro.props;
+
+// 3. SEO・メタ情報の動的生成
+const pageTitle = `${activity.title} | クワルビリゾート`;
+const pageDescription = activity.description;
+
+// 4. 人気アクティビティのフィルタリング（現在ページ除外）
+const popularActivities = activities
+  .filter(act => act.isPopular && act.slug !== activity.slug)
+  .slice(0, 6); // 最大6件表示
+
+// 5. パンくずナビゲーション用データ生成
+const breadcrumbItems = [
+  { text: 'TOP', href: '/' },
+  { text: 'アクティビティ', href: '/activities' },
+  { text: activity.title } // 現在ページ（リンクなし）
+];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <!-- パンくず -->
+  <Breadcrumb items={breadcrumbItems} />
+  
+  <!-- メインコンテンツ（動的データ表示） -->
+  <h1>{activity.title}</h1>
+  <p>{activity.description}</p>
+  
+  <!-- 詳細情報（aboutオブジェクトから） -->
+  <dl>
+    <dt>所要時間</dt><dd>{activity.about.duration}</dd>
+    <dt>対象年齢</dt><dd>{activity.about.targetAge}</dd>
+    <dt>実施時期</dt><dd>{activity.about.season}</dd>
+  </dl>
+  
+  <!-- バッジ表示（動的生成） -->
+  {activity.badges.map((badge) => (
+    <span class={`badge badge--${badge.type}`}>
+      {badge.text}
+    </span>
+  ))}
+  
+  <!-- 人気アクティビティセクション（Swiperと連携） -->
+  <section class="activities-popular">
+    <div class="activities-popular__swiper">
+      <div class="swiper-wrapper">
+        {popularActivities.map((popularActivity) => (
+          <div class="swiper-slide">
+            <!-- 動的カード生成 -->
+            <ActivityCard activity={popularActivity} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+```
+
+#### 4. 一覧ページへの応用パターン
+
+**一覧ページ (`activities/index.astro`) での実装予想:**
+```astro
+---
+import { activities } from '../data/activities.ts';
+
+// 1. カテゴリ別分類
+const categories = [...new Set(activities.map(act => act.category))];
+
+// 2. フィルタリング用データ準備
+const filterOptions = {
+  categories: categories,
+  seasons: [...new Set(activities.flatMap(act => act.season))],
+  priceRanges: [
+    { label: '〜5,000円', min: 0, max: 5000 },
+    { label: '5,001〜10,000円', min: 5001, max: 10000 },
+    { label: '10,001円〜', min: 10001, max: Infinity }
+  ]
+};
+
+// 3. 初期表示用（人気順ソート）
+const defaultActivities = activities
+  .sort((a, b) => {
+    if (a.isPopular && !b.isPopular) return -1;
+    if (!a.isPopular && b.isPopular) return 1;
+    return a.price.adult - b.price.adult; // 価格順
+  });
+---
+
+<Layout title="アクティビティ一覧">
+  <!-- フィルタUI -->
+  <aside class="filter-panel">
+    <select data-filter="category">
+      {categories.map(cat => <option value={cat}>{cat}</option>)}
+    </select>
+    <!-- 他のフィルタ... -->
+  </aside>
+  
+  <!-- アクティビティグリッド -->
+  <main class="activities-grid" data-activities={JSON.stringify(activities)}>
+    {defaultActivities.map((activity) => (
+      <ActivityCard activity={activity} />
+    ))}
+  </main>
+</Layout>
+
+<script>
+  // クライアントサイドフィルタリング
+  const activitiesData = JSON.parse(
+    document.querySelector('[data-activities]').dataset.activities
+  );
+  
+  function filterActivities(filters) {
+    return activitiesData.filter(activity => {
+      // カテゴリフィルタ
+      if (filters.category && activity.category !== filters.category) return false;
+      
+      // 価格フィルタ
+      if (filters.priceMax && activity.price.adult > filters.priceMax) return false;
+      
+      // 季節フィルタ
+      if (filters.season && !activity.season.includes(filters.season)) return false;
+      
+      return true;
+    });
+  }
+</script>
+```
+
+#### 5. TOPページとの連携
+
+**TOPページActivitiesセクションでの活用:**
+```astro
+---
+// 人気アクティビティのみ抽出（最大4件）
+const featuredActivities = activities
+  .filter(activity => activity.isPopular)
+  .slice(0, 4);
+---
+
+<section class="top-activities">
+  <div class="top-activities__swiper">
+    <div class="swiper-wrapper">
+      {featuredActivities.map((activity) => (
+        <div class="swiper-slide">
+          <a href={`/activities/${activity.slug}`}>
+            <h3>{activity.title}</h3>
+            <p>¥{activity.price.adult.toLocaleString()}〜</p>
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+```
+
+#### 6. データ連動システムの利点
+
+**1. 一元管理によるメリット:**
+- データ変更時は`activities.ts`のみ更新すれば全ページに反映
+- 型安全性により、データ構造変更時のエラーを事前検出
+- 重複データなし、整合性保証
+
+**2. スケーラビリティ:**
+- 新しいアクティビティ追加は配列への追加のみ
+- フィルタ条件追加は型定義拡張で対応
+- CMS統合時もインターフェース維持で移行容易
+
+**3. パフォーマンス:**
+- 静的サイト生成により高速表示
+- 必要な分のみクライアントサイドJS実行
+- 画像最適化との組み合わせで最適パフォーマンス
+
+**4. 保守性:**
+- コンポーネント化により再利用促進
+- 統一されたデータアクセスパターン
+- 型定義による開発体験向上
 
 ### 今後の実装予定
 - **一覧ページ**: フィルタリング・ソート機能
