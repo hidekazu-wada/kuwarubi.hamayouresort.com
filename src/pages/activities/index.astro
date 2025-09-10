@@ -42,7 +42,14 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
       <BookingModal />
 
       <!-- メインコンテンツ -->
-      <main class="main-content"></main>
+      <main class="main-content">
+        <header class="lower-page-header">
+          <div class="lower-page-header__title-group">
+            <h2 class="lower-page-header__title-en">ACTIVITIES</h2>
+            <p class="lower-page-header__title-ja">アクティビティ</p>
+          </div>
+        </header>
+      </main>
       <!-- フッター -->
       <Footer />
     </div>
@@ -307,6 +314,64 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
     .main-content {
       grid-area: main;
       position: relative;
+    }
+
+    /* ページヘッダー */
+    .lower-page-header {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &__title-group {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__title-en {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+        &:after {
+          content: '';
+          display: block;
+          width: spx(231);
+          height: spx(5);
+          background: linear-gradient(
+            to right,
+            var(--green_2, #adc400) 0%,
+            /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
+            /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
+            /* 透明開始 */ transparent 51.4%,
+            /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
+              51.4%,
+            /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
+          );
+          margin-inline: auto;
+          margin-top: spx(5);
+          @include tablet-up {
+            height: ppx(5) * 1.2;
+            width: ppx(231) * 1.2;
+            margin-inline: unset;
+            margin-top: ppx(20 * 1.2);
+          }
+          @include desktop-up {
+            height: ppx(5);
+            width: ppx(231);
+            margin-top: ppx(20);
+          }
+        }
+      }
+
+      &__title-ja {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
     }
   </style>
 </html>
