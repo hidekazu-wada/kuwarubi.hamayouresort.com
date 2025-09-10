@@ -7,6 +7,8 @@ import Sidebar from '../../components/Sidebar.astro';
 import Footer from '../../components/Footer.astro';
 import VideoModal from '../../components/VideoModal.astro';
 import BookingModal from '../../components/Booking-modal.astro';
+import ActivityFilters from '../../components/pages/activities/ActivityFilters.astro';
+import LowerPageHeader from '../../components/ui/LowerPageHeader.astro';
 import { activities } from '../../data/activities';
 
 // ページタイトル
@@ -43,12 +45,23 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
 
       <!-- メインコンテンツ -->
       <main class="main-content">
-        <header class="lower-page-header">
-          <div class="lower-page-header__title-group">
-            <h2 class="lower-page-header__title-en">ACTIVITIES</h2>
-            <p class="lower-page-header__title-ja">アクティビティ</p>
+        <div class="page-header-container">
+          <LowerPageHeader titleEn="ACTIVITIES" titleJa="アクティビティ" />
+        </div>
+        <section class="filter-section">
+          <!-- スマホ用：絞り込み検索ボタン -->
+          <div class="filter-section__mobile-toggle">
+            <button class="filter-section__mobile-button">
+              <span class="filter-section__mobile-text">絞り込み検索</span>
+            </button>
           </div>
-        </header>
+
+          <!-- タブレット以上用：フィルターパネル -->
+          <div class="filter-section__desktop-panel">
+            <h3 class="filter-section__title">絞り込み検索</h3>
+            <ActivityFilters />
+          </div>
+        </section>
       </main>
       <!-- フッター -->
       <Footer />
@@ -314,62 +327,118 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
     .main-content {
       grid-area: main;
       position: relative;
-    }
-
-    /* ページヘッダー */
-    .lower-page-header {
+      background: var(--blue_2, #e7f3f9);
+      padding-top: spx(110);
       @include tablet-up {
+        padding-top: ppx(280 * 1.2);
       }
       @include desktop-up {
+        padding-top: ppx(280);
+      }
+    }
+
+    /* ページヘッダーコンテナ */
+    .page-header-container {
+      margin-bottom: spx(68);
+      @include tablet-up {
+        margin-left: ppx(233 * 1.2);
+        margin-bottom: ppx(101 * 1.2);
+      }
+      @include desktop-up {
+        margin-left: ppx(233);
+        margin-bottom: ppx(101);
+      }
+    }
+
+    /* フィルターセクション */
+    .filter-section {
+      padding-top: spx(15);
+      padding-bottom: spx(15);
+      background: #e4f1f8;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+
+      @include tablet-up {
+        padding-top: ppx(45 * 1.2);
+        padding-bottom: ppx(45 * 1.2);
+        box-shadow: 0 ppx(7 * 1.2) ppx(7 * 1.2) 0 rgba(0, 0, 0, 0.1);
+      }
+      @include desktop-up {
+        padding-top: ppx(45);
+        padding-bottom: ppx(45);
+        box-shadow: 0 ppx(7) ppx(7) 0 rgba(0, 0, 0, 0.1);
       }
 
-      &__title-group {
+      &__mobile-toggle {
+        @include tablet-up {
+          display: none;
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__mobile-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: spx(10);
+        border-radius: spx(10);
+        background: var(--blue_4, #59a1c0);
+        width: spx(285);
+        height: spx(80);
+        margin-inline: auto;
         @include tablet-up {
         }
         @include desktop-up {
         }
       }
 
-      &__title-en {
+      &__mobile-text {
+        color: var(--white, #fff);
+        text-align: center;
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(30);
+        font-style: normal;
+        font-weight: 400;
+        line-height: spx(30); /* 100% */
+        letter-spacing: spx(0.9);
         @include tablet-up {
         }
         @include desktop-up {
         }
-        &:after {
-          content: '';
+      }
+
+      &__desktop-panel {
+        display: none;
+        @include tablet-up {
+          display: flex;
+          align-items: center;
+          gap: ppx(37 * 1.2);
+          margin-left: ppx(233 * 0.1);
+        }
+        @include desktop-up {
+          gap: ppx(37);
+          margin-left: ppx(233);
+        }
+      }
+
+      &__title {
+        display: none;
+        @include tablet-up {
           display: block;
-          width: spx(231);
-          height: spx(5);
-          background: linear-gradient(
-            to right,
-            var(--green_2, #adc400) 0%,
-            /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
-            /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
-            /* 透明開始 */ transparent 51.4%,
-            /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
-              51.4%,
-            /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
-          );
-          margin-inline: auto;
-          margin-top: spx(5);
-          @include tablet-up {
-            height: ppx(5) * 1.2;
-            width: ppx(231) * 1.2;
-            margin-inline: unset;
-            margin-top: ppx(20 * 1.2);
-          }
-          @include desktop-up {
-            height: ppx(5);
-            width: ppx(231);
-            margin-top: ppx(20);
-          }
-        }
-      }
-
-      &__title-ja {
-        @include tablet-up {
+          color: var(--blue_6, #054965);
+          font-family: 'Zen Kaku Gothic New';
+          font-size: ppx(30 * 1.2);
+          font-style: normal;
+          font-weight: 400;
+          line-height: ppx(30 * 1.2); /* 100% */
+          letter-spacing: ppx(0.9 * 1.2);
         }
         @include desktop-up {
+          font-size: ppx(30);
+          line-height: ppx(30); /* 100% */
+          letter-spacing: ppx(0.9);
         }
       }
     }
