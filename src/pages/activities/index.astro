@@ -9,7 +9,19 @@ import VideoModal from '../../components/VideoModal.astro';
 import BookingModal from '../../components/Booking-modal.astro';
 import ActivityFilters from '../../components/pages/activities/ActivityFilters.astro';
 import LowerPageHeader from '../../components/ui/LowerPageHeader.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { activities } from '../../data/activities';
+
+// 画像インポート
+import { getImage } from 'astro:assets';
+import ImageSup from '../../assets/images/activities/image-sup.png';
+
+// 画像最適化
+const supImage = await getImage({
+  src: ImageSup,
+  format: 'webp',
+  widths: [460, 480, 500],
+});
 
 // ページタイトル
 const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
@@ -62,6 +74,90 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
             <ActivityFilters />
           </div>
         </section>
+
+        <!-- アクティビティカード -->
+        <section class="activity-showcase">
+          <article class="activity-card">
+            <a href="/activities/sup-experience" class="activity-card__link">
+              <div class="activity-card__image">
+                <picture class="activity-card__picture">
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={supImage.srcSet.toString()}
+                  />
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={supImage.srcSet.toString()}
+                  />
+                  <img
+                    src={supImage.src}
+                    alt="SUP体験の様子"
+                    class="activity-card__img"
+                  />
+                </picture>
+              </div>
+              <div class="activity-card__title">
+                <h3 class="activity-card__name">SUP体験</h3>
+                <svg
+                  class="activity-card__arrow-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 10 17"
+                  fill="none"
+                >
+                  <path
+                    d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
+                    stroke="#054965"
+                    stroke-width="1.84"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </a>
+            <div class="activity-card__info">
+              <div class="activity-card__pricing">
+                <div class="activity-card__badges">
+                  <div class="activity-card__badge-group">
+                    <span
+                      class="activity-card__badge activity-card__badge--reservation"
+                    >
+                      事前<br />予約
+                    </span>
+                  </div>
+                  <div class="activity-card__badge-group">
+                    <span
+                      class="activity-card__badge activity-card__badge--group"
+                    >
+                      団体
+                    </span>
+                  </div>
+                </div>
+                <div class="activity-card__price">¥8,000〜</div>
+              </div>
+              <dl class="activity-card__details">
+                <div class="activity-card__detail-item">
+                  <dt class="activity-card__detail-term">所要時間：</dt>
+                  <dd class="activity-card__detail-desc">2時間30分</dd>
+                </div>
+                <div class="activity-card__detail-item">
+                  <dt class="activity-card__detail-term">対象年齢：</dt>
+                  <dd class="activity-card__detail-desc">12歳以上</dd>
+                </div>
+                <div class="activity-card__detail-item">
+                  <dt class="activity-card__detail-term">実施時期：</dt>
+                  <dd class="activity-card__detail-desc">4月〜10月</dd>
+                </div>
+              </dl>
+            </div>
+            <div class="activity-card__description">
+              ゆったりと水上散歩をしてみませんか？レクチャー付きなので初心者の方でも安心です！湖上からの景色は格別！！
+            </div>
+          </article>
+        </section>
+        <div class="breadcrumb-wrapper">
+          <Breadcrumb
+            items={[{ text: 'TOP', href: '/' }, { text: 'アクティビティ' }]}
+          />
+        </div>
       </main>
       <!-- フッター -->
       <Footer />
@@ -440,6 +536,410 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
           line-height: ppx(30); /* 100% */
           letter-spacing: ppx(0.9);
         }
+      }
+    }
+
+    /* アクティビティカードショーケース */
+    .activity-showcase {
+      padding-top: spx(68);
+      padding-bottom: spx(100);
+      display: grid;
+      grid-template-columns: spx(576);
+      gap: spx(120);
+      justify-content: center;
+      @include tablet-up {
+        padding-top: ppx(160 * 1.2);
+        padding-bottom: ppx(50 * 1.2);
+        grid-template-columns: ppx(500 * 1.2) ppx(500 * 1.2) ppx(500 * 1.2);
+        gap: ppx(140 * 1.2) ppx(110 * 1.2);
+      }
+      @include desktop-up {
+        padding-top: ppx(180);
+        padding-bottom: ppx(150);
+        grid-template-columns: ppx(500) ppx(500) ppx(500);
+        gap: ppx(140) ppx(110);
+      }
+    }
+
+    /* アクティビティカード */
+    .activity-card {
+      $card-width-spx: 460;
+      $card-width-tpx: 500 * 1.2;
+      $card-width-ppx: 500;
+
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      width: spx($card-width-spx);
+      margin-inline: auto;
+      transition: all 0.3s ease;
+      @include tablet-up {
+        width: ppx($card-width-tpx);
+      }
+      @include desktop-up {
+        width: ppx($card-width-ppx);
+      }
+
+      &__link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+
+        @include hover {
+          &:hover {
+            .activity-card__image::after {
+              opacity: 1;
+            }
+            .activity-card__title {
+              background: var(--green_2, #adc400);
+            }
+            .activity-card__name {
+              color: white;
+            }
+            .activity-card__arrow-icon path {
+              stroke: white;
+            }
+          }
+        }
+      }
+
+      &__image {
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(255, 255, 255, 0.3);
+          border-radius: spx(20);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+          @include tablet-up {
+            border-radius: ppx(20 * 1.2);
+          }
+          @include desktop-up {
+            border-radius: ppx(20);
+          }
+        }
+      }
+
+      &__img {
+        display: block;
+        width: spx($card-width-spx);
+        height: spx(460.8);
+        flex-shrink: 0;
+        aspect-ratio: 1/1;
+        border-radius: spx(20);
+        object-fit: cover;
+        @include tablet-up {
+          width: ppx($card-width-tpx);
+          height: ppx(500 * 1.2);
+          border-radius: ppx(20 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx($card-width-ppx);
+          height: ppx(500);
+          border-radius: ppx(20);
+        }
+      }
+
+      &__title {
+        width: spx(358.4);
+        height: spx(60.8);
+        flex-shrink: 0;
+        border-radius: spx(120);
+        background: rgba($color: #fff, $alpha: 0.9);
+        display: grid;
+        place-items: center;
+        position: absolute;
+        bottom: spx(28);
+        left: 50%;
+        transform: translateX(-50%);
+        transition: background 0.3s ease;
+        @include tablet-up {
+          width: ppx(390 * 1.2);
+          height: ppx(66 * 1.2);
+          border-radius: ppx(130 * 1.2);
+          bottom: ppx(30 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx(390);
+          height: ppx(66);
+          border-radius: ppx(130);
+          bottom: ppx(30);
+        }
+      }
+
+      &__name {
+        color: var(--blue_6, #054965);
+        text-align: center;
+        font-size: spx(28.8);
+        font-weight: 400;
+        line-height: spx(28.8); /* 100% */
+        letter-spacing: spx(-1.44);
+        transition: color 0.3s ease;
+        @include tablet-up {
+          font-size: ppx(32 * 1.2);
+          line-height: ppx(32 * 1.2); /* 100% */
+          letter-spacing: ppx(-1.6 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(32);
+          line-height: ppx(32); /* 100% */
+          letter-spacing: ppx(-1.6);
+        }
+      }
+
+      &__arrow-icon {
+        display: block;
+        width: spx(7.36);
+        position: absolute;
+        top: 50%;
+        right: spx(21);
+        transform: translateY(-50%);
+        @include tablet-up {
+          width: ppx(8 * 1.2);
+          right: ppx(24 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx(8);
+          right: ppx(24);
+        }
+
+        path {
+          transition: stroke 0.3s ease;
+        }
+      }
+
+      &__info {
+        display: flex;
+        flex-flow: column;
+        gap: spx(21.6);
+        margin-top: spx(12);
+        width: spx($card-width-spx);
+        @include tablet-up {
+          gap: ppx(25 * 1.2);
+          margin-top: ppx(20 * 1.2);
+          width: ppx($card-width-tpx);
+        }
+        @include desktop-up {
+          gap: ppx(25);
+          margin-top: ppx(20);
+          width: ppx($card-width-ppx);
+        }
+      }
+
+      &__pricing {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      &__badges {
+        display: flex;
+        gap: spx(6.4);
+        @include tablet-up {
+          gap: ppx(5 * 1.2);
+        }
+        @include desktop-up {
+          gap: ppx(5);
+        }
+      }
+
+      &__badge-group {
+        width: spx(80);
+        height: spx(80);
+        flex-shrink: 0;
+        aspect-ratio: 1/1;
+        border-radius: spx(11.04);
+        background: var(--blue_5, #026995);
+        display: grid;
+        place-items: center;
+        @include tablet-up {
+          width: ppx(88 * 1.2);
+          height: ppx(88 * 1.2);
+          border-radius: ppx(12 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx(88);
+          height: ppx(88);
+          border-radius: ppx(12);
+        }
+      }
+
+      &__badge {
+        color: var(--white, #fff);
+        text-align: center;
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(21.6);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%; /* 28.08px */
+        letter-spacing: spx(2.16);
+        @include tablet-up {
+          font-size: ppx(24 * 1.2);
+          line-height: 130%; /* 31.2px */
+          letter-spacing: ppx(2.4 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(24);
+          line-height: 130%; /* 31.2px */
+          letter-spacing: ppx(2.4);
+        }
+
+        &--reservation {
+        }
+
+        &--group {
+        }
+      }
+
+      &__price {
+        color: var(--blue_5, #026995);
+        text-align: right;
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(36.8);
+        font-style: normal;
+        font-weight: 700;
+        line-height: 130%; /* 47.84px */
+        @include tablet-up {
+          font-size: ppx(40 * 1.2);
+          line-height: 130%; /* 52px */
+        }
+        @include desktop-up {
+          font-size: ppx(40);
+          line-height: 130%; /* 52px */
+        }
+      }
+
+      &__details {
+        display: flex;
+        flex-flow: column;
+        gap: spx(9.6);
+        @include tablet-up {
+          gap: ppx(12 * 1.2);
+        }
+        @include desktop-up {
+          gap: ppx(12);
+        }
+      }
+
+      &__detail-item {
+        display: grid;
+        grid-template-columns: 21vw auto;
+        position: relative;
+        padding-bottom: spx(9.6);
+        padding-inline: spx(16);
+        @include tablet-up {
+          grid-template-columns: 6.4vw * 1.2 auto;
+          padding-bottom: ppx(10 * 1.2);
+          padding-inline: ppx(18 * 1.2);
+        }
+        @include desktop-up {
+          grid-template-columns: 6.4vw auto;
+          padding-bottom: ppx(10);
+          padding-inline: ppx(18);
+        }
+
+        &:after {
+          content: '';
+          display: block;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background: linear-gradient(
+              to right,
+              #026995,
+              #026995 25%,
+              rgba(0, 0, 0, 0) 25%,
+              rgba(0, 0, 0, 0) 100%
+            )
+            0% 0%;
+          background-size: 4px 1px;
+        }
+      }
+
+      &__detail-term {
+        color: var(--blue_5, #026995);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(24.8);
+        font-style: normal;
+        font-weight: 700;
+        line-height: 135%; /* 33.48px */
+        letter-spacing: spx(4.96);
+        @include tablet-up {
+          font-size: ppx(27 * 1.2);
+          line-height: 150%; /* 40.5px */
+          letter-spacing: ppx(5.4 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(27);
+          line-height: 150%; /* 40.5px */
+          letter-spacing: ppx(5.4);
+        }
+      }
+
+      &__detail-desc {
+        color: var(--blue_5, #026995);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(24.8);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%; /* 32.24px */
+        letter-spacing: spx(4.96);
+        @include tablet-up {
+          font-size: ppx(27 * 1.2);
+          line-height: 150%;
+          letter-spacing: ppx(5.4 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(27);
+          line-height: 150%;
+          letter-spacing: ppx(5.4);
+        }
+      }
+      &__description {
+        color: var(--blue_5, #026995);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(30);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; /* 48px */
+        letter-spacing: spx(-0.6);
+        width: spx(534);
+        margin-inline: auto;
+        margin-top: spx(20);
+        @include tablet-up {
+          font-size: ppx(27 * 1.2);
+          letter-spacing: ppx(-1.35 * 1.2);
+          width: ppx(464 * 1.2);
+          margin-top: ppx(20 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(27);
+          letter-spacing: ppx(-1.35);
+          width: ppx(464);
+          margin-top: ppx(20);
+        }
+      }
+    }
+    .breadcrumb-wrapper {
+      margin-top: spx(120);
+      margin-bottom: spx(40);
+      @include tablet-up {
+        margin-top: ppx(150 * 1.2);
+        margin-bottom: ppx(70 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(150);
+        margin-bottom: ppx(70);
       }
     }
   </style>
