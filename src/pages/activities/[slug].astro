@@ -832,6 +832,22 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           </div>
         </section>
 
+        <div class="breadcrumb-wrapper">
+          <nav class="breadcrumb" aria-label="パンくずナビゲーション">
+            <ol class="breadcrumb__list">
+              <li class="breadcrumb__item">
+                <a href="" class="breadcrumb__link">TOP</a>
+              </li>
+              <li class="breadcrumb__item">
+                <a href="" class="breadcrumb__link">アクティビティ</a>
+              </li>
+              <li class="breadcrumb__item breadcrumb__item--current">
+                <span class="breadcrumb__current">樹海トレイル</span>
+              </li>
+            </ol>
+          </nav>
+        </div>
+
         <!-- ここから下におすすめポイントなどのセクションが追加される -->
       </main>
       <!-- フッター -->
@@ -1145,6 +1161,83 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
     .main-content {
       grid-area: main;
       position: relative;
+    }
+
+    /* パンくずナビゲーション */
+    .breadcrumb {
+      width: spx(620);
+      flex-shrink: 0;
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(24);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%; /* 33.6px */
+      letter-spacing: spx(1.2);
+      margin-inline: auto;
+      @include tablet-up {
+        width: ppx(2013 * 1);
+        text-align: right;
+        line-height: 160%; /* 38.4px */
+        font-size: ppx(24 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(2013);
+        font-size: ppx(24);
+      }
+
+      &__list {
+        display: flex;
+        @include tablet-up {
+          justify-content: flex-end;
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__item {
+        display: flex;
+        align-items: center;
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+        &:after {
+          content: '\003E';
+          display: block;
+          margin: 0 spx(8);
+          @include tablet-up {
+            margin: 0 ppx(8 * 1.2);
+          }
+          @include desktop-up {
+            margin: 0 ppx(8);
+          }
+        }
+        &:nth-last-child(1):after {
+          display: none;
+        }
+
+        &--current {
+          @include tablet-up {
+          }
+          @include desktop-up {
+          }
+        }
+      }
+
+      &__link {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__current {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
     }
 
     /* アクティビティ詳細 */
@@ -2827,6 +2920,16 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           width: ppx(12);
           right: ppx(20);
         }
+      }
+    }
+    .breadcrumb-wrapper {
+      background: var(--blue_2, #e7f3f9);
+      padding: spx(120) 0 spx(40);
+      @include tablet-up {
+        padding: ppx(200 * 1.2) 0 ppx(70 * 1.2);
+      }
+      @include desktop-up {
+        padding: ppx(200) 0 ppx(70);
       }
     }
   </style>
