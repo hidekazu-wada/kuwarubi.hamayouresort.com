@@ -16,12 +16,20 @@ import { activities } from '../../data/activities';
 import { getImage } from 'astro:assets';
 import ImageSup from '../../assets/images/activities/image-sup.png';
 
-// 画像最適化
+// 画像最適化（一時的に全てのアクティビティで同じ画像を使用）
 const supImage = await getImage({
   src: ImageSup,
   format: 'webp',
   widths: [460, 480, 500],
 });
+
+// 各アクティビティの画像マッピング（将来の拡張用）
+const activityImages: Record<string, typeof supImage> = {
+  'sup-experience': supImage,
+  'campfire-experience': supImage, // 一時的に同じ画像
+  'rental-cycle': supImage, // 一時的に同じ画像
+  'forest-trail': supImage, // 一時的に同じ画像
+};
 
 // ページタイトル
 const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
@@ -77,81 +85,120 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
 
         <!-- アクティビティカード -->
         <section class="activity-showcase">
-          <article class="activity-card">
-            <a href="/activities/sup-experience" class="activity-card__link">
-              <div class="activity-card__image">
-                <picture class="activity-card__picture">
-                  <source
-                    media="(min-width: 1024px)"
-                    srcset={supImage.srcSet.toString()}
-                  />
-                  <source
-                    media="(min-width: 744px)"
-                    srcset={supImage.srcSet.toString()}
-                  />
-                  <img
-                    src={supImage.src}
-                    alt="SUP体験の様子"
-                    class="activity-card__img"
-                  />
-                </picture>
-              </div>
-              <div class="activity-card__title">
-                <h3 class="activity-card__name">SUP体験</h3>
-                <svg
-                  class="activity-card__arrow-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 10 17"
-                  fill="none"
-                >
-                  <path
-                    d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
-                    stroke="#054965"
-                    stroke-width="1.84"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                </svg>
-              </div>
-            </a>
-            <div class="activity-card__info">
-              <div class="activity-card__pricing">
-                <div class="activity-card__badges">
-                  <div class="activity-card__badge-group">
-                    <span
-                      class="activity-card__badge activity-card__badge--reservation"
-                    >
-                      事前<br />予約
-                    </span>
+          {
+            activities.map((activity) => {
+              // aboutデータから詳細項目を取得
+              const durationData = activity.about.find(
+                (item) => item.term === '所要時間'
+              );
+              const ageData = activity.about.find(
+                (item) => item.term === '対象年齢'
+              );
+              const seasonData = activity.about.find(
+                (item) => item.term === '実施時期'
+              );
+
+              // アクティビティに対応する画像を取得
+              const activityImage = activityImages[activity.slug] || supImage;
+
+              return (
+                <article class="activity-card">
+                  <a
+                    href={`/activities/${activity.slug}`}
+                    class="activity-card__link"
+                  >
+                    <div class="activity-card__image">
+                      <picture class="activity-card__picture">
+                        <source
+                          media="(min-width: 1024px)"
+                          srcset={activityImage.srcSet.toString()}
+                        />
+                        <source
+                          media="(min-width: 744px)"
+                          srcset={activityImage.srcSet.toString()}
+                        />
+                        <img
+                          src={activityImage.src}
+                          alt={`${activity.title}の様子`}
+                          class="activity-card__img"
+                        />
+                      </picture>
+                    </div>
+                    <div class="activity-card__title">
+                      <h3 class="activity-card__name">{activity.title}</h3>
+                      <svg
+                        class="activity-card__arrow-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 10 17"
+                        fill="none"
+                      >
+                        <path
+                          d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
+                          stroke="#054965"
+                          stroke-width="1.84"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </a>
+                  <div class="activity-card__info">
+                    <div class="activity-card__pricing">
+                      <div class="activity-card__badges">
+                        {activity.badges.map((badge) => (
+                          <div class="activity-card__badge-group">
+                            <span
+                              class={`activity-card__badge activity-card__badge--${badge.type}`}
+                            >
+                              {badge.text.split('\n').map((line, index) => (
+                                <>
+                                  {line}
+                                  {index <
+                                    badge.text.split('\n').length - 1 && <br />}
+                                </>
+                              ))}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                      <div class="activity-card__price">
+                        ¥{activity.price.adult.toLocaleString()}〜
+                      </div>
+                    </div>
+                    <dl class="activity-card__details">
+                      {durationData && (
+                        <div class="activity-card__detail-item">
+                          <dt class="activity-card__detail-term">所要時間：</dt>
+                          <dd class="activity-card__detail-desc">
+                            {durationData.description}
+                          </dd>
+                        </div>
+                      )}
+                      {ageData && (
+                        <div class="activity-card__detail-item">
+                          <dt class="activity-card__detail-term">対象年齢：</dt>
+                          <dd class="activity-card__detail-desc">
+                            {ageData.description}
+                          </dd>
+                        </div>
+                      )}
+                      {seasonData && (
+                        <div class="activity-card__detail-item">
+                          <dt class="activity-card__detail-term">実施時期：</dt>
+                          <dd class="activity-card__detail-desc">
+                            {seasonData.description}
+                          </dd>
+                        </div>
+                      )}
+                    </dl>
                   </div>
-                  <div class="activity-card__badge-group">
-                    <span
-                      class="activity-card__badge activity-card__badge--group"
-                    >
-                      団体
-                    </span>
+                  <div class="activity-card__description">
+                    {activity.description}
                   </div>
-                </div>
-                <div class="activity-card__price">¥8,000〜</div>
-              </div>
-              <dl class="activity-card__details">
-                <div class="activity-card__detail-item">
-                  <dt class="activity-card__detail-term">所要時間：</dt>
-                  <dd class="activity-card__detail-desc">2時間30分</dd>
-                </div>
-                <div class="activity-card__detail-item">
-                  <dt class="activity-card__detail-term">対象年齢：</dt>
-                  <dd class="activity-card__detail-desc">12歳以上</dd>
-                </div>
-                <div class="activity-card__detail-item">
-                  <dt class="activity-card__detail-term">実施時期：</dt>
-                  <dd class="activity-card__detail-desc">4月〜10月</dd>
-                </div>
-              </dl>
-            </div>
-            <div class="activity-card__description">
-              ゆったりと水上散歩をしてみませんか？レクチャー付きなので初心者の方でも安心です！湖上からの景色は格別！！
-            </div>
-          </article>
+                </article>
+              );
+            })
+          }
         </section>
         <div class="breadcrumb-wrapper">
           <Breadcrumb
@@ -563,7 +610,7 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
 
     /* アクティビティカード */
     .activity-card {
-      $card-width-spx: 460;
+      $card-width-spx: 576;
       $card-width-tpx: 500 * 1.2;
       $card-width-ppx: 500;
 
@@ -631,19 +678,19 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
       &__img {
         display: block;
         width: spx($card-width-spx);
-        height: spx(460.8);
+        height: spx($card-width-spx);
         flex-shrink: 0;
         aspect-ratio: 1/1;
         border-radius: spx(20);
         object-fit: cover;
         @include tablet-up {
           width: ppx($card-width-tpx);
-          height: ppx(500 * 1.2);
+          height: ppx($card-width-tpx);
           border-radius: ppx(20 * 1.2);
         }
         @include desktop-up {
           width: ppx($card-width-ppx);
-          height: ppx(500);
+          height: ppx($card-width-ppx);
           border-radius: ppx(20);
         }
       }
@@ -913,7 +960,7 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
         font-weight: 400;
         line-height: 160%; /* 48px */
         letter-spacing: spx(-0.6);
-        width: spx(534);
+        width: spx(533);
         margin-inline: auto;
         margin-top: spx(20);
         @include tablet-up {
