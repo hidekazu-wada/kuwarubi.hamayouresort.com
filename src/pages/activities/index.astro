@@ -11,6 +11,102 @@ import ActivityFilters from '../../components/pages/activities/ActivityFilters.a
 import LowerPageHeader from '../../components/ui/LowerPageHeader.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { activities } from '../../data/activities';
+import type { FilterOption } from '../../components/pages/activities/ActivityFilters.astro';
+
+// フィルタオプション生成関数（about配列から動的生成）
+function generateFilterOptions() {
+  // 実際のabout配列から各フィールドの値を抽出
+  
+  // 対象年齢の選択肢を生成
+  const targetAgeSet = new Set<string>();
+  activities.forEach(activity => {
+    const ageItem = activity.about.find(item => item.term === '対象年齢');
+    if (ageItem) targetAgeSet.add(ageItem.description);
+  });
+  const targetAgeOptions: FilterOption[] = Array.from(targetAgeSet).sort().map(age => ({
+    value: age,
+    label: age
+  }));
+
+  // 実施時期の選択肢を生成
+  const seasonSet = new Set<string>();
+  activities.forEach(activity => {
+    const seasonItem = activity.about.find(item => item.term === '実施時期');
+    if (seasonItem) seasonSet.add(seasonItem.description);
+  });
+  const seasonOptions: FilterOption[] = Array.from(seasonSet).sort().map(season => ({
+    value: season,
+    label: season
+  }));
+
+  // 人数の選択肢を生成
+  const capacitySet = new Set<string>();
+  activities.forEach(activity => {
+    const capacityItem = activity.about.find(item => item.term === '人数');
+    if (capacityItem) capacitySet.add(capacityItem.description);
+  });
+  const capacityOptions: FilterOption[] = Array.from(capacitySet).sort().map(capacity => ({
+    value: capacity,
+    label: capacity
+  }));
+
+  // 料金の選択肢を生成
+  const priceSet = new Set<string>();
+  activities.forEach(activity => {
+    const priceItem = activity.about.find(item => item.term === '料金');
+    if (priceItem) priceSet.add(priceItem.description);
+  });
+  const priceOptions: FilterOption[] = Array.from(priceSet).sort().map(price => ({
+    value: price,
+    label: price
+  }));
+
+  // 所要時間の選択肢を生成
+  const durationSet = new Set<string>();
+  activities.forEach(activity => {
+    const durationItem = activity.about.find(item => item.term === '所要時間');
+    if (durationItem) durationSet.add(durationItem.description);
+  });
+  const durationOptions: FilterOption[] = Array.from(durationSet).sort().map(duration => ({
+    value: duration,
+    label: duration
+  }));
+
+  // 天気の選択肢を生成
+  const weatherSet = new Set<string>();
+  activities.forEach(activity => {
+    const weatherItem = activity.about.find(item => item.term === '実施可能天気');
+    if (weatherItem) weatherSet.add(weatherItem.description);
+  });
+  const weatherOptions: FilterOption[] = Array.from(weatherSet).sort().map(weather => ({
+    value: weather,
+    label: weather
+  }));
+
+  // ご予約の選択肢を生成
+  const bookingSet = new Set<string>();
+  activities.forEach(activity => {
+    const bookingItem = activity.about.find(item => item.term === 'ご予約');
+    if (bookingItem) bookingSet.add(bookingItem.description);
+  });
+  const bookingOptions: FilterOption[] = Array.from(bookingSet).sort().map(booking => ({
+    value: booking,
+    label: booking
+  }));
+
+  return {
+    targetAgeOptions,
+    seasonOptions,
+    capacityOptions,
+    priceOptions,
+    durationOptions,
+    weatherOptions,
+    bookingOptions
+  };
+}
+
+// フィルタオプションを生成
+const filterOptions = generateFilterOptions();
 
 // 画像インポート
 import { getImage } from 'astro:assets';
@@ -79,7 +175,15 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
           <!-- タブレット以上用：フィルターパネル -->
           <div class="filter-section__desktop-panel">
             <h3 class="filter-section__title">絞り込み検索</h3>
-            <ActivityFilters />
+            <ActivityFilters 
+              targetAgeOptions={filterOptions.targetAgeOptions}
+              seasonOptions={filterOptions.seasonOptions}
+              capacityOptions={filterOptions.capacityOptions}
+              priceOptions={filterOptions.priceOptions}
+              durationOptions={filterOptions.durationOptions}
+              weatherOptions={filterOptions.weatherOptions}
+              bookingOptions={filterOptions.bookingOptions}
+            />
           </div>
         </section>
 
@@ -433,6 +537,243 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
           if (mobileMenuClose) {
             mobileMenuClose.addEventListener('click', closeMenu);
           }
+
+          // ============= アクティビティフィルタリング機能 =============
+          
+          // activitiesデータをabout配列ベースで手動定義
+          const activitiesData = [
+            // SUP体験
+            {
+              about: [
+                { term: '対象年齢', description: '12歳〜65歳' },
+                { term: '実施時期', description: '春・夏・秋' },
+                { term: '人数', description: '2名〜8名' },
+                { term: '所要時間', description: '2時間' },
+                { term: '料金', description: '4,000円〜5,000円' },
+                { term: '実施可能天気', description: '晴れ・曇り' },
+                { term: 'ご予約', description: '要予約' }
+              ]
+            },
+            // キャンプファイヤー体験
+            {
+              about: [
+                { term: '対象年齢', description: '3歳以上' },
+                { term: '実施時期', description: '通年' },
+                { term: '人数', description: '4名〜20名' },
+                { term: '所要時間', description: '1時間30分' },
+                { term: '料金', description: '1,500円〜2,000円' },
+                { term: '実施可能天気', description: '晴れ・曇り' },
+                { term: 'ご予約', description: '要予約' }
+              ]
+            },
+            // レンタルサイクル
+            {
+              about: [
+                { term: '対象年齢', description: '8歳以上' },
+                { term: '実施時期', description: '春・夏・秋' },
+                { term: '人数', description: '1名〜10名' },
+                { term: '所要時間', description: '3時間' },
+                { term: '料金', description: '1,500円' },
+                { term: '実施可能天気', description: '晴れ・曇り' },
+                { term: 'ご予約', description: '予約不要' }
+              ]
+            },
+            // 樹海トレイル
+            {
+              about: [
+                { term: '対象年齢', description: '10歳〜70歳' },
+                { term: '実施時期', description: '春・夏・秋' },
+                { term: '人数', description: '3名〜12名' },
+                { term: '所要時間', description: '2時間30分' },
+                { term: '料金', description: '2,500円〜3,000円' },
+                { term: '実施可能天気', description: '晴れ・曇り・小雨' },
+                { term: 'ご予約', description: '要予約' }
+              ]
+            },
+            // ヨガ・瞑想体験
+            {
+              about: [
+                { term: '対象年齢', description: '16歳〜70歳' },
+                { term: '実施時期', description: '春・夏・秋' },
+                { term: '人数', description: '1名〜12名' },
+                { term: '所要時間', description: '1時間' },
+                { term: '料金', description: '2,800円' },
+                { term: '実施可能天気', description: '晴れ・曇り' },
+                { term: 'ご予約', description: '予約不要' }
+              ]
+            },
+            // 釣り体験
+            {
+              about: [
+                { term: '対象年齢', description: '8歳以上' },
+                { term: '実施時期', description: '通年' },
+                { term: '人数', description: '1名〜6名' },
+                { term: '所要時間', description: '3時間' },
+                { term: '料金', description: '4,000円〜5,500円' },
+                { term: '実施可能天気', description: '晴れ・曇り・小雨' },
+                { term: 'ご予約', description: '要予約' }
+              ]
+            },
+            // 星空観察
+            {
+              about: [
+                { term: '対象年齢', description: '5歳以上' },
+                { term: '実施時期', description: '通年' },
+                { term: '人数', description: '2名〜15名' },
+                { term: '所要時間', description: '1時間30分' },
+                { term: '料金', description: '2,500円〜3,200円' },
+                { term: '実施可能天気', description: '晴れ' },
+                { term: 'ご予約', description: '要予約' }
+              ]
+            },
+            // 陶芸体験
+            {
+              about: [
+                { term: '対象年齢', description: '6歳以上' },
+                { term: '実施時期', description: '通年' },
+                { term: '人数', description: '2名〜8名' },
+                { term: '所要時間', description: '2時間' },
+                { term: '料金', description: '3,500円〜4,200円' },
+                { term: '実施可能天気', description: '晴れ・曇り・雨天' },
+                { term: 'ご予約', description: '要予約' }
+              ]
+            },
+            // 温泉入浴体験（予約不要の例）
+            {
+              about: [
+                { term: '対象年齢', description: '3歳以上' },
+                { term: '実施時期', description: '通年' },
+                { term: '人数', description: '1名〜20名' },
+                { term: '所要時間', description: '1時間' },
+                { term: '料金', description: '1,200円' },
+                { term: '実施可能天気', description: '晴れ・曇り・雨天' },
+                { term: 'ご予約', description: '予約不要' }
+              ]
+            },
+            // カヌー体験（春夏限定の例）
+            {
+              about: [
+                { term: '対象年齢', description: '10歳〜65歳' },
+                { term: '実施時期', description: '春・夏' },
+                { term: '人数', description: '2名〜6名' },
+                { term: '所要時間', description: '3時間' },
+                { term: '料金', description: '6,000円〜7,500円' },
+                { term: '実施可能天気', description: '晴れ・曇り' },
+                { term: 'ご予約', description: '要予約' }
+              ]
+            },
+            // バードウォッチング（小雨OK例）
+            {
+              about: [
+                { term: '対象年齢', description: '8歳以上' },
+                { term: '実施時期', description: '春・夏・秋' },
+                { term: '人数', description: '3名〜10名' },
+                { term: '所要時間', description: '2時間' },
+                { term: '料金', description: '2,800円' },
+                { term: '実施可能天気', description: '晴れ・曇り・小雨' },
+                { term: 'ご予約', description: '要予約' }
+              ]
+            }
+          ];
+          
+          // フィルタ要素の取得
+          const filterSelects = {
+            targetAge: document.querySelector('select[name="target-age"]') as HTMLSelectElement,
+            season: document.querySelector('select[name="season"]') as HTMLSelectElement,
+            capacity: document.querySelector('select[name="capacity"]') as HTMLSelectElement,
+            price: document.querySelector('select[name="price"]') as HTMLSelectElement,
+            duration: document.querySelector('select[name="duration"]') as HTMLSelectElement,
+            weather: document.querySelector('select[name="weather"]') as HTMLSelectElement,
+            booking: document.querySelector('select[name="booking"]') as HTMLSelectElement,
+          };
+
+          // アクティビティカード要素を取得
+          const activityCards = document.querySelectorAll('.activity-card');
+          const activitiesSection = document.querySelector('.activity-showcase');
+
+          // 「該当するアクティビティがありません」メッセージ要素を作成
+          const noResultsMessage = document.createElement('div');
+          noResultsMessage.className = 'no-results-message';
+          noResultsMessage.innerHTML = `
+            <p class="no-results-message__text">該当するアクティビティがありません</p>
+            <p class="no-results-message__subtext">条件を変更してお試しください</p>
+          `;
+          noResultsMessage.style.display = 'none';
+          if (activitiesSection) {
+            activitiesSection.appendChild(noResultsMessage);
+          }
+
+          // フィルタリング関数（about配列ベース・AND条件）
+          function filterActivities() {
+            const filters = {
+              targetAge: filterSelects.targetAge?.value || '',
+              season: filterSelects.season?.value || '',
+              capacity: filterSelects.capacity?.value || '',
+              price: filterSelects.price?.value || '',
+              duration: filterSelects.duration?.value || '',
+              weather: filterSelects.weather?.value || '',
+              booking: filterSelects.booking?.value || '',
+            };
+
+            let visibleCount = 0;
+
+            activityCards.forEach((card, index) => {
+              const activity = activitiesData[index];
+              let isVisible = true;
+
+              // 各フィルタ条件をチェック
+              if (filters.targetAge) {
+                const ageItem = activity.about.find((item: any) => item.term === '対象年齢');
+                isVisible = isVisible && !!(ageItem && ageItem.description === filters.targetAge);
+              }
+
+              if (filters.season) {
+                const seasonItem = activity.about.find((item: any) => item.term === '実施時期');
+                isVisible = isVisible && !!(seasonItem && seasonItem.description === filters.season);
+              }
+
+              if (filters.capacity) {
+                const capacityItem = activity.about.find((item: any) => item.term === '人数');
+                isVisible = isVisible && !!(capacityItem && capacityItem.description === filters.capacity);
+              }
+
+              if (filters.price) {
+                const priceItem = activity.about.find((item: any) => item.term === '料金');
+                isVisible = isVisible && !!(priceItem && priceItem.description === filters.price);
+              }
+
+              if (filters.duration) {
+                const durationItem = activity.about.find((item: any) => item.term === '所要時間');
+                isVisible = isVisible && !!(durationItem && durationItem.description === filters.duration);
+              }
+
+              if (filters.weather) {
+                const weatherItem = activity.about.find((item: any) => item.term === '実施可能天気');
+                isVisible = isVisible && !!(weatherItem && weatherItem.description === filters.weather);
+              }
+
+              if (filters.booking) {
+                const bookingItem = activity.about.find((item: any) => item.term === 'ご予約');
+                isVisible = isVisible && !!(bookingItem && bookingItem.description === filters.booking);
+              }
+
+              // カードの表示/非表示
+              (card as HTMLElement).style.display = isVisible ? 'block' : 'none';
+              if (isVisible) visibleCount++;
+            });
+
+            // 該当なしメッセージの表示制御
+            if (noResultsMessage) {
+              noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
+            }
+          }
+
+          // 各selectタグにchangeイベントリスナーを追加
+          Object.values(filterSelects).forEach(select => {
+            if (select) {
+              select.addEventListener('change', filterActivities);
+            }
+          });
         }
       });
     </script>
@@ -987,6 +1328,61 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
       @include desktop-up {
         margin-top: ppx(150);
         margin-bottom: ppx(70);
+      }
+    }
+
+    // 該当なしメッセージのスタイル
+    .no-results-message {
+      text-align: center;
+      padding: spx(100) spx(40);
+      @include tablet-up {
+        padding: ppx(150 * 1.2) ppx(60 * 1.2);
+      }
+      @include desktop-up {
+        padding: ppx(150) ppx(60);
+      }
+
+      &__text {
+        color: var(--blue_6, #054965);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(36);
+        font-style: normal;
+        font-weight: 700;
+        line-height: spx(48);
+        letter-spacing: spx(1.08);
+        margin-bottom: spx(20);
+        @include tablet-up {
+          font-size: ppx(42 * 1.2);
+          line-height: ppx(56 * 1.2);
+          letter-spacing: ppx(1.26 * 1.2);
+          margin-bottom: ppx(24 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(42);
+          line-height: ppx(56);
+          letter-spacing: ppx(1.26);
+          margin-bottom: ppx(24);
+        }
+      }
+
+      &__subtext {
+        color: var(--blue_5, #026995);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(26);
+        font-style: normal;
+        font-weight: 400;
+        line-height: spx(36);
+        letter-spacing: spx(0.78);
+        @include tablet-up {
+          font-size: ppx(28 * 1.2);
+          line-height: ppx(38 * 1.2);
+          letter-spacing: ppx(0.84 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(28);
+          line-height: ppx(38);
+          letter-spacing: ppx(0.84);
+        }
       }
     }
   </style>

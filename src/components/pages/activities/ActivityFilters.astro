@@ -1,5 +1,30 @@
 ---
 // ActivityFilters.astro - アクティビティフィルターコンポーネント
+
+export interface FilterOption {
+  value: string;
+  label: string;
+}
+
+export interface Props {
+  targetAgeOptions: FilterOption[];
+  seasonOptions: FilterOption[];
+  capacityOptions: FilterOption[];
+  priceOptions: FilterOption[];
+  durationOptions: FilterOption[];
+  weatherOptions: FilterOption[];
+  bookingOptions: FilterOption[];
+}
+
+const { 
+  targetAgeOptions,
+  seasonOptions, 
+  capacityOptions,
+  priceOptions,
+  durationOptions,
+  weatherOptions,
+  bookingOptions 
+} = Astro.props;
 ---
 
 <nav class="activity-filters" aria-label="アクティビティフィルター">
@@ -7,10 +32,9 @@
   <div class="activity-filters__wrapper">
     <select class="activity-filters__select" name="target-age">
       <option value="">対象年齢</option>
-      <option value="child">子供（0-12歳）</option>
-      <option value="teen">中高生（13-18歳）</option>
-      <option value="adult">大人（19歳以上）</option>
-      <option value="senior">シニア（65歳以上）</option>
+      {targetAgeOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
     </select>
     <svg
       class="activity-filters__icon"
@@ -34,11 +58,9 @@
   <div class="activity-filters__wrapper">
     <select class="activity-filters__select" name="season">
       <option value="">実施時期</option>
-      <option value="spring">春（3-5月）</option>
-      <option value="summer">夏（6-8月）</option>
-      <option value="autumn">秋（9-11月）</option>
-      <option value="winter">冬（12-2月）</option>
-      <option value="all-year">通年</option>
+      {seasonOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
     </select>
     <svg
       class="activity-filters__icon"
@@ -62,10 +84,9 @@
   <div class="activity-filters__wrapper">
     <select class="activity-filters__select" name="capacity">
       <option value="">人数</option>
-      <option value="1-2">1-2名</option>
-      <option value="3-5">3-5名</option>
-      <option value="6-10">6-10名</option>
-      <option value="11+">11名以上</option>
+      {capacityOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
     </select>
     <svg
       class="activity-filters__icon"
@@ -89,10 +110,9 @@
   <div class="activity-filters__wrapper">
     <select class="activity-filters__select" name="price">
       <option value="">料金</option>
-      <option value="under-3000">3,000円以下</option>
-      <option value="3000-5000">3,000-5,000円</option>
-      <option value="5000-10000">5,000-10,000円</option>
-      <option value="over-10000">10,000円以上</option>
+      {priceOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
     </select>
     <svg
       class="activity-filters__icon"
@@ -116,11 +136,9 @@
   <div class="activity-filters__wrapper">
     <select class="activity-filters__select" name="duration">
       <option value="">所要時間</option>
-      <option value="under-1h">1時間以内</option>
-      <option value="1-2h">1-2時間</option>
-      <option value="2-4h">2-4時間</option>
-      <option value="half-day">半日（4-8時間）</option>
-      <option value="full-day">1日（8時間以上）</option>
+      {durationOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
     </select>
     <svg
       class="activity-filters__icon"
@@ -144,10 +162,9 @@
   <div class="activity-filters__wrapper">
     <select class="activity-filters__select" name="weather">
       <option value="">天気</option>
-      <option value="sunny">晴天</option>
-      <option value="cloudy">曇り</option>
-      <option value="light-rain">小雨</option>
-      <option value="indoor">屋内（天候不問）</option>
+      {weatherOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
     </select>
     <svg
       class="activity-filters__icon"
@@ -171,9 +188,9 @@
   <div class="activity-filters__wrapper">
     <select class="activity-filters__select" name="booking">
       <option value="">ご予約</option>
-      <option value="required">要予約</option>
-      <option value="recommended">予約推奨</option>
-      <option value="walk-in">当日受付可</option>
+      {bookingOptions.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
     </select>
     <svg
       class="activity-filters__icon"
