@@ -557,7 +557,8 @@ export const activities: Activity[] = [
     point: {
       image: '/images/activities/yoga-point.jpg',
       titleLines: ['朝の湖畔で', '心身の調和体験'],
-      description: '朝の清々しい空気の中で行うヨガ・瞑想体験。初心者でも安心してご参加いただけます。',
+      description:
+        '朝の清々しい空気の中で行うヨガ・瞑想体験。初心者でも安心してご参加いただけます。',
     },
     about: [
       { term: '対象年齢', description: '16歳〜70歳' },
@@ -570,9 +571,21 @@ export const activities: Activity[] = [
       { term: '持ち物', description: '動きやすい服装、タオル' },
     ],
     flow: [
-      { stepNumber: 'STEP 1', title: '集合・準備', description: '受付と準備体操を行います。' },
-      { stepNumber: 'STEP 2', title: 'ヨガ', description: '湖畔でのヨガ体験（40分）。' },
-      { stepNumber: 'STEP 3', title: '瞑想', description: '瞑想とクールダウン（15分）。' },
+      {
+        stepNumber: 'STEP 1',
+        title: '集合・準備',
+        description: '受付と準備体操を行います。',
+      },
+      {
+        stepNumber: 'STEP 2',
+        title: 'ヨガ',
+        description: '湖畔でのヨガ体験（40分）。',
+      },
+      {
+        stepNumber: 'STEP 3',
+        title: '瞑想',
+        description: '瞑想とクールダウン（15分）。',
+      },
     ],
     reservation: [
       {
@@ -580,7 +593,7 @@ export const activities: Activity[] = [
         value: '0555-82-2922',
         link: 'tel:0555822922',
         hours: '受付時間　10:00 〜 17:00',
-      }
+      },
     ],
     badges: [], // 予約不要
     isPopular: false,
@@ -630,8 +643,16 @@ export const activities: Activity[] = [
       { term: '持ち物', description: '汚れても良い服装' },
     ],
     flow: [
-      { stepNumber: 'STEP 1', title: '受付・説明', description: '釣り道具の説明と基本技術指導。' },
-      { stepNumber: 'STEP 2', title: '釣り体験', description: '湖での釣り体験（2.5時間）。' },
+      {
+        stepNumber: 'STEP 1',
+        title: '受付・説明',
+        description: '釣り道具の説明と基本技術指導。',
+      },
+      {
+        stepNumber: 'STEP 2',
+        title: '釣り体験',
+        description: '湖での釣り体験（2.5時間）。',
+      },
       { stepNumber: 'STEP 3', title: '終了', description: '釣果確認と終了。' },
     ],
     reservation: [
@@ -640,7 +661,7 @@ export const activities: Activity[] = [
         value: '0555-82-2922',
         link: 'tel:0555822922',
         hours: '受付時間　10:00 〜 17:00',
-      }
+      },
     ],
     badges: [{ type: 'reservation', text: '事前\n予約' }],
     isPopular: true,
@@ -679,7 +700,7 @@ export const activities: Activity[] = [
       description: '天体望遠鏡を使った本格的な星空観察をお楽しみいただけます。',
     },
     about: [
-      { term: '対象年齢', description: '5歳以上' },
+      { term: '対象年齢', description: '500歳以上' },
       { term: '実施時期', description: '通年' },
       { term: '人数', description: '2名〜15名' },
       { term: '所要時間', description: '1時間30分' },
@@ -689,8 +710,16 @@ export const activities: Activity[] = [
       { term: '持ち物', description: '防寒着' },
     ],
     flow: [
-      { stepNumber: 'STEP 1', title: '集合・説明', description: '今夜見える星座の説明。' },
-      { stepNumber: 'STEP 2', title: '観察', description: '天体望遠鏡での星空観察。' },
+      {
+        stepNumber: 'STEP 1',
+        title: '集合・説明',
+        description: '今夜見える星座の説明。',
+      },
+      {
+        stepNumber: 'STEP 2',
+        title: '観察',
+        description: '天体望遠鏡での星空観察。',
+      },
       { stepNumber: 'STEP 3', title: '終了', description: '質疑応答と終了。' },
     ],
     reservation: [
@@ -699,9 +728,12 @@ export const activities: Activity[] = [
         value: '0555-82-2922',
         link: 'tel:0555822922',
         hours: '受付時間　10:00 〜 17:00',
-      }
+      },
     ],
-    badges: [{ type: 'reservation', text: '事前\n予約' }, { type: 'group', text: '団体' }],
+    badges: [
+      { type: 'reservation', text: '事前\n予約' },
+      { type: 'group', text: '団体' },
+    ],
     isPopular: false,
     targetAge: { min: 5, max: undefined },
     season: ['春', '夏', '秋', '冬'], // 通年
@@ -748,9 +780,21 @@ export const activities: Activity[] = [
       { term: '持ち物', description: 'エプロン（貸出可）' },
     ],
     flow: [
-      { stepNumber: 'STEP 1', title: '準備', description: 'エプロン装着と道具説明。' },
-      { stepNumber: 'STEP 2', title: '制作', description: '陶芸作品制作（1.5時間）。' },
-      { stepNumber: 'STEP 3', title: '仕上げ', description: '作品仕上げと乾燥。' },
+      {
+        stepNumber: 'STEP 1',
+        title: '準備',
+        description: 'エプロン装着と道具説明。',
+      },
+      {
+        stepNumber: 'STEP 2',
+        title: '制作',
+        description: '陶芸作品制作（1.5時間）。',
+      },
+      {
+        stepNumber: 'STEP 3',
+        title: '仕上げ',
+        description: '作品仕上げと乾燥。',
+      },
     ],
     reservation: [
       {
@@ -758,7 +802,7 @@ export const activities: Activity[] = [
         value: '0555-82-2922',
         link: 'tel:0555822922',
         hours: '受付時間　10:00 〜 17:00',
-      }
+      },
     ],
     badges: [{ type: 'reservation', text: '事前\n予約' }],
     isPopular: true,
