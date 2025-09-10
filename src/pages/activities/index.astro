@@ -552,13 +552,6 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
             about: Array<{ term: string; description: string }>;
           }
           
-          // グローバル変数の型拡張
-          declare global {
-            interface Window {
-              activitiesData: Activity[];
-            }
-          }
-          
           // activities.tsからデータを動的に取得（グローバル変数経由）
           let activitiesData: Activity[];
           try {
