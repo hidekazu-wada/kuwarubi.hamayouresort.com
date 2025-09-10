@@ -14,6 +14,8 @@ import { activities, type Activity } from '../../data/activities';
 
 // 画像
 import { getImage } from 'astro:assets';
+
+// 動的アクティビティ用画像（一時的に代替画像を使用）
 import slide01 from '../../assets/images/activities/01_jukai-trail.jpg';
 import bg from '../../assets/images/activities/bg_jukai-trail.png';
 import ImageSup from '../../assets/images/activities/image-sup.png';
@@ -89,9 +91,9 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
         <article class="activity-detail">
           <header class="activity-detail__header">
             <div class="activity-detail__title-wrapper">
-              <div class="activity-detail__category">JUKAI TRAIL</div>
+              <div class="activity-detail__category">{activity.category.toUpperCase()}</div>
             </div>
-            <h1 class="activity-detail__title">樹海トレイル</h1>
+            <h1 class="activity-detail__title">{activity.title}</h1>
           </header>
 
           <section class="activity-detail__gallery">
@@ -112,7 +114,7 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
                     <!-- スマホ（744px未満）→ 最小解像度版 -->
                     <img
                       src={slideImage01.src}
-                      alt="樹海トレイルの風景"
+                      alt={`${activity.title}の風景`}
                       class="activity-detail__image"
                     />
                   </picture>
@@ -145,16 +147,12 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
 
           <section class="activity-detail__intro">
             <h2 class="activity-detail__intro-title">
-              不思議の森の<br />
-              不思議な冒険
+              {activity.intro.title}
             </h2>
 
             <div class="activity-detail__intro-content">
               <p class="activity-detail__intro-text">
-                樹海ってどんな森？太古の森？土がほとんどない森、樹海の不思議に迫ります。
-              </p>
-              <p class="activity-detail__intro-text">
-                スライドで樹海の成り立ちを学んだあと、テーマを決めて樹海へ入ります。原生林を歩きながら、それぞれの課題をクリアしていく冒険。終了後は時間があればそれぞれの観察を互いに発表をするのもおすすめです。
+                {activity.intro.text}
               </p>
             </div>
           </section>
@@ -195,7 +193,7 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
               <img
                 class="point__image"
                 src={bgImage.src}
-                alt="樹海トレイル体験の風景"
+                alt={`${activity.title}のポイント画像`}
               />
             </picture>
           </figure>
@@ -205,16 +203,15 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
                 <p class="point__label">POINT</p>
                 <hgroup class="point__title-group">
                   <h3 class="point__title">
-                    <span class="point__title-line">樹海の不思議に触れ</span>
-                    <span class="point__title-line"
-                      >観察力と考える力を育てる</span
-                    >
+                    {activity.point.titleLines.map((line) => (
+                      <span class="point__title-line">{line}</span>
+                    ))}
                   </h3>
                 </hgroup>
               </div>
             </header>
             <div class="point__description">
-              ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。
+              {activity.point.description}
             </div>
           </article>
         </section>
@@ -225,50 +222,17 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           </header>
           <div class="about__content">
             <dl class="about__list">
-              <div class="about__item">
-                <dt class="about__term">対象年齢</dt>
-                <dd class="about__description">６歳〜</dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">実施時期</dt>
-                <dd class="about__description">通年</dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">人数</dt>
-                <dd class="about__description">
-                  １０名～２００名
-                  <small class="about__note"
-                    >＊人数が多い場合や少ない場合などはご相談ください</small
-                  >
-                </dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">所要時間</dt>
-                <dd class="about__description">１時間半～２時間</dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">料金</dt>
-                <dd class="about__description">1,100円（税込）～</dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">キャンセル料</dt>
-                <dd class="about__description">
-                  当日 100%　前日 50%
-                  <small class="about__note"
-                    >＊天候により実施が難しい場合には、キャンセル料はいただきません。</small
-                  >
-                </dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">服装</dt>
-                <dd class="about__description">
-                  筆記用具、雨具、動きやすい服装、歩きやすい靴
-                </dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">持ち物</dt>
-                <dd class="about__description">とくになし</dd>
-              </div>
+              {activity.about.map((item) => (
+                <div class="about__item">
+                  <dt class="about__term">{item.term}</dt>
+                  <dd class="about__description">
+                    {item.description}
+                    {item.note && (
+                      <small class="about__note">＊{item.note}</small>
+                    )}
+                  </dd>
+                </div>
+              ))}
             </dl>
           </div>
         </section>
@@ -280,61 +244,19 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           </header>
           <div class="flow__content">
             <ol class="flow__list">
-              <li class="flow__item">
-                <article class="flow__step">
-                  <header class="flow__step-header">
-                    <span class="flow__step-number">STEP 1</span>
-                    <h5 class="flow__step-title">導入</h5>
-                  </header>
-                  <p class="flow__step-description">
-                    スライドで樹海の成り立ちと基礎知識を学びます。
-                  </p>
-                </article>
-              </li>
-              <li class="flow__item">
-                <article class="flow__step">
-                  <header class="flow__step-header">
-                    <span class="flow__step-number">STEP 2</span>
-                    <h5 class="flow__step-title">テーマ設定</h5>
-                  </header>
-                  <p class="flow__step-description">
-                    観察のテーマの説明をします。
-                  </p>
-                </article>
-              </li>
-              <li class="flow__item">
-                <article class="flow__step">
-                  <header class="flow__step-header">
-                    <span class="flow__step-number">STEP 3</span>
-                    <h5 class="flow__step-title">移動</h5>
-                  </header>
-                  <p class="flow__step-description">
-                    バスで樹海の入り口へ移動します。
-                  </p>
-                </article>
-              </li>
-              <li class="flow__item">
-                <article class="flow__step">
-                  <header class="flow__step-header">
-                    <span class="flow__step-number">STEP 4</span>
-                    <h5 class="flow__step-title">散策</h5>
-                  </header>
-                  <p class="flow__step-description">
-                    テーマに沿って観察しながら樹海を散策します。（４５分～６０分）
-                  </p>
-                </article>
-              </li>
-              <li class="flow__item">
-                <article class="flow__step">
-                  <header class="flow__step-header">
-                    <span class="flow__step-number">STEP 5</span>
-                    <h5 class="flow__step-title">まとめ</h5>
-                  </header>
-                  <p class="flow__step-description">
-                    クロージング（観察力と考える力）
-                  </p>
-                </article>
-              </li>
+              {activity.flow.map((step) => (
+                <li class="flow__item">
+                  <article class="flow__step">
+                    <header class="flow__step-header">
+                      <span class="flow__step-number">{step.stepNumber}</span>
+                      <h5 class="flow__step-title">{step.title}</h5>
+                    </header>
+                    <p class="flow__step-description">
+                      {step.description}
+                    </p>
+                  </article>
+                </li>
+              ))}
             </ol>
           </div>
         </section>
@@ -345,25 +267,22 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
             <h3 class="reservation__title">ご予約</h3>
           </header>
           <address class="reservation__contact">
-            <div class="reservation__method">
-              <dt class="reservation__method-label">TEL</dt>
-              <dd class="reservation__method-value">
-                <a href="tel:0555822922">0555-82-2922</a>
-              </dd>
-              <dd class="reservation__method-time">
-                受付時間　10：00 〜 17：00
-              </dd>
-            </div>
-            <span class="reservation__divider"></span>
-            <div class="reservation__method">
-              <dt class="reservation__method-label">E-mail</dt>
-              <dd class="reservation__method-value">
-                <a href="mailto:info@hamayouresort.com"
-                  >info@hamayouresort.com</a
-                >
-              </dd>
-              <dd class="reservation__method-time">受付時間　24時間</dd>
-            </div>
+            {activity.reservation.map((method, index) => (
+              <>
+                <div class="reservation__method">
+                  <dt class="reservation__method-label">{method.label}</dt>
+                  <dd class="reservation__method-value">
+                    <a href={method.link}>{method.value}</a>
+                  </dd>
+                  <dd class="reservation__method-time">
+                    {method.hours}
+                  </dd>
+                </div>
+                {index < activity.reservation.length - 1 && (
+                  <span class="reservation__divider"></span>
+                )}
+              </>
+            ))}
           </address>
         </section>
 
