@@ -468,11 +468,13 @@ const popularActivityImages = await Promise.all(
           </a>
         </section>
         <div class="breadcrumb-wrapper">
-          <Breadcrumb items={[
-            { text: 'TOP', href: '/' },
-            { text: 'アクティビティ', href: '/activities' },
-            { text: activity.title }
-          ]} />
+          <Breadcrumb
+            items={[
+              { text: 'TOP', href: '/' },
+              { text: 'アクティビティ', href: '/activities' },
+              { text: activity.title },
+            ]}
+          />
         </div>
       </main>
     </div>
@@ -786,7 +788,6 @@ const popularActivityImages = await Promise.all(
     grid-area: main;
     position: relative;
   }
-
 
   /* アクティビティ詳細 */
   .activity-detail {
@@ -1990,6 +1991,7 @@ const popularActivityImages = await Promise.all(
   .popular-activities {
     background: var(--blue_2, #e7f3f9);
     padding-top: spx(100);
+    overflow-x: hidden;
     @include tablet-up {
       padding-top: ppx(242 * 1.2);
     }
