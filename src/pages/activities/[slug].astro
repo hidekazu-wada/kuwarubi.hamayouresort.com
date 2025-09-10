@@ -10,6 +10,7 @@ import Sidebar from '../../components/Sidebar.astro';
 import Footer from '../../components/Footer.astro';
 import VideoModal from '../../components/VideoModal.astro';
 import BookingModal from '../../components/Booking-modal.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { activities, type Activity } from '../../data/activities';
 
 // 画像
@@ -467,19 +468,11 @@ const popularActivityImages = await Promise.all(
           </a>
         </section>
         <div class="breadcrumb-wrapper">
-          <nav class="breadcrumb" aria-label="パンくずナビゲーション">
-            <ol class="breadcrumb__list">
-              <li class="breadcrumb__item">
-                <a href="" class="breadcrumb__link">TOP</a>
-              </li>
-              <li class="breadcrumb__item">
-                <a href="" class="breadcrumb__link">アクティビティ</a>
-              </li>
-              <li class="breadcrumb__item breadcrumb__item--current">
-                <span class="breadcrumb__current">樹海トレイル</span>
-              </li>
-            </ol>
-          </nav>
+          <Breadcrumb items={[
+            { text: 'TOP', href: '/' },
+            { text: 'アクティビティ', href: '/activities' },
+            { text: activity.title }
+          ]} />
         </div>
       </main>
     </div>
@@ -794,82 +787,6 @@ const popularActivityImages = await Promise.all(
     position: relative;
   }
 
-  /* パンくずナビゲーション */
-  .breadcrumb {
-    width: spx(620);
-    flex-shrink: 0;
-    color: var(--blue_6, #054965);
-    font-family: 'Zen Kaku Gothic New';
-    font-size: spx(24);
-    font-style: normal;
-    font-weight: 400;
-    line-height: 140%; /* 33.6px */
-    letter-spacing: spx(1.2);
-    margin-inline: auto;
-    @include tablet-up {
-      width: ppx(2013 * 1);
-      text-align: right;
-      line-height: 160%; /* 38.4px */
-      font-size: ppx(24 * 1.2);
-    }
-    @include desktop-up {
-      width: ppx(2013);
-      font-size: ppx(24);
-    }
-
-    &__list {
-      display: flex;
-      @include tablet-up {
-        justify-content: flex-end;
-      }
-      @include desktop-up {
-      }
-    }
-
-    &__item {
-      display: flex;
-      align-items: center;
-      @include tablet-up {
-      }
-      @include desktop-up {
-      }
-      &:after {
-        content: '\003E';
-        display: block;
-        margin: 0 spx(8);
-        @include tablet-up {
-          margin: 0 ppx(8 * 1.2);
-        }
-        @include desktop-up {
-          margin: 0 ppx(8);
-        }
-      }
-      &:nth-last-child(1):after {
-        display: none;
-      }
-
-      &--current {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-    }
-
-    &__link {
-      @include tablet-up {
-      }
-      @include desktop-up {
-      }
-    }
-
-    &__current {
-      @include tablet-up {
-      }
-      @include desktop-up {
-      }
-    }
-  }
 
   /* アクティビティ詳細 */
   .activity-detail {
