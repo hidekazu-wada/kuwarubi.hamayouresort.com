@@ -29,14 +29,14 @@ export interface Activity {
     description: string; // 項目説明
     note?: string; // 注記（オプション）
   }>;
-  
+
   // フローセクション用データ
   flow: Array<{
     stepNumber: string; // ステップ番号やラベル（例：STEP 1, 準備など）
     title: string; // ステップタイトル
     description: string; // ステップ説明
   }>;
-  
+
   // 予約セクション用データ
   reservation: Array<{
     label: string; // 予約方法ラベル（TEL、E-mail、LINE等）
@@ -44,6 +44,15 @@ export interface Activity {
     link: string; // リンクURL（tel:、mailto:、https:等）
     hours: string; // 受付時間
   }>;
+
+  // バッジ表示用データ
+  badges: Array<{
+    type: 'reservation' | 'group'; // バッジタイプ（事前予約、団体）
+    text: string; // バッジテキスト
+  }>;
+
+  // 人気アクティビティ表示フラグ
+  isPopular: boolean; // 人気のアクティビティセクションに表示するかどうか
 
   // フィルタリング・ソート用データ
   targetAge: {
@@ -77,7 +86,7 @@ export const activities: Activity[] = [
   {
     slug: 'sup-experience',
     title: 'SUP体験',
-    category: '水上体験',
+    category: 'SUP',
     description:
       '静かな湖面でSUP（スタンドアップパドルボード）を楽しめます。初心者でも安心してご参加いただけるレクチャー付きです。',
     images: {
@@ -113,15 +122,46 @@ export const activities: Activity[] = [
       { term: '持ち物', description: '水着・タオル' },
     ],
     flow: [
-      { stepNumber: 'STEP 1', title: '受付・着替え', description: '受付を済ませ、ウェットスーツに着替えます。' },
-      { stepNumber: 'STEP 2', title: 'セーフティレクチャー', description: 'SUPの基本操作と安全について説明いたします。' },
-      { stepNumber: 'STEP 3', title: 'SUP体験', description: '美しい湖面でSUPをお楽しみください（90分間）。' },
-      { stepNumber: 'STEP 4', title: '終了・着替え', description: '体験終了後、着替えをして解散となります。' }
+      {
+        stepNumber: 'STEP 1',
+        title: '受付・着替え',
+        description: '受付を済ませ、ウェットスーツに着替えます。',
+      },
+      {
+        stepNumber: 'STEP 2',
+        title: 'セーフティレクチャー',
+        description: 'SUPの基本操作と安全について説明いたします。',
+      },
+      {
+        stepNumber: 'STEP 3',
+        title: 'SUP体験',
+        description: '美しい湖面でSUPをお楽しみください（90分間）。',
+      },
+      {
+        stepNumber: 'STEP 4',
+        title: '終了・着替え',
+        description: '体験終了後、着替えをして解散となります。',
+      },
     ],
     reservation: [
-      { label: 'TEL', value: '0555-82-2922', link: 'tel:0555822922', hours: '受付時間　10:00 〜 17:00' },
-      { label: 'E-mail', value: 'info@hamayouresort.com', link: 'mailto:info@hamayouresort.com', hours: '受付時間　24時間' }
+      {
+        label: 'TEL',
+        value: '0555-82-2922',
+        link: 'tel:0555822922',
+        hours: '受付時間　10:00 〜 17:00',
+      },
+      {
+        label: 'E-mail',
+        value: 'info@hamayouresort.com',
+        link: 'mailto:info@hamayouresort.com',
+        hours: '受付時間　24時間',
+      },
     ],
+    badges: [
+      { type: 'reservation', text: '事前\n予約' },
+      { type: 'group', text: '団体' },
+    ],
+    isPopular: true,
     targetAge: {
       min: 12,
       max: 65,
@@ -158,7 +198,7 @@ export const activities: Activity[] = [
   {
     slug: 'campfire-experience',
     title: 'キャンプファイヤー体験',
-    category: '自然体験',
+    category: 'Campfire',
     description:
       '星空の下でのキャンプファイヤー。マシュマロ焼きや歌、自然の音を楽しみながら特別な夜をお過ごしください。',
     images: {
@@ -195,16 +235,46 @@ export const activities: Activity[] = [
       },
     ],
     flow: [
-      { stepNumber: 'STEP 1', title: '集合・説明', description: '集合場所で体験内容と安全について説明いたします。' },
-      { stepNumber: 'STEP 2', title: '火起こし体験', description: '伝統的な火起こし方法を体験していただきます。' },
-      { stepNumber: 'STEP 3', title: 'キャンプファイヤー', description: '暖かな炎を囲み、マシュマロ焼きなどをお楽しみください。' },
-      { stepNumber: 'STEP 4', title: '終了', description: '火の片付けをして、体験終了となります。' }
+      {
+        stepNumber: 'STEP 1',
+        title: '集合・説明',
+        description: '集合場所で体験内容と安全について説明いたします。',
+      },
+      {
+        stepNumber: 'STEP 2',
+        title: '火起こし体験',
+        description: '伝統的な火起こし方法を体験していただきます。',
+      },
+      {
+        stepNumber: 'STEP 3',
+        title: 'キャンプファイヤー',
+        description: '暖かな炎を囲み、マシュマロ焼きなどをお楽しみください。',
+      },
+      {
+        stepNumber: 'STEP 4',
+        title: '終了',
+        description: '火の片付けをして、体験終了となります。',
+      },
     ],
     reservation: [
-      { label: 'TEL', value: '0555-82-2922', link: 'tel:0555822922', hours: '受付時間　10:00 〜 17:00' },
-      { label: 'LINE', value: '公式LINE', link: 'https://line.me/ti/p/@hamayouresort', hours: '受付時間　24時間' },
-      { label: 'E-mail', value: 'info@hamayouresort.com', link: 'mailto:info@hamayouresort.com', hours: '受付時間　24時間' }
+      {
+        label: 'TEL',
+        value: '0555-82-2922',
+        link: 'tel:0555822922',
+        hours: '受付時間　10:00 〜 17:00',
+      },
+      {
+        label: 'E-mail',
+        value: 'info@hamayouresort.com',
+        link: 'mailto:info@hamayouresort.com',
+        hours: '受付時間　24時間',
+      },
     ],
+    badges: [
+      { type: 'reservation', text: '事前\n予約' },
+      { type: 'group', text: '団体' },
+    ],
+    isPopular: true,
     targetAge: {
       min: 3,
     },
@@ -240,7 +310,7 @@ export const activities: Activity[] = [
   {
     slug: 'rental-cycle',
     title: 'レンタルサイクル',
-    category: '陸上体験',
+    category: 'Rental Cycle',
     description:
       'リゾート周辺の美しい自然を自転車で巡ります。お好きなコースを選んで、自由にサイクリングをお楽しみください。',
     images: {
@@ -277,15 +347,44 @@ export const activities: Activity[] = [
       },
     ],
     flow: [
-      { stepNumber: 'STEP 1', title: '受付・自転車選択', description: 'コースを選択し、お客様に合った自転車をお選びいただきます。' },
-      { stepNumber: 'STEP 2', title: '安全説明・コース案内', description: '交通ルールとおすすめスポットについてご案内いたします。' },
-      { stepNumber: 'STEP 3', title: 'サイクリング出発', description: '選択されたコースでサイクリングをお楽しみください。' },
-      { stepNumber: 'STEP 4', title: '返却・終了', description: '自転車を返却し、体験終了となります。' }
+      {
+        stepNumber: 'STEP 1',
+        title: '受付・自転車選択',
+        description:
+          'コースを選択し、お客様に合った自転車をお選びいただきます。',
+      },
+      {
+        stepNumber: 'STEP 2',
+        title: '安全説明・コース案内',
+        description: '交通ルールとおすすめスポットについてご案内いたします。',
+      },
+      {
+        stepNumber: 'STEP 3',
+        title: 'サイクリング出発',
+        description: '選択されたコースでサイクリングをお楽しみください。',
+      },
+      {
+        stepNumber: 'STEP 4',
+        title: '返却・終了',
+        description: '自転車を返却し、体験終了となります。',
+      },
     ],
     reservation: [
-      { label: 'Web予約', value: '予約フォーム', link: 'https://hamayouresort.com/cycle-booking', hours: '受付時間　24時間' },
-      { label: 'TEL', value: '0555-82-2922', link: 'tel:0555822922', hours: '受付時間　9:00 〜 18:00' }
+      {
+        label: 'TEL',
+        value: '0555-82-2922',
+        link: 'tel:0555822922',
+        hours: '受付時間　10:00 〜 17:00',
+      },
+      {
+        label: 'E-mail',
+        value: 'info@hamayouresort.com',
+        link: 'mailto:info@hamayouresort.com',
+        hours: '受付時間　24時間',
+      },
     ],
+    badges: [{ type: 'reservation', text: '事前\n予約' }],
+    isPopular: true,
     targetAge: {
       min: 8,
     },
@@ -320,7 +419,7 @@ export const activities: Activity[] = [
   {
     slug: 'forest-trail',
     title: '樹海トレイル',
-    category: '自然体験',
+    category: 'Jukai Trail',
     description:
       '神秘的な樹海を歩くトレッキング体験。ガイド付きで安全に、珍しい植物や野鳥観察を楽しめます。',
     images: {
@@ -353,16 +452,52 @@ export const activities: Activity[] = [
       { term: '注意事項', description: '体力に自信のない方はご相談ください' },
     ],
     flow: [
-      { stepNumber: 'STEP 1', title: '導入', description: 'スライドで樹海の成り立ちと基礎知識を学びます。' },
-      { stepNumber: 'STEP 2', title: 'テーマ設定', description: '観察のテーマの説明をします。' },
-      { stepNumber: 'STEP 3', title: '移動', description: 'バスで樹海の入り口へ移動します。' },
-      { stepNumber: 'STEP 4', title: '散策', description: 'テーマに沿って観察しながら樹海を散策します（45分〜60分）。' },
-      { stepNumber: 'STEP 5', title: 'まとめ', description: 'クロージング（観察力と考える力）でまとめを行います。' }
+      {
+        stepNumber: 'STEP 1',
+        title: '導入',
+        description: 'スライドで樹海の成り立ちと基礎知識を学びます。',
+      },
+      {
+        stepNumber: 'STEP 2',
+        title: 'テーマ設定',
+        description: '観察のテーマの説明をします。',
+      },
+      {
+        stepNumber: 'STEP 3',
+        title: '移動',
+        description: 'バスで樹海の入り口へ移動します。',
+      },
+      {
+        stepNumber: 'STEP 4',
+        title: '散策',
+        description:
+          'テーマに沿って観察しながら樹海を散策します（45分〜60分）。',
+      },
+      {
+        stepNumber: 'STEP 5',
+        title: 'まとめ',
+        description: 'クロージング（観察力と考える力）でまとめを行います。',
+      },
     ],
     reservation: [
-      { label: 'TEL', value: '0555-82-2922', link: 'tel:0555822922', hours: '受付時間　10:00 〜 17:00' },
-      { label: 'E-mail', value: 'info@hamayouresort.com', link: 'mailto:info@hamayouresort.com', hours: '受付時間　24時間' }
+      {
+        label: 'TEL',
+        value: '0555-82-2922',
+        link: 'tel:0555822922',
+        hours: '受付時間　10:00 〜 17:00',
+      },
+      {
+        label: 'E-mail',
+        value: 'info@hamayouresort.com',
+        link: 'mailto:info@hamayouresort.com',
+        hours: '受付時間　24時間',
+      },
     ],
+    badges: [
+      { type: 'reservation', text: '事前\n予約' },
+      { type: 'group', text: '団体' },
+    ],
+    isPopular: true,
     targetAge: {
       min: 10,
       max: 70,
