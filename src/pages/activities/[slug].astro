@@ -377,46 +377,48 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           >
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <article class="popular-activities__card">
-                  <div class="popular-activities__card-image">
-                    <picture class="popular-activities__picture">
-                      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                      <source
-                        media="(min-width: 1024px)"
-                        srcset={supImage.srcSet.toString()}
-                      />
-                      <!-- タブレット（744px以上）→ 中解像度版 -->
-                      <source
-                        media="(min-width: 744px)"
-                        srcset={supImage.srcSet.toString()}
-                      />
-                      <!-- スマホ（744px未満）→ 最小解像度版 -->
-                      <img
-                        src={supImage.src}
-                        alt="SUP体験の様子"
-                        class="popular-activities__img"
-                      />
-                    </picture>
-                  </div>
-                  <div class="popular-activities__card-title">
-                    <h3 class="popular-activities__activity-name">
-                      ＳＵＰ体験
-                    </h3>
-                    <svg
-                      class="popular-activities__arrow-icon"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 10 17"
-                      fill="none"
-                    >
-                      <path
-                        d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
-                        stroke="#054965"
-                        stroke-width="1.84"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"></path>
-                    </svg>
-                  </div>
-                </article>
+                <a href="" class="popular-activities__card-link">
+                  <article class="popular-activities__card">
+                    <div class="popular-activities__card-image">
+                      <picture class="popular-activities__picture">
+                        <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                        <source
+                          media="(min-width: 1024px)"
+                          srcset={supImage.srcSet.toString()}
+                        />
+                        <!-- タブレット（744px以上）→ 中解像度版 -->
+                        <source
+                          media="(min-width: 744px)"
+                          srcset={supImage.srcSet.toString()}
+                        />
+                        <!-- スマホ（744px未満）→ 最小解像度版 -->
+                        <img
+                          src={supImage.src}
+                          alt="SUP体験の様子"
+                          class="popular-activities__img"
+                        />
+                      </picture>
+                    </div>
+                    <div class="popular-activities__card-title">
+                      <h3 class="popular-activities__activity-name">
+                        ＳＵＰ体験
+                      </h3>
+                      <svg
+                        class="popular-activities__arrow-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 10 17"
+                        fill="none"
+                      >
+                        <path
+                          d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
+                          stroke="#054965"
+                          stroke-width="1.84"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"></path>
+                      </svg>
+                    </div>
+                  </article>
+                </a>
                 <div class="popular-activities__card-info">
                   <div class="popular-activities__pricing">
                     <div class="popular-activities__badges">
@@ -464,7 +466,8 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
 
               <!-- demo -->
               <div class="swiper-slide">
-                <article class="popular-activities__card">
+                <a href="" class="popular-activities__card-link">
+                  <article class="popular-activities__card">
                   <div class="popular-activities__card-image">
                     <picture class="popular-activities__picture">
                       <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
@@ -503,7 +506,8 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
                         stroke-linejoin="round"></path>
                     </svg>
                   </div>
-                </article>
+                  </article>
+                </a>
                 <div class="popular-activities__card-info">
                   <div class="popular-activities__pricing">
                     <div class="popular-activities__badges">
@@ -550,7 +554,8 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
               </div>
 
               <div class="swiper-slide">
-                <article class="popular-activities__card">
+                <a href="" class="popular-activities__card-link">
+                  <article class="popular-activities__card">
                   <div class="popular-activities__card-image">
                     <picture class="popular-activities__picture">
                       <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
@@ -589,7 +594,8 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
                         stroke-linejoin="round"></path>
                     </svg>
                   </div>
-                </article>
+                  </article>
+                </a>
                 <div class="popular-activities__card-info">
                   <div class="popular-activities__pricing">
                     <div class="popular-activities__badges">
@@ -636,7 +642,8 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
               </div>
 
               <div class="swiper-slide">
-                <article class="popular-activities__card">
+                <a href="" class="popular-activities__card-link">
+                  <article class="popular-activities__card">
                   <div class="popular-activities__card-image">
                     <picture class="popular-activities__picture">
                       <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
@@ -675,7 +682,8 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
                         stroke-linejoin="round"></path>
                     </svg>
                   </div>
-                </article>
+                  </article>
+                </a>
                 <div class="popular-activities__card-info">
                   <div class="popular-activities__pricing">
                     <div class="popular-activities__badges">
@@ -722,7 +730,8 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
               </div>
 
               <div class="swiper-slide">
-                <article class="popular-activities__card">
+                <a href="" class="popular-activities__card-link">
+                  <article class="popular-activities__card">
                   <div class="popular-activities__card-image">
                     <picture class="popular-activities__picture">
                       <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
@@ -761,7 +770,8 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
                         stroke-linejoin="round"></path>
                     </svg>
                   </div>
-                </article>
+                  </article>
+                </a>
                 <div class="popular-activities__card-info">
                   <div class="popular-activities__pricing">
                     <div class="popular-activities__badges">
@@ -814,7 +824,7 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           >
           </div>
 
-          <div class="popular-activities__more">
+          <a href="" class="popular-activities__more">
             <span class="popular-activities__more-text">more</span>
             <svg
               class="popular-activities__more-icon"
@@ -829,7 +839,7 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
                 stroke-linecap="round"
                 stroke-linejoin="round"></path>
             </svg>
-          </div>
+          </a>
         </section>
 
         <div class="breadcrumb-wrapper">
@@ -2513,6 +2523,13 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           width: ppx($card-width-ppx);
         }
         
+      }
+      
+      &__card-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        
         @include hover {
           &:hover {
             .popular-activities__card-image::after {
@@ -2913,6 +2930,9 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
         position: relative;
         margin-inline: auto;
         margin-top: spx(60);
+        transition: background 0.3s ease;
+        text-decoration: none;
+        color: inherit;
         @include tablet-up {
           width: ppx(250 * 1.2);
           height: ppx(70 * 1.2);
@@ -2926,6 +2946,12 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           flex-shrink: 0;
           border-radius: ppx(20);
           margin-top: ppx(70);
+        }
+        
+        @include hover {
+          &:hover {
+            background: var(--green_2, #adc400);
+          }
         }
       }
 
