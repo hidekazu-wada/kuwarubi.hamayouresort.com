@@ -361,9 +361,65 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
         </div>
       </main>
       <!-- フィルタモーダルをここに配置（推奨） -->
-      <div class="filter-modal" id="filter-modal">
-        <!-- モーダルの中身 -->
-      </div>
+      <dialog
+        class="filter-modal"
+        id="filter-modal"
+        role="dialog"
+        aria-labelledby="filter-modal-title"
+        aria-modal="true"
+      >
+        <section class="filter-modal__overlay">
+          <div class="filter-modal__container">
+            <header class="filter-modal__header">
+              <h2 class="filter-modal__title" id="filter-modal-title">
+                絞り込み検索
+              </h2>
+              <button
+                class="filter-modal__close"
+                type="button"
+                aria-label="フィルタを閉じる"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="54"
+                  height="54"
+                  viewBox="0 0 54 54"
+                  fill="none"
+                >
+                  <path
+                    d="M2 52L52 2.00049"
+                    stroke="#59A1C0"
+                    stroke-width="3.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                  <path
+                    d="M2 2L52 51.9995"
+                    stroke="#59A1C0"
+                    stroke-width="3.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </button>
+            </header>
+            <main class="filter-modal__content">
+              <ActivityFilters
+                targetAgeOptions={filterOptions.targetAgeOptions}
+                seasonOptions={filterOptions.seasonOptions}
+                capacityOptions={filterOptions.capacityOptions}
+                priceOptions={filterOptions.priceOptions}
+                durationOptions={filterOptions.durationOptions}
+                weatherOptions={filterOptions.weatherOptions}
+                bookingOptions={filterOptions.bookingOptions}
+              />
+            </main>
+            <footer class="filter-modal__actions">
+              <button class="filter-modal__search-button" type="button">
+                <span class="filter-modal__search-text">検索</span>
+              </button>
+            </footer>
+          </div>
+        </section>
+      </dialog>
       <!-- フッター -->
       <Footer />
     </div>
@@ -1680,6 +1736,121 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
           font-size: ppx(28);
           line-height: ppx(38);
           letter-spacing: ppx(0.84);
+        }
+      }
+    }
+
+    /* フィルタモーダル */
+    .filter-modal {
+      display: block;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      z-index: 20;
+      padding: 0;
+      @include tablet-up {
+        display: none;
+      }
+      @include desktop-up {
+      }
+
+      &__overlay {
+        background: rgba(255, 255, 255, 0.95);
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__container {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__header {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__title {
+        visibility: hidden;
+        height: 0;
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__close {
+        display: block;
+        width: spx(50);
+        height: spx(50);
+        position: absolute;
+        top: spx(39);
+        right: spx(52);
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+        svg {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      &__content {
+        width: max-content;
+        margin-inline: auto;
+        margin-top: 25vh;
+        min-height: unset;
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__actions {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__search-button {
+        border-radius: spx(10);
+        background: var(--blue_4, #59a1c0);
+        width: spx(161);
+        height: spx(80);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-inline: auto;
+        margin-top: spx(61);
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &__search-text {
+        color: var(--white, #fff);
+        text-align: center;
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(30);
+        font-style: normal;
+        font-weight: 400;
+        line-height: spx(30); /* 100% */
+        letter-spacing: spx(0.9);
+        @include tablet-up {
+        }
+        @include desktop-up {
         }
       }
     }
