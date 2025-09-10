@@ -10,12 +10,16 @@ import Sidebar from '../../components/Sidebar.astro';
 import Footer from '../../components/Footer.astro';
 import VideoModal from '../../components/VideoModal.astro';
 import BookingModal from '../../components/Booking-modal.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { activities, type Activity } from '../../data/activities';
 
 // 画像
 import { getImage } from 'astro:assets';
+
+// 動的アクティビティ用画像（一時的に代替画像を使用）
 import slide01 from '../../assets/images/activities/01_jukai-trail.jpg';
 import bg from '../../assets/images/activities/bg_jukai-trail.png';
+import ImageSup from '../../assets/images/activities/image-sup.png';
 
 // フォーマット
 const slideImage01 = await getImage({
@@ -27,6 +31,11 @@ const bgImage = await getImage({
   src: bg,
   format: 'webp',
   widths: [720, 1080, 2316],
+});
+const supImage = await getImage({
+  src: ImageSup,
+  format: 'webp',
+  widths: [460, 480, 500],
 });
 
 // 動的ルーティング用のパス生成
@@ -48,6 +57,26 @@ if (!activity) {
 
 // ページタイトルを動的に設定
 const pageTitle = `${activity.title} | クワルビリゾート`;
+
+// 人気のアクティビティをフィルタリング
+const popularActivities = activities.filter((activity) => activity.isPopular);
+
+// 人気アクティビティの画像最適化
+const popularActivityImages = await Promise.all(
+  popularActivities.map(async (activity) => {
+    // 画像パスをAstro assetsに合わせて変換
+    const imagePath = activity.images.thumbnail.replace(
+      '/images/',
+      '../../assets/images/'
+    );
+
+    // 実際の画像ファイルは後で追加するため、一時的にsupImageを使用
+    return {
+      activity,
+      optimizedImage: supImage, // 一時的な代替画像
+    };
+  })
+);
 ---
 
 <html lang="ja">
@@ -83,9 +112,11 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
         <article class="activity-detail">
           <header class="activity-detail__header">
             <div class="activity-detail__title-wrapper">
-              <div class="activity-detail__category">JUKAI TRAIL</div>
+              <div class="activity-detail__category">
+                {activity.category.toUpperCase()}
+              </div>
             </div>
-            <h1 class="activity-detail__title">樹海トレイル</h1>
+            <h1 class="activity-detail__title">{activity.title}</h1>
           </header>
 
           <section class="activity-detail__gallery">
@@ -106,7 +137,7 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
                     <!-- スマホ（744px未満）→ 最小解像度版 -->
                     <img
                       src={slideImage01.src}
-                      alt="樹海トレイルの風景"
+                      alt={`${activity.title}の風景`}
                       class="activity-detail__image"
                     />
                   </picture>
@@ -139,16 +170,12 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
 
           <section class="activity-detail__intro">
             <h2 class="activity-detail__intro-title">
-              不思議の森の<br />
-              不思議な冒険
+              {activity.intro.title}
             </h2>
 
             <div class="activity-detail__intro-content">
               <p class="activity-detail__intro-text">
-                樹海ってどんな森？太古の森？土がほとんどない森、樹海の不思議に迫ります。
-              </p>
-              <p class="activity-detail__intro-text">
-                スライドで樹海の成り立ちを学んだあと、テーマを決めて樹海へ入ります。原生林を歩きながら、それぞれの課題をクリアしていく冒険。終了後は時間があればそれぞれの観察を互いに発表をするのもおすすめです。
+                {activity.intro.text}
               </p>
             </div>
           </section>
@@ -172,7 +199,7 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
             >
           </nav>
         </article>
-        <section class="point">
+        <section class="point" id="highlights">
           <figure class="point__figure">
             <picture class="point__picture">
               <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
@@ -189,7 +216,7 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
               <img
                 class="point__image"
                 src={bgImage.src}
-                alt="樹海トレイル体験の風景"
+                alt={`${activity.title}のポイント画像`}
               />
             </picture>
           </figure>
@@ -199,136 +226,334 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
                 <p class="point__label">POINT</p>
                 <hgroup class="point__title-group">
                   <h3 class="point__title">
-                    <span class="point__title-line">樹海の不思議に触れ</span>
-                    <span class="point__title-line"
-                      >観察力と考える力を育てる</span
-                    >
+                    {
+                      activity.point.titleLines.map((line) => (
+                        <span class="point__title-line">{line}</span>
+                      ))
+                    }
                   </h3>
                 </hgroup>
               </div>
             </header>
             <div class="point__description">
-              ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。ここに文章がはいります。
+              {activity.point.description}
             </div>
           </article>
         </section>
-        <section class="about">
+        <section class="about" id="overview">
           <header class="about__header">
             <h4 class="about__title">About</h4>
             <p class="about__subtitle">概要</p>
           </header>
           <div class="about__content">
             <dl class="about__list">
-              <div class="about__item">
-                <dt class="about__term">対象年齢</dt>
-                <dd class="about__description">６歳〜</dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">実施時期</dt>
-                <dd class="about__description">通年</dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">人数</dt>
-                <dd class="about__description">
-                  １０名～２００名
-                  <small class="about__note">＊人数が多い場合や少ない場合などはご相談ください</small>
-                </dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">所要時間</dt>
-                <dd class="about__description">１時間半～２時間</dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">料金</dt>
-                <dd class="about__description">1,100円（税込）～</dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">キャンセル料</dt>
-                <dd class="about__description">
-                  当日 100%　前日 50%
-                  <small class="about__note">＊天候により実施が難しい場合には、キャンセル料はいただきません。</small>
-                </dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">服装</dt>
-                <dd class="about__description">
-                  筆記用具、雨具、動きやすい服装、歩きやすい靴
-                </dd>
-              </div>
-              <div class="about__item">
-                <dt class="about__term">持ち物</dt>
-                <dd class="about__description">とくになし</dd>
-              </div>
+              {
+                activity.about.map((item) => (
+                  <div class="about__item">
+                    <dt class="about__term">{item.term}</dt>
+                    <dd class="about__description">
+                      {item.description}
+                      {item.note && (
+                        <small class="about__note">＊{item.note}</small>
+                      )}
+                    </dd>
+                  </div>
+                ))
+              }
             </dl>
           </div>
         </section>
 
-        <!-- ここから下におすすめポイントなどのセクションが追加される -->
+        <section class="flow" id="program">
+          <header class="flow__header">
+            <h4 class="flow__title">Flow</h4>
+            <p class="flow__subtitle">プログラムの流れ</p>
+          </header>
+          <div class="flow__content">
+            <ol class="flow__list">
+              {
+                activity.flow.map((step) => (
+                  <li class="flow__item">
+                    <article class="flow__step">
+                      <header class="flow__step-header">
+                        <span class="flow__step-number">{step.stepNumber}</span>
+                        <h5 class="flow__step-title">{step.title}</h5>
+                      </header>
+                      <p class="flow__step-description">{step.description}</p>
+                    </article>
+                  </li>
+                ))
+              }
+            </ol>
+          </div>
+        </section>
+
+        <section class="reservation" id="booking">
+          <header class="reservation__header">
+            <p class="reservation__subtitle">Reservation</p>
+            <h3 class="reservation__title">ご予約</h3>
+          </header>
+          <address class="reservation__contact">
+            {
+              activity.reservation.map((method, index) => (
+                <>
+                  <div class="reservation__method">
+                    <dt class="reservation__method-label">{method.label}</dt>
+                    <dd class="reservation__method-value">
+                      <a href={method.link}>{method.value}</a>
+                    </dd>
+                    <dd class="reservation__method-time">{method.hours}</dd>
+                  </div>
+                  {index < activity.reservation.length - 1 && (
+                    <span class="reservation__divider" />
+                  )}
+                </>
+              ))
+            }
+          </address>
+        </section>
+
+        <section class="popular-activities">
+          <header class="popular-activities__header">
+            <h2 class="popular-activities__title">人気のアクティビティ</h2>
+          </header>
+
+          <div
+            class="popular-activities__slider activities-detail-popular__swiper"
+          >
+            <div class="swiper-wrapper">
+              {
+                popularActivities.map((popularActivity) => {
+                  // 各アクティビティの所要時間、対象年齢、実施時期をaboutデータから取得
+                  const durationData = popularActivity.about.find(
+                    (item) => item.term === '所要時間'
+                  );
+                  const ageData = popularActivity.about.find(
+                    (item) => item.term === '対象年齢'
+                  );
+                  const seasonData = popularActivity.about.find(
+                    (item) => item.term === '実施時期'
+                  );
+
+                  return (
+                    <div class="swiper-slide">
+                      <a
+                        href={`/activities/${popularActivity.slug}`}
+                        class="popular-activities__card-link"
+                      >
+                        <article class="popular-activities__card">
+                          <div class="popular-activities__card-image">
+                            <picture class="popular-activities__picture">
+                              <source
+                                media="(min-width: 1024px)"
+                                srcset={supImage.srcSet.toString()}
+                              />
+                              <source
+                                media="(min-width: 744px)"
+                                srcset={supImage.srcSet.toString()}
+                              />
+                              <img
+                                src={supImage.src}
+                                alt={`${popularActivity.title}の様子`}
+                                class="popular-activities__img"
+                              />
+                            </picture>
+                          </div>
+                          <div class="popular-activities__card-title">
+                            <h3 class="popular-activities__activity-name">
+                              {popularActivity.title}
+                            </h3>
+                            <svg
+                              class="popular-activities__arrow-icon"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 10 17"
+                              fill="none"
+                            >
+                              <path
+                                d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
+                                stroke="#054965"
+                                stroke-width="1.84"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                          </div>
+                        </article>
+                      </a>
+                      <div class="popular-activities__card-info">
+                        <div class="popular-activities__pricing">
+                          <div class="popular-activities__badges">
+                            {popularActivity.badges.map((badge) => (
+                              <div class="popular-activities__badge-group">
+                                <span
+                                  class={`popular-activities__badge popular-activities__badge--${badge.type}`}
+                                >
+                                  {badge.text.split('\n').map((line, index) => (
+                                    <>
+                                      {line}
+                                      {index <
+                                        badge.text.split('\n').length - 1 && (
+                                        <br />
+                                      )}
+                                    </>
+                                  ))}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                          <div class="popular-activities__price">
+                            ¥{popularActivity.price.adult.toLocaleString()}〜
+                          </div>
+                        </div>
+                        <dl class="popular-activities__details">
+                          {durationData && (
+                            <div class="popular-activities__detail-item">
+                              <dt class="popular-activities__detail-term">
+                                所要時間：
+                              </dt>
+                              <dd class="popular-activities__detail-desc">
+                                {durationData.description}
+                              </dd>
+                            </div>
+                          )}
+                          {ageData && (
+                            <div class="popular-activities__detail-item">
+                              <dt class="popular-activities__detail-term">
+                                対象年齢：
+                              </dt>
+                              <dd class="popular-activities__detail-desc">
+                                {ageData.description}
+                              </dd>
+                            </div>
+                          )}
+                          {seasonData && (
+                            <div class="popular-activities__detail-item">
+                              <dt class="popular-activities__detail-term">
+                                実施時期：
+                              </dt>
+                              <dd class="popular-activities__detail-desc">
+                                {seasonData.description}
+                              </dd>
+                            </div>
+                          )}
+                        </dl>
+                      </div>
+                    </div>
+                  );
+                })
+              }
+            </div>
+          </div>
+
+          <div
+            class="popular-activities__pagination swiper-pagination activities-detail-popular__swiper-pagination"
+          >
+          </div>
+
+          <a href="/activities" class="popular-activities__more">
+            <span class="popular-activities__more-text">more</span>
+            <svg
+              class="popular-activities__more-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 22 23"
+              fill="none"
+            >
+              <path
+                d="M1.88672 21.4004L20.1146 11.4004L1.88672 1.40039"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </a>
+        </section>
+        <div class="breadcrumb-wrapper">
+          <Breadcrumb items={[
+            { text: 'TOP', href: '/' },
+            { text: 'アクティビティ', href: '/activities' },
+            { text: activity.title }
+          ]} />
+        </div>
       </main>
-      <!-- フッター -->
-      <Footer />
     </div>
+    <!-- フッター -->
+    <Footer />
+  </body>
 
-    <script>
-      // Swiperのインポート
-      import Swiper from 'swiper';
-      import { Pagination, Autoplay } from 'swiper/modules';
+  <script>
+    // Swiperのインポート
+    import Swiper from 'swiper';
+    import { Pagination, Autoplay } from 'swiper/modules';
 
-      // DOMロード後に実行
-      document.addEventListener('DOMContentLoaded', () => {
-        // Swiper初期化（activities-detail専用・完全独立）
-        new Swiper('.activities-detail__swiper', {
-          modules: [Pagination, Autoplay],
-          slidesPerView: 1,
-          spaceBetween: 20,
-          autoplay: {
-            delay: 4000,
-            disableOnInteraction: false,
+    // DOMロード後に実行
+    document.addEventListener('DOMContentLoaded', () => {
+      // Swiper初期化（activities-detail専用・完全独立）
+      new Swiper('.activities-detail__swiper', {
+        modules: [Pagination, Autoplay],
+        slidesPerView: 1,
+        spaceBetween: 20,
+        autoplay: {
+          delay: 4000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.activity-detail__pager',
+          clickable: true,
+        },
+      });
+
+      // 人気のアクティビティSwiper初期化（activities-detail-popular専用・完全独立）
+      new Swiper('.activities-detail-popular__swiper', {
+        modules: [Pagination, Autoplay],
+        slidesPerView: 1.35,
+        centeredSlides: true, // スマホでセンターモード有効
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.activities-detail-popular__swiper-pagination',
+          clickable: true,
+        },
+        // レスポンシブ設定（variables.scssのブレイクポイントに対応）
+        breakpoints: {
+          // タブレット以上（744px以上）
+          744: {
+            slidesPerView: 3,
+            centeredSlides: false, // タブレット以上ではセンターモード無効
           },
-          pagination: {
-            el: '.activity-detail__pager',
-            clickable: true,
+          // デスクトップ以上（1024px以上）
+          1024: {
+            slidesPerView: 3,
+            centeredSlides: false, // デスクトップでもセンターモード無効
           },
-        });
+        },
+      });
 
-        // メニュー機能
-        const pcMenuToggle = document.getElementById('menu-toggle');
-        const mobileMenuToggle = document.querySelector('.bottom-bar__toggle');
-        const mobileMenuClose = document.querySelector('.menu-overlay__close');
-        const menuOverlay = document.getElementById('menu-overlay');
-        const sidebar = document.querySelector('.sidebar');
+      // メニュー機能
+      const pcMenuToggle = document.getElementById('menu-toggle');
+      const mobileMenuToggle = document.querySelector('.bottom-bar__toggle');
+      const mobileMenuClose = document.querySelector('.menu-overlay__close');
+      const menuOverlay = document.getElementById('menu-overlay');
+      const sidebar = document.querySelector('.sidebar');
 
-        // メニュー状態管理
-        let isMenuOpen = false;
+      // メニュー状態管理
+      let isMenuOpen = false;
 
-        // メニュー開閉の共通関数
-        function toggleMenu() {
-          if (!menuOverlay) return;
+      // メニュー開閉の共通関数
+      function toggleMenu() {
+        if (!menuOverlay) return;
 
-          isMenuOpen = !isMenuOpen;
+        isMenuOpen = !isMenuOpen;
 
-          if (isMenuOpen) {
-            menuOverlay.classList.add('show');
-            if (sidebar) {
-              sidebar.classList.add('menu-open');
-            }
-            // スクロールを禁止
-            document.body.style.overflow = 'hidden';
-          } else {
-            menuOverlay.classList.remove('show');
-            if (sidebar) {
-              sidebar.classList.remove('menu-open');
-            }
-            // スクロールを復元
-            document.body.style.overflow = '';
+        if (isMenuOpen) {
+          menuOverlay.classList.add('show');
+          if (sidebar) {
+            sidebar.classList.add('menu-open');
           }
-        }
-
-        // メニューを閉じる関数
-        function closeMenu() {
-          if (!menuOverlay) return;
-
-          isMenuOpen = false;
+          // スクロールを禁止
+          document.body.style.overflow = 'hidden';
+        } else {
           menuOverlay.classList.remove('show');
           if (sidebar) {
             sidebar.classList.remove('menu-open');
@@ -336,574 +561,403 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           // スクロールを復元
           document.body.style.overflow = '';
         }
+      }
 
-        // 動画モーダル関連の要素
-        const videoModal = document.querySelector(
-          '.video-modal'
-        ) as HTMLElement | null;
-        const videoModalClose = document.querySelector(
-          '.video-modal__close'
-        ) as HTMLElement | null;
-        const heroMovieThumbnail = document.querySelector(
-          '.hero__movie-thumbnail'
-        ) as HTMLElement | null;
-        const heroMoviePlayIcon = document.querySelector(
-          '.hero__movie-play-icon'
-        ) as HTMLElement | null;
-        const heroMoviePlayText = document.querySelector(
-          '.hero__movie-play-text'
-        ) as HTMLElement | null;
-        const videoIframe = document.querySelector(
-          '.video-modal iframe'
-        ) as HTMLIFrameElement | null;
+      // メニューを閉じる関数
+      function closeMenu() {
+        if (!menuOverlay) return;
 
-        // 動画モーダルを開く関数
-        function openVideoModal() {
-          if (videoModal) {
-            videoModal.style.opacity = '1';
-            videoModal.style.visibility = 'visible';
-            // スクロールを禁止
-            document.body.style.overflow = 'hidden';
-          }
+        isMenuOpen = false;
+        menuOverlay.classList.remove('show');
+        if (sidebar) {
+          sidebar.classList.remove('menu-open');
         }
+        // スクロールを復元
+        document.body.style.overflow = '';
+      }
 
-        // 動画モーダルを閉じる関数
-        function closeVideoModal() {
-          if (videoModal && videoIframe) {
-            videoModal.style.opacity = '0';
-            videoModal.style.visibility = 'hidden';
-            // 動画を停止（iframe srcを再設定）
-            const currentSrc = videoIframe.src;
-            videoIframe.src = '';
-            videoIframe.src = currentSrc;
-            // スクロールを復元
-            document.body.style.overflow = '';
-          }
-        }
+      // 動画モーダル関連の要素
+      const videoModal = document.querySelector(
+        '.video-modal'
+      ) as HTMLElement | null;
+      const videoModalClose = document.querySelector(
+        '.video-modal__close'
+      ) as HTMLElement | null;
+      const heroMovieThumbnail = document.querySelector(
+        '.hero__movie-thumbnail'
+      ) as HTMLElement | null;
+      const heroMoviePlayIcon = document.querySelector(
+        '.hero__movie-play-icon'
+      ) as HTMLElement | null;
+      const heroMoviePlayText = document.querySelector(
+        '.hero__movie-play-text'
+      ) as HTMLElement | null;
+      const videoIframe = document.querySelector(
+        '.video-modal iframe'
+      ) as HTMLIFrameElement | null;
 
-        // サムネイルクリックで動画モーダルを開く
-        if (heroMovieThumbnail) {
-          heroMovieThumbnail.addEventListener('click', openVideoModal);
-        }
-
-        // 再生アイコンクリックで動画モーダルを開く
-        if (heroMoviePlayIcon) {
-          heroMoviePlayIcon.addEventListener('click', openVideoModal);
-        }
-
-        // 再生テキストクリックで動画モーダルを開く
-        if (heroMoviePlayText) {
-          heroMoviePlayText.addEventListener('click', openVideoModal);
-        }
-
-        // モーダル閉じるボタン
-        if (videoModalClose) {
-          videoModalClose.addEventListener('click', closeVideoModal);
-        }
-
-        // オーバーレイクリックで閉じる（任意）
+      // 動画モーダルを開く関数
+      function openVideoModal() {
         if (videoModal) {
-          videoModal.addEventListener('click', (e) => {
-            if (
-              e.target === videoModal ||
-              (e.target as HTMLElement).classList.contains(
-                'video-modal__overlay'
-              )
-            ) {
-              closeVideoModal();
-            }
-          });
+          videoModal.style.opacity = '1';
+          videoModal.style.visibility = 'visible';
+          // スクロールを禁止
+          document.body.style.overflow = 'hidden';
         }
+      }
 
-        // ブッキングモーダル関連の要素
-        const bookingModal = document.querySelector(
-          '.booking-modal'
-        ) as HTMLElement | null;
-        const bookingModalClose = document.querySelector(
-          '.booking-modal__close'
-        ) as HTMLElement | null;
-        const sidebarBookingButton = document.querySelector(
-          '.sidebar-menu-button'
-        ) as HTMLElement | null;
-        const menuOverlayBookingButton = document.querySelector(
-          '.menu-overlay__button'
-        ) as HTMLElement | null;
-        const bottomBarBookingButton = document.querySelector(
-          '.bottom-bar__button'
-        ) as HTMLElement | null;
+      // 動画モーダルを閉じる関数
+      function closeVideoModal() {
+        if (videoModal && videoIframe) {
+          videoModal.style.opacity = '0';
+          videoModal.style.visibility = 'hidden';
+          // 動画を停止（iframe srcを再設定）
+          const currentSrc = videoIframe.src;
+          videoIframe.src = '';
+          videoIframe.src = currentSrc;
+          // スクロールを復元
+          document.body.style.overflow = '';
+        }
+      }
 
-        // ブッキングモーダルを開く関数
-        function openBookingModal() {
-          if (bookingModal) {
-            bookingModal.style.opacity = '1';
-            bookingModal.style.visibility = 'visible';
-            // スクロールを禁止
-            document.body.style.overflow = 'hidden';
+      // サムネイルクリックで動画モーダルを開く
+      if (heroMovieThumbnail) {
+        heroMovieThumbnail.addEventListener('click', openVideoModal);
+      }
+
+      // 再生アイコンクリックで動画モーダルを開く
+      if (heroMoviePlayIcon) {
+        heroMoviePlayIcon.addEventListener('click', openVideoModal);
+      }
+
+      // 再生テキストクリックで動画モーダルを開く
+      if (heroMoviePlayText) {
+        heroMoviePlayText.addEventListener('click', openVideoModal);
+      }
+
+      // モーダル閉じるボタン
+      if (videoModalClose) {
+        videoModalClose.addEventListener('click', closeVideoModal);
+      }
+
+      // オーバーレイクリックで閉じる（任意）
+      if (videoModal) {
+        videoModal.addEventListener('click', (e) => {
+          if (
+            e.target === videoModal ||
+            (e.target as HTMLElement).classList.contains('video-modal__overlay')
+          ) {
+            closeVideoModal();
           }
-        }
+        });
+      }
 
-        // ブッキングモーダルを閉じる関数
-        function closeBookingModal() {
-          if (bookingModal) {
-            bookingModal.style.opacity = '0';
-            bookingModal.style.visibility = 'hidden';
-            // スクロールを復元
-            document.body.style.overflow = '';
-          }
-        }
+      // ブッキングモーダル関連の要素
+      const bookingModal = document.querySelector(
+        '.booking-modal'
+      ) as HTMLElement | null;
+      const bookingModalClose = document.querySelector(
+        '.booking-modal__close'
+      ) as HTMLElement | null;
+      const sidebarBookingButton = document.querySelector(
+        '.sidebar-menu-button'
+      ) as HTMLElement | null;
+      const menuOverlayBookingButton = document.querySelector(
+        '.menu-overlay__button'
+      ) as HTMLElement | null;
+      const bottomBarBookingButton = document.querySelector(
+        '.bottom-bar__button'
+      ) as HTMLElement | null;
 
-        // ブッキングモーダル閉じるボタン
-        if (bookingModalClose) {
-          bookingModalClose.addEventListener('click', closeBookingModal);
-        }
-
-        // サイドバーの宿泊予約ボタンクリック（タブレット・デスクトップ）
-        if (sidebarBookingButton) {
-          sidebarBookingButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            openBookingModal();
-          });
-        }
-
-        // メニューオーバーレイの宿泊予約ボタンクリック（スマホメニュー内）
-        if (menuOverlayBookingButton) {
-          menuOverlayBookingButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            openBookingModal();
-          });
-        }
-
-        // スマホ下部バーの宿泊予約ボタンクリック
-        if (bottomBarBookingButton) {
-          bottomBarBookingButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            openBookingModal();
-          });
-        }
-
-        // ブッキングモーダルオーバーレイクリックで閉じる
+      // ブッキングモーダルを開く関数
+      function openBookingModal() {
         if (bookingModal) {
-          bookingModal.addEventListener('click', (e) => {
-            if (
-              e.target === bookingModal ||
-              (e.target as HTMLElement).classList.contains(
-                'booking-modal__overlay'
-              )
-            ) {
-              closeBookingModal();
-            }
-          });
+          bookingModal.style.opacity = '1';
+          bookingModal.style.visibility = 'visible';
+          // スクロールを禁止
+          document.body.style.overflow = 'hidden';
+        }
+      }
+
+      // ブッキングモーダルを閉じる関数
+      function closeBookingModal() {
+        if (bookingModal) {
+          bookingModal.style.opacity = '0';
+          bookingModal.style.visibility = 'hidden';
+          // スクロールを復元
+          document.body.style.overflow = '';
+        }
+      }
+
+      // ブッキングモーダル閉じるボタン
+      if (bookingModalClose) {
+        bookingModalClose.addEventListener('click', closeBookingModal);
+      }
+
+      // サイドバーの宿泊予約ボタンクリック（タブレット・デスクトップ）
+      if (sidebarBookingButton) {
+        sidebarBookingButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          openBookingModal();
+        });
+      }
+
+      // メニューオーバーレイの宿泊予約ボタンクリック（スマホメニュー内）
+      if (menuOverlayBookingButton) {
+        menuOverlayBookingButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          openBookingModal();
+        });
+      }
+
+      // スマホ下部バーの宿泊予約ボタンクリック
+      if (bottomBarBookingButton) {
+        bottomBarBookingButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          openBookingModal();
+        });
+      }
+
+      // ブッキングモーダルオーバーレイクリックで閉じる
+      if (bookingModal) {
+        bookingModal.addEventListener('click', (e) => {
+          if (
+            e.target === bookingModal ||
+            (e.target as HTMLElement).classList.contains(
+              'booking-modal__overlay'
+            )
+          ) {
+            closeBookingModal();
+          }
+        });
+      }
+
+      // 必要な要素が存在することを確認してイベントリスナーを設定
+      if (menuOverlay) {
+        // PCメニューボタン
+        if (pcMenuToggle) {
+          pcMenuToggle.addEventListener('click', toggleMenu);
         }
 
-        // 必要な要素が存在することを確認してイベントリスナーを設定
-        if (menuOverlay) {
-          // PCメニューボタン
-          if (pcMenuToggle) {
-            pcMenuToggle.addEventListener('click', toggleMenu);
-          }
-
-          // スマホメニュー開くボタン
-          if (mobileMenuToggle) {
-            mobileMenuToggle.addEventListener('click', toggleMenu);
-          }
-
-          // スマホメニュー閉じるボタン
-          if (mobileMenuClose) {
-            mobileMenuClose.addEventListener('click', closeMenu);
-          }
+        // スマホメニュー開くボタン
+        if (mobileMenuToggle) {
+          mobileMenuToggle.addEventListener('click', toggleMenu);
         }
-      });
-    </script>
-  </body>
 
-  <style lang="scss">
-    // 必要なmixin/functionをインポート
-    @import '../../styles/variables';
-    @import '../../styles/functions';
-    @import '../../styles/mixins';
+        // スマホメニュー閉じるボタン
+        if (mobileMenuClose) {
+          mobileMenuClose.addEventListener('click', closeMenu);
+        }
+      }
+    });
+  </script>
+</html>
 
-    /* 基本構造 */
-    .layout-container {
-      display: grid;
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../../styles/variables';
+  @import '../../styles/functions';
+  @import '../../styles/mixins';
+
+  /* 基本構造 */
+  .layout-container {
+    display: grid;
+    grid-template:
+      'main'
+      'footer'
+      /1fr;
+    min-height: 100vh;
+    @include tablet-up {
       grid-template:
-        'main'
-        'footer'
-        /1fr;
-      min-height: 100vh;
+        'sidebar main'
+        'sidebar footer'
+        / tpx($sidebar-width) 1fr;
+    }
+    @include desktop-up {
+      grid-template:
+        'sidebar main'
+        'sidebar footer'
+        / ppx($sidebar-width) 1fr;
+    }
+  }
+
+  /* メインコンテンツ */
+  .main-content {
+    grid-area: main;
+    position: relative;
+  }
+
+
+  /* アクティビティ詳細 */
+  .activity-detail {
+    background: var(--blue_2, #e7f3f9);
+    padding-top: spx(110);
+    padding-bottom: spx(30);
+    position: relative;
+    @include tablet-up {
+      padding-top: 0;
+      padding-bottom: ppx(51 * 1.2);
+    }
+    @include desktop-up {
+      padding-bottom: ppx(51);
+    }
+
+    &__header {
       @include tablet-up {
-        grid-template:
-          'sidebar main'
-          'sidebar footer'
-          / tpx($sidebar-width) 1fr;
       }
       @include desktop-up {
-        grid-template:
-          'sidebar main'
-          'sidebar footer'
-          / ppx($sidebar-width) 1fr;
       }
     }
 
-    /* メインコンテンツ */
-    .main-content {
-      grid-area: main;
-      position: relative;
-    }
-
-    /* アクティビティ詳細 */
-    .activity-detail {
-      background: var(--blue_2, #e7f3f9);
-      padding-top: spx(110);
-      padding-bottom: spx(30);
-      position: relative;
+    &__title-wrapper {
+      width: spx(600);
+      margin-inline: auto;
       @include tablet-up {
-        padding-top: 0;
-        padding-bottom: ppx(51 * 1.2);
+        margin-inline: unset;
+        padding-top: ppx(580 * 1.2);
+        margin-left: ppx(233 * 0.5);
+        width: ppx(790 * 1.2);
       }
       @include desktop-up {
-        padding-bottom: ppx(51);
+        padding-top: ppx(580);
+        margin-left: ppx(233);
+        width: ppx(790);
       }
-
-      &__header {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__title-wrapper {
-        width: spx(600);
-        margin-inline: auto;
-        @include tablet-up {
-          margin-inline: unset;
-          padding-top: ppx(580 * 1.2);
-          margin-left: ppx(233 * 0.5);
-          width: ppx(790 * 1.2);
-        }
-        @include desktop-up {
-          padding-top: ppx(580);
-          margin-left: ppx(233);
-          width: ppx(790);
-        }
-        &:after {
-          content: '';
-          display: block;
-          width: spx(231);
-          height: spx(5);
-          background: linear-gradient(
-            to right,
-            var(--green_2, #adc400) 0%,
-            /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
-            /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
-            /* 透明開始 */ transparent 51.4%,
-            /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
-              51.4%,
-            /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
-          );
-          margin-inline: auto;
-          margin-top: spx(5);
-          @include tablet-up {
-            height: ppx(5) * 1.2;
-            width: ppx(231) * 1.2;
-            margin-inline: unset;
-            margin-top: ppx(20 * 1.2);
-          }
-          @include desktop-up {
-            height: ppx(5);
-            width: ppx(231);
-            margin-top: ppx(20);
-          }
-        }
-      }
-
-      &__category {
-        color: var(--blue_5, #026995);
-        text-align: center;
-        font-size: spx(84);
-        font-weight: 700;
-        line-height: spx(115); /* 136.905% */
-        letter-spacing: spx(2.52);
-        @include tablet-up {
-          text-align: left;
-          font-size: ppx(115 * 1.2);
-          line-height: ppx(115 * 1.2); /* 100% */
-          letter-spacing: ppx(3.45 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(115);
-          line-height: ppx(115); /* 100% */
-          letter-spacing: ppx(3.45);
-        }
-      }
-
-      &__title {
-        color: var(--blue_6, #054965);
-        text-align: center;
-        font-size: spx(33);
-        font-weight: 400;
-        line-height: spx(34); /* 103.03% */
-        margin-top: spx(20);
-        width: spx(600);
-        margin-inline: auto;
-        @include tablet-up {
-          margin-inline: unset;
-          text-align: left;
-          font-size: ppx(34 * 1.2);
-          line-height: ppx(34 * 1.2); /* 100% */
-          margin-top: ppx(25 * 1.2);
-          margin-left: ppx(233 * 0.5);
-          width: ppx(790 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(34);
-          line-height: ppx(34); /* 100% */
-          margin-top: ppx(25);
-          margin-left: ppx(233);
-          width: ppx(790);
-        }
-      }
-
-      $slide-width-spx: 580;
-      $slide-width-tpx: 1050 * 1;
-      $slide-width-ppx: 1050;
-
-      &__gallery {
-        margin-top: spx(60);
-        @include tablet-up {
-          margin-top: 0;
-          position: absolute;
-          top: ppx(80 * 1.2);
-          right: ppx(50 * 1.2);
-          width: ppx($slide-width-tpx);
-        }
-        @include desktop-up {
-          top: ppx(80);
-          right: ppx(50);
-          width: ppx($slide-width-ppx);
-        }
-      }
-
-      &__picture {
+      &:after {
+        content: '';
         display: block;
-        width: max-content;
+        width: spx(231);
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
+          /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
+          /* 透明開始 */ transparent 51.4%,
+          /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
+            51.4%,
+          /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
+        );
         margin-inline: auto;
+        margin-top: spx(5);
         @include tablet-up {
+          height: ppx(5) * 1.2;
+          width: ppx(231) * 1.2;
           margin-inline: unset;
+          margin-top: ppx(20 * 1.2);
         }
         @include desktop-up {
-        }
-        img {
-          width: spx($slide-width-spx);
-          height: spx(746);
-          object-fit: cover;
-          flex-shrink: 0;
-          aspect-ratio: 283/364;
-          border-radius: spx(30);
-          @include tablet-up {
-            width: ppx($slide-width-tpx);
-            height: ppx(1350 * 1.2);
-            border-radius: ppx(30 * 1.2);
-          }
-          @include desktop-up {
-            width: ppx($slide-width-ppx);
-            height: ppx(1350);
-            border-radius: ppx(30);
-          }
-        }
-      }
-
-      &__image {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__pager {
-        margin-top: spx(40);
-        @include tablet-up {
-          margin-top: ppx(40 * 1.2);
-        }
-        @include desktop-up {
-          margin-top: ppx(40);
-        }
-      }
-
-      &__intro {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__intro-title {
-        color: var(--blue_5, #026995);
-        font-size: spx(52);
-        font-weight: 400;
-        line-height: 150%; /* 78px */
-        letter-spacing: spx(2.6);
-        margin-top: spx(60);
-        width: spx(600);
-        margin-inline: auto;
-        @include tablet-up {
-          font-size: ppx(73 * 1.2);
-          line-height: 160%; /* 116.8px */
-          letter-spacing: ppx(3.65 * 1.2);
-          margin-top: ppx(181 * 1.2);
-          width: ppx(790 * 1.2);
-          margin-inline: unset;
-          margin-left: ppx(233 * 0.5);
-        }
-        @include desktop-up {
-          font-size: ppx(73);
-          line-height: 160%; /* 116.8px */
-          letter-spacing: ppx(3.65);
-          margin-top: ppx(181);
-          width: ppx(790);
-          margin-left: ppx(233);
-        }
-      }
-
-      &__intro-content {
-        color: var(--blue_5, #026995);
-        font-size: spx(30);
-        font-weight: 400;
-        line-height: 160%; /* 48px */
-        width: spx(600);
-        margin-inline: auto;
-        margin-top: spx(40);
-        @include tablet-up {
-          font-size: ppx(34 * 1.2);
-          line-height: 180%; /* 61.2px */
-          letter-spacing: ppx(1.7 * 1.2);
-          width: ppx(790 * 1.2);
-          margin-inline: unset;
-          margin-top: ppx(172 * 1.2);
-          margin-left: ppx(233 * 0.5);
-        }
-        @include desktop-up {
-          font-size: ppx(34);
-          line-height: 180%; /* 61.2px */
-          letter-spacing: ppx(1.7);
-          width: ppx(790);
-          margin-top: ppx(172);
-          margin-left: ppx(233);
-        }
-      }
-
-      &__intro-text {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__divider {
-        display: block;
-        width: spx(640);
-        height: 1px;
-        background: #59a1c0;
-        margin-inline: auto;
-        margin-top: spx(60);
-        margin-bottom: spx(70);
-        @include tablet-up {
-          width: ppx(2316 * 1.2);
-          margin-top: ppx(191 * 1.2);
-          margin-bottom: ppx(50 * 1.2);
-        }
-        @include desktop-up {
-          width: ppx(2316);
-          margin-top: ppx(191);
-          margin-bottom: ppx(50);
-        }
-      }
-
-      &__nav {
-        display: grid;
-        grid-template-columns: max-content max-content;
-        gap: spx(10);
-        justify-content: center;
-        @include tablet-up {
-          grid-template-columns: repeat(4, max-content);
-          gap: ppx(18 * 1.2);
-        }
-        @include desktop-up {
-          gap: ppx(18);
-        }
-      }
-
-      &__nav-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: spx(15);
-        border: spx(2) solid var(--blue_5, #026995);
-        background: var(--white, #fff);
-        width: spx(300);
-        height: spx(63);
-        transition: background 0.3s ease;
-        @include tablet-up {
-          width: ppx(454 * 1);
-          height: ppx(99 * 1.2);
-          border-radius: ppx(20 * 1.2);
-          border: ppx(2 * 1.2) solid var(--blue_5, #026995);
-        }
-        @include desktop-up {
-          width: ppx(454);
-          height: ppx(99);
-          border-radius: ppx(20);
-          border: ppx(2) solid var(--blue_5, #026995);
-        }
-        @include hover {
-          &:hover {
-            background: var(--blue_5, #026995);
-            & .activity-detail__nav-text {
-              color: var(--white, #fff);
-            }
-          }
-        }
-      }
-
-      &__nav-text {
-        color: var(--blue_5, #026995);
-        text-align: center;
-        font-size: spx(27);
-        font-weight: 400;
-        line-height: 85%; /* 22.95px */
-        transition: color 0.3s ease;
-        @include tablet-up {
-          font-size: ppx(33 * 1.2);
-          line-height: ppx(33 * 1.2); /* 100% */
-          letter-spacing: ppx(1.65 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(33);
-          line-height: ppx(33); /* 100% */
-          letter-spacing: ppx(1.65);
+          height: ppx(5);
+          width: ppx(231);
+          margin-top: ppx(20);
         }
       }
     }
 
-    /* Swiper基本スタイル（既存レイアウト保持） */
-    .activities-detail__swiper {
-      width: 100%;
-      height: auto;
-      overflow: hidden;
-    }
-
-    .activities-detail__swiper .swiper-wrapper {
-      display: flex;
-    }
-
-    .activities-detail__swiper .swiper-slide {
-      flex-shrink: 0;
-      width: 100%;
-    }
-
-    /* ページネーションのカスタマイズ（TOPページActivitiesスタイルに合わせ） */
-    .activity-detail__pager.swiper-pagination {
-      position: static !important;
+    &__category {
+      color: var(--blue_5, #026995);
       text-align: center;
+      font-size: spx(84);
+      font-weight: 700;
+      line-height: spx(115); /* 136.905% */
+      letter-spacing: spx(2.52);
+      @include tablet-up {
+        text-align: left;
+        font-size: ppx(115 * 1.2);
+        line-height: ppx(115 * 1.2); /* 100% */
+        letter-spacing: ppx(3.45 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(115);
+        line-height: ppx(115); /* 100% */
+        letter-spacing: ppx(3.45);
+      }
+    }
+
+    &__title {
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-size: spx(33);
+      font-weight: 400;
+      line-height: spx(34); /* 103.03% */
+      margin-top: spx(20);
+      width: spx(600);
+      margin-inline: auto;
+      @include tablet-up {
+        margin-inline: unset;
+        text-align: left;
+        font-size: ppx(34 * 1.2);
+        line-height: ppx(34 * 1.2); /* 100% */
+        margin-top: ppx(25 * 1.2);
+        margin-left: ppx(233 * 0.5);
+        width: ppx(790 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        line-height: ppx(34); /* 100% */
+        margin-top: ppx(25);
+        margin-left: ppx(233);
+        width: ppx(790);
+      }
+    }
+
+    $slide-width-spx: 580;
+    $slide-width-tpx: 1050 * 1;
+    $slide-width-ppx: 1050;
+
+    &__gallery {
+      margin-top: spx(60);
+      @include tablet-up {
+        margin-top: 0;
+        position: absolute;
+        top: ppx(80 * 1.2);
+        right: ppx(50 * 1.2);
+        width: ppx($slide-width-tpx);
+      }
+      @include desktop-up {
+        top: ppx(80);
+        right: ppx(50);
+        width: ppx($slide-width-ppx);
+      }
+    }
+
+    &__picture {
+      display: block;
+      width: max-content;
+      margin-inline: auto;
+      @include tablet-up {
+        margin-inline: unset;
+      }
+      @include desktop-up {
+      }
+      img {
+        width: spx($slide-width-spx);
+        height: spx(746);
+        object-fit: cover;
+        flex-shrink: 0;
+        aspect-ratio: 283/364;
+        border-radius: spx(30);
+        @include tablet-up {
+          width: ppx($slide-width-tpx);
+          height: ppx(1350 * 1.2);
+          border-radius: ppx(30 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx($slide-width-ppx);
+          height: ppx(1350);
+          border-radius: ppx(30);
+        }
+      }
+    }
+
+    &__image {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__pager {
       margin-top: spx(40);
       @include tablet-up {
         margin-top: ppx(40 * 1.2);
@@ -913,7 +967,1458 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
       }
     }
 
-    .activity-detail__pager {
+    &__intro {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__intro-title {
+      color: var(--blue_5, #026995);
+      font-size: spx(52);
+      font-weight: 400;
+      line-height: 150%; /* 78px */
+      letter-spacing: spx(2.6);
+      margin-top: spx(60);
+      width: spx(600);
+      margin-inline: auto;
+      @include tablet-up {
+        font-size: ppx(73 * 1.2);
+        line-height: 160%; /* 116.8px */
+        letter-spacing: ppx(3.65 * 1.2);
+        margin-top: ppx(181 * 1.2);
+        width: ppx(790 * 1.2);
+        margin-inline: unset;
+        margin-left: ppx(233 * 0.5);
+      }
+      @include desktop-up {
+        font-size: ppx(73);
+        line-height: 160%; /* 116.8px */
+        letter-spacing: ppx(3.65);
+        margin-top: ppx(181);
+        width: ppx(790);
+        margin-left: ppx(233);
+      }
+    }
+
+    &__intro-content {
+      color: var(--blue_5, #026995);
+      font-size: spx(30);
+      font-weight: 400;
+      line-height: 160%; /* 48px */
+      width: spx(600);
+      margin-inline: auto;
+      margin-top: spx(40);
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+        line-height: 180%; /* 61.2px */
+        letter-spacing: ppx(1.7 * 1.2);
+        width: ppx(790 * 1.2);
+        margin-inline: unset;
+        margin-top: ppx(172 * 1.2);
+        margin-left: ppx(233 * 0.5);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        line-height: 180%; /* 61.2px */
+        letter-spacing: ppx(1.7);
+        width: ppx(790);
+        margin-top: ppx(172);
+        margin-left: ppx(233);
+      }
+    }
+
+    &__intro-text {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__divider {
+      display: block;
+      width: spx(640);
+      height: 1px;
+      background: #59a1c0;
+      margin-inline: auto;
+      margin-top: spx(60);
+      margin-bottom: spx(70);
+      @include tablet-up {
+        width: ppx(2316 * 1.2);
+        margin-top: ppx(191 * 1.2);
+        margin-bottom: ppx(50 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(2316);
+        margin-top: ppx(191);
+        margin-bottom: ppx(50);
+      }
+    }
+
+    &__nav {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      gap: spx(10);
+      justify-content: center;
+      @include tablet-up {
+        grid-template-columns: repeat(4, max-content);
+        gap: ppx(18 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(18);
+      }
+    }
+
+    &__nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: spx(15);
+      border: spx(2) solid var(--blue_5, #026995);
+      background: var(--white, #fff);
+      width: spx(300);
+      height: spx(63);
+      transition: background 0.3s ease;
+      @include tablet-up {
+        width: ppx(454 * 1);
+        height: ppx(99 * 1.2);
+        border-radius: ppx(20 * 1.2);
+        border: ppx(2 * 1.2) solid var(--blue_5, #026995);
+      }
+      @include desktop-up {
+        width: ppx(454);
+        height: ppx(99);
+        border-radius: ppx(20);
+        border: ppx(2) solid var(--blue_5, #026995);
+      }
+      @include hover {
+        &:hover {
+          background: var(--blue_5, #026995);
+          & .activity-detail__nav-text {
+            color: var(--white, #fff);
+          }
+        }
+      }
+    }
+
+    &__nav-text {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-size: spx(27);
+      font-weight: 400;
+      line-height: 85%; /* 22.95px */
+      transition: color 0.3s ease;
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: ppx(33 * 1.2); /* 100% */
+        letter-spacing: ppx(1.65 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        line-height: ppx(33); /* 100% */
+        letter-spacing: ppx(1.65);
+      }
+    }
+  }
+
+  /* Swiper基本スタイル（既存レイアウト保持） */
+  .activities-detail__swiper {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .activities-detail__swiper .swiper-wrapper {
+    display: flex;
+  }
+
+  .activities-detail__swiper .swiper-slide {
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  /* ページネーションのカスタマイズ（TOPページActivitiesスタイルに合わせ） */
+  .activity-detail__pager.swiper-pagination {
+    position: static !important;
+    text-align: center;
+    margin-top: spx(40);
+    @include tablet-up {
+      margin-top: ppx(40 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(40);
+    }
+  }
+
+  .activity-detail__pager {
+    // ページネーションドット（通常状態）
+    :global(.swiper-pagination-bullet) {
+      width: spx(20);
+      height: spx(20);
+      background-color: white;
+      border-radius: 50%;
+      border: solid 1px var(--blue_5, #026995);
+      opacity: 1;
+      margin: 0 spx(12);
+      transition: all 0.3s ease;
+      @include tablet-up {
+        width: ppx(20) * 1.2;
+        height: ppx(20) * 1.2;
+        margin: 0 ppx(12) * 1.2;
+      }
+      @include desktop-up {
+        width: ppx(20);
+        height: ppx(20);
+        margin: 0 ppx(12);
+      }
+    }
+
+    // ページネーションドット（アクティブ状態）
+    :global(.swiper-pagination-bullet-active) {
+      background-color: var(--blue_5, #026995);
+    }
+
+    // クリック可能な状態
+    &:global(.swiper-pagination-clickable) {
+      :global(.swiper-pagination-bullet) {
+        cursor: pointer;
+        &:hover {
+          background-color: var(--green_2, #adc400);
+          border-color: var(--green_2, #adc400);
+        }
+      }
+    }
+  }
+
+  /* POINTセクション */
+  .point {
+    background: var(--blue_2, #e7f3f9);
+    position: relative;
+    padding-top: spx(370);
+    padding-bottom: spx(80);
+    @include tablet-up {
+      background: white;
+      padding-top: ppx(426 * 1.2);
+      padding-bottom: 0;
+    }
+    @include desktop-up {
+      padding-top: ppx(426);
+    }
+
+    &__figure {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__image {
+      display: block;
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: spx(520);
+      object-fit: cover;
+      object-position: center top;
+      @include tablet-up {
+        height: ppx(1088 * 1.2);
+      }
+      @include desktop-up {
+        height: ppx(1088);
+      }
+    }
+
+    &__content {
+      position: relative;
+      z-index: 2;
+      width: spx(660);
+      border-radius: spx(20);
+      background: rgba(255, 255, 255, 0.95);
+      padding-top: spx(60);
+      padding-bottom: spx(60);
+      padding-inline: spx(65);
+      margin-inline: auto;
+      @include tablet-up {
+        width: ppx(960 * 1.2);
+        border-radius: ppx(30 * 1.2);
+        padding-top: ppx(100 * 1.2);
+        padding-bottom: ppx(74 * 1.2);
+        padding-inline: ppx(110 * 1.2);
+        margin-left: auto;
+        margin-right: ppx(140 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(960);
+        border-radius: ppx(30);
+        padding-top: ppx(100);
+        padding-bottom: ppx(74);
+        padding-inline: ppx(110);
+        margin-right: ppx(140);
+      }
+    }
+
+    &__header {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__header-wrapper {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      &:after {
+        content: '';
+        display: block;
+        width: spx(231);
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
+          /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
+          /* 透明開始 */ transparent 51.4%,
+          /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
+            51.4%,
+          /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
+        );
+        margin-top: spx(30);
+        @include tablet-up {
+          height: ppx(5) * 1.2;
+          width: ppx(231) * 1.2;
+          margin-top: ppx(34 * 1.2);
+        }
+        @include desktop-up {
+          height: ppx(5);
+          width: ppx(231);
+          margin-top: ppx(34);
+        }
+      }
+    }
+
+    &__label {
+      color: var(--blue_6, #054965);
+      font-size: spx(30);
+      font-weight: 400;
+      line-height: 150%; /* 45px */
+      @include tablet-up {
+        color: var(--blue_5, #026995);
+        font-size: ppx(32 * 1.2);
+        line-height: ppx(32 * 1.2); /* 100% */
+      }
+      @include desktop-up {
+        font-size: ppx(32);
+        line-height: ppx(32); /* 100% */
+      }
+    }
+
+    &__title-group {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__title {
+      color: var(--blue_6, #054965);
+      font-size: spx(44);
+      font-weight: 400;
+      line-height: 140%; /* 61.6px */
+      margin-top: spx(10);
+      @include tablet-up {
+        color: var(--blue_5, #026995);
+        font-size: ppx(60 * 1.2);
+        margin-top: ppx(14 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(60);
+        margin-top: ppx(14);
+      }
+    }
+
+    &__title-line {
+      display: block;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__description {
+      color: var(--blue_6, #054965);
+      font-size: spx(30);
+      font-weight: 400;
+      line-height: 150%; /* 45px */
+      margin-top: spx(30);
+      @include tablet-up {
+        color: var(--blue_5, #026995);
+        font-size: ppx(32 * 1.2);
+        line-height: 180%; /* 57.6px */
+        letter-spacing: ppx(1.6 * 1.2);
+        margin-top: ppx(51 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(32);
+        letter-spacing: ppx(1.6);
+        margin-top: ppx(51);
+      }
+    }
+  }
+
+  /* ABOUTセクション */
+  .about {
+    display: flex;
+    flex-flow: column;
+    gap: spx(80);
+    padding-top: spx(100);
+    padding-bottom: spx(80);
+    @include tablet-up {
+      flex-flow: row;
+      gap: ppx(248 * 1);
+      padding-left: ppx(196 * 0.7);
+      padding-top: ppx(203 * 1.2);
+      padding-bottom: ppx(106 * 1.2);
+    }
+    @include desktop-up {
+      gap: ppx(248);
+      padding-left: ppx(196);
+      padding-top: ppx(203);
+      padding-bottom: ppx(106);
+    }
+
+    &__header {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__title {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-size: spx(55);
+      font-weight: 400;
+      line-height: 100%; /* 55px */
+      letter-spacing: spx(2.75);
+      @include tablet-up {
+        text-align: left;
+        font-size: ppx(60 * 1.2);
+        line-height: 160%; /* 96px */
+        letter-spacing: ppx(3 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(60);
+        letter-spacing: ppx(3);
+      }
+    }
+
+    &__subtitle {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-size: spx(30);
+      font-weight: 400;
+      line-height: 100%; /* 30px */
+      letter-spacing: spx(1.5);
+      margin-top: spx(12);
+      @include tablet-up {
+        text-align: left;
+        font-size: ppx(40 * 1.2);
+        line-height: 160%; /* 64px */
+        letter-spacing: ppx(2 * 1.2);
+        margin-top: ppx(5 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        letter-spacing: ppx(2);
+        margin-top: ppx(5);
+      }
+    }
+
+    &__content {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: spx(20);
+      width: spx(570);
+      margin-inline: auto;
+      @include tablet-up {
+        gap: ppx(50 * 1.2);
+        width: ppx(1560 * 1);
+        margin-inline: unset;
+        margin-top: ppx(46 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(50);
+        width: ppx(1560);
+        margin-top: ppx(46);
+      }
+    }
+
+    &__item {
+      color: var(--blue_6, #054965);
+      font-size: spx(30);
+      font-weight: 400;
+      line-height: 150%; /* 45px */
+      display: grid;
+      grid-template-columns: spx(180) auto;
+      gap: spx(20);
+      position: relative;
+      padding-bottom: spx(20);
+      padding-inline: spx(5);
+      @include tablet-up {
+        color: var(--blue_5, #026995);
+        font-size: ppx(34 * 1.2);
+        line-height: 160%; /* 54.4px */
+        letter-spacing: ppx(1.7 * 1.2);
+        grid-template-columns: ppx(319 * 1.2) auto;
+        align-items: center;
+        padding-bottom: ppx(50 * 1.2);
+        padding-inline: ppx(35 * 1.2);
+        gap: 0;
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        letter-spacing: ppx(1.7);
+        grid-template-columns: ppx(319) auto;
+        padding-bottom: ppx(50);
+        padding-inline: ppx(35);
+      }
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: var(--blue_4, #59a1c0);
+      }
+    }
+
+    &__term {
+      font-weight: 400;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__description {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__note {
+      color: var(--blue_6, #054965);
+      font-size: spx(24);
+      font-weight: 400;
+      line-height: 150%;
+      display: block;
+      @include tablet-up {
+        color: var(--blue_5, #026995);
+        font-size: ppx(26 * 1.2);
+        line-height: 160%;
+        letter-spacing: ppx(1.3 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(26);
+        letter-spacing: ppx(1.3);
+      }
+    }
+  }
+
+  /* FLOWセクション */
+  .flow {
+    background: var(--blue_2, #e7f3f9);
+    display: flex;
+    flex-flow: column;
+    gap: spx(60);
+    padding-top: spx(100);
+    padding-bottom: spx(100);
+    @include tablet-up {
+      flex-flow: row;
+      gap: ppx(86 * 1);
+      padding-left: ppx(196 * 0.7);
+      padding-top: ppx(300 * 1.2);
+      padding-bottom: ppx(300 * 1.2);
+    }
+    @include desktop-up {
+      gap: ppx(86);
+      padding-left: ppx(196);
+      padding-top: ppx(300);
+      padding-bottom: ppx(300);
+    }
+
+    &__header {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__title {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-size: spx(55);
+      font-weight: 400;
+      line-height: 100%; /* 55px */
+      letter-spacing: spx(2.75);
+      @include tablet-up {
+        font-size: ppx(60 * 1.2);
+        line-height: 160%; /* 96px */
+        letter-spacing: ppx(3 * 1.2);
+        text-align: left;
+      }
+      @include desktop-up {
+        font-size: ppx(60);
+        letter-spacing: ppx(3);
+      }
+    }
+
+    &__subtitle {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-size: spx(30);
+      font-weight: 400;
+      line-height: 100%; /* 30px */
+      letter-spacing: spx(1.5);
+      margin-top: spx(12);
+      @include tablet-up {
+        font-size: ppx(40 * 1.2);
+        line-height: 160%; /* 64px */
+        letter-spacing: ppx(2 * 1.2);
+        text-align: left;
+        margin-top: ppx(5 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        letter-spacing: ppx(2);
+        margin-top: ppx(5);
+      }
+    }
+
+    &__content {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__list {
+      display: flex;
+      flex-flow: column;
+      gap: spx(50);
+      @include tablet-up {
+        gap: ppx(86 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(86);
+      }
+    }
+
+    &__item {
+      width: spx(620);
+      margin-inline: auto;
+      position: relative;
+      @include tablet-up {
+        width: ppx(1560 * 1);
+        margin-inline: unset;
+      }
+      @include desktop-up {
+        width: ppx(1560);
+      }
+      &:after {
+        content: '';
+        display: block;
+        width: 1px;
+        height: spx(30);
+        position: absolute;
+        left: 50%;
+        bottom: calc((#{spx(30)} + #{spx(10)}) * -1);
+        background: linear-gradient(
+          to bottom,
+          var(--blue_4, #59a1c0) 25%,
+          transparent 25%,
+          transparent 75%,
+          var(--blue_4, #59a1c0) 75%
+        );
+        background-size: 1px 4px;
+        transform: translateX(-50%);
+        @include tablet-up {
+          height: ppx(52 * 1.2);
+          bottom: calc((#{ppx(52 * 1.2)} + #{ppx(17 * 1.2)}) * -1);
+        }
+        @include desktop-up {
+          height: ppx(52);
+          bottom: calc((#{ppx(52)} + #{ppx(17)}) * -1);
+        }
+      }
+      &:last-child:after {
+        display: none;
+      }
+    }
+
+    &__step {
+      display: flex;
+      padding: spx(30) spx(35);
+      flex-direction: column;
+      gap: spx(5);
+      border-radius: spx(20);
+      background: var(--white, #fff);
+      @include tablet-up {
+        padding: ppx(40 * 1.2) ppx(60 * 1.2);
+        align-items: flex-start;
+        gap: ppx(8 * 1.2);
+        align-self: stretch;
+        border-radius: ppx(20 * 1.2);
+      }
+      @include desktop-up {
+        padding: ppx(40) ppx(60);
+        gap: ppx(8);
+        border-radius: ppx(20);
+      }
+    }
+
+    &__step-header {
+      display: grid;
+      grid-template-columns: spx(110) auto;
+      @include tablet-up {
+        grid-template-columns: ppx(145 * 1.2) auto;
+      }
+      @include desktop-up {
+        grid-template-columns: ppx(145) auto;
+      }
+    }
+
+    &__step-number {
+      color: var(--green_2, #adc400);
+      font-size: spx(30);
+      font-weight: 700;
+      line-height: 180%; /* 54px */
+
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+        line-height: 200%; /* 68px */
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+      }
+    }
+
+    &__step-title {
+      color: var(--blue_6, #054965);
+      font-size: spx(36);
+      font-weight: 400;
+      line-height: 150%; /* 54px */
+      @include tablet-up {
+        color: var(--blue_5, #026995);
+        font-size: ppx(44 * 1.2);
+        letter-spacing: ppx(2.2 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(44);
+        letter-spacing: ppx(2.2);
+      }
+    }
+
+    &__step-description {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%; /* 42px */
+      letter-spacing: spx(-1.2);
+      @include tablet-up {
+        color: var(--blue_5, #026995);
+        font-size: ppx(34 * 1.2);
+        line-height: 160%; /* 54.4px */
+        letter-spacing: ppx(1.7 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        letter-spacing: ppx(1.7);
+      }
+    }
+  }
+
+  /* RESERVATIONセクション */
+  .reservation {
+    display: flex;
+    flex-flow: column;
+    gap: spx(60);
+    padding-top: spx(100);
+    padding-bottom: spx(110);
+    @include tablet-up {
+      flex-flow: row;
+      gap: ppx(181 * 0.7);
+      padding-left: ppx(196 * 0.7);
+      padding-top: ppx(173 * 1.2);
+      padding-bottom: ppx(214 * 1.2);
+    }
+    @include desktop-up {
+      gap: ppx(181);
+      padding-left: ppx(196);
+      padding-top: ppx(173);
+      padding-bottom: ppx(214);
+    }
+
+    &__header {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__subtitle {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-size: spx(51);
+      font-weight: 400;
+      line-height: 120%; /* 61.2px */
+      letter-spacing: spx(2.55);
+      position: relative;
+      @include tablet-up {
+        text-align: left;
+        font-size: ppx(60 * 1.2);
+        line-height: 160%; /* 96px */
+        letter-spacing: ppx(3 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(60);
+        letter-spacing: ppx(3);
+      }
+      &:after {
+        content: '';
+        display: block;
+        width: spx(231);
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
+          /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
+          /* 透明開始 */ transparent 51.4%,
+          /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
+            51.4%,
+          /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
+        );
+        margin-top: spx(20);
+        margin-inline: auto;
+        @include tablet-up {
+          height: ppx(5) * 1.2;
+          width: ppx(231) * 1.2;
+          margin-inline: unset;
+          margin-top: 0;
+        }
+        @include desktop-up {
+          height: ppx(5);
+          width: ppx(231);
+        }
+      }
+    }
+
+    &__title {
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-size: spx(33);
+      font-weight: 400;
+      line-height: spx(34); /* 103.03% */
+      margin-top: spx(20);
+      @include tablet-up {
+        text-align: left;
+        color: var(--blue_5, #026995);
+        font-size: ppx(40 * 1.2);
+        line-height: 160%; /* 64px */
+        letter-spacing: ppx(2 * 1.2);
+        margin-top: ppx(11 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        letter-spacing: ppx(2);
+        margin-top: ppx(11);
+      }
+    }
+
+    &__contact {
+      @include tablet-up {
+        display: flex;
+        align-items: center;
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__method {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__method-label {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-size: spx(34);
+      font-weight: 700;
+      line-height: spx(34); /* 100% */
+      letter-spacing: spx(1.7);
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+        line-height: ppx(34 * 1.2); /* 100% */
+        letter-spacing: ppx(1.7 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        line-height: ppx(34); /* 100% */
+        letter-spacing: ppx(1.7);
+      }
+    }
+
+    &__method-value {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(60);
+      font-style: normal;
+      font-weight: 700;
+      line-height: spx(61); /* 101.667% */
+      letter-spacing: spx(9);
+      margin-top: spx(10);
+      margin-bottom: spx(10);
+      @include tablet-up {
+        font-size: ppx(66 * 1.2);
+        line-height: ppx(61 * 1.2); /* 92.424% */
+        letter-spacing: ppx(9.9 * 1.2);
+        margin-top: ppx(39 * 1.2);
+        margin-bottom: ppx(24 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(66);
+        line-height: ppx(61); /* 92.424% */
+        letter-spacing: ppx(9.9);
+        margin-top: ppx(39);
+        margin-bottom: ppx(24);
+      }
+    }
+
+    // E-mail用（divider後のmethod-value）
+    &__method:last-child &__method-value {
+      font-size: spx(38);
+      line-height: spx(61); /* 160.526% */
+      letter-spacing: 0;
+      margin-top: spx(10);
+      margin-bottom: spx(10);
+      @include tablet-up {
+        font-size: ppx(50 * 1.2);
+        line-height: ppx(50 * 1.2); /* 100% */
+        margin-top: ppx(43 * 1.2);
+        margin-bottom: ppx(31 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(50);
+        line-height: ppx(50); /* 100% */
+        margin-top: ppx(43);
+        margin-bottom: ppx(31);
+      }
+    }
+
+    &__method-time {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-size: spx(28);
+      font-weight: 400;
+      line-height: spx(30); /* 107.143% */
+      @include tablet-up {
+        font-size: ppx(30 * 1.2);
+        line-height: ppx(30 * 1.2); /* 100% */
+        letter-spacing: ppx(1.5 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(30);
+        line-height: ppx(30); /* 100% */
+        letter-spacing: ppx(1.5);
+      }
+    }
+
+    &__divider {
+      display: block;
+      width: spx(460);
+      height: 1px;
+      background: #59a1c0;
+      margin-inline: auto;
+      margin-top: spx(70);
+      margin-bottom: spx(60);
+      @include tablet-up {
+        width: 1px;
+        height: ppx(150 * 1.2);
+        margin-inline: unset;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: ppx(141 * 0.7);
+        margin-right: ppx(100 * 0.7);
+      }
+      @include desktop-up {
+        height: ppx(150);
+        margin-left: ppx(141);
+        margin-right: ppx(100);
+      }
+    }
+  }
+
+  /* 人気のアクティビティセクション */
+  .popular-activities {
+    background: var(--blue_2, #e7f3f9);
+    padding-top: spx(100);
+    @include tablet-up {
+      padding-top: ppx(242 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(242);
+    }
+
+    &__header {
+      margin-bottom: spx(60);
+      @include tablet-up {
+        margin-bottom: ppx(125 * 1.2);
+      }
+      @include desktop-up {
+        margin-bottom: ppx(125);
+      }
+    }
+
+    &__title {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-size: spx(30);
+      font-weight: 400;
+      line-height: 100%; /* 30px */
+      letter-spacing: spx(1.5);
+      @include tablet-up {
+        font-size: ppx(40 * 1.2);
+        line-height: 160%; /* 64px */
+        letter-spacing: ppx(2 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        letter-spacing: ppx(2);
+      }
+    }
+
+    $card-width-spx: 460;
+    $card-width-tpx: 500 * 1.2;
+    $card-width-ppx: 500;
+
+    &__slider {
+      width: 100%;
+      @include tablet-up {
+        width: ppx(1720 * 1.2);
+        overflow-x: hidden;
+        margin-inline: auto;
+      }
+      @include desktop-up {
+        width: ppx(1720);
+      }
+      .swiper-slide {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__card {
+      position: relative;
+      width: spx($card-width-spx);
+      transition: all 0.3s ease;
+      @include tablet-up {
+        width: ppx($card-width-tpx);
+      }
+      @include desktop-up {
+        width: ppx($card-width-ppx);
+      }
+    }
+
+    &__card-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+
+      @include hover {
+        &:hover {
+          .popular-activities__card-image::after {
+            opacity: 1;
+          }
+          .popular-activities__card-title {
+            background: var(--green_2, #adc400);
+          }
+          .popular-activities__activity-name {
+            color: white;
+          }
+          .popular-activities__arrow-icon path {
+            stroke: white;
+          }
+        }
+      }
+    }
+
+    &__card-image {
+      position: relative;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: spx(20);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        @include tablet-up {
+          border-radius: ppx(20 * 1.2);
+        }
+        @include desktop-up {
+          border-radius: ppx(20);
+        }
+      }
+    }
+
+    &__picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__img {
+      display: block;
+      width: spx($card-width-spx);
+      height: spx(460.8);
+      flex-shrink: 0;
+      aspect-ratio: 1/1;
+      border-radius: spx(20);
+      @include tablet-up {
+        width: ppx($card-width-tpx);
+        height: ppx(500 * 1.2);
+        border-radius: ppx(20 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx($card-width-ppx);
+        height: ppx(500);
+        border-radius: ppx(20);
+      }
+    }
+
+    &__card-title {
+      width: spx(358.4);
+      height: spx(60.8);
+      flex-shrink: 0;
+      border-radius: spx(120);
+      background: rgba($color: #fff, $alpha: 0.9);
+      display: grid;
+      place-items: center;
+      position: absolute;
+      bottom: spx(28);
+      left: 50%;
+      transform: translateX(-50%);
+      transition: background 0.3s ease;
+      @include tablet-up {
+        width: ppx(390 * 1.2);
+        height: ppx(66 * 1.2);
+        border-radius: ppx(130 * 1.2);
+        bottom: ppx(30 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(390);
+        height: ppx(66);
+        border-radius: ppx(130);
+        bottom: ppx(30);
+      }
+    }
+
+    &__activity-name {
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-size: spx(28.8);
+      font-weight: 400;
+      line-height: spx(28.8); /* 100% */
+      letter-spacing: spx(-1.44);
+      transition: color 0.3s ease;
+      @include tablet-up {
+        font-size: ppx(32 * 1.2);
+        line-height: ppx(32 * 1.2); /* 100% */
+        letter-spacing: ppx(-1.6 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(32);
+        line-height: ppx(32); /* 100% */
+        letter-spacing: ppx(-1.6);
+      }
+    }
+
+    &__arrow-icon {
+      display: block;
+      width: spx(7.36);
+      position: absolute;
+      top: 50%;
+      right: spx(21);
+      transform: translateY(-50%);
+      @include tablet-up {
+        width: ppx(8 * 1.2);
+        right: ppx(24 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(8);
+        right: ppx(24);
+      }
+
+      path {
+        transition: stroke 0.3s ease;
+      }
+    }
+
+    &__card-info {
+      display: flex;
+      flex-flow: column;
+      gap: spx(21.6);
+      margin-top: spx(12);
+      width: spx($card-width-spx);
+      @include tablet-up {
+        gap: ppx(25 * 1.2);
+        margin-top: ppx(20 * 1.2);
+        width: ppx($card-width-tpx);
+      }
+      @include desktop-up {
+        gap: ppx(25);
+        margin-top: ppx(20);
+        width: ppx($card-width-ppx);
+      }
+    }
+
+    &__pricing {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__badges {
+      display: flex;
+      gap: spx(6.4);
+      @include tablet-up {
+        gap: ppx(5 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(5);
+      }
+    }
+
+    &__badge-group {
+      width: spx(80);
+      height: spx(80);
+      flex-shrink: 0;
+      aspect-ratio: 1/1;
+      border-radius: spx(11.04);
+      background: var(--blue_5, #026995);
+      display: grid;
+      place-items: center;
+      @include tablet-up {
+        width: ppx(88 * 1.2);
+        height: ppx(88 * 1.2);
+        border-radius: ppx(12 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(88);
+        height: ppx(88);
+        border-radius: ppx(12);
+      }
+    }
+
+    &__badge {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(21.6);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%; /* 28.08px */
+      letter-spacing: spx(2.16);
+      @include tablet-up {
+        font-size: ppx(24 * 1.2);
+        line-height: 130%; /* 31.2px */
+        letter-spacing: ppx(2.4 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(24);
+        line-height: 130%; /* 31.2px */
+        letter-spacing: ppx(2.4);
+      }
+
+      &--reservation {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &--group {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__price {
+      color: var(--blue_5, #026995);
+      text-align: right;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(36.8);
+      font-style: normal;
+      font-weight: 700;
+      line-height: 130%; /* 47.84px */
+      @include tablet-up {
+        font-size: ppx(40 * 1.2);
+        line-height: 130%; /* 52px */
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        line-height: 130%; /* 52px */
+      }
+    }
+
+    &__details {
+      display: flex;
+      flex-flow: column;
+      gap: spx(9.6);
+      @include tablet-up {
+        gap: ppx(12 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(12);
+      }
+    }
+
+    &__detail-item {
+      display: grid;
+      grid-template-columns: 21vw auto;
+      position: relative;
+      padding-bottom: spx(9.6);
+      padding-inline: spx(16);
+      @include tablet-up {
+        grid-template-columns: 6.4vw * 1.2 auto;
+        padding-bottom: ppx(10 * 1.2);
+        padding-inline: ppx(18 * 1.2);
+      }
+      @include desktop-up {
+        grid-template-columns: 6.4vw auto;
+        padding-bottom: ppx(10);
+        padding-inline: ppx(18);
+      }
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+            to right,
+            #026995,
+            #026995 25%,
+            rgba(0, 0, 0, 0) 25%,
+            rgba(0, 0, 0, 0) 100%
+          )
+          0% 0%;
+        background-size: 4px 1px;
+      }
+    }
+
+    &__detail-term {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(24.8);
+      font-style: normal;
+      font-weight: 700;
+      line-height: 135%; /* 33.48px */
+      letter-spacing: spx(4.96);
+      @include tablet-up {
+        font-size: ppx(27 * 1.2);
+        line-height: 150%; /* 40.5px */
+        letter-spacing: ppx(5.4 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+        line-height: 150%; /* 40.5px */
+        letter-spacing: ppx(5.4);
+      }
+    }
+
+    &__detail-desc {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(24.8);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%; /* 32.24px */
+      letter-spacing: spx(4.96);
+      @include tablet-up {
+        font-size: ppx(27 * 1.2);
+        line-height: 150%;
+        letter-spacing: ppx(5.4 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+        line-height: 150%;
+        letter-spacing: ppx(5.4);
+      }
+    }
+
+    &__pagination {
+      position: relative;
+      margin-top: spx(70);
+      text-align: center;
+      @include tablet-up {
+        margin-top: ppx(143 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(143);
+      }
       // ページネーションドット（通常状態）
       :global(.swiper-pagination-bullet) {
         width: spx(20);
@@ -935,12 +2440,10 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
           margin: 0 ppx(12);
         }
       }
-
       // ページネーションドット（アクティブ状態）
       :global(.swiper-pagination-bullet-active) {
         background-color: var(--blue_5, #026995);
       }
-
       // クリック可能な状態
       &:global(.swiper-pagination-clickable) {
         :global(.swiper-pagination-bullet) {
@@ -953,263 +2456,88 @@ const pageTitle = `${activity.title} | クワルビリゾート`;
       }
     }
 
-    /* POINTセクション */
-    .point {
-      background: var(--blue_2, #e7f3f9);
+    &__more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: spx(70);
+      border-radius: spx(15);
+      background: var(--blue_5, #026995);
+      width: spx(258);
       position: relative;
-      padding-top: spx(370);
-      padding-bottom: spx(80);
+      margin-inline: auto;
+      margin-top: spx(60);
+      transition: background 0.3s ease;
+      text-decoration: none;
+      color: inherit;
       @include tablet-up {
-        background: white;
-        padding-top: ppx(426 * 1.2);
-        padding-bottom: 0;
+        width: ppx(250 * 1.2);
+        height: ppx(70 * 1.2);
+        flex-shrink: 0;
+        border-radius: ppx(20 * 1.2);
+        margin-top: ppx(70 * 1.2);
       }
       @include desktop-up {
-        padding-top: ppx(426);
+        width: ppx(250);
+        height: ppx(70);
+        flex-shrink: 0;
+        border-radius: ppx(20);
+        margin-top: ppx(70);
       }
 
-      &__figure {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__picture {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__image {
-        display: block;
-        position: absolute;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: spx(520);
-        object-fit: cover;
-        object-position: center top;
-        @include tablet-up {
-          height: ppx(1088 * 1.2);
-        }
-        @include desktop-up {
-          height: ppx(1088);
-        }
-      }
-
-      &__content {
-        position: relative;
-        z-index: 2;
-        width: spx(660);
-        border-radius: spx(20);
-        background: rgba(255, 255, 255, 0.95);
-        padding-top: spx(60);
-        padding-bottom: spx(60);
-        padding-inline: spx(65);
-        margin-inline: auto;
-        @include tablet-up {
-          width: ppx(960 * 1.2);
-          border-radius: ppx(30 * 1.2);
-          padding-top: ppx(100 * 1.2);
-          padding-bottom: ppx(74 * 1.2);
-          padding-inline: ppx(110 * 1.2);
-          margin-left: auto;
-          margin-right: ppx(140 * 1.2);
-        }
-        @include desktop-up {
-          width: ppx(960);
-          border-radius: ppx(30);
-          padding-top: ppx(100);
-          padding-bottom: ppx(74);
-          padding-inline: ppx(110);
-          margin-right: ppx(140);
-        }
-      }
-
-      &__header {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__header-wrapper {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-        &:after {
-          content: '';
-          display: block;
-          width: spx(231);
-          height: spx(5);
-          background: linear-gradient(
-            to right,
-            var(--green_2, #adc400) 0%,
-            /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
-            /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
-            /* 透明開始 */ transparent 51.4%,
-            /* 透明終了 (48.6% + 5/179*100% ≈ 51.4%) */ var(--blue_4, #59a1c0)
-              51.4%,
-            /* 青色開始 */ var(--blue_4, #59a1c0) 100% /* 右端まで青 */
-          );
-          margin-top: spx(30);
-          @include tablet-up {
-            height: ppx(5) * 1.2;
-            width: ppx(231) * 1.2;
-            margin-top: ppx(34 * 1.2);
-          }
-          @include desktop-up {
-            height: ppx(5);
-            width: ppx(231);
-            margin-top: ppx(34);
-          }
-        }
-      }
-
-      &__label {
-        color: var(--blue_6, #054965);
-        font-size: spx(30);
-        font-weight: 400;
-        line-height: 150%; /* 45px */
-        @include tablet-up {
-          color: var(--blue_5, #026995);
-          font-size: ppx(32 * 1.2);
-          line-height: ppx(32 * 1.2); /* 100% */
-        }
-        @include desktop-up {
-          font-size: ppx(32);
-          line-height: ppx(32); /* 100% */
-        }
-      }
-
-      &__title-group {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__title {
-        color: var(--blue_6, #054965);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(44);
-        font-style: normal;
-        font-weight: 400;
-        line-height: 140%; /* 61.6px */
-        margin-top: spx(10);
-        @include tablet-up {
-          color: var(--blue_5, #026995);
-          font-size: ppx(60 * 1.2);
-          margin-top: ppx(14 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(60);
-          margin-top: ppx(14);
-        }
-      }
-
-      &__title-line {
-        display: block;
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__description {
-        color: var(--blue_6, #054965);
-        font-size: spx(30);
-        font-weight: 400;
-        line-height: 150%; /* 45px */
-        margin-top: spx(30);
-        @include tablet-up {
-          color: var(--blue_5, #026995);
-          font-size: ppx(32 * 1.2);
-          line-height: 180%; /* 57.6px */
-          letter-spacing: ppx(1.6 * 1.2);
-          margin-top: ppx(51 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(32);
-          letter-spacing: ppx(1.6);
-          margin-top: ppx(51);
+      @include hover {
+        &:hover {
+          background: var(--green_2, #adc400);
         }
       }
     }
 
-    /* ABOUTセクション */
-    .about {
+    &__more-text {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(31);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%; /* 31px */
+      letter-spacing: spx(1.55);
       @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: ppx(33 * 1.2); /* 100% */
+        letter-spacing: ppx(1.65 * 1.2);
       }
       @include desktop-up {
-      }
-
-      &__header {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__title {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__subtitle {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__content {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__list {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__item {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__term {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__description {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      &__note {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
+        font-size: ppx(33);
+        line-height: ppx(33); /* 100% */
+        letter-spacing: ppx(1.65);
       }
     }
-  </style>
-</html>
+
+    &__more-icon {
+      display: block;
+      width: spx(18);
+      position: absolute;
+      top: 50%;
+      right: spx(20);
+      transform: translateY(-50%);
+      @include tablet-up {
+        width: ppx(12 * 1.2);
+        right: ppx(20 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(12);
+        right: ppx(20);
+      }
+    }
+  }
+  .breadcrumb-wrapper {
+    background: var(--blue_2, #e7f3f9);
+    padding: spx(120) 0 spx(40);
+    @include tablet-up {
+      padding: ppx(200 * 1.2) 0 ppx(70 * 1.2);
+    }
+    @include desktop-up {
+      padding: ppx(200) 0 ppx(70);
+    }
+  }
+</style>
