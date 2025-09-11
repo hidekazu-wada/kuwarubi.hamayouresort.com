@@ -12,15 +12,10 @@ export interface Props {
   weatherOptions: FilterOption[];
 }
 
-const {
-  priceOptions,
-  durationOptions,
-  weatherOptions,
-} = Astro.props;
+const { priceOptions, durationOptions, weatherOptions } = Astro.props;
 ---
 
 <nav class="activity-filters" aria-label="アクティビティフィルター">
-
   <!-- 料金 -->
   <div class="activity-filters__wrapper">
     <select class="activity-filters__select" name="price">
@@ -101,7 +96,6 @@ const {
         stroke-linejoin="round"></path>
     </svg>
   </div>
-
 </nav>
 
 <style lang="scss">
@@ -126,6 +120,7 @@ const {
 
     &__wrapper {
       position: relative;
+
       @include tablet-up {
       }
       @include desktop-up {
@@ -152,6 +147,10 @@ const {
       -webkit-appearance: none;
       -moz-appearance: none;
       background: transparent;
+      transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
       @include tablet-up {
         width: ppx(225 * 1.2);
         height: ppx(70 * 1.2);
@@ -181,7 +180,17 @@ const {
       }
 
       @include hover {
-        border-color: var(--blue_4, #59a1c0);
+        &:hover {
+          background-color: var(--green_2, #adc400);
+          color: white;
+          border-color: var(--green_2, #adc400);
+          
+          + .activity-filters__icon {
+            path {
+              stroke: white;
+            }
+          }
+        }
       }
     }
 
@@ -190,11 +199,12 @@ const {
       height: spx(20);
       flex-shrink: 0;
       stroke-width: spx(2);
-      stroke: var(--blue_6, #054965);
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       right: spx(20);
+      transition: stroke 0.3s ease;
+      pointer-events: none;
       @include tablet-up {
         width: ppx(10 * 1.2);
         height: ppx(20 * 1.2);
@@ -206,6 +216,11 @@ const {
         height: ppx(20);
         stroke-width: ppx(2);
         right: ppx(20);
+      }
+
+      path {
+        stroke: var(--blue_6, #054965);
+        transition: stroke 0.3s ease;
       }
     }
   }
