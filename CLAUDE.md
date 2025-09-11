@@ -1923,50 +1923,33 @@ function updateFilterOptions() {
   const availableActivities = getFilteredActivities(currentFilters);
   
   // 各フィルタのオプションを利用可能なデータに基づき更新
-  updateTargetAgeOptions(availableActivities);
-  updateSeasonOptions(availableActivities);
-  updateCapacityOptions(availableActivities);
-  // 他のフィルタも同様に更新
+  updatePriceOptions(availableActivities);
+  updateDurationOptions(availableActivities);
+  updateWeatherOptions(availableActivities);
 }
 ```
 
 #### 2. 範囲マッチング機能
-数値範囲を持つフィルタ（年齢・人数・料金・時間）で重複判定を実装：
+数値範囲を持つフィルタ（料金・時間）で重複判定を実装：
+
+**注**: 以前は年齢・人数フィルタもありましたが、シンプル化のため削除されました。
 
 ```javascript
 function hasOverlap(range1, range2) {
   return range1.max >= range2.min && range2.max >= range1.min;
 }
 
-// 実際の使用例：対象年齢フィルタ
-function matchesTargetAge(activity, selectedAge) {
-  const activityAge = { min: activity.targetAge.min, max: activity.targetAge.max || 100 };
-  const filterAge = getAgeRange(selectedAge); // '中学生以上' → {min: 13, max: 100}
-  return hasOverlap(activityAge, filterAge);
+// 実際の使用例：料金フィルタ
+function matchesPrice(activity, selectedPrice) {
+  const activityPrice = { min: activity.price.adult, max: activity.price.adult };
+  const filterPrice = getPriceRange(selectedPrice); // '1000円から3000円' → {min: 1000, max: 3000}
+  return hasOverlap(activityPrice, filterPrice);
 }
 ```
 
 #### 3. 統一されたフィルタ項目
 
-全てのアクティビティデータは以下の統一されたカテゴリを使用：
-
-**対象年齢:**
-- `'未就学児以上'` (3歳〜)
-- `'小学生以上'` (6歳〜) 
-- `'中学生以上'` (13歳〜)
-- `'高校生以上'` (16歳〜)
-- `'大人以上'` (20歳〜)
-
-**実施時期:**
-- `'春'` (3-5月)
-- `'夏'` (6-8月)
-- `'秋'` (9-11月)
-- `'通年'` (年間実施)
-
-**人数:**
-- `'10名未満'` (1-9名)
-- `'10名以上'` (10-19名)
-- `'20名以上'` (20名〜)
+現在実装されている3つのフィルタカテゴリ：
 
 **料金:**
 - `'500円から1000円'`
@@ -1984,9 +1967,11 @@ function matchesTargetAge(activity, selectedAge) {
 - `'雨'` (雨天でも実施)
 - `'全天候'` (天候不問)
 
-**ご予約:**
-- `'事前予約'` (要事前予約)
-- `'当日予約'` (当日受付可)
+**削除されたフィルタ項目（参考）:**
+- 対象年齢: `'未就学児以上'`, `'小学生以上'`, `'中学生以上'`, `'高校生以上'`, `'大人以上'`
+- 実施時期: `'春'`, `'夏'`, `'秋'`, `'通年'`
+- 人数: `'10名未満'`, `'10名以上'`, `'20名以上'`
+- ご予約: `'事前予約'`, `'当日予約'`
 
 ### フィルタ項目の編集・追加・削除方法
 
@@ -2332,21 +2317,23 @@ const debouncedSearch = debounce(performSearch, 300);
 
 このシステムを基盤として、将来的にはより高度な検索機能やレコメンデーション機能の追加も可能です。
 
-## 8つ目以降のフィルタ項目追加手順（詳細ガイド）
+## 4つ目以降のフィルタ項目追加手順（詳細ガイド）
 
 ### 現在のフィルタ項目数
-現在実装済み：**7つのフィルタ項目**
-1. 対象年齢
-2. 実施時期  
-3. 人数
-4. 料金
-5. 所要時間
-6. 天気
-7. ご予約
+現在実装済み：**3つのフィルタ項目**
+1. 料金
+2. 所要時間
+3. 天気
 
-### 8つ目以降を追加する完全な手順
+**削除されたフィルタ項目（2024年実装時は7つでしたが、シンプル化のため削除）:**
+- 対象年齢
+- 実施時期  
+- 人数
+- ご予約
 
-#### 例：「難易度」フィルタを8つ目として追加する場合
+### 4つ目以降を追加する完全な手順
+
+#### 例：「難易度」フィルタを4つ目として追加する場合
 
 #### ステップ1: データ構造の拡張（activities.ts）
 
@@ -2380,7 +2367,7 @@ export const activities: Activity[] = [
       { term: '料金', description: '3000円から5000円' },
       { term: '実施可能天気', description: '晴れ' },
       { term: 'ご予約', description: '事前予約' },
-      { term: '難易度', description: '初級' }, // ← 8つ目として追加
+      { term: '難易度', description: '初級' }, // ← 4つ目として追加
       { term: '持ち物', description: '水着・タオル' },
     ],
   },
@@ -2472,7 +2459,7 @@ export interface Props {
   durationOptions: FilterOption[];
   weatherOptions: FilterOption[];
   bookingOptions: FilterOption[];
-  difficultyOptions: FilterOption[]; // ← 8つ目として追加
+  difficultyOptions: FilterOption[]; // ← 4つ目として追加
 }
 
 const { 
@@ -2490,9 +2477,9 @@ const {
 
 **3-2. HTML要素の追加**
 ```astro
-<!-- 既存の7つのフィルタ要素の後に追加 -->
+<!-- 既存の3つのフィルタ要素の後に追加 -->
 
-<!-- 難易度（8つ目） -->
+<!-- 難易度（4つ目） -->
 <div class="activity-filters__wrapper">
   <select class="activity-filters__select" name="difficulty">
     <option value="">難易度</option>
@@ -2547,7 +2534,7 @@ function getFilteredActivities(filters) {
 document.addEventListener('change', function(e) {
   // 既存のフィルタ処理...
   
-  // 8つ目のフィルタ追加
+  // 4つ目のフィルタ追加
   if (e.target.name === 'difficulty') {
     currentFilters.difficulty = e.target.value;
     updateFilteredResults();
@@ -2556,7 +2543,7 @@ document.addEventListener('change', function(e) {
 </script>
 ```
 
-### 9つ目以降のフィルタ追加手順
+### 5つ目以降のフィルタ追加手順
 
 #### 手順テンプレート
 
@@ -2622,7 +2609,7 @@ document.addEventListener('change', function(e) {
    }
    ```
 
-### 具体的な追加例（10つ目: 「エリア」フィルタ）
+### 具体的な追加例（4つ目: 「エリア」フィルタ）
 
 #### 実装サンプル
 
@@ -2648,7 +2635,7 @@ const areaOptions: FilterOption[] = areaOrder
 
 **3. UI追加:**
 ```astro
-<!-- エリア（10つ目） -->
+<!-- エリア（4つ目） -->
 <div class="activity-filters__wrapper">
   <select class="activity-filters__select" name="area">
     <option value="">エリア</option>
@@ -2668,7 +2655,7 @@ const areaOptions: FilterOption[] = areaOrder
 - **型安全性**：TypeScript型定義で警告を確認
 
 #### 2. UI/UXの考慮
-- **フィルタ数の上限**：10個を超えるとUIが複雑になるため注意
+- **フィルタ数の上限**：7個を超えるとUIが複雑になるため注意（現在は3個で最適化済み）
 - **レスポンシブ対応**：スマホでの表示を確認
 - **並び順**：重要度の高いフィルタを上位に配置
 

@@ -886,6 +886,45 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
 
           // 初期化時に利用可能な選択肢のみを表示
           updateFilterOptions();
+
+          // ============= リセット機能 =============
+          
+          // リセットボタンの取得
+          const resetButton = document.querySelector('.filter-section__reset') as HTMLElement | null;
+          
+          // リセット機能の実装
+          function resetFilters() {
+            // 全てのフィルタ選択肢をリセット
+            Object.values(filterSelects).forEach((select) => {
+              if (select) {
+                select.value = '';
+              }
+            });
+            
+            // 全てのアクティビティカードを表示
+            activityCards.forEach((card) => {
+              (card as HTMLElement).style.display = 'block';
+            });
+            
+            // 該当なしメッセージを非表示
+            if (noResultsMessage) {
+              noResultsMessage.style.display = 'none';
+            }
+            
+            // フィルタオプションを初期状態に戻す
+            updateFilterOptions();
+            
+            // ページの最上部にスムーズスクロール
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+          }
+          
+          // リセットボタンにイベントリスナーを追加
+          if (resetButton) {
+            resetButton.addEventListener('click', resetFilters);
+          }
         }
       });
     </script>
