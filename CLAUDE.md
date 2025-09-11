@@ -720,15 +720,19 @@ document.addEventListener('DOMContentLoaded', initParallax);
 - コンポーネント間の適切な責務分離
 - パフォーマンス最適化（WebP画像、レスポンシブ対応）
 
-### 🚀 フェーズ2: 下層ページ開発 [次期開始予定]
+### 🚀 フェーズ2: 下層ページ開発 [部分完了]
 
 **目標**: サイト全体のページ構造完成
 
-**予定作業内容**:
-- 各下層ページのテンプレート作成
+**完了した作業**:
+- ✅ アクティビティ一覧ページの実装
+- ✅ アクティビティ詳細ページの動的ルーティング実装
+- ✅ 高度なフィルタリングシステムの構築
+- ✅ パンくずナビゲーション実装
+
+**残りの予定作業**:
+- 他の下層ページのテンプレート作成
 - 共通レイアウトの抽出・リファクタリング
-- ページ間遷移とルーティングの実装
-- パンくずナビゲーション
 - サイトマップ構築
 
 ### 🔄 フェーズ3: CMS統合・動的コンテンツ [将来実装]
@@ -768,6 +772,8 @@ document.addEventListener('DOMContentLoaded', initParallax);
 ✅ **セマンティックHTML**: 適切なHTML要素・構造でアクセシビリティ対応完了
 ✅ **TypeScript型定義**: カスタム型定義でSwiper・Astroコンポーネント警告解消完了
 ✅ **アクティビティページ基盤**: 一覧・詳細ページの動的ルーティングと静的データ管理システム完了
+✅ **アクティビティ一覧ページ**: 3つのフィルタ（料金・所要時間・天気）による高度なフィルタリングシステム完了
+✅ **フィルタリング機能**: コネクテッドフィルタリング（連動絞り込み）・範囲マッチング・リセット機能完了
 
 ### 現在のコンポーネント構成
 
@@ -775,7 +781,7 @@ document.addEventListener('DOMContentLoaded', initParallax);
 - **index.astro**: TOPページ（JavaScript中央管理、レイアウト定義、全セクション統合）
 
 **下層ページ:**
-- **activities/index.astro**: アクティビティ一覧ページ（フィルタリング・ソート対応予定）
+- **activities/index.astro**: アクティビティ一覧ページ（フィルタリング・リセット機能実装完了）
 - **activities/[slug].astro**: アクティビティ詳細ページ（動的ルーティング対応）
 
 **レイアウト・ナビゲーション:**
@@ -801,6 +807,9 @@ document.addEventListener('DOMContentLoaded', initParallax);
 - **MoreButton.astro**: 再利用可能Moreボタン（Props対応、カスタマイズ可能）
 - **SectionWave.astro**: 再利用可能Waveコンポーネント（色カスタマイズ対応）
 - **Breadcrumb.astro**: 再利用可能パンくずナビゲーション（2-4+レベル対応）
+
+**アクティビティページ専用コンポーネント:**
+- **ActivityFilters.astro**: 3つのフィルタ（料金・所要時間・天気）による絞り込み機能
 
 **データ管理:**
 - **activities.ts**: アクティビティの静的データと型定義（将来的にCMS統合予定）
@@ -1896,9 +1905,9 @@ const featuredActivities = activities
 - 型定義による開発体験向上
 
 ### 今後の実装予定
-- **一覧ページ**: フィルタリング・ソート機能
 - **詳細ページ**: 画像ギャラリー（Swiper）・予約システム連携
 - **TOPページ連携**: ActivitiesセクションからのリンクとMoreButton経由遷移
+- **ソート機能**: 価格順・人気順などの並び替え機能（将来実装）
 
 ### 設計の利点
 1. **型安全性**: TypeScript型定義でデータ整合性保証
@@ -1923,50 +1932,33 @@ function updateFilterOptions() {
   const availableActivities = getFilteredActivities(currentFilters);
   
   // 各フィルタのオプションを利用可能なデータに基づき更新
-  updateTargetAgeOptions(availableActivities);
-  updateSeasonOptions(availableActivities);
-  updateCapacityOptions(availableActivities);
-  // 他のフィルタも同様に更新
+  updatePriceOptions(availableActivities);
+  updateDurationOptions(availableActivities);
+  updateWeatherOptions(availableActivities);
 }
 ```
 
 #### 2. 範囲マッチング機能
-数値範囲を持つフィルタ（年齢・人数・料金・時間）で重複判定を実装：
+数値範囲を持つフィルタ（料金・時間）で重複判定を実装：
+
+**注**: 以前は年齢・人数フィルタもありましたが、シンプル化のため削除されました。
 
 ```javascript
 function hasOverlap(range1, range2) {
   return range1.max >= range2.min && range2.max >= range1.min;
 }
 
-// 実際の使用例：対象年齢フィルタ
-function matchesTargetAge(activity, selectedAge) {
-  const activityAge = { min: activity.targetAge.min, max: activity.targetAge.max || 100 };
-  const filterAge = getAgeRange(selectedAge); // '中学生以上' → {min: 13, max: 100}
-  return hasOverlap(activityAge, filterAge);
+// 実際の使用例：料金フィルタ
+function matchesPrice(activity, selectedPrice) {
+  const activityPrice = { min: activity.price.adult, max: activity.price.adult };
+  const filterPrice = getPriceRange(selectedPrice); // '1000円から3000円' → {min: 1000, max: 3000}
+  return hasOverlap(activityPrice, filterPrice);
 }
 ```
 
 #### 3. 統一されたフィルタ項目
 
-全てのアクティビティデータは以下の統一されたカテゴリを使用：
-
-**対象年齢:**
-- `'未就学児以上'` (3歳〜)
-- `'小学生以上'` (6歳〜) 
-- `'中学生以上'` (13歳〜)
-- `'高校生以上'` (16歳〜)
-- `'大人以上'` (20歳〜)
-
-**実施時期:**
-- `'春'` (3-5月)
-- `'夏'` (6-8月)
-- `'秋'` (9-11月)
-- `'通年'` (年間実施)
-
-**人数:**
-- `'10名未満'` (1-9名)
-- `'10名以上'` (10-19名)
-- `'20名以上'` (20名〜)
+現在実装されている3つのフィルタカテゴリ：
 
 **料金:**
 - `'500円から1000円'`
@@ -1984,9 +1976,11 @@ function matchesTargetAge(activity, selectedAge) {
 - `'雨'` (雨天でも実施)
 - `'全天候'` (天候不問)
 
-**ご予約:**
-- `'事前予約'` (要事前予約)
-- `'当日予約'` (当日受付可)
+**削除されたフィルタ項目（参考）:**
+- 対象年齢: `'未就学児以上'`, `'小学生以上'`, `'中学生以上'`, `'高校生以上'`, `'大人以上'`
+- 実施時期: `'春'`, `'夏'`, `'秋'`, `'通年'`
+- 人数: `'10名未満'`, `'10名以上'`, `'20名以上'`
+- ご予約: `'事前予約'`, `'当日予約'`
 
 ### フィルタ項目の編集・追加・削除方法
 
@@ -2332,21 +2326,79 @@ const debouncedSearch = debounce(performSearch, 300);
 
 このシステムを基盤として、将来的にはより高度な検索機能やレコメンデーション機能の追加も可能です。
 
-## 8つ目以降のフィルタ項目追加手順（詳細ガイド）
+## アクティビティ一覧ページのリセット機能
+
+### 概要
+
+アクティビティ一覧ページには、**ワンクリックで全てのフィルタ条件をリセットする機能**が実装されています。
+
+### 実装内容
+
+#### 1. リセット機能の動作
+```javascript
+function resetFilters() {
+  // 1. 全てのフィルタ選択肢をリセット
+  Object.values(filterSelects).forEach((select) => {
+    if (select) select.value = '';
+  });
+  
+  // 2. 全てのアクティビティカードを表示
+  activityCards.forEach((card) => {
+    (card as HTMLElement).style.display = 'block';
+  });
+  
+  // 3. 該当なしメッセージを非表示
+  if (noResultsMessage) {
+    noResultsMessage.style.display = 'none';
+  }
+  
+  // 4. フィルタオプションを初期状態に戻す
+  updateFilterOptions();
+  
+  // 5. ページの最上部にスムーズスクロール
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+```
+
+#### 2. 機能の特徴
+- **完全リセット**: 3つのフィルタ（料金・所要時間・天気）を全て空の状態に戻す
+- **表示復元**: フィルタリングで非表示になったアクティビティカードを全て表示
+- **連動リセット**: コネクテッドフィルタリングシステムも初期状態に戻す
+- **スムーズスクロール**: リセット後に自動的にページ最上部へスクロール
+- **UX最適化**: ユーザーがフィルタ試行後に簡単に初期状態に戻れる
+
+#### 3. 技術的実装
+- **要素取得**: `.filter-section__reset`クラスのボタンを対象
+- **イベントハンドリング**: クリックイベントでresetFilters()関数を実行
+- **型安全性**: TypeScriptに対応したnullチェック実装
+- **パフォーマンス**: DOM操作の最小化による高速処理
+
+### 使用方法
+1. フィルタを選択してアクティビティを絞り込む
+2. 「リセットする」ボタンをクリック
+3. 全てのフィルタがクリアされ、全アクティビティが表示される
+4. 自動的にページ最上部にスクロール
+
+## 4つ目以降のフィルタ項目追加手順（詳細ガイド）
 
 ### 現在のフィルタ項目数
-現在実装済み：**7つのフィルタ項目**
-1. 対象年齢
-2. 実施時期  
-3. 人数
-4. 料金
-5. 所要時間
-6. 天気
-7. ご予約
+現在実装済み：**3つのフィルタ項目**
+1. 料金
+2. 所要時間
+3. 天気
 
-### 8つ目以降を追加する完全な手順
+**削除されたフィルタ項目（2024年実装時は7つでしたが、シンプル化のため削除）:**
+- 対象年齢
+- 実施時期  
+- 人数
+- ご予約
 
-#### 例：「難易度」フィルタを8つ目として追加する場合
+### 4つ目以降を追加する完全な手順
+
+#### 例：「難易度」フィルタを4つ目として追加する場合
 
 #### ステップ1: データ構造の拡張（activities.ts）
 
@@ -2380,7 +2432,7 @@ export const activities: Activity[] = [
       { term: '料金', description: '3000円から5000円' },
       { term: '実施可能天気', description: '晴れ' },
       { term: 'ご予約', description: '事前予約' },
-      { term: '難易度', description: '初級' }, // ← 8つ目として追加
+      { term: '難易度', description: '初級' }, // ← 4つ目として追加
       { term: '持ち物', description: '水着・タオル' },
     ],
   },
@@ -2472,7 +2524,7 @@ export interface Props {
   durationOptions: FilterOption[];
   weatherOptions: FilterOption[];
   bookingOptions: FilterOption[];
-  difficultyOptions: FilterOption[]; // ← 8つ目として追加
+  difficultyOptions: FilterOption[]; // ← 4つ目として追加
 }
 
 const { 
@@ -2490,9 +2542,9 @@ const {
 
 **3-2. HTML要素の追加**
 ```astro
-<!-- 既存の7つのフィルタ要素の後に追加 -->
+<!-- 既存の3つのフィルタ要素の後に追加 -->
 
-<!-- 難易度（8つ目） -->
+<!-- 難易度（4つ目） -->
 <div class="activity-filters__wrapper">
   <select class="activity-filters__select" name="difficulty">
     <option value="">難易度</option>
@@ -2547,7 +2599,7 @@ function getFilteredActivities(filters) {
 document.addEventListener('change', function(e) {
   // 既存のフィルタ処理...
   
-  // 8つ目のフィルタ追加
+  // 4つ目のフィルタ追加
   if (e.target.name === 'difficulty') {
     currentFilters.difficulty = e.target.value;
     updateFilteredResults();
@@ -2556,7 +2608,7 @@ document.addEventListener('change', function(e) {
 </script>
 ```
 
-### 9つ目以降のフィルタ追加手順
+### 5つ目以降のフィルタ追加手順
 
 #### 手順テンプレート
 
@@ -2622,7 +2674,7 @@ document.addEventListener('change', function(e) {
    }
    ```
 
-### 具体的な追加例（10つ目: 「エリア」フィルタ）
+### 具体的な追加例（4つ目: 「エリア」フィルタ）
 
 #### 実装サンプル
 
@@ -2648,7 +2700,7 @@ const areaOptions: FilterOption[] = areaOrder
 
 **3. UI追加:**
 ```astro
-<!-- エリア（10つ目） -->
+<!-- エリア（4つ目） -->
 <div class="activity-filters__wrapper">
   <select class="activity-filters__select" name="area">
     <option value="">エリア</option>
@@ -2668,7 +2720,7 @@ const areaOptions: FilterOption[] = areaOrder
 - **型安全性**：TypeScript型定義で警告を確認
 
 #### 2. UI/UXの考慮
-- **フィルタ数の上限**：10個を超えるとUIが複雑になるため注意
+- **フィルタ数の上限**：7個を超えるとUIが複雑になるため注意（現在は3個で最適化済み）
 - **レスポンシブ対応**：スマホでの表示を確認
 - **並び順**：重要度の高いフィルタを上位に配置
 

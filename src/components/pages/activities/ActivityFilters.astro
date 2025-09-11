@@ -7,112 +7,29 @@ export interface FilterOption {
 }
 
 export interface Props {
-  targetAgeOptions: FilterOption[];
-  seasonOptions: FilterOption[];
-  capacityOptions: FilterOption[];
   priceOptions: FilterOption[];
   durationOptions: FilterOption[];
   weatherOptions: FilterOption[];
-  bookingOptions: FilterOption[];
 }
 
-const { 
-  targetAgeOptions,
-  seasonOptions, 
-  capacityOptions,
+const {
   priceOptions,
   durationOptions,
   weatherOptions,
-  bookingOptions 
 } = Astro.props;
 ---
 
 <nav class="activity-filters" aria-label="アクティビティフィルター">
-  <!-- 対象年齢 -->
-  <div class="activity-filters__wrapper">
-    <select class="activity-filters__select" name="target-age">
-      <option value="">対象年齢</option>
-      {targetAgeOptions.map(option => (
-        <option value={option.value}>{option.label}</option>
-      ))}
-    </select>
-    <svg
-      class="activity-filters__icon"
-      xmlns="http://www.w3.org/2000/svg"
-      width="12"
-      height="22"
-      viewBox="0 0 12 22"
-      fill="none"
-    >
-      <path
-        d="M1 21L11 11L1 1"
-        stroke="#054965"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>
-    </svg>
-  </div>
-
-  <!-- 実施時期 -->
-  <div class="activity-filters__wrapper">
-    <select class="activity-filters__select" name="season">
-      <option value="">実施時期</option>
-      {seasonOptions.map(option => (
-        <option value={option.value}>{option.label}</option>
-      ))}
-    </select>
-    <svg
-      class="activity-filters__icon"
-      xmlns="http://www.w3.org/2000/svg"
-      width="12"
-      height="22"
-      viewBox="0 0 12 22"
-      fill="none"
-    >
-      <path
-        d="M1 21L11 11L1 1"
-        stroke="#054965"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>
-    </svg>
-  </div>
-
-  <!-- 人数 -->
-  <div class="activity-filters__wrapper">
-    <select class="activity-filters__select" name="capacity">
-      <option value="">人数</option>
-      {capacityOptions.map(option => (
-        <option value={option.value}>{option.label}</option>
-      ))}
-    </select>
-    <svg
-      class="activity-filters__icon"
-      xmlns="http://www.w3.org/2000/svg"
-      width="12"
-      height="22"
-      viewBox="0 0 12 22"
-      fill="none"
-    >
-      <path
-        d="M1 21L11 11L1 1"
-        stroke="#054965"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>
-    </svg>
-  </div>
 
   <!-- 料金 -->
   <div class="activity-filters__wrapper">
     <select class="activity-filters__select" name="price">
       <option value="">料金</option>
-      {priceOptions.map(option => (
-        <option value={option.value}>{option.label}</option>
-      ))}
+      {
+        priceOptions.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))
+      }
     </select>
     <svg
       class="activity-filters__icon"
@@ -127,8 +44,7 @@ const {
         stroke="#054965"
         stroke-width="2"
         stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>
+        stroke-linejoin="round"></path>
     </svg>
   </div>
 
@@ -136,9 +52,11 @@ const {
   <div class="activity-filters__wrapper">
     <select class="activity-filters__select" name="duration">
       <option value="">所要時間</option>
-      {durationOptions.map(option => (
-        <option value={option.value}>{option.label}</option>
-      ))}
+      {
+        durationOptions.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))
+      }
     </select>
     <svg
       class="activity-filters__icon"
@@ -153,8 +71,7 @@ const {
         stroke="#054965"
         stroke-width="2"
         stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>
+        stroke-linejoin="round"></path>
     </svg>
   </div>
 
@@ -162,9 +79,11 @@ const {
   <div class="activity-filters__wrapper">
     <select class="activity-filters__select" name="weather">
       <option value="">天気</option>
-      {weatherOptions.map(option => (
-        <option value={option.value}>{option.label}</option>
-      ))}
+      {
+        weatherOptions.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))
+      }
     </select>
     <svg
       class="activity-filters__icon"
@@ -179,36 +98,10 @@ const {
         stroke="#054965"
         stroke-width="2"
         stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>
+        stroke-linejoin="round"></path>
     </svg>
   </div>
 
-  <!-- ご予約 -->
-  <div class="activity-filters__wrapper">
-    <select class="activity-filters__select" name="booking">
-      <option value="">ご予約</option>
-      {bookingOptions.map(option => (
-        <option value={option.value}>{option.label}</option>
-      ))}
-    </select>
-    <svg
-      class="activity-filters__icon"
-      xmlns="http://www.w3.org/2000/svg"
-      width="12"
-      height="22"
-      viewBox="0 0 12 22"
-      fill="none"
-    >
-      <path
-        d="M1 21L11 11L1 1"
-        stroke="#054965"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>
-    </svg>
-  </div>
 </nav>
 
 <style lang="scss">
@@ -219,11 +112,13 @@ const {
 
   .activity-filters {
     display: grid;
-    grid-template-columns: max-content max-content;
-    gap: spx(30);
+    grid-template-columns: max-content max-content max-content;
+    gap: spx(20);
+    justify-content: center;
     @include tablet-up {
       display: flex;
       gap: ppx(10 * 1.2);
+      justify-content: flex-start;
     }
     @include desktop-up {
       gap: ppx(10);
@@ -238,7 +133,7 @@ const {
     }
 
     &__select {
-      width: spx(225);
+      width: spx(200);
       height: spx(70);
       flex-shrink: 0;
       border-radius: spx(10);
