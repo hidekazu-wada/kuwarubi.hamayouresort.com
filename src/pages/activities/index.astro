@@ -13,64 +13,8 @@ import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { activities } from '../../data/activities';
 import type { FilterOption } from '../../components/pages/activities/ActivityFilters.astro';
 
-// フィルタオプション生成関数（about配列から動的生成）
+// フィルタオプション生成関数（3つのカテゴリに絞り込み）
 function generateFilterOptions() {
-  // 実際のabout配列から各フィールドの値を抽出
-
-  // 対象年齢の選択肢を生成（カスタム順序）
-  const targetAgeSet = new Set<string>();
-  activities.forEach((activity) => {
-    const ageItem = activity.about.find((item) => item.term === '対象年齢');
-    if (ageItem) targetAgeSet.add(ageItem.description);
-  });
-
-  // 対象年齢の希望する順序を定義
-  const targetAgeOrder = [
-    '未就学児以上',
-    '小学生以上',
-    '中学生以上',
-    '高校生以上',
-    '大人以上',
-  ];
-  const targetAgeOptions: FilterOption[] = targetAgeOrder
-    .filter((age) => targetAgeSet.has(age))
-    .map((age) => ({
-      value: age,
-      label: age,
-    }));
-
-  // 実施時期の選択肢を生成（カスタム順序）
-  const seasonSet = new Set<string>();
-  activities.forEach((activity) => {
-    const seasonItem = activity.about.find((item) => item.term === '実施時期');
-    if (seasonItem) seasonSet.add(seasonItem.description);
-  });
-
-  // 実施時期の希望する順序を定義
-  const seasonOrder = ['春', '夏', '秋', '通年'];
-  const seasonOptions: FilterOption[] = seasonOrder
-    .filter((season) => seasonSet.has(season))
-    .map((season) => ({
-      value: season,
-      label: season,
-    }));
-
-  // 人数の選択肢を生成（カスタム順序）
-  const capacitySet = new Set<string>();
-  activities.forEach((activity) => {
-    const capacityItem = activity.about.find((item) => item.term === '人数');
-    if (capacityItem) capacitySet.add(capacityItem.description);
-  });
-
-  // 人数の希望する順序を定義
-  const capacityOrder = ['10名未満', '10名以上', '20名以上'];
-  const capacityOptions: FilterOption[] = capacityOrder
-    .filter((capacity) => capacitySet.has(capacity))
-    .map((capacity) => ({
-      value: capacity,
-      label: capacity,
-    }));
-
   // 料金の選択肢を生成（カスタム順序）
   const priceSet = new Set<string>();
   activities.forEach((activity) => {
@@ -128,30 +72,10 @@ function generateFilterOptions() {
       label: weather,
     }));
 
-  // ご予約の選択肢を生成（カスタム順序）
-  const bookingSet = new Set<string>();
-  activities.forEach((activity) => {
-    const bookingItem = activity.about.find((item) => item.term === 'ご予約');
-    if (bookingItem) bookingSet.add(bookingItem.description);
-  });
-
-  // ご予約の希望する順序を定義
-  const bookingOrder = ['当日予約', '事前予約'];
-  const bookingOptions: FilterOption[] = bookingOrder
-    .filter((booking) => bookingSet.has(booking))
-    .map((booking) => ({
-      value: booking,
-      label: booking,
-    }));
-
   return {
-    targetAgeOptions,
-    seasonOptions,
-    capacityOptions,
     priceOptions,
     durationOptions,
     weatherOptions,
-    bookingOptions,
   };
 }
 
@@ -219,13 +143,9 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
           <div class="filter-section__desktop-panel">
             <h3 class="filter-section__title">絞り込み検索</h3>
             <ActivityFilters
-              targetAgeOptions={filterOptions.targetAgeOptions}
-              seasonOptions={filterOptions.seasonOptions}
-              capacityOptions={filterOptions.capacityOptions}
               priceOptions={filterOptions.priceOptions}
               durationOptions={filterOptions.durationOptions}
               weatherOptions={filterOptions.weatherOptions}
-              bookingOptions={filterOptions.bookingOptions}
             />
           </div>
           <button class="filter-section__reset"> リセットする </button>
@@ -608,17 +528,8 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
             return;
           }
 
-          // フィルタ要素の取得
+          // フィルタ要素の取得（3つのカテゴリのみ）
           const filterSelects = {
-            targetAge: document.querySelector(
-              'select[name="target-age"]'
-            ) as HTMLSelectElement,
-            season: document.querySelector(
-              'select[name="season"]'
-            ) as HTMLSelectElement,
-            capacity: document.querySelector(
-              'select[name="capacity"]'
-            ) as HTMLSelectElement,
             price: document.querySelector(
               'select[name="price"]'
             ) as HTMLSelectElement,
@@ -627,9 +538,6 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
             ) as HTMLSelectElement,
             weather: document.querySelector(
               'select[name="weather"]'
-            ) as HTMLSelectElement,
-            booking: document.querySelector(
-              'select[name="booking"]'
             ) as HTMLSelectElement,
           };
 
@@ -786,27 +694,19 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
             return filterValue === activityValue;
           }
 
-          // 現在の選択状態から利用可能な選択肢を取得する関数
+          // 現在の選択状態から利用可能な選択肢を取得する関数（3つのカテゴリのみ）
           function getAvailableOptions(excludeFilterKey?: string) {
             const currentFilters = {
-              targetAge: filterSelects.targetAge?.value || '',
-              season: filterSelects.season?.value || '',
-              capacity: filterSelects.capacity?.value || '',
               price: filterSelects.price?.value || '',
               duration: filterSelects.duration?.value || '',
               weather: filterSelects.weather?.value || '',
-              booking: filterSelects.booking?.value || '',
             };
 
-            // 各フィルターの利用可能な値を収集
+            // 各フィルターの利用可能な値を収集（3つのカテゴリのみ）
             const availableValues: Record<string, Set<string>> = {
-              targetAge: new Set(),
-              season: new Set(),
-              capacity: new Set(),
               price: new Set(),
               duration: new Set(),
               weather: new Set(),
-              booking: new Set(),
             };
 
             // アクティビティデータから現在の選択条件に合致するものを抽出
@@ -818,13 +718,9 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
                 ([filterKey, filterValue]) => {
                   if (filterValue) {
                     const matchingTerm = {
-                      targetAge: '対象年齢',
-                      season: '実施時期',
-                      capacity: '人数',
                       price: '料金',
                       duration: '所要時間',
                       weather: '実施可能天気',
-                      booking: 'ご予約',
                     }[filterKey];
 
                     const item = activity.about.find(
@@ -844,13 +740,9 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
               if (matchesCurrentFilters) {
                 activity.about.forEach((aboutItem) => {
                   const filterKey = {
-                    対象年齢: 'targetAge',
-                    実施時期: 'season',
-                    人数: 'capacity',
                     料金: 'price',
                     所要時間: 'duration',
                     実施可能天気: 'weather',
-                    ご予約: 'booking',
                   }[aboutItem.term];
 
                   if (filterKey) {
@@ -901,16 +793,12 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
             });
           }
 
-          // フィルタリング関数（about配列ベース・AND条件）
+          // フィルタリング関数（3つのカテゴリのみ）
           function filterActivities() {
             const filters = {
-              targetAge: filterSelects.targetAge?.value || '',
-              season: filterSelects.season?.value || '',
-              capacity: filterSelects.capacity?.value || '',
               price: filterSelects.price?.value || '',
               duration: filterSelects.duration?.value || '',
               weather: filterSelects.weather?.value || '',
-              booking: filterSelects.booking?.value || '',
             };
 
             let visibleCount = 0;
@@ -923,55 +811,7 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
               const activity = activitiesData[index];
               let isVisible = true;
 
-              // 各フィルタ条件をチェック（範囲対応）
-              if (filters.targetAge) {
-                const ageItem = activity.about.find(
-                  (item) => item.term === '対象年齢'
-                );
-                isVisible =
-                  isVisible &&
-                  !!(
-                    ageItem &&
-                    filterMatches(
-                      filters.targetAge,
-                      ageItem.description,
-                      'targetAge'
-                    )
-                  );
-              }
-
-              if (filters.season) {
-                const seasonItem = activity.about.find(
-                  (item) => item.term === '実施時期'
-                );
-                isVisible =
-                  isVisible &&
-                  !!(
-                    seasonItem &&
-                    filterMatches(
-                      filters.season,
-                      seasonItem.description,
-                      'season'
-                    )
-                  );
-              }
-
-              if (filters.capacity) {
-                const capacityItem = activity.about.find(
-                  (item) => item.term === '人数'
-                );
-                isVisible =
-                  isVisible &&
-                  !!(
-                    capacityItem &&
-                    filterMatches(
-                      filters.capacity,
-                      capacityItem.description,
-                      'capacity'
-                    )
-                  );
-              }
-
+              // 各フィルタ条件をチェック（3つのカテゴリのみ）
               if (filters.price) {
                 const priceItem = activity.about.find(
                   (item) => item.term === '料金'
@@ -1012,22 +852,6 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
                       filters.weather,
                       weatherItem.description,
                       'weather'
-                    )
-                  );
-              }
-
-              if (filters.booking) {
-                const bookingItem = activity.about.find(
-                  (item) => item.term === 'ご予約'
-                );
-                isVisible =
-                  isVisible &&
-                  !!(
-                    bookingItem &&
-                    filterMatches(
-                      filters.booking,
-                      bookingItem.description,
-                      'booking'
                     )
                   );
               }
