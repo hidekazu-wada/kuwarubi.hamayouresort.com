@@ -888,10 +888,12 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
           updateFilterOptions();
 
           // ============= リセット機能 =============
-          
+
           // リセットボタンの取得
-          const resetButton = document.querySelector('.filter-section__reset') as HTMLElement | null;
-          
+          const resetButton = document.querySelector(
+            '.filter-section__reset'
+          ) as HTMLElement | null;
+
           // リセット機能の実装
           function resetFilters() {
             // 全てのフィルタ選択肢をリセット
@@ -900,27 +902,27 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
                 select.value = '';
               }
             });
-            
+
             // 全てのアクティビティカードを表示
             activityCards.forEach((card) => {
               (card as HTMLElement).style.display = 'block';
             });
-            
+
             // 該当なしメッセージを非表示
             if (noResultsMessage) {
               noResultsMessage.style.display = 'none';
             }
-            
+
             // フィルタオプションを初期状態に戻す
             updateFilterOptions();
-            
+
             // ページの最上部にスムーズスクロール
             window.scrollTo({
               top: 0,
-              behavior: 'smooth'
+              behavior: 'smooth',
             });
           }
-          
+
           // リセットボタンにイベントリスナーを追加
           if (resetButton) {
             resetButton.addEventListener('click', resetFilters);
@@ -1055,7 +1057,7 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
         letter-spacing: spx(0.9);
         text-align: center;
         margin-bottom: spx(30);
-        margin-top: spx(30);
+        margin-top: spx(40);
         margin-inline: auto;
         border-radius: spx(30);
         background: var(--blue_4, #59a1c0);
@@ -1068,7 +1070,7 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
           line-height: ppx(26 * 1.2); /* 100% */
           letter-spacing: ppx(0.9 * 1.2);
           margin-bottom: ppx(30 * 1.2);
-          margin-top: ppx(30 * 1.2);
+          margin-top: ppx(40 * 1.2);
           width: ppx(260 * 1.2);
           height: ppx(60 * 1.2);
         }
@@ -1077,7 +1079,7 @@ const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
           line-height: ppx(26); /* 100% */
           letter-spacing: ppx(0.9);
           margin-bottom: ppx(30);
-          margin-top: ppx(30);
+          margin-top: ppx(40);
           width: ppx(260);
           height: ppx(60);
         }
