@@ -1,0 +1,403 @@
+---
+// ============================================================
+// 汎用ページテンプレート
+// 使い方：このファイルをコピーして、ファイル名を変更して使用
+// 例：cp src/pages/_template.astro src/pages/about.astro
+// ============================================================
+
+// 必須インポート
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LowerPageHeader from '../components/ui/LowerPageHeader.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+
+// 追加インポート（必要に応じて）
+// import { getImage } from 'astro:assets';
+// import sampleImage from '../assets/images/sample.jpg';
+
+// ============================================================
+// TODO: 以下の項目を必ず変更してください
+// ============================================================
+
+// ページメタ情報（必ず変更）
+const pageTitle = 'お問い合わせ | 光風閣くわるび';
+const pageDescription = 'ページの説明文をここに記述します。';
+
+// ページ固有のクラス名（page-nameを適切な名前に変更）
+const pageClass = 'main-content--contact';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageClass={pageClass}
+>
+  <!-- ============================================================ -->
+  <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
+  <!-- ============================================================ -->
+
+  <!-- ページヘッダー -->
+  <div class="page-header-container">
+    <LowerPageHeader titleEn="CONTACT" titleJa="お問い合わせ" />
+  </div>
+
+  <!-- メインコンテンツ -->
+  <section class="contact-form">
+    <div class="contact-form__container">
+      <header class="contact-form__header">
+        <p class="contact-form__instruction">
+          必須項目をご入力の上、<br />
+          送信ボタンを押してください。
+        </p>
+        <p class="contact-form__required-note">※は入力必須項目です。</p>
+      </header>
+      <div class="contact-form__body">
+        <form class="contact-form__form">
+          <fieldset class="contact-form__fieldset">
+            <div class="contact-form__field contact-form__field--select">
+              <label class="contact-form__label">種別 <span>※</span></label>
+              <select class="contact-form__select">
+                <option class="contact-form__placeholder"
+                  >選択してください</option
+                >
+                <option value="option1">男性</option>
+                <option value="option2">女性</option>
+                <option value="option3">その他</option>
+              </select>
+              <svg
+                class="contact-form__select-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                viewBox="0 0 40 40"
+                fill="none"
+              >
+                <circle cx="20" cy="20" r="20" fill="#E7F3F9"></circle>
+                <path
+                  d="M10 17L20 27L30 17"
+                  stroke="#054965"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <div class="contact-form__field">
+              <label class="contact-form__label">お名前 <span>※</span></label>
+              <input
+                type="text"
+                class="contact-form__input"
+                placeholder="山田太郎"
+              />
+            </div>
+            <div class="contact-form__field">
+              <label class="contact-form__label">ふりがな <span>※</span></label>
+              <input
+                type="text"
+                class="contact-form__input"
+                placeholder="やまだたろう"
+              />
+            </div>
+            <div class="contact-form__field">
+              <label class="contact-form__label">電話番号 <span>※</span></label>
+              <input
+                type="tel"
+                class="contact-form__input"
+                placeholder="0555-12-3456"
+              />
+            </div>
+            <div class="contact-form__field">
+              <label class="contact-form__label"
+                >メールアドレス <span>※</span></label
+              >
+              <input
+                type="email"
+                class="contact-form__input"
+                placeholder="abc@def.com"
+              />
+            </div>
+            <div class="contact-form__field">
+              <label class="contact-form__label"
+                >メールアドレス（再入力） <span>※</span></label
+              >
+              <input
+                type="email"
+                class="contact-form__input"
+                placeholder="abc@def.com"
+              />
+            </div>
+            <div class="contact-form__field contact-form__field--textarea">
+              <label class="contact-form__label"
+                >お問い合わせ内容 <span>※</span></label
+              >
+              <textarea
+                class="contact-form__textarea"
+                placeholder="お問合せ内容をこちらにご入力ください。"></textarea>
+            </div>
+          </fieldset>
+          <section class="contact-form__privacy">
+            <h3 class="contact-form__privacy-title">個人情報の取り扱い</h3>
+            <p class="contact-form__privacy-text">
+              ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入りま
+            </p>
+          </section>
+          <div class="contact-form__agreement">
+            <label class="contact-form__checkbox-label">
+              <input type="checkbox" class="contact-form__checkbox" />
+              <span class="contact-form__checkbox-text"
+                >個人情報の取り扱いに同意する</span
+              >
+            </label>
+          </div>
+          <button type="submit" class="contact-form__submit">
+            <span class="contact-form__submit-text">送信</span>
+            <svg
+              class="contact-form__submit-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+            >
+              <path
+                d="M1.88672 21L20.1146 11L1.88672 1"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+      <small class="contact-form__recaptcha">
+        This site is protected by reCAPTCHA and the GooglePrivacy Policy and
+        Terms of Service apply.
+      </small>
+    </div>
+  </section>
+
+  <!-- パンくずリスト -->
+  <div class="breadcrumb-wrapper">
+    <Breadcrumb
+      items={[{ text: 'TOP', href: '/' }, { text: 'お問い合わせ' }]}
+    />
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  @import '../styles/variables';
+  @import '../styles/functions';
+  @import '../styles/mixins';
+
+  // ============================================================
+  // Contact Form Styles
+  // ============================================================
+
+  :global(.main-content--contact) {
+    background: var(--blue_2, #e7f3f9);
+    @include tablet-up {
+      background: var(--white, #fff);
+    }
+    @include desktop-up {
+    }
+  }
+
+  .contact-form {
+    @include tablet-up {
+    }
+    @include desktop-up {
+    }
+
+    &__container {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__header {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__instruction {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__required-note {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__body {
+      @include tablet-up {
+        background: var(--blue_2, #e7f3f9);
+        border-radius: ppx(50 * 1.2) 0 0 ppx(50 * 1.2);
+      }
+      @include desktop-up {
+        border-radius: ppx(50 * 1.2) 0 0 ppx(50 * 1.2);
+      }
+    }
+
+    &__form {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__fieldset {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__field {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &--select {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &--textarea {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__label {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      span {
+      }
+    }
+
+    &__input {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__select {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__placeholder {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__select-icon {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__textarea {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__privacy {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__privacy-title {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__privacy-text {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__agreement {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__checkbox-label {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__checkbox {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__checkbox-text {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__submit {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__submit-text {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__submit-icon {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__recaptcha {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+  }
+</style>
