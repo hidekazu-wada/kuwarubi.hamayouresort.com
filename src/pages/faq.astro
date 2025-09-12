@@ -45,22 +45,14 @@ const pageClass = 'main-content--faq';
   <!-- メインコンテンツ -->
   <section class="faq-nav">
     <!-- スマホのみ表示 -->
-    <button class="faq-nav__mobile-toggle">
-      <span class="faq-nav__mobile-text">カテゴリー</span>
-      <svg
-        class="faq-nav__mobile-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 12 22"
-        fill="none"
-      >
-        <path
-          d="M1 21L11 11L1 1"
-          stroke="#054965"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"></path>
-      </svg>
-    </button>
+    <select class="faq-nav__mobile-select">
+      <option value="">カテゴリー</option>
+      <option value="#usage">ご利用について</option>
+      <option value="#facility">施設について</option>
+      <option value="#payment">お支払い方法について</option>
+      <option value="#dining">お食事について</option>
+      <option value="#bathing">入浴について</option>
+    </select>
     <!-- タブレット以上でのみ表示 -->
     <nav class="faq-nav__categories">
       <ul class="faq-nav__list">
@@ -83,7 +75,7 @@ const pageClass = 'main-content--faq';
     </nav>
   </section>
   <section class="faq-content">
-    <div class="faq-content__category">
+    <div class="faq-content__category" id="usage">
       <h2 class="faq-content__category-title">ご利用について</h2>
       <div class="faq-content__items">
         <article class="faq-content__item">
@@ -172,7 +164,7 @@ const pageClass = 'main-content--faq';
         </article>
       </div>
     </div>
-    <div class="faq-content__category">
+    <div class="faq-content__category" id="facility">
       <h2 class="faq-content__category-title">施設について</h2>
       <div class="faq-content__items">
         <article class="faq-content__item">
@@ -245,7 +237,7 @@ const pageClass = 'main-content--faq';
         </article>
       </div>
     </div>
-    <div class="faq-content__category">
+    <div class="faq-content__category" id="payment">
       <h2 class="faq-content__category-title">お支払い方法について</h2>
       <div class="faq-content__items">
         <article class="faq-content__item">
@@ -320,7 +312,7 @@ const pageClass = 'main-content--faq';
         </article>
       </div>
     </div>
-    <div class="faq-content__category">
+    <div class="faq-content__category" id="dining">
       <h2 class="faq-content__category-title">お食事について</h2>
       <div class="faq-content__items">
         <article class="faq-content__item">
@@ -381,7 +373,7 @@ const pageClass = 'main-content--faq';
         </article>
       </div>
     </div>
-    <div class="faq-content__category">
+    <div class="faq-content__category" id="bathing">
       <h2 class="faq-content__category-title">入浴について</h2>
       <div class="faq-content__items">
         <article class="faq-content__item">
@@ -499,7 +491,7 @@ const pageClass = 'main-content--faq';
     @include desktop-up {
     }
 
-    &__mobile-toggle {
+    &__mobile-select {
       display: flex;
       align-items: center;
       width: spx(225);
@@ -507,41 +499,27 @@ const pageClass = 'main-content--faq';
       flex-shrink: 0;
       border-radius: spx(10);
       border: spx(2) solid var(--blue_5, #026995);
+      background: var(--blue_2, #e7f3f9);
       position: relative;
       margin-inline: auto;
       margin-top: spx(83);
-      @include tablet-up {
-        display: none;
-      }
-      @include desktop-up {
-      }
-    }
-
-    &__mobile-text {
+      padding-left: spx(30);
+      padding-right: spx(40);
       color: var(--blue_6, #054965);
       font-family: 'Zen Kaku Gothic New';
       font-size: spx(28);
       font-style: normal;
       font-weight: 400;
-      line-height: spx(33); /* 117.857% */
+      line-height: spx(33);
       letter-spacing: spx(0.84);
-      margin-left: spx(30);
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='20' viewBox='0 0 12 22' fill='none'%3E%3Cpath d='M1 1L11 11L1 21' stroke='%23054965' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right spx(20) center;
+      background-size: spx(10) spx(20);
       @include tablet-up {
-      }
-      @include desktop-up {
-      }
-    }
-
-    &__mobile-icon {
-      display: block;
-      width: spx(10);
-      height: spx(20);
-      flex-shrink: 0;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: spx(20);
-      @include tablet-up {
+        display: none;
       }
       @include desktop-up {
       }
@@ -664,9 +642,12 @@ const pageClass = 'main-content--faq';
     }
 
     &__category {
+      scroll-margin-top: spx(50);
       @include tablet-up {
+        scroll-margin-top: ppx(120 * 1.2);
       }
       @include desktop-up {
+        scroll-margin-top: ppx(120);
       }
     }
 
@@ -860,3 +841,26 @@ const pageClass = 'main-content--faq';
     }
   }
 </style>
+
+<script>
+  // FAQ mobile select navigation
+  const faqMobileSelect = document.querySelector(
+    '.faq-nav__mobile-select'
+  ) as HTMLSelectElement | null;
+
+  if (faqMobileSelect) {
+    faqMobileSelect.addEventListener('change', (e) => {
+      const target = e.target as HTMLSelectElement;
+      if (target.value) {
+        const targetElement = document.querySelector(target.value);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+          // Reset select to default option after navigation
+          setTimeout(() => {
+            target.value = '';
+          }, 100);
+        }
+      }
+    });
+  }
+</script>
