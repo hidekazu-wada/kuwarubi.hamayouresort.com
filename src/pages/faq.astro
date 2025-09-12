@@ -1,0 +1,65 @@
+---
+// 1. 必須インポート
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LowerPageHeader from '../components/ui/LowerPageHeader.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+
+// 2. 共通UIコンポーネント（必要に応じてコメント解除）
+// import Breadcrumb from '../components/ui/Breadcrumb.astro';
+// import MoreButton from '../components/ui/MoreButton.astro';
+// import SectionWave from '../components/ui/SectionWave.astro';
+
+// 3. 画像インポート（必要に応じて追加）
+// import { getImage } from 'astro:assets';
+// import sampleImage from '../assets/images/sample.jpg';
+
+// 4. データインポート（必要に応じて追加）
+// import { data } from '../data/sample.ts';
+
+// 5. ページメタ情報（必ず変更すること）
+const pageTitle = 'よくあるご質問 | クワルビリゾート';
+const pageDescription =
+  'クワルビリゾートに関するよくあるご質問と回答をまとめています。ご不明な点がございましたらお気軽にお問い合わせください。';
+
+// 6. 画像最適化処理（必要に応じてコメント解除）
+// const optimizedImage = await getImage({
+//   src: sampleImage,
+//   format: 'webp',
+//   width: 1200,
+// });
+
+// 7. ページ固有のクラス名（スタイリング用）
+const pageClass = 'main-content--faq';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageClass={pageClass}
+>
+  <!-- ページヘッダー -->
+  <div class="page-header-container">
+    <LowerPageHeader titleEn="FAQ" titleJa="よくあるご質問" />
+  </div>
+
+  <!-- メインコンテンツ -->
+  <section class=""></section>
+
+  <!-- パンくずリスト -->
+  <div class="breadcrumb-wrapper">
+    <Breadcrumb
+      items={[{ text: 'TOP', href: '/' }, { text: 'よくあるご質問' }]}
+    />
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  @import '../styles/variables';
+  @import '../styles/functions';
+  @import '../styles/mixins';
+
+  :global(.main-content--faq) {
+    display: block;
+    background: var(--blue_2, #e7f3f9);
+  }
+</style>
