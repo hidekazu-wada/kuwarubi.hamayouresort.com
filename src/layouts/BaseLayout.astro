@@ -17,7 +17,6 @@ import BottomBar from '../components/BottomBar.astro';
 import MenuOverlay from '../components/MenuOverlay.astro';
 import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
-import VideoModal from '../components/VideoModal.astro';
 import BookingModal from '../components/Booking-modal.astro';
 ---
 
@@ -53,9 +52,7 @@ import BookingModal from '../components/Booking-modal.astro';
       <BottomBar />
       <!-- メニューオーバーレイ -->
       <MenuOverlay />
-      <!-- 動画モーダル（メニューオーバーレイより上位階層） -->
-      <VideoModal />
-      <!-- 宿泊予約モーダル（動画モーダルと同等階層） -->
+      <!-- 宿泊予約モーダル -->
       <BookingModal />
 
       <!-- メインコンテンツ（ページ固有のコンテンツが入る） -->
@@ -115,69 +112,6 @@ import BookingModal from '../components/Booking-modal.astro';
           }
           // スクロールを復元
           document.body.style.overflow = '';
-        }
-
-        // 動画モーダル関連の要素
-        const videoModal = document.querySelector(
-          '.video-modal'
-        ) as HTMLElement | null;
-        const videoModalClose = document.querySelector(
-          '.video-modal__close'
-        ) as HTMLElement | null;
-        const heroMovieThumbnail = document.querySelector(
-          '.hero__movie-thumbnail'
-        ) as HTMLElement | null;
-        const heroMoviePlayIcon = document.querySelector(
-          '.hero__movie-play-icon'
-        ) as HTMLElement | null;
-
-        // 動画モーダルを開く関数
-        function openVideoModal() {
-          if (videoModal) {
-            videoModal.style.opacity = '1';
-            videoModal.style.visibility = 'visible';
-            // スクロールを禁止
-            document.body.style.overflow = 'hidden';
-          }
-        }
-
-        // 動画モーダルを閉じる関数
-        function closeVideoModal() {
-          if (videoModal) {
-            videoModal.style.opacity = '0';
-            videoModal.style.visibility = 'hidden';
-            // スクロールを復元
-            document.body.style.overflow = '';
-          }
-        }
-
-        // 動画モーダル閉じるボタン
-        if (videoModalClose) {
-          videoModalClose.addEventListener('click', closeVideoModal);
-        }
-
-        // Heroセクションの動画サムネイルクリック
-        if (heroMovieThumbnail) {
-          heroMovieThumbnail.addEventListener('click', openVideoModal);
-        }
-
-        // Heroセクションの再生アイコンクリック
-        if (heroMoviePlayIcon) {
-          heroMoviePlayIcon.addEventListener('click', openVideoModal);
-        }
-
-        // 動画モーダルオーバーレイクリックで閉じる
-        if (videoModal) {
-          videoModal.addEventListener('click', (e) => {
-            if (
-              e.target === videoModal ||
-              (e.target as HTMLElement).classList.contains(
-                'video-modal__overlay'
-              )
-            ) {
-              closeVideoModal();
-            }
-          });
         }
 
         // 宿泊予約モーダル関連の要素
