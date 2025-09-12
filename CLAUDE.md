@@ -39,6 +39,8 @@
   - 動的ルーティング、データ管理
 - [フィルタリング機能](./docs/claude-info/10-filtering.md)
   - コネクテッドフィルタリング、検索・ソート
+- [FAQページ](./docs/claude-info/14-faq-page.md) 🆕
+  - アコーディオン機能、スクロール連動ナビゲーション
 
 ### 📖 開発ガイドライン
 - [ベストプラクティス](./docs/claude-info/11-best-practices.md)
