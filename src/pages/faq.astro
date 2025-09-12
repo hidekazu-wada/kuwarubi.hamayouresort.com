@@ -1,0 +1,1053 @@
+---
+// 1. 必須インポート
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LowerPageHeader from '../components/ui/LowerPageHeader.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+
+// 2. 共通UIコンポーネント（必要に応じてコメント解除）
+// import Breadcrumb from '../components/ui/Breadcrumb.astro';
+// import MoreButton from '../components/ui/MoreButton.astro';
+// import SectionWave from '../components/ui/SectionWave.astro';
+
+// 3. 画像インポート（必要に応じて追加）
+// import { getImage } from 'astro:assets';
+// import sampleImage from '../assets/images/sample.jpg';
+
+// 4. データインポート（必要に応じて追加）
+// import { data } from '../data/sample.ts';
+
+// 5. ページメタ情報（必ず変更すること）
+const pageTitle = 'よくあるご質問 | クワルビリゾート';
+const pageDescription =
+  'クワルビリゾートに関するよくあるご質問と回答をまとめています。ご不明な点がございましたらお気軽にお問い合わせください。';
+
+// 6. 画像最適化処理（必要に応じてコメント解除）
+// const optimizedImage = await getImage({
+//   src: sampleImage,
+//   format: 'webp',
+//   width: 1200,
+// });
+
+// 7. ページ固有のクラス名（スタイリング用）
+const pageClass = 'main-content--faq';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageClass={pageClass}
+>
+  <!-- ページヘッダー -->
+  <div class="page-header-container">
+    <LowerPageHeader titleEn="FAQ" titleJa="よくあるご質問" />
+  </div>
+
+  <!-- メインコンテンツ -->
+  <section class="faq-nav">
+    <!-- スマホのみ表示 -->
+    <select class="faq-nav__mobile-select">
+      <option value="">カテゴリー</option>
+      <option value="#usage">ご利用について</option>
+      <option value="#facility">施設について</option>
+      <option value="#payment">お支払い方法について</option>
+      <option value="#dining">お食事について</option>
+      <option value="#bathing">入浴について</option>
+    </select>
+    <!-- タブレット以上でのみ表示 -->
+    <nav class="faq-nav__categories">
+      <ul class="faq-nav__list">
+        <li class="faq-nav__item">
+          <a href="#usage" class="faq-nav__link">ご利用について</a>
+        </li>
+        <li class="faq-nav__item">
+          <a href="#facility" class="faq-nav__link">施設について</a>
+        </li>
+        <li class="faq-nav__item">
+          <a href="#payment" class="faq-nav__link">お支払い方法について</a>
+        </li>
+        <li class="faq-nav__item">
+          <a href="#dining" class="faq-nav__link">お食事について</a>
+        </li>
+        <li class="faq-nav__item">
+          <a href="#bathing" class="faq-nav__link">入浴について</a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+  <section class="faq-content">
+    <div class="faq-content__category" id="usage">
+      <h2 class="faq-content__category-title">ご利用について</h2>
+      <div class="faq-content__items">
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              宿泊の予約はいつからできますか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              ご宿泊日の１年前から承っております。団体でのご利用は早めのご予約をおすすめいたします。特に春季（４-５月）・夏季（６-９月）は混み合いますので、お早めのご連絡をお願いいたします。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              大人数での利用は可能ですか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              はい、最大５００名様までの団体様をお受けできる設備を整えております。学生様の場合は１室最大８名様までの和洋室をご用意。男女別のフロア分けにも対応いたしますので、ご要望をお申し付けください。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              少人数での利用は可能ですか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              はい、ファミリーやカップル、小グループでもご利用いただけます。大自然の中でゆっくりとお過ごしいただける客室をご用意しております。予約状況で団体様と異なるフロアをご用意することも可能です。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              チェックイン・チェックアウト時間を教えてください。
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              チェックインは15:00から、チェックアウトは10:00となっております。団体様の場合は、ご相談に応じて時間の調整も可能です。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              悪天候時の施設利用について教えてください。
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              全天候型の施設を多数完備しておりますので、雨天時もご安心ください。室内研修施設はもちろん、全天候型バーベキューハウスや温泉大浴場など、天候に左右されず楽しめる施設をご用意しております。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              急な予定変更やキャンセルの場合はどうなりますか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              ご利用日の３０日前までのキャンセルは無料です。以降のキャンセルにつきましては、規定のキャンセル料が発生いたします。詳細な日程とキャンセル料率については、お問い合わせください。団体様の場合は、人数の微調整にも柔軟に対応いたしますので、ご相談ください。
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="faq-content__category" id="facility">
+      <h2 class="faq-content__category-title">施設について</h2>
+      <div class="faq-content__items">
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              研修施設の規模と設備を教えてください。
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              最大分割で１８の研修室を完備しており、標準的なスクール形式で１会場４０名様の収容が可能です。パーテーションでの空間調整が可能で、必要に応じた大きさでご利用いただけます。プロジェクター、スクリーン、マイク等の基本的な機材も常設しております。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">Wi-Fi環境はありますか？</h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              はい、全館で無料Wi-Fiをご利用いただけます。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              Wi-屋外での活動スペースはありますか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              湖畔沿いの全天候型バーベキューハウスや、「ほどほどの森」と呼ばれる自然体験エリアをご用意しております。森のエリアには足湯、ハンモック、トランポリン、アスレチックを設置。また、ロビー前には人工芝「クールタフ」エリアもあり、多様な野外活動が可能です。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              部屋のタイプを教えてください。
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              団体様用の和洋室（最大８名様）を中心に、和室やバリアフリー対応の洋室もご用意しております。バス・トイレは全室完備です。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              荷物の預かりは可能ですか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              はい、チェックイン前、チェックアウト後の荷物預かりが可能です。団体様の場合、宅配便での荷物の事前送付も承っております。研修や体験学習に必要な機材の預かりにも対応いたします。
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="faq-content__category" id="payment">
+      <h2 class="faq-content__category-title">お支払い方法について</h2>
+      <div class="faq-content__items">
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              支払い方法を教えてください。
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              現金、クレジットカード（VISA、MasterCard、JCB、AMEX）、銀行振込に対応しております。団体様の場合、請求書払いも承ります。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              請求書払いの場合の流れを教えてください。
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              ご利用後、１週間以内に請求書を発行させていただきます。原則、発行日から３０日以内のお支払いをお願いしております。事前のお支払いをご希望の場合は、ご相談ください。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              キャンセル料はいつから発生しますか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              ３０日前までのキャンセルは無料です。２９日前から発生し、直前になるほど料率が上がります。団体様の人数変更については、１０%以内の減少であれば、７日前まで無料で承ります。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              宿泊と研修室などの料金の明細は分けられますか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              はい、ご要望に応じて宿泊費、施設利用料、食事代、体験学習費などを分けて明細を作成いたします。部署や予算ごとの分割請求にも対応可能です。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              学生の団体割引はありますか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              はい、教育旅行や課外活動での利用には、専用の団体割引プランをご用意しております。人数や時期によって異なりますので、詳細はお問い合わせください。
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="faq-content__category" id="dining">
+      <h2 class="faq-content__category-title">お食事について</h2>
+      <div class="faq-content__items">
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              大人数での食事対応は可能ですか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              はい、５００名様まで一度にお食事いただける大規模レストランを完備しております。バイキング形式や定食形式など、ご要望に応じて対応いたします。時間差での利用も承ります。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              アレルギーや食事制限への対応は可能ですか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              はい、アレルギー対応はもちろん、ベジタリアン食など、さまざまな食事制限に対応いたします。事前にお申し付けください。特に団体様の場合は、参加者の方の食事情報を一覧でお預かりし、安全に配慮した食事提供を徹底いたします。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              朝食・夕食の時間を教えてください。
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              通常、朝食は7:00〜9:00、夕食は18:00〜20:00となっております。団体様の場合は、活動スケジュールに合わせて時間調整が可能です。早朝出発の場合は、朝食を軽食やお弁当に変更することもできます。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              外部からの食事の持ち込みは可能ですか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              申し訳ございませんが、衛生管理の観点から、原則として外部からの食事の持ち込みはご遠慮いただいております。ただし、乳幼児のミルクやアレルギー対応食品など、特別な事情がある場合は、ご相談ください。
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="faq-content__category" id="bathing">
+      <h2 class="faq-content__category-title">入浴について</h2>
+      <div class="faq-content__items">
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              温泉の効能を教えてください。
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              西湖で唯一の自社掘削による源泉を使用しております。神経痛、筋肉痛、関節痛、冷え性などに効果があるとされています。豊富な湧出量を誇り、新鮮な温泉をかけ流しでお楽しみいただけます。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              大浴場の収容人数と利用時間を教えてください。
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              男女別の大浴場があり、それぞれ一度に40名様までご利用いただけます。通常の利用時間は15:00〜24:00、翌6:00〜10:00です。団体様の場合は、時間調整も可能です。女性用浴場には、小規模の家族風呂も併設しています。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              タオルは備え付けていますか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              はい、バスタオルとフェイスタオルをお一人様各１枚ずつご用意しております。大浴場にはシャンプー、コンディショナー、ボディーソープを備えています。また、ドライヤーも完備しております。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              温泉の泉質について教えてください。
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              ナトリウム-塩化物泉で、体を芯から温める効果があります。また、お肌にも優しい泉質で、美肌効果も期待できます。pH値は弱アルカリ性で、誰でも安心してご入浴いただけます。
+            </p>
+          </div>
+        </article>
+        <article class="faq-content__item">
+          <div class="faq-content__question">
+            <span class="faq-content__question-icon">Q</span>
+            <h3 class="faq-content__question-text">
+              浴場での貸切利用は可能ですか？
+            </h3>
+          </div>
+          <div class="faq-content__answer">
+            <span class="faq-content__answer-icon">A</span>
+            <p class="faq-content__answer-text">
+              団体様の場合、時間を区切っての貸切利用が可能です。修学旅行や合宿などで、男女別に時間を分けての利用も承ります。事前予約制となりますので、ご希望の際はお申し付けください。
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- パンくずリスト -->
+  <div class="breadcrumb-wrapper">
+    <Breadcrumb items={[{ text: 'TOP', href: '/' }, { text: 'FAQ' }]} />
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  @import '../styles/variables';
+  @import '../styles/functions';
+  @import '../styles/mixins';
+
+  :global(.main-content--faq) {
+    display: block;
+    background: var(--blue_2, #e7f3f9);
+    padding-top: spx(110);
+    @include tablet-up {
+      padding-top: ppx(280 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(280);
+    }
+  }
+
+  .page-header-container {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    @include tablet-up {
+      position: fixed;
+      top: ppx(280 * 1.2);
+      left: 16vw;
+    }
+    @include desktop-up {
+      top: ppx(280);
+      left: ppx(475);
+    }
+    
+    &.hide-at-footer {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  .faq-nav {
+    @include tablet-up {
+    }
+    @include desktop-up {
+    }
+
+    &__mobile-select {
+      display: flex;
+      align-items: center;
+      width: spx(225);
+      height: spx(70);
+      flex-shrink: 0;
+      border-radius: spx(10);
+      border: spx(2) solid var(--blue_5, #026995);
+      background: var(--blue_2, #e7f3f9);
+      position: relative;
+      margin-inline: auto;
+      margin-top: spx(83);
+      padding-left: spx(30);
+      padding-right: spx(40);
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(28);
+      font-style: normal;
+      font-weight: 400;
+      line-height: spx(33);
+      letter-spacing: spx(0.84);
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='20' viewBox='0 0 12 22' fill='none'%3E%3Cpath d='M1 1L11 11L1 21' stroke='%23054965' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right spx(20) center;
+      background-size: spx(10) spx(20);
+      @include tablet-up {
+        display: none;
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__categories {
+      display: none;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      @include tablet-up {
+        display: block;
+        position: fixed;
+        top: ppx(753 * 1.2);
+        left: 16vw;
+      }
+      @include desktop-up {
+        top: ppx(753);
+        left: ppx(475);
+      }
+      
+      &.hide-at-footer {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    &__list {
+      @include tablet-up {
+        color: var(--blue_5, #026995);
+        font-family: 'Zen Kaku Gothic New';
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%;
+        font-size: ppx(33 * 1.2);
+        width: ppx(450 * 1.2);
+        display: flex;
+        flex-flow: column;
+        gap: ppx(41 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        width: ppx(450);
+        gap: ppx(41);
+      }
+    }
+
+    &__item {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      &.active {
+        .faq-nav__link {
+          &:after {
+            @include tablet-up {
+              content: '';
+              display: block;
+              width: 100%;
+              height: 1px;
+              background: #59a1c0;
+              position: absolute;
+              bottom: 0;
+              left: 0;
+            }
+            @include desktop-up {
+            }
+          }
+        }
+      }
+    }
+
+    &__link {
+      @include tablet-up {
+        display: block;
+        position: relative;
+        padding-bottom: ppx(9 * 1.2);
+        width: max-content;
+      }
+      @include desktop-up {
+        padding-bottom: ppx(9);
+      }
+      &:after {
+        @include tablet-up {
+          content: '';
+          display: block;
+          width: 0;
+          height: 1px;
+          background: #59a1c0;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          transition: width 0.3s ease;
+        }
+        @include desktop-up {
+        }
+      }
+      @include hover {
+        &:hover {
+          &:after {
+            @include tablet-up {
+              width: 100%;
+            }
+            @include desktop-up {
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .faq-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: spx(80);
+    margin-top: spx(80);
+    @include tablet-up {
+      align-items: flex-end;
+      gap: ppx(250 * 1.2);
+      padding-right: ppx(200 * 1);
+      margin-top: ppx(9 * 1.2);
+    }
+    @include desktop-up {
+      gap: ppx(250);
+      padding-right: ppx(200);
+      margin-top: ppx(9);
+    }
+
+    &__category {
+      scroll-margin-top: spx(50);
+      @include tablet-up {
+        scroll-margin-top: ppx(120 * 1.2);
+      }
+      @include desktop-up {
+        scroll-margin-top: ppx(120);
+      }
+    }
+
+    &__category-title {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(38);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      letter-spacing: spx(1.9);
+      @include tablet-up {
+        text-align: left;
+        font-size: ppx(43 * 1.2);
+        line-height: ppx(33 * 1.2);
+        letter-spacing: ppx(2.15 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(43);
+        line-height: ppx(33);
+        letter-spacing: ppx(2.15);
+      }
+    }
+
+    &__items {
+      display: flex;
+      flex-direction: column;
+      gap: spx(15);
+      margin-top: spx(35);
+      @include tablet-up {
+        gap: ppx(20 * 1.2);
+        margin-top: ppx(49 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(20);
+        margin-top: ppx(49);
+      }
+    }
+
+    &__item {
+      display: flex;
+      padding: spx(30);
+      padding-bottom: spx(30);
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0; // 初期状態でgapを0に
+      border-radius: spx(20);
+      background: var(--white, #fff);
+      width: spx(640);
+      transition:
+        padding-bottom 0.3s ease,
+        gap 0.3s ease;
+      @include tablet-up {
+        padding: ppx(19 * 1.2) ppx(39 * 1.2) ppx(25 * 1.2) ppx(39 * 1.2);
+        gap: 0;
+        align-self: stretch;
+        border-radius: ppx(15 * 1.2);
+        width: ppx(1390 * 1);
+      }
+      @include desktop-up {
+        padding: ppx(19) ppx(39) ppx(25) ppx(39);
+        gap: 0;
+        border-radius: ppx(15);
+        width: ppx(1390);
+      }
+
+      &.is-open {
+        gap: spx(9); // 開いた時にgapを追加
+
+        @include tablet-up {
+          padding-bottom: ppx(36 * 1.2);
+          gap: ppx(20 * 1.2);
+        }
+
+        @include desktop-up {
+          padding-bottom: ppx(36);
+          gap: ppx(20);
+        }
+
+        .faq-content__question {
+          padding-bottom: spx(13);
+
+          @include tablet-up {
+            padding-bottom: ppx(20 * 1.2);
+          }
+
+          @include desktop-up {
+            padding-bottom: ppx(20);
+          }
+
+          &::after {
+            opacity: 1;
+          }
+        }
+
+        .faq-content__answer {
+          max-height: 500px;
+        }
+      }
+    }
+
+    &__question {
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: max-content auto;
+      position: relative;
+      width: 100%;
+      padding-bottom: 0; // 初期状態では0
+      transition: padding-bottom 0.3s ease;
+      @include tablet-up {
+        padding-bottom: 0;
+      }
+      @include desktop-up {
+        padding-bottom: 0;
+      }
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: var(--blue_2, #e7f3f9);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+    }
+
+    &__question-icon {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(33);
+      font-style: normal;
+      font-weight: 700;
+      line-height: 140%;
+      letter-spacing: spx(-0.33);
+      width: spx(32);
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: 180%;
+        letter-spacing: ppx(0.99 * 1.2);
+        width: ppx(46 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(0.99);
+        width: ppx(46);
+      }
+    }
+
+    &__question-text {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(29);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%;
+      letter-spacing: spx(-0.29);
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: 180%;
+        letter-spacing: ppx(0.99 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(0.99);
+      }
+    }
+
+    &__answer {
+      display: grid;
+      grid-template-columns: max-content auto;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__answer-icon {
+      color: var(--green_2, #adc400);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(33);
+      font-style: normal;
+      font-weight: 700;
+      line-height: 140%;
+      letter-spacing: spx(-0.33);
+      width: spx(32);
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: 180%;
+        letter-spacing: ppx(0.99 * 1.2);
+        width: ppx(46 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(0.99);
+        width: ppx(46);
+      }
+    }
+
+    &__answer-text {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(29);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%;
+      letter-spacing: spx(-0.29);
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: 180%;
+        letter-spacing: ppx(0.99 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(0.99);
+      }
+    }
+  }
+  .breadcrumb-wrapper {
+    margin-top: spx(120);
+    margin-bottom: spx(30);
+    @include tablet-up {
+      margin-top: ppx(250 * 1.2);
+      margin-bottom: ppx(50 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(250);
+      margin-bottom: ppx(50);
+    }
+  }
+</style>
+
+<script>
+  // FAQ mobile select navigation
+  const faqMobileSelect = document.querySelector(
+    '.faq-nav__mobile-select'
+  ) as HTMLSelectElement | null;
+
+  if (faqMobileSelect) {
+    faqMobileSelect.addEventListener('change', (e) => {
+      const target = e.target as HTMLSelectElement;
+      if (target.value) {
+        const targetElement = document.querySelector(target.value);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+          // Reset select to default option after navigation
+          setTimeout(() => {
+            target.value = '';
+          }, 100);
+        }
+      }
+    });
+  }
+
+  // FAQ accordion functionality
+  const faqQuestions = document.querySelectorAll('.faq-content__question');
+
+  faqQuestions.forEach((question) => {
+    question.addEventListener('click', () => {
+      const item = question.closest('.faq-content__item');
+      if (item) {
+        // Toggle is-open class
+        item.classList.toggle('is-open');
+
+        // Get the answer element
+        const answer = item.querySelector(
+          '.faq-content__answer'
+        ) as HTMLElement;
+        if (answer) {
+          if (item.classList.contains('is-open')) {
+            // Calculate the actual height of the content
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+          } else {
+            // Collapse the answer
+            answer.style.maxHeight = '0';
+          }
+        }
+      }
+    });
+  });
+
+  // Hide navigation and header when reaching footer
+  const pageHeaderContainer = document.querySelector('.page-header-container') as HTMLElement | null;
+  const faqNavCategories = document.querySelector('.faq-nav__categories') as HTMLElement | null;
+  const footer = document.querySelector('.footer') as HTMLElement | null;
+  
+  function checkFooterPosition() {
+    if (!footer) return;
+    
+    const footerRect = footer.getBoundingClientRect();
+    const footerTop = footerRect.top;
+    const triggerPoint = footerTop - 300; // フッターから300px上を切り替えポイントに
+    
+    // Check page header container
+    if (pageHeaderContainer) {
+      const headerRect = pageHeaderContainer.getBoundingClientRect();
+      const headerBottom = headerRect.bottom;
+      
+      if (headerBottom > triggerPoint) {
+        pageHeaderContainer.classList.add('hide-at-footer');
+      } else {
+        pageHeaderContainer.classList.remove('hide-at-footer');
+      }
+    }
+    
+    // Check FAQ navigation categories
+    if (faqNavCategories) {
+      const navRect = faqNavCategories.getBoundingClientRect();
+      const navBottom = navRect.bottom;
+      
+      if (navBottom > triggerPoint) {
+        faqNavCategories.classList.add('hide-at-footer');
+      } else {
+        faqNavCategories.classList.remove('hide-at-footer');
+      }
+    }
+  }
+  
+  // Check on scroll and resize
+  let scrollTimeout: number | null = null;
+  
+  function handleScroll() {
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+    
+    scrollTimeout = window.setTimeout(() => {
+      checkFooterPosition();
+    }, 10);
+  }
+  
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('resize', handleScroll);
+  
+  // Initial check
+  checkFooterPosition();
+
+  // FAQ navigation active state based on visible category
+  const faqCategories = document.querySelectorAll('.faq-content__category');
+  const faqNavItems = document.querySelectorAll('.faq-nav__item');
+  
+  // Create a map of category IDs to nav items
+  const navItemsMap = new Map<string, HTMLElement>();
+  faqNavItems.forEach((item) => {
+    const link = item.querySelector('.faq-nav__link') as HTMLAnchorElement;
+    if (link) {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        const id = href.substring(1);
+        navItemsMap.set(id, item as HTMLElement);
+      }
+    }
+  });
+  
+  // Intersection Observer to detect which category is visible
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px', // Trigger when category is in the upper portion of viewport
+    threshold: 0
+  };
+  
+  const categoryObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const categoryId = entry.target.id;
+      const navItem = navItemsMap.get(categoryId);
+      
+      if (navItem) {
+        if (entry.isIntersecting) {
+          // Remove active class from all items
+          faqNavItems.forEach((item) => {
+            item.classList.remove('active');
+          });
+          // Add active class to current item
+          navItem.classList.add('active');
+        }
+      }
+    });
+  }, observerOptions);
+  
+  // Observe all FAQ categories
+  faqCategories.forEach((category) => {
+    categoryObserver.observe(category);
+  });
+</script>
