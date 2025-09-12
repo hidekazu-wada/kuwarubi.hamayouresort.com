@@ -4,10 +4,11 @@ export interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  pageClass?: string; // ページ固有のクラス名
 }
 
 // Propsを受け取る
-const { title, description = '', ogImage = '/default-og-image.jpg' } = Astro.props;
+const { title, description = '', ogImage = '/default-og-image.jpg', pageClass = '' } = Astro.props;
 
 // メインSCSSファイルをインポート
 import '../styles/main.scss';
@@ -56,7 +57,7 @@ import BookingModal from '../components/Booking-modal.astro';
       <BookingModal />
 
       <!-- メインコンテンツ（ページ固有のコンテンツが入る） -->
-      <main class="main-content">
+      <main class={`main-content ${pageClass}`}>
         <slot />
       </main>
       

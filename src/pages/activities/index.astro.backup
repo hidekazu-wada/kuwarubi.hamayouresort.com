@@ -1,8 +1,12 @@
 ---
-// BaseLayoutをインポート
-import BaseLayout from '../../layouts/BaseLayout.astro';
-
-// アクティビティ一覧ページ専用コンポーネント
+// メインSCSSファイルをインポート
+import '../../styles/main.scss';
+import BottomBar from '../../components/BottomBar.astro';
+import MenuOverlay from '../../components/MenuOverlay.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import Footer from '../../components/Footer.astro';
+import VideoModal from '../../components/VideoModal.astro';
+import BookingModal from '../../components/Booking-modal.astro';
 import ActivityFilters from '../../components/pages/activities/ActivityFilters.astro';
 import LowerPageHeader from '../../components/ui/LowerPageHeader.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
@@ -97,12 +101,40 @@ const activityImages: Record<string, typeof supImage> = {
   'forest-trail': supImage, // 一時的に同じ画像
 };
 
-// ページメタ情報
+// ページタイトル
 const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
-const pageDescription = 'クワルビリゾートで体験できる様々なアクティビティをご紹介。SUP体験、キャンプファイヤー、レンタルサイクル、樹海トレイルなど、自然を満喫できるプログラムをご用意しています。';
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} pageClass="main-content--activities">
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Allura&family=Zen+Kaku+Gothic+New:wght@400;500;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="layout-container">
+      <!-- サイドバー -->
+      <Sidebar />
+      <!-- スマホ専用の下部固定バー -->
+      <BottomBar />
+      <!-- メニューオーバーレイ -->
+      <MenuOverlay />
+      <!-- 動画モーダル（メニューオーバーレイより上位階層） -->
+      <VideoModal />
+      <!-- 宿泊予約モーダル（動画モーダルと同等階層） -->
+      <BookingModal />
+
+      <!-- メインコンテンツ -->
+      <main class="main-content">
         <div class="page-header-container">
           <LowerPageHeader titleEn="ACTIVITIES" titleJa="アクティビティ" />
         </div>
@@ -241,7 +273,10 @@ const pageDescription = 'クワルビリゾートで体験できる様々なア�
             items={[{ text: 'TOP', href: '/' }, { text: 'アクティビティ' }]}
           />
         </div>
-</BaseLayout>
+      </main>
+      <!-- フッター -->
+      <Footer />
+    </div>
 
     <script is:inline define:vars={{ activitiesData: activities }}>
       // activities データをグローバルスコープに設定
@@ -251,6 +286,227 @@ const pageDescription = 'クワルビリゾートで体験できる様々なア�
     <script>
       // DOMロード後に実行
       document.addEventListener('DOMContentLoaded', () => {
+        // メニュー機能
+        const pcMenuToggle = document.getElementById('menu-toggle');
+        const mobileMenuToggle = document.querySelector('.bottom-bar__toggle');
+        const mobileMenuClose = document.querySelector('.menu-overlay__close');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const sidebar = document.querySelector('.sidebar');
+
+        // メニュー状態管理
+        let isMenuOpen = false;
+
+        // メニュー開閉の共通関数
+        function toggleMenu() {
+          if (!menuOverlay) return;
+
+          isMenuOpen = !isMenuOpen;
+
+          if (isMenuOpen) {
+            menuOverlay.classList.add('show');
+            if (sidebar) {
+              sidebar.classList.add('menu-open');
+            }
+            // スクロールを禁止
+            document.body.style.overflow = 'hidden';
+          } else {
+            menuOverlay.classList.remove('show');
+            if (sidebar) {
+              sidebar.classList.remove('menu-open');
+            }
+            // スクロールを復元
+            document.body.style.overflow = '';
+          }
+        }
+
+        // メニューを閉じる関数
+        function closeMenu() {
+          if (!menuOverlay) return;
+
+          isMenuOpen = false;
+          menuOverlay.classList.remove('show');
+          if (sidebar) {
+            sidebar.classList.remove('menu-open');
+          }
+          // スクロールを復元
+          document.body.style.overflow = '';
+        }
+
+        // 動画モーダル関連の要素
+        const videoModal = document.querySelector(
+          '.video-modal'
+        ) as HTMLElement | null;
+        const videoModalClose = document.querySelector(
+          '.video-modal__close'
+        ) as HTMLElement | null;
+        const heroMovieThumbnail = document.querySelector(
+          '.hero__movie-thumbnail'
+        ) as HTMLElement | null;
+        const heroMoviePlayIcon = document.querySelector(
+          '.hero__movie-play-icon'
+        ) as HTMLElement | null;
+        const heroMoviePlayText = document.querySelector(
+          '.hero__movie-play-text'
+        ) as HTMLElement | null;
+        const videoIframe = document.querySelector(
+          '.video-modal iframe'
+        ) as HTMLIFrameElement | null;
+
+        // 動画モーダルを開く関数
+        function openVideoModal() {
+          if (videoModal) {
+            videoModal.style.opacity = '1';
+            videoModal.style.visibility = 'visible';
+            // スクロールを禁止
+            document.body.style.overflow = 'hidden';
+          }
+        }
+
+        // 動画モーダルを閉じる関数
+        function closeVideoModal() {
+          if (videoModal && videoIframe) {
+            videoModal.style.opacity = '0';
+            videoModal.style.visibility = 'hidden';
+            // 動画を停止（iframe srcを再設定）
+            const currentSrc = videoIframe.src;
+            videoIframe.src = '';
+            videoIframe.src = currentSrc;
+            // スクロールを復元
+            document.body.style.overflow = '';
+          }
+        }
+
+        // サムネイルクリックで動画モーダルを開く
+        if (heroMovieThumbnail) {
+          heroMovieThumbnail.addEventListener('click', openVideoModal);
+        }
+
+        // 再生アイコンクリックで動画モーダルを開く
+        if (heroMoviePlayIcon) {
+          heroMoviePlayIcon.addEventListener('click', openVideoModal);
+        }
+
+        // 再生テキストクリックで動画モーダルを開く
+        if (heroMoviePlayText) {
+          heroMoviePlayText.addEventListener('click', openVideoModal);
+        }
+
+        // モーダル閉じるボタン
+        if (videoModalClose) {
+          videoModalClose.addEventListener('click', closeVideoModal);
+        }
+
+        // オーバーレイクリックで閉じる（任意）
+        if (videoModal) {
+          videoModal.addEventListener('click', (e) => {
+            if (
+              e.target === videoModal ||
+              (e.target as HTMLElement).classList.contains(
+                'video-modal__overlay'
+              )
+            ) {
+              closeVideoModal();
+            }
+          });
+        }
+
+        // ブッキングモーダル関連の要素
+        const bookingModal = document.querySelector(
+          '.booking-modal'
+        ) as HTMLElement | null;
+        const bookingModalClose = document.querySelector(
+          '.booking-modal__close'
+        ) as HTMLElement | null;
+        const sidebarBookingButton = document.querySelector(
+          '.sidebar-menu-button'
+        ) as HTMLElement | null;
+        const menuOverlayBookingButton = document.querySelector(
+          '.menu-overlay__button'
+        ) as HTMLElement | null;
+        const bottomBarBookingButton = document.querySelector(
+          '.bottom-bar__button'
+        ) as HTMLElement | null;
+
+        // ブッキングモーダルを開く関数
+        function openBookingModal() {
+          if (bookingModal) {
+            bookingModal.style.opacity = '1';
+            bookingModal.style.visibility = 'visible';
+            // スクロールを禁止
+            document.body.style.overflow = 'hidden';
+          }
+        }
+
+        // ブッキングモーダルを閉じる関数
+        function closeBookingModal() {
+          if (bookingModal) {
+            bookingModal.style.opacity = '0';
+            bookingModal.style.visibility = 'hidden';
+            // スクロールを復元
+            document.body.style.overflow = '';
+          }
+        }
+
+        // ブッキングモーダル閉じるボタン
+        if (bookingModalClose) {
+          bookingModalClose.addEventListener('click', closeBookingModal);
+        }
+
+        // サイドバーの宿泊予約ボタンクリック（タブレット・デスクトップ）
+        if (sidebarBookingButton) {
+          sidebarBookingButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openBookingModal();
+          });
+        }
+
+        // メニューオーバーレイの宿泊予約ボタンクリック（スマホメニュー内）
+        if (menuOverlayBookingButton) {
+          menuOverlayBookingButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openBookingModal();
+          });
+        }
+
+        // スマホ下部バーの宿泊予約ボタンクリック
+        if (bottomBarBookingButton) {
+          bottomBarBookingButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openBookingModal();
+          });
+        }
+
+        // ブッキングモーダルオーバーレイクリックで閉じる
+        if (bookingModal) {
+          bookingModal.addEventListener('click', (e) => {
+            if (
+              e.target === bookingModal ||
+              (e.target as HTMLElement).classList.contains(
+                'booking-modal__overlay'
+              )
+            ) {
+              closeBookingModal();
+            }
+          });
+        }
+
+        // 必要な要素が存在することを確認してイベントリスナーを設定
+        if (menuOverlay) {
+          // PCメニューボタン
+          if (pcMenuToggle) {
+            pcMenuToggle.addEventListener('click', toggleMenu);
+          }
+
+          // スマホメニュー開くボタン
+          if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', toggleMenu);
+          }
+
+          // スマホメニュー閉じるボタン
+          if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', closeMenu);
+          }
+
           // ============= アクティビティフィルタリング機能 =============
 
           // TypeScript型定義
@@ -671,8 +927,10 @@ const pageDescription = 'クワルビリゾートで体験できる様々なア�
           if (resetButton) {
             resetButton.addEventListener('click', resetFilters);
           }
+        }
       });
     </script>
+  </body>
 
   <style lang="scss">
     // 必要なmixin/functionをインポート
@@ -680,8 +938,32 @@ const pageDescription = 'クワルビリゾートで体験できる様々なア�
     @import '../../styles/functions';
     @import '../../styles/mixins';
 
-    /* アクティビティ一覧ページ専用スタイル */
-    :global(.main-content--activities) {
+    /* 基本構造 */
+    .layout-container {
+      display: grid;
+      grid-template:
+        'main'
+        'footer'
+        /1fr;
+      min-height: 100vh;
+      @include tablet-up {
+        grid-template:
+          'sidebar main'
+          'sidebar footer'
+          / tpx($sidebar-width) 1fr;
+      }
+      @include desktop-up {
+        grid-template:
+          'sidebar main'
+          'sidebar footer'
+          / ppx($sidebar-width) 1fr;
+      }
+    }
+
+    /* メインコンテンツ */
+    .main-content {
+      grid-area: main;
+      position: relative;
       background: var(--blue_2, #e7f3f9);
       padding-top: spx(110);
       @include tablet-up {
@@ -1263,3 +1545,4 @@ const pageDescription = 'クワルビリゾートで体験できる様々なア�
       }
     }
   </style>
+</html>
