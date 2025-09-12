@@ -66,10 +66,10 @@ const pageClass = 'main-content--faq';
           <a href="#payment" class="faq-nav__link">お支払い方法について</a>
         </li>
         <li class="faq-nav__item">
-          <a href="#meal" class="faq-nav__link">お食事について</a>
+          <a href="#dining" class="faq-nav__link">お食事について</a>
         </li>
         <li class="faq-nav__item">
-          <a href="#bath" class="faq-nav__link">入浴について</a>
+          <a href="#bathing" class="faq-nav__link">入浴について</a>
         </li>
       </ul>
     </nav>
@@ -312,7 +312,7 @@ const pageClass = 'main-content--faq';
         </article>
       </div>
     </div>
-    <div class="faq-content__category" id="meal">
+    <div class="faq-content__category" id="dining">
       <h2 class="faq-content__category-title">お食事について</h2>
       <div class="faq-content__items">
         <article class="faq-content__item">
@@ -373,7 +373,7 @@ const pageClass = 'main-content--faq';
         </article>
       </div>
     </div>
-    <div class="faq-content__category" id="bath">
+    <div class="faq-content__category" id="bathing">
       <h2 class="faq-content__category-title">入浴について</h2>
       <div class="faq-content__items">
         <article class="faq-content__item">
@@ -1003,4 +1003,51 @@ const pageClass = 'main-content--faq';
   
   // Initial check
   checkFooterPosition();
+
+  // FAQ navigation active state based on visible category
+  const faqCategories = document.querySelectorAll('.faq-content__category');
+  const faqNavItems = document.querySelectorAll('.faq-nav__item');
+  
+  // Create a map of category IDs to nav items
+  const navItemsMap = new Map<string, HTMLElement>();
+  faqNavItems.forEach((item) => {
+    const link = item.querySelector('.faq-nav__link') as HTMLAnchorElement;
+    if (link) {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        const id = href.substring(1);
+        navItemsMap.set(id, item as HTMLElement);
+      }
+    }
+  });
+  
+  // Intersection Observer to detect which category is visible
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px', // Trigger when category is in the upper portion of viewport
+    threshold: 0
+  };
+  
+  const categoryObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const categoryId = entry.target.id;
+      const navItem = navItemsMap.get(categoryId);
+      
+      if (navItem) {
+        if (entry.isIntersecting) {
+          // Remove active class from all items
+          faqNavItems.forEach((item) => {
+            item.classList.remove('active');
+          });
+          // Add active class to current item
+          navItem.classList.add('active');
+        }
+      }
+    });
+  }, observerOptions);
+  
+  // Observe all FAQ categories
+  faqCategories.forEach((category) => {
+    categoryObserver.observe(category);
+  });
 </script>
