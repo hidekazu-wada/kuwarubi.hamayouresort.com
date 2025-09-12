@@ -43,7 +43,107 @@ const pageClass = 'main-content--faq';
   </div>
 
   <!-- メインコンテンツ -->
-  <section class=""></section>
+  <section class="faq-nav">
+    <!-- スマホのみ表示 -->
+    <button class="faq-nav__mobile-toggle">
+      <span class="faq-nav__mobile-text">カテゴリー</span>
+      <svg
+        class="faq-nav__mobile-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 12 22"
+        fill="none"
+      >
+        <path
+          d="M1 21L11 11L1 1"
+          stroke="#054965"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </button>
+    <!-- タブレット以上でのみ表示 -->
+    <nav class="faq-nav__categories">
+      <ul class="faq-nav__list">
+        <li class="faq-nav__item">
+          <a href="#usage" class="faq-nav__link">ご利用について</a>
+        </li>
+        <li class="faq-nav__item">
+          <a href="#facility" class="faq-nav__link">施設について</a>
+        </li>
+        <li class="faq-nav__item">
+          <a href="#payment" class="faq-nav__link">お支払い方法について</a>
+        </li>
+        <li class="faq-nav__item">
+          <a href="#meal" class="faq-nav__link">お食事について</a>
+        </li>
+        <li class="faq-nav__item">
+          <a href="#bath" class="faq-nav__link">入浴について</a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+  <section class="faq-content">
+    <div class="faq-content__category">
+      <h2 class="faq-content__category-title">ご利用について</h2>
+      <article class="faq-content__item">
+        <div class="faq-content__question">
+          <span class="faq-content__question-icon">Q</span>
+          <h3 class="faq-content__question-text">
+            宿泊の予約はいつからできますか？
+          </h3>
+        </div>
+        <div class="faq-content__answer">
+          <span class="faq-content__answer-icon">A</span>
+          <p class="faq-content__answer-text">
+            ご宿泊日の１年前から承っております。団体でのご利用は早めのご予約をおすすめいたします。特に春季（４-５月）・夏季（６-９月）は混み合いますので、お早めのご連絡をお願いいたします。
+          </p>
+        </div>
+      </article>
+      <article class="faq-content__item">
+        <div class="faq-content__question">
+          <span class="faq-content__question-icon">Q</span>
+          <h3 class="faq-content__question-text">
+            大人数での利用は可能ですか？
+          </h3>
+        </div>
+        <div class="faq-content__answer">
+          <span class="faq-content__answer-icon">A</span>
+          <p class="faq-content__answer-text">
+            はい、最大５００名様までの団体様をお受けできる設備を整えております。学生様の場合は１室最大８名様までの和洋室をご用意。男女別のフロア分けにも対応いたしますので、ご要望をお申し付けください。-５月）・夏季（６-９月）は混み合いますので、お早めのご連絡をお願いいたします。
+          </p>
+        </div>
+      </article>
+    </div>
+    <div class="faq-content__category">
+      <h2 class="faq-content__category-title">施設について</h2>
+      <article class="faq-content__item">
+        <div class="faq-content__question">
+          <span class="faq-content__question-icon">Q</span>
+          <h3 class="faq-content__question-text">
+            研修施設の規模と設備を教えてください。
+          </h3>
+        </div>
+        <div class="faq-content__answer">
+          <span class="faq-content__answer-icon">A</span>
+          <p class="faq-content__answer-text">
+            最大分割で１８の研修室を完備しており、標準的なスクール形式で１会場４０名様の収容が可能です。パーテーションでの空間調整が可能で、必要に応じた大きさでご利用いただけます。プロジェクター、スクリーン、マイク等の基本的な機材も常設しております。-５月）・夏季（６-９月）は混み合いますので、お早めのご連絡をお願いいたします。
+          </p>
+        </div>
+      </article>
+      <article class="faq-content__item">
+        <div class="faq-content__question">
+          <span class="faq-content__question-icon">Q</span>
+          <h3 class="faq-content__question-text">Wi-Fi環境はありますか？</h3>
+        </div>
+        <div class="faq-content__answer">
+          <span class="faq-content__answer-icon">A</span>
+          <p class="faq-content__answer-text">
+            はい、全館で無料Wi-Fiをご利用いただけます。
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
 
   <!-- パンくずリスト -->
   <div class="breadcrumb-wrapper">
@@ -61,5 +161,271 @@ const pageClass = 'main-content--faq';
   :global(.main-content--faq) {
     display: block;
     background: var(--blue_2, #e7f3f9);
+  }
+
+  .faq-nav {
+    @include tablet-up {
+    }
+    @include desktop-up {
+    }
+
+    &__mobile-toggle {
+      display: flex;
+      align-items: center;
+      width: spx(225);
+      height: spx(70);
+      flex-shrink: 0;
+      border-radius: spx(10);
+      border: spx(2) solid var(--blue_5, #026995);
+      position: relative;
+      @include tablet-up {
+        display: none;
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__mobile-text {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(28);
+      font-style: normal;
+      font-weight: 400;
+      line-height: spx(33); /* 117.857% */
+      letter-spacing: spx(0.84);
+      margin-left: spx(30);
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__mobile-icon {
+      display: block;
+      width: spx(10);
+      height: spx(20);
+      flex-shrink: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: spx(20);
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__categories {
+      display: none;
+      @include tablet-up {
+        display: block;
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__list {
+      @include tablet-up {
+        color: var(--blue_5, #026995);
+        font-family: 'Zen Kaku Gothic New';
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%;
+        font-size: ppx(33 * 1.2);
+        width: ppx(450 * 1.2);
+        display: flex;
+        flex-flow: column;
+        gap: ppx(41 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        width: ppx(450);
+        gap: ppx(41);
+      }
+    }
+
+    &__item {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      &.active {
+        .faq-nav__link {
+          &:after {
+            @include tablet-up {
+              content: '';
+              display: block;
+              width: 100%;
+              height: 1px;
+              background: #59a1c0;
+              position: absolute;
+              bottom: 0;
+              left: 0;
+            }
+            @include desktop-up {
+            }
+          }
+        }
+      }
+    }
+
+    &__link {
+      @include tablet-up {
+        display: block;
+        position: relative;
+        padding-bottom: ppx(9 * 1.2);
+        width: max-content;
+      }
+      @include desktop-up {
+        padding-bottom: ppx(9);
+      }
+      &:after {
+        @include tablet-up {
+          content: '';
+          display: block;
+          width: 0;
+          height: 1px;
+          background: #59a1c0;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          transition: width 0.3s ease;
+        }
+        @include desktop-up {
+        }
+      }
+      @include hover {
+        &:hover {
+          &:after {
+            @include tablet-up {
+              width: 100%;
+            }
+            @include desktop-up {
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .faq-content {
+    @include tablet-up {
+    }
+    @include desktop-up {
+    }
+
+    &__category {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__category-title {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(38);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      letter-spacing: spx(1.9);
+      @include tablet-up {
+        text-align: left;
+        font-size: ppx(43 * 1.2);
+        line-height: ppx(33 * 1.2);
+        letter-spacing: ppx(2.15 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(43);
+        line-height: ppx(33);
+        letter-spacing: ppx(2.15);
+      }
+    }
+
+    &__item {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__question {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__question-icon {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(33);
+      font-style: normal;
+      font-weight: 700;
+      line-height: 140%;
+      letter-spacing: spx(-0.33);
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: 180%;
+        letter-spacing: ppx(0.99 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(0.99);
+      }
+    }
+
+    &__question-text {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(29);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%;
+      letter-spacing: spx(-0.29);
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: 180%;
+        letter-spacing: ppx(0.99 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(0.99);
+      }
+    }
+
+    &__answer {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__answer-icon {
+      color: var(--green_2, #adc400);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(33);
+      font-style: normal;
+      font-weight: 700;
+      line-height: 140%;
+      letter-spacing: spx(-0.33);
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: 180%;
+        letter-spacing: ppx(0.99 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(0.99);
+      }
+    }
+
+    &__answer-text {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
   }
 </style>
