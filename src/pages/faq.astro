@@ -312,7 +312,7 @@ const pageClass = 'main-content--faq';
         </article>
       </div>
     </div>
-    <div class="faq-content__category" id="dining">
+    <div class="faq-content__category" id="meal">
       <h2 class="faq-content__category-title">お食事について</h2>
       <div class="faq-content__items">
         <article class="faq-content__item">
@@ -373,7 +373,7 @@ const pageClass = 'main-content--faq';
         </article>
       </div>
     </div>
-    <div class="faq-content__category" id="bathing">
+    <div class="faq-content__category" id="bath">
       <h2 class="faq-content__category-title">入浴について</h2>
       <div class="faq-content__items">
         <article class="faq-content__item">
@@ -691,38 +691,78 @@ const pageClass = 'main-content--faq';
     &__item {
       display: flex;
       padding: spx(30);
+      padding-bottom: spx(30);
       flex-direction: column;
       align-items: flex-start;
-      gap: spx(9);
+      gap: 0; // 初期状態でgapを0に
       border-radius: spx(20);
       background: var(--white, #fff);
       width: spx(640);
+      transition:
+        padding-bottom 0.3s ease,
+        gap 0.3s ease;
       @include tablet-up {
-        padding: ppx(19 * 1.2) ppx(39 * 1.2) ppx(36 * 1.2) ppx(39 * 1.2);
-        gap: ppx(20 * 1.2);
+        padding: ppx(19 * 1.2) ppx(39 * 1.2) ppx(25 * 1.2) ppx(39 * 1.2);
+        gap: 0;
         align-self: stretch;
         border-radius: ppx(15 * 1.2);
         width: ppx(1390 * 1);
       }
       @include desktop-up {
-        padding: ppx(19) ppx(39) ppx(36) ppx(39);
-        gap: ppx(20);
+        padding: ppx(19) ppx(39) ppx(25) ppx(39);
+        gap: 0;
         border-radius: ppx(15);
         width: ppx(1390);
+      }
+
+      &.is-open {
+        gap: spx(9); // 開いた時にgapを追加
+
+        @include tablet-up {
+          padding-bottom: ppx(36 * 1.2);
+          gap: ppx(20 * 1.2);
+        }
+
+        @include desktop-up {
+          padding-bottom: ppx(36);
+          gap: ppx(20);
+        }
+
+        .faq-content__question {
+          padding-bottom: spx(13);
+
+          @include tablet-up {
+            padding-bottom: ppx(20 * 1.2);
+          }
+
+          @include desktop-up {
+            padding-bottom: ppx(20);
+          }
+
+          &::after {
+            opacity: 1;
+          }
+        }
+
+        .faq-content__answer {
+          max-height: 500px;
+        }
       }
     }
 
     &__question {
+      cursor: pointer;
       display: grid;
       grid-template-columns: max-content auto;
       position: relative;
       width: 100%;
-      padding-bottom: spx(13);
+      padding-bottom: 0; // 初期状態では0
+      transition: padding-bottom 0.3s ease;
       @include tablet-up {
-        padding-bottom: ppx(20 * 1.2);
+        padding-bottom: 0;
       }
       @include desktop-up {
-        padding-bottom: ppx(20);
+        padding-bottom: 0;
       }
       &::after {
         content: '';
@@ -733,6 +773,8 @@ const pageClass = 'main-content--faq';
         position: absolute;
         bottom: 0;
         left: 0;
+        opacity: 0;
+        transition: opacity 0.3s ease;
       }
     }
 
@@ -781,6 +823,9 @@ const pageClass = 'main-content--faq';
       display: grid;
       grid-template-columns: max-content auto;
       width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
       @include tablet-up {
       }
       @include desktop-up {
@@ -863,4 +908,31 @@ const pageClass = 'main-content--faq';
       }
     });
   }
+
+  // FAQ accordion functionality
+  const faqQuestions = document.querySelectorAll('.faq-content__question');
+
+  faqQuestions.forEach((question) => {
+    question.addEventListener('click', () => {
+      const item = question.closest('.faq-content__item');
+      if (item) {
+        // Toggle is-open class
+        item.classList.toggle('is-open');
+
+        // Get the answer element
+        const answer = item.querySelector(
+          '.faq-content__answer'
+        ) as HTMLElement;
+        if (answer) {
+          if (item.classList.contains('is-open')) {
+            // Calculate the actual height of the content
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+          } else {
+            // Collapse the answer
+            answer.style.maxHeight = '0';
+          }
+        }
+      }
+    });
+  });
 </script>
