@@ -45,6 +45,8 @@
   - コーディング規約、パフォーマンス最適化
 - [プロジェクトステータス](./docs/claude-info/12-milestones.md)
   - マイルストーン、完了済み実装、今後の予定
+- [レイアウトリファクタリング](./docs/claude-info/13-layout-refactoring.md) 🆕
+  - BaseLayout実装計画、フェーズ別作業内容
 
 ## 🚀 クイックスタート
 
