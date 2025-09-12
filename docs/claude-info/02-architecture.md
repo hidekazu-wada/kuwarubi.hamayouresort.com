@@ -119,3 +119,99 @@
 - **レスポンシブ対応**: スマホ時はグリッドが`'main' 'footer'`に自動変化
 
 この設計思想により、モダンなWebアプリケーションに適したレイアウトシステムを実現しています。
+
+## BaseLayoutシステム
+
+### 概要
+
+プロジェクト全体で共通のレイアウト構造を提供する`BaseLayout.astro`を導入しました。これにより、コードの重複を削減し、メンテナンス性を向上させています。
+
+### ファイル構成
+
+```
+src/
+  layouts/
+    BaseLayout.astro  # 共通レイアウトコンポーネント
+  pages/
+    index.astro       # TOPページ（BaseLayout使用）
+    activities/
+      index.astro     # 一覧ページ（BaseLayout使用）
+      [slug].astro    # 詳細ページ（BaseLayout使用）
+```
+
+### BaseLayoutの機能
+
+#### Props Interface
+```typescript
+export interface Props {
+  title: string;          // ページタイトル（必須）
+  description?: string;   // メタディスクリプション
+  ogImage?: string;       // OGP画像URL
+  pageClass?: string;     // ページ固有のクラス名
+}
+```
+
+#### 含まれるコンポーネント
+- **Sidebar**: PC用固定サイドバー
+- **BottomBar**: スマホ用下部固定バー
+- **MenuOverlay**: 全画面メニューオーバーレイ
+- **BookingModal**: 宿泊予約モーダル
+- **Footer**: ページフッター
+
+**注意**: VideoModalはTOPページ専用のため、BaseLayoutには含まれていません。
+
+### 使用方法
+
+#### 基本的な使用例
+```astro
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pageTitle = 'ページタイトル';
+const pageDescription = 'ページの説明';
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <!-- ページコンテンツ -->
+</BaseLayout>
+```
+
+#### ページ固有のスタイリング
+```astro
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title={pageTitle} 
+  pageClass="main-content--activities"
+>
+  <!-- コンテンツ -->
+</BaseLayout>
+
+<style lang="scss">
+  /* :global()を使用してページ固有のスタイルを適用 */
+  :global(.main-content--activities) {
+    background: var(--blue_2, #e7f3f9);
+    padding-top: spx(110);
+  }
+</style>
+```
+
+### Astroのスタイルスコープについて
+
+Astroはデフォルトでコンポーネント内のスタイルをスコープ化します。子コンポーネントから親コンポーネント（BaseLayout）の要素にスタイルを適用する場合は、`:global()`セレクタを使用する必要があります。
+
+### メンテナンス時の注意事項
+
+1. **新規ページ作成時**: BaseLayoutを使用することを推奨
+2. **共通要素の追加**: BaseLayoutに追加することで全ページに反映
+3. **ページ固有の要素**: 各ページ内で個別に実装（例：VideoModal）
+4. **スタイルの適用**: ページ固有のスタイルは`:global()`を使用
+
+### 実装の利点
+
+- **コード重複の削減**: 共通レイアウトを一元管理
+- **保守性の向上**: 変更箇所が1つに集約
+- **一貫性の保証**: 全ページで同じレイアウト構造
+- **開発効率の向上**: 新規ページ作成時の工数削減

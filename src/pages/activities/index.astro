@@ -439,7 +439,7 @@ const pageDescription = 'クワルビリゾートで体験できる様々なア�
           }
 
           // 現在の選択状態から利用可能な選択肢を取得する関数（3つのカテゴリのみ）
-          function getAvailableOptions(excludeFilterKey?: string) {
+          function getAvailableOptions() {
             const currentFilters = {
               price: filterSelects.price?.value || '',
               duration: filterSelects.duration?.value || '',
@@ -501,7 +501,7 @@ const pageDescription = 'クワルビリゾートで体験できる様々なア�
 
           // フィルター選択肢を更新する関数
           function updateFilterOptions(changedFilterKey?: string) {
-            const availableOptions = getAvailableOptions(changedFilterKey);
+            const availableOptions = getAvailableOptions();
 
             Object.entries(filterSelects).forEach(([filterKey, select]) => {
               if (select && filterKey !== changedFilterKey) {

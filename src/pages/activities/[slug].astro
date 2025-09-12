@@ -40,8 +40,7 @@ export async function getStaticPaths() {
   }));
 }
 
-// URLパラメータからslugを取得
-const { slug } = Astro.params;
+// Propsからactivityを取得
 const { activity }: { activity: Activity } = Astro.props;
 
 // 404チェック（念のため）
@@ -57,14 +56,8 @@ const pageDescription = activity.description || `${activity.title}の詳細情�
 const popularActivities = activities.filter((activity) => activity.isPopular);
 
 // 人気アクティビティの画像最適化
-const popularActivityImages = await Promise.all(
+await Promise.all(
   popularActivities.map(async (activity) => {
-    // 画像パスをAstro assetsに合わせて変換
-    const imagePath = activity.images.thumbnail.replace(
-      '/images/',
-      '../../assets/images/'
-    );
-
     // 実際の画像ファイルは後で追加するため、一時的にsupImageを使用
     return {
       activity,
