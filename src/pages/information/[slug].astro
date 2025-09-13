@@ -14,12 +14,12 @@ import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 // import { getImage } from 'astro:assets';
 // import sampleImage from '../assets/images/sample.jpg';
 
-// ニュースデータのインポート
-import { getNewsBySlug, getAdjacentPosts, formatDate, newsPosts } from '../../data/news';
+// インフォメーションデータのインポート
+import { getInformationBySlug, getAdjacentPosts, formatDate, informationPosts } from '../../data/information';
 
 // 静的パスの生成（Astroの動的ルーティング用）
 export async function getStaticPaths() {
-  return newsPosts.map(post => ({
+  return informationPosts.map(post => ({
     params: { slug: post.slug },
   }));
 }
@@ -27,8 +27,8 @@ export async function getStaticPaths() {
 // パラメータからスラッグを取得
 const { slug } = Astro.params;
 
-// ニュース記事を取得
-const post = getNewsBySlug(slug);
+// インフォメーション記事を取得
+const post = getInformationBySlug(slug);
 
 // 記事が見つからない場合は404（通常はgetStaticPathsで防がれる）
 if (!post) {
@@ -85,7 +85,7 @@ const pageClass = 'main-content--blog-detail';
     <nav class="blog-detail__navigation">
       <div class="blog-detail__nav-links">
         {prev && (
-          <a href={`/news/${prev.slug}`} class="blog-detail__nav-item blog-detail__nav-item--prev">
+          <a href={`/information/${prev.slug}`} class="blog-detail__nav-item blog-detail__nav-item--prev">
             <article class="blog-detail__nav-article">
               <time class="blog-detail__nav-date" datetime={prev.date}>
                 <span class="blog-detail__nav-year">{prevDateInfo?.year}.{prevDateInfo?.month}</span>
@@ -98,7 +98,7 @@ const pageClass = 'main-content--blog-detail';
           </a>
         )}
         {next && (
-          <a href={`/news/${next.slug}`} class="blog-detail__nav-item blog-detail__nav-item--next">
+          <a href={`/information/${next.slug}`} class="blog-detail__nav-item blog-detail__nav-item--next">
             <article class="blog-detail__nav-article">
               <time class="blog-detail__nav-date" datetime={next.date}>
                 <span class="blog-detail__nav-year">{nextDateInfo?.year}.{nextDateInfo?.month}</span>
@@ -112,7 +112,7 @@ const pageClass = 'main-content--blog-detail';
         )}
       </div>
 
-      <a href="/news" class="blog-detail__list-link">
+      <a href="/information" class="blog-detail__list-link">
         <span class="blog-detail__list-text">{post.category}一覧</span>
         <svg
           class="blog-detail__list-icon"
