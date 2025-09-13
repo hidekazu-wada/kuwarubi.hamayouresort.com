@@ -771,12 +771,17 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
       margin-inline: auto;
       margin-top: spx(50);
       cursor: pointer;
-      transition: opacity 0.3s ease;
+      transition: background 0.3s ease, opacity 0.3s ease;
       border: none;
 
       &:disabled {
-        opacity: 0.5;
         cursor: not-allowed;
+      }
+
+      @include hover {
+        &:not(:disabled) {
+          background: var(--green_2, #A5D26A);
+        }
       }
 
       @include tablet-up {
