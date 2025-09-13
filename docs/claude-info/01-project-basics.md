@@ -21,6 +21,10 @@
 # 依存関係のインストール
 npm install
 
+# 環境変数の設定（初回のみ）
+cp .env.example .env
+# .envファイルを編集して必要な値を設定
+
 # 開発サーバーの起動（localhost:4321）
 npm run dev
 
@@ -35,6 +39,9 @@ npm run astro [command]
 
 # Astro CLIのヘルプ
 npm run astro -- --help
+
+# TypeScript型定義の同期（型エラー修正時）
+npm run astro sync
 ```
 
 ## プロジェクト構造
