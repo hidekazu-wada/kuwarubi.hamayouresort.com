@@ -224,8 +224,10 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
 
   :global(.main-content--contact) {
     background: var(--blue_2, #e7f3f9);
+    padding-top: spx(110);
     @include tablet-up {
       background: var(--white, #fff);
+      padding-top: 0;
     }
     @include desktop-up {
     }
