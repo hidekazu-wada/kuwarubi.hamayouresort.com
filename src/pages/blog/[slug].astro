@@ -6,21 +6,50 @@
 // ============================================================
 
 // 必須インポート
-import BaseLayout from '../layouts/BaseLayout.astro';
-import LowerPageHeader from '../components/ui/LowerPageHeader.astro';
-import Breadcrumb from '../components/ui/Breadcrumb.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LowerPageHeader from '../../components/ui/LowerPageHeader.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 
 // 追加インポート（必要に応じて）
 // import { getImage } from 'astro:assets';
 // import sampleImage from '../assets/images/sample.jpg';
 
+// ブログデータのインポート
+import { getBlogBySlug, getAdjacentPosts, formatDate, blogPosts } from '../../data/blogs';
+
+// 静的パスの生成（Astroの動的ルーティング用）
+export async function getStaticPaths() {
+  return blogPosts.map(post => ({
+    params: { slug: post.slug },
+  }));
+}
+
+// パラメータからスラッグを取得
+const { slug } = Astro.params;
+
+// ブログ記事を取得
+const post = getBlogBySlug(slug);
+
+// 記事が見つからない場合は404（通常はgetStaticPathsで防がれる）
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+// 前後の記事を取得
+const { prev, next } = getAdjacentPosts(slug);
+
+// 日付をフォーマット
+const dateInfo = formatDate(post.date);
+const prevDateInfo = prev ? formatDate(prev.date) : null;
+const nextDateInfo = next ? formatDate(next.date) : null;
+
 // ============================================================
 // TODO: 以下の項目を必ず変更してください
 // ============================================================
 
-// ページメタ情報（必ず変更）
-const pageTitle = '記事のタイトル | 光風閣くわるび';
-const pageDescription = 'ページの説明文をここに記述します。';
+// ページメタ情報（動的に設定）
+const pageTitle = `${post.title} | 光風閣くわるび`;
+const pageDescription = post.title;
 
 // ページ固有のクラス名
 const pageClass = 'main-content--blog-detail';
@@ -37,90 +66,54 @@ const pageClass = 'main-content--blog-detail';
 
   <!-- ページヘッダー -->
   <header class="page-header-container">
-    <time class="page-header-container__date" datetime="2024-06-25">
-      <span class="page-header-container__date__year">2024.06</span>
-      <span class="page-header-container__date__day">25</span>
+    <time class="page-header-container__date" datetime={post.date}>
+      <span class="page-header-container__date__year">{dateInfo.year}.{dateInfo.month}</span>
+      <span class="page-header-container__date__day">{dateInfo.day}</span>
     </time>
     <!-- お知らせ、イベント情報、ブログ記事などのカテゴリ名を入れます -->
-    <span class="page-header-container__category">お知らせ</span>
+    <span class="page-header-container__category">{post.category}</span>
   </header>
 
   <!-- メインコンテンツ -->
   <article class="blog-detail">
     <div class="blog-detail__body">
-      <h2 class="blog-detail__title">改めて湖サウナについて考える</h2>
+      <h2 class="blog-detail__title">{post.title}</h2>
       <!-- コンテンツ -->
-      <div class="blog-detail__content">
-        <p class="blog-detail__paragraph">
-          ホテルくわるびの『くわるび』ってユニークでちょっと不思議な響きですよね。<br
-          />
-          実は『くわるび』とは『桑留尾』地名から来ています。
-        </p>
-        <p class="blog-detail__paragraph">
-          かつてこの地に広大な桑畑が広がっていたことからその名がつけられたと言われています。
-        </p>
-        <p class="blog-detail__paragraph">
-          私も幼少期に桑畑で遊んだ記憶が微かにあります。
-        </p>
-        <p class="blog-detail__paragraph">
-          昭和40年頃までは『桑留尾地区』には教会や寺跡があり、祈りを捧げる人々がこの地には集まっていたことからも、日本古来の文化から伝わる縁起の良い樹木と扱われてい『桑』の群生地に、多くの人々が特別な親和性を抱いていたことがうかがえます。
-        </p>
-        <p class="blog-detail__paragraph">
-          日本では、雷などの災害を恐れ、避けるために「クワバラクワバラ（桑原桑原）」というおまじないを唱えるなどの風習がありますよね。かつては畑に雷が落ちないようにクワの木を植えるなど、防災を祈る象徴として使われてきました。また、このように縁起の良い樹木であるため、人々から沢山の願いや祈りを託されたりしてきました。
-        </p>
-
-        <figure class="blog-detail__image">
-          <img src="" alt="" class="blog-detail__image-img" />
-        </figure>
-
-        <p class="blog-detail__paragraph">
-          ホテルくわるびの『くわるび』ってユニークでちょっと不思議な響きですよね。<br
-          />
-          実は『くわるび』とは『桑留尾』地名から来ています。
-        </p>
-        <p class="blog-detail__paragraph">
-          かつてこの地に広大な桑畑が広がっていたことからその名がつけられたと言われています。
-        </p>
-        <p class="blog-detail__paragraph">
-          私も幼少期に桑畑で遊んだ記憶が微かにあります。
-        </p>
-        <p class="blog-detail__paragraph">
-          昭和40年頃までは『桑留尾地区』には教会や寺跡があり、祈りを捧げる人々がこの地には集まっていたことからも、日本古来の文化から伝わる縁起の良い樹木と扱われてい『桑』の群生地に、多くの人々が特別な親和性を抱いていたことがうかがえます。
-        </p>
-        <p class="blog-detail__paragraph">
-          日本では、雷などの災害を恐れ、避けるために「クワバラクワバラ（桑原桑原）」というおまじないを唱えるなどの風習がありますよね。かつては畑に雷が落ちないようにクワの木を植えるなど、防災を祈る象徴として使われてきました。また、このように縁起の良い樹木であるため、人々から沢山の願いや祈りを託されたりしてきました。
-        </p>
-      </div>
+      <div class="blog-detail__content" set:html={post.content} />
     </div>
 
     <nav class="blog-detail__navigation">
       <div class="blog-detail__nav-links">
-        <a href="#" class="blog-detail__nav-item blog-detail__nav-item--prev">
-          <article class="blog-detail__nav-article">
-            <time class="blog-detail__nav-date" datetime="2024-06-20">
-              <span class="blog-detail__nav-year">2024.06</span>
-              <span class="blog-detail__nav-day">20</span>
-            </time>
-            <h3 class="blog-detail__nav-title">
-              ホームページをリニューアルいたしました。
-            </h3>
-          </article>
-        </a>
-        <a href="#" class="blog-detail__nav-item blog-detail__nav-item--next">
-          <article class="blog-detail__nav-article">
-            <time class="blog-detail__nav-date" datetime="2024-06-31">
-              <span class="blog-detail__nav-year">2024.06</span>
-              <span class="blog-detail__nav-day">31</span>
-            </time>
-            <h3 class="blog-detail__nav-title">
-              ホームページをリニューアルいたしました。
-            </h3>
-          </article>
-        </a>
+        {prev && (
+          <a href={`/blog/${prev.slug}`} class="blog-detail__nav-item blog-detail__nav-item--prev">
+            <article class="blog-detail__nav-article">
+              <time class="blog-detail__nav-date" datetime={prev.date}>
+                <span class="blog-detail__nav-year">{prevDateInfo?.year}.{prevDateInfo?.month}</span>
+                <span class="blog-detail__nav-day">{prevDateInfo?.day}</span>
+              </time>
+              <h3 class="blog-detail__nav-title">
+                {prev.title}
+              </h3>
+            </article>
+          </a>
+        )}
+        {next && (
+          <a href={`/blog/${next.slug}`} class="blog-detail__nav-item blog-detail__nav-item--next">
+            <article class="blog-detail__nav-article">
+              <time class="blog-detail__nav-date" datetime={next.date}>
+                <span class="blog-detail__nav-year">{nextDateInfo?.year}.{nextDateInfo?.month}</span>
+                <span class="blog-detail__nav-day">{nextDateInfo?.day}</span>
+              </time>
+              <h3 class="blog-detail__nav-title">
+                {next.title}
+              </h3>
+            </article>
+          </a>
+        )}
       </div>
 
-      <a href="" class="blog-detail__list-link">
-        <span class="blog-detail__list-text">お知らせ一覧</span>
+      <a href="/blog" class="blog-detail__list-link">
+        <span class="blog-detail__list-text">{post.category}一覧</span>
         <svg
           class="blog-detail__list-icon"
           xmlns="http://www.w3.org/2000/svg"
@@ -151,9 +144,9 @@ const pageClass = 'main-content--blog-detail';
 </BaseLayout>
 
 <style lang="scss">
-  @import '../styles/variables';
-  @import '../styles/functions';
-  @import '../styles/mixins';
+  @import '../../styles/variables';
+  @import '../../styles/functions';
+  @import '../../styles/mixins';
 
   // ============================================================
   // Blog Detail Styles
