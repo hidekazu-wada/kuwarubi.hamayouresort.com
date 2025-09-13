@@ -171,7 +171,7 @@ const pageClass = 'main-content--contact';
                 type="checkbox"
                 name="privacy_agreement"
                 class="contact-form__checkbox"
-                required
+                autocomplete="off"
               />
             </label>
           </div>
@@ -943,11 +943,22 @@ const pageClass = 'main-content--contact';
       submitButton.style.opacity = '0.5';
     }
   }
-  
-  // Immediately set initial state to prevent visual flash
-  if (privacyCheckbox && submitButton) {
-    updateSubmitButton();
+
+  function resetCheckbox() {
+    if (privacyCheckbox) {
+      privacyCheckbox.checked = false;
+      updateSubmitButton();
+    }
   }
+
+  // Reset on initial load
+  resetCheckbox();
+
+  // Reset when page is shown (including back button navigation)
+  window.addEventListener('pageshow', () => {
+    // This fires when page is loaded from cache (back button)
+    resetCheckbox();
+  });
 
   // Make entire label clickable
   const checkboxLabel = document.querySelector(
@@ -960,11 +971,6 @@ const pageClass = 'main-content--contact';
   // Listen for checkbox changes
   if (privacyCheckbox) {
     privacyCheckbox.addEventListener('change', updateSubmitButton);
-  }
-
-  // Remove required attribute from checkbox to handle validation via JavaScript
-  if (privacyCheckbox) {
-    privacyCheckbox.removeAttribute('required');
   }
 
   // Handle form submission
