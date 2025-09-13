@@ -419,6 +419,13 @@ const pageClass = 'main-content--blog-detail';
         left: 0;
       }
 
+      // ホバー時にタイトルの色を変更
+      @include hover {
+        &:hover .blog-detail__nav-title {
+          color: var(--green_2, #a5d26a);
+        }
+      }
+
       &--prev {
         grid-area: prev;
         @include tablet-up {
@@ -514,12 +521,14 @@ const pageClass = 'main-content--blog-detail';
       font-weight: 400;
       line-height: 140%;
       letter-spacing: spx(-0.54);
+      transition: color 0.3s ease;
 
       @include tablet-up {
         font-size: ppx(33 * 1.2);
         line-height: 160%;
         letter-spacing: ppx(-1.65 * 1.2);
         margin-right: ppx(33 * 1.2);
+        margin-top: 1em;
       }
       @include desktop-up {
         font-size: ppx(33);
@@ -538,6 +547,14 @@ const pageClass = 'main-content--blog-detail';
       background: var(--blue_5, #026995);
       position: relative;
       margin: spx(80) auto 0;
+      transition: background 0.3s ease;
+
+      @include hover {
+        &:hover {
+          background: var(--green_2, #a5d26a);
+        }
+      }
+
       @include tablet-up {
         width: ppx(429 * 1.2);
         height: ppx(90 * 1.2);
