@@ -203,6 +203,7 @@ const pageClass = 'main-content--contact';
   }
 
   .page-header-container {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
     @include tablet-up {
       position: fixed;
       top: ppx(280 * 1.2);
@@ -211,6 +212,11 @@ const pageClass = 'main-content--contact';
     @include desktop-up {
       top: ppx(280);
       left: ppx(477);
+    }
+    
+    &.hide-at-footer {
+      opacity: 0;
+      visibility: hidden;
     }
   }
 
@@ -239,6 +245,7 @@ const pageClass = 'main-content--contact';
       width: max-content;
       margin-inline: auto;
       margin-top: spx(80);
+      transition: opacity 0.3s ease, visibility 0.3s ease;
       @include tablet-up {
         text-align: left;
         font-size: ppx(30 * 1.2);
@@ -255,6 +262,11 @@ const pageClass = 'main-content--contact';
         letter-spacing: ppx(1.5);
         top: ppx(608);
         left: ppx(478);
+      }
+      
+      &.hide-at-footer {
+        opacity: 0;
+        visibility: hidden;
       }
     }
 
@@ -777,3 +789,61 @@ const pageClass = 'main-content--contact';
     }
   }
 </style>
+
+<script>
+  // Hide header elements when reaching footer
+  const pageHeaderContainer = document.querySelector('.page-header-container') as HTMLElement | null;
+  const contactFormHeader = document.querySelector('.contact-form__header') as HTMLElement | null;
+  const footer = document.querySelector('.footer') as HTMLElement | null;
+  
+  function checkFooterPosition() {
+    if (!footer) return;
+    
+    const footerRect = footer.getBoundingClientRect();
+    const footerTop = footerRect.top;
+    const triggerPoint = footerTop - 300; // フッターから300px上を切り替えポイントに
+    
+    // Check page header container
+    if (pageHeaderContainer) {
+      const headerRect = pageHeaderContainer.getBoundingClientRect();
+      const headerBottom = headerRect.bottom;
+      
+      if (headerBottom > triggerPoint) {
+        pageHeaderContainer.classList.add('hide-at-footer');
+      } else {
+        pageHeaderContainer.classList.remove('hide-at-footer');
+      }
+    }
+    
+    // Check contact form header
+    if (contactFormHeader) {
+      const formHeaderRect = contactFormHeader.getBoundingClientRect();
+      const formHeaderBottom = formHeaderRect.bottom;
+      
+      if (formHeaderBottom > triggerPoint) {
+        contactFormHeader.classList.add('hide-at-footer');
+      } else {
+        contactFormHeader.classList.remove('hide-at-footer');
+      }
+    }
+  }
+  
+  // Check on scroll and resize
+  let scrollTimeout: number | null = null;
+  
+  function handleScroll() {
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+    
+    scrollTimeout = window.setTimeout(() => {
+      checkFooterPosition();
+    }, 10);
+  }
+  
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('resize', handleScroll);
+  
+  // Initial check
+  checkFooterPosition();
+</script>
