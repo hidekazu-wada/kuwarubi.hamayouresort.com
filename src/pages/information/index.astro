@@ -11,8 +11,14 @@ import LowerPageHeader from '../../components/ui/LowerPageHeader.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 
 // 追加インポート（必要に応じて）
-// import { getImage } from 'astro:assets';
-// import sampleImage from '../../assets/images/sample.jpg';
+import { getImage } from 'astro:assets';
+import Thumbnail from '../../assets/images/information/demo.png';
+
+const ThumbnailImage = await getImage({
+  src: Thumbnail,
+  format: 'webp',
+  widths: [500],
+});
 
 // インフォメーションデータのインポート
 import {
@@ -91,14 +97,27 @@ const pageClass = 'main-content--information';
                     href={`/information/${post.slug}`}
                     class="information-list__blog-link"
                   >
-                    <div>
-                      <div>
-                        <img src="" alt="" />
-                      </div>
-                      <div class="">2024.03</div>
-                      <div class="">26</div>
-                    </div>
-                    <div class="">『coolturf』エリア完成！</div>
+                    <figure class="information-list__blog-image">
+                      <img
+                        class="information-list__blog-img"
+                        src={ThumbnailImage.src}
+                        alt="『coolturf』エリア完成！"
+                      />
+                      <figcaption class="information-list__blog-date">
+                        <time
+                          class="information-list__blog-time"
+                          datetime="2024-06-25"
+                        >
+                          <span class="information-list__blog-year-month">
+                            2024.06
+                          </span>
+                          <span class="information-list__blog-day">25</span>
+                        </time>
+                      </figcaption>
+                    </figure>
+                    <h3 class="information-list__blog-title">
+                      『coolturf』エリア完成！
+                    </h3>
                   </a>
                 </article>
               );
@@ -450,10 +469,68 @@ const pageClass = 'main-content--information';
       }
     }
 
-    // ブログカテゴリー用のレイアウト（将来的な実装用）
-    &__item--blog {
-      // ブログ用の異なるレイアウトスタイルをここに追加予定
-      // 現時点では通常のレイアウトを継承
+    // ブログカテゴリー用のレイアウト
+    &__blog-item {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__blog-link {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__blog-image {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__blog-img {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__blog-date {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__blog-time {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__blog-year-month {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__blog-day {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__blog-title {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
   }
 
