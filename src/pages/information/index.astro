@@ -99,7 +99,7 @@ const pageClass = 'main-content--information';
             // ブログカテゴリーの場合は別のHTML構造を使用
             if (post.category === 'ブログ記事') {
               const blogImage = blogImages.get(post.id);
-              
+
               return (
                 <article
                   class="information-list__blog-item"
@@ -324,6 +324,7 @@ const pageClass = 'main-content--information';
         display: grid;
         grid-template-columns: max-content;
         gap: spx(70);
+        justify-content: center;
         @include tablet-up {
           grid-template-columns: max-content max-content max-content;
           gap: ppx(130 * 1.2) ppx(30 * 1.2);
