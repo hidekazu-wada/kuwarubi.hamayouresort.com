@@ -5,6 +5,7 @@ export interface InformationPost {
   category: 'お知らせ' | 'イベント情報' | 'ブログ記事';
   title: string;
   content: string; // HTML content
+  thumbnail?: string; // サムネイル画像のパス（ブログ記事用）
 }
 
 export const informationPosts: InformationPost[] = [
@@ -76,6 +77,7 @@ export const informationPosts: InformationPost[] = [
     date: '2024-06-10',
     category: 'ブログ記事',
     title: 'マリンアクティビティ体験記：スタッフが挑戦してみました！',
+    thumbnail: 'demo.png',
     content: `
       <p>こんにちは！フロントスタッフの山田です。</p>
       <p>今回は、当ホテルで人気のマリンアクティビティを実際に体験してきました。</p>
@@ -109,6 +111,79 @@ export const informationPosts: InformationPost[] = [
       </ul>
       <p>期間：2024年6月1日〜8月31日</p>
       <p>ご予約・お問い合わせは、レストラン直通電話までお願いいたします。</p>
+    `,
+  },
+  {
+    id: 'info-006',
+    slug: 'coolturf-area-complete',
+    date: '2024-05-18',
+    category: 'ブログ記事',
+    title: '『coolturf』エリア完成！',
+    thumbnail: 'demo.png',
+    content: `
+      <p>皆様お待たせいたしました！ついに新しいリラクゼーションエリア『coolturf』が完成しました。</p>
+      <figure>
+        <img src="/images/blog/coolturf.jpg" alt="coolturfエリアの全景">
+      </figure>
+      <p>このエリアは、天然芝を使用した開放的な空間で、海を眺めながらゆったりとお過ごしいただけます。</p>
+      <h3>coolturfエリアの特徴</h3>
+      <ul>
+        <li>約500平米の広々とした天然芝スペース</li>
+        <li>ハンモックやデイベッドを完備</li>
+        <li>夕日を眺める絶好のロケーション</li>
+        <li>ペット同伴可能エリアも併設</li>
+      </ul>
+      <p>朝のヨガクラスや、夕方のサンセットタイムには、ドリンクサービスも行っております。</p>
+      <p>ぜひ新しいcoolturfエリアで、至福のひとときをお過ごしください。</p>
+    `,
+  },
+  {
+    id: 'info-007',
+    slug: 'spring-special-plan',
+    date: '2024-04-10',
+    category: 'ブログ記事',
+    title: '春の特別プラン受付開始',
+    thumbnail: 'demo.png',
+    content: `
+      <p>春の訪れとともに、特別な宿泊プランをご用意いたしました。</p>
+      <figure>
+        <img src="/images/blog/spring-plan.jpg" alt="春の特別プランイメージ">
+      </figure>
+      <h3>プラン内容</h3>
+      <p>この春だけの特別なおもてなしをご体験ください。</p>
+      <ul>
+        <li>春の味覚を堪能できる特別会席</li>
+        <li>スパトリートメント20%オフ</li>
+        <li>アーリーチェックイン（13:00〜）</li>
+        <li>お部屋グレードアップ（空室状況による）</li>
+      </ul>
+      <p>期間：2024年4月1日〜5月31日</p>
+      <p>春の沖縄は過ごしやすい気候で、観光にも最適な季節です。</p>
+      <p>この機会にぜひ、光風閣くわるびでゆったりとした時間をお過ごしください。</p>
+    `,
+  },
+  {
+    id: 'info-008',
+    slug: 'new-spa-menu-blog',
+    date: '2024-03-05',
+    category: 'ブログ記事',
+    title: '新しいスパメニューが登場しました',
+    thumbnail: 'demo.png',
+    content: `
+      <p>リラクゼーション施設より、新しいスパメニューのご紹介です。</p>
+      <figure>
+        <img src="/images/blog/spa-menu.jpg" alt="新しいスパメニュー">
+      </figure>
+      <p>今回新たに加わったメニューは、すべて沖縄の自然の恵みを活かしたトリートメントです。</p>
+      <h3>新メニューの詳細</h3>
+      <h4>沖縄海泥パック（60分）</h4>
+      <p>ミネラル豊富な沖縄の海泥を使用。デトックス効果と美肌効果が期待できます。</p>
+      <h4>月桃アロマトリートメント（90分）</h4>
+      <p>沖縄の伝統的な植物「月桃」のエッセンシャルオイルを使用した全身トリートメント。</p>
+      <h4>シークヮーサーボディスクラブ（45分）</h4>
+      <p>ビタミンCたっぷりのシークヮーサーを使用した、爽やかな香りのボディスクラブ。</p>
+      <p>各メニューとも、施術後はハーブティーのサービスがございます。</p>
+      <p>日頃の疲れを癒しに、ぜひお試しください。</p>
     `,
   },
 ];

@@ -12,13 +12,23 @@ import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 
 // 追加インポート（必要に応じて）
 import { getImage } from 'astro:assets';
-import Thumbnail from '../../assets/images/information/demo.png';
 
-const ThumbnailImage = await getImage({
-  src: Thumbnail,
-  format: 'webp',
-  widths: [500],
-});
+// ブログ記事のサムネイル画像を動的にインポート
+import blogThumb1 from '../../assets/images/information/demo.png';
+
+// 画像の最適化処理
+const blogImages = new Map();
+for (const post of informationPosts) {
+  if (post.category === 'ブログ記事' && post.thumbnail) {
+    // 現時点では全てdemo.pngを使用（後で個別画像に対応）
+    const optimizedImage = await getImage({
+      src: blogThumb1,
+      format: 'webp',
+      widths: [500],
+    });
+    blogImages.set(post.id, optimizedImage);
+  }
+}
 
 // インフォメーションデータのインポート
 import {
@@ -88,60 +98,43 @@ const pageClass = 'main-content--information';
 
             // ブログカテゴリーの場合は別のHTML構造を使用
             if (post.category === 'ブログ記事') {
-              // デモ用の静的データ（後でデータ連携時に削除）
-              const demoArticles = [
-                {
-                  date: '2024.06',
-                  day: '25',
-                  title: '『coolturf』エリア完成！',
-                },
-                {
-                  date: '2024.05',
-                  day: '18',
-                  title: '夏季限定！マリンアクティビティ開始',
-                },
-                {
-                  date: '2024.04',
-                  day: '10',
-                  title: '新しいスパメニューが登場しました',
-                },
-                { date: '2024.03', day: '05', title: '春の特別プラン受付開始' },
-              ];
-
-              return demoArticles.map((demo, index) => (
+              const blogImage = blogImages.get(post.id);
+              
+              return (
                 <article
                   class="information-list__blog-item"
                   data-category={post.category}
-                  key={`demo-${index}`}
                 >
                   <a
                     href={`/information/${post.slug}`}
                     class="information-list__blog-link"
                   >
                     <figure class="information-list__blog-image">
-                      <img
-                        class="information-list__blog-img"
-                        src={ThumbnailImage.src}
-                        alt={demo.title}
-                      />
+                      {blogImage && (
+                        <img
+                          class="information-list__blog-img"
+                          src={blogImage.src}
+                          alt={post.title}
+                        />
+                      )}
                       <figcaption class="information-list__blog-date">
                         <time
                           class="information-list__blog-time"
-                          datetime="2024-06-25"
+                          datetime={post.date}
                         >
                           <span class="information-list__blog-year-month">
-                            {demo.date}
+                            {dateInfo.year}.{dateInfo.month}
                           </span>
                           <span class="information-list__blog-day">
-                            {demo.day}
+                            {dateInfo.day}
                           </span>
                         </time>
                       </figcaption>
                     </figure>
-                    <h3 class="information-list__blog-title">{demo.title}</h3>
+                    <h3 class="information-list__blog-title">{post.title}</h3>
                   </a>
                 </article>
-              ));
+              );
             }
 
             // お知らせ・イベント情報用の既存レイアウト
