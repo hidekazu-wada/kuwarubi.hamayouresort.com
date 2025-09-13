@@ -1,4 +1,4 @@
-export interface BlogPost {
+export interface NewsPost {
   id: string;
   slug: string;
   date: string;
@@ -7,9 +7,9 @@ export interface BlogPost {
   content: string; // HTML content
 }
 
-export const blogPosts: BlogPost[] = [
+export const newsPosts: NewsPost[] = [
   {
-    id: 'blog-001',
+    id: 'news-001',
     slug: 'homepage-renewal',
     date: '2024-06-25',
     category: 'お知らせ',
@@ -33,7 +33,7 @@ export const blogPosts: BlogPost[] = [
     `
   },
   {
-    id: 'blog-002',
+    id: 'news-002',
     slug: 'summer-event-2024',
     date: '2024-06-20',
     category: 'イベント情報',
@@ -53,7 +53,7 @@ export const blogPosts: BlogPost[] = [
     `
   },
   {
-    id: 'blog-003',
+    id: 'news-003',
     slug: 'new-spa-menu',
     date: '2024-06-15',
     category: 'お知らせ',
@@ -71,7 +71,7 @@ export const blogPosts: BlogPost[] = [
     `
   },
   {
-    id: 'blog-004',
+    id: 'news-004',
     slug: 'marine-activity-campaign',
     date: '2024-06-10',
     category: 'ブログ記事',
@@ -92,7 +92,7 @@ export const blogPosts: BlogPost[] = [
     `
   },
   {
-    id: 'blog-005',
+    id: 'news-005',
     slug: 'restaurant-new-menu',
     date: '2024-06-05',
     category: 'お知らせ',
@@ -113,24 +113,24 @@ export const blogPosts: BlogPost[] = [
   }
 ];
 
-// Helper function to get a blog post by slug
-export function getBlogBySlug(slug: string): BlogPost | undefined {
-  return blogPosts.find(post => post.slug === slug);
+// Helper function to get a news post by slug
+export function getNewsBySlug(slug: string): NewsPost | undefined {
+  return newsPosts.find(post => post.slug === slug);
 }
 
 // Helper function to get previous and next posts within the same category
 export function getAdjacentPosts(currentSlug: string): {
-  prev: BlogPost | null;
-  next: BlogPost | null;
+  prev: NewsPost | null;
+  next: NewsPost | null;
 } {
-  const currentPost = blogPosts.find(post => post.slug === currentSlug);
+  const currentPost = newsPosts.find(post => post.slug === currentSlug);
   
   if (!currentPost) {
     return { prev: null, next: null };
   }
   
   // Filter posts by the same category
-  const sameCategoryPosts = blogPosts.filter(post => post.category === currentPost.category);
+  const sameCategoryPosts = newsPosts.filter(post => post.category === currentPost.category);
   const currentIndex = sameCategoryPosts.findIndex(post => post.slug === currentSlug);
   
   if (currentIndex === -1) {
