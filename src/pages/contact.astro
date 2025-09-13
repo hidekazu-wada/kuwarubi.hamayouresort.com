@@ -59,6 +59,7 @@ const pageClass = 'main-content--contact';
           class="contact-form__form"
           action="https://formspree.io/f/mjkezayk"
           method="POST"
+          novalidate
         >
           <fieldset class="contact-form__fieldset">
             <div class="contact-form__field contact-form__field--select">
@@ -970,10 +971,20 @@ const pageClass = 'main-content--contact';
   ) as HTMLFormElement | null;
   if (form) {
     form.addEventListener('submit', (e) => {
-      // Check privacy agreement
-      if (!privacyCheckbox || !privacyCheckbox.checked) {
+      // Check required fields
+      const requiredFields = form.querySelectorAll('[required]');
+      let hasEmptyField = false;
+      
+      requiredFields.forEach((field) => {
+        const input = field as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+        if (!input.value || input.value.trim() === '') {
+          hasEmptyField = true;
+        }
+      });
+      
+      if (hasEmptyField) {
         e.preventDefault();
-        alert('個人情報の取り扱いに同意してください。');
+        alert('必須項目をすべて入力してください。');
         return;
       }
       
@@ -988,6 +999,13 @@ const pageClass = 'main-content--contact';
           emailConfirmInput.focus();
           return;
         }
+      }
+      
+      // Check privacy agreement
+      if (!privacyCheckbox || !privacyCheckbox.checked) {
+        e.preventDefault();
+        alert('個人情報の取り扱いに同意してください。');
+        return;
       }
     });
   }
