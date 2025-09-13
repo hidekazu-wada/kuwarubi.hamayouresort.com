@@ -430,7 +430,7 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
         align-self: stretch;
         border-radius: ppx(15 * 1.2);
         border: ppx(2 * 1.2) solid var(--blue_4, #59a1c0);
-        width: ppx(1220 * 1.2);
+        width: ppx(1220 * 1);
       }
       @include desktop-up {
         padding: ppx(19) ppx(39) ppx(26) ppx(40);
@@ -484,7 +484,7 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
         align-self: stretch;
         border-radius: ppx(15 * 1.2);
         border: ppx(2 * 1.2) solid var(--blue_4, #59a1c0);
-        width: ppx(1220 * 1.2);
+        width: ppx(1220 * 1);
       }
       @include desktop-up {
         padding: ppx(19) ppx(39) ppx(26) ppx(40);
@@ -540,7 +540,7 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
         align-self: stretch;
         border-radius: ppx(15 * 1.2);
         border: ppx(2 * 1.2) solid var(--blue_4, #59a1c0);
-        width: ppx(1220 * 1.2);
+        width: ppx(1220 * 1);
       }
       @include desktop-up {
         padding: ppx(19) ppx(39) ppx(26) ppx(40);
@@ -583,7 +583,7 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
       margin-top: spx(70);
       margin-inline: auto;
       @include tablet-up {
-        width: ppx(1220 * 1.2);
+        width: ppx(1220 * 1);
         height: ppx(380 * 1.2);
         padding: ppx(35 * 1.2) ppx(30 * 1.2) ppx(15 * 1.2) ppx(30 * 1.2);
         gap: ppx(15 * 1.2);
@@ -985,24 +985,31 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
       // Check required fields
       const requiredFields = form.querySelectorAll('[required]');
       let hasEmptyField = false;
-      
+
       requiredFields.forEach((field) => {
-        const input = field as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+        const input = field as
+          | HTMLInputElement
+          | HTMLSelectElement
+          | HTMLTextAreaElement;
         if (!input.value || input.value.trim() === '') {
           hasEmptyField = true;
         }
       });
-      
+
       if (hasEmptyField) {
         e.preventDefault();
         alert('必須項目をすべて入力してください。');
         return;
       }
-      
+
       // Check email match
-      const emailInput = form.querySelector('input[name="email"]') as HTMLInputElement | null;
-      const emailConfirmInput = form.querySelector('input[name="email_confirm"]') as HTMLInputElement | null;
-      
+      const emailInput = form.querySelector(
+        'input[name="email"]'
+      ) as HTMLInputElement | null;
+      const emailConfirmInput = form.querySelector(
+        'input[name="email_confirm"]'
+      ) as HTMLInputElement | null;
+
       if (emailInput && emailConfirmInput) {
         if (emailInput.value !== emailConfirmInput.value) {
           e.preventDefault();
@@ -1011,7 +1018,7 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
           return;
         }
       }
-      
+
       // Check privacy agreement
       if (!privacyCheckbox || !privacyCheckbox.checked) {
         e.preventDefault();
