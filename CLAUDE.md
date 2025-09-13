@@ -39,15 +39,17 @@
   - 動的ルーティング、データ管理
 - [フィルタリング機能](./docs/claude-info/10-filtering.md)
   - コネクテッドフィルタリング、検索・ソート
-- [FAQページ](./docs/claude-info/14-faq-page.md) 🆕
+- [FAQページ](./docs/claude-info/14-faq-page.md)
   - アコーディオン機能、スクロール連動ナビゲーション
+- [コンタクトページ](./docs/claude-info/15-contact-page.md) 🆕
+  - Formspree統合、フォームバリデーション、プライバシー同意管理
 
 ### 📖 開発ガイドライン
 - [ベストプラクティス](./docs/claude-info/11-best-practices.md)
   - コーディング規約、パフォーマンス最適化
 - [プロジェクトステータス](./docs/claude-info/12-milestones.md)
   - マイルストーン、完了済み実装、今後の予定
-- [レイアウトリファクタリング](./docs/claude-info/13-layout-refactoring.md) 🆕
+- [レイアウトリファクタリング](./docs/claude-info/13-layout-refactoring.md)
   - BaseLayout実装計画、フェーズ別作業内容
 
 ## 🚀 クイックスタート

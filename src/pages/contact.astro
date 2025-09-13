@@ -24,6 +24,9 @@ const pageDescription = 'ページの説明文をここに記述します。';
 
 // ページ固有のクラス名（page-nameを適切な名前に変更）
 const pageClass = 'main-content--contact';
+
+// Formspreeエンドポイントを環境変数から取得
+const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
 ---
 
 <BaseLayout
@@ -57,7 +60,7 @@ const pageClass = 'main-content--contact';
         <!-- 例: action="https://formspree.io/f/YOUR_FORM_ID" -->
         <form
           class="contact-form__form"
-          action="https://formspree.io/f/mjkezayk"
+          action={formspreeEndpoint}
           method="POST"
           novalidate
         >
