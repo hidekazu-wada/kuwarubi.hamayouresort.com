@@ -471,41 +471,105 @@ const pageClass = 'main-content--information';
 
     // ブログカテゴリー用のレイアウト
     &__blog-item {
+      width: spx(500);
       @include tablet-up {
+        width: ppx(500 * 1.2);
       }
       @include desktop-up {
+        width: ppx(500);
       }
     }
 
     &__blog-link {
+      display: flex;
+      flex-direction: column;
+      gap: spx(12);
       @include tablet-up {
+        gap: ppx(24 * 1.2);
       }
       @include desktop-up {
+        gap: ppx(24);
       }
     }
 
     &__blog-image {
+      position: relative;
+      width: max-content;
+      border-radius: spx(20);
+      overflow: hidden;
+
       @include tablet-up {
+        border-radius: ppx(20 * 1.2);
       }
       @include desktop-up {
+        border-radius: ppx(20);
+      }
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
       }
     }
 
     &__blog-img {
+      display: block;
+      width: spx(500);
+      height: spx(500);
+      object-fit: cover;
       @include tablet-up {
+        width: ppx(500 * 1.2);
+        height: ppx(500 * 1.2);
       }
       @include desktop-up {
+        width: ppx(500);
+        height: ppx(500);
       }
     }
 
     &__blog-date {
+      width: spx(110);
+      height: spx(115);
+      flex-shrink: 0;
+      border-radius: spx(20);
+      background: var(--white, #fff);
+      display: grid;
+      place-items: center;
+      position: absolute;
+      top: spx(15);
+      left: spx(15);
+      z-index: 2;
       @include tablet-up {
+        width: ppx(110 * 1.2);
+        height: ppx(115 * 1.2);
+        border-radius: ppx(20 * 1.2);
+        top: ppx(20 * 1.2);
+        left: ppx(20 * 1.2);
       }
       @include desktop-up {
+        width: ppx(110);
+        height: ppx(115);
+        border-radius: ppx(20);
+        top: ppx(20);
+        left: ppx(20);
       }
     }
 
     &__blog-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       @include tablet-up {
       }
       @include desktop-up {
@@ -513,23 +577,61 @@ const pageClass = 'main-content--information';
     }
 
     &__blog-year-month {
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(22);
+      font-style: normal;
+      font-weight: 400;
+      line-height: spx(22); /* 100% */
+      letter-spacing: spx(0.44);
       @include tablet-up {
+        font-size: ppx(22 * 1.2);
+        line-height: ppx(22 * 1.2); /* 100% */
+        letter-spacing: ppx(1.1 * 1.2);
       }
       @include desktop-up {
+        font-size: ppx(22);
+        line-height: ppx(22); /* 100% */
+        letter-spacing: ppx(1.1);
       }
     }
 
     &__blog-day {
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(71);
+      font-style: normal;
+      font-weight: 400;
+      line-height: spx(71); /* 100% */
+      margin-top: spx(-3);
       @include tablet-up {
+        font-size: ppx(71 * 1.2);
+        line-height: ppx(71 * 1.2); /* 100% */
+        letter-spacing: ppx(3.55 * 1.2);
+        margin-top: ppx(-3 * 1.2);
       }
       @include desktop-up {
+        font-size: ppx(71);
+        line-height: ppx(71); /* 100% */
+        letter-spacing: ppx(3.55);
+        margin-top: spx(-3);
       }
     }
 
     &__blog-title {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(29);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 43.5px */
       @include tablet-up {
+        font-size: ppx(27 * 1.2);
       }
       @include desktop-up {
+        font-size: ppx(27);
       }
     }
   }
