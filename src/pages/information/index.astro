@@ -434,7 +434,7 @@ const pageClass = 'main-content--information';
 </style>
 
 <script>
-  // フィルタリング機能の実装
+  // フィルタリング機能の実装（URLクエリパラメータ対応）
   document.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll<HTMLButtonElement>('.information-list__filter-button');
     const items = document.querySelectorAll<HTMLElement>('.information-list__item');
@@ -464,30 +464,79 @@ const pageClass = 'main-content--information';
       });
     }
     
-    // 初回表示時に最初のカテゴリーでフィルタリング
-    const firstButton = filterButtons[0];
-    if (firstButton) {
-      const firstCategory = firstButton.dataset.category;
-      filterByCategory(firstCategory);
+    // URLを更新する関数
+    function updateURL(category: string | undefined) {
+      const url = new URL(window.location.href);
+      
+      if (category) {
+        url.searchParams.set('category', category);
+      } else {
+        url.searchParams.delete('category');
+      }
+      
+      // URLを更新（ページをリロードせずに）
+      window.history.pushState({ category }, '', url);
+    }
+    
+    // ボタンのアクティブ状態を設定する関数
+    function setActiveButton(category: string | undefined) {
+      filterButtons.forEach((btn) => {
+        if (btn.dataset.category === category) {
+          btn.classList.add('information-list__filter-button--active');
+        } else {
+          btn.classList.remove('information-list__filter-button--active');
+        }
+      });
+    }
+    
+    // フィルターを適用する関数（カテゴリーとUI更新を含む）
+    function applyFilter(category: string | undefined) {
+      filterByCategory(category);
+      setActiveButton(category);
+      updateURL(category);
+    }
+    
+    // URLパラメータから初期カテゴリーを取得
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialCategory = urlParams.get('category');
+    
+    // 初回表示時の処理
+    if (initialCategory) {
+      // URLにカテゴリーが指定されている場合
+      applyFilter(initialCategory);
+    } else {
+      // URLにカテゴリーが指定されていない場合、最初のカテゴリーを選択
+      const firstButton = filterButtons[0];
+      if (firstButton) {
+        const firstCategory = firstButton.dataset.category;
+        applyFilter(firstCategory);
+      }
     }
     
     // フィルターボタンのクリックイベント
     filterButtons.forEach((button) => {
       button.addEventListener('click', () => {
         const category = button.dataset.category;
-        
-        // アクティブ状態の切り替え
-        filterButtons.forEach((btn) => {
-          if (btn === button) {
-            btn.classList.add('information-list__filter-button--active');
-          } else {
-            btn.classList.remove('information-list__filter-button--active');
-          }
-        });
-        
-        // フィルタリング実行
-        filterByCategory(category);
+        applyFilter(category);
       });
+    });
+    
+    // ブラウザの戻る/進むボタンへの対応
+    window.addEventListener('popstate', (event) => {
+      const category = event.state?.category || urlParams.get('category');
+      
+      if (category) {
+        filterByCategory(category);
+        setActiveButton(category);
+      } else {
+        // カテゴリーが指定されていない場合、最初のカテゴリーを選択
+        const firstButton = filterButtons[0];
+        if (firstButton) {
+          const firstCategory = firstButton.dataset.category;
+          filterByCategory(firstCategory);
+          setActiveButton(firstCategory);
+        }
+      }
     });
   });
 </script>
