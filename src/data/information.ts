@@ -30,7 +30,7 @@ export const informationPosts: InformationPost[] = [
       </ul>
       <p>今後とも、皆様により良いサービスをご提供できるよう努めてまいります。</p>
       <p>引き続きご愛顧のほど、よろしくお願い申し上げます。</p>
-    `
+    `,
   },
   {
     id: 'info-002',
@@ -50,7 +50,7 @@ export const informationPosts: InformationPost[] = [
       </ul>
       <p>地元アーティストによる生演奏やフラダンスショーなど、多彩なプログラムをご用意しています。</p>
       <p>ご家族やご友人と素敵な夏の思い出をお作りください。</p>
-    `
+    `,
   },
   {
     id: 'info-003',
@@ -68,7 +68,7 @@ export const informationPosts: InformationPost[] = [
         <li>シークヮーサーボディスクラブ（45分）</li>
       </ul>
       <p>ご予約は、フロントまたはお電話にて承っております。</p>
-    `
+    `,
   },
   {
     id: 'info-004',
@@ -89,7 +89,7 @@ export const informationPosts: InformationPost[] = [
       <p>次に挑戦したのがSUP。最初はバランスを取るのが難しかったですが、慣れてくると海上散歩を楽しめます。</p>
       <p>朝の静かな海でのSUPは、特におすすめです。</p>
       <p>皆様もぜひ、当ホテルでマリンアクティビティをお楽しみください！</p>
-    `
+    `,
   },
   {
     id: 'info-005',
@@ -109,13 +109,15 @@ export const informationPosts: InformationPost[] = [
       </ul>
       <p>期間：2024年6月1日〜8月31日</p>
       <p>ご予約・お問い合わせは、レストラン直通電話までお願いいたします。</p>
-    `
-  }
+    `,
+  },
 ];
 
 // Helper function to get an information post by slug
-export function getInformationBySlug(slug: string): InformationPost | undefined {
-  return informationPosts.find(post => post.slug === slug);
+export function getInformationBySlug(
+  slug: string
+): InformationPost | undefined {
+  return informationPosts.find((post) => post.slug === slug);
 }
 
 // Helper function to get previous and next posts within the same category
@@ -123,23 +125,32 @@ export function getAdjacentPosts(currentSlug: string): {
   prev: InformationPost | null;
   next: InformationPost | null;
 } {
-  const currentPost = informationPosts.find(post => post.slug === currentSlug);
-  
+  const currentPost = informationPosts.find(
+    (post) => post.slug === currentSlug
+  );
+
   if (!currentPost) {
     return { prev: null, next: null };
   }
-  
+
   // Filter posts by the same category
-  const sameCategoryPosts = informationPosts.filter(post => post.category === currentPost.category);
-  const currentIndex = sameCategoryPosts.findIndex(post => post.slug === currentSlug);
-  
+  const sameCategoryPosts = informationPosts.filter(
+    (post) => post.category === currentPost.category
+  );
+  const currentIndex = sameCategoryPosts.findIndex(
+    (post) => post.slug === currentSlug
+  );
+
   if (currentIndex === -1) {
     return { prev: null, next: null };
   }
-  
+
   return {
     prev: currentIndex > 0 ? sameCategoryPosts[currentIndex - 1] : null,
-    next: currentIndex < sameCategoryPosts.length - 1 ? sameCategoryPosts[currentIndex + 1] : null
+    next:
+      currentIndex < sameCategoryPosts.length - 1
+        ? sameCategoryPosts[currentIndex + 1]
+        : null,
   };
 }
 
@@ -154,11 +165,11 @@ export function formatDate(dateString: string): {
   const year = date.getFullYear().toString();
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const day = date.getDate().toString().padStart(2, '0');
-  
+
   return {
     year,
     month,
     day,
-    full: `${year}.${month}.${day}`
+    full: `${year}.${month}.${day}`,
   };
 }

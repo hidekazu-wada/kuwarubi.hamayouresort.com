@@ -14,12 +14,23 @@ import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 // import { getImage } from 'astro:assets';
 // import sampleImage from '../../assets/images/sample.jpg';
 
+// インフォメーションデータのインポート
+import { informationPosts, formatDate, type InformationPost } from '../../data/information';
+
+// カテゴリーの一覧を取得（重複を除去）
+const categories = [...new Set(informationPosts.map(post => post.category))];
+
+// 全ての記事を日付の新しい順にソート
+const sortedPosts = [...informationPosts].sort((a, b) => 
+  new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+
 // ============================================================
 // TODO: 以下の項目を必ず変更してください
 // ============================================================
 
 // ページメタ情報（必ず変更）
-const pageTitle = 'インフォメーション | クワルビリゾート';
+const pageTitle = 'インフォメーション | 光風閣くわるび';
 const pageDescription = 'ページの説明文をここに記述します。';
 
 // ページ固有のクラス名（page-nameを適切な名前に変更）
@@ -41,11 +52,63 @@ const pageClass = 'main-content--information';
   </div>
 
   <!-- メインコンテンツ -->
-  <section class=""></section>
+  <section class="information-list">
+    <div class="information-list__container">
+      <nav class="information-list__filter">
+        {
+          categories.map((category, index) => (
+            <button
+              class={`information-list__filter-button ${
+                index === 0 ? 'information-list__filter-button--active' : ''
+              }`}
+              data-category={category}
+            >
+              <span class="information-list__filter-text">
+                {category === 'ブログ記事' ? 'ブログ' : category}
+              </span>
+            </button>
+          ))
+        }
+      </nav>
+
+      <div class="information-list__items">
+        {
+          sortedPosts.map((post) => {
+            const dateInfo = formatDate(post.date);
+            // ブログカテゴリー用の特別なクラスを追加（将来的にレイアウト変更用）
+            const itemClass = post.category === 'ブログ記事' 
+              ? 'information-list__item information-list__item--blog' 
+              : 'information-list__item';
+            
+            return (
+              <article class={itemClass} data-category={post.category}>
+                <a href={`/information/${post.slug}`} class="information-list__link">
+                  <div class="information-list__content">
+                    <time class="information-list__date" datetime={post.date}>
+                      <span class="information-list__date-month">
+                        {dateInfo.year}.{dateInfo.month}
+                      </span>
+                      <span class="information-list__date-day">{dateInfo.day}</span>
+                    </time>
+                    <div class="information-list__text">
+                      <span class="information-list__category">{post.category}</span>
+                      <h3 class="information-list__title">{post.title}</h3>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
 
   <!-- パンくずリスト -->
   <div class="breadcrumb-wrapper">
-    <Breadcrumb items={[{ text: 'TOP', href: '/' }, { text: 'ページ名' }]} />
+    <Breadcrumb
+      items={[{ text: 'TOP', href: '/' }, { text: 'インフォメーション' }]}
+    />
   </div>
 </BaseLayout>
 
@@ -54,11 +117,377 @@ const pageClass = 'main-content--information';
   @import '../../styles/functions';
   @import '../../styles/mixins';
 
+  :global(.main-content--information) {
+    background: var(--blue_2, #e7f3f9);
+    padding-top: spx(110);
+    @include tablet-up {
+      padding-top: ppx(280 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(280);
+    }
+  }
+
+  .page-header-container {
+    @include tablet-up {
+      margin-left: ppx(233 * 1.2);
+    }
+    @include desktop-up {
+      margin-left: ppx(233);
+    }
+  }
+
   // ============================================================
-  // TODO: page-nameを適切な名前に変更してスタイルを記述
+  // Information List Styles
   // ============================================================
 
-  :global(.main-content--page-name) {
-    display: block;
+  .information-list {
+    margin-top: spx(100);
+    @include tablet-up {
+      margin-top: ppx(151 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(151);
+    }
+    &__container {
+    }
+
+    &__filter {
+      display: flex;
+      gap: spx(7);
+      justify-content: center;
+      @include tablet-up {
+        gap: ppx(18 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(18);
+      }
+    }
+
+    &__filter-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: spx(15);
+      border: spx(2) solid var(--blue_5, #026995);
+      background: var(--white, #fff);
+      flex-shrink: 0;
+      width: spx(210);
+      height: spx(63);
+      transition:
+        background 0.3s ease,
+        border 0.3s ease;
+      @include tablet-up {
+        width: ppx(454 * 1.2);
+        height: ppx(99 * 1.2);
+        border-radius: ppx(20 * 1.2);
+        border: ppx(2 * 1.2) solid var(--blue_5, #026995);
+      }
+      @include desktop-up {
+        width: ppx(454);
+        height: ppx(99);
+        border-radius: ppx(20);
+        border: ppx(2) solid var(--blue_5, #026995);
+      }
+
+      &--active {
+        background: var(--blue_5, #026995);
+
+        .information-list__filter-text {
+          color: var(--white, #fff);
+        }
+      }
+      @include hover {
+        &:hover {
+          background: var(--green_2, #adc400);
+          border: spx(2) solid var(--green_2, #adc400);
+          @include tablet-up {
+            border: ppx(2 * 1.2) solid var(--green_2, #adc400);
+          }
+          @include desktop-up {
+            border: ppx(2) solid var(--green_2, #adc400);
+          }
+          .information-list__filter-text {
+            color: var(--white, #fff);
+          }
+        }
+      }
+    }
+
+    &__filter-text {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(27);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 85%; /* 22.95px */
+      transition: color 0.3s ease;
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: ppx(33 * 1.2); /* 100% */
+        letter-spacing: ppx(1.65 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        line-height: ppx(33); /* 100% */
+        letter-spacing: ppx(1.65);
+      }
+    }
+
+    &__items {
+      margin-top: spx(150);
+      display: flex;
+      flex-direction: column;
+      gap: spx(30);
+      width: spx(625);
+      margin-inline: auto;
+      @include tablet-up {
+        margin-top: ppx(192 * 1.2);
+        gap: ppx(60 * 1.2);
+        width: ppx(1560 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(192);
+        gap: ppx(60);
+        width: ppx(1560);
+      }
+    }
+
+    &__item {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__link {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__content {
+      display: grid;
+      grid-template-columns: spx(100) auto;
+      gap: spx(20);
+      position: relative;
+      padding-bottom: spx(30);
+      @include tablet-up {
+        gap: ppx(11 * 1.2);
+        padding-bottom: ppx(40 * 1.2);
+        grid-template-columns: ppx(160 * 1.2) auto;
+      }
+      @include desktop-up {
+        gap: ppx(11);
+        padding-bottom: ppx(40);
+        grid-template-columns: ppx(160) auto;
+      }
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: #59a1c0;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    &__date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      @include tablet-up {
+      }
+
+      @include desktop-up {
+      }
+    }
+
+    &__date-month {
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(26);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%; /* 26px */
+      letter-spacing: spx(1.3);
+      @include tablet-up {
+        font-size: ppx(26 * 1.2);
+        line-height: ppx(26 * 1.2); /* 100% */
+        letter-spacing: ppx(1.3 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(26);
+        line-height: ppx(26); /* 100% */
+        letter-spacing: ppx(1.3);
+      }
+    }
+
+    &__date-day {
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(95);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 90%; /* 85.5px */
+      @include tablet-up {
+        font-size: ppx(95 * 1.2);
+        line-height: ppx(95 * 1.2); /* 100% */
+        letter-spacing: ppx(4.75 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(95);
+        line-height: ppx(95); /* 100% */
+        letter-spacing: ppx(4.75);
+      }
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      gap: spx(10);
+      @include tablet-up {
+        gap: ppx(23 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(23);
+      }
+    }
+
+    &__category {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: spx(10);
+      background: var(--white, #fff);
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(24);
+      font-style: normal;
+      font-weight: 400;
+      line-height: spx(24); /* 100% */
+      letter-spacing: spx(1.2);
+      flex-shrink: 0;
+      width: spx(160);
+      height: spx(44);
+      @include tablet-up {
+        width: ppx(240 * 1.2);
+        height: ppx(49 * 1.2);
+        border-radius: ppx(12 * 1.2);
+        font-size: ppx(24 * 1.2);
+        line-height: ppx(24 * 1.2); /* 100% */
+        letter-spacing: ppx(1.2 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(240);
+        height: ppx(49);
+        border-radius: ppx(12);
+        font-size: ppx(24);
+        line-height: ppx(24); /* 100% */
+        letter-spacing: ppx(1.2);
+      }
+    }
+
+    &__title {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 45px */
+      letter-spacing: spx(-0.6);
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: 160%; /* 52.8px */
+        letter-spacing: ppx(-1.65 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        line-height: 160%; /* 52.8px */
+        letter-spacing: ppx(-1.65);
+      }
+    }
+    
+    // ブログカテゴリー用のレイアウト（将来的な実装用）
+    &__item--blog {
+      // ブログ用の異なるレイアウトスタイルをここに追加予定
+      // 現時点では通常のレイアウトを継承
+    }
+  }
+
+  .breadcrumb-wrapper {
+    margin: spx(120) 0 spx(40);
+    @include tablet-up {
+      margin: ppx(150 * 1.2) 0 ppx(70 * 1.2);
+    }
+    @include desktop-up {
+      margin: ppx(150) 0 ppx(70);
+    }
   }
 </style>
+
+<script>
+  // フィルタリング機能の実装
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.information-list__filter-button');
+    const items = document.querySelectorAll<HTMLElement>('.information-list__item');
+    
+    // 全記事を表示する関数
+    function showAllItems() {
+      items.forEach(item => {
+        item.style.display = 'block';
+      });
+    }
+    
+    // カテゴリーでフィルタリングする関数
+    function filterByCategory(selectedCategory: string | undefined) {
+      if (!selectedCategory) {
+        showAllItems();
+        return;
+      }
+      
+      items.forEach((item) => {
+        const itemCategory = item.dataset.category;
+        
+        if (itemCategory === selectedCategory) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+    
+    // 初回表示時に最初のカテゴリーでフィルタリング
+    const firstButton = filterButtons[0];
+    if (firstButton) {
+      const firstCategory = firstButton.dataset.category;
+      filterByCategory(firstCategory);
+    }
+    
+    // フィルターボタンのクリックイベント
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const category = button.dataset.category;
+        
+        // アクティブ状態の切り替え
+        filterButtons.forEach((btn) => {
+          if (btn === button) {
+            btn.classList.add('information-list__filter-button--active');
+          } else {
+            btn.classList.remove('information-list__filter-button--active');
+          }
+        });
+        
+        // フィルタリング実行
+        filterByCategory(category);
+      });
+    });
+  });
+</script>
