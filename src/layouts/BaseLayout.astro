@@ -32,6 +32,9 @@ import BookingModal from '../components/Booking-modal.astro';
     <!-- SEO Meta Tags -->
     {description && <meta name="description" content={description} />}
     
+    <!-- Noindex for development -->
+    <meta name="robots" content="noindex, nofollow" />
+    
     <!-- OG Tags -->
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
