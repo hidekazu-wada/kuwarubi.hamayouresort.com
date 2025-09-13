@@ -174,7 +174,7 @@ const pageClass = 'main-content--contact';
               />
             </label>
           </div>
-          <button type="submit" class="contact-form__submit">
+          <button type="submit" class="contact-form__submit" disabled style="opacity: 0.5;">
             <span class="contact-form__submit-text">送信</span>
             <svg
               class="contact-form__submit-icon"
@@ -666,17 +666,53 @@ const pageClass = 'main-content--contact';
       border-radius: spx(10);
       border: spx(2) solid var(--blue_4, #59a1c0);
       background: var(--white, #fff);
+      appearance: none;
+      cursor: pointer;
+      position: relative;
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+
+      &:checked {
+        background: var(--blue_5, #026995);
+        border-color: var(--blue_5, #026995);
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 50%;
+          top: 45%;
+          transform: translate(-50%, -50%) rotate(45deg);
+          width: spx(8);
+          height: spx(14);
+          border: solid var(--white, #fff);
+          border-width: 0 spx(3) spx(3) 0;
+        }
+      }
+
       @include tablet-up {
         width: ppx(35 * 1.2);
         height: ppx(35 * 1.2);
         border-radius: ppx(10 * 1.2);
         border: ppx(2 * 1.2) solid var(--blue_4, #59a1c0);
+
+        &:checked::after {
+          width: ppx(8 * 1.2);
+          height: ppx(14 * 1.2);
+          border-width: 0 ppx(3 * 1.2) ppx(3 * 1.2) 0;
+        }
       }
       @include desktop-up {
         width: ppx(35);
         height: ppx(35);
         border-radius: ppx(10);
         border: ppx(2) solid var(--blue_4, #59a1c0);
+
+        &:checked::after {
+          width: ppx(8);
+          height: ppx(14);
+          border-width: 0 ppx(3) ppx(3) 0;
+        }
       }
     }
 
@@ -713,6 +749,15 @@ const pageClass = 'main-content--contact';
       position: relative;
       margin-inline: auto;
       margin-top: spx(50);
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      border: none;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
       @include tablet-up {
         width: ppx(429 * 1.2);
         height: ppx(70 * 1.2);
@@ -877,4 +922,73 @@ const pageClass = 'main-content--contact';
 
   // Initial check
   checkFooterPosition();
+
+  // Privacy agreement checkbox control
+  const privacyCheckbox = document.querySelector(
+    '.contact-form__checkbox'
+  ) as HTMLInputElement | null;
+  const submitButton = document.querySelector(
+    '.contact-form__submit'
+  ) as HTMLButtonElement | null;
+
+  function updateSubmitButton() {
+    if (!privacyCheckbox || !submitButton) return;
+
+    if (privacyCheckbox.checked) {
+      submitButton.disabled = false;
+      submitButton.style.opacity = '1';
+    } else {
+      submitButton.disabled = true;
+      submitButton.style.opacity = '0.5';
+    }
+  }
+
+  // Make entire label clickable
+  const checkboxLabel = document.querySelector(
+    '.contact-form__checkbox-label'
+  ) as HTMLLabelElement | null;
+  if (checkboxLabel) {
+    checkboxLabel.style.cursor = 'pointer';
+  }
+
+  // Initialize submit button state
+  updateSubmitButton();
+
+  // Listen for checkbox changes
+  if (privacyCheckbox) {
+    privacyCheckbox.addEventListener('change', updateSubmitButton);
+  }
+
+  // Remove required attribute from checkbox to handle validation via JavaScript
+  if (privacyCheckbox) {
+    privacyCheckbox.removeAttribute('required');
+  }
+
+  // Handle form submission
+  const form = document.querySelector(
+    '.contact-form__form'
+  ) as HTMLFormElement | null;
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      // Check privacy agreement
+      if (!privacyCheckbox || !privacyCheckbox.checked) {
+        e.preventDefault();
+        alert('個人情報の取り扱いに同意してください。');
+        return;
+      }
+      
+      // Check email match
+      const emailInput = form.querySelector('input[name="email"]') as HTMLInputElement | null;
+      const emailConfirmInput = form.querySelector('input[name="email_confirm"]') as HTMLInputElement | null;
+      
+      if (emailInput && emailConfirmInput) {
+        if (emailInput.value !== emailConfirmInput.value) {
+          e.preventDefault();
+          alert('メールアドレスが一致しません。もう一度確認してください。');
+          emailConfirmInput.focus();
+          return;
+        }
+      }
+    });
+  }
 </script>
