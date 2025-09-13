@@ -175,7 +175,7 @@ const pageClass = 'main-content--contact';
               />
             </label>
           </div>
-          <button type="submit" class="contact-form__submit" disabled style="opacity: 0.5;">
+          <button type="submit" class="contact-form__submit">
             <span class="contact-form__submit-text">送信</span>
             <svg
               class="contact-form__submit-icon"
@@ -943,6 +943,11 @@ const pageClass = 'main-content--contact';
       submitButton.style.opacity = '0.5';
     }
   }
+  
+  // Immediately set initial state to prevent visual flash
+  if (privacyCheckbox && submitButton) {
+    updateSubmitButton();
+  }
 
   // Make entire label clickable
   const checkboxLabel = document.querySelector(
@@ -951,9 +956,6 @@ const pageClass = 'main-content--contact';
   if (checkboxLabel) {
     checkboxLabel.style.cursor = 'pointer';
   }
-
-  // Initialize submit button state
-  updateSubmitButton();
 
   // Listen for checkbox changes
   if (privacyCheckbox) {
