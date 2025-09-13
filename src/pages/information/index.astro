@@ -15,14 +15,18 @@ import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 // import sampleImage from '../../assets/images/sample.jpg';
 
 // インフォメーションデータのインポート
-import { informationPosts, formatDate, type InformationPost } from '../../data/information';
+import {
+  informationPosts,
+  formatDate,
+  type InformationPost,
+} from '../../data/information';
 
 // カテゴリーの一覧を取得（重複を除去）
-const categories = [...new Set(informationPosts.map(post => post.category))];
+const categories = [...new Set(informationPosts.map((post) => post.category))];
 
 // 全ての記事を日付の新しい順にソート
-const sortedPosts = [...informationPosts].sort((a, b) => 
-  new Date(b.date).getTime() - new Date(a.date).getTime()
+const sortedPosts = [...informationPosts].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
 );
 
 // ============================================================
@@ -75,23 +79,54 @@ const pageClass = 'main-content--information';
         {
           sortedPosts.map((post) => {
             const dateInfo = formatDate(post.date);
-            // ブログカテゴリー用の特別なクラスを追加（将来的にレイアウト変更用）
-            const itemClass = post.category === 'ブログ記事' 
-              ? 'information-list__item information-list__item--blog' 
-              : 'information-list__item';
-            
+
+            // ブログカテゴリーの場合は別のHTML構造を使用
+            if (post.category === 'ブログ記事') {
+              return (
+                <article
+                  class="information-list__blog-item"
+                  data-category={post.category}
+                >
+                  <a
+                    href={`/information/${post.slug}`}
+                    class="information-list__blog-link"
+                  >
+                    <div>
+                      <div>
+                        <img src="" alt="" />
+                      </div>
+                      <div class="">2024.03</div>
+                      <div class="">26</div>
+                    </div>
+                    <div class="">『coolturf』エリア完成！</div>
+                  </a>
+                </article>
+              );
+            }
+
+            // お知らせ・イベント情報用の既存レイアウト
             return (
-              <article class={itemClass} data-category={post.category}>
-                <a href={`/information/${post.slug}`} class="information-list__link">
+              <article
+                class="information-list__item"
+                data-category={post.category}
+              >
+                <a
+                  href={`/information/${post.slug}`}
+                  class="information-list__link"
+                >
                   <div class="information-list__content">
                     <time class="information-list__date" datetime={post.date}>
                       <span class="information-list__date-month">
                         {dateInfo.year}.{dateInfo.month}
                       </span>
-                      <span class="information-list__date-day">{dateInfo.day}</span>
+                      <span class="information-list__date-day">
+                        {dateInfo.day}
+                      </span>
                     </time>
                     <div class="information-list__text">
-                      <span class="information-list__category">{post.category}</span>
+                      <span class="information-list__category">
+                        {post.category}
+                      </span>
                       <h3 class="information-list__title">{post.title}</h3>
                     </div>
                   </div>
@@ -414,7 +449,7 @@ const pageClass = 'main-content--information';
         letter-spacing: ppx(-1.65);
       }
     }
-    
+
     // ブログカテゴリー用のレイアウト（将来的な実装用）
     &__item--blog {
       // ブログ用の異なるレイアウトスタイルをここに追加予定
@@ -436,26 +471,30 @@ const pageClass = 'main-content--information';
 <script>
   // フィルタリング機能の実装（URLクエリパラメータ対応）
   document.addEventListener('DOMContentLoaded', () => {
-    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.information-list__filter-button');
-    const items = document.querySelectorAll<HTMLElement>('.information-list__item');
-    
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>(
+      '.information-list__filter-button'
+    );
+    const items = document.querySelectorAll<HTMLElement>(
+      '.information-list__item'
+    );
+
     // 全記事を表示する関数
     function showAllItems() {
-      items.forEach(item => {
+      items.forEach((item) => {
         item.style.display = 'block';
       });
     }
-    
+
     // カテゴリーでフィルタリングする関数
     function filterByCategory(selectedCategory: string | undefined) {
       if (!selectedCategory) {
         showAllItems();
         return;
       }
-      
+
       items.forEach((item) => {
         const itemCategory = item.dataset.category;
-        
+
         if (itemCategory === selectedCategory) {
           item.style.display = 'block';
         } else {
@@ -463,21 +502,21 @@ const pageClass = 'main-content--information';
         }
       });
     }
-    
+
     // URLを更新する関数
     function updateURL(category: string | undefined) {
       const url = new URL(window.location.href);
-      
+
       if (category) {
         url.searchParams.set('category', category);
       } else {
         url.searchParams.delete('category');
       }
-      
+
       // URLを更新（ページをリロードせずに）
       window.history.pushState({ category }, '', url);
     }
-    
+
     // ボタンのアクティブ状態を設定する関数
     function setActiveButton(category: string | undefined) {
       filterButtons.forEach((btn) => {
@@ -488,18 +527,18 @@ const pageClass = 'main-content--information';
         }
       });
     }
-    
+
     // フィルターを適用する関数（カテゴリーとUI更新を含む）
     function applyFilter(category: string | undefined) {
       filterByCategory(category);
       setActiveButton(category);
       updateURL(category);
     }
-    
+
     // URLパラメータから初期カテゴリーを取得
     const urlParams = new URLSearchParams(window.location.search);
     const initialCategory = urlParams.get('category');
-    
+
     // 初回表示時の処理
     if (initialCategory) {
       // URLにカテゴリーが指定されている場合
@@ -512,7 +551,7 @@ const pageClass = 'main-content--information';
         applyFilter(firstCategory);
       }
     }
-    
+
     // フィルターボタンのクリックイベント
     filterButtons.forEach((button) => {
       button.addEventListener('click', () => {
@@ -520,11 +559,11 @@ const pageClass = 'main-content--information';
         applyFilter(category);
       });
     });
-    
+
     // ブラウザの戻る/進むボタンへの対応
     window.addEventListener('popstate', (event) => {
       const category = event.state?.category || urlParams.get('category');
-      
+
       if (category) {
         filterByCategory(category);
         setActiveButton(category);
