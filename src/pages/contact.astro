@@ -53,18 +53,24 @@ const pageClass = 'main-content--contact';
         </p>
       </header>
       <div class="contact-form__body">
-        <form class="contact-form__form">
+        <!-- FormspreeのエンドポイントURLを以下のaction属性に貼り付けてください -->
+        <!-- 例: action="https://formspree.io/f/YOUR_FORM_ID" -->
+        <form
+          class="contact-form__form"
+          action="https://formspree.io/f/mjkezayk"
+          method="POST"
+        >
           <fieldset class="contact-form__fieldset">
             <div class="contact-form__field contact-form__field--select">
               <label class="contact-form__label">種別 <span>※</span></label>
               <div class="contact-form__select-wrapper">
-                <select class="contact-form__select">
-                  <option class="contact-form__placeholder"
+                <select class="contact-form__select" name="type" required>
+                  <option value="" class="contact-form__placeholder"
                     >選択してください
                   </option>
-                  <option value="option1">男性</option>
-                  <option value="option2">女性</option>
-                  <option value="option3">その他</option>
+                  <option value="お問い合わせ">お問い合わせ</option>
+                  <option value="ご予約">ご予約</option>
+                  <option value="その他">その他</option>
                 </select>
                 <svg
                   class="contact-form__select-icon"
@@ -88,24 +94,30 @@ const pageClass = 'main-content--contact';
               <label class="contact-form__label">お名前 <span>※</span></label>
               <input
                 type="text"
+                name="name"
                 class="contact-form__input"
                 placeholder="山田太郎"
+                required
               />
             </div>
             <div class="contact-form__field">
               <label class="contact-form__label">ふりがな <span>※</span></label>
               <input
                 type="text"
+                name="furigana"
                 class="contact-form__input"
                 placeholder="やまだたろう"
+                required
               />
             </div>
             <div class="contact-form__field">
               <label class="contact-form__label">電話番号 <span>※</span></label>
               <input
                 type="tel"
+                name="phone"
                 class="contact-form__input"
                 placeholder="0555-12-3456"
+                required
               />
             </div>
             <div class="contact-form__field">
@@ -114,8 +126,10 @@ const pageClass = 'main-content--contact';
               >
               <input
                 type="email"
+                name="email"
                 class="contact-form__input"
                 placeholder="abc@def.com"
+                required
               />
             </div>
             <div class="contact-form__field">
@@ -124,8 +138,10 @@ const pageClass = 'main-content--contact';
               >
               <input
                 type="email"
+                name="email_confirm"
                 class="contact-form__input"
                 placeholder="abc@def.com"
+                required
               />
             </div>
             <div class="contact-form__field contact-form__field--textarea">
@@ -133,8 +149,10 @@ const pageClass = 'main-content--contact';
                 >お問い合わせ内容 <span>※</span></label
               >
               <textarea
+                name="message"
                 class="contact-form__textarea"
-                placeholder="お問合せ内容をこちらにご入力ください。"></textarea>
+                placeholder="お問合せ内容をこちらにご入力ください。"
+                required></textarea>
             </div>
           </fieldset>
           <section class="contact-form__privacy">
@@ -148,7 +166,12 @@ const pageClass = 'main-content--contact';
               <span class="contact-form__checkbox-text"
                 >個人情報の取り扱いに同意する</span
               >
-              <input type="checkbox" class="contact-form__checkbox" />
+              <input
+                type="checkbox"
+                name="privacy_agreement"
+                class="contact-form__checkbox"
+                required
+              />
             </label>
           </div>
           <button type="submit" class="contact-form__submit">
@@ -203,7 +226,9 @@ const pageClass = 'main-content--contact';
   }
 
   .page-header-container {
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
     @include tablet-up {
       position: fixed;
       top: ppx(280 * 1.2);
@@ -213,7 +238,7 @@ const pageClass = 'main-content--contact';
       top: ppx(280);
       left: ppx(477);
     }
-    
+
     &.hide-at-footer {
       opacity: 0;
       visibility: hidden;
@@ -245,7 +270,9 @@ const pageClass = 'main-content--contact';
       width: max-content;
       margin-inline: auto;
       margin-top: spx(80);
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+      transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
       @include tablet-up {
         text-align: left;
         font-size: ppx(30 * 1.2);
@@ -263,7 +290,7 @@ const pageClass = 'main-content--contact';
         top: ppx(608);
         left: ppx(478);
       }
-      
+
       &.hide-at-footer {
         opacity: 0;
         visibility: hidden;
@@ -792,34 +819,38 @@ const pageClass = 'main-content--contact';
 
 <script>
   // Hide header elements when reaching footer
-  const pageHeaderContainer = document.querySelector('.page-header-container') as HTMLElement | null;
-  const contactFormHeader = document.querySelector('.contact-form__header') as HTMLElement | null;
+  const pageHeaderContainer = document.querySelector(
+    '.page-header-container'
+  ) as HTMLElement | null;
+  const contactFormHeader = document.querySelector(
+    '.contact-form__header'
+  ) as HTMLElement | null;
   const footer = document.querySelector('.footer') as HTMLElement | null;
-  
+
   function checkFooterPosition() {
     if (!footer) return;
-    
+
     const footerRect = footer.getBoundingClientRect();
     const footerTop = footerRect.top;
     const triggerPoint = footerTop - 300; // フッターから300px上を切り替えポイントに
-    
+
     // Check page header container
     if (pageHeaderContainer) {
       const headerRect = pageHeaderContainer.getBoundingClientRect();
       const headerBottom = headerRect.bottom;
-      
+
       if (headerBottom > triggerPoint) {
         pageHeaderContainer.classList.add('hide-at-footer');
       } else {
         pageHeaderContainer.classList.remove('hide-at-footer');
       }
     }
-    
+
     // Check contact form header
     if (contactFormHeader) {
       const formHeaderRect = contactFormHeader.getBoundingClientRect();
       const formHeaderBottom = formHeaderRect.bottom;
-      
+
       if (formHeaderBottom > triggerPoint) {
         contactFormHeader.classList.add('hide-at-footer');
       } else {
@@ -827,23 +858,23 @@ const pageClass = 'main-content--contact';
       }
     }
   }
-  
+
   // Check on scroll and resize
   let scrollTimeout: number | null = null;
-  
+
   function handleScroll() {
     if (scrollTimeout) {
       clearTimeout(scrollTimeout);
     }
-    
+
     scrollTimeout = window.setTimeout(() => {
       checkFooterPosition();
     }, 10);
   }
-  
+
   window.addEventListener('scroll', handleScroll);
   window.addEventListener('resize', handleScroll);
-  
+
   // Initial check
   checkFooterPosition();
 </script>
