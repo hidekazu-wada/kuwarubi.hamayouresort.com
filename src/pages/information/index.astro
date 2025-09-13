@@ -88,10 +88,31 @@ const pageClass = 'main-content--information';
 
             // ブログカテゴリーの場合は別のHTML構造を使用
             if (post.category === 'ブログ記事') {
-              return (
+              // デモ用の静的データ（後でデータ連携時に削除）
+              const demoArticles = [
+                {
+                  date: '2024.06',
+                  day: '25',
+                  title: '『coolturf』エリア完成！',
+                },
+                {
+                  date: '2024.05',
+                  day: '18',
+                  title: '夏季限定！マリンアクティビティ開始',
+                },
+                {
+                  date: '2024.04',
+                  day: '10',
+                  title: '新しいスパメニューが登場しました',
+                },
+                { date: '2024.03', day: '05', title: '春の特別プラン受付開始' },
+              ];
+
+              return demoArticles.map((demo, index) => (
                 <article
                   class="information-list__blog-item"
                   data-category={post.category}
+                  key={`demo-${index}`}
                 >
                   <a
                     href={`/information/${post.slug}`}
@@ -101,7 +122,7 @@ const pageClass = 'main-content--information';
                       <img
                         class="information-list__blog-img"
                         src={ThumbnailImage.src}
-                        alt="『coolturf』エリア完成！"
+                        alt={demo.title}
                       />
                       <figcaption class="information-list__blog-date">
                         <time
@@ -109,18 +130,18 @@ const pageClass = 'main-content--information';
                           datetime="2024-06-25"
                         >
                           <span class="information-list__blog-year-month">
-                            2024.06
+                            {demo.date}
                           </span>
-                          <span class="information-list__blog-day">25</span>
+                          <span class="information-list__blog-day">
+                            {demo.day}
+                          </span>
                         </time>
                       </figcaption>
                     </figure>
-                    <h3 class="information-list__blog-title">
-                      『coolturf』エリア完成！
-                    </h3>
+                    <h3 class="information-list__blog-title">{demo.title}</h3>
                   </a>
                 </article>
-              );
+              ));
             }
 
             // お知らせ・イベント情報用の既存レイアウト
@@ -306,6 +327,18 @@ const pageClass = 'main-content--information';
         gap: ppx(60);
         width: ppx(1560);
       }
+      &[data-active-category='ブログ記事'] {
+        display: grid;
+        grid-template-columns: max-content;
+        gap: spx(70);
+        @include tablet-up {
+          grid-template-columns: max-content max-content max-content;
+          gap: ppx(130 * 1.2) ppx(30 * 1.2);
+        }
+        @include desktop-up {
+          gap: ppx(130) ppx(30);
+        }
+      }
     }
 
     &__item {
@@ -319,6 +352,16 @@ const pageClass = 'main-content--information';
       @include tablet-up {
       }
       @include desktop-up {
+      }
+
+      // ホバー効果
+      @include hover {
+        &:hover {
+          // タイトルのテキスト色を変更
+          .information-list__title {
+            color: var(--green_2, #adc400);
+          }
+        }
       }
     }
 
@@ -457,6 +500,7 @@ const pageClass = 'main-content--information';
       font-weight: 400;
       line-height: 150%; /* 45px */
       letter-spacing: spx(-0.6);
+      transition: color 0.3s ease;
       @include tablet-up {
         font-size: ppx(33 * 1.2);
         line-height: 160%; /* 52.8px */
@@ -489,6 +533,27 @@ const pageClass = 'main-content--information';
       }
       @include desktop-up {
         gap: ppx(24);
+      }
+
+      // ホバー効果
+      @include hover {
+        &:hover {
+          // 画像のオーバーレイを表示
+          .information-list__blog-image::after {
+            opacity: 1;
+          }
+
+          // 日付と時刻のテキスト色を変更
+          .information-list__blog-year-month,
+          .information-list__blog-day {
+            color: var(--green_2, #adc400);
+          }
+
+          // タイトルのテキスト色を変更
+          .information-list__blog-title {
+            color: var(--green_2, #adc400);
+          }
+        }
       }
     }
 
@@ -585,6 +650,7 @@ const pageClass = 'main-content--information';
       font-weight: 400;
       line-height: spx(22); /* 100% */
       letter-spacing: spx(0.44);
+      transition: color 0.3s ease;
       @include tablet-up {
         font-size: ppx(22 * 1.2);
         line-height: ppx(22 * 1.2); /* 100% */
@@ -606,6 +672,7 @@ const pageClass = 'main-content--information';
       font-weight: 400;
       line-height: spx(71); /* 100% */
       margin-top: spx(-3);
+      transition: color 0.3s ease;
       @include tablet-up {
         font-size: ppx(71 * 1.2);
         line-height: ppx(71 * 1.2); /* 100% */
@@ -627,6 +694,7 @@ const pageClass = 'main-content--information';
       font-style: normal;
       font-weight: 400;
       line-height: 150%; /* 43.5px */
+      transition: color 0.3s ease;
       @include tablet-up {
         font-size: ppx(27 * 1.2);
       }
@@ -712,6 +780,12 @@ const pageClass = 'main-content--information';
       filterByCategory(category);
       setActiveButton(category);
       updateURL(category);
+
+      // コンテナに現在のカテゴリーを設定
+      const container = document.querySelector('.information-list__items');
+      if (container) {
+        container.setAttribute('data-active-category', category || '');
+      }
     }
 
     // URLパラメータから初期カテゴリーを取得
