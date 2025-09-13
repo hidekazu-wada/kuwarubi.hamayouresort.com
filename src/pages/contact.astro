@@ -48,37 +48,41 @@ const pageClass = 'main-content--contact';
           必須項目をご入力の上、<br />
           送信ボタンを押してください。
         </p>
-        <p class="contact-form__required-note">※は入力必須項目です。</p>
+        <p class="contact-form__required-note">
+          <span>※</span>は入力必須項目です。
+        </p>
       </header>
       <div class="contact-form__body">
         <form class="contact-form__form">
           <fieldset class="contact-form__fieldset">
             <div class="contact-form__field contact-form__field--select">
               <label class="contact-form__label">種別 <span>※</span></label>
-              <select class="contact-form__select">
-                <option class="contact-form__placeholder"
-                  >選択してください</option
+              <div class="contact-form__select-wrapper">
+                <select class="contact-form__select">
+                  <option class="contact-form__placeholder"
+                    >選択してください
+                  </option>
+                  <option value="option1">男性</option>
+                  <option value="option2">女性</option>
+                  <option value="option3">その他</option>
+                </select>
+                <svg
+                  class="contact-form__select-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 40 40"
+                  fill="none"
                 >
-                <option value="option1">男性</option>
-                <option value="option2">女性</option>
-                <option value="option3">その他</option>
-              </select>
-              <svg
-                class="contact-form__select-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
-                viewBox="0 0 40 40"
-                fill="none"
-              >
-                <circle cx="20" cy="20" r="20" fill="#E7F3F9"></circle>
-                <path
-                  d="M10 17L20 27L30 17"
-                  stroke="#054965"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"></path>
-              </svg>
+                  <circle cx="20" cy="20" r="20" fill="#E7F3F9"></circle>
+                  <path
+                    d="M10 17L20 27L30 17"
+                    stroke="#054965"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </div>
             </div>
             <div class="contact-form__field">
               <label class="contact-form__label">お名前 <span>※</span></label>
@@ -141,10 +145,10 @@ const pageClass = 'main-content--contact';
           </section>
           <div class="contact-form__agreement">
             <label class="contact-form__checkbox-label">
-              <input type="checkbox" class="contact-form__checkbox" />
               <span class="contact-form__checkbox-text"
                 >個人情報の取り扱いに同意する</span
               >
+              <input type="checkbox" class="contact-form__checkbox" />
             </label>
           </div>
           <button type="submit" class="contact-form__submit">
@@ -152,8 +156,6 @@ const pageClass = 'main-content--contact';
             <svg
               class="contact-form__submit-icon"
               xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="22"
               viewBox="0 0 22 22"
               fill="none"
             >
@@ -167,10 +169,10 @@ const pageClass = 'main-content--contact';
           </button>
         </form>
       </div>
-      <small class="contact-form__recaptcha">
+      <p class="contact-form__recaptcha">
         This site is protected by reCAPTCHA and the GooglePrivacy Policy and
         Terms of Service apply.
-      </small>
+      </p>
     </div>
   </section>
 
@@ -200,6 +202,18 @@ const pageClass = 'main-content--contact';
     }
   }
 
+  .page-header-container {
+    @include tablet-up {
+      position: fixed;
+      top: ppx(280 * 1.2);
+      left: ppx(477 * 1);
+    }
+    @include desktop-up {
+      top: ppx(280);
+      left: ppx(477);
+    }
+  }
+
   .contact-form {
     @include tablet-up {
     }
@@ -214,9 +228,33 @@ const pageClass = 'main-content--contact';
     }
 
     &__header {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%; /* 48px */
+      letter-spacing: spx(-0.6);
+      width: max-content;
+      margin-inline: auto;
+      margin-top: spx(80);
       @include tablet-up {
+        text-align: left;
+        font-size: ppx(30 * 1.2);
+        line-height: 180%; /* 54px */
+        letter-spacing: ppx(1.5 * 1.2);
+        margin-inline: unset;
+        margin-top: 0;
+        position: fixed;
+        top: ppx(608 * 1.2);
+        left: ppx(478 * 1);
       }
       @include desktop-up {
+        font-size: ppx(30);
+        letter-spacing: ppx(1.5);
+        top: ppx(608);
+        left: ppx(478);
       }
     }
 
@@ -228,9 +266,13 @@ const pageClass = 'main-content--contact';
     }
 
     &__required-note {
+      margin-top: 2em;
       @include tablet-up {
       }
       @include desktop-up {
+      }
+      span {
+        color: var(--green_2, #adc400);
       }
     }
 
@@ -238,30 +280,68 @@ const pageClass = 'main-content--contact';
       @include tablet-up {
         background: var(--blue_2, #e7f3f9);
         border-radius: ppx(50 * 1.2) 0 0 ppx(50 * 1.2);
+        width: ppx(1500 * 1);
+        margin-left: auto;
+        margin-right: 0;
+        padding-left: ppx(130 * 1.2);
+        margin-top: ppx(534 * 1.2);
       }
       @include desktop-up {
         border-radius: ppx(50 * 1.2) 0 0 ppx(50 * 1.2);
+        width: ppx(1500);
+        padding-left: ppx(130);
+        margin-top: ppx(534);
       }
     }
 
     &__form {
+      padding-top: spx(60);
+      padding-bottom: spx(50);
       @include tablet-up {
+        padding-top: ppx(110 * 1.2);
+        padding-bottom: ppx(133 * 1.2);
       }
       @include desktop-up {
+        padding-top: ppx(110);
+        padding-bottom: ppx(133);
       }
     }
 
     &__fieldset {
+      display: flex;
+      flex-direction: column;
+      gap: spx(20);
+      width: max-content;
+      margin-inline: auto;
       @include tablet-up {
+        gap: ppx(50 * 1.2);
+        margin-inline: unset;
       }
       @include desktop-up {
+        gap: ppx(50);
       }
     }
 
     &__field {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(33);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%; /* 59.4px */
+      letter-spacing: spx(0.99);
+      display: flex;
+      flex-direction: column;
+      gap: spx(10);
       @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        letter-spacing: ppx(0.99 * 1.2);
+        gap: ppx(11 * 1.2);
       }
       @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(0.99);
+        gap: ppx(11);
       }
 
       &--select {
@@ -285,20 +365,90 @@ const pageClass = 'main-content--contact';
       @include desktop-up {
       }
       span {
+        color: var(--green_2, #adc400);
       }
     }
 
     &__input {
+      display: flex;
+      width: spx(620);
+      padding: spx(15) spx(30);
+      justify-content: center;
+      align-items: center;
+      gap: spx(10);
+      border-radius: spx(15);
+      border: spx(2) solid var(--blue_4, #59a1c0);
+      background: var(--white, #fff);
       @include tablet-up {
+        padding: ppx(19 * 1.2) ppx(39 * 1.2) ppx(26 * 1.2) ppx(40 * 1.2);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: ppx(10 * 1.2);
+        align-self: stretch;
+        border-radius: ppx(15 * 1.2);
+        border: ppx(2 * 1.2) solid var(--blue_4, #59a1c0);
+        width: ppx(1220 * 1.2);
       }
       @include desktop-up {
+        padding: ppx(19) ppx(39) ppx(26) ppx(40);
+        gap: ppx(10);
+        border-radius: ppx(15);
+        border: ppx(2) solid var(--blue_4, #59a1c0);
+        width: ppx(1220);
+      }
+      &::placeholder {
+        color: var(--blue_4, #59a1c0);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(29);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; /* 46.4px */
+        opacity: 0.5;
+        @include tablet-up {
+          color: var(--blue_5, #026995);
+          font-size: ppx(33 * 1.2);
+          line-height: 180%; /* 59.4px */
+          letter-spacing: ppx(0.99 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(33);
+          letter-spacing: ppx(0.99);
+        }
       }
     }
 
+    &__select-wrapper {
+      position: relative;
+      width: fit-content;
+    }
+
     &__select {
+      display: flex;
+      width: spx(620);
+      padding: spx(15) spx(30);
+      justify-content: center;
+      align-items: center;
+      gap: spx(10);
+      border-radius: spx(15);
+      border: spx(2) solid var(--blue_4, #59a1c0);
+      background: var(--white, #fff);
+      position: relative;
       @include tablet-up {
+        padding: ppx(19 * 1.2) ppx(39 * 1.2) ppx(26 * 1.2) ppx(40 * 1.2);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: ppx(10 * 1.2);
+        align-self: stretch;
+        border-radius: ppx(15 * 1.2);
+        border: ppx(2 * 1.2) solid var(--blue_4, #59a1c0);
+        width: ppx(1220 * 1.2);
       }
       @include desktop-up {
+        padding: ppx(19) ppx(39) ppx(26) ppx(40);
+        gap: ppx(10);
+        border-radius: ppx(15);
+        border: ppx(2) solid var(--blue_4, #59a1c0);
+        width: ppx(1220);
       }
     }
 
@@ -310,94 +460,320 @@ const pageClass = 'main-content--contact';
     }
 
     &__select-icon {
+      display: block;
+      width: spx(30);
+      height: spx(30);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: spx(30);
       @include tablet-up {
+        width: ppx(40 * 1.2);
+        height: ppx(40 * 1.2);
+        right: ppx(40 * 1.2);
       }
       @include desktop-up {
+        width: ppx(40);
+        height: ppx(40);
+        right: ppx(40);
       }
     }
 
     &__textarea {
+      display: flex;
+      width: spx(620);
+      padding: spx(15) spx(30);
+      justify-content: center;
+      align-items: center;
+      gap: spx(10);
+      border-radius: spx(15);
+      border: spx(2) solid var(--blue_4, #59a1c0);
+      background: var(--white, #fff);
       @include tablet-up {
+        padding: ppx(19 * 1.2) ppx(39 * 1.2) ppx(26 * 1.2) ppx(40 * 1.2);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: ppx(10 * 1.2);
+        align-self: stretch;
+        border-radius: ppx(15 * 1.2);
+        border: ppx(2 * 1.2) solid var(--blue_4, #59a1c0);
+        width: ppx(1220 * 1.2);
       }
       @include desktop-up {
+        padding: ppx(19) ppx(39) ppx(26) ppx(40);
+        gap: ppx(10);
+        border-radius: ppx(15);
+        border: ppx(2) solid var(--blue_4, #59a1c0);
+        width: ppx(1220);
+      }
+      &::placeholder {
+        color: var(--blue_4, #59a1c0);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(29);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; /* 46.4px */
+        opacity: 0.5;
+        @include tablet-up {
+          color: var(--blue_5, #026995);
+          font-size: ppx(33 * 1.2);
+          line-height: 180%; /* 59.4px */
+          letter-spacing: ppx(0.99 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(33);
+          letter-spacing: ppx(0.99);
+        }
       }
     }
 
     &__privacy {
+      display: flex;
+      width: spx(620);
+      height: spx(300);
+      padding: spx(35) spx(30) spx(15) spx(30);
+      flex-direction: column;
+      gap: spx(15);
+      border-radius: spx(15);
+      border: spx(2) solid var(--blue_4, #59a1c0);
+      overflow-y: scroll;
+      margin-top: spx(70);
+      margin-inline: auto;
       @include tablet-up {
+        width: ppx(1220 * 1.2);
+        height: ppx(380 * 1.2);
+        padding: ppx(35 * 1.2) ppx(30 * 1.2) ppx(15 * 1.2) ppx(30 * 1.2);
+        gap: ppx(15 * 1.2);
+        border-radius: ppx(15 * 1.2);
+        border: ppx(2 * 1.2) solid var(--blue_4, #59a1c0);
+        flex-shrink: 0;
+        margin-top: ppx(100 * 1.2);
       }
       @include desktop-up {
+        width: ppx(1220);
+        height: ppx(380);
+        padding: ppx(35) ppx(30) ppx(15) ppx(30);
+        gap: ppx(15);
+        border-radius: ppx(15);
+        border: ppx(2) solid var(--blue_4, #59a1c0);
+        margin-top: ppx(100);
       }
     }
 
     &__privacy-title {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(29);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%; /* 46.4px */
       @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: 180%; /* 59.4px */
+        letter-spacing: ppx(0.99 * 1.2);
       }
       @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(0.99);
       }
     }
 
     &__privacy-text {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(29);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%; /* 46.4px */
       @include tablet-up {
+        font-size: ppx(24 * 1.2);
+        line-height: 180%; /* 43.2px */
+        letter-spacing: ppx(0.72 * 1.2);
       }
       @include desktop-up {
+        font-size: ppx(24);
+        letter-spacing: ppx(0.72);
       }
     }
 
     &__agreement {
+      margin-top: spx(50);
       @include tablet-up {
+        margin-top: ppx(71 * 1.2);
       }
       @include desktop-up {
+        margin-top: ppx(71);
       }
     }
 
     &__checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: spx(15);
+      justify-content: center;
       @include tablet-up {
+        gap: ppx(14 * 1.2);
       }
       @include desktop-up {
+        gap: ppx(14);
       }
     }
 
     &__checkbox {
+      display: block;
+      width: spx(35);
+      height: spx(35);
+      flex-shrink: 0;
+      border-radius: spx(10);
+      border: spx(2) solid var(--blue_4, #59a1c0);
+      background: var(--white, #fff);
       @include tablet-up {
+        width: ppx(35 * 1.2);
+        height: ppx(35 * 1.2);
+        border-radius: ppx(10 * 1.2);
+        border: ppx(2 * 1.2) solid var(--blue_4, #59a1c0);
       }
       @include desktop-up {
+        width: ppx(35);
+        height: ppx(35);
+        border-radius: ppx(10);
+        border: ppx(2) solid var(--blue_4, #59a1c0);
       }
     }
 
     &__checkbox-text {
+      display: block;
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(29);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 105%; /* 30.45px */
+      width: max-content;
       @include tablet-up {
+        font-size: ppx(26 * 1.2);
+        line-height: ppx(33 * 1.2); /* 126.923% */
+        letter-spacing: ppx(0.78 * 1.2);
       }
       @include desktop-up {
+        font-size: ppx(26);
+        line-height: ppx(33); /* 126.923% */
+        letter-spacing: ppx(0.78);
       }
     }
 
     &__submit {
+      display: flex;
+      padding: spx(20);
+      align-items: center;
+      justify-content: center;
+      border-radius: spx(15);
+      background: var(--blue_5, #026995);
+      width: spx(358);
+      height: spx(68);
+      position: relative;
+      margin-inline: auto;
+      margin-top: spx(50);
       @include tablet-up {
+        width: ppx(429 * 1.2);
+        height: ppx(70 * 1.2);
+        padding: ppx(20 * 1.2);
+        border-radius: ppx(20 * 1.2);
+        flex-shrink: 0;
+        margin-top: ppx(68 * 1.2);
       }
       @include desktop-up {
+        width: ppx(429);
+        height: ppx(70);
+        padding: ppx(20);
+        border-radius: ppx(20);
+        margin-top: ppx(68);
       }
     }
 
     &__submit-text {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(33);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 85%; /* 28.05px */
+      letter-spacing: spx(1.65);
       @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: ppx(33 * 1.2); /* 100% */
+        letter-spacing: ppx(1.65 * 1.2);
       }
       @include desktop-up {
+        font-size: ppx(33);
+        line-height: ppx(33); /* 100% */
+        letter-spacing: ppx(1.65);
       }
     }
 
     &__submit-icon {
+      width: spx(18.228);
+      stroke-width: spx(2);
+      stroke: var(--white, #fff);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: spx(20);
       @include tablet-up {
+        width: ppx(10 * 1.2);
+        stroke-width: ppx(2 * 1.2);
+        flex-shrink: 0;
+        right: ppx(20 * 1.2);
       }
       @include desktop-up {
+        width: ppx(10);
+        stroke-width: ppx(2);
+        right: ppx(20);
       }
     }
 
     &__recaptcha {
+      color: var(--blue_4, #59a1c0);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(24);
+      font-style: normal;
+      font-weight: 400;
+      line-height: spx(33); /* 137.5% */
+      letter-spacing: spx(0.72);
+      width: spx(620);
+      flex-shrink: 0;
+      margin-inline: auto;
       @include tablet-up {
+        font-size: ppx(24 * 1.2);
+        line-height: ppx(33 * 1.2); /* 137.5% */
+        letter-spacing: ppx(0.72 * 1.2);
+        width: max-content;
+        margin-inline: unset;
+        margin-top: ppx(42 * 1.2);
+        margin-right: 7vw;
+        margin-left: auto;
       }
       @include desktop-up {
+        font-size: ppx(24);
+        line-height: ppx(33); /* 137.5% */
+        letter-spacing: ppx(0.72);
+        margin-top: ppx(42);
+        margin-right: 7vw;
       }
+    }
+  }
+  .breadcrumb-wrapper {
+    margin-top: spx(120);
+    margin-bottom: spx(40);
+    @include tablet-up {
+      margin-top: ppx(200 * 1.2);
+      margin-bottom: ppx(70 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(200);
+      margin-bottom: ppx(70);
     }
   }
 </style>
