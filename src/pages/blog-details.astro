@@ -1,0 +1,611 @@
+---
+// ============================================================
+// 汎用ページテンプレート
+// 使い方：このファイルをコピーして、ファイル名を変更して使用
+// 例：cp src/pages/_template.astro src/pages/about.astro
+// ============================================================
+
+// 必須インポート
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LowerPageHeader from '../components/ui/LowerPageHeader.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+
+// 追加インポート（必要に応じて）
+// import { getImage } from 'astro:assets';
+// import sampleImage from '../assets/images/sample.jpg';
+
+// ============================================================
+// TODO: 以下の項目を必ず変更してください
+// ============================================================
+
+// ページメタ情報（必ず変更）
+const pageTitle = '記事のタイトル | 光風閣くわるび';
+const pageDescription = 'ページの説明文をここに記述します。';
+
+// ページ固有のクラス名
+const pageClass = 'main-content--blog-detail';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageClass={pageClass}
+>
+  <!-- ============================================================ -->
+  <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
+  <!-- ============================================================ -->
+
+  <!-- ページヘッダー -->
+  <header class="page-header-container">
+    <time class="page-header-container__date" datetime="2024-06-25">
+      <span class="page-header-container__date__year">2024.06</span>
+      <span class="page-header-container__date__day">25</span>
+    </time>
+    <!-- お知らせ、イベント情報、ブログ記事などのカテゴリ名を入れます -->
+    <span class="page-header-container__category">お知らせ</span>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <article class="blog-detail">
+    <div class="blog-detail__body">
+      <h2 class="blog-detail__title">改めて湖サウナについて考える</h2>
+      <!-- コンテンツ -->
+      <div class="blog-detail__content">
+        <p class="blog-detail__paragraph">
+          ホテルくわるびの『くわるび』ってユニークでちょっと不思議な響きですよね。<br
+          />
+          実は『くわるび』とは『桑留尾』地名から来ています。
+        </p>
+        <p class="blog-detail__paragraph">
+          かつてこの地に広大な桑畑が広がっていたことからその名がつけられたと言われています。
+        </p>
+        <p class="blog-detail__paragraph">
+          私も幼少期に桑畑で遊んだ記憶が微かにあります。
+        </p>
+        <p class="blog-detail__paragraph">
+          昭和40年頃までは『桑留尾地区』には教会や寺跡があり、祈りを捧げる人々がこの地には集まっていたことからも、日本古来の文化から伝わる縁起の良い樹木と扱われてい『桑』の群生地に、多くの人々が特別な親和性を抱いていたことがうかがえます。
+        </p>
+        <p class="blog-detail__paragraph">
+          日本では、雷などの災害を恐れ、避けるために「クワバラクワバラ（桑原桑原）」というおまじないを唱えるなどの風習がありますよね。かつては畑に雷が落ちないようにクワの木を植えるなど、防災を祈る象徴として使われてきました。また、このように縁起の良い樹木であるため、人々から沢山の願いや祈りを託されたりしてきました。
+        </p>
+
+        <figure class="blog-detail__image">
+          <img src="" alt="" class="blog-detail__image-img" />
+        </figure>
+
+        <p class="blog-detail__paragraph">
+          ホテルくわるびの『くわるび』ってユニークでちょっと不思議な響きですよね。<br
+          />
+          実は『くわるび』とは『桑留尾』地名から来ています。
+        </p>
+        <p class="blog-detail__paragraph">
+          かつてこの地に広大な桑畑が広がっていたことからその名がつけられたと言われています。
+        </p>
+        <p class="blog-detail__paragraph">
+          私も幼少期に桑畑で遊んだ記憶が微かにあります。
+        </p>
+        <p class="blog-detail__paragraph">
+          昭和40年頃までは『桑留尾地区』には教会や寺跡があり、祈りを捧げる人々がこの地には集まっていたことからも、日本古来の文化から伝わる縁起の良い樹木と扱われてい『桑』の群生地に、多くの人々が特別な親和性を抱いていたことがうかがえます。
+        </p>
+        <p class="blog-detail__paragraph">
+          日本では、雷などの災害を恐れ、避けるために「クワバラクワバラ（桑原桑原）」というおまじないを唱えるなどの風習がありますよね。かつては畑に雷が落ちないようにクワの木を植えるなど、防災を祈る象徴として使われてきました。また、このように縁起の良い樹木であるため、人々から沢山の願いや祈りを託されたりしてきました。
+        </p>
+      </div>
+    </div>
+
+    <nav class="blog-detail__navigation">
+      <div class="blog-detail__nav-links">
+        <a href="#" class="blog-detail__nav-item blog-detail__nav-item--prev">
+          <article class="blog-detail__nav-article">
+            <time class="blog-detail__nav-date" datetime="2024-06-20">
+              <span class="blog-detail__nav-year">2024.06</span>
+              <span class="blog-detail__nav-day">20</span>
+            </time>
+            <h3 class="blog-detail__nav-title">
+              ホームページをリニューアルいたしました。
+            </h3>
+          </article>
+        </a>
+        <a href="#" class="blog-detail__nav-item blog-detail__nav-item--next">
+          <article class="blog-detail__nav-article">
+            <time class="blog-detail__nav-date" datetime="2024-06-31">
+              <span class="blog-detail__nav-year">2024.06</span>
+              <span class="blog-detail__nav-day">31</span>
+            </time>
+            <h3 class="blog-detail__nav-title">
+              ホームページをリニューアルいたしました。
+            </h3>
+          </article>
+        </a>
+      </div>
+
+      <a href="" class="blog-detail__list-link">
+        <span class="blog-detail__list-text">お知らせ一覧</span>
+        <svg
+          class="blog-detail__list-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 22 22"
+          fill="none"
+        >
+          <path
+            d="M1.88672 21L20.1146 11L1.88672 1"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </a>
+    </nav>
+  </article>
+
+  <!-- パンくずリスト -->
+  <div class="breadcrumb-wrapper">
+    <Breadcrumb
+      items={[
+        { text: 'TOP', href: '/' },
+        { text: '一覧ページのタイトル', href: '/' },
+        { text: 'ページ名' },
+      ]}
+    />
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  @import '../styles/variables';
+  @import '../styles/functions';
+  @import '../styles/mixins';
+
+  // ============================================================
+  // Blog Detail Styles
+  // ============================================================
+
+  :global(.main-content--blog-detail) {
+    background: var(--blue_2, #e7f3f9);
+    padding-top: spx(110);
+    @include tablet-up {
+      padding-top: ppx(254 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(254);
+    }
+  }
+
+  .page-header-container {
+    &__date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      &__year {
+        color: var(--blue_6, #054965);
+        text-align: center;
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(32);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 100%;
+        letter-spacing: spx(1.6);
+        @include tablet-up {
+          color: var(--blue_5, #026995);
+          font-size: ppx(36 * 1.2);
+          line-height: ppx(36 * 1.2);
+          letter-spacing: ppx(1.8 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(36);
+          line-height: ppx(36);
+          letter-spacing: ppx(1.8);
+        }
+      }
+      &__day {
+        color: var(--blue_6, #054965);
+        text-align: center;
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(119);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 90%;
+        @include tablet-up {
+          color: var(--blue_5, #026995);
+          font-size: ppx(131 * 1.2);
+          line-height: ppx(131.021 * 1.2);
+          letter-spacing: ppx(6.55 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(131);
+          line-height: ppx(131.021);
+          letter-spacing: ppx(6.55);
+        }
+      }
+    }
+    &__category {
+      display: block;
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: spx(34);
+      margin-top: spx(50);
+      position: relative;
+      padding-bottom: spx(25);
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: ppx(33 * 1.2);
+        letter-spacing: ppx(1.65 * 1.2);
+        margin-top: ppx(73 * 1.2);
+        padding-bottom: ppx(30 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        line-height: ppx(33);
+        letter-spacing: ppx(1.65);
+        margin-top: ppx(73);
+        padding-bottom: ppx(30);
+      }
+      &::after {
+        content: '';
+        display: block;
+        width: spx(231);
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          /* 左：緑色 */ var(--green_2, #adc400) 48.6%,
+          /* 87/179 ≈ 48.6% まで緑 */ transparent 48.6%,
+          /* 48.6% から透明 */ transparent 51.4%,
+          /* 92/179 ≈ 51.4% まで透明 */ var(--blue_5, #026995) 51.4%,
+          /* 51.4% から青 */ var(--blue_5, #026995) 100% /* 右：青色 */
+        );
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        @include tablet-up {
+          width: ppx(231 * 1.2);
+          height: ppx(5 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx(231);
+          height: ppx(5);
+        }
+      }
+    }
+  }
+
+  .blog-detail {
+    margin-top: spx(60);
+    @include tablet-up {
+      margin-top: ppx(80 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(80);
+    }
+
+    &__body {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__title {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(40);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+      letter-spacing: spx(-1.6);
+      width: spx(620);
+      margin-inline: auto;
+      @include tablet-up {
+        text-align: center;
+        font-size: ppx(50 * 1.2);
+        line-height: 160%;
+        letter-spacing: ppx(-2.5 * 1.2);
+        width: ppx(1520 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(50);
+        letter-spacing: ppx(-2.5);
+        width: ppx(1520);
+      }
+    }
+
+    &__content {
+      width: spx(620);
+      border-radius: spx(20);
+      background: var(--white, #fff);
+      margin-inline: auto;
+      margin-top: spx(40);
+      padding: spx(40);
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      @include tablet-up {
+        width: ppx(1800 * 1.2);
+        flex-shrink: 0;
+        border-radius: ppx(30 * 1.2);
+        margin-top: ppx(140 * 1.2);
+        padding: ppx(140 * 1.2) ppx(130 * 1.2);
+        font-size: ppx(33 * 1.2);
+        line-height: 190%;
+        letter-spacing: ppx(-1.65 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(1800);
+        border-radius: ppx(30);
+        margin-top: ppx(140);
+        padding: ppx(140) ppx(130);
+        font-size: ppx(33);
+        letter-spacing: ppx(-1.65);
+      }
+    }
+
+    &__paragraph {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__image {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &-img {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__navigation {
+      margin-top: spx(70);
+      @include tablet-up {
+        margin-top: ppx(88 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(88);
+      }
+    }
+
+    &__nav-links {
+      display: grid;
+      grid-template:
+        'prev next'
+        / spx(270) spx(270);
+      gap: spx(40);
+      justify-content: center;
+      @include tablet-up {
+        grid-template:
+          'prev next'
+          / ppx(850 * 1.2) ppx(850 * 1.2);
+        gap: ppx(100 * 1.2);
+      }
+      @include desktop-up {
+        grid-template:
+          'prev next'
+          / ppx(850) ppx(850);
+        gap: ppx(100);
+      }
+    }
+
+    &__nav-item {
+      display: block;
+      position: relative;
+      padding-bottom: spx(25);
+      @include tablet-up {
+        padding-bottom: ppx(44 * 1.2);
+      }
+      @include desktop-up {
+        padding-bottom: ppx(44);
+      }
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: #59a1c0;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+
+      &--prev {
+        grid-area: prev;
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &--next {
+        grid-area: next;
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__nav-article {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: spx(20);
+      @include tablet-up {
+        display: grid;
+        grid-template-columns: max-content auto;
+        gap: ppx(11 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(11);
+      }
+    }
+
+    &__nav-date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__nav-year {
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(26);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%;
+      letter-spacing: spx(1.3);
+      @include tablet-up {
+        color: var(--blue_5, #026995);
+        font-size: ppx(26 * 1.2);
+        line-height: ppx(26 * 1.2);
+        letter-spacing: ppx(1.3 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(26);
+        line-height: ppx(26);
+        letter-spacing: ppx(1.3);
+      }
+    }
+
+    &__nav-day {
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(95);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 90%;
+      @include tablet-up {
+        color: var(--blue_5, #026995);
+        font-size: ppx(95 * 1.2);
+        line-height: ppx(95 * 1.2);
+        letter-spacing: ppx(4.75 * 1.2);
+        width: ppx(160 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(95);
+        line-height: ppx(95);
+        letter-spacing: ppx(4.75);
+        width: ppx(160);
+      }
+    }
+
+    &__nav-title {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(27);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+      letter-spacing: spx(-0.54);
+
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: 160%;
+        letter-spacing: ppx(-1.65 * 1.2);
+        margin-right: ppx(33 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(-1.65);
+        margin-right: ppx(33);
+      }
+    }
+
+    &__list-link {
+      display: flex;
+      width: spx(358);
+      height: spx(70);
+      align-items: center;
+      justify-content: center;
+      border-radius: spx(15);
+      background: var(--blue_5, #026995);
+      position: relative;
+      margin: spx(80) auto 0;
+      @include tablet-up {
+        width: ppx(429 * 1.2);
+        height: ppx(90 * 1.2);
+        flex-shrink: 0;
+        border-radius: ppx(20 * 1.2);
+        margin: ppx(130 * 1.2) auto 0;
+      }
+      @include desktop-up {
+        width: ppx(429);
+        height: ppx(90);
+        border-radius: ppx(20);
+        margin: ppx(130) auto 0;
+      }
+    }
+
+    &__list-text {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(31);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%;
+      letter-spacing: spx(1.55);
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: ppx(33 * 1.2);
+        letter-spacing: ppx(1.65 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        line-height: ppx(33);
+        letter-spacing: ppx(1.65);
+      }
+    }
+
+    &__list-icon {
+      display: block;
+      width: spx(18.228);
+      height: spx(20);
+      stroke-width: spx(2);
+      stroke: var(--white, #fff);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: spx(20);
+      @include tablet-up {
+        width: ppx(10 * 1.2);
+        height: ppx(20 * 1.2);
+        flex-shrink: 0;
+        stroke-width: ppx(2 * 1.2);
+        right: ppx(30 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(10);
+        height: ppx(20);
+        stroke-width: ppx(2);
+        right: ppx(30);
+      }
+    }
+  }
+  .breadcrumb-wrapper {
+    margin: spx(120) 0 spx(40);
+    @include tablet-up {
+      margin: ppx(240 * 1.2) 0 ppx(70 * 1.2);
+    }
+    @include desktop-up {
+      margin: ppx(240) 0 ppx(70);
+    }
+  }
+</style>
