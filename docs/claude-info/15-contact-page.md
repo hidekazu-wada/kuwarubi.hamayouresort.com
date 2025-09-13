@@ -10,8 +10,14 @@
 
 **実装内容:**
 - 外部フォーム処理サービスFormspreeを使用
-- エンドポイント: `https://formspree.io/f/mjkezayk`
+- エンドポイントは環境変数`PUBLIC_FORMSPREE_ENDPOINT`で管理
 - POSTメソッドでフォームデータを送信
+
+**環境変数設定:**
+```bash
+# .env
+PUBLIC_FORMSPREE_ENDPOINT=https://formspree.io/f/YOUR_FORM_ID
+```
 
 ### 2. フォームバリデーション
 
@@ -179,6 +185,34 @@ window.addEventListener('pageshow', () => {
 - `src/components/ui/LowerPageHeader.astro` - ページヘッダー
 - `src/components/ui/Breadcrumb.astro` - パンくずナビゲーション
 
+## 環境設定
+
+### 環境変数
+
+プロジェクトでは以下の環境変数を使用しています：
+
+1. **`.env`ファイルを作成**
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **必要な環境変数を設定**
+   ```bash
+   # Formspreeエンドポイント
+   PUBLIC_FORMSPREE_ENDPOINT=https://formspree.io/f/YOUR_FORM_ID
+   ```
+
+3. **開発サーバーを再起動**
+   ```bash
+   npm run dev
+   ```
+
+### セキュリティ
+
+- `.env`ファイルは`.gitignore`に含まれており、GitHubには公開されません
+- チーム開発時は`.env.example`を参照して各自で設定
+
 ## 実装完了日
 
 2025年9月13日 - 初回実装完了
+2025年9月13日 - 環境変数対応追加
