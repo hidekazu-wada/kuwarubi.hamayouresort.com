@@ -178,22 +178,24 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
               />
             </label>
           </div>
-          <button type="submit" class="contact-form__submit">
-            <span class="contact-form__submit-text">送信</span>
-            <svg
-              class="contact-form__submit-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 22 22"
-              fill="none"
-            >
-              <path
-                d="M1.88672 21L20.1146 11L1.88672 1"
-                stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"></path>
-            </svg>
-          </button>
+          <div class="contact-form__submit-container">
+            <button type="submit" class="contact-form__submit">
+              <span class="contact-form__submit-text">送信</span>
+              <svg
+                class="contact-form__submit-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 22 22"
+                fill="none"
+              >
+                <path
+                  d="M1.88672 21L20.1146 11L1.88672 1"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </button>
+          </div>
         </form>
       </div>
       <p class="contact-form__recaptcha">
@@ -645,9 +647,11 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
       margin-top: spx(50);
       @include tablet-up {
         margin-top: ppx(71 * 1.2);
+        width: ppx(1220 * 1);
       }
       @include desktop-up {
         margin-top: ppx(71);
+        width: ppx(1220);
       }
     }
 
@@ -740,6 +744,15 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
         font-size: ppx(26);
         line-height: ppx(33); /* 126.923% */
         letter-spacing: ppx(0.78);
+      }
+    }
+
+    &__submit-container {
+      @include tablet-up {
+        width: ppx(1220 * 1);
+      }
+      @include desktop-up {
+        width: ppx(1220);
       }
     }
 
