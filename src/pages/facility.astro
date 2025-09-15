@@ -121,6 +121,114 @@ const pageClass = 'main-content--facility';
           </picture>
           <figcaption class="room__gallery-caption">和洋室</figcaption>
         </figure>
+        <figure class="room__gallery-slide room__gallery-slide--active">
+          <picture class="room__gallery-picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={room02.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={room02.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={room02.src}
+              alt="和洋室の内観"
+              class="room__gallery-image"
+            />
+          </picture>
+          <figcaption class="room__gallery-caption">洋室</figcaption>
+        </figure>
+        <figure class="room__gallery-slide room__gallery-slide--active">
+          <picture class="room__gallery-picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={room03.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={room03.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={room03.src}
+              alt="和洋室の内観"
+              class="room__gallery-image"
+            />
+          </picture>
+          <figcaption class="room__gallery-caption">和室</figcaption>
+        </figure>
+        <figure class="room__gallery-slide room__gallery-slide--active">
+          <picture class="room__gallery-picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={room04.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={room04.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={room04.src}
+              alt="和洋室の内観"
+              class="room__gallery-image"
+            />
+          </picture>
+          <figcaption class="room__gallery-caption">
+            コネクティング<br />
+            ルーム
+          </figcaption>
+        </figure>
+        <figure class="room__gallery-slide room__gallery-slide--active">
+          <picture class="room__gallery-picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={room05.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={room05.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={room05.src}
+              alt="和洋室の内観"
+              class="room__gallery-image"
+            />
+          </picture>
+          <figcaption class="room__gallery-caption">お風呂</figcaption>
+        </figure>
+        <figure class="room__gallery-slide room__gallery-slide--active">
+          <picture class="room__gallery-picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={room06.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={room06.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={room06.src}
+              alt="和洋室の内観"
+              class="room__gallery-image"
+            />
+          </picture>
+          <figcaption class="room__gallery-caption">トイレ</figcaption>
+        </figure>
       </div>
 
       <!-- スライドサムネ -->
@@ -423,9 +531,14 @@ const pageClass = 'main-content--facility';
     }
 
     &__gallery-main {
+      display: flex;
+      justify-content: center;
       @include tablet-up {
+        justify-content: flex-start;
+        margin-left: ppx(224 * 1.2);
       }
       @include desktop-up {
+        margin-left: ppx(224);
       }
     }
 
@@ -481,11 +594,13 @@ const pageClass = 'main-content--facility';
       font-weight: 400;
       line-height: 160%; /* 52.8px */
       letter-spacing: spx(1.65);
+      margin-top: spx(20);
       @include tablet-up {
         text-align: left;
         font-size: ppx(57 * 1.2);
         letter-spacing: ppx(2.85 * 1.2);
         margin-bottom: ppx(155 * 1.2);
+        margin-top: 0;
       }
       @include desktop-up {
         font-size: ppx(57);
@@ -562,13 +677,16 @@ const pageClass = 'main-content--facility';
       font-weight: 400;
       line-height: 130%; /* 28.6px */
       letter-spacing: spx(-0.66);
+      margin-top: spx(5);
       @include tablet-up {
         font-size: ppx(28 * 1.2);
         letter-spacing: ppx(-0.84 * 1.2);
+        margin-top: ppx(14 * 1.2);
       }
       @include desktop-up {
         font-size: ppx(28);
         letter-spacing: ppx(-0.84);
+        margin-top: ppx(14);
       }
     }
 
