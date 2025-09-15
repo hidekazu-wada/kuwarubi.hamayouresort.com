@@ -1521,11 +1521,11 @@ const pageClass = 'main-content--facility';
       @include tablet-up {
         display: grid;
         grid-template-columns: ppx(445 * 1.2) auto;
-        gap: ppx(141 * 1.2);
+        gap: ppx(141 * 1);
         padding-bottom: ppx(150 * 1.2);
         margin-inline: unset;
-        width: ppx(1920 * 1.2);
-        margin-left: ppx(198 * 1.2);
+        width: ppx(1920 * 1);
+        margin-left: ppx(198 * 1);
       }
       @include desktop-up {
         grid-template-columns: ppx(445) auto;
@@ -1584,7 +1584,7 @@ const pageClass = 'main-content--facility';
 
     &__header {
       @include tablet-up {
-        margin-left: ppx(97 * 1.2);
+        margin-left: ppx(97 * 1);
       }
       @include desktop-up {
         margin-left: ppx(97);
@@ -1635,9 +1635,19 @@ const pageClass = 'main-content--facility';
     }
 
     &__title-note {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(37);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%;
+      letter-spacing: spx(1.85);
       @include tablet-up {
+        font-size: ppx(40 * 1.2);
+        line-height: 160%;
       }
       @include desktop-up {
+        font-size: ppx(40);
       }
     }
 
@@ -1677,7 +1687,7 @@ const pageClass = 'main-content--facility';
       display: block;
       width: spx(212);
       @include tablet-up {
-        width: ppx(212 * 1.2);
+        width: ppx(212 * 1);
       }
       @include desktop-up {
         width: ppx(212);
