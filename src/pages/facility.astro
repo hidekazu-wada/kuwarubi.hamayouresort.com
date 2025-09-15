@@ -396,16 +396,54 @@ const pageClass = 'main-content--facility';
       <svg
         class="room__gallery-bg"
         xmlns="http://www.w3.org/2000/svg"
-        width="1387"
-        height="1134"
         viewBox="0 0 1387 1134"
         fill="none"
-        aria-hidden="true"
       >
         <path
           d="M449.751 1093.83C132.446 992.177 -68.9617 707.834 23.1788 367.099C83.6139 143.564 283.469 11.0996 481.262 1.65376C691.35 -8.3347 800.478 62.178 990.637 53.1379C1173.03 44.4442 1375.83 48.1796 1498.95 248.911C1644.58 486.383 1539.83 719.539 1389.98 880.853C1179 1107.96 748.037 1189.35 449.751 1093.83Z"
           fill="white"></path>
       </svg>
+    </section>
+
+    <section>
+      <!-- 和洋室列の背景用の要素 -->
+      <div class=""></div>
+      <!-- 洋室列の背景用の要素 -->
+      <div class=""></div>
+      <!-- 和室列の背景用の要素 -->
+      <div class=""></div>
+      <!-- コネクティング列の背景用の要素 -->
+      <div class=""></div>
+
+      <div class="">客室タイプ</div>
+      <div class="">広さ</div>
+      <div class="">定員</div>
+      <div class="">ベッド・畳</div>
+      <div class="">部屋数</div>
+
+      <div class="">和洋室</div>
+      <div class="">35㎡</div>
+      <div class="">7名</div>
+      <div class="">ベッド2台+7畳</div>
+      <div class="">59部屋</div>
+
+      <div class="">洋室</div>
+      <div class="">35㎡</div>
+      <div class="">3名</div>
+      <div class="">ベッド3台</div>
+      <div class="">4部屋</div>
+
+      <div class="">和室</div>
+      <div class="">35㎡</div>
+      <div class="">8名</div>
+      <div class="">10畳</div>
+      <div class="">4部屋</div>
+
+      <div class="">コネクティングルーム</div>
+      <div class="">35㎡+35㎡</div>
+      <div class="">6名</div>
+      <div class="">ベッド2台+6畳</div>
+      <div class="">2部屋</div>
     </section>
   </main>
 
@@ -534,11 +572,15 @@ const pageClass = 'main-content--facility';
     &__gallery {
       margin-top: spx(80);
       overflow-x: hidden;
+      position: relative;
+      padding-bottom: spx(56);
       @include tablet-up {
         margin-top: ppx(184 * 1.2);
+        padding-bottom: ppx(299 * 1.2);
       }
       @include desktop-up {
         margin-top: ppx(184);
+        padding-bottom: ppx(299);
       }
     }
 
@@ -632,8 +674,13 @@ const pageClass = 'main-content--facility';
 
     // サムネイルナビゲーション
     &__gallery-thumbnails {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
       .swiper-wrapper {
         margin-top: spx(30);
+        margin-left: spx(10);
         @include tablet-up {
           gap: ppx(25 * 1.2);
           margin-top: ppx(100 * 1.2);
@@ -730,9 +777,21 @@ const pageClass = 'main-content--facility';
 
     // 背景SVG
     &__gallery-bg {
+      display: none;
       @include tablet-up {
+        display: block;
+        position: absolute;
+        width: ppx(1568 * 1.2);
+        height: ppx(1171 * 1.2);
+        right: 0;
+        bottom: ppx(35 * 1.2);
+        opacity: 0.8;
       }
       @include desktop-up {
+        width: ppx(1568);
+        height: ppx(1171);
+        right: 0;
+        bottom: ppx(35);
       }
     }
   }
