@@ -1,0 +1,583 @@
+---
+// ============================================================
+// 汎用ページテンプレート
+// 使い方：このファイルをコピーして、ファイル名を変更して使用
+// 例：cp src/pages/_template.astro src/pages/about.astro
+// ============================================================
+
+// 必須インポート
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LowerPageHeader from '../components/ui/LowerPageHeader.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+
+// 画像
+import { getImage } from 'astro:assets';
+import tree from '../assets/images/facility/room/tree.svg';
+import roomImage01 from '../assets/images/facility/room/slide-01.jpg';
+import roomImage02 from '../assets/images/facility/room/slide-02.jpg';
+import roomImage03 from '../assets/images/facility/room/slide-03.jpg';
+import roomImage04 from '../assets/images/facility/room/slide-04.jpg';
+import roomImage05 from '../assets/images/facility/room/slide-05.jpg';
+import roomImage06 from '../assets/images/facility/room/slide-06.jpg';
+
+// フォーマット
+const room01 = await getImage({
+  src: roomImage01,
+  format: 'webp',
+  widths: [151, 191, 620, 900, 1300],
+});
+const room02 = await getImage({
+  src: roomImage02,
+  format: 'webp',
+  widths: [151, 191, 620, 900, 1300],
+});
+const room03 = await getImage({
+  src: roomImage03,
+  format: 'webp',
+  widths: [151, 191, 620, 900, 1300],
+});
+const room04 = await getImage({
+  src: roomImage04,
+  format: 'webp',
+  widths: [151, 191, 620, 900, 1300],
+});
+const room05 = await getImage({
+  src: roomImage05,
+  format: 'webp',
+  widths: [151, 191, 620, 900, 1300],
+});
+const room06 = await getImage({
+  src: roomImage06,
+  format: 'webp',
+  widths: [151, 191, 620, 900, 1300],
+});
+// 追加インポート（必要に応じて）
+// import { getImage } from 'astro:assets';
+// import sampleImage from '../assets/images/sample.jpg';
+
+// ============================================================
+// TODO: 以下の項目を必ず変更してください
+// ============================================================
+
+// ページメタ情報（必ず変更）
+const pageTitle = 'お部屋・施設 | 光風閣くわるび';
+const pageDescription = 'ページの説明文をここに記述します。';
+
+// ページ固有のクラス名（page-nameを適切な名前に変更）
+const pageClass = 'main-content--facility';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageClass={pageClass}
+>
+  <!-- ============================================================ -->
+  <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
+  <!-- ============================================================ -->
+
+  <!-- ページヘッダー -->
+  <div class="page-header-container">
+    <LowerPageHeader titleEn="ROOM" titleJa="お部屋" />
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="room">
+    <header class="room__header">
+      <div class="room__header-inner">
+        <h1 class="room__title">
+          自然の中で<br />
+          シンプルな休息を
+        </h1>
+        <img src={tree.src} alt="木の画像" class="room__tree-icon" />
+      </div>
+      <p class="room__description">
+        当ホテルの客室は、機能的でありながら心地よいシンプルさが魅力です。落ち着いた色合いと洗練されたデザインで、都会の喧騒から解放されるひとときを提供します。バスとトイレが分かれているため、より快適なプライベート空間をお楽しみいただけます。窓からは自然の景色を望むことができ、穏やかな環境の中での休息に最適です。
+      </p>
+    </header>
+
+    <!-- スライドセクション -->
+    <section class="room__gallery">
+      <!-- スライドメイン 1枚のスライド表示 -->
+      <div class="room__gallery-main">
+        <figure class="room__gallery-slide room__gallery-slide--active">
+          <picture class="room__gallery-picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={room01.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={room01.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={room01.src}
+              alt="和洋室の内観"
+              class="room__gallery-image"
+            />
+          </picture>
+          <figcaption class="room__gallery-caption">和洋室</figcaption>
+        </figure>
+      </div>
+
+      <!-- スライドサムネ -->
+      <nav class="room__gallery-thumbnails">
+        <!-- サムネスライド -->
+        <button class="room__gallery-thumb room__gallery-thumb--active">
+          <figure class="room__gallery-thumb-inner">
+            <picture class="room__gallery-thumb-picture">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={room01.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={room01.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={room01.src}
+                alt="和洋室のサムネイル"
+                class="room__gallery-thumb-image"
+              />
+            </picture>
+            <figcaption class="room__gallery-thumb-caption">和洋室</figcaption>
+          </figure>
+        </button>
+        <!-- サムネスライド -->
+        <button class="room__gallery-thumb">
+          <figure class="room__gallery-thumb-inner">
+            <picture class="room__gallery-thumb-picture">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={room02.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={room02.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={room02.src}
+                alt="洋室のサムネイル"
+                class="room__gallery-thumb-image"
+              />
+            </picture>
+            <figcaption class="room__gallery-thumb-caption">洋室</figcaption>
+          </figure>
+        </button>
+        <!-- サムネスライド -->
+        <button class="room__gallery-thumb">
+          <figure class="room__gallery-thumb-inner">
+            <picture class="room__gallery-thumb-picture">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={room03.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={room03.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={room03.src}
+                alt="和室のサムネイル"
+                class="room__gallery-thumb-image"
+              />
+            </picture>
+            <figcaption class="room__gallery-thumb-caption">和室</figcaption>
+          </figure>
+        </button>
+        <!-- サムネスライド -->
+        <button class="room__gallery-thumb">
+          <figure class="room__gallery-thumb-inner">
+            <picture class="room__gallery-thumb-picture">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={room04.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={room04.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={room04.src}
+                alt="コネクティングルームのサムネイル"
+                class="room__gallery-thumb-image"
+              />
+            </picture>
+            <figcaption class="room__gallery-thumb-caption">
+              コネクティング<br />ルーム
+            </figcaption>
+          </figure>
+        </button>
+        <!-- サムネスライド -->
+        <button class="room__gallery-thumb">
+          <figure class="room__gallery-thumb-inner">
+            <picture class="room__gallery-thumb-picture">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={room05.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={room05.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={room05.src}
+                alt="お風呂のサムネイル"
+                class="room__gallery-thumb-image"
+              />
+            </picture>
+            <figcaption class="room__gallery-thumb-caption">お風呂</figcaption>
+          </figure>
+        </button>
+        <!-- サムネスライド -->
+        <button class="room__gallery-thumb">
+          <figure class="room__gallery-thumb-inner">
+            <picture class="room__gallery-thumb-picture">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={room06.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={room06.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={room06.src}
+                alt="トイレのサムネイル"
+                class="room__gallery-thumb-image"
+              />
+            </picture>
+            <figcaption class="room__gallery-thumb-caption">トイレ</figcaption>
+          </figure>
+        </button>
+      </nav>
+
+      <!-- 背景模様 -->
+      <svg
+        class="room__gallery-bg"
+        xmlns="http://www.w3.org/2000/svg"
+        width="1387"
+        height="1134"
+        viewBox="0 0 1387 1134"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M449.751 1093.83C132.446 992.177 -68.9617 707.834 23.1788 367.099C83.6139 143.564 283.469 11.0996 481.262 1.65376C691.35 -8.3347 800.478 62.178 990.637 53.1379C1173.03 44.4442 1375.83 48.1796 1498.95 248.911C1644.58 486.383 1539.83 719.539 1389.98 880.853C1179 1107.96 748.037 1189.35 449.751 1093.83Z"
+          fill="white"></path>
+      </svg>
+    </section>
+  </main>
+
+  <!-- パンくずリスト -->
+  <div class="breadcrumb-wrapper">
+    <Breadcrumb
+      items={[{ text: 'TOP', href: '/' }, { text: 'お部屋・施設' }]}
+    />
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  @import '../styles/variables';
+  @import '../styles/functions';
+  @import '../styles/mixins';
+
+  :global(.main-content--facility) {
+    background: #f1f8fb;
+    position: relative;
+    padding-top: spx(110);
+    @include tablet-up {
+      padding-top: ppx(594 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(594);
+    }
+  }
+
+  .page-header-container {
+    @include tablet-up {
+      position: absolute;
+      top: ppx(490 * 1.2);
+      left: ppx(233 * 1.2);
+    }
+    @include desktop-up {
+      top: ppx(490);
+      left: ppx(233);
+    }
+  }
+
+  // メインコンテナ
+  .room {
+    // ヘッダーセクション
+    &__header {
+      @include tablet-up {
+        margin-left: ppx(827 * 1.2);
+      }
+      @include desktop-up {
+        margin-left: ppx(827);
+      }
+    }
+
+    &__header-inner {
+      margin-top: spx(90);
+      display: flex;
+      gap: spx(20);
+      align-items: center;
+      justify-content: center;
+      @include tablet-up {
+        margin-top: 0;
+        align-items: flex-start;
+        gap: ppx(39 * 1.2);
+        justify-content: flex-start;
+      }
+      @include desktop-up {
+        gap: ppx(39);
+      }
+    }
+
+    &__title {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(52);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 78px */
+      letter-spacing: spx(2.6);
+      @include tablet-up {
+        font-size: ppx(73 * 1.2);
+        line-height: 160%; /* 116.8px */
+        letter-spacing: ppx(3.65 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(73);
+        letter-spacing: ppx(3.65);
+      }
+    }
+
+    &__tree-icon {
+      display: block;
+      width: spx(150);
+      @include tablet-up {
+        width: ppx(167 * 1.2);
+        margin-top: ppx(61 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(167);
+        margin-top: ppx(61);
+      }
+    }
+
+    &__description {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%; /* 54px */
+      width: spx(600);
+      margin-top: spx(40);
+      margin-inline: auto;
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+        width: ppx(1140 * 1.2);
+        margin-top: ppx(89 * 1.2);
+        margin-inline: unset;
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        width: ppx(1140);
+        margin-top: ppx(89);
+      }
+    }
+
+    // ギャラリーセクション
+    &__gallery {
+      margin-top: spx(80);
+      @include tablet-up {
+        margin-top: ppx(184 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(184);
+      }
+    }
+
+    &__gallery-main {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__gallery-slide {
+      @include tablet-up {
+        display: flex;
+        align-items: flex-end;
+        gap: ppx(76 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(76);
+      }
+
+      &--active {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__gallery-picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__gallery-image {
+      display: block;
+      width: spx(620);
+      height: spx(372);
+      object-fit: cover;
+      border-radius: spx(10);
+      @include tablet-up {
+        width: ppx(1300 * 1.2);
+        height: ppx(780 * 1.2);
+        border-radius: ppx(30 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(1300);
+        height: ppx(780);
+        border-radius: ppx(30);
+      }
+    }
+
+    &__gallery-caption {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(33);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%; /* 52.8px */
+      letter-spacing: spx(1.65);
+      @include tablet-up {
+        text-align: left;
+        font-size: ppx(57 * 1.2);
+        letter-spacing: ppx(2.85 * 1.2);
+        margin-bottom: ppx(155 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(57);
+        letter-spacing: ppx(2.85);
+        margin-bottom: ppx(155);
+      }
+    }
+
+    // サムネイルナビゲーション
+    &__gallery-thumbnails {
+      display: flex;
+      gap: spx(15);
+      align-items: flex-start;
+      @include tablet-up {
+        gap: ppx(25 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(25);
+      }
+    }
+
+    &__gallery-thumb {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &--active {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__gallery-thumb-inner {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__gallery-thumb-picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__gallery-thumb-image {
+      display: block;
+      width: spx(151);
+      height: spx(151);
+      overflow: hidden;
+      border-radius: spx(8);
+      @include tablet-up {
+        width: ppx(191 * 1.2);
+        height: ppx(191 * 1.2);
+        border-radius: ppx(10 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(191);
+        height: ppx(191);
+        border-radius: ppx(10);
+      }
+    }
+
+    &__gallery-thumb-caption {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(22);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%; /* 28.6px */
+      letter-spacing: spx(-0.66);
+      @include tablet-up {
+        font-size: ppx(28 * 1.2);
+        letter-spacing: ppx(-0.84 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(28);
+        letter-spacing: ppx(-0.84);
+      }
+    }
+
+    // 背景SVG
+    &__gallery-bg {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+  }
+</style>
