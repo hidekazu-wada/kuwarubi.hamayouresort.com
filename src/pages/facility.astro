@@ -634,7 +634,6 @@ const pageClass = 'main-content--facility';
     &__gallery-thumbnails {
       .swiper-wrapper {
         margin-top: spx(30);
-        gap: spx(15);
         @include tablet-up {
           gap: ppx(25 * 1.2);
           margin-top: ppx(100 * 1.2);
@@ -649,7 +648,6 @@ const pageClass = 'main-content--facility';
     }
 
     &__gallery-thumb {
-      width: spx(151);
       @include tablet-up {
         width: ppx(191 * 1.2);
       }
@@ -673,15 +671,17 @@ const pageClass = 'main-content--facility';
     &__gallery-thumb-inner {
       width: max-content;
       @include tablet-up {
+        width: max-content;
       }
       @include desktop-up {
       }
     }
 
     &__gallery-thumb-picture {
-      width: max-content;
       display: block;
+      width: max-content;
       @include tablet-up {
+        width: max-content;
       }
       @include desktop-up {
       }
@@ -748,8 +748,9 @@ const pageClass = 'main-content--facility';
     // サムネイルSwiper初期化（facility-room専用・完全独立）
     const thumbsSwiper = new Swiper('.facility-room__swiper-thumbs', {
       modules: [Thumbs],
-      slidesPerView: 'auto',
+      slidesPerView: 4.2,
       watchSlidesProgress: true,
+      centerSlides: true,
       breakpoints: {
         744: {
           slidesPerView: 'auto',
