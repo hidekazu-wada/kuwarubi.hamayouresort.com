@@ -749,14 +749,17 @@ const pageClass = 'main-content--facility';
     const thumbsSwiper = new Swiper('.facility-room__swiper-thumbs', {
       modules: [Thumbs],
       slidesPerView: 4.2,
+      slidesPerGroup: 4,
       watchSlidesProgress: true,
-      centerSlides: true,
+      slideToClickedSlide: true,
       breakpoints: {
         744: {
           slidesPerView: 'auto',
+          slidesPerGroup: 1,
         },
         1024: {
           slidesPerView: 'auto',
+          slidesPerGroup: 1,
         },
       },
     });
