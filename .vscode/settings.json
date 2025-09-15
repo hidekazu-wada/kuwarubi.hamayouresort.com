@@ -9,6 +9,7 @@
     "formspree",
     "furigana",
     "GSAP",
+    "Haburashi",
     "hamayou",
     "hamayouresort",
     "izumi",
@@ -16,7 +17,10 @@
     "kuwarubi",
     "Onsen",
     "stylable",
-    "styleable"
+    "styleable",
+    "washitsu",
+    "wayoshitsu",
+    "yoshitsu"
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
