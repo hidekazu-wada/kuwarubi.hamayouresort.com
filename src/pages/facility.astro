@@ -422,29 +422,53 @@ const pageClass = 'main-content--facility';
         <h3 class="room-spec__head room-spec__head--bed">ベッド・畳</h3>
         <h3 class="room-spec__head room-spec__head--count">部屋数</h3>
 
-        <div class="room-spec__cell room-spec__cell--wayoshitsu-type">和洋室</div>
+        <div class="room-spec__cell room-spec__cell--wayoshitsu-type">
+          和洋室
+        </div>
         <div class="room-spec__cell room-spec__cell--wayoshitsu-area">35㎡</div>
-        <div class="room-spec__cell room-spec__cell--wayoshitsu-capacity">7名</div>
-        <div class="room-spec__cell room-spec__cell--wayoshitsu-bed">ベッド2台+7畳</div>
-        <div class="room-spec__cell room-spec__cell--wayoshitsu-count">59部屋</div>
+        <div class="room-spec__cell room-spec__cell--wayoshitsu-capacity">
+          7名
+        </div>
+        <div class="room-spec__cell room-spec__cell--wayoshitsu-bed">
+          ベッド<br class="only-sp" />2台+7畳
+        </div>
+        <div class="room-spec__cell room-spec__cell--wayoshitsu-count">
+          59部屋
+        </div>
 
         <div class="room-spec__cell room-spec__cell--yoshitsu-type">洋室</div>
         <div class="room-spec__cell room-spec__cell--yoshitsu-area">35㎡</div>
-        <div class="room-spec__cell room-spec__cell--yoshitsu-capacity">3名</div>
-        <div class="room-spec__cell room-spec__cell--yoshitsu-bed">ベッド3台</div>
+        <div class="room-spec__cell room-spec__cell--yoshitsu-capacity">
+          3名
+        </div>
+        <div class="room-spec__cell room-spec__cell--yoshitsu-bed">
+          ベッド<br class="only-sp" />3台
+        </div>
         <div class="room-spec__cell room-spec__cell--yoshitsu-count">4部屋</div>
 
         <div class="room-spec__cell room-spec__cell--washitsu-type">和室</div>
         <div class="room-spec__cell room-spec__cell--washitsu-area">35㎡</div>
-        <div class="room-spec__cell room-spec__cell--washitsu-capacity">8名</div>
+        <div class="room-spec__cell room-spec__cell--washitsu-capacity">
+          8名
+        </div>
         <div class="room-spec__cell room-spec__cell--washitsu-bed">10畳</div>
         <div class="room-spec__cell room-spec__cell--washitsu-count">4部屋</div>
 
-        <div class="room-spec__cell room-spec__cell--connecting-type">コネクティングルーム</div>
-        <div class="room-spec__cell room-spec__cell--connecting-area">35㎡+35㎡</div>
-        <div class="room-spec__cell room-spec__cell--connecting-capacity">6名</div>
-        <div class="room-spec__cell room-spec__cell--connecting-bed">ベッド2台+6畳</div>
-        <div class="room-spec__cell room-spec__cell--connecting-count">2部屋</div>
+        <div class="room-spec__cell room-spec__cell--connecting-type">
+          コネクティングルーム
+        </div>
+        <div class="room-spec__cell room-spec__cell--connecting-area">
+          35㎡+35㎡
+        </div>
+        <div class="room-spec__cell room-spec__cell--connecting-capacity">
+          6名
+        </div>
+        <div class="room-spec__cell room-spec__cell--connecting-bed">
+          ベッド<br class="only-sp" />2台+6畳
+        </div>
+        <div class="room-spec__cell room-spec__cell--connecting-count">
+          2部屋
+        </div>
       </div>
     </section>
   </main>
@@ -575,7 +599,7 @@ const pageClass = 'main-content--facility';
       margin-top: spx(80);
       overflow-x: hidden;
       position: relative;
-      padding-bottom: spx(56);
+      padding-bottom: spx(80);
       @include tablet-up {
         margin-top: ppx(184 * 1.2);
         padding-bottom: ppx(299 * 1.2);
@@ -800,90 +824,279 @@ const pageClass = 'main-content--facility';
 
   // 客室仕様テーブル
   .room-spec {
+    color: var(--blue_5, #026995);
+    text-align: center;
+    font-family: 'Zen Kaku Gothic New';
+    font-size: spx(25);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 30px */
+    width: max-content;
+    margin-inline: auto;
+    padding-bottom: spx(120);
     @include tablet-up {
+      font-size: ppx(30 * 1.2);
+      line-height: 330%;
+      margin-inline: unset;
+      margin-left: ppx(198 * 1.2);
+      padding-bottom: ppx(397 * 1.2);
     }
     @include desktop-up {
+      font-size: ppx(30);
+      margin-left: ppx(198);
+      padding-bottom: ppx(397);
     }
 
     &__table {
+      display: grid;
+      grid-template:
+        'type     ... wayoshitsu          ... yoshitsu          ... washitsu          ... connecting'
+        'area     ... wayoshitsu-area     ... yoshitsu-area     ... washitsu-area     ... connecting-area'
+        'capacity ... wayoshitsu-capacity ... yoshitsu-capacity ... washitsu-capacity ... connecting-capacity'
+        'bed      ... wayoshitsu-bed      ... yoshitsu-bed      ... washitsu-bed      ... connecting-bed'
+        'count    ... wayoshitsu-count    ... yoshitsu-count    ... washitsu-count    ... connecting-count'
+        / spx(133) spx(8) spx(118) spx(3) spx(118) spx(4) spx(118) spx(16) spx(
+          123
+        );
+      position: relative;
+      gap: 4vw 0;
       @include tablet-up {
+        grid-template:
+          'type     ... wayoshitsu          ... yoshitsu          ... washitsu          ... connecting'
+          'area     ... wayoshitsu-area     ... yoshitsu-area     ... washitsu-area     ... connecting-area'
+          'capacity ... wayoshitsu-capacity ... yoshitsu-capacity ... washitsu-capacity ... connecting-capacity'
+          'bed      ... wayoshitsu-bed      ... yoshitsu-bed      ... washitsu-bed      ... connecting-bed'
+          'count    ... wayoshitsu-count    ... yoshitsu-count    ... washitsu-count    ... connecting-count'
+          / ppx(227 * 1.2) ppx(138 * 1.2) ppx(204 * 1.2) ppx(231 * 1.2) ppx(
+            135 * 1.2
+          )
+          ppx(295 * 1.2) ppx(75 * 1.2) ppx(212) ppx(300 * 1.2);
+        gap: 0;
       }
       @include desktop-up {
+        grid-template:
+          'type     ... wayoshitsu          ... yoshitsu          ... washitsu          ... connecting'
+          'area     ... wayoshitsu-area     ... yoshitsu-area     ... washitsu-area     ... connecting-area'
+          'capacity ... wayoshitsu-capacity ... yoshitsu-capacity ... washitsu-capacity ... connecting-capacity'
+          'bed      ... wayoshitsu-bed      ... yoshitsu-bed      ... washitsu-bed      ... connecting-bed'
+          'count    ... wayoshitsu-count    ... yoshitsu-count    ... washitsu-count    ... connecting-count'
+          / ppx(227) ppx(138) ppx(204) ppx(231) ppx(135) ppx(295) ppx(75) ppx(
+            212
+          )
+          ppx(300);
       }
     }
 
     // 背景装飾
     &__bg {
+      position: absolute;
+      display: block;
+      border-radius: spx(15);
+      background: var(--white, #fff);
+      top: spx(-24);
+      width: spx(116);
+      height: spx(404);
+      z-index: 1;
       @include tablet-up {
+        border-radius: ppx(30 * 1.2);
+        width: ppx(380 * 1.2);
+        height: ppx(510 * 1.2);
+        top: ppx(-6 * 1.2);
       }
       @include desktop-up {
+        border-radius: ppx(30);
+        width: ppx(380);
+        height: ppx(510);
+        top: ppx(-6);
       }
 
       &--wayoshitsu {
+        left: spx(141);
         @include tablet-up {
+          left: ppx(277 * 1.2);
         }
         @include desktop-up {
+          left: ppx(277);
         }
       }
 
       &--yoshitsu {
+        left: spx(262);
         @include tablet-up {
+          left: ppx(677 * 1.2);
         }
         @include desktop-up {
+          left: ppx(677);
         }
       }
 
       &--washitsu {
+        left: spx(384);
         @include tablet-up {
+          left: ppx(1077 * 1.2);
         }
         @include desktop-up {
+          left: ppx(1077);
         }
       }
 
       &--connecting {
+        width: spx(146);
+        left: spx(506);
         @include tablet-up {
+          width: ppx(380 * 1.2);
+          left: ppx(1477 * 1.2);
         }
         @include desktop-up {
+          width: ppx(380);
+          left: ppx(1477);
         }
       }
     }
 
     // ヘッダー要素
     &__head {
+      position: relative;
+      z-index: 2;
       @include tablet-up {
       }
       @include desktop-up {
       }
 
       &--type {
+        grid-area: type;
         @include tablet-up {
         }
         @include desktop-up {
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: -2vw;
+          left: 0;
+          width: 90vw;
+          height: 1px;
+          display: block;
+          background: linear-gradient(
+              to right,
+              #026995,
+              #026995 25%,
+              rgba(0, 0, 0, 0) 25%,
+              rgba(0, 0, 0, 0) 100%
+            )
+            0% 0%;
+          background-size: 4px 1px;
+          @include tablet-up {
+            width: 72.5vw;
+            bottom: 0;
+          }
+          @include desktop-up {
+            width: 72.5vw;
+          }
         }
       }
 
       &--area {
+        grid-area: area;
         @include tablet-up {
         }
         @include desktop-up {
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: -2vw;
+          left: 0;
+          width: 90vw;
+          height: 1px;
+          display: block;
+          background: linear-gradient(
+              to right,
+              #026995,
+              #026995 25%,
+              rgba(0, 0, 0, 0) 25%,
+              rgba(0, 0, 0, 0) 100%
+            )
+            0% 0%;
+          background-size: 4px 1px;
+          @include tablet-up {
+            width: 72.5vw;
+            bottom: 0;
+          }
+          @include desktop-up {
+            width: 72.5vw;
+          }
         }
       }
 
       &--capacity {
+        grid-area: capacity;
         @include tablet-up {
         }
         @include desktop-up {
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: -2vw;
+          left: 0;
+          width: 90vw;
+          height: 1px;
+          display: block;
+          background: linear-gradient(
+              to right,
+              #026995,
+              #026995 25%,
+              rgba(0, 0, 0, 0) 25%,
+              rgba(0, 0, 0, 0) 100%
+            )
+            0% 0%;
+          background-size: 4px 1px;
+          @include tablet-up {
+            width: 72.5vw;
+            bottom: 0;
+          }
+          @include desktop-up {
+            width: 72.5vw;
+          }
         }
       }
 
       &--bed {
+        grid-area: bed;
         @include tablet-up {
         }
         @include desktop-up {
         }
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: -2vw;
+          left: 0;
+          width: 90vw;
+          height: 1px;
+          display: block;
+          background: linear-gradient(
+              to right,
+              #026995,
+              #026995 25%,
+              rgba(0, 0, 0, 0) 25%,
+              rgba(0, 0, 0, 0) 100%
+            )
+            0% 0%;
+          background-size: 4px 1px;
+          @include tablet-up {
+            width: 72.5vw;
+            bottom: 0;
+          }
+          @include desktop-up {
+            width: 72.5vw;
+          }
+        }
       }
 
       &--count {
+        grid-area: count;
         @include tablet-up {
         }
         @include desktop-up {
@@ -893,6 +1106,9 @@ const pageClass = 'main-content--facility';
 
     // セル要素
     &__cell {
+      justify-self: center;
+      position: relative;
+      z-index: 2;
       @include tablet-up {
       }
       @include desktop-up {
@@ -900,6 +1116,7 @@ const pageClass = 'main-content--facility';
 
       // 和洋室
       &--wayoshitsu-type {
+        grid-area: wayoshitsu;
         @include tablet-up {
         }
         @include desktop-up {
@@ -907,6 +1124,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--wayoshitsu-area {
+        grid-area: wayoshitsu-area;
         @include tablet-up {
         }
         @include desktop-up {
@@ -914,6 +1132,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--wayoshitsu-capacity {
+        grid-area: wayoshitsu-capacity;
         @include tablet-up {
         }
         @include desktop-up {
@@ -921,6 +1140,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--wayoshitsu-bed {
+        grid-area: wayoshitsu-bed;
         @include tablet-up {
         }
         @include desktop-up {
@@ -928,6 +1148,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--wayoshitsu-count {
+        grid-area: wayoshitsu-count;
         @include tablet-up {
         }
         @include desktop-up {
@@ -936,6 +1157,7 @@ const pageClass = 'main-content--facility';
 
       // 洋室
       &--yoshitsu-type {
+        grid-area: yoshitsu;
         @include tablet-up {
         }
         @include desktop-up {
@@ -943,6 +1165,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--yoshitsu-area {
+        grid-area: yoshitsu-area;
         @include tablet-up {
         }
         @include desktop-up {
@@ -950,6 +1173,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--yoshitsu-capacity {
+        grid-area: yoshitsu-capacity;
         @include tablet-up {
         }
         @include desktop-up {
@@ -957,6 +1181,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--yoshitsu-bed {
+        grid-area: yoshitsu-bed;
         @include tablet-up {
         }
         @include desktop-up {
@@ -964,6 +1189,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--yoshitsu-count {
+        grid-area: yoshitsu-count;
         @include tablet-up {
         }
         @include desktop-up {
@@ -972,6 +1198,7 @@ const pageClass = 'main-content--facility';
 
       // 和室
       &--washitsu-type {
+        grid-area: washitsu;
         @include tablet-up {
         }
         @include desktop-up {
@@ -979,6 +1206,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--washitsu-area {
+        grid-area: washitsu-area;
         @include tablet-up {
         }
         @include desktop-up {
@@ -986,6 +1214,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--washitsu-capacity {
+        grid-area: washitsu-capacity;
         @include tablet-up {
         }
         @include desktop-up {
@@ -993,6 +1222,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--washitsu-bed {
+        grid-area: washitsu-bed;
         @include tablet-up {
         }
         @include desktop-up {
@@ -1000,6 +1230,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--washitsu-count {
+        grid-area: washitsu-count;
         @include tablet-up {
         }
         @include desktop-up {
@@ -1008,6 +1239,7 @@ const pageClass = 'main-content--facility';
 
       // コネクティングルーム
       &--connecting-type {
+        grid-area: connecting;
         @include tablet-up {
         }
         @include desktop-up {
@@ -1015,6 +1247,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--connecting-area {
+        grid-area: connecting-area;
         @include tablet-up {
         }
         @include desktop-up {
@@ -1022,6 +1255,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--connecting-capacity {
+        grid-area: connecting-capacity;
         @include tablet-up {
         }
         @include desktop-up {
@@ -1029,6 +1263,7 @@ const pageClass = 'main-content--facility';
       }
 
       &--connecting-bed {
+        grid-area: connecting-bed;
         @include tablet-up {
         }
         @include desktop-up {
@@ -1036,10 +1271,17 @@ const pageClass = 'main-content--facility';
       }
 
       &--connecting-count {
+        grid-area: connecting-count;
         @include tablet-up {
         }
         @include desktop-up {
         }
+      }
+    }
+    .only-sp {
+      display: block;
+      @include tablet-up {
+        display: none;
       }
     }
   }
