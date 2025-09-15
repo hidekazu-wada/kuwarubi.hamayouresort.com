@@ -1528,7 +1528,7 @@ const pageClass = 'main-content--facility';
         margin-left: ppx(198 * 1);
       }
       @include desktop-up {
-        grid-template-columns: ppx(445) auto;
+        grid-template-columns: 22vw auto;
         gap: ppx(141);
         padding-bottom: ppx(150);
         width: ppx(1920);
@@ -1604,6 +1604,7 @@ const pageClass = 'main-content--facility';
         text-align: left;
         font-size: ppx(60 * 1.2);
         line-height: 160%; /* 96px */
+        letter-spacing: 0;
       }
       @include desktop-up {
         font-size: ppx(60);
@@ -1658,12 +1659,13 @@ const pageClass = 'main-content--facility';
       justify-content: center;
       margin-top: spx(40);
       @include tablet-up {
-        grid-template-columns: max-content max-content max-content max-content max-content;
+        grid-template-columns: max-content max-content max-content max-content;
         gap: ppx(40 * 1.2) ppx(20 * 1.2);
         justify-content: flex-start;
         margin-top: ppx(31 * 1.2);
       }
       @include desktop-up {
+        grid-template-columns: max-content max-content max-content max-content max-content;
         gap: ppx(40) ppx(20);
         margin-top: ppx(31);
       }
