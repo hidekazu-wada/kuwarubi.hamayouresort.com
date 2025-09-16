@@ -22,6 +22,9 @@ import roomImage06 from '../assets/images/facility/room/slide-06.jpg';
 import iconHaburashi from '../assets/images/facility/room/icon-haburashi.svg';
 import iconDryer from '../assets/images/facility/room/icon-dryer.svg';
 import iconIron from '../assets/images/facility/room/icon-iron.svg';
+import publicBath01 from '../assets/images/facility/public-bath/img-01.png';
+import publicBath02 from '../assets/images/facility/public-bath/img-02.png';
+import publicBathBg from '../assets/images/facility/public-bath/bg.png';
 
 // フォーマット
 const room01 = await getImage({
@@ -53,6 +56,21 @@ const room06 = await getImage({
   src: roomImage06,
   format: 'webp',
   widths: [151, 191, 620, 900, 1300],
+});
+const bathImage01 = await getImage({
+  src: publicBath01,
+  format: 'webp',
+  widths: [274, 368, 393],
+});
+const bathImage02 = await getImage({
+  src: publicBath02,
+  format: 'webp',
+  widths: [569, 660, 764],
+});
+const bathImageBg = await getImage({
+  src: publicBathBg,
+  format: 'webp',
+  widths: [720, 1024, 2316],
 });
 // Swiper CSS
 import 'swiper/css';
@@ -681,6 +699,108 @@ const pageClass = 'main-content--facility';
           </li>
         </ul>
       </article>
+    </section>
+
+    <section>
+      <div>
+        <div>
+          <div>
+            <div>
+              <h3 class="">大浴場</h3>
+            </div>
+            <div>
+              千年の旅を経た<br />
+              自然の恵みを湛える<br />
+              極上の湯
+            </div>
+          </div>
+          <div>
+            <picture class="クラス名 モディファイア名">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={bathImage01.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={bathImage01.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={bathImage01.src}
+                alt="画像の内容を説明するテキスト"
+                class="追加のクラス名（必要に応じて）"
+              />
+            </picture>
+          </div>
+          <div>
+            <picture class="クラス名 モディファイア名">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={bathImage02.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={bathImage02.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={bathImage02.src}
+                alt="画像の内容を説明するテキスト"
+                class="追加のクラス名（必要に応じて）"
+              />
+            </picture>
+          </div>
+          <div class="">
+            当ホテルが誇る大浴場では、西湖で唯一の天然自家源泉からの温泉をご提供しています。富士山と御坂山塊からの雨水が千年の時をかけて混じり合い、地中深くから湧き出るこの貴重な温泉は、長い時間をかけて地球の栄養と熱を吸収しました。豊富なミネラルを含むその泉質は、訪れるすべての方々に穏やかな癒しと心の安らぎを提供します。自然の循環の一部としてこの恵みを体験することで、日常から解放された幸福なひとときをお過ごしいただけます。
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <div class="">源泉名</div>
+              <div class="">富岳剗の海（ふがくせのうみ）温泉</div>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div class="">泉　質</div>
+              <div class="">低張性アルカリ性温泉</div>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div class="">効　能</div>
+              <div class="">
+                きりきず、やけど、慢性⽪膚病、動脈硬化、神経痛、関節痛 等
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <picture class="クラス名 モディファイア名">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={bathImageBg.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={bathImageBg.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={bathImageBg.src}
+            alt="画像の内容を説明するテキスト"
+            class="追加のクラス名（必要に応じて）"
+          />
+        </picture>
+      </div>
     </section>
   </main>
 
