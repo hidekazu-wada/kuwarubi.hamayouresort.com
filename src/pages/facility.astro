@@ -25,6 +25,16 @@ import iconIron from '../assets/images/facility/room/icon-iron.svg';
 import publicBath01 from '../assets/images/facility/public-bath/img-01.png';
 import publicBath02 from '../assets/images/facility/public-bath/img-02.png';
 import publicBathBg from '../assets/images/facility/public-bath/bg.png';
+import hodohodoForestImage01 from '../assets/images/facility/hodohodo-forest/img01.png';
+import hodohodoForestImage02 from '../assets/images/facility/hodohodo-forest/img02.png';
+import hodohodoForestImage03 from '../assets/images/facility/hodohodo-forest/img03.jpg';
+import hodohodoForestImage04 from '../assets/images/facility/hodohodo-forest/img04.png';
+import hodohodoForestImage05 from '../assets/images/facility/hodohodo-forest/img05.png';
+import hodohodoForestTree01 from '../assets/images/facility/hodohodo-forest/tree01.svg';
+import hodohodoForestTree02 from '../assets/images/facility/hodohodo-forest/tree02.svg';
+import hodohodoForestTree03 from '../assets/images/facility/hodohodo-forest/tree03.svg';
+import hodohodoForestMountain from '../assets/images/facility/hodohodo-forest/mountain.svg';
+import hodohodoForestReef from '../assets/images/facility/hodohodo-forest/reef.svg';
 
 // フォーマット
 const room01 = await getImage({
@@ -71,6 +81,31 @@ const bathImageBg = await getImage({
   src: publicBathBg,
   format: 'webp',
   widths: [720, 1024, 2316],
+});
+const hodohodoImage01 = await getImage({
+  src: hodohodoForestImage01,
+  format: 'webp',
+  widths: [600, 1024, 1668],
+});
+const hodohodoImage02 = await getImage({
+  src: hodohodoForestImage02,
+  format: 'webp',
+  widths: [230, 300, 418],
+});
+const hodohodoImage03 = await getImage({
+  src: hodohodoForestImage03,
+  format: 'webp',
+  widths: [230, 300, 418],
+});
+const hodohodoImage04 = await getImage({
+  src: hodohodoForestImage04,
+  format: 'webp',
+  widths: [307, 410, 563],
+});
+const hodohodoImage05 = await getImage({
+  src: hodohodoForestImage05,
+  format: 'webp',
+  widths: [337, 500, 770],
 });
 // Swiper CSS
 import 'swiper/css';
@@ -804,6 +839,166 @@ const pageClass = 'main-content--facility';
         </picture>
       </figure>
       <div class="public-bath__background-overlay"></div>
+    </section>
+
+    <section>
+      <div>
+        <picture class="クラス名 モディファイア名">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={hodohodoImage01.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={hodohodoImage01.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={hodohodoImage01.src}
+            alt="画像の内容を説明するテキスト"
+            class="追加のクラス名（必要に応じて）"
+          />
+        </picture>
+      </div>
+
+      <div>
+        <div>
+          <h2 class="">ほどほどの森</h2>
+          <div class="">
+            自然の中で遊ぶ<br />
+            手軽さとプライベートを<br />
+            兼ね備えた小さな森
+          </div>
+          <div class="">
+            「ほどほどの森」は、ホテルに隣接しており、ホテル利用者専用の環境で自然体験ができます。ウッドフェンスで囲われたこの森は、ホテルのゲストだけがアクセス可能で、外部の訪問者からは隔離されています。ツリーハウス、サウナ、ハンモック、足湯、ブランコ、トランポリンなど、自然を活かした様々なアメニティが整っており、安心して森の中でリラックスできます。ここでは、プライベートキャンプや焚き火バー、サウナ体験、足湯体験など、特別な体験を気軽にお楽しみいただけます。自然とのふれあいを安全で快適な環境でご提供します。
+          </div>
+        </div>
+        <div class="">
+          <img src={hodohodoForestTree01.src} alt="" />
+        </div>
+        <div class="">
+          <img src={hodohodoForestMountain.src} alt="" />
+        </div>
+        <div class="">
+          <img src={hodohodoForestTree02.src} alt="" />
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <picture class="クラス名 モディファイア名">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={hodohodoImage02.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={hodohodoImage02.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={hodohodoImage02.src}
+              alt="画像の内容を説明するテキスト"
+              class="追加のクラス名（必要に応じて）"
+            />
+          </picture>
+        </div>
+        <div>
+          <picture class="クラス名 モディファイア名">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={hodohodoImage03.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={hodohodoImage03.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={hodohodoImage03.src}
+              alt="画像の内容を説明するテキスト"
+              class="追加のクラス名（必要に応じて）"
+            />
+          </picture>
+        </div>
+      </div>
+      <div>
+        <picture class="クラス名 モディファイア名">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={hodohodoImage04.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={hodohodoImage04.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={hodohodoImage04.src}
+            alt="画像の内容を説明するテキスト"
+            class="追加のクラス名（必要に応じて）"
+          />
+        </picture>
+      </div>
+      <div>
+        <picture class="クラス名 モディファイア名">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={hodohodoImage05.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={hodohodoImage05.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={hodohodoImage05.src}
+            alt="画像の内容を説明するテキスト"
+            class="追加のクラス名（必要に応じて）"
+          />
+        </picture>
+      </div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <div class="">利用人数</div>
+              <div class="">
+                キャンプ　30名程度<br />
+                イベント　50〜100名程度
+              </div>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div class="">営業時間</div>
+              <div class="">9:00 - 21:00</div>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div class="">貸切利用</div>
+              <div class="">可能（有料となります）</div>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <img src={hodohodoForestTree03.src} alt="" />
+        </div>
+      </div>
+      <div class="">
+        <img src={hodohodoForestReef.src} alt="" />
+      </div>
     </section>
   </main>
 
