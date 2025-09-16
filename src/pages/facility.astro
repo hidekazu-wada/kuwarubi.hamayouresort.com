@@ -701,21 +701,21 @@ const pageClass = 'main-content--facility';
       </article>
     </section>
 
-    <section>
-      <div>
-        <div>
-          <div>
-            <div>
-              <h3 class="">大浴場</h3>
+    <section class="public-bath">
+      <div class="public-bath__content">
+        <div class="public-bath__main">
+          <header class="public-bath__header">
+            <div class="public-bath__title-wrapper">
+              <h2 class="public-bath__title">大浴場</h2>
             </div>
-            <div>
+            <p class="public-bath__subtitle">
               千年の旅を経た<br />
               自然の恵みを湛える<br />
               極上の湯
-            </div>
-          </div>
-          <div>
-            <picture class="クラス名 モディファイア名">
+            </p>
+          </header>
+          <figure class="public-bath__image public-bath__image--small">
+            <picture class="public-bath__picture">
               <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
               <source
                 media="(min-width: 1024px)"
@@ -729,13 +729,13 @@ const pageClass = 'main-content--facility';
               <!-- スマホ（744px未満）→ 最小解像度版 -->
               <img
                 src={bathImage01.src}
-                alt="画像の内容を説明するテキスト"
-                class="追加のクラス名（必要に応じて）"
+                alt="大浴場の内観"
+                class="public-bath__img"
               />
             </picture>
-          </div>
-          <div>
-            <picture class="クラス名 モディファイア名">
+          </figure>
+          <figure class="public-bath__image public-bath__image--large">
+            <picture class="public-bath__picture">
               <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
               <source
                 media="(min-width: 1024px)"
@@ -749,40 +749,42 @@ const pageClass = 'main-content--facility';
               <!-- スマホ（744px未満）→ 最小解像度版 -->
               <img
                 src={bathImage02.src}
-                alt="画像の内容を説明するテキスト"
-                class="追加のクラス名（必要に応じて）"
+                alt="大浴場の露天風呂"
+                class="public-bath__img"
               />
             </picture>
-          </div>
-          <div class="">
+          </figure>
+          <p class="public-bath__description">
             当ホテルが誇る大浴場では、西湖で唯一の天然自家源泉からの温泉をご提供しています。富士山と御坂山塊からの雨水が千年の時をかけて混じり合い、地中深くから湧き出るこの貴重な温泉は、長い時間をかけて地球の栄養と熱を吸収しました。豊富なミネラルを含むその泉質は、訪れるすべての方々に穏やかな癒しと心の安らぎを提供します。自然の循環の一部としてこの恵みを体験することで、日常から解放された幸福なひとときをお過ごしいただけます。
-          </div>
+          </p>
         </div>
-        <div>
-          <div>
-            <div>
-              <div class="">源泉名</div>
-              <div class="">富岳剗の海（ふがくせのうみ）温泉</div>
+        <aside class="public-bath__info">
+          <dl class="public-bath__details">
+            <div class="public-bath__detail-item">
+              <dt class="public-bath__detail-term">源泉名</dt>
+              <dd class="public-bath__detail-desc">
+                富岳剗の海（ふがくせのうみ）温泉
+              </dd>
             </div>
-          </div>
-          <div>
-            <div>
-              <div class="">泉　質</div>
-              <div class="">低張性アルカリ性温泉</div>
+          </dl>
+          <dl class="public-bath__details">
+            <div class="public-bath__detail-item">
+              <dt class="public-bath__detail-term">泉　質</dt>
+              <dd class="public-bath__detail-desc">低張性アルカリ性温泉</dd>
             </div>
-          </div>
-          <div>
-            <div>
-              <div class="">効　能</div>
-              <div class="">
+          </dl>
+          <dl class="public-bath__details">
+            <div class="public-bath__detail-item">
+              <dt class="public-bath__detail-term">効　能</dt>
+              <dd class="public-bath__detail-desc">
                 きりきず、やけど、慢性⽪膚病、動脈硬化、神経痛、関節痛 等
-              </div>
+              </dd>
             </div>
-          </div>
-        </div>
+          </dl>
+        </aside>
       </div>
-      <div>
-        <picture class="クラス名 モディファイア名">
+      <figure class="public-bath__background">
+        <picture class="public-bath__background-picture">
           <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
           <source
             media="(min-width: 1024px)"
@@ -796,11 +798,12 @@ const pageClass = 'main-content--facility';
           <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
             src={bathImageBg.src}
-            alt="画像の内容を説明するテキスト"
-            class="追加のクラス名（必要に応じて）"
+            alt="大浴場の背景画像"
+            class="public-bath__background-img"
           />
         </picture>
-      </div>
+      </figure>
+      <div class="public-bath__background-overlay"></div>
     </section>
   </main>
 
@@ -1820,6 +1823,379 @@ const pageClass = 'main-content--facility';
       @include tablet-up {
       }
       @include desktop-up {
+      }
+    }
+  }
+
+  // 大浴場セクション
+  .public-bath {
+    color: var(--white, #fff);
+    position: relative;
+    overflow-x: hidden;
+    &__content {
+      position: relative;
+      z-index: 3;
+      padding-top: spx(173);
+      padding-bottom: spx(160);
+      @include tablet-up {
+        padding-top: ppx(189 * 1.2);
+        padding-bottom: ppx(287 * 1.2);
+      }
+      @include desktop-up {
+        padding-top: ppx(189);
+        padding-bottom: ppx(287);
+      }
+    }
+
+    &__main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 88vw;
+      @include tablet-up {
+        display: grid;
+        grid-template:
+          'description header'
+          / auto max-content;
+        gap: 4vw;
+        align-items: flex-start;
+        margin-right: 6vw;
+      }
+      @include desktop-up {
+        gap: ppx(135);
+        margin-right: ppx(298);
+      }
+    }
+
+    &__header {
+      display: flex;
+      flex-direction: column;
+      gap: spx(25);
+      align-items: center;
+      @include tablet-up {
+        gap: ppx(78 * 1.2);
+        width: max-content;
+        grid-area: header;
+      }
+      @include desktop-up {
+        gap: ppx(78);
+      }
+    }
+
+    &__title-wrapper {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__title {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(35);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 52.5px */
+      position: relative;
+      width: max-content;
+      padding-bottom: spx(5);
+      @include tablet-up {
+        text-align: left;
+        font-size: ppx(40 * 1.2);
+        padding-bottom: ppx(12 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        padding-bottom: ppx(12);
+      }
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          var(--green_2, #adc400) 48.6%,
+          transparent 48.6%,
+          transparent 51.4%,
+          var(--blue_5, #026995) 51.4%,
+          var(--blue_5, #026995) 100%
+        );
+        position: absolute;
+        bottom: 0;
+        @include tablet-up {
+          height: ppx(5 * 1.2);
+        }
+        @include desktop-up {
+          height: ppx(5);
+        }
+      }
+    }
+
+    &__subtitle {
+      color: var(--white, #fff);
+      font-feature-settings: 'vert' on;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(60);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 170%;
+      writing-mode: vertical-rl;
+      letter-spacing: spx(16);
+      @include tablet-up {
+        font-size: ppx(68 * 1.2);
+        letter-spacing: ppx(16 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(68);
+        letter-spacing: ppx(16);
+      }
+    }
+
+    &__image {
+      position: absolute;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &--small {
+        top: spx(826);
+        right: spx(-111);
+        @include tablet-up {
+          top: ppx(433 * 1.2);
+          right: unset;
+          left: 6vw;
+        }
+        @include desktop-up {
+          top: ppx(433);
+          left: ppx(212);
+        }
+        img {
+          width: spx(350);
+          @include tablet-up {
+            width: ppx(420 * 1.2);
+          }
+          @include desktop-up {
+            width: ppx(500);
+          }
+        }
+      }
+
+      &--large {
+        top: spx(957);
+        left: spx(-150);
+        @include tablet-up {
+          top: ppx(818 * 1.2);
+          left: ppx(-285 * 1.2);
+        }
+        @include desktop-up {
+          top: ppx(818);
+          left: ppx(-250);
+        }
+        img {
+          width: spx(700);
+          @include tablet-up {
+            width: ppx(800 * 1.2);
+          }
+          @include desktop-up {
+            width: ppx(1000);
+          }
+        }
+      }
+    }
+
+    &__picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__img {
+      display: block;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__description {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%; /* 54px */
+      width: spx(570);
+      @include tablet-up {
+        font-feature-settings: 'vert' on;
+        font-size: ppx(34 * 1.2);
+        line-height: 200%;
+        width: auto;
+        height: ppx(780 * 1.2);
+        writing-mode: vertical-rl;
+        grid-area: description;
+        margin-top: ppx(242 * 1.2);
+        letter-spacing: ppx(6 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        height: ppx(780);
+        margin-top: ppx(242);
+        letter-spacing: ppx(6);
+      }
+    }
+
+    &__info {
+      width: spx(570);
+      display: flex;
+      flex-direction: column;
+      gap: spx(20);
+      margin-top: spx(120);
+      margin-inline: auto;
+      @include tablet-up {
+        width: ppx(1350 * 1.2);
+        gap: ppx(50 * 1.2);
+        margin-top: ppx(247 * 1.2);
+        margin-inline: unset;
+        margin-left: auto;
+        margin-right: ppx(150 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(1350);
+        gap: ppx(50);
+        margin-top: ppx(247);
+        margin-right: ppx(150);
+      }
+    }
+
+    &__details {
+      position: relative;
+      padding-bottom: spx(20);
+      @include tablet-up {
+        padding-bottom: ppx(50 * 1.2);
+      }
+      @include desktop-up {
+        padding-bottom: ppx(50);
+      }
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    &__detail-item {
+      display: grid;
+      grid-template-columns: spx(114) auto;
+      gap: spx(20);
+
+      @include tablet-up {
+        grid-template-columns: ppx(215 * 1.2) auto;
+        gap: 0;
+        margin-left: ppx(35 * 1.2);
+      }
+      @include desktop-up {
+        grid-template-columns: ppx(215) auto;
+        margin-left: ppx(35);
+      }
+    }
+
+    &__detail-term {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 45px */
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+        line-height: 160%; /* 54.4px */
+        letter-spacing: ppx(1.7 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        letter-spacing: ppx(1.7);
+      }
+    }
+
+    &__detail-desc {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 45px */
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+        line-height: 160%; /* 54.4px */
+        letter-spacing: ppx(1.7 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        letter-spacing: ppx(1.7);
+      }
+    }
+
+    &__background {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: spx(526);
+      z-index: 1;
+      @include tablet-up {
+        height: ppx(1198 * 1.2);
+      }
+      @include desktop-up {
+        height: ppx(1198);
+      }
+    }
+
+    &__background-picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__background-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+    &__background-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        180deg,
+        rgba(13, 59, 91, 0.7) 0%,
+        var(--blue_4, #0d3b5b) 18.12%
+      );
+      z-index: 2;
+      @include tablet-up {
+        background: linear-gradient(
+          180deg,
+          rgba(13, 59, 91, 0.7) 0%,
+          var(--blue_4, #0d3b5b) 45%
+        );
       }
     }
   }
