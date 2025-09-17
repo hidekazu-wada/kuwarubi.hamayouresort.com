@@ -3629,11 +3629,14 @@ const pageClass = 'main-content--facility';
       position: relative;
       z-index: 3;
       padding-top: spx(210);
+      padding-bottom: spx(110);
       @include tablet-up {
         padding-top: ppx(295 * 1.2);
+        padding-bottom: ppx(246 * 1.2);
       }
       @include desktop-up {
         padding-top: ppx(295);
+        padding-bottom: ppx(246);
       }
     }
 
@@ -3836,6 +3839,37 @@ const pageClass = 'main-content--facility';
 
     &__thumbnail {
       width: max-content;
+      position: relative;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+
+      // 非アクティブ時のオーバーレイ
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: spx(5);
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        @include tablet-up {
+          border-radius: ppx(10 * 1.2);
+        }
+        @include desktop-up {
+          border-radius: ppx(10);
+        }
+      }
+
+      // アクティブ時はオーバーレイを非表示
+      &.swiper-slide-thumb-active::after {
+        opacity: 0;
+      }
+
       @include tablet-up {
       }
       @include desktop-up {
@@ -3956,23 +3990,78 @@ const pageClass = 'main-content--facility';
     }
 
     &__cta {
+      display: flex;
+      width: spx(358);
+      height: spx(70);
+      padding: spx(20);
+      align-items: center;
+      justify-content: center;
+      border-radius: spx(15);
+      background: var(--white, #fff);
+      position: relative;
+      margin-top: spx(80);
+      margin-inline: auto;
       @include tablet-up {
+        width: ppx(514.8);
+        height: ppx(108);
+        padding: ppx(24);
+        border-radius: ppx(24);
+        flex-shrink: 0;
+        margin-top: ppx(119 * 1.2);
       }
       @include desktop-up {
+        width: ppx(429);
+        height: ppx(90);
+        padding: ppx(20);
+        border-radius: ppx(20);
+        margin-top: ppx(119);
       }
     }
 
     &__cta-text {
+      color: var(--, #5a4a3f);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(31);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%; /* 31px */
+      letter-spacing: spx(1.55);
       @include tablet-up {
+        color: var(--green_3, #43512a);
+        font-size: ppx(39.6);
+        line-height: ppx(39.6); /* 100% */
+        letter-spacing: ppx(1.98);
       }
       @include desktop-up {
+        font-size: ppx(33);
+        line-height: ppx(33); /* 100% */
+        letter-spacing: ppx(1.65);
       }
     }
 
     &__cta-icon {
+      width: spx(18.228);
+      height: spx(20);
+      stroke-width: spx(2);
+      stroke: var(--, #5a4a3f);
+      position: absolute;
+      top: 50%;
+      right: spx(20);
+      transform: translateY(-50%);
       @include tablet-up {
+        width: ppx(12);
+        height: ppx(24);
+        stroke-width: ppx(2.4);
+        stroke: var(--green_3, #43512a);
+        right: ppx(36);
+        flex-shrink: 0;
       }
       @include desktop-up {
+        width: ppx(10);
+        height: ppx(20);
+        stroke-width: ppx(2);
+        right: ppx(30);
       }
     }
 
@@ -4089,11 +4178,15 @@ const pageClass = 'main-content--facility';
 
     // kokko用メインSwiper初期化（完全独立）
     const kokkoMainSwiper = new Swiper('.kokko-main__swiper', {
-      modules: [EffectFade, Thumbs],
+      modules: [EffectFade, Thumbs, Autoplay],
       effect: 'fade',
-      slidesPerView: 'auto',
+      slidesPerView: 1,
       fadeEffect: {
         crossFade: true,
+      },
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
       },
       thumbs: {
         swiper: kokkoThumbsSwiper,
