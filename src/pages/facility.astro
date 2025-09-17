@@ -1654,16 +1654,16 @@ const pageClass = 'main-content--facility';
       <div class="kokko__overlay"></div>
     </section>
 
-    <section>
-      <div>
-        <div class="">Facilities & equipment</div>
-        <h2>施設・設備</h2>
-      </div>
+    <section class="equipment">
+      <header class="equipment__header">
+        <div class="equipment__subtitle">Facilities & equipment</div>
+        <h2 class="equipment__title">施設・設備</h2>
+      </header>
 
-      <div>
-        <div>
-          <div>
-            <picture class="クラス名 モディファイア名">
+      <div class="equipment__gallery">
+        <article class="equipment__item">
+          <figure class="equipment__image-wrapper">
+            <picture class="equipment__picture">
               <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
               <source
                 media="(min-width: 1024px)"
@@ -1677,16 +1677,16 @@ const pageClass = 'main-content--facility';
               <!-- スマホ（744px未満）→ 最小解像度版 -->
               <img
                 src={equipment01.src}
-                alt="画像の内容を説明するテキスト"
-                class="追加のクラス名（必要に応じて）"
+                alt="大浴場・露天風呂"
+                class="equipment__image"
               />
             </picture>
-          </div>
-          <div class="">大浴場・露天風呂</div>
-        </div>
-        <div>
-          <div>
-            <picture class="クラス名 モディファイア名">
+          </figure>
+          <h3 class="equipment__name">大浴場・露天風呂</h3>
+        </article>
+        <article class="equipment__item">
+          <figure class="equipment__image-wrapper">
+            <picture class="equipment__picture">
               <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
               <source
                 media="(min-width: 1024px)"
@@ -1700,16 +1700,16 @@ const pageClass = 'main-content--facility';
               <!-- スマホ（744px未満）→ 最小解像度版 -->
               <img
                 src={equipment02.src}
-                alt="画像の内容を説明するテキスト"
-                class="追加のクラス名（必要に応じて）"
+                alt="ほどほどの森"
+                class="equipment__image"
               />
             </picture>
-          </div>
-          <div class="">ほどほどの森</div>
-        </div>
-        <div>
-          <div>
-            <picture class="クラス名 モディファイア名">
+          </figure>
+          <h3 class="equipment__name">ほどほどの森</h3>
+        </article>
+        <article class="equipment__item">
+          <figure class="equipment__image-wrapper">
+            <picture class="equipment__picture">
               <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
               <source
                 media="(min-width: 1024px)"
@@ -1723,16 +1723,16 @@ const pageClass = 'main-content--facility';
               <!-- スマホ（744px未満）→ 最小解像度版 -->
               <img
                 src={equipment03.src}
-                alt="画像の内容を説明するテキスト"
-                class="追加のクラス名（必要に応じて）"
+                alt="Kokko（BBQハウス）"
+                class="equipment__image"
               />
             </picture>
-          </div>
-          <div class="">Kokko（BBQハウス）</div>
-        </div>
-        <div>
-          <div>
-            <picture class="クラス名 モディファイア名">
+          </figure>
+          <h3 class="equipment__name">Kokko（BBQハウス）</h3>
+        </article>
+        <article class="equipment__item">
+          <figure class="equipment__image-wrapper">
+            <picture class="equipment__picture">
               <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
               <source
                 media="(min-width: 1024px)"
@@ -1746,16 +1746,16 @@ const pageClass = 'main-content--facility';
               <!-- スマホ（744px未満）→ 最小解像度版 -->
               <img
                 src={equipment04.src}
-                alt="画像の内容を説明するテキスト"
-                class="追加のクラス名（必要に応じて）"
+                alt="ランドリールーム"
+                class="equipment__image"
               />
             </picture>
-          </div>
-          <div class="">ランドリールーム</div>
-        </div>
-        <div>
-          <div>
-            <picture class="クラス名 モディファイア名">
+          </figure>
+          <h3 class="equipment__name">ランドリールーム</h3>
+        </article>
+        <article class="equipment__item">
+          <figure class="equipment__image-wrapper">
+            <picture class="equipment__picture">
               <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
               <source
                 media="(min-width: 1024px)"
@@ -1769,16 +1769,16 @@ const pageClass = 'main-content--facility';
               <!-- スマホ（744px未満）→ 最小解像度版 -->
               <img
                 src={equipment05.src}
-                alt="画像の内容を説明するテキスト"
-                class="追加のクラス名（必要に応じて）"
+                alt="自動販売機コーナー"
+                class="equipment__image"
               />
             </picture>
-          </div>
-          <div class="">自動販売機コーナー</div>
-        </div>
-        <div>
-          <div>
-            <picture class="クラス名 モディファイア名">
+          </figure>
+          <h3 class="equipment__name">自動販売機コーナー</h3>
+        </article>
+        <article class="equipment__item">
+          <figure class="equipment__image-wrapper">
+            <picture class="equipment__picture">
               <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
               <source
                 media="(min-width: 1024px)"
@@ -1792,16 +1792,16 @@ const pageClass = 'main-content--facility';
               <!-- スマホ（744px未満）→ 最小解像度版 -->
               <img
                 src={equipment06.src}
-                alt="画像の内容を説明するテキスト"
-                class="追加のクラス名（必要に応じて）"
+                alt="会議室（紅葉）"
+                class="equipment__image"
               />
             </picture>
-          </div>
-          <div class="">会議室（紅葉）</div>
-        </div>
-        <div>
-          <div>
-            <picture class="クラス名 モディファイア名">
+          </figure>
+          <h3 class="equipment__name">会議室（紅葉）</h3>
+        </article>
+        <article class="equipment__item">
+          <figure class="equipment__image-wrapper">
+            <picture class="equipment__picture">
               <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
               <source
                 media="(min-width: 1024px)"
@@ -1815,16 +1815,16 @@ const pageClass = 'main-content--facility';
               <!-- スマホ（744px未満）→ 最小解像度版 -->
               <img
                 src={equipment07.src}
-                alt="画像の内容を説明するテキスト"
-                class="追加のクラス名（必要に応じて）"
+                alt="会議室（楓）"
+                class="equipment__image"
               />
             </picture>
-          </div>
-          <div class="">会議室（楓）</div>
-        </div>
-        <div>
-          <div>
-            <picture class="クラス名 モディファイア名">
+          </figure>
+          <h3 class="equipment__name">会議室（楓）</h3>
+        </article>
+        <article class="equipment__item">
+          <figure class="equipment__image-wrapper">
+            <picture class="equipment__picture">
               <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
               <source
                 media="(min-width: 1024px)"
@@ -1838,16 +1838,16 @@ const pageClass = 'main-content--facility';
               <!-- スマホ（744px未満）→ 最小解像度版 -->
               <img
                 src={equipment08.src}
-                alt="画像の内容を説明するテキスト"
-                class="追加のクラス名（必要に応じて）"
+                alt="お食事処"
+                class="equipment__image"
               />
             </picture>
-          </div>
-          <div class="">お食事処</div>
-        </div>
-        <div>
-          <div>
-            <picture class="クラス名 モディファイア名">
+          </figure>
+          <h3 class="equipment__name">お食事処</h3>
+        </article>
+        <article class="equipment__item">
+          <figure class="equipment__image-wrapper">
+            <picture class="equipment__picture">
               <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
               <source
                 media="(min-width: 1024px)"
@@ -1861,32 +1861,32 @@ const pageClass = 'main-content--facility';
               <!-- スマホ（744px未満）→ 最小解像度版 -->
               <img
                 src={equipment09.src}
-                alt="画像の内容を説明するテキスト"
-                class="追加のクラス名（必要に応じて）"
+                alt="体育館"
+                class="equipment__image"
               />
             </picture>
-          </div>
-          <div class="">体育館</div>
-        </div>
+          </figure>
+          <h3 class="equipment__name">体育館</h3>
+        </article>
       </div>
 
-      <div class="">
-        <div class="">
-          <div class="">製氷機</div>
-        </div>
-        <div class="">
-          <div class="">ロッカールーム</div>
-        </div>
-        <div class="">
-          <div class="">コピー機</div>
-        </div>
-        <div class="">
-          <div class="">駐車場</div>
-        </div>
-        <div class="">
-          <div class="">喫煙スペース</div>
-        </div>
-      </div>
+      <ul class="equipment__list">
+        <li class="equipment__list-item">
+          <span class="equipment__list-name">製氷機</span>
+        </li>
+        <li class="equipment__list-item">
+          <span class="equipment__list-name">ロッカールーム</span>
+        </li>
+        <li class="equipment__list-item">
+          <span class="equipment__list-name">コピー機</span>
+        </li>
+        <li class="equipment__list-item">
+          <span class="equipment__list-name">駐車場</span>
+        </li>
+        <li class="equipment__list-item">
+          <span class="equipment__list-name">喫煙スペース</span>
+        </li>
+      </ul>
     </section>
   </main>
 </BaseLayout>
@@ -4464,6 +4464,85 @@ const pageClass = 'main-content--facility';
 
   :global(.kokko-pagination__bullet--active) {
     background: rgba(255, 255, 255, 1);
+  }
+
+  // Equipment section
+  .equipment {
+    &__header {
+    }
+
+    &__subtitle {
+    }
+
+    &__title {
+    }
+
+    &__gallery {
+      @include tablet-up {
+      }
+
+      @include desktop-up {
+      }
+    }
+
+    &__item {
+      @include tablet-up {
+      }
+
+      @include desktop-up {
+      }
+    }
+
+    &__image-wrapper {
+      @include tablet-up {
+      }
+
+      @include desktop-up {
+      }
+    }
+
+    &__picture {
+    }
+
+    &__image {
+      @include tablet-up {
+      }
+
+      @include desktop-up {
+      }
+    }
+
+    &__name {
+      @include tablet-up {
+      }
+
+      @include desktop-up {
+      }
+    }
+
+    &__list {
+      @include tablet-up {
+      }
+
+      @include desktop-up {
+      }
+    }
+
+    &__list-item {
+      @include tablet-up {
+      }
+
+      @include desktop-up {
+      }
+    }
+
+    &__list-name {
+      @include tablet-up {
+      }
+
+      @include desktop-up {
+      }
+    }
   }
 </style>
 
