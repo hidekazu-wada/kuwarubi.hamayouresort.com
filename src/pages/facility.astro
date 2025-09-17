@@ -1889,12 +1889,13 @@ const pageClass = 'main-content--facility';
       </ul>
     </section>
   </main>
+  <!-- パンくずリスト -->
+  <div class="breadcrumb-wrapper">
+    <Breadcrumb
+      items={[{ text: 'TOP', href: '/' }, { text: 'お部屋・施設' }]}
+    />
+  </div>
 </BaseLayout>
-
-<!-- パンくずリスト -->
-<div class="breadcrumb-wrapper">
-  <Breadcrumb items={[{ text: 'TOP', href: '/' }, { text: 'お部屋・施設' }]} />
-</div>
 
 <style lang="scss">
   @import '../styles/variables';
@@ -4556,18 +4557,38 @@ const pageClass = 'main-content--facility';
     }
 
     &__gallery {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      gap: spx(30) spx(20);
+      justify-content: center;
+      margin-top: spx(60);
       @include tablet-up {
+        grid-template-columns: repeat(3, max-content);
+        gap: ppx(100 * 1.2) ppx(40 * 1.2);
+        margin-top: ppx(88 * 1.2);
       }
 
       @include desktop-up {
+        gap: ppx(100) ppx(40);
+        justify-content: unset;
+        width: max-content;
+        margin-left: auto;
+        margin-top: ppx(88);
+        margin-right: ppx(250);
       }
     }
 
     &__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: spx(9);
       @include tablet-up {
+        gap: ppx(30 * 1.2);
       }
 
       @include desktop-up {
+        gap: ppx(30);
       }
     }
 
@@ -4619,27 +4640,72 @@ const pageClass = 'main-content--facility';
     }
 
     &__list {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      gap: spx(20);
+      justify-content: center;
+      margin-top: spx(50);
       @include tablet-up {
+        grid-template-columns: repeat(3, max-content);
+        gap: ppx(40 * 1.2);
+        margin-top: ppx(160 * 1.2);
       }
 
       @include desktop-up {
+        gap: ppx(40);
+        justify-content: unset;
+        margin-left: auto;
+        width: max-content;
+        margin-top: ppx(160);
+        margin-right: ppx(260);
       }
     }
 
     &__list-item {
+      display: flex;
+      width: spx(300);
+      height: spx(76);
+      justify-content: center;
+      align-items: center;
+      background: var(--blue_2, #e7f3f9);
+
       @include tablet-up {
+        width: ppx(480 * 1.2);
+        height: ppx(90 * 1.2);
       }
 
       @include desktop-up {
+        width: ppx(480);
+        height: ppx(90);
       }
     }
 
     &__list-name {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(24);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 36px */
       @include tablet-up {
+        font-size: ppx(34 * 1.2);
       }
 
       @include desktop-up {
+        font-size: ppx(34);
       }
+    }
+  }
+  .breadcrumb-wrapper {
+    margin-top: spx(120);
+    margin-bottom: spx(40);
+    @include tablet-up {
+      margin-top: ppx(262 * 1.2);
+      margin-bottom: ppx(70 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(262);
+      margin-bottom: ppx(70);
     }
   }
 </style>
