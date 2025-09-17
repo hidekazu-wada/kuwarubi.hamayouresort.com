@@ -4468,13 +4468,91 @@ const pageClass = 'main-content--facility';
 
   // Equipment section
   .equipment {
+    padding-top: spx(90);
+    @include tablet-up {
+      padding-top: ppx(220 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(220);
+    }
     &__header {
+      @include tablet-up {
+        margin-left: ppx(196 * 1.2);
+      }
+      @include desktop-up {
+        margin-left: ppx(196);
+      }
     }
 
     &__subtitle {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(42);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 63px */
+      @include tablet-up {
+        font-size: ppx(60 * 1.2);
+        line-height: 160%; /* 96px */
+        letter-spacing: ppx(3 * 1.2);
+        text-align: left;
+      }
+      @include desktop-up {
+        font-size: ppx(60);
+        letter-spacing: ppx(3);
+      }
     }
 
     &__title {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 45px */
+      width: max-content;
+      padding-bottom: spx(5);
+      margin-inline: auto;
+      position: relative;
+      @include tablet-up {
+        font-size: ppx(40 * 1.2);
+        line-height: 160%; /* 64px */
+        letter-spacing: ppx(2 * 1.2);
+        margin-inline: unset;
+        padding-bottom: ppx(12 * 1.2);
+        margin-top: ppx(5 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        letter-spacing: ppx(2);
+        padding-bottom: ppx(12);
+        margin-top: ppx(5);
+      }
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          var(--green_2, #adc400) 48.6%,
+          transparent 48.6%,
+          transparent 51.4%,
+          var(--blue_5, #026995) 51.4%,
+          var(--blue_5, #026995) 100%
+        );
+        position: absolute;
+        bottom: 0;
+        @include tablet-up {
+          height: ppx(5 * 1.2);
+        }
+        @include desktop-up {
+          height: ppx(5);
+        }
+      }
     }
 
     &__gallery {
@@ -4505,18 +4583,38 @@ const pageClass = 'main-content--facility';
     }
 
     &__image {
+      display: block;
+      width: spx(300);
+      height: spx(200);
+      border-radius: spx(10);
       @include tablet-up {
+        width: ppx(480 * 1.2);
+        height: ppx(320 * 1.2);
+        border-radius: ppx(20 * 1.2);
       }
 
       @include desktop-up {
+        width: ppx(480);
+        height: ppx(320);
+        align-self: stretch;
+        border-radius: ppx(20);
       }
     }
 
     &__name {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(24);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 36px */
       @include tablet-up {
+        font-size: ppx(34 * 1.2);
       }
 
       @include desktop-up {
+        font-size: ppx(34);
       }
     }
 
