@@ -35,6 +35,17 @@ import hodohodoForestTree02 from '../assets/images/facility/hodohodo-forest/tree
 import hodohodoForestTree03 from '../assets/images/facility/hodohodo-forest/tree03.svg';
 import hodohodoForestMountain from '../assets/images/facility/hodohodo-forest/mountain.svg';
 import hodohodoForestReef from '../assets/images/facility/hodohodo-forest/reef.svg';
+import kokkoSlide01 from '../assets/images/facility/kokko/img-01.png';
+import kokkoSlide02 from '../assets/images/facility/kokko/img-02.jpg';
+import kokkoSlide03 from '../assets/images/facility/kokko/img-03.png';
+import kokkoSlide04 from '../assets/images/facility/kokko/img-04.png';
+import kokkoSlide05 from '../assets/images/facility/kokko/img-05.png';
+import kokkoSlide06 from '../assets/images/facility/kokko/img-06.png';
+import kokkoSlide07 from '../assets/images/facility/kokko/img-07.png';
+import kokkoSlide08 from '../assets/images/facility/kokko/img-08.png';
+import kokkoSlide09 from '../assets/images/facility/kokko/img-09.png';
+import kokkoSlide10 from '../assets/images/facility/kokko/img-10.png';
+import kokkoBgImage from '../assets/images/facility/kokko/bg.png';
 
 // フォーマット
 const room01 = await getImage({
@@ -106,6 +117,61 @@ const hodohodoImage05 = await getImage({
   src: hodohodoForestImage05,
   format: 'webp',
   widths: [337, 500, 770],
+});
+const kokkoImage01 = await getImage({
+  src: kokkoSlide01,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage02 = await getImage({
+  src: kokkoSlide02,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage03 = await getImage({
+  src: kokkoSlide03,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage04 = await getImage({
+  src: kokkoSlide04,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage05 = await getImage({
+  src: kokkoSlide05,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage06 = await getImage({
+  src: kokkoSlide06,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage07 = await getImage({
+  src: kokkoSlide07,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage08 = await getImage({
+  src: kokkoSlide08,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage09 = await getImage({
+  src: kokkoSlide09,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage10 = await getImage({
+  src: kokkoSlide10,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoBg = await getImage({
+  src: kokkoBgImage,
+  format: 'webp',
+  widths: [720, 1024, 2316],
 });
 // Swiper CSS
 import 'swiper/css';
@@ -1031,7 +1097,214 @@ const pageClass = 'main-content--facility';
       </figure>
     </section>
 
-    <section></section>
+    <section>
+      <div>
+        <div>
+          <h2>BBQ and Activity Kokko</h2>
+          <div class="">
+            湖畔の景色を背景に<br />
+            温もりある食事と語らいのひととき
+          </div>
+          <div class="">
+            「KOKKO」は、美しい湖を一望できる絶好のロケーションにあるBBQ施設です。ここでは、竈門、ピザ窯、大型ファイヤーピットを備え、様々な料理を楽しむことができます。プロジェクターと音響設備も完備しており、食事だけでなくエンターテイメントも楽しめます。火の温もりと共に自然の恩恵を感じながら、仲間とのひとときをより特別なものにしてください。湖での活動の後には、このBBQスポットが皆さんのプライベートな基地として最適です。
+          </div>
+        </div>
+        <div>
+          <div>
+            <!-- メインスライド ラッパー -->
+            <div>
+              <!-- メインスライド 表示するのは1枚づつ -->
+              <div>
+                <picture class="クラス名 モディファイア名">
+                  <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={kokkoImage01.srcSet.toString()}
+                  />
+                  <!-- タブレット（744px以上）→ 中解像度版 -->
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={kokkoImage01.srcSet.toString()}
+                  />
+                  <!-- スマホ（744px未満）→ 最小解像度版 -->
+                  <img
+                    src={kokkoImage01.src}
+                    alt="画像の内容を説明するテキスト"
+                    class="追加のクラス名（必要に応じて）"
+                  />
+                </picture>
+              </div>
+              <div>
+                <picture class="クラス名 モディファイア名">
+                  <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={kokkoImage02.srcSet.toString()}
+                  />
+                  <!-- タブレット（744px以上）→ 中解像度版 -->
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={kokkoImage02.srcSet.toString()}
+                  />
+                  <!-- スマホ（744px未満）→ 最小解像度版 -->
+                  <img
+                    src={kokkoImage02.src}
+                    alt="画像の内容を説明するテキスト"
+                    class="追加のクラス名（必要に応じて）"
+                  />
+                </picture>
+              </div>
+              <div>
+                <picture class="クラス名 モディファイア名">
+                  <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={kokkoImage03.srcSet.toString()}
+                  />
+                  <!-- タブレット（744px以上）→ 中解像度版 -->
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={kokkoImage03.srcSet.toString()}
+                  />
+                  <!-- スマホ（744px未満）→ 最小解像度版 -->
+                  <img
+                    src={kokkoImage03.src}
+                    alt="画像の内容を説明するテキスト"
+                    class="追加のクラス名（必要に応じて）"
+                  />
+                </picture>
+              </div>
+            </div>
+
+            <!-- サムネ ラッパー -->
+            <div>
+              <!-- サムネ 全て表示させておく -->
+              <div>
+                <picture class="クラス名 モディファイア名">
+                  <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={kokkoImage01.srcSet.toString()}
+                  />
+                  <!-- タブレット（744px以上）→ 中解像度版 -->
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={kokkoImage01.srcSet.toString()}
+                  />
+                  <!-- スマホ（744px未満）→ 最小解像度版 -->
+                  <img
+                    src={kokkoImage01.src}
+                    alt="画像の内容を説明するテキスト"
+                    class="追加のクラス名（必要に応じて）"
+                  />
+                </picture>
+              </div>
+              <div>
+                <picture class="クラス名 モディファイア名">
+                  <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={kokkoImage02.srcSet.toString()}
+                  />
+                  <!-- タブレット（744px以上）→ 中解像度版 -->
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={kokkoImage02.srcSet.toString()}
+                  />
+                  <!-- スマホ（744px未満）→ 最小解像度版 -->
+                  <img
+                    src={kokkoImage02.src}
+                    alt="画像の内容を説明するテキスト"
+                    class="追加のクラス名（必要に応じて）"
+                  />
+                </picture>
+              </div>
+              <div>
+                <picture class="クラス名 モディファイア名">
+                  <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={kokkoImage03.srcSet.toString()}
+                  />
+                  <!-- タブレット（744px以上）→ 中解像度版 -->
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={kokkoImage03.srcSet.toString()}
+                  />
+                  <!-- スマホ（744px未満）→ 最小解像度版 -->
+                  <img
+                    src={kokkoImage03.src}
+                    alt="画像の内容を説明するテキスト"
+                    class="追加のクラス名（必要に応じて）"
+                  />
+                </picture>
+              </div>
+            </div>
+          </div>
+          <!-- ナビゲーション -->
+          <div class=""></div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <div class="">利用人数</div>
+              <div class="">最大３５０名</div>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div class="">営業時間</div>
+              <div class="">9:00-16:00</div>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div class="">料金プラン</div>
+              <div class="">◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="">詳細はこちら</div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="21"
+            height="22"
+            viewBox="0 0 21 22"
+            fill="none"
+          >
+            <path
+              d="M1 21L19.2278 11L1 1"
+              stroke="#5A4A3F"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="">
+        <picture class="クラス名 モディファイア名">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={kokkoBg.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={kokkoBg.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={kokkoBg.src}
+            alt="画像の内容を説明するテキスト"
+            class="追加のクラス名（必要に応じて）"
+          />
+        </picture>
+      </div>
+      <!-- 背景オーバーレイ -->
+      <div class=""></div>
+    </section>
   </main>
 
   <!-- パンくずリスト -->
