@@ -1,0 +1,631 @@
+---
+// 画像
+import { getImage } from 'astro:assets';
+
+import roomImage01 from '../../../assets/images/facility/room/slide-01.jpg';
+import roomImage02 from '../../../assets/images/facility/room/slide-02.jpg';
+import roomImage03 from '../../../assets/images/facility/room/slide-03.jpg';
+import roomImage04 from '../../../assets/images/facility/room/slide-04.jpg';
+import roomImage05 from '../../../assets/images/facility/room/slide-05.jpg';
+import roomImage06 from '../../../assets/images/facility/room/slide-06.jpg';
+
+// フォーマット
+const room01 = await getImage({
+  src: roomImage01,
+  format: 'webp',
+  widths: [151, 191, 620, 900, 1300],
+});
+const room02 = await getImage({
+  src: roomImage02,
+  format: 'webp',
+  widths: [151, 191, 620, 900, 1300],
+});
+const room03 = await getImage({
+  src: roomImage03,
+  format: 'webp',
+  widths: [151, 191, 620, 900, 1300],
+});
+const room04 = await getImage({
+  src: roomImage04,
+  format: 'webp',
+  widths: [151, 191, 620, 900, 1300],
+});
+const room05 = await getImage({
+  src: roomImage05,
+  format: 'webp',
+  widths: [151, 191, 620, 900, 1300],
+});
+const room06 = await getImage({
+  src: roomImage06,
+  format: 'webp',
+  widths: [151, 191, 620, 900, 1300],
+});
+
+// Swiper CSS
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/thumbs';
+import 'swiper/css/pagination';
+---
+
+<section class="room__gallery">
+  <!-- スライドメイン 1枚のスライド表示 -->
+  <div class="room__gallery-main facility-room__swiper-main swiper">
+    <div class="swiper-wrapper">
+      <figure class="room__gallery-slide swiper-slide">
+        <picture class="room__gallery-picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={room01.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={room01.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={room01.src}
+            alt="和洋室の内観"
+            class="room__gallery-image"
+          />
+        </picture>
+        <figcaption class="room__gallery-caption">和洋室</figcaption>
+      </figure>
+      <figure class="room__gallery-slide swiper-slide">
+        <picture class="room__gallery-picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={room02.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={room02.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={room02.src}
+            alt="和洋室の内観"
+            class="room__gallery-image"
+          />
+        </picture>
+        <figcaption class="room__gallery-caption">洋室</figcaption>
+      </figure>
+      <figure class="room__gallery-slide swiper-slide">
+        <picture class="room__gallery-picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={room03.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={room03.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={room03.src}
+            alt="和洋室の内観"
+            class="room__gallery-image"
+          />
+        </picture>
+        <figcaption class="room__gallery-caption">和室</figcaption>
+      </figure>
+      <figure class="room__gallery-slide swiper-slide">
+        <picture class="room__gallery-picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={room04.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={room04.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={room04.src}
+            alt="和洋室の内観"
+            class="room__gallery-image"
+          />
+        </picture>
+        <figcaption class="room__gallery-caption">
+          コネクティング<br class="only-tablet-up" />
+          ルーム
+        </figcaption>
+      </figure>
+      <figure class="room__gallery-slide swiper-slide">
+        <picture class="room__gallery-picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={room05.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={room05.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={room05.src}
+            alt="和洋室の内観"
+            class="room__gallery-image"
+          />
+        </picture>
+        <figcaption class="room__gallery-caption">お風呂</figcaption>
+      </figure>
+      <figure class="room__gallery-slide swiper-slide">
+        <picture class="room__gallery-picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={room06.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={room06.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={room06.src}
+            alt="和洋室の内観"
+            class="room__gallery-image"
+          />
+        </picture>
+        <figcaption class="room__gallery-caption">トイレ</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- スライドサムネ -->
+  <nav class="room__gallery-thumbnails facility-room__swiper-thumbs swiper">
+    <div class="swiper-wrapper">
+      <!-- サムネスライド -->
+      <button class="room__gallery-thumb swiper-slide">
+        <figure class="room__gallery-thumb-inner">
+          <picture class="room__gallery-thumb-picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={room01.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={room01.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={room01.src}
+              alt="和洋室のサムネイル"
+              class="room__gallery-thumb-image"
+            />
+          </picture>
+          <figcaption class="room__gallery-thumb-caption">和洋室</figcaption>
+        </figure>
+      </button>
+      <!-- サムネスライド -->
+      <button class="room__gallery-thumb swiper-slide">
+        <figure class="room__gallery-thumb-inner">
+          <picture class="room__gallery-thumb-picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={room02.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={room02.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={room02.src}
+              alt="洋室のサムネイル"
+              class="room__gallery-thumb-image"
+            />
+          </picture>
+          <figcaption class="room__gallery-thumb-caption">洋室</figcaption>
+        </figure>
+      </button>
+      <!-- サムネスライド -->
+      <button class="room__gallery-thumb swiper-slide">
+        <figure class="room__gallery-thumb-inner">
+          <picture class="room__gallery-thumb-picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={room03.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={room03.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={room03.src}
+              alt="和室のサムネイル"
+              class="room__gallery-thumb-image"
+            />
+          </picture>
+          <figcaption class="room__gallery-thumb-caption">和室</figcaption>
+        </figure>
+      </button>
+      <!-- サムネスライド -->
+      <button class="room__gallery-thumb swiper-slide">
+        <figure class="room__gallery-thumb-inner">
+          <picture class="room__gallery-thumb-picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={room04.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={room04.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={room04.src}
+              alt="コネクティングルームのサムネイル"
+              class="room__gallery-thumb-image"
+            />
+          </picture>
+          <figcaption class="room__gallery-thumb-caption">
+            コネクティング<br />ルーム
+          </figcaption>
+        </figure>
+      </button>
+      <!-- サムネスライド -->
+      <button class="room__gallery-thumb swiper-slide">
+        <figure class="room__gallery-thumb-inner">
+          <picture class="room__gallery-thumb-picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={room05.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={room05.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={room05.src}
+              alt="お風呂のサムネイル"
+              class="room__gallery-thumb-image"
+            />
+          </picture>
+          <figcaption class="room__gallery-thumb-caption">お風呂</figcaption>
+        </figure>
+      </button>
+      <!-- サムネスライド -->
+      <button class="room__gallery-thumb swiper-slide">
+        <figure class="room__gallery-thumb-inner">
+          <picture class="room__gallery-thumb-picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={room06.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={room06.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={room06.src}
+              alt="トイレのサムネイル"
+              class="room__gallery-thumb-image"
+            />
+          </picture>
+          <figcaption class="room__gallery-thumb-caption">トイレ</figcaption>
+        </figure>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 背景模様 -->
+  <svg
+    class="room__gallery-bg"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 1387 1134"
+    fill="none"
+  >
+    <path
+      d="M449.751 1093.83C132.446 992.177 -68.9617 707.834 23.1788 367.099C83.6139 143.564 283.469 11.0996 481.262 1.65376C691.35 -8.3347 800.478 62.178 990.637 53.1379C1173.03 44.4442 1375.83 48.1796 1498.95 248.911C1644.58 486.383 1539.83 719.539 1389.98 880.853C1179 1107.96 748.037 1189.35 449.751 1093.83Z"
+      fill="white"></path>
+  </svg>
+</section>
+
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+  .room {
+    // ギャラリーセクション
+    &__gallery {
+      margin-top: spx(80);
+      overflow-x: hidden;
+      position: relative;
+      padding-bottom: spx(80);
+      @include tablet-up {
+        margin-top: ppx(184 * 1.2);
+        padding-bottom: ppx(299 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(184);
+        padding-bottom: ppx(299);
+      }
+    }
+
+    &__gallery-main {
+      display: flex;
+      justify-content: center;
+      @include tablet-up {
+        justify-content: flex-start;
+        margin-left: ppx(224 * 1.2);
+      }
+      @include desktop-up {
+        margin-left: ppx(224);
+      }
+    }
+
+    &__gallery-slide {
+      @include tablet-up {
+        display: flex;
+        align-items: flex-start;
+        gap: ppx(76 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(76);
+      }
+
+      &--active {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__gallery-picture {
+      width: max-content;
+      display: block;
+      margin-inline: auto;
+      @include tablet-up {
+        margin-inline: unset;
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__gallery-image {
+      display: block;
+      width: spx(620);
+      height: spx(372);
+      object-fit: cover;
+      border-radius: spx(10);
+      @include tablet-up {
+        width: ppx(1300 * 1);
+        height: ppx(780 * 1.2);
+        border-radius: ppx(30 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(1300);
+        height: ppx(780);
+        border-radius: ppx(30);
+      }
+    }
+
+    &__gallery-caption {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(33);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%; /* 52.8px */
+      letter-spacing: spx(1.65);
+      margin-top: spx(20);
+      @include tablet-up {
+        text-align: left;
+        font-size: ppx(57 * 1.2);
+        letter-spacing: ppx(2.85 * 1.2);
+        margin-top: ppx(534 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(57);
+        letter-spacing: ppx(2.85);
+        margin-top: ppx(534);
+      }
+      .only-tablet-up {
+        display: none;
+        @include tablet-up {
+          display: block;
+        }
+      }
+    }
+
+    // サムネイルナビゲーション
+    &__gallery-thumbnails {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      .swiper-wrapper {
+        margin-top: spx(30);
+        margin-left: spx(10);
+        @include tablet-up {
+          gap: ppx(25 * 1.2);
+          margin-top: ppx(100 * 1.2);
+          margin-left: 21vw;
+        }
+        @include desktop-up {
+          gap: ppx(25);
+          margin-top: ppx(100);
+          margin-left: ppx(901);
+        }
+      }
+    }
+
+    &__gallery-thumb {
+      @include tablet-up {
+        width: ppx(191 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(191);
+      }
+
+      &--active {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+      &.swiper-slide-thumb-active {
+        .room__gallery-thumb-caption {
+          color: var(--green_2, #adc400);
+        }
+      }
+    }
+
+    &__gallery-thumb-inner {
+      width: max-content;
+      @include tablet-up {
+        width: max-content;
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__gallery-thumb-picture {
+      display: block;
+      width: max-content;
+      @include tablet-up {
+        width: max-content;
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__gallery-thumb-image {
+      display: block;
+      width: spx(151);
+      height: spx(151);
+      overflow: hidden;
+      border-radius: spx(8);
+      @include tablet-up {
+        width: ppx(191 * 1.2);
+        height: ppx(191 * 1.2);
+        border-radius: ppx(10 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(191);
+        height: ppx(191);
+        border-radius: ppx(10);
+      }
+    }
+
+    &__gallery-thumb-caption {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(22);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%; /* 28.6px */
+      letter-spacing: spx(-0.66);
+      margin-top: spx(5);
+      transition: color 0.3s ease;
+      @include tablet-up {
+        font-size: ppx(28 * 1.2);
+        letter-spacing: ppx(-0.84 * 1.2);
+        margin-top: ppx(14 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(28);
+        letter-spacing: ppx(-0.84);
+        margin-top: ppx(14);
+      }
+    }
+
+    // 背景SVG
+    &__gallery-bg {
+      display: none;
+      @include tablet-up {
+        display: block;
+        position: absolute;
+        width: ppx(1568 * 1.2);
+        height: ppx(1171 * 1.2);
+        right: 0;
+        bottom: ppx(35 * 1.2);
+        opacity: 0.8;
+      }
+      @include desktop-up {
+        width: ppx(1568);
+        height: ppx(1171);
+        right: 0;
+        bottom: ppx(35);
+      }
+    }
+  }
+</style>
+
+<script>
+  // @ts-ignore
+  import Swiper from 'swiper';
+  // @ts-ignore
+  import { EffectFade, Thumbs, Autoplay } from 'swiper/modules';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // サムネイルSwiper初期化（facility-room専用・完全独立）
+    const thumbsSwiper = new Swiper('.facility-room__swiper-thumbs', {
+      modules: [Thumbs],
+      slidesPerView: 4.2,
+      slidesPerGroup: 1,
+      watchSlidesProgress: true,
+      slideToClickedSlide: true,
+      freeMode: true,
+      breakpoints: {
+        744: {
+          slidesPerView: 'auto',
+          slidesPerGroup: 1,
+        },
+        1024: {
+          slidesPerView: 'auto',
+          slidesPerGroup: 1,
+        },
+      },
+    });
+
+    // メインSwiper初期化（facility-room専用・完全独立）
+    new Swiper('.facility-room__swiper-main', {
+      modules: [EffectFade, Thumbs, Autoplay],
+      effect: 'fade',
+      slidesPerView: 1,
+      fadeEffect: {
+        crossFade: true,
+      },
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
+      thumbs: {
+        swiper: thumbsSwiper,
+        autoScrollOffset: 2,
+      },
+    });
+  });
+</script>

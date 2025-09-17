@@ -1,0 +1,106 @@
+---
+import tree from '../../../assets/images/facility/room/tree.svg';
+---
+
+<header class="room__header">
+  <div class="room__header-inner">
+    <h1 class="room__title">
+      自然の中で<br />
+      シンプルな休息を
+    </h1>
+    <img src={tree.src} alt="木の画像" class="room__tree-icon" />
+  </div>
+  <p class="room__description">
+    当ホテルの客室は、機能的でありながら心地よいシンプルさが魅力です。落ち着いた色合いと洗練されたデザインで、都会の喧騒から解放されるひとときを提供します。バスとトイレが分かれているため、より快適なプライベート空間をお楽しみいただけます。窓からは自然の景色を望むことができ、穏やかな環境の中での休息に最適です。
+  </p>
+</header>
+
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  .room {
+    // ヘッダーセクション
+    &__header {
+      @include tablet-up {
+        margin-left: ppx(827 * 1.2);
+      }
+      @include desktop-up {
+        margin-left: ppx(827);
+      }
+    }
+
+    &__header-inner {
+      margin-top: spx(90);
+      display: flex;
+      gap: spx(20);
+      align-items: center;
+      justify-content: center;
+      @include tablet-up {
+        margin-top: 0;
+        align-items: flex-start;
+        gap: ppx(39 * 1.2);
+        justify-content: flex-start;
+      }
+      @include desktop-up {
+        gap: ppx(39);
+      }
+    }
+
+    &__title {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(52);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 78px */
+      letter-spacing: spx(2.6);
+      @include tablet-up {
+        font-size: ppx(73 * 1.2);
+        line-height: 160%; /* 116.8px */
+        letter-spacing: ppx(3.65 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(73);
+        letter-spacing: ppx(3.65);
+      }
+    }
+
+    &__tree-icon {
+      display: block;
+      width: spx(150);
+      @include tablet-up {
+        width: ppx(167 * 1.2);
+        margin-top: ppx(61 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(167);
+        margin-top: ppx(61);
+      }
+    }
+
+    &__description {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%; /* 54px */
+      width: spx(600);
+      margin-top: spx(40);
+      margin-inline: auto;
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+        width: ppx(1140 * 1);
+        margin-top: ppx(89 * 1.2);
+        margin-inline: unset;
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        width: ppx(1140);
+        margin-top: ppx(89);
+      }
+    }
+  }
+</style>

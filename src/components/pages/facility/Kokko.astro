@@ -1,0 +1,1166 @@
+---
+// 画像
+import { getImage } from 'astro:assets';
+
+import kokkoSlide01 from '../../../assets/images/facility/kokko/img-01.png';
+import kokkoSlide02 from '../../../assets/images/facility/kokko/img-02.jpg';
+import kokkoSlide03 from '../../../assets/images/facility/kokko/img-03.png';
+import kokkoSlide04 from '../../../assets/images/facility/kokko/img-04.png';
+import kokkoSlide05 from '../../../assets/images/facility/kokko/img-05.png';
+import kokkoSlide06 from '../../../assets/images/facility/kokko/img-06.png';
+import kokkoSlide07 from '../../../assets/images/facility/kokko/img-07.png';
+import kokkoSlide08 from '../../../assets/images/facility/kokko/img-08.png';
+import kokkoSlide09 from '../../../assets/images/facility/kokko/img-09.png';
+import kokkoSlide10 from '../../../assets/images/facility/kokko/img-10.png';
+import kokkoBgImage from '../../../assets/images/facility/kokko/bg.png';
+
+// フォーマット
+const kokkoImage01 = await getImage({
+  src: kokkoSlide01,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage02 = await getImage({
+  src: kokkoSlide02,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage03 = await getImage({
+  src: kokkoSlide03,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage04 = await getImage({
+  src: kokkoSlide04,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage05 = await getImage({
+  src: kokkoSlide05,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage06 = await getImage({
+  src: kokkoSlide06,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage07 = await getImage({
+  src: kokkoSlide07,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage08 = await getImage({
+  src: kokkoSlide08,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage09 = await getImage({
+  src: kokkoSlide09,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoImage10 = await getImage({
+  src: kokkoSlide10,
+  format: 'webp',
+  widths: [128, 251, 620, 1358],
+});
+const kokkoBg = await getImage({
+  src: kokkoBgImage,
+  format: 'webp',
+  widths: [720, 1024, 2316],
+});
+
+// Swiper CSS
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/thumbs';
+import 'swiper/css/pagination';
+---
+
+<section class="kokko">
+  <div class="kokko__container">
+    <header class="kokko__header">
+      <h2 class="kokko__title">BBQ and Activity Kokko</h2>
+      <p class="kokko__subtitle">
+        湖畔の景色を背景に<br />
+        温もりある食事と語らいのひととき
+      </p>
+      <p class="kokko__description">
+        「KOKKO」は、美しい湖を一望できる絶好のロケーションにあるBBQ施設です。ここでは、竈門、ピザ窯、大型ファイヤーピットを備え、様々な料理を楽しむことができます。プロジェクターと音響設備も完備しており、食事だけでなくエンターテイメントも楽しめます。火の温もりと共に自然の恩恵を感じながら、仲間とのひとときをより特別なものにしてください。湖での活動の後には、このBBQスポットが皆さんのプライベートな基地として最適です。
+      </p>
+    </header>
+    <div class="kokko__content">
+      <div class="kokko__gallery">
+        <!-- メインスライド ラッパー -->
+        <div class="kokko__main-slider swiper kokko-main__swiper">
+          <div class="swiper-wrapper">
+            <!-- メインスライド 表示するのは1枚づつ -->
+            <div class="kokko__main-slide swiper-slide">
+              <picture class="kokko__main-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage01.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage01.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage01.src}
+                  alt="KOKKO BBQ施設のメインビュー"
+                  class="kokko__main-image"
+                />
+              </picture>
+            </div>
+            <div class="kokko__main-slide swiper-slide">
+              <picture class="kokko__main-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage02.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage02.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage02.src}
+                  alt="KOKKO BBQ施設の内観"
+                  class="kokko__main-image"
+                />
+              </picture>
+            </div>
+            <div class="kokko__main-slide swiper-slide">
+              <picture class="kokko__main-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage03.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage03.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage03.src}
+                  alt="KOKKO BBQ施設の設備"
+                  class="kokko__main-image"
+                />
+              </picture>
+            </div>
+            <!-- スライド4 -->
+            <div class="kokko__main-slide swiper-slide">
+              <picture class="kokko__main-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage04.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage04.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage04.src}
+                  alt="KOKKO BBQ施設の画像4"
+                  class="kokko__main-image"
+                />
+              </picture>
+            </div>
+            <!-- スライド5 -->
+            <div class="kokko__main-slide swiper-slide">
+              <picture class="kokko__main-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage05.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage05.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage05.src}
+                  alt="KOKKO BBQ施設の画像5"
+                  class="kokko__main-image"
+                />
+              </picture>
+            </div>
+            <!-- スライド6 -->
+            <div class="kokko__main-slide swiper-slide">
+              <picture class="kokko__main-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage06.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage06.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage06.src}
+                  alt="KOKKO BBQ施設の画像6"
+                  class="kokko__main-image"
+                />
+              </picture>
+            </div>
+            <!-- スライド7 -->
+            <div class="kokko__main-slide swiper-slide">
+              <picture class="kokko__main-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage07.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage07.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage07.src}
+                  alt="KOKKO BBQ施設の画像7"
+                  class="kokko__main-image"
+                />
+              </picture>
+            </div>
+            <!-- スライド8 -->
+            <div class="kokko__main-slide swiper-slide">
+              <picture class="kokko__main-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage08.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage08.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage08.src}
+                  alt="KOKKO BBQ施設の画像8"
+                  class="kokko__main-image"
+                />
+              </picture>
+            </div>
+            <!-- スライド9 -->
+            <div class="kokko__main-slide swiper-slide">
+              <picture class="kokko__main-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage09.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage09.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage09.src}
+                  alt="KOKKO BBQ施設の画像9"
+                  class="kokko__main-image"
+                />
+              </picture>
+            </div>
+            <!-- スライド10 -->
+            <div class="kokko__main-slide swiper-slide">
+              <picture class="kokko__main-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage10.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage10.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage10.src}
+                  alt="KOKKO BBQ施設の画像10"
+                  class="kokko__main-image"
+                />
+              </picture>
+            </div>
+          </div>
+        </div>
+
+        <!-- サムネ ラッパー -->
+        <nav class="kokko__thumbnails swiper kokko-thumbnail__swiper">
+          <div class="swiper-wrapper">
+            <!-- サムネ 全て表示させておく -->
+            <button class="kokko__thumbnail swiper-slide" type="button">
+              <picture class="kokko__thumbnail-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage01.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage01.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage01.src}
+                  alt="KOKKO BBQ施設のサムネイル1"
+                  class="kokko__thumbnail-image"
+                />
+              </picture>
+            </button>
+            <button class="kokko__thumbnail swiper-slide" type="button">
+              <picture class="kokko__thumbnail-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage02.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage02.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage02.src}
+                  alt="KOKKO BBQ施設のサムネイル2"
+                  class="kokko__thumbnail-image"
+                />
+              </picture>
+            </button>
+            <button class="kokko__thumbnail swiper-slide" type="button">
+              <picture class="kokko__thumbnail-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage03.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage03.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage03.src}
+                  alt="KOKKO BBQ施設のサムネイル3"
+                  class="kokko__thumbnail-image"
+                />
+              </picture>
+            </button>
+            <!-- サムネイル4 -->
+            <button class="kokko__thumbnail swiper-slide" type="button">
+              <picture class="kokko__thumbnail-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage04.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage04.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage04.src}
+                  alt="KOKKO BBQ施設のサムネイル4"
+                  class="kokko__thumbnail-image"
+                />
+              </picture>
+            </button>
+            <!-- サムネイル5 -->
+            <button class="kokko__thumbnail swiper-slide" type="button">
+              <picture class="kokko__thumbnail-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage05.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage05.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage05.src}
+                  alt="KOKKO BBQ施設のサムネイル5"
+                  class="kokko__thumbnail-image"
+                />
+              </picture>
+            </button>
+            <!-- サムネイル6 -->
+            <button class="kokko__thumbnail swiper-slide" type="button">
+              <picture class="kokko__thumbnail-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage06.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage06.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage06.src}
+                  alt="KOKKO BBQ施設のサムネイル6"
+                  class="kokko__thumbnail-image"
+                />
+              </picture>
+            </button>
+            <!-- サムネイル7 -->
+            <button class="kokko__thumbnail swiper-slide" type="button">
+              <picture class="kokko__thumbnail-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage07.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage07.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage07.src}
+                  alt="KOKKO BBQ施設のサムネイル7"
+                  class="kokko__thumbnail-image"
+                />
+              </picture>
+            </button>
+            <!-- サムネイル8 -->
+            <button class="kokko__thumbnail swiper-slide" type="button">
+              <picture class="kokko__thumbnail-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage08.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage08.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage08.src}
+                  alt="KOKKO BBQ施設のサムネイル8"
+                  class="kokko__thumbnail-image"
+                />
+              </picture>
+            </button>
+            <!-- サムネイル9 -->
+            <button class="kokko__thumbnail swiper-slide" type="button">
+              <picture class="kokko__thumbnail-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage09.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage09.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage09.src}
+                  alt="KOKKO BBQ施設のサムネイル9"
+                  class="kokko__thumbnail-image"
+                />
+              </picture>
+            </button>
+            <!-- サムネイル10 -->
+            <button class="kokko__thumbnail swiper-slide" type="button">
+              <picture class="kokko__thumbnail-picture">
+                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={kokkoImage10.srcSet.toString()}
+                />
+                <!-- タブレット（744px以上）→ 中解像度版 -->
+                <source
+                  media="(min-width: 744px)"
+                  srcset={kokkoImage10.srcSet.toString()}
+                />
+                <!-- スマホ（744px未満）→ 最小解像度版 -->
+                <img
+                  src={kokkoImage10.src}
+                  alt="KOKKO BBQ施設のサムネイル10"
+                  class="kokko__thumbnail-image"
+                />
+              </picture>
+            </button>
+          </div>
+        </nav>
+      </div>
+      <!-- ナビゲーション -->
+      <div class="kokko__navigation kokko-pagination"></div>
+    </div>
+    <dl class="kokko__details">
+      <div class="kokko__detail-item">
+        <dt class="kokko__detail-term">利用人数</dt>
+        <dd class="kokko__detail-description">最大３５０名</dd>
+      </div>
+      <div class="kokko__detail-item">
+        <dt class="kokko__detail-term">営業時間</dt>
+        <dd class="kokko__detail-description">9:00-16:00</dd>
+      </div>
+      <div class="kokko__detail-item">
+        <dt class="kokko__detail-term">料金プラン</dt>
+        <dd class="kokko__detail-description">◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯</dd>
+      </div>
+    </dl>
+    <a href="#" class="kokko__cta">
+      <span class="kokko__cta-text">詳細はこちら</span>
+      <svg
+        class="kokko__cta-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="21"
+        height="22"
+        viewBox="0 0 21 22"
+        fill="none"
+      >
+        <path
+          d="M1 21L19.2278 11L1 1"
+          stroke="#5A4A3F"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </a>
+  </div>
+  <figure class="kokko__background">
+    <picture class="kokko__background-picture">
+      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+      <source media="(min-width: 1024px)" srcset={kokkoBg.srcSet.toString()} />
+      <!-- タブレット（744px以上）→ 中解像度版 -->
+      <source media="(min-width: 744px)" srcset={kokkoBg.srcSet.toString()} />
+      <!-- スマホ（744px未満）→ 最小解像度版 -->
+      <img
+        src={kokkoBg.src}
+        alt="KOKKO BBQ施設の背景"
+        class="kokko__background-image"
+      />
+    </picture>
+  </figure>
+  <!-- 背景オーバーレイ -->
+  <div class="kokko__overlay"></div>
+</section>
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  .kokko {
+    border-top: spx(3) solid white;
+    position: relative;
+    @include tablet-up {
+      border-top: none;
+    }
+    &__container {
+      position: relative;
+      z-index: 3;
+      padding-top: spx(210);
+      padding-bottom: spx(110);
+      @include tablet-up {
+        padding-top: ppx(295 * 1.2);
+        padding-bottom: ppx(246 * 1.2);
+      }
+      @include desktop-up {
+        padding-top: ppx(295);
+        padding-bottom: ppx(246);
+      }
+    }
+
+    &__header {
+      width: spx(550);
+      margin-inline: auto;
+      @include tablet-up {
+        width: ppx(1710 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(1710);
+      }
+    }
+
+    &__title {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(35);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 52.5px */
+      width: max-content;
+      position: relative;
+      padding-bottom: spx(5);
+      @include tablet-up {
+        font-size: ppx(48);
+        padding-bottom: ppx(12 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        padding-bottom: ppx(12);
+      }
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          var(--green_2, #adc400) 48.6%,
+          transparent 48.6%,
+          transparent 51.4%,
+          var(--blue_5, #026995) 51.4%,
+          var(--blue_5, #026995) 100%
+        );
+        position: absolute;
+        bottom: 0;
+        @include tablet-up {
+          height: ppx(5 * 1.2);
+        }
+        @include desktop-up {
+          height: ppx(5);
+        }
+      }
+    }
+
+    &__subtitle {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(46);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 69px */
+      letter-spacing: spx(2.3);
+      margin-top: spx(50);
+      @include tablet-up {
+        font-size: ppx(66);
+        line-height: 160%; /* 88px */
+        letter-spacing: ppx(3.3);
+        margin-top: ppx(140 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(55);
+        letter-spacing: ppx(2.75);
+        margin-top: ppx(140);
+      }
+    }
+
+    &__description {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%; /* 54px */
+      margin-top: spx(50);
+      @include tablet-up {
+        font-size: ppx(38.4);
+        line-height: 190%; /* 60.8px */
+        margin-top: ppx(85 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(32);
+        margin-top: ppx(85);
+      }
+    }
+
+    &__content {
+      margin-top: spx(90);
+      @include tablet-up {
+        margin-top: ppx(183 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(183);
+      }
+    }
+
+    &__gallery {
+      display: flex;
+      flex-direction: column;
+      gap: spx(30);
+      @include tablet-up {
+        display: grid;
+        grid-template-columns: ppx(1358 * 1.2) max-content;
+        gap: ppx(30 * 1.2);
+        justify-content: center;
+      }
+      @include desktop-up {
+        grid-template-columns: ppx(1358) max-content;
+        gap: ppx(30);
+      }
+    }
+
+    &__main-slider {
+      width: max-content;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      .swiper-wrapper {
+        width: spx(620);
+        @include tablet-up {
+          width: ppx(1358 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx(1358);
+        }
+      }
+    }
+
+    &__main-slide {
+      width: max-content;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__main-picture {
+      display: block;
+      width: max-content;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__main-image {
+      display: block;
+      width: spx(620);
+      height: spx(372);
+      border-radius: spx(10);
+      object-fit: cover;
+      @include tablet-up {
+        width: ppx(1358 * 1.2);
+        height: ppx(815 * 1.2);
+        border-radius: ppx(20 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(1358);
+        height: ppx(815);
+        border-radius: ppx(20);
+      }
+    }
+
+    &__thumbnails {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      .swiper-wrapper {
+        display: grid;
+        grid-template-columns: repeat(7, max-content);
+        gap: spx(11);
+        width: spx(620);
+        margin-inline: auto;
+        @include tablet-up {
+          grid-template-columns: repeat(2, max-content);
+          grid-auto-rows: max-content;
+          gap: ppx(11 * 1.2);
+          width: auto;
+          margin-inline: unset;
+        }
+        @include desktop-up {
+          gap: ppx(11);
+        }
+      }
+    }
+
+    &__thumbnail {
+      width: max-content;
+      position: relative;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+
+      // 非アクティブ時のオーバーレイ
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: spx(5);
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        @include tablet-up {
+          border-radius: ppx(10 * 1.2);
+        }
+        @include desktop-up {
+          border-radius: ppx(10);
+        }
+      }
+
+      // アクティブ時はオーバーレイを非表示
+      &.swiper-slide-thumb-active::after {
+        opacity: 0;
+      }
+
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__thumbnail-picture {
+      display: block;
+      width: max-content;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__thumbnail-image {
+      display: block;
+      width: spx(79);
+      height: spx(79);
+      @include tablet-up {
+        width: ppx(155 * 1.2);
+        height: ppx(155 * 1.2);
+        border-radius: ppx(7.857 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(155);
+        height: ppx(155);
+        border-radius: ppx(7.857);
+      }
+    }
+
+    &__navigation {
+      display: none;
+      @include tablet-up {
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+        gap: ppx(23 * 1.2);
+        margin-top: ppx(40 * 1.2);
+        padding-right: 22vw;
+      }
+      @include desktop-up {
+        gap: ppx(23);
+        margin-top: ppx(40);
+        padding-right: ppx(678);
+      }
+    }
+
+    &__details {
+      display: flex;
+      flex-direction: column;
+      gap: spx(20);
+      width: spx(570);
+      margin-top: spx(68);
+      margin-inline: auto;
+      @include tablet-up {
+        gap: ppx(50 * 1.2);
+        width: ppx(1350 * 1.2);
+        margin-top: ppx(110 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(50);
+        width: ppx(1350);
+        margin-top: ppx(110);
+      }
+    }
+
+    &__detail-item {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 45px */
+      display: grid;
+      grid-template-columns: spx(150) auto;
+      gap: spx(20);
+      padding-bottom: spx(20);
+      position: relative;
+
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+
+      @include tablet-up {
+        font-size: ppx(40.8);
+        line-height: 160%; /* 54.4px */
+        letter-spacing: ppx(2.04);
+        grid-template-columns: ppx(250 * 1.2) auto;
+        gap: 0;
+        padding-bottom: ppx(50 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        letter-spacing: ppx(1.7);
+        grid-template-columns: ppx(250) auto;
+        padding-bottom: ppx(50);
+      }
+    }
+
+    &__detail-term {
+      font-weight: 400;
+      @include tablet-up {
+        margin-left: ppx(35 * 1.2);
+      }
+      @include desktop-up {
+        margin-left: ppx(35);
+      }
+    }
+
+    &__detail-description {
+      word-break: break-all; // 長い文字列を強制的に改行
+      white-space: normal; // 通常の改行処理を有効化
+      overflow-wrap: break-word; // 単語の途中でも改行可能にする
+      @include tablet-up {
+        margin-right: ppx(35 * 1.2);
+      }
+      @include desktop-up {
+        margin-right: ppx(35);
+      }
+    }
+
+    &__cta {
+      display: flex;
+      width: spx(358);
+      height: spx(70);
+      padding: spx(20);
+      align-items: center;
+      justify-content: center;
+      border-radius: spx(15);
+      background: var(--white, #fff);
+      position: relative;
+      margin-top: spx(80);
+      margin-inline: auto;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+
+      @include hover {
+        &:hover {
+          background: $green_1;
+        }
+      }
+
+      @include tablet-up {
+        width: ppx(514.8);
+        height: ppx(108);
+        padding: ppx(24);
+        border-radius: ppx(24);
+        flex-shrink: 0;
+        margin-top: ppx(119 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(429);
+        height: ppx(90);
+        padding: ppx(20);
+        border-radius: ppx(20);
+        margin-top: ppx(119);
+      }
+    }
+
+    &__cta-text {
+      color: var(--, #5a4a3f);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(31);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%; /* 31px */
+      letter-spacing: spx(1.55);
+      @include tablet-up {
+        color: var(--green_3, #43512a);
+        font-size: ppx(39.6);
+        line-height: ppx(39.6); /* 100% */
+        letter-spacing: ppx(1.98);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        line-height: ppx(33); /* 100% */
+        letter-spacing: ppx(1.65);
+      }
+    }
+
+    &__cta-icon {
+      width: spx(18.228);
+      height: spx(20);
+      stroke-width: spx(2);
+      stroke: var(--, #5a4a3f);
+      position: absolute;
+      top: 50%;
+      right: spx(20);
+      transform: translateY(-50%);
+      @include tablet-up {
+        width: ppx(12);
+        height: ppx(24);
+        stroke-width: ppx(2.4);
+        stroke: var(--green_3, #43512a);
+        right: ppx(36);
+        flex-shrink: 0;
+      }
+      @include desktop-up {
+        width: ppx(10);
+        height: ppx(20);
+        stroke-width: ppx(2);
+        right: ppx(30);
+      }
+    }
+
+    &__background {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__background-picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__background-image {
+      display: block;
+      width: 100%;
+      object-fit: contain;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: spx(372);
+      z-index: 1;
+      @include tablet-up {
+        height: ppx(1198 * 1.2);
+      }
+      @include desktop-up {
+        height: ppx(1198);
+      }
+    }
+
+    &__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background: linear-gradient(
+        180deg,
+        rgba(42, 40, 39, 0.55) 0%,
+        #2a2827 11.85%
+      );
+      @include tablet-up {
+        background: linear-gradient(
+          180deg,
+          rgba(42, 40, 39, 0.55) 0%,
+          #2a2827 39%
+        );
+      }
+      @include desktop-up {
+      }
+    }
+  }
+
+  // kokkoページネーション用スタイル（グローバルスコープで適用）
+  :global(.kokko-pagination__bullet) {
+    @include tablet-up {
+      display: inline-block;
+      cursor: pointer;
+      padding: 0;
+      margin: 0;
+      transition: all 0.3s ease;
+      width: ppx(20 * 1.2);
+      height: ppx(20 * 1.2);
+      border-radius: 50%;
+      border: solid 1px white;
+      transform: background 0.3s ease;
+    }
+    @include desktop-up {
+      width: ppx(20);
+      height: ppx(20);
+    }
+  }
+
+  :global(.kokko-pagination__bullet--active) {
+    background: rgba(255, 255, 255, 1);
+  }
+</style>
+
+<script>
+  // @ts-ignore
+  import Swiper from 'swiper';
+  // @ts-ignore
+  import { EffectFade, Thumbs, Autoplay, Pagination } from 'swiper/modules';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // kokko用サムネイルSwiper初期化（完全独立）
+    const kokkoThumbsSwiper = new Swiper('.kokko-thumbnail__swiper', {
+      modules: [Thumbs],
+      slidesPerView: 'auto', // 全てのサムネイルを表示
+      spaceBetween: 0,
+      watchSlidesProgress: true,
+      slideToClickedSlide: true,
+    });
+
+    // kokko用メインSwiper初期化（完全独立）
+    const kokkoMainSwiper = new Swiper('.kokko-main__swiper', {
+      modules: [EffectFade, Thumbs, Autoplay, Pagination],
+      effect: 'fade',
+      slidesPerView: 1,
+      fadeEffect: {
+        crossFade: true,
+      },
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
+      thumbs: {
+        swiper: kokkoThumbsSwiper,
+      },
+      pagination: {
+        el: '.kokko-pagination',
+        clickable: true,
+        bulletClass: 'kokko-pagination__bullet',
+        bulletActiveClass: 'kokko-pagination__bullet--active',
+      },
+    });
+  });
+</script>

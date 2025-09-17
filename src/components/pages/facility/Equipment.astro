@@ -1,0 +1,523 @@
+---
+// 画像
+import { getImage } from 'astro:assets';
+
+import equipmentImage01 from '../../../assets/images/facility/equipment/img-01.jpg';
+import equipmentImage02 from '../../../assets/images/facility/equipment/img-02.png';
+import equipmentImage03 from '../../../assets/images/facility/equipment/img-03.jpg';
+import equipmentImage04 from '../../../assets/images/facility/equipment/img-04.jpg';
+import equipmentImage05 from '../../../assets/images/facility/equipment/img-05.jpg';
+import equipmentImage06 from '../../../assets/images/facility/equipment/img-06.jpg';
+import equipmentImage07 from '../../../assets/images/facility/equipment/img-07.jpg';
+import equipmentImage08 from '../../../assets/images/facility/equipment/img-08.jpg';
+import equipmentImage09 from '../../../assets/images/facility/equipment/img-09.jpg';
+
+// フォーマット
+
+const equipment01 = await getImage({
+  src: equipmentImage01,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment02 = await getImage({
+  src: equipmentImage02,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment03 = await getImage({
+  src: equipmentImage03,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment04 = await getImage({
+  src: equipmentImage04,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment05 = await getImage({
+  src: equipmentImage05,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment06 = await getImage({
+  src: equipmentImage06,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment07 = await getImage({
+  src: equipmentImage07,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment08 = await getImage({
+  src: equipmentImage08,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment09 = await getImage({
+  src: equipmentImage09,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+---
+
+<section class="equipment">
+  <header class="equipment__header">
+    <div class="equipment__subtitle">Facilities & equipment</div>
+    <h2 class="equipment__title">施設・設備</h2>
+  </header>
+
+  <div class="equipment__gallery">
+    <article class="equipment__item">
+      <figure class="equipment__image-wrapper">
+        <picture class="equipment__picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={equipment01.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={equipment01.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={equipment01.src}
+            alt="大浴場・露天風呂"
+            class="equipment__image"
+          />
+        </picture>
+      </figure>
+      <h3 class="equipment__name">大浴場・露天風呂</h3>
+    </article>
+    <article class="equipment__item">
+      <figure class="equipment__image-wrapper">
+        <picture class="equipment__picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={equipment02.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={equipment02.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={equipment02.src}
+            alt="ほどほどの森"
+            class="equipment__image"
+          />
+        </picture>
+      </figure>
+      <h3 class="equipment__name">ほどほどの森</h3>
+    </article>
+    <article class="equipment__item">
+      <figure class="equipment__image-wrapper">
+        <picture class="equipment__picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={equipment03.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={equipment03.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={equipment03.src}
+            alt="Kokko（BBQハウス）"
+            class="equipment__image"
+          />
+        </picture>
+      </figure>
+      <h3 class="equipment__name">Kokko（BBQハウス）</h3>
+    </article>
+    <article class="equipment__item">
+      <figure class="equipment__image-wrapper">
+        <picture class="equipment__picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={equipment04.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={equipment04.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={equipment04.src}
+            alt="ランドリールーム"
+            class="equipment__image"
+          />
+        </picture>
+      </figure>
+      <h3 class="equipment__name">ランドリールーム</h3>
+    </article>
+    <article class="equipment__item">
+      <figure class="equipment__image-wrapper">
+        <picture class="equipment__picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={equipment05.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={equipment05.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={equipment05.src}
+            alt="自動販売機コーナー"
+            class="equipment__image"
+          />
+        </picture>
+      </figure>
+      <h3 class="equipment__name">自動販売機コーナー</h3>
+    </article>
+    <article class="equipment__item">
+      <figure class="equipment__image-wrapper">
+        <picture class="equipment__picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={equipment06.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={equipment06.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={equipment06.src}
+            alt="会議室（紅葉）"
+            class="equipment__image"
+          />
+        </picture>
+      </figure>
+      <h3 class="equipment__name">会議室（紅葉）</h3>
+    </article>
+    <article class="equipment__item">
+      <figure class="equipment__image-wrapper">
+        <picture class="equipment__picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={equipment07.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={equipment07.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={equipment07.src}
+            alt="会議室（楓）"
+            class="equipment__image"
+          />
+        </picture>
+      </figure>
+      <h3 class="equipment__name">会議室（楓）</h3>
+    </article>
+    <article class="equipment__item">
+      <figure class="equipment__image-wrapper">
+        <picture class="equipment__picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={equipment08.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={equipment08.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img src={equipment08.src} alt="お食事処" class="equipment__image" />
+        </picture>
+      </figure>
+      <h3 class="equipment__name">お食事処</h3>
+    </article>
+    <article class="equipment__item">
+      <figure class="equipment__image-wrapper">
+        <picture class="equipment__picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={equipment09.srcSet.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={equipment09.srcSet.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img src={equipment09.src} alt="体育館" class="equipment__image" />
+        </picture>
+      </figure>
+      <h3 class="equipment__name">体育館</h3>
+    </article>
+  </div>
+
+  <ul class="equipment__list">
+    <li class="equipment__list-item">
+      <span class="equipment__list-name">製氷機</span>
+    </li>
+    <li class="equipment__list-item">
+      <span class="equipment__list-name">ロッカールーム</span>
+    </li>
+    <li class="equipment__list-item">
+      <span class="equipment__list-name">コピー機</span>
+    </li>
+    <li class="equipment__list-item">
+      <span class="equipment__list-name">駐車場</span>
+    </li>
+    <li class="equipment__list-item">
+      <span class="equipment__list-name">喫煙スペース</span>
+    </li>
+  </ul>
+</section>
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  .equipment {
+    padding-top: spx(90);
+    @include tablet-up {
+      padding-top: ppx(220 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(220);
+    }
+    &__header {
+      @include tablet-up {
+        margin-left: ppx(196 * 1.2);
+      }
+      @include desktop-up {
+        margin-left: ppx(196);
+      }
+    }
+
+    &__subtitle {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(42);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 63px */
+      @include tablet-up {
+        font-size: ppx(60 * 1.2);
+        line-height: 160%; /* 96px */
+        letter-spacing: ppx(3 * 1.2);
+        text-align: left;
+      }
+      @include desktop-up {
+        font-size: ppx(60);
+        letter-spacing: ppx(3);
+      }
+    }
+
+    &__title {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 45px */
+      width: max-content;
+      padding-bottom: spx(5);
+      margin-inline: auto;
+      position: relative;
+      @include tablet-up {
+        font-size: ppx(40 * 1.2);
+        line-height: 160%; /* 64px */
+        letter-spacing: ppx(2 * 1.2);
+        margin-inline: unset;
+        padding-bottom: ppx(12 * 1.2);
+        margin-top: ppx(5 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        letter-spacing: ppx(2);
+        padding-bottom: ppx(12);
+        margin-top: ppx(5);
+      }
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          var(--green_2, #adc400) 48.6%,
+          transparent 48.6%,
+          transparent 51.4%,
+          var(--blue_5, #026995) 51.4%,
+          var(--blue_5, #026995) 100%
+        );
+        position: absolute;
+        bottom: 0;
+        @include tablet-up {
+          height: ppx(5 * 1.2);
+        }
+        @include desktop-up {
+          height: ppx(5);
+        }
+      }
+    }
+
+    &__gallery {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      gap: spx(30) spx(20);
+      justify-content: center;
+      margin-top: spx(60);
+      @include tablet-up {
+        grid-template-columns: repeat(3, max-content);
+        gap: ppx(100 * 1.2) ppx(40 * 1.2);
+        margin-top: ppx(88 * 1.2);
+      }
+
+      @include desktop-up {
+        gap: ppx(100) ppx(40);
+        justify-content: unset;
+        width: max-content;
+        margin-left: auto;
+        margin-top: ppx(88);
+        margin-right: ppx(250);
+      }
+    }
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: spx(9);
+      @include tablet-up {
+        gap: ppx(30 * 1.2);
+      }
+
+      @include desktop-up {
+        gap: ppx(30);
+      }
+    }
+
+    &__image-wrapper {
+      @include tablet-up {
+      }
+
+      @include desktop-up {
+      }
+    }
+
+    &__picture {
+    }
+
+    &__image {
+      display: block;
+      width: spx(300);
+      height: spx(200);
+      border-radius: spx(10);
+      @include tablet-up {
+        width: ppx(480 * 1.2);
+        height: ppx(320 * 1.2);
+        border-radius: ppx(20 * 1.2);
+      }
+
+      @include desktop-up {
+        width: ppx(480);
+        height: ppx(320);
+        align-self: stretch;
+        border-radius: ppx(20);
+      }
+    }
+
+    &__name {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(24);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 36px */
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+      }
+
+      @include desktop-up {
+        font-size: ppx(34);
+      }
+    }
+
+    &__list {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      gap: spx(20);
+      justify-content: center;
+      margin-top: spx(50);
+      @include tablet-up {
+        grid-template-columns: repeat(3, max-content);
+        gap: ppx(40 * 1.2);
+        margin-top: ppx(160 * 1.2);
+      }
+
+      @include desktop-up {
+        gap: ppx(40);
+        justify-content: unset;
+        margin-left: auto;
+        width: max-content;
+        margin-top: ppx(160);
+        margin-right: ppx(260);
+      }
+    }
+
+    &__list-item {
+      display: flex;
+      width: spx(300);
+      height: spx(76);
+      justify-content: center;
+      align-items: center;
+      background: var(--blue_2, #e7f3f9);
+
+      @include tablet-up {
+        width: ppx(480 * 1.2);
+        height: ppx(90 * 1.2);
+      }
+
+      @include desktop-up {
+        width: ppx(480);
+        height: ppx(90);
+      }
+    }
+
+    &__list-name {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(24);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 36px */
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+      }
+
+      @include desktop-up {
+        font-size: ppx(34);
+      }
+    }
+  }
+</style>

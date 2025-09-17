@@ -1,0 +1,875 @@
+---
+// 画像
+import { getImage } from 'astro:assets';
+
+import hodohodoForestImage01 from '../../../assets/images/facility/hodohodo-forest/img01.png';
+import hodohodoForestImage02 from '../../../assets/images/facility/hodohodo-forest/img02.png';
+import hodohodoForestImage03 from '../../../assets/images/facility/hodohodo-forest/img03.jpg';
+import hodohodoForestImage04 from '../../../assets/images/facility/hodohodo-forest/img04.png';
+import hodohodoForestImage05 from '../../../assets/images/facility/hodohodo-forest/img05.png';
+import hodohodoForestTree01 from '../../../assets/images/facility/hodohodo-forest/tree01.svg';
+import hodohodoForestTree02 from '../../../assets/images/facility/hodohodo-forest/tree02.svg';
+import hodohodoForestTree03 from '../../../assets/images/facility/hodohodo-forest/tree03.svg';
+import hodohodoForestMountain from '../../../assets/images/facility/hodohodo-forest/mountain.svg';
+import hodohodoForestReef from '../../../assets/images/facility/hodohodo-forest/reef.svg';
+
+// フォーマット
+
+const hodohodoImage01 = await getImage({
+  src: hodohodoForestImage01,
+  format: 'webp',
+  widths: [600, 1024, 1668],
+});
+const hodohodoImage02 = await getImage({
+  src: hodohodoForestImage02,
+  format: 'webp',
+  widths: [230, 300, 418],
+});
+const hodohodoImage03 = await getImage({
+  src: hodohodoForestImage03,
+  format: 'webp',
+  widths: [230, 300, 418],
+});
+const hodohodoImage04 = await getImage({
+  src: hodohodoForestImage04,
+  format: 'webp',
+  widths: [307, 410, 563],
+});
+const hodohodoImage05 = await getImage({
+  src: hodohodoForestImage05,
+  format: 'webp',
+  widths: [337, 500, 770],
+});
+---
+
+<section class="hodohodo-forest">
+  <figure class="hodohodo-forest__hero">
+    <picture class="hodohodo-forest__hero-picture">
+      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+      <source
+        media="(min-width: 1024px)"
+        srcset={hodohodoImage01.srcSet.toString()}
+      />
+      <!-- タブレット（744px以上）→ 中解像度版 -->
+      <source
+        media="(min-width: 744px)"
+        srcset={hodohodoImage01.srcSet.toString()}
+      />
+      <!-- スマホ（744px未満）→ 最小解像度版 -->
+      <img
+        src={hodohodoImage01.src}
+        alt="ほどほどの森の全景"
+        class="hodohodo-forest__hero-image"
+      />
+    </picture>
+  </figure>
+
+  <div class="hodohodo-forest__content">
+    <header class="hodohodo-forest__header">
+      <h2 class="hodohodo-forest__title">ほどほどの森</h2>
+      <p class="hodohodo-forest__subtitle">
+        自然の中で遊ぶ<br />
+        手軽さとプライベートを<br />
+        兼ね備えた小さな森
+      </p>
+      <p class="hodohodo-forest__description">
+        「ほどほどの森」は、ホテルに隣接しており、ホテル利用者専用の環境で自然体験ができます。ウッドフェンスで囲われたこの森は、ホテルのゲストだけがアクセス可能で、外部の訪問者からは隔離されています。ツリーハウス、サウナ、ハンモック、足湯、ブランコ、トランポリンなど、自然を活かした様々なアメニティが整っており、安心して森の中でリラックスできます。ここでは、プライベートキャンプや焚き火バー、サウナ体験、足湯体験など、特別な体験を気軽にお楽しみいただけます。自然とのふれあいを安全で快適な環境でご提供します。
+      </p>
+    </header>
+    <figure
+      class="hodohodo-forest__decoration hodohodo-forest__decoration--tree01"
+    >
+      <img src={hodohodoForestTree01.src} alt="" />
+    </figure>
+    <figure
+      class="hodohodo-forest__decoration hodohodo-forest__decoration--mountain"
+    >
+      <img src={hodohodoForestMountain.src} alt="" />
+    </figure>
+    <figure
+      class="hodohodo-forest__decoration hodohodo-forest__decoration--tree02"
+    >
+      <img src={hodohodoForestTree02.src} alt="" />
+    </figure>
+  </div>
+
+  <div class="hodohodo-forest__gallery">
+    <figure class="hodohodo-forest__gallery-item">
+      <picture class="hodohodo-forest__gallery-picture">
+        <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+        <source
+          media="(min-width: 1024px)"
+          srcset={hodohodoImage02.srcSet.toString()}
+        />
+        <!-- タブレット（744px以上）→ 中解像度版 -->
+        <source
+          media="(min-width: 744px)"
+          srcset={hodohodoImage02.srcSet.toString()}
+        />
+        <!-- スマホ（744px未満）→ 最小解像度版 -->
+        <img
+          src={hodohodoImage02.src}
+          alt="サウナ施設"
+          class="hodohodo-forest__gallery-image sauna"
+        />
+      </picture>
+    </figure>
+    <figure class="hodohodo-forest__gallery-item">
+      <picture class="hodohodo-forest__gallery-picture">
+        <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+        <source
+          media="(min-width: 1024px)"
+          srcset={hodohodoImage03.srcSet.toString()}
+        />
+        <!-- タブレット（744px以上）→ 中解像度版 -->
+        <source
+          media="(min-width: 744px)"
+          srcset={hodohodoImage03.srcSet.toString()}
+        />
+        <!-- スマホ（744px未満）→ 最小解像度版 -->
+        <img
+          src={hodohodoImage03.src}
+          alt="ツリーハウス"
+          class="hodohodo-forest__gallery-image footbath"
+        />
+      </picture>
+    </figure>
+  </div>
+  <figure class="hodohodo-forest__image hodohodo-forest__image--wide">
+    <picture class="hodohodo-forest__picture">
+      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+      <source
+        media="(min-width: 1024px)"
+        srcset={hodohodoImage04.srcSet.toString()}
+      />
+      <!-- タブレット（744px以上）→ 中解像度版 -->
+      <source
+        media="(min-width: 744px)"
+        srcset={hodohodoImage04.srcSet.toString()}
+      />
+      <!-- スマホ（744px未満）→ 最小解像度版 -->
+      <img
+        src={hodohodoImage04.src}
+        alt="キャンプファイヤー"
+        class="hodohodo-forest__img"
+      />
+    </picture>
+  </figure>
+  <figure class="hodohodo-forest__image hodohodo-forest__image--large">
+    <picture class="hodohodo-forest__picture">
+      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+      <source
+        media="(min-width: 1024px)"
+        srcset={hodohodoImage05.srcSet.toString()}
+      />
+      <!-- タブレット（744px以上）→ 中解像度版 -->
+      <source
+        media="(min-width: 744px)"
+        srcset={hodohodoImage05.srcSet.toString()}
+      />
+      <!-- スマホ（744px未満）→ 最小解像度版 -->
+      <img
+        src={hodohodoImage05.src}
+        alt="森のイベントスペース"
+        class="hodohodo-forest__img"
+      />
+    </picture>
+  </figure>
+  <div class="hodohodo-forest__info">
+    <dl class="hodohodo-forest__details">
+      <div class="hodohodo-forest__detail-group">
+        <div class="hodohodo-forest__detail-item">
+          <dt class="hodohodo-forest__detail-term">利用人数</dt>
+          <dd class="hodohodo-forest__detail-desc">
+            キャンプ　30名程度<br />
+            イベント　50〜100名程度
+          </dd>
+        </div>
+      </div>
+      <div class="hodohodo-forest__detail-group">
+        <div class="hodohodo-forest__detail-item">
+          <dt class="hodohodo-forest__detail-term">営業時間</dt>
+          <dd class="hodohodo-forest__detail-desc">9:00 - 21:00</dd>
+        </div>
+      </div>
+      <div class="hodohodo-forest__detail-group">
+        <div class="hodohodo-forest__detail-item">
+          <dt class="hodohodo-forest__detail-term">貸切利用</dt>
+          <dd class="hodohodo-forest__detail-desc">可能（有料となります）</dd>
+        </div>
+      </div>
+    </dl>
+    <figure class="hodohodo-forest__info-decoration">
+      <img src={hodohodoForestTree03.src} alt="" />
+    </figure>
+  </div>
+  <div class="hodohodo-forest__cta">
+    <a href="#" class="hodohodo-forest__cta-link">
+      <span class="hodohodo-forest__cta-text">詳細はこちら</span>
+      <svg
+        class="hodohodo-forest__cta-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 21 22"
+        fill="none"
+      >
+        <path
+          d="M1 21L19.2278 11L1 1"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </a>
+  </div>
+  <figure class="hodohodo-forest__reef">
+    <img
+      src={hodohodoForestReef.src}
+      alt=""
+      class="hodohodo-forest__reef-image"
+    />
+  </figure>
+</section>
+
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  .hodohodo-forest {
+    background: var(--green_1, #e2ecc4);
+    padding-top: spx(70);
+    position: relative;
+    padding-bottom: spx(133);
+    overflow: hidden;
+
+    @include tablet-up {
+      padding-top: ppx(650 * 1.2);
+      padding-bottom: ppx(280 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(650);
+      padding-bottom: ppx(280);
+    }
+
+    &__hero {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__hero-picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__hero-image {
+      display: block;
+      width: spx(600);
+      height: spx(332);
+      object-fit: cover;
+      flex-shrink: 0;
+      border-radius: spx(20) 0 0 spx(20);
+      margin-left: auto;
+      margin-right: 0;
+      @include tablet-up {
+        width: ppx(1668 * 1);
+        height: ppx(922 * 1);
+        border-radius: ppx(50 * 1.2) 0 0 ppx(50 * 1.2);
+        margin-left: unset;
+        margin-right: unset;
+        position: absolute;
+        top: ppx(156 * 1.2);
+        right: 0;
+        z-index: 1;
+      }
+      @include desktop-up {
+        width: ppx(1668);
+        height: ppx(922);
+        border-radius: ppx(50) 0 0 ppx(50);
+        top: ppx(156);
+      }
+    }
+
+    &__content {
+      width: spx(640);
+      padding: spx(80) spx(50);
+      border-radius: spx(20);
+      background: var(--white, #fff);
+      margin-top: spx(108);
+      margin-inline: auto;
+      position: relative;
+      z-index: 2;
+      @include tablet-up {
+        width: ppx(875 * 1.2);
+        height: ppx(1358 * 1.2);
+        border-radius: ppx(30 * 1.2);
+        padding: ppx(92 * 1.2) ppx(100 * 1.2) ppx(87 * 1.2);
+        margin-top: 0;
+        margin-inline: unset;
+        margin-left: 6vw;
+      }
+      @include desktop-up {
+        width: ppx(875);
+        height: ppx(1358);
+        border-radius: ppx(30);
+        padding: ppx(92) ppx(100) ppx(87);
+        margin-left: ppx(244);
+      }
+    }
+
+    &__header {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__title {
+      color: var(--green_3, #43512a);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(35);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 52.5px */
+      position: relative;
+      width: max-content;
+      padding-bottom: spx(5);
+      @include tablet-up {
+        font-size: ppx(40 * 1.2);
+        padding-bottom: ppx(12 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        padding-bottom: ppx(12);
+      }
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          var(--green_2, #adc400) 48.6%,
+          transparent 48.6%,
+          transparent 51.4%,
+          var(--blue_5, #026995) 51.4%,
+          var(--blue_5, #026995) 100%
+        );
+        position: absolute;
+        bottom: 0;
+        @include tablet-up {
+          height: ppx(5 * 1.2);
+        }
+        @include desktop-up {
+          height: ppx(5);
+        }
+      }
+    }
+
+    &__subtitle {
+      color: var(--green_3, #43512a);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(46);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 69px */
+      letter-spacing: spx(2.3);
+      margin-top: spx(50);
+      @include tablet-up {
+        font-size: ppx(55 * 1.2);
+        line-height: 160%; /* 88px */
+        letter-spacing: ppx(2.75 * 1.2);
+        margin-top: ppx(44 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(55);
+        letter-spacing: ppx(2.75);
+        margin-top: ppx(44);
+      }
+    }
+
+    &__description {
+      color: var(--green_3, #43512a);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%; /* 54px */
+      margin-top: spx(50);
+      @include tablet-up {
+        font-size: ppx(32 * 1.2);
+        line-height: 190%; /* 60.8px */
+        margin-top: ppx(64 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(32);
+        margin-top: ppx(64);
+      }
+    }
+
+    &__decoration {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      img {
+        display: block;
+        position: absolute;
+      }
+
+      &--tree01 {
+        img {
+          top: spx(-20);
+          left: spx(-20);
+          width: spx(103);
+          z-index: 2;
+          @include tablet-up {
+            top: ppx(-44 * 1.2);
+            left: ppx(-73 * 1.2);
+            width: ppx(175 * 1.2);
+          }
+          @include desktop-up {
+            top: ppx(-44);
+            left: ppx(-73);
+            width: ppx(175);
+          }
+        }
+      }
+
+      &--mountain {
+        img {
+          top: spx(-77);
+          left: spx(42);
+          width: spx(283);
+          z-index: 1;
+          @include tablet-up {
+            top: ppx(-139 * 1.2);
+            left: ppx(31 * 1.2);
+            width: ppx(478 * 1.2);
+          }
+          @include desktop-up {
+            top: ppx(-139);
+            left: ppx(31);
+            width: ppx(478);
+          }
+        }
+      }
+
+      &--tree02 {
+        img {
+          bottom: spx(-66);
+          right: spx(-11);
+          width: spx(135);
+          @include tablet-up {
+            bottom: ppx(344 * 1.2);
+            right: ppx(-199 * 1.2);
+            width: ppx(229 * 1.2);
+          }
+          @include desktop-up {
+            bottom: ppx(344);
+            right: ppx(-199);
+            width: ppx(229);
+          }
+        }
+      }
+    }
+
+    &__gallery {
+      display: flex;
+      align-items: center;
+      gap: spx(4);
+      position: absolute;
+      top: spx(1865);
+      left: spx(40);
+      @include tablet-up {
+        gap: ppx(5 * 1.2);
+        top: ppx(1843 * 1.2);
+        left: unset;
+        right: 1vw;
+      }
+      @include desktop-up {
+        gap: ppx(5);
+        top: ppx(1843);
+        right: ppx(284);
+      }
+    }
+
+    &__gallery-item {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__gallery-picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__gallery-image {
+      display: block;
+      object-fit: cover;
+
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      &.sauna {
+        width: spx(230);
+        height: spx(281);
+        border-radius: spx(18.223) 0 0 spx(18.223);
+        @include tablet-up {
+          width: ppx(418 * 1.2);
+          height: ppx(511 * 1.2);
+          flex-shrink: 0;
+          border-radius: ppx(30 * 1.2) 0 0 ppx(30 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx(418);
+          height: ppx(511);
+          border-radius: ppx(30) 0 0 ppx(30);
+        }
+      }
+      &.footbath {
+        width: spx(230);
+        height: spx(281);
+        border-radius: 0 spx(18.223) spx(18.223) 0;
+        @include tablet-up {
+          width: ppx(418 * 1.2);
+          height: ppx(511 * 1.2);
+          flex-shrink: 0;
+          border-radius: 0 ppx(30 * 1.2) ppx(30 * 1.2) 0;
+        }
+        @include desktop-up {
+          width: ppx(418);
+          height: ppx(511);
+          border-radius: 0 ppx(30) ppx(30) 0;
+        }
+      }
+    }
+
+    &__image {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &--wide {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+        img {
+          display: block;
+          width: spx(307);
+          height: spx(230);
+          border-radius: spx(20);
+          position: absolute;
+          top: spx(2186);
+          right: spx(40);
+          @include tablet-up {
+            width: ppx(563 * 1.2);
+            height: ppx(422 * 1.2);
+            border-radius: ppx(30 * 1.2);
+            top: ppx(1294 * 1.2);
+            right: ppx(93 * 1.2);
+          }
+          @include desktop-up {
+            width: ppx(563);
+            height: ppx(422);
+            border-radius: ppx(30);
+            top: ppx(1294);
+            right: ppx(93);
+          }
+        }
+      }
+
+      &--large {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+        img {
+          display: block;
+          width: spx(337);
+          height: spx(444);
+          border-radius: 0 spx(22.463) spx(22.463) 0;
+          position: absolute;
+          top: spx(2286);
+          left: 0;
+          @include tablet-up {
+            width: ppx(770 * 1.2);
+            height: ppx(1015 * 1.2);
+            border-radius: 0 ppx(30 * 1.2) ppx(30 * 1.2) 0;
+            top: ppx(2199 * 1.2);
+          }
+          @include desktop-up {
+            width: ppx(770);
+            height: ppx(1015);
+            border-radius: 0 ppx(30) ppx(30) 0;
+            top: ppx(2199);
+          }
+        }
+      }
+    }
+
+    &__picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__img {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__info {
+      margin-top: spx(1005);
+      width: spx(570);
+      margin-inline: auto;
+      position: relative;
+      @include tablet-up {
+        margin-top: ppx(582 * 1.2);
+        width: 38vw;
+        margin-inline: unset;
+        margin-left: auto;
+        margin-right: ppx(150 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(582);
+        width: ppx(1200);
+        margin-right: ppx(150);
+      }
+    }
+
+    &__details {
+      color: var(--green_3, #43512a);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 45px */
+      display: flex;
+      flex-direction: column;
+      gap: spx(20);
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+        line-height: 160%; /* 54.4px */
+        letter-spacing: ppx(1.7 * 1.2);
+        gap: ppx(50 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        letter-spacing: ppx(1.7);
+        gap: ppx(50);
+      }
+    }
+
+    &__detail-group {
+      position: relative;
+      padding-bottom: spx(20);
+      @include tablet-up {
+        padding-bottom: ppx(50 * 1.2);
+      }
+      @include desktop-up {
+        padding-bottom: ppx(50);
+      }
+      &:after {
+        content: '';
+        display: block;
+        background: linear-gradient(
+            to right,
+            #43512a,
+            #43512a 25%,
+            rgba(0, 0, 0, 0) 25%,
+            rgba(0, 0, 0, 0) 100%
+          )
+          0% 0%;
+        background-size: 4px 1px;
+        width: 100%;
+        height: 1px;
+        margin-left: auto;
+        margin-right: auto;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    &__detail-item {
+      display: grid;
+      grid-template-columns: spx(133) auto;
+      gap: spx(20);
+      @include tablet-up {
+        grid-template-columns: ppx(255 * 1.2) auto;
+        gap: 0;
+      }
+      @include desktop-up {
+        grid-template-columns: ppx(255) auto;
+      }
+    }
+
+    &__detail-term {
+      font-weight: 400;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__detail-desc {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__info-decoration {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      img {
+        position: absolute;
+        top: spx(-314);
+        right: spx(35);
+        width: spx(164);
+        @include tablet-up {
+          top: ppx(-357 * 1.2);
+          right: unset;
+          left: ppx(-139 * 1.2);
+          width: ppx(184 * 1.2);
+        }
+        @include desktop-up {
+          top: ppx(-357);
+          left: ppx(-139);
+          width: ppx(184);
+        }
+      }
+    }
+
+    &__cta {
+      display: flex;
+      width: spx(358);
+      height: spx(70);
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border-radius: spx(15);
+      background: var(--green_2, #adc400);
+      position: relative;
+      margin-top: spx(80);
+      margin-left: auto;
+      margin-right: auto;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+
+      @include hover {
+        &:hover {
+          background: $blue_6;
+        }
+      }
+
+      @include tablet-up {
+        width: ppx(429 * 1.2);
+        height: ppx(90 * 1.2);
+        border-radius: ppx(20 * 1.2);
+        margin-top: ppx(88 * 1.2);
+        margin-right: ppx(150 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(429);
+        height: ppx(90);
+        border-radius: ppx(20);
+        margin-top: ppx(88);
+        margin-right: ppx(150);
+      }
+    }
+
+    &__cta-link {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__cta-text {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(31);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%; /* 31px */
+      letter-spacing: spx(1.55);
+      @include tablet-up {
+        font-size: ppx(39.6);
+        line-height: ppx(39.6); /* 100% */
+        letter-spacing: ppx(1.98);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        line-height: ppx(33); /* 100% */
+        letter-spacing: ppx(1.65);
+      }
+    }
+
+    &__cta-icon {
+      display: block;
+      width: spx(18);
+      position: absolute;
+      top: 50%;
+      right: spx(20);
+      transform: translateY(-50%);
+      @include tablet-up {
+        width: ppx(10 * 1.2);
+        right: ppx(30 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(10);
+        right: ppx(30);
+      }
+    }
+
+    &__reef {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__reef-image {
+      display: block;
+      position: absolute;
+      bottom: spx(-20);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: spx(96);
+      object-fit: contain;
+      @include tablet-up {
+        height: ppx(192 * 1.2);
+        bottom: ppx(-20 * 1.2);
+      }
+      @include desktop-up {
+        height: ppx(192);
+        bottom: ppx(-10);
+      }
+    }
+  }
+</style>
