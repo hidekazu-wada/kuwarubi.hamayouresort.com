@@ -46,6 +46,15 @@ import kokkoSlide08 from '../assets/images/facility/kokko/img-08.png';
 import kokkoSlide09 from '../assets/images/facility/kokko/img-09.png';
 import kokkoSlide10 from '../assets/images/facility/kokko/img-10.png';
 import kokkoBgImage from '../assets/images/facility/kokko/bg.png';
+import equipmentImage01 from '../assets/images/facility/equipment/img-01.jpg';
+import equipmentImage02 from '../assets/images/facility/equipment/img-02.png';
+import equipmentImage03 from '../assets/images/facility/equipment/img-03.jpg';
+import equipmentImage04 from '../assets/images/facility/equipment/img-04.jpg';
+import equipmentImage05 from '../assets/images/facility/equipment/img-05.jpg';
+import equipmentImage06 from '../assets/images/facility/equipment/img-06.jpg';
+import equipmentImage07 from '../assets/images/facility/equipment/img-07.jpg';
+import equipmentImage08 from '../assets/images/facility/equipment/img-08.jpg';
+import equipmentImage09 from '../assets/images/facility/equipment/img-09.jpg';
 
 // フォーマット
 const room01 = await getImage({
@@ -172,6 +181,51 @@ const kokkoBg = await getImage({
   src: kokkoBgImage,
   format: 'webp',
   widths: [720, 1024, 2316],
+});
+const equipment01 = await getImage({
+  src: equipmentImage01,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment02 = await getImage({
+  src: equipmentImage02,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment03 = await getImage({
+  src: equipmentImage03,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment04 = await getImage({
+  src: equipmentImage04,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment05 = await getImage({
+  src: equipmentImage05,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment06 = await getImage({
+  src: equipmentImage06,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment07 = await getImage({
+  src: equipmentImage07,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment08 = await getImage({
+  src: equipmentImage08,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment09 = await getImage({
+  src: equipmentImage09,
+  format: 'webp',
+  widths: [300, 360, 480],
 });
 // Swiper CSS
 import 'swiper/css';
@@ -1599,15 +1653,248 @@ const pageClass = 'main-content--facility';
       <!-- 背景オーバーレイ -->
       <div class="kokko__overlay"></div>
     </section>
-  </main>
 
-  <!-- パンくずリスト -->
-  <div class="breadcrumb-wrapper">
-    <Breadcrumb
-      items={[{ text: 'TOP', href: '/' }, { text: 'お部屋・施設' }]}
-    />
-  </div>
+    <section>
+      <div>
+        <div class="">Facilities & equipment</div>
+        <h2>施設・設備</h2>
+      </div>
+
+      <div>
+        <div>
+          <div>
+            <picture class="クラス名 モディファイア名">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={equipment01.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={equipment01.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={equipment01.src}
+                alt="画像の内容を説明するテキスト"
+                class="追加のクラス名（必要に応じて）"
+              />
+            </picture>
+          </div>
+          <div class="">大浴場・露天風呂</div>
+        </div>
+        <div>
+          <div>
+            <picture class="クラス名 モディファイア名">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={equipment02.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={equipment02.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={equipment02.src}
+                alt="画像の内容を説明するテキスト"
+                class="追加のクラス名（必要に応じて）"
+              />
+            </picture>
+          </div>
+          <div class="">ほどほどの森</div>
+        </div>
+        <div>
+          <div>
+            <picture class="クラス名 モディファイア名">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={equipment03.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={equipment03.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={equipment03.src}
+                alt="画像の内容を説明するテキスト"
+                class="追加のクラス名（必要に応じて）"
+              />
+            </picture>
+          </div>
+          <div class="">Kokko（BBQハウス）</div>
+        </div>
+        <div>
+          <div>
+            <picture class="クラス名 モディファイア名">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={equipment04.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={equipment04.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={equipment04.src}
+                alt="画像の内容を説明するテキスト"
+                class="追加のクラス名（必要に応じて）"
+              />
+            </picture>
+          </div>
+          <div class="">ランドリールーム</div>
+        </div>
+        <div>
+          <div>
+            <picture class="クラス名 モディファイア名">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={equipment05.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={equipment05.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={equipment05.src}
+                alt="画像の内容を説明するテキスト"
+                class="追加のクラス名（必要に応じて）"
+              />
+            </picture>
+          </div>
+          <div class="">自動販売機コーナー</div>
+        </div>
+        <div>
+          <div>
+            <picture class="クラス名 モディファイア名">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={equipment06.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={equipment06.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={equipment06.src}
+                alt="画像の内容を説明するテキスト"
+                class="追加のクラス名（必要に応じて）"
+              />
+            </picture>
+          </div>
+          <div class="">会議室（紅葉）</div>
+        </div>
+        <div>
+          <div>
+            <picture class="クラス名 モディファイア名">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={equipment07.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={equipment07.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={equipment07.src}
+                alt="画像の内容を説明するテキスト"
+                class="追加のクラス名（必要に応じて）"
+              />
+            </picture>
+          </div>
+          <div class="">会議室（楓）</div>
+        </div>
+        <div>
+          <div>
+            <picture class="クラス名 モディファイア名">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={equipment08.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={equipment08.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={equipment08.src}
+                alt="画像の内容を説明するテキスト"
+                class="追加のクラス名（必要に応じて）"
+              />
+            </picture>
+          </div>
+          <div class="">お食事処</div>
+        </div>
+        <div>
+          <div>
+            <picture class="クラス名 モディファイア名">
+              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+              <source
+                media="(min-width: 1024px)"
+                srcset={equipment09.srcSet.toString()}
+              />
+              <!-- タブレット（744px以上）→ 中解像度版 -->
+              <source
+                media="(min-width: 744px)"
+                srcset={equipment09.srcSet.toString()}
+              />
+              <!-- スマホ（744px未満）→ 最小解像度版 -->
+              <img
+                src={equipment09.src}
+                alt="画像の内容を説明するテキスト"
+                class="追加のクラス名（必要に応じて）"
+              />
+            </picture>
+          </div>
+          <div class="">体育館</div>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="">
+          <div class="">製氷機</div>
+        </div>
+        <div class="">
+          <div class="">ロッカールーム</div>
+        </div>
+        <div class="">
+          <div class="">コピー機</div>
+        </div>
+        <div class="">
+          <div class="">駐車場</div>
+        </div>
+        <div class="">
+          <div class="">喫煙スペース</div>
+        </div>
+      </div>
+    </section>
+  </main>
 </BaseLayout>
+
+<!-- パンくずリスト -->
+<div class="breadcrumb-wrapper">
+  <Breadcrumb items={[{ text: 'TOP', href: '/' }, { text: 'お部屋・施設' }]} />
+</div>
 
 <style lang="scss">
   @import '../styles/variables';
