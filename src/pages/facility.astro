@@ -177,6 +177,7 @@ const kokkoBg = await getImage({
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/thumbs';
+import 'swiper/css/pagination';
 
 // ============================================================
 // TODO: 以下の項目を必ず変更してください
@@ -1540,7 +1541,7 @@ const pageClass = 'main-content--facility';
             </nav>
           </div>
           <!-- ナビゲーション -->
-          <div class="kokko__navigation"></div>
+          <div class="kokko__navigation kokko-pagination"></div>
         </div>
         <dl class="kokko__details">
           <div class="kokko__detail-item">
@@ -3902,9 +3903,19 @@ const pageClass = 'main-content--facility';
     }
 
     &__navigation {
+      display: none;
       @include tablet-up {
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+        gap: ppx(23 * 1.2);
+        margin-top: ppx(40 * 1.2);
+        padding-right: 22vw;
       }
       @include desktop-up {
+        gap: ppx(23);
+        margin-top: ppx(40);
+        padding-right: ppx(678);
       }
     }
 
@@ -4120,13 +4131,37 @@ const pageClass = 'main-content--facility';
       }
     }
   }
+
+  // kokkoページネーション用スタイル（グローバルスコープで適用）
+  :global(.kokko-pagination__bullet) {
+    @include tablet-up {
+      display: inline-block;
+      cursor: pointer;
+      padding: 0;
+      margin: 0;
+      transition: all 0.3s ease;
+      width: ppx(20 * 1.2);
+      height: ppx(20 * 1.2);
+      border-radius: 50%;
+      border: solid 1px white;
+      transform: background 0.3s ease;
+    }
+    @include desktop-up {
+      width: ppx(20);
+      height: ppx(20);
+    }
+  }
+
+  :global(.kokko-pagination__bullet--active) {
+    background: rgba(255, 255, 255, 1);
+  }
 </style>
 
 <script>
   // @ts-ignore
   import Swiper from 'swiper';
   // @ts-ignore
-  import { EffectFade, Thumbs, Autoplay } from 'swiper/modules';
+  import { EffectFade, Thumbs, Autoplay, Pagination } from 'swiper/modules';
 
   document.addEventListener('DOMContentLoaded', () => {
     // サムネイルSwiper初期化（facility-room専用・完全独立）
@@ -4178,7 +4213,7 @@ const pageClass = 'main-content--facility';
 
     // kokko用メインSwiper初期化（完全独立）
     const kokkoMainSwiper = new Swiper('.kokko-main__swiper', {
-      modules: [EffectFade, Thumbs, Autoplay],
+      modules: [EffectFade, Thumbs, Autoplay, Pagination],
       effect: 'fade',
       slidesPerView: 1,
       fadeEffect: {
@@ -4190,6 +4225,12 @@ const pageClass = 'main-content--facility';
       },
       thumbs: {
         swiper: kokkoThumbsSwiper,
+      },
+      pagination: {
+        el: '.kokko-pagination',
+        clickable: true,
+        bulletClass: 'kokko-pagination__bullet',
+        bulletActiveClass: 'kokko-pagination__bullet--active',
       },
     });
   });
