@@ -1030,6 +1030,8 @@ const pageClass = 'main-content--facility';
         />
       </figure>
     </section>
+
+    <section></section>
   </main>
 
   <!-- パンくずリスト -->
@@ -2431,7 +2433,8 @@ const pageClass = 'main-content--facility';
     padding-top: spx(70);
     position: relative;
     padding-bottom: spx(133);
-    overflow-x: hidden;
+    overflow: hidden;
+
     @include tablet-up {
       padding-top: ppx(650 * 1.2);
       padding-bottom: ppx(280 * 1.2);
@@ -2499,7 +2502,7 @@ const pageClass = 'main-content--facility';
         padding: ppx(92 * 1.2) ppx(100 * 1.2) ppx(87 * 1.2);
         margin-top: 0;
         margin-inline: unset;
-        margin-left: ppx(244 * 1.2);
+        margin-left: 6vw;
       }
       @include desktop-up {
         width: ppx(875);
@@ -2679,7 +2682,7 @@ const pageClass = 'main-content--facility';
         gap: ppx(5 * 1.2);
         top: ppx(1843 * 1.2);
         left: unset;
-        right: ppx(284 * 1.2);
+        right: 1vw;
       }
       @include desktop-up {
         gap: ppx(5);
@@ -2830,7 +2833,7 @@ const pageClass = 'main-content--facility';
       position: relative;
       @include tablet-up {
         margin-top: ppx(582 * 1.2);
-        width: ppx(1200 * 1.2);
+        width: 38vw;
         margin-inline: unset;
         margin-left: auto;
         margin-right: ppx(150 * 1.2);
@@ -3032,7 +3035,7 @@ const pageClass = 'main-content--facility';
     &__reef-image {
       display: block;
       position: absolute;
-      bottom: 0;
+      bottom: spx(-20);
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
@@ -3040,9 +3043,11 @@ const pageClass = 'main-content--facility';
       object-fit: contain;
       @include tablet-up {
         height: ppx(192 * 1.2);
+        bottom: ppx(-20 * 1.2);
       }
       @include desktop-up {
         height: ppx(192);
+        bottom: ppx(-10);
       }
     }
   }
