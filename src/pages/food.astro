@@ -349,11 +349,15 @@ const pageClass = 'main-content--food';
   .dinner {
     padding-top: spx(100);
     overflow-x: hidden;
+    padding-bottom: spx(130);
+    position: relative;
     @include tablet-up {
       padding-top: ppx(166 * 1.2);
+      padding-bottom: ppx(250 * 1.2);
     }
     @include desktop-up {
       padding-top: ppx(166);
+      padding-bottom: ppx(250);
     }
 
     &__container {
@@ -882,9 +886,29 @@ const pageClass = 'main-content--food';
     }
 
     &__decoration {
+      position: absolute;
+      bottom: 0;
+      display: block;
+      background: linear-gradient(
+          to right,
+          #59a1c0,
+          #59a1c0 25%,
+          rgba(0, 0, 0, 0) 25%,
+          rgba(0, 0, 0, 0) 100%
+        )
+        0% 0%;
+      background-size: 4px 1px;
+      width: spx(660);
+      height: 1px;
+      margin-left: auto;
+      margin-right: auto;
+      left: 50%;
+      transform: translateX(-50%);
       @include tablet-up {
+        width: ppx(1920 * 1.2);
       }
       @include desktop-up {
+        width: ppx(1920);
       }
     }
   }
