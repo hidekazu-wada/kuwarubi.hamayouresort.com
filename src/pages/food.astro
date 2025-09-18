@@ -33,7 +33,7 @@ const pageClass = 'main-content--food';
   <Hero />
   <nav class="food-nav">
     <ul class="food-nav__list">
-      <li class="food-nav__item">
+      <li class="food-nav__item active">
         <a href="#" class="food-nav__link">
           <article class="food-nav__card">
             <span class="food-nav__subtitle">西湖と山の豊かな滋味を堪能</span>
@@ -46,7 +46,8 @@ const pageClass = 'main-content--food';
           <article class="food-nav__card">
             <span class="food-nav__subtitle">大自然の中で食べる</span>
             <h2 class="food-nav__title">BBQ</h2>
-            <span class="food-nav__note">（夕食・昼食）</span>
+            <span class="food-nav__note food-nav__subtitle">（夕食・昼食）</span
+            >
           </article>
         </a>
       </li>
@@ -95,18 +96,32 @@ const pageClass = 'main-content--food';
   // フードメニューナビゲーション
   // ============================================================
 
+  :global(.main-content--food) {
+    background: var(--blue_1, #f5fafc);
+  }
   .food-nav {
-    position: static;
+    position: sticky;
     top: 0;
+    padding: spx(20) 0;
+    background-color: #fff;
     @include tablet-up {
+      padding: ppx(42 * 1.2) 0 ppx(46 * 1.2);
     }
     @include desktop-up {
+      padding: ppx(42) 0 ppx(46);
     }
 
     &__list {
+      display: grid;
+      grid-template-columns: max-content max-content max-content;
+      gap: spx(7);
+      justify-content: center;
       @include tablet-up {
+        grid-template-columns: repeat(3, max-content);
+        gap: ppx(15 * 1.2);
       }
       @include desktop-up {
+        grid-template-columns: repeat(5, max-content);
       }
     }
 
@@ -115,12 +130,47 @@ const pageClass = 'main-content--food';
       }
       @include desktop-up {
       }
+      &.active {
+        .food-nav__link {
+          background: var(--blue_6, #054965);
+        }
+        .food-nav__subtitle,
+        .food-nav__title {
+          color: #fff;
+        }
+      }
     }
 
     &__link {
+      display: flex;
+      width: spx(210);
+      height: spx(84);
+      border-radius: spx(15);
+      align-items: center;
+      justify-content: center;
+      background: #e5e5e5;
+      transition: background 0.3s ease;
+
       @include tablet-up {
+        width: ppx(401 * 1.2);
+        height: ppx(154 * 1.2);
+        border-radius: ppx(17.393 * 1.2);
       }
       @include desktop-up {
+        width: ppx(401);
+        height: ppx(154);
+        border-radius: ppx(17.393);
+      }
+
+      @include hover {
+        &:hover {
+          background: var(--green_2, #adc400);
+
+          .food-nav__subtitle,
+          .food-nav__title {
+            color: #fff;
+          }
+        }
       }
     }
 
@@ -132,16 +182,45 @@ const pageClass = 'main-content--food';
     }
 
     &__subtitle {
+      display: none;
+      transition: color 0.3s ease;
       @include tablet-up {
+        display: block;
+        color: var(--blue_6, #054965);
+        text-align: center;
+        font-family: 'Zen Kaku Gothic New';
+        font-size: ppx(26 * 1.2);
+        font-style: normal;
+        font-weight: 500;
+        line-height: 150%; /* 39px */
       }
       @include desktop-up {
+        font-size: ppx(26);
       }
     }
 
     &__title {
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(27);
+      font-style: normal;
+      font-weight: 500;
+      line-height: 110%; /* 29.7px */
+      transition: color 0.3s ease;
       @include tablet-up {
+        font-size: ppx(32 * 1.2);
+        font-weight: 700;
+        line-height: 150%;
       }
       @include desktop-up {
+        font-size: ppx(32);
+      }
+      .only-sp {
+        display: block;
+        @include tablet-up {
+          display: none;
+        }
       }
     }
 
