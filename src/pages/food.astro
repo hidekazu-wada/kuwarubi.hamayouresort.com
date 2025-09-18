@@ -13,6 +13,7 @@ import dinnerImage01 from '../assets/images/food/dinner/img-01.jpg';
 import dinnerImage02 from '../assets/images/food/dinner/img-02.jpg';
 import dinnerImage03 from '../assets/images/food/dinner/img-03.jpg';
 import dinnerImage04 from '../assets/images/food/dinner/img-04.jpg';
+import dinnerImageMain from '../assets/images/food/dinner/main.jpg';
 
 const dinnerImg01 = await getImage({
   src: dinnerImage01,
@@ -33,6 +34,11 @@ const dinnerImg04 = await getImage({
   src: dinnerImage04,
   format: 'webp',
   widths: [311, 465],
+});
+const dinnerMain = await getImage({
+  src: dinnerImageMain,
+  format: 'webp',
+  widths: [640, 1024, 1780],
 });
 
 // import heroBgImage from '../assets/images/food/hero/bg.png';
@@ -161,7 +167,26 @@ const pageClass = 'main-content--food';
         </p>
       </div>
       <aside class="dinner__menu">
-        <img src="" alt="" class="dinner__menu-bg" />
+        <div class="dinner__menu-main-image">
+          <picture>
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={dinnerMain.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={dinnerMain.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={dinnerMain.src}
+              alt="夕食の料理"
+              class="dinner__menu-main-image-img"
+            />
+          </picture>
+        </div>
         <div class="dinner__menu-content">
           <header class="dinner__menu-header">
             <h3 class="dinner__menu-title">ある日のビュッフェメニュー</h3>
@@ -201,85 +226,99 @@ const pageClass = 'main-content--food';
               </svg>
             </button>
           </header>
-          <ul class="dinner__menu-list">
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text"
-                >カルシウムたっぷりサラダ</span
-              >
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text">ポテトサラダ</span>
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text">ほうれん草の胡麻和え</span>
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text">若鶏のオーブン焼き</span>
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text">本格麻婆豆腐</span>
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text"
-                >牛肉とトマトのラグーペンネ</span
-              >
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text"
-                >サーモンのグリル バター醤油</span
-              >
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text">海老マヨ</span>
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text"
-                >イカとパプリカのオイスターソース炒め</span
-              >
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text"
-                >ハンバーグ - ドミグラスチーズソース</span
-              >
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text">豚肉と玉子の中華炒め</span>
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text">ご飯</span>
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text"
-                >赤だしの味噌汁- 長ネギ、なめこ</span
-              >
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text"
-                >ご飯のお供（納豆、味付け海苔）</span
-              >
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text">料理長のすき焼き</span>
-            </li>
-            <li class="dinner__menu-item dinner__menu-item--special">
-              <span class="dinner__menu-item-title">串揚げステーション</span>
-              <span class="dinner__menu-item-description">
-                - 鶏ささみ大葉、うずら玉子、レンコン、カボチャ、特製ソース -
-              </span>
-            </li>
-            <li class="dinner__menu-item dinner__menu-item--special">
-              <span class="dinner__menu-item-title">デザート</span>
-              <span class="dinner__menu-item-description">
-                プチシュー、3種のベリー大福、グレープフルーツ - -
-                全粒粉ミニ食パン、クロワッサン、はちみつ豆乳パン -
-              </span>
-            </li>
-            <li class="dinner__menu-item">
-              <span class="dinner__menu-item-text"
-                >ホットドリンク(コーヒー、紅茶)</span
-              >
-            </li>
-          </ul>
+
+          <div class="dinner__menu-list">
+            <div class="dinner__menu-list-inner first">
+              <ul class="dinner__menu-list-items">
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text"
+                    >カルシウムたっぷりサラダ</span
+                  >
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text">ポテトサラダ</span>
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text"
+                    >ほうれん草の胡麻和え</span
+                  >
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text">若鶏のオーブン焼き</span>
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text">本格麻婆豆腐</span>
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text"
+                    >牛肉とトマトのラグーペンネ</span
+                  >
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text"
+                    >サーモンのグリル バター醤油</span
+                  >
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text">海老マヨ</span>
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text"
+                    >イカとパプリカのオイスターソース炒め</span
+                  >
+                </li>
+                <li class="dinner__menu-item dinner__menu-item--special">
+                  <span class="dinner__menu-item-title">串揚げステーション</span
+                  >
+                  <span class="dinner__menu-item-description">
+                    鶏ささみ大葉、うずら玉子、レンコン、カボチャ、特製ソース
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div class="dinner__menu-list-inner second">
+              <ul class="dinner__menu-list-items">
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text"
+                    >豚肉と玉子の中華炒め</span
+                  >
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text">ご飯</span>
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text"
+                    >赤だしの味噌汁- 長ネギ、なめこ</span
+                  >
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text"
+                    >ご飯のお供（納豆、味付け海苔）</span
+                  >
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text">料理長のすき焼き</span>
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text"
+                    >ハンバーグ - ドミグラスチーズソース</span
+                  >
+                </li>
+                <li class="dinner__menu-item dinner__menu-item--special">
+                  <span class="dinner__menu-item-title">デザート</span>
+                  <span class="dinner__menu-item-description">
+                    プチシュー、3種のベリー大福、グレープフルーツ、
+                    全粒粉ミニ食パン、クロワッサン、はちみつ豆乳パン
+                  </span>
+                </li>
+                <li class="dinner__menu-item">
+                  <span class="dinner__menu-item-text"
+                    >ホットドリンク(コーヒー、紅茶)</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </aside>
       <span class="dinner__decoration"></span>
@@ -579,52 +618,114 @@ const pageClass = 'main-content--food';
     }
 
     &__menu {
+      margin-top: spx(80);
       @include tablet-up {
+        margin-top: ppx(125 * 1.2);
       }
       @include desktop-up {
+        margin-top: ppx(125);
       }
-
-      &-bg {
-        @include tablet-up {
-        }
-        @include desktop-up {
+      &-main-image {
+        &-img {
+          display: block;
+          width: spx(640);
+          height: spx(335);
+          border-radius: 0 spx(20) spx(20) 0;
+          object-fit: cover;
+          @include tablet-up {
+            width: ppx(1780 * 1.2);
+            height: ppx(933 * 1.2);
+            border-radius: 0 ppx(20 * 1.2) ppx(20 * 1.2) 0;
+          }
+          @include desktop-up {
+            width: ppx(1780);
+            height: ppx(933);
+            border-radius: 0 ppx(20) ppx(20) 0;
+          }
         }
       }
 
       &-content {
+        display: flex;
+        width: spx(640);
+        padding: spx(40) 0;
+        flex-direction: column;
+        align-items: center;
+        border-radius: spx(20);
+        background: var(--white, #fff);
+        margin-inline: auto;
+        margin-top: spx(80);
         @include tablet-up {
+          width: ppx(1839 * 1.2);
+          border-radius: ppx(30 * 1.2) 0 0 ppx(30 * 1.2);
+          padding: ppx(546 * 1.2) 0 ppx(93 * 1.2);
+          margin-right: 0;
+          margin-top: ppx(-454 * 1.2);
         }
         @include desktop-up {
+          width: ppx(1839);
+          border-radius: ppx(30) 0 0 ppx(30);
+          padding: ppx(546) 0 ppx(93);
+          margin-top: ppx(-454);
         }
       }
 
       &-header {
+        display: grid;
+        grid-template-columns: max-content max-content;
+        gap: spx(50);
         @include tablet-up {
+          display: block;
         }
         @include desktop-up {
         }
       }
 
       &-title {
+        color: var(--blue_6, #054965);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(36);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 100%;
         @include tablet-up {
+          font-size: ppx(40 * 1.2);
+          line-height: 110%;
         }
         @include desktop-up {
+          font-size: ppx(40);
         }
       }
 
       &-toggle {
+        width: spx(30);
+        height: spx(30);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
         @include tablet-up {
+          display: none;
         }
         @include desktop-up {
         }
 
         &-icon {
+          display: block;
+          width: 100%;
+          height: auto;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
           @include tablet-up {
           }
           @include desktop-up {
           }
 
           &--plus {
+            opacity: 0;
+            visibility: hidden;
             @include tablet-up {
             }
             @include desktop-up {
@@ -632,6 +733,8 @@ const pageClass = 'main-content--food';
           }
 
           &--minus {
+            opacity: 1;
+            visibility: visible;
             @include tablet-up {
             }
             @include desktop-up {
@@ -641,16 +744,91 @@ const pageClass = 'main-content--food';
       }
 
       &-list {
+        display: flex;
+        flex-direction: column;
+        gap: spx(15);
+        width: spx(538);
+        margin-top: spx(60);
+        position: relative;
         @include tablet-up {
+          flex-direction: row;
+          gap: ppx(126 * 1.2);
+          width: auto;
+          margin-top: ppx(73 * 1.2);
+        }
+        @include desktop-up {
+          gap: ppx(126);
+          margin-top: ppx(73);
+        }
+        &::before {
+          @include tablet-up {
+            content: '';
+            display: block;
+            background: linear-gradient(
+                to bottom,
+                #59a1c0,
+                #59a1c0 25%,
+                rgba(0, 0, 0, 0) 25%,
+                rgba(0, 0, 0, 0) 100%
+              )
+              0% 0%;
+            background-size: 1px 4px;
+            width: 1px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+          @include desktop-up {
+          }
+        }
+      }
+
+      &-list-inner {
+        &.first {
+          @include tablet-up {
+            width: ppx(697 * 1.2);
+          }
+          @include desktop-up {
+            width: ppx(697);
+          }
+        }
+        &.second {
+          @include tablet-up {
+            width: ppx(697 * 1.2);
+          }
+          @include desktop-up {
+            width: ppx(697);
+          }
+        }
+      }
+
+      &-list-items {
+        display: flex;
+        flex-direction: column;
+        gap: spx(15);
+        @include tablet-up {
+          gap: 0;
         }
         @include desktop-up {
         }
       }
 
       &-item {
+        color: var(--blue_6, #054965);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(28);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%;
+        letter-spacing: spx(-0.28);
         @include tablet-up {
+          font-size: ppx(26 * 1.2);
+          line-height: 210%;
         }
         @include desktop-up {
+          font-size: ppx(26);
         }
 
         &--special {
@@ -661,20 +839,40 @@ const pageClass = 'main-content--food';
         }
 
         &-text {
+          display: grid;
+          grid-template-columns: max-content auto;
+          gap: spx(10);
           @include tablet-up {
+            gap: ppx(10 * 1.2);
           }
           @include desktop-up {
+            gap: ppx(10);
+          }
+          &::before {
+            content: '・';
+            display: block;
           }
         }
 
         &-title {
+          display: grid;
+          grid-template-columns: max-content auto;
+          gap: spx(10);
           @include tablet-up {
+            gap: ppx(10 * 1.2);
           }
           @include desktop-up {
+            gap: ppx(10);
+          }
+          &::before {
+            content: '・';
+            display: block;
           }
         }
 
         &-description {
+          display: block;
+          margin-left: 1.5em;
           @include tablet-up {
           }
           @include desktop-up {
