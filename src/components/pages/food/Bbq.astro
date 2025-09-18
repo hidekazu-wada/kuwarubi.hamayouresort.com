@@ -1,0 +1,46 @@
+---
+// コンポーネント
+import MenuSection from './MenuSection.astro';
+
+// 画像
+import { getImage } from 'astro:assets';
+import bbqImage01 from '../../../assets/images/food/bbq/img-01.png';
+import bbqImage02 from '../../../assets/images/food/bbq/img-02.png';
+import bbqImage03 from '../../../assets/images/food/bbq/img-03.png';
+import bbqImage04 from '../../../assets/images/food/bbq/img-04.png';
+
+// BBQセクションのプロパティ
+const bbqProps = {
+  sectionName: 'bbq',
+  title: ['湖畔の風を感じながら', '楽しむアウトドアBBQ'],
+  labelText: 'BBQ（夕食・昼食）',
+  subtitle: 'BARBECUE',
+  description:
+    '湖畔の美しい景色を背景に、新鮮な空気と共にアウトドアBBQをお楽しみください。竈門、ピザ窯、大型ファイヤーピットを完備した「KOKKO」施設では、手作りのピザや地元の食材を使用したグリル料理が楽しめます。火を囲みながら、仲間や家族と共に食事をする時間は、忘れがたい思い出となるでしょう。自然の恩恵を全身で感じるこの体験は、心も体もリフレッシュさせてくれます。',
+  images: [
+    { src: bbqImage01, alt: 'bbqの料理', widths: [330, 518] },
+    { src: bbqImage02, alt: 'bbqの料理', widths: [312, 465] },
+    { src: bbqImage03, alt: 'bbqの料理', widths: [373, 549] },
+    { src: bbqImage04, alt: 'bbqの料理', widths: [311, 465] },
+  ],
+};
+---
+
+<MenuSection {...bbqProps}>
+  <!-- 固有の要素 -->
+</MenuSection>
+
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+  :global(.bbq) {
+    padding-top: spx(100);
+    @include tablet-up {
+      padding-top: ppx(250 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(250);
+    }
+  }
+</style>

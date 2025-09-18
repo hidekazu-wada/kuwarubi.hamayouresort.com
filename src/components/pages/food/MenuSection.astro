@@ -1,0 +1,395 @@
+---
+// 画像
+import { getImage } from 'astro:assets';
+
+// プロパティの型定義
+export interface MenuSectionProps {
+  sectionName: string; // BEMのベース名 (例: 'dinner', 'breakfast', 'lunch')
+  title: string | string[]; // タイトル（配列の場合は<br />で分割）
+  labelText: string; // ラベルテキスト (例: '夕食', '朝食')
+  subtitle: string; // サブタイトル (例: 'DINNER', 'BREAKFAST')
+  description: string; // 説明文
+  images: {
+    src: any; // Astroのイメージソース
+    alt: string; // 代替テキスト
+    widths: number[]; // 画像の幅（スマホ, タブレット/デスクトップ）
+  }[];
+}
+
+// プロパティを受け取る
+const { sectionName, title, labelText, subtitle, description, images } =
+  Astro.props as MenuSectionProps;
+
+// 画像の処理
+const processedImages = await Promise.all(
+  images.map((img) =>
+    getImage({
+      src: img.src,
+      format: 'webp',
+      widths: img.widths,
+    })
+  )
+);
+
+// タイトルの処理（配列の場合は<br />で結合）
+const titleContent = Array.isArray(title) ? title.join('<br />') : title;
+---
+
+<section class={sectionName}>
+  <article class={`${sectionName}__container`}>
+    <div class={`${sectionName}__intro`}>
+      <header class={`${sectionName}__header`}>
+        <h2 class={`${sectionName}__title`} set:html={titleContent} />
+        <div class={`${sectionName}__label`}>
+          <span
+            class={`${sectionName}__label-line ${sectionName}__label-line--left`}
+          ></span>
+          <span class={`${sectionName}__label-text`}>{labelText}</span>
+          <span
+            class={`${sectionName}__label-line ${sectionName}__label-line--right`}
+          ></span>
+        </div>
+        <p class={`${sectionName}__subtitle`}>{subtitle}</p>
+      </header>
+      <div class={`${sectionName}__gallery`}>
+        {
+          processedImages.map((img, index) => (
+            <figure class={`${sectionName}__gallery-item`}>
+              <picture class={`${sectionName}__gallery-picture`}>
+                {/* デスクトップ（1024px以上）→ 最高解像度版 */}
+                <source
+                  media="(min-width: 1024px)"
+                  srcset={img.srcSet.toString()}
+                />
+                {/* タブレット（744px以上）→ 中解像度版 */}
+                <source
+                  media="(min-width: 744px)"
+                  srcset={img.srcSet.toString()}
+                />
+                {/* スマホ（744px未満）→ 最小解像度版 */}
+                <img
+                  src={img.src}
+                  alt={images[index].alt}
+                  class={`${sectionName}__gallery-image image0${index + 1}`}
+                />
+              </picture>
+            </figure>
+          ))
+        }
+      </div>
+      <p class={`${sectionName}__description`}>{description}</p>
+    </div>
+    <!-- slotで追加コンテンツを受け取る（メニューの代わり） -->
+    <slot />
+    <span class={`${sectionName}__decoration`}></span>
+  </article>
+</section>
+
+<style lang="scss" is:global>
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  // 汎用的なメニューセクションのスタイル
+  // クラス名は動的に生成される（dinner, breakfast, lunch等）
+  .dinner,
+  .bbq {
+    overflow-x: hidden;
+    position: relative;
+    padding-bottom: spx(130);
+    @include tablet-up {
+      padding-bottom: ppx(250 * 1.2);
+    }
+    @include desktop-up {
+      padding-bottom: ppx(250);
+    }
+
+    &__container {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__intro {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__header {
+      position: relative;
+      z-index: 1;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__title {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(44);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      letter-spacing: spx(2.2);
+      @include tablet-up {
+        font-size: ppx(45 * 1.2);
+        font-weight: 500;
+        letter-spacing: ppx(9 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(45);
+        letter-spacing: ppx(9);
+      }
+    }
+
+    &__label {
+      display: flex;
+      align-items: center;
+      gap: spx(20);
+      justify-content: center;
+      margin-top: spx(15);
+      @include tablet-up {
+        gap: ppx(20 * 1.2);
+        margin-top: ppx(18 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(20);
+        margin-top: ppx(18);
+      }
+
+      &-line {
+        display: block;
+        width: spx(70);
+        height: spx(2);
+        background: #026995;
+        @include tablet-up {
+          width: ppx(104 * 1.2);
+          height: ppx(2 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx(104);
+          height: ppx(2);
+        }
+
+        &--left {
+          @include tablet-up {
+          }
+          @include desktop-up {
+          }
+        }
+
+        &--right {
+          @include tablet-up {
+          }
+          @include desktop-up {
+          }
+        }
+      }
+
+      &-text {
+        color: var(--blue_5, #026995);
+        text-align: center;
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(30);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%;
+        letter-spacing: spx(1.5);
+        @include tablet-up {
+          font-size: ppx(32 * 1.2);
+          font-weight: 500;
+        }
+        @include desktop-up {
+          font-size: ppx(32);
+        }
+      }
+    }
+
+    &__subtitle {
+      color: var(--blue_2, #e7f3f9);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(184);
+      font-style: normal;
+      font-weight: 700;
+      line-height: 90%;
+      letter-spacing: spx(-5.52);
+      position: absolute;
+      bottom: spx(-187);
+      left: 50%;
+      transform: translateX(-50%);
+      @include tablet-up {
+        font-size: ppx(405 * 1.2);
+        line-height: 110%;
+        letter-spacing: ppx(-12.15 * 1.2);
+        bottom: ppx(-582 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(405);
+        letter-spacing: ppx(-12.15);
+        bottom: ppx(-582);
+      }
+    }
+
+    &__gallery {
+      position: relative;
+      z-index: 2;
+      padding-top: spx(123);
+      padding-bottom: spx(440);
+      @include tablet-up {
+        padding-top: ppx(136 * 1.2);
+        padding-bottom: ppx(397 * 1.2);
+      }
+      @include desktop-up {
+        padding-top: ppx(136);
+        padding-bottom: ppx(397);
+      }
+
+      &-item {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &-image {
+        display: block;
+        border-radius: spx(20);
+        object-fit: cover;
+        @include tablet-up {
+          border-radius: ppx(20 * 1.2);
+        }
+        @include desktop-up {
+          border-radius: ppx(20);
+        }
+        &.image01 {
+          width: spx(330);
+          height: spx(221);
+          position: absolute;
+          top: spx(285);
+          left: spx(10);
+          @include tablet-up {
+            width: 20vw;
+            height: ppx(347 * 1.2);
+            top: ppx(430 * 1.2);
+            left: ppx(78 * 1.2);
+          }
+          @include desktop-up {
+            width: ppx(518);
+            height: ppx(347);
+            top: ppx(430);
+            left: ppx(78);
+          }
+        }
+        &.image02 {
+          width: spx(312);
+          height: spx(330);
+          margin-left: auto;
+          margin-right: spx(40);
+          @include tablet-up {
+            width: 18vw;
+            height: ppx(492 * 1.2);
+            margin-left: 27vw;
+            margin-right: unset;
+          }
+          @include desktop-up {
+            width: ppx(465);
+            height: ppx(492);
+            margin-left: ppx(725);
+          }
+        }
+        &.image03 {
+          width: spx(373);
+          height: spx(267);
+          position: absolute;
+          top: spx(546);
+          left: spx(80);
+          @include tablet-up {
+            width: 22vw;
+            height: ppx(392 * 1.2);
+            top: ppx(457 * 1.2);
+            left: unset;
+            right: 19vw;
+          }
+          @include desktop-up {
+            width: ppx(549);
+            height: ppx(392);
+            top: ppx(457);
+            right: ppx(448);
+          }
+        }
+        &.image04 {
+          width: spx(311);
+          height: spx(330);
+          position: absolute;
+          top: spx(483);
+          right: spx(-79);
+          @include tablet-up {
+            width: ppx(465 * 1.2);
+            height: ppx(492 * 1.2);
+            top: ppx(136 * 1.2);
+            right: ppx(-119 * 1.2);
+          }
+          @include desktop-up {
+            width: ppx(465);
+            height: ppx(492);
+            top: ppx(136);
+            right: ppx(-119);
+          }
+        }
+      }
+    }
+
+    &__description {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%;
+      width: spx(600);
+      margin-inline: auto;
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+        letter-spacing: ppx(1.7 * 1.2);
+        width: ppx(1645 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        letter-spacing: ppx(1.7);
+        width: ppx(1645);
+      }
+    }
+
+    &__decoration {
+      position: absolute;
+      bottom: 0;
+      display: block;
+      background: linear-gradient(
+          to right,
+          #59a1c0,
+          #59a1c0 25%,
+          rgba(0, 0, 0, 0) 25%,
+          rgba(0, 0, 0, 0) 100%
+        )
+        0% 0%;
+      background-size: 4px 1px;
+      width: spx(660);
+      height: 1px;
+      margin-left: auto;
+      margin-right: auto;
+      left: 50%;
+      transform: translateX(-50%);
+      @include tablet-up {
+        width: ppx(1920 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(1920);
+      }
+    }
+  }
+</style>

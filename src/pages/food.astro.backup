@@ -1,0 +1,45 @@
+---
+// 必須インポート
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+
+// コンポーネント
+import Hero from '../components/pages/food/Hero.astro';
+import FoodNav from '../components/pages/food/FoodNav.astro';
+import Dinner from '../components/pages/food/Dinner.astro';
+
+// 画像
+import { getImage } from 'astro:assets';
+
+// ページメタ情報（必ず変更）
+const pageTitle = 'お食事 | 光風閣くわるび';
+const pageDescription = 'ページの説明文をここに記述します。';
+
+// ページ固有のクラス名（page-nameを適切な名前に変更）
+const pageClass = 'main-content--food';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageClass={pageClass}
+>
+  <Hero />
+  <FoodNav />
+  <Dinner />
+
+  <!-- パンくずリスト -->
+  <div class="breadcrumb-wrapper">
+    <Breadcrumb items={[{ text: 'TOP', href: '/' }, { text: 'お食事' }]} />
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  @import '../styles/variables';
+  @import '../styles/functions';
+  @import '../styles/mixins';
+
+  :global(.main-content--food) {
+    background: var(--blue_1, #f5fafc);
+  }
+</style>
