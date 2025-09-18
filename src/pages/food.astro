@@ -678,6 +678,9 @@ const pageClass = 'main-content--food';
         display: grid;
         grid-template-columns: max-content max-content;
         gap: spx(50);
+        &.is-clickable {
+          cursor: pointer;
+        }
         @include tablet-up {
           display: block;
         }
@@ -722,6 +725,7 @@ const pageClass = 'main-content--food';
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
+          transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
           @include tablet-up {
           }
           @include desktop-up {
@@ -754,11 +758,28 @@ const pageClass = 'main-content--food';
         width: spx(538);
         margin-top: spx(60);
         position: relative;
+        max-height: spx(2000);
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out,
+          visibility 0.3s ease-in-out, margin-top 0.4s ease-in-out;
+        opacity: 1;
+        visibility: visible;
+
+        &.is-closed {
+          max-height: 0;
+          opacity: 0;
+          visibility: hidden;
+          margin-top: 0;
+        }
+
         @include tablet-up {
           flex-direction: row;
           gap: ppx(126 * 1.2);
           width: auto;
           margin-top: ppx(73 * 1.2);
+          max-height: none !important;
+          opacity: 1 !important;
+          visibility: visible !important;
         }
         @include desktop-up {
           gap: ppx(126);
@@ -913,3 +934,66 @@ const pageClass = 'main-content--food';
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // メニュー開閉機能（スマホのみ）
+    const menuTitle = document.querySelector('.dinner__menu-title');
+    const menuToggle = document.querySelector('.dinner__menu-toggle');
+    const menuList = document.querySelector('.dinner__menu-list');
+    const menuHeader = document.querySelector('.dinner__menu-header');
+    const plusIcon = document.querySelector('.dinner__menu-toggle-icon--plus') as HTMLElement;
+    const minusIcon = document.querySelector('.dinner__menu-toggle-icon--minus') as HTMLElement;
+
+    if (menuTitle && menuToggle && menuList && menuHeader) {
+      // 初期状態を閉じた状態に設定（スマホのみ）
+      const isMobile = window.matchMedia('(max-width: 743px)');
+
+      const initializeMenu = () => {
+        if (isMobile.matches) {
+          menuList.classList.add('is-closed');
+          menuHeader.classList.add('is-clickable');
+          if (plusIcon && minusIcon) {
+            plusIcon.style.opacity = '1';
+            plusIcon.style.visibility = 'visible';
+            minusIcon.style.opacity = '0';
+            minusIcon.style.visibility = 'hidden';
+          }
+        } else {
+          menuList.classList.remove('is-closed');
+          menuHeader.classList.remove('is-clickable');
+        }
+      };
+
+      const toggleMenu = () => {
+        if (!isMobile.matches) return;
+
+        menuList.classList.toggle('is-closed');
+
+        if (plusIcon && minusIcon) {
+          if (menuList.classList.contains('is-closed')) {
+            plusIcon.style.opacity = '1';
+            plusIcon.style.visibility = 'visible';
+            minusIcon.style.opacity = '0';
+            minusIcon.style.visibility = 'hidden';
+          } else {
+            plusIcon.style.opacity = '0';
+            plusIcon.style.visibility = 'hidden';
+            minusIcon.style.opacity = '1';
+            minusIcon.style.visibility = 'visible';
+          }
+        }
+      };
+
+      // 初期化
+      initializeMenu();
+
+      // イベントリスナー
+      menuTitle.addEventListener('click', toggleMenu);
+      menuToggle.addEventListener('click', toggleMenu);
+
+      // リサイズ時の処理
+      isMobile.addEventListener('change', initializeMenu);
+    }
+  });
+</script>
