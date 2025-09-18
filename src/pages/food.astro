@@ -1,22 +1,21 @@
 ---
-// ============================================================
-// 汎用ページテンプレート
-// 使い方：このファイルをコピーして、ファイル名を変更して使用
-// 例：cp src/pages/_template.astro src/pages/about.astro
-// ============================================================
-
 // 必須インポート
 import BaseLayout from '../layouts/BaseLayout.astro';
-import LowerPageHeader from '../components/ui/LowerPageHeader.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 
-// 追加インポート（必要に応じて）
-// import { getImage } from 'astro:assets';
-// import sampleImage from '../assets/images/sample.jpg';
+// コンポーネント
+import Hero from '../components/pages/food/Hero.astro';
 
-// ============================================================
-// TODO: 以下の項目を必ず変更してください
-// ============================================================
+// 画像
+import { getImage } from 'astro:assets';
+// import heroBgImage from '../assets/images/food/hero/bg.png';
+
+// // フォーマット
+// const heroBg = await getImage({
+//   src: heroBgImage,
+//   format: 'webp',
+//   widths: [720, 1024, 2316],
+// });
 
 // ページメタ情報（必ず変更）
 const pageTitle = 'お食事 | 光風閣くわるび';
@@ -31,17 +30,56 @@ const pageClass = 'main-content--food';
   description={pageDescription}
   pageClass={pageClass}
 >
-  <!-- ============================================================ -->
-  <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
-  <!-- ============================================================ -->
-
-  <!-- ページヘッダー -->
-  <div class="page-header-container">
-    <LowerPageHeader titleEn="FOOD" titleJa="お食事" />
-  </div>
-
-  <!-- メインコンテンツ -->
-  <section class=""></section>
+  <Hero />
+  <nav class="food-nav">
+    <ul class="food-nav__list">
+      <li class="food-nav__item">
+        <a href="#" class="food-nav__link">
+          <article class="food-nav__card">
+            <span class="food-nav__subtitle">西湖と山の豊かな滋味を堪能</span>
+            <h2 class="food-nav__title">夕食</h2>
+          </article>
+        </a>
+      </li>
+      <li class="food-nav__item">
+        <a href="#" class="food-nav__link">
+          <article class="food-nav__card">
+            <span class="food-nav__subtitle">大自然の中で食べる</span>
+            <h2 class="food-nav__title">BBQ</h2>
+            <span class="food-nav__note">（夕食・昼食）</span>
+          </article>
+        </a>
+      </li>
+      <li class="food-nav__item">
+        <a href="#" class="food-nav__link">
+          <article class="food-nav__card">
+            <span class="food-nav__subtitle">ダッチオーブン</span>
+            <h2 class="food-nav__title">
+              ほうとう作り<br class="only-sp" />体験
+            </h2>
+          </article>
+        </a>
+      </li>
+      <li class="food-nav__item">
+        <a href="#" class="food-nav__link">
+          <article class="food-nav__card">
+            <span class="food-nav__subtitle">竈門で炊く</span>
+            <h2 class="food-nav__title">
+              ご飯・カレー<br class="only-sp" />作り体験
+            </h2>
+          </article>
+        </a>
+      </li>
+      <li class="food-nav__item">
+        <a href="#" class="food-nav__link">
+          <article class="food-nav__card">
+            <span class="food-nav__subtitle">自然からの贈り物を味わう</span>
+            <h2 class="food-nav__title">朝食</h2>
+          </article>
+        </a>
+      </li>
+    </ul>
+  </nav>
 
   <!-- パンくずリスト -->
   <div class="breadcrumb-wrapper">
@@ -53,12 +91,65 @@ const pageClass = 'main-content--food';
   @import '../styles/variables';
   @import '../styles/functions';
   @import '../styles/mixins';
-
   // ============================================================
-  // TODO: page-nameを適切な名前に変更してスタイルを記述
+  // フードメニューナビゲーション
   // ============================================================
 
-  :global(.main-content--page-name) {
-    display: block;
+  .food-nav {
+    position: static;
+    top: 0;
+    @include tablet-up {
+    }
+    @include desktop-up {
+    }
+
+    &__list {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__item {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__link {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__card {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__subtitle {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__title {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__note {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
   }
 </style>

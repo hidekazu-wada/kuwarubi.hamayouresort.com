@@ -1,0 +1,164 @@
+---
+import LowerPageHeader from '../../../components/ui/LowerPageHeader.astro';
+// 画像
+import { getImage } from 'astro:assets';
+import heroBgImage from '../../../assets/images/food/hero/bg.png';
+
+// フォーマット
+const heroBg = await getImage({
+  src: heroBgImage,
+  format: 'webp',
+  widths: [720, 1024, 2316],
+});
+---
+
+<div class="hero">
+  <!-- ページヘッダー -->
+  <div class="page-header-container">
+    <LowerPageHeader titleEn="FOOD" titleJa="お食事" />
+  </div>
+
+  <!-- メインコンテンツ -->
+  <section class="hero__content">
+    <h2 class="hero__heading">
+      自然の恵みを<br class="only-tablet" />五感で味わう<br />
+      至福の食事体験
+    </h2>
+    <p class="hero__description">
+      一つひとつのお料理は、お客様への手紙です。栄養士監修の健康を想う心と、料理長が考え抜いた美味しさへのこだわり。派手な演出に頼らず、一皿一皿に「幸せな体験になりますように」という願いを込めています。チーム一丸で創り上げる、この場所だけのビュッフェ。自然の恵みと共に、作り手の温もりも感じていただけたなら幸いです。
+    </p>
+  </section>
+
+  <figure class="hero__image">
+    <picture class="hero__picture">
+      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+      <source media="(min-width: 1024px)" srcset={heroBg.srcSet.toString()} />
+      <!-- タブレット（744px以上）→ 中解像度版 -->
+      <source media="(min-width: 744px)" srcset={heroBg.srcSet.toString()} />
+      <!-- スマホ（744px未満）→ 最小解像度版 -->
+      <img
+        src={heroBg.src}
+        alt="食事風景と料理の美しいイメージ"
+        class="hero__img"
+      />
+    </picture>
+  </figure>
+</div>
+
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  // ============================================================
+  // ヒーローセクション
+  // ============================================================
+
+  .hero {
+    position: relative;
+    padding-top: spx(110);
+    padding-inline: spx(60);
+    padding-bottom: spx(312);
+    @include tablet-up {
+      padding-top: ppx(280 * 1.2);
+      padding-left: ppx(233 * 1.2);
+      padding-bottom: ppx(790 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(280);
+      padding-left: ppx(233);
+      padding-bottom: ppx(790);
+    }
+    &__content {
+      margin-top: spx(100);
+      @include tablet-up {
+        margin-top: ppx(114 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(114);
+      }
+    }
+
+    &__heading {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(47);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 70.5px */
+      letter-spacing: spx(2.35);
+      @include tablet-up {
+        font-size: ppx(73 * 1.2);
+        line-height: 160%; /* 116.8px */
+        letter-spacing: ppx(3.65 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(73);
+        letter-spacing: ppx(3.65);
+      }
+      .only-tablet {
+        display: none;
+        @include tablet-up {
+          display: block;
+        }
+        @include desktop-up {
+          display: none;
+        }
+      }
+    }
+
+    &__description {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%; /* 54px */
+      margin-top: spx(40);
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+        letter-spacing: ppx(1.7 * 1.2);
+        width: ppx(695 * 1.2);
+        margin-top: 0;
+        position: absolute;
+        top: 19vw;
+        right: ppx(280 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        letter-spacing: ppx(1.7);
+        width: ppx(695);
+        top: ppx(342);
+        right: ppx(280);
+      }
+    }
+
+    &__image {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__img {
+      display: block;
+      width: 100%;
+      height: auto;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+  }
+</style>
