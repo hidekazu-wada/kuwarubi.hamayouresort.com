@@ -5,6 +5,7 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
 
 // コンポーネント
 import Hero from '../components/pages/food/Hero.astro';
+import FoodNav from '../components/pages/food/FoodNav.astro';
 
 // 画像
 import { getImage } from 'astro:assets';
@@ -31,56 +32,439 @@ const pageClass = 'main-content--food';
   pageClass={pageClass}
 >
   <Hero />
-  <nav class="food-nav">
-    <ul class="food-nav__list">
-      <li class="food-nav__item active">
-        <a href="#" class="food-nav__link">
-          <article class="food-nav__card">
-            <span class="food-nav__subtitle">西湖と山の豊かな滋味を堪能</span>
-            <h2 class="food-nav__title">夕食</h2>
-          </article>
-        </a>
-      </li>
-      <li class="food-nav__item">
-        <a href="#" class="food-nav__link">
-          <article class="food-nav__card">
-            <span class="food-nav__subtitle">大自然の中で食べる</span>
-            <h2 class="food-nav__title">BBQ</h2>
-            <span class="food-nav__note food-nav__subtitle">（夕食・昼食）</span
+  <FoodNav />
+  <div>
+    <!-- コンポーネントA -->
+    <div>
+      <div>
+        <div>DINNER</div>
+        <div>
+          山梨の豊かな自然が育んだ<br />
+          季節感溢れる夕食
+        </div>
+        <div>
+          <span></span>
+          <div class="">夕食</div>
+          <span></span>
+        </div>
+      </div>
+      <div class="">
+        <div class="position-1"><img src="" alt="" /></div>
+        <div class="position-2"><img src="" alt="" /></div>
+        <div class="position-3"><img src="" alt="" /></div>
+        <div class="position-4"><img src="" alt="" /></div>
+      </div>
+      <div class="">
+        <div class="">
+          ディナータイムは、彩り豊かな料理が並ぶ心躍るビュッフェスタイルで。ずらりと並んだ一皿一皿は、料理チームがお客様の笑顔を思い描きながらしたためた「手紙」です。和食、洋食、幅広いメニューの中には、山梨の魅力を伝える一品や、遊び心を散りばめています。お子様からご年配の方まで、三世代のご家族が同じテーブルを囲んで楽しめるよう、多彩な味わいをご用意しました。選ぶ楽しさと、その奥にある私たちの想いを一緒に。一日の終わりにふさわしい食事体験をご提供します。
+        </div>
+      </div>
+      <!-- コンポーネント用ラッパー -->
+      <div class="">
+        <!-- コンポーネントA-1 -->
+        <div>
+          <img src="" alt="" />
+        </div>
+        <div>
+          <div>
+            <div class="">ある日のビュッフェメニュー</div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="34"
+              height="34"
+              viewBox="0 0 34 34"
+              fill="none"
             >
-          </article>
-        </a>
-      </li>
-      <li class="food-nav__item">
-        <a href="#" class="food-nav__link">
-          <article class="food-nav__card">
-            <span class="food-nav__subtitle">ダッチオーブン</span>
-            <h2 class="food-nav__title">
-              ほうとう作り<br class="only-sp" />体験
-            </h2>
-          </article>
-        </a>
-      </li>
-      <li class="food-nav__item">
-        <a href="#" class="food-nav__link">
-          <article class="food-nav__card">
-            <span class="food-nav__subtitle">竈門で炊く</span>
-            <h2 class="food-nav__title">
-              ご飯・カレー<br class="only-sp" />作り体験
-            </h2>
-          </article>
-        </a>
-      </li>
-      <li class="food-nav__item">
-        <a href="#" class="food-nav__link">
-          <article class="food-nav__card">
-            <span class="food-nav__subtitle">自然からの贈り物を味わう</span>
-            <h2 class="food-nav__title">朝食</h2>
-          </article>
-        </a>
-      </li>
-    </ul>
-  </nav>
+              <path
+                d="M2 17H32"
+                stroke="#054965"
+                stroke-width="2.66667"
+                stroke-linecap="round"></path>
+              <path
+                d="M17 32L17 2"
+                stroke="#054965"
+                stroke-width="2.66667"
+                stroke-linecap="round"></path>
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="34"
+              height="4"
+              viewBox="0 0 34 4"
+              fill="none"
+            >
+              <path
+                d="M2 2H32"
+                stroke="#054965"
+                stroke-width="2.66667"
+                stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="">
+              ・カルシウムたっぷりサラダ ・ほうれん草の胡麻和え ・本格麻婆豆腐
+              ・サーモンのグリル バター醤油
+              ・イカとパプリカのオイスターソース炒め ・豚肉と玉子の中華炒め
+              ・赤だしの味噌汁- 長ネギ、なめこ ・料理長のすき焼き ・デザート 　-
+              プチシュー、3種のベリー大福、グレープフルーツ - 　-
+              全粒粉ミニ食パン、クロワッサン、はちみつ豆乳パン -
+              ・ホットドリンク(コーヒー、紅茶)
+            </div>
+            <span></span>
+            <div class="">
+              ・ポテトサラダ ・若鶏のオーブン焼き ・牛肉とトマトのラグーペンネ
+              ・海老マヨ ・ハンバーグ - ドミグラスチーズソース ・ご飯
+              ・ご飯のお供（納豆、味付け海苔） ・串揚げステーション 　-
+              鶏ささみ大葉、うずら玉子、レンコン、カボチャ、特製ソース -
+            </div>
+          </div>
+        </div>
+
+        <!-- コンポーネントA-2-1 -->
+        <div>
+          <div>
+            <div>
+              <div class="">Special Menu</div>
+              <div class="">5500円（税込）/人</div>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="34"
+              height="34"
+              viewBox="0 0 34 34"
+              fill="none"
+            >
+              <path
+                d="M2 17H32"
+                stroke="white"
+                stroke-width="2.66667"
+                stroke-linecap="round"></path>
+              <path
+                d="M17 32L17 2"
+                stroke="white"
+                stroke-width="2.66667"
+                stroke-linecap="round"></path>
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="34"
+              height="4"
+              viewBox="0 0 34 4"
+              fill="none"
+            >
+              <path
+                d="M2 2H32"
+                stroke="white"
+                stroke-width="2.66667"
+                stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <div>
+            <div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">お肉</div>
+                </div>
+                <div class="">
+                  甲州信玄どりもも肉
+                  ハーブレモン・山梨県産鹿のフランクソーセージ・
+                  ベーコン・スパイシー豚ロース
+                </div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">海の恵み</div>
+                </div>
+                <div class="">レモンペッパーシュリンプ・香味焼きイカ</div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">土の恵み</div>
+                </div>
+                <div class="">
+                  旬の野菜5～8種（朝露キャベツ・完熟フルーツトマトなど）
+                </div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">パン</div>
+                </div>
+                <div class="">ホットドッグ用パン・バケット</div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">ハーブBOX</div>
+                </div>
+                <div class="">ローズマリー・タイム・バジルなど</div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">オリジナルソース</div>
+                </div>
+                <div class="">レモン＆オニオンソース・トマトソース</div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">富士五湖ポトフ</div>
+                </div>
+                <div class="">
+                  甲州信玄どりもも肉
+                  ハーブレモン・山梨県産鹿のフランクソーセージ・
+                </div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">デザート</div>
+                </div>
+                <div class="">皮ごとバナナ</div>
+              </div>
+            </div>
+            <div class="">
+              ※季節や仕入状況などによりメニューが変わります。
+              　旬の食材をお楽しみください。
+            </div>
+          </div>
+        </div>
+
+        <!-- コンポーネントA-2-2 -->
+        <div>
+          <div>
+            <div>
+              <div class="">Standard Menu</div>
+              <div class="">4000円（税込）/人</div>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="34"
+              height="34"
+              viewBox="0 0 34 34"
+              fill="none"
+            >
+              <path
+                d="M2 17H32"
+                stroke="white"
+                stroke-width="2.66667"
+                stroke-linecap="round"></path>
+              <path
+                d="M17 32L17 2"
+                stroke="white"
+                stroke-width="2.66667"
+                stroke-linecap="round"></path>
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="34"
+              height="4"
+              viewBox="0 0 34 4"
+              fill="none"
+            >
+              <path
+                d="M2 2H32"
+                stroke="white"
+                stroke-width="2.66667"
+                stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <div>
+            <div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">お肉</div>
+                </div>
+                <div class="">
+                  甲州信玄どりもも肉
+                  ハーブレモン・山梨県産鹿のフランクソーセージ・
+                  ベーコン・スパイシー豚ロース
+                </div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">海の恵み</div>
+                </div>
+                <div class="">レモンペッパーシュリンプ・香味焼きイカ</div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">土の恵み</div>
+                </div>
+                <div class="">
+                  旬の野菜5～8種（朝露キャベツ・完熟フルーツトマトなど）
+                </div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">パン</div>
+                </div>
+                <div class="">ホットドッグ用パン・バケット</div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">ハーブBOX</div>
+                </div>
+                <div class="">ローズマリー・タイム・バジルなど</div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">オリジナルソース</div>
+                </div>
+                <div class="">レモン＆オニオンソース・トマトソース</div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">富士五湖ポトフ</div>
+                </div>
+                <div class="">
+                  甲州信玄どりもも肉
+                  ハーブレモン・山梨県産鹿のフランクソーセージ・
+                </div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">デザート</div>
+                </div>
+                <div class="">皮ごとバナナ</div>
+              </div>
+            </div>
+            <div class="">
+              ※季節や仕入状況などによりメニューが変わります。
+              　旬の食材をお楽しみください。
+            </div>
+          </div>
+        </div>
+
+        <!-- コンポーネントA-2-3 -->
+        <div>
+          <div>
+            <div>
+              <div class="">Basic Menu</div>
+              <div class="">2750円（税込）/人</div>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="34"
+              height="34"
+              viewBox="0 0 34 34"
+              fill="none"
+            >
+              <path
+                d="M2 17H32"
+                stroke="white"
+                stroke-width="2.66667"
+                stroke-linecap="round"></path>
+              <path
+                d="M17 32L17 2"
+                stroke="white"
+                stroke-width="2.66667"
+                stroke-linecap="round"></path>
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="34"
+              height="4"
+              viewBox="0 0 34 4"
+              fill="none"
+            >
+              <path
+                d="M2 2H32"
+                stroke="white"
+                stroke-width="2.66667"
+                stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <div>
+            <div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">お肉</div>
+                </div>
+                <div class="">
+                  甲州信玄どりもも肉
+                  ハーブレモン・山梨県産鹿のフランクソーセージ・
+                  ベーコン・スパイシー豚ロース
+                </div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">海の恵み</div>
+                </div>
+                <div class="">レモンペッパーシュリンプ・香味焼きイカ</div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">土の恵み</div>
+                </div>
+                <div class="">
+                  旬の野菜5～8種（朝露キャベツ・完熟フルーツトマトなど）
+                </div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">パン</div>
+                </div>
+                <div class="">ホットドッグ用パン・バケット</div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">ハーブBOX</div>
+                </div>
+                <div class="">ローズマリー・タイム・バジルなど</div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">オリジナルソース</div>
+                </div>
+                <div class="">レモン＆オニオンソース・トマトソース</div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">富士五湖ポトフ</div>
+                </div>
+                <div class="">
+                  甲州信玄どりもも肉
+                  ハーブレモン・山梨県産鹿のフランクソーセージ・
+                </div>
+              </div>
+              <div>
+                <div class="">
+                  <span></span>
+                  <div class="">デザート</div>
+                </div>
+                <div class="">皮ごとバナナ</div>
+              </div>
+            </div>
+            <div class="">
+              ※季節や仕入状況などによりメニューが変わります。
+              　旬の食材をお楽しみください。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span></span>
+  </div>
 
   <!-- パンくずリスト -->
   <div class="breadcrumb-wrapper">
@@ -98,137 +482,5 @@ const pageClass = 'main-content--food';
 
   :global(.main-content--food) {
     background: var(--blue_1, #f5fafc);
-  }
-  .food-nav {
-    position: sticky;
-    top: 0;
-    padding: spx(20) 0;
-    background-color: #fff;
-    @include tablet-up {
-      padding: ppx(42 * 1.2) 0 ppx(46 * 1.2);
-    }
-    @include desktop-up {
-      padding: ppx(42) 0 ppx(46);
-    }
-
-    &__list {
-      display: grid;
-      grid-template-columns: max-content max-content max-content;
-      gap: spx(7);
-      justify-content: center;
-      @include tablet-up {
-        grid-template-columns: repeat(3, max-content);
-        gap: ppx(15 * 1.2);
-      }
-      @include desktop-up {
-        grid-template-columns: repeat(5, max-content);
-      }
-    }
-
-    &__item {
-      @include tablet-up {
-      }
-      @include desktop-up {
-      }
-      &.active {
-        .food-nav__link {
-          background: var(--blue_6, #054965);
-        }
-        .food-nav__subtitle,
-        .food-nav__title {
-          color: #fff;
-        }
-      }
-    }
-
-    &__link {
-      display: flex;
-      width: spx(210);
-      height: spx(84);
-      border-radius: spx(15);
-      align-items: center;
-      justify-content: center;
-      background: #e5e5e5;
-      transition: background 0.3s ease;
-
-      @include tablet-up {
-        width: ppx(401 * 1.2);
-        height: ppx(154 * 1.2);
-        border-radius: ppx(17.393 * 1.2);
-      }
-      @include desktop-up {
-        width: ppx(401);
-        height: ppx(154);
-        border-radius: ppx(17.393);
-      }
-
-      @include hover {
-        &:hover {
-          background: var(--green_2, #adc400);
-
-          .food-nav__subtitle,
-          .food-nav__title {
-            color: #fff;
-          }
-        }
-      }
-    }
-
-    &__card {
-      @include tablet-up {
-      }
-      @include desktop-up {
-      }
-    }
-
-    &__subtitle {
-      display: none;
-      transition: color 0.3s ease;
-      @include tablet-up {
-        display: block;
-        color: var(--blue_6, #054965);
-        text-align: center;
-        font-family: 'Zen Kaku Gothic New';
-        font-size: ppx(26 * 1.2);
-        font-style: normal;
-        font-weight: 500;
-        line-height: 150%; /* 39px */
-      }
-      @include desktop-up {
-        font-size: ppx(26);
-      }
-    }
-
-    &__title {
-      color: var(--blue_6, #054965);
-      text-align: center;
-      font-family: 'Zen Kaku Gothic New';
-      font-size: spx(27);
-      font-style: normal;
-      font-weight: 500;
-      line-height: 110%; /* 29.7px */
-      transition: color 0.3s ease;
-      @include tablet-up {
-        font-size: ppx(32 * 1.2);
-        font-weight: 700;
-        line-height: 150%;
-      }
-      @include desktop-up {
-        font-size: ppx(32);
-      }
-      .only-sp {
-        display: block;
-        @include tablet-up {
-          display: none;
-        }
-      }
-    }
-
-    &__note {
-      @include tablet-up {
-      }
-      @include desktop-up {
-      }
-    }
   }
 </style>
