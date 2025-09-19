@@ -1,0 +1,434 @@
+---
+export interface MenuItem {
+  title: string;
+  description: string;
+}
+
+export interface Props {
+  menuTitle: string;
+  menuPrice: string;
+  menuItems: MenuItem[];
+  menuNotes?: string[]; // 複数のnoteを設置可能
+  className?: string; // 追加のクラス名
+}
+
+const {
+  menuTitle,
+  menuPrice,
+  menuItems,
+  menuNotes = [],
+  className = '',
+} = Astro.props;
+---
+
+<article class={`toggle-menu ${className}`}>
+  <header class="toggle-menu__header">
+    <div class="toggle-menu__title-wrapper">
+      <h3 class="toggle-menu__title">{menuTitle}</h3>
+      <span class="toggle-menu__price">{menuPrice}</span>
+    </div>
+    <button
+      class="toggle-menu__toggle"
+      type="button"
+      aria-label="メニューを開閉"
+    >
+      <svg
+        class="toggle-menu__toggle-icon toggle-menu__toggle-icon--open"
+        xmlns="http://www.w3.org/2000/svg"
+        width="34"
+        height="34"
+        viewBox="0 0 34 34"
+        fill="none"
+      >
+        <path
+          d="M2 17H32"
+          stroke="white"
+          stroke-width="2.66667"
+          stroke-linecap="round"></path>
+        <path
+          d="M17 32L17 2"
+          stroke="white"
+          stroke-width="2.66667"
+          stroke-linecap="round"></path>
+      </svg>
+      <svg
+        class="toggle-menu__toggle-icon toggle-menu__toggle-icon--close"
+        xmlns="http://www.w3.org/2000/svg"
+        width="34"
+        height="4"
+        viewBox="0 0 34 4"
+        fill="none"
+      >
+        <path
+          d="M2 2H32"
+          stroke="white"
+          stroke-width="2.66667"
+          stroke-linecap="round"></path>
+      </svg>
+    </button>
+  </header>
+  <div class="toggle-menu__body">
+    <dl class="toggle-menu__content">
+      {
+        menuItems.map((item) => (
+          <div class="toggle-menu__item">
+            <dt class="toggle-menu__item-label" />
+            <dd class="toggle-menu__item-detail">
+              <h4 class="toggle-menu__item-title">{item.title}</h4>
+              <p class="toggle-menu__item-description">{item.description}</p>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+    {
+      menuNotes.length > 0 && (
+        <div class="toggle-menu__footer">
+          {menuNotes.map((note) => (
+            <div class="toggle-menu__note" set:html={note} />
+          ))}
+        </div>
+      )
+    }
+  </div>
+</article>
+
+<script>
+  // トグルメニューの機能
+  const toggleMenus = document.querySelectorAll('.toggle-menu');
+
+  toggleMenus.forEach((menu) => {
+    const header = menu.querySelector('.toggle-menu__header');
+    const toggleBtn = menu.querySelector('.toggle-menu__toggle');
+
+    function toggleMenu() {
+      menu.classList.toggle('is-open');
+    }
+
+    // ヘッダー全体をクリッカブルに
+    if (header) {
+      header.addEventListener('click', toggleMenu);
+    }
+
+    // トグルボタン自体もクリック可能に
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
+      });
+    }
+  });
+</script>
+
+<style lang="scss">
+  @import '../../styles/variables';
+  @import '../../styles/functions';
+  @import '../../styles/mixins';
+
+  .toggle-menu {
+    width: spx(640);
+    padding: spx(40) spx(30);
+    border-radius: spx(20);
+    background: var(--blue_4, #59a1c0);
+    @include tablet-up {
+      width: ppx(1529 * 1.2);
+      border-radius: ppx(30 * 1.2);
+      padding: ppx(37 * 1.2) ppx(52 * 1.2) ppx(50 * 1.2) ppx(104 * 1.2);
+    }
+    @include desktop-up {
+      width: ppx(1529);
+      border-radius: ppx(30);
+      padding: ppx(37) ppx(52) ppx(50) ppx(104);
+    }
+
+    // 開いた状態のスタイル
+    &.is-open {
+      .toggle-menu__body {
+        max-height: 3000px;
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .toggle-menu__toggle-icon--open {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .toggle-menu__toggle-icon--close {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__body {
+      max-height: 0;
+      opacity: 0;
+      visibility: hidden;
+      overflow: hidden;
+      transition:
+        max-height 0.4s ease-in-out,
+        opacity 0.3s ease-in-out,
+        visibility 0.3s ease-in-out;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__title-wrapper {
+      display: flex;
+      align-items: baseline;
+      gap: spx(20);
+      @include tablet-up {
+        gap: 1em;
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__title {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(36);
+      font-style: normal;
+      font-weight: 700;
+      line-height: 100%;
+      @include tablet-up {
+        font-size: ppx(50 * 1.2);
+        line-height: 150%;
+        letter-spacing: ppx(5 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(50);
+        letter-spacing: ppx(5);
+      }
+    }
+
+    &__price {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(27);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%;
+      @include tablet-up {
+        font-size: ppx(35 * 1.2);
+        font-weight: 500;
+        line-height: 150%;
+        letter-spacing: ppx(3.5 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(35);
+        letter-spacing: ppx(3.5);
+      }
+    }
+
+    &__toggle {
+      width: spx(30);
+      height: spx(30);
+      position: relative;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+
+      @include tablet-up {
+        width: ppx(45 * 1.2);
+        height: ppx(45 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(45);
+        height: ppx(45);
+      }
+    }
+
+    &__toggle-icon {
+      display: block;
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition:
+        opacity 0.3s ease-in-out,
+        visibility 0.3s ease-in-out;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &--open {
+        opacity: 1;
+        visibility: visible;
+        transition:
+          opacity 0.3s ease-in-out,
+          visibility 0.3s ease-in-out;
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      &--close {
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.3s ease-in-out,
+          visibility 0.3s ease-in-out;
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: spx(35);
+      margin-top: spx(60);
+      @include tablet-up {
+        gap: ppx(33 * 1.2);
+        width: ppx(1313 * 1.2);
+        margin-top: ppx(55 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(33);
+        width: ppx(1313);
+        margin-top: ppx(55);
+      }
+    }
+
+    &__item {
+      display: grid;
+      grid-template-columns: max-content auto;
+      gap: spx(20);
+      @include tablet-up {
+        gap: ppx(30 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(30);
+      }
+    }
+
+    &__item-label {
+      display: block;
+      width: spx(80);
+      height: 1px;
+      background: white;
+      margin-top: spx(20);
+      @include tablet-up {
+        width: ppx(100 * 1.2);
+        margin-top: ppx(22 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(100);
+        margin-top: ppx(22);
+      }
+    }
+
+    &__item-detail {
+      display: flex;
+      flex-direction: column;
+      gap: spx(15);
+      @include tablet-up {
+        display: grid;
+        grid-template-columns: ppx(240 * 1.2) auto;
+        gap: ppx(39 * 1.2);
+      }
+      @include desktop-up {
+        grid-template-columns: ppx(240) auto;
+        gap: ppx(39);
+      }
+    }
+
+    &__item-title {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 700;
+      line-height: 130%;
+      letter-spacing: spx(-0.3);
+      @include tablet-up {
+        font-size: ppx(30 * 1.2);
+        line-height: 150%;
+      }
+      @include desktop-up {
+        font-size: ppx(30);
+      }
+    }
+
+    &__item-description {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(27);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+      @include tablet-up {
+        font-size: ppx(28 * 1.2);
+        line-height: 150%;
+      }
+      @include desktop-up {
+        font-size: ppx(28);
+      }
+    }
+
+    &__footer {
+      margin-top: spx(55);
+      width: spx(580);
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: spx(15);
+      @include tablet-up {
+        margin-top: ppx(48 * 1.2);
+        width: ppx(1183 * 1.2);
+        margin-left: ppx(130 * 1.2);
+        gap: ppx(15 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(48);
+        width: ppx(1183);
+        margin-left: ppx(130);
+        gap: ppx(15);
+      }
+    }
+
+    &__note {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(24);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+      display: flex;
+
+      @include tablet-up {
+        font-size: ppx(24 * 1.2);
+        line-height: 170%;
+        letter-spacing: ppx(2.4 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(24);
+        letter-spacing: ppx(2.4);
+      }
+      &:before {
+        content: '※';
+      }
+    }
+  }
+</style>
