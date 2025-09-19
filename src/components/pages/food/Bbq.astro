@@ -10,49 +10,6 @@ import bbqImage02 from '../../../assets/images/food/bbq/img-02.png';
 import bbqImage03 from '../../../assets/images/food/bbq/img-03.png';
 import bbqImage04 from '../../../assets/images/food/bbq/img-04.png';
 
-// BBQメニューのデータ
-const bbqMenuData = {
-  menuTitle: 'Special Menu',
-  menuPrice: '5500円（税込）/人',
-  menuItems: [
-    {
-      title: 'お肉',
-      description: '甲州信玄どりもも肉 ハーブレモン・山梨県産鹿のフランクソーセージ・ベーコン・スパイシー豚ロース'
-    },
-    {
-      title: '海の恵み',
-      description: 'レモンペッパーシュリンプ・香味焼きイカ'
-    },
-    {
-      title: '土の恵み',
-      description: '旬の野菜5～8種（朝露キャベツ・完熟フルーツトマトなど）'
-    },
-    {
-      title: 'パン',
-      description: 'ホットドッグ用パン・バケット'
-    },
-    {
-      title: 'ハーブBOX',
-      description: 'ローズマリー・タイム・バジルなど'
-    },
-    {
-      title: 'オリジナルソース',
-      description: 'レモン＆オニオンソース・トマトソース'
-    },
-    {
-      title: '富士五湖ポトフ',
-      description: ''
-    },
-    {
-      title: 'デザート',
-      description: '皮ごとバナナ'
-    }
-  ],
-  menuNotes: [
-    '季節や仕入状況などによりメニューが変わります。<br />旬の食材をお楽しみください。'
-  ]
-};
-
 // BBQセクションのプロパティ
 const bbqProps = {
   sectionName: 'bbq',
@@ -68,11 +25,57 @@ const bbqProps = {
     { src: bbqImage04, alt: 'bbqの料理', widths: [311, 465] },
   ],
 };
+
+// BBQメニューのデータ
+const bbqMenuData = {
+  menuTitle: 'Special Menu',
+  menuPrice: '5500円（税込）/人',
+  menuItems: [
+    {
+      title: 'お肉',
+      description:
+        '甲州信玄どりもも肉 ハーブレモン・山梨県産鹿のフランクソーセージ・ベーコン・スパイシー豚ロース',
+    },
+    {
+      title: '海の恵み',
+      description: 'レモンペッパーシュリンプ・香味焼きイカ',
+    },
+    {
+      title: '土の恵み',
+      description: '旬の野菜5～8種（朝露キャベツ・完熟フルーツトマトなど）',
+    },
+    {
+      title: 'パン',
+      description: 'ホットドッグ用パン・バケット',
+    },
+    {
+      title: 'ハーブBOX',
+      description: 'ローズマリー・タイム・バジルなど',
+    },
+    {
+      title: 'オリジナルソース',
+      description: 'レモン＆オニオンソース・トマトソース',
+    },
+    {
+      title: '富士五湖ポトフ',
+      description: '',
+    },
+    {
+      title: 'デザート',
+      description: '皮ごとバナナ',
+    },
+  ],
+  menuNotes: [
+    '季節や仕入状況などによりメニューが変わります。<br />旬の食材をお楽しみください。',
+  ],
+};
 ---
 
 <MenuSection {...bbqProps}>
   <!-- 固有の要素 -->
-  <ToggleMenu {...bbqMenuData} />
+  <div class="bbq-menu">
+    <ToggleMenu {...bbqMenuData} />
+  </div>
 </MenuSection>
 
 <style lang="scss">
@@ -82,11 +85,25 @@ const bbqProps = {
 
   :global(.bbq) {
     padding-top: spx(100);
+    padding-bottom: spx(130);
     @include tablet-up {
       padding-top: ppx(250 * 1.2);
+      padding-bottom: ppx(250 * 1.2);
     }
     @include desktop-up {
       padding-top: ppx(250);
+      padding-bottom: ppx(250);
+    }
+  }
+  .bbq-menu {
+    margin-top: spx(80);
+    width: max-content;
+    margin-inline: auto;
+    @include tablet-up {
+      margin-top: ppx(85 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(85);
     }
   }
 </style>

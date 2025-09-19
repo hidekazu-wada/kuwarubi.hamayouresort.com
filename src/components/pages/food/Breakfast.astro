@@ -1,0 +1,51 @@
+---
+// コンポーネント
+import MenuSection from './MenuSection.astro';
+import ToggleMenu from '../../ui/ToggleMenu.astro';
+
+// 画像
+import { getImage } from 'astro:assets';
+import breakfastImage01 from '../../../assets/images/food/breakfast/img-01.jpg';
+import breakfastImage02 from '../../../assets/images/food/breakfast/img-02.jpg';
+import breakfastImage03 from '../../../assets/images/food/breakfast/img-03.jpg';
+import breakfastImage04 from '../../../assets/images/food/breakfast/img-04.jpg';
+
+// breakfastセクションのプロパティ
+const breakfastProps = {
+  sectionName: 'breakfast',
+  title: ['竈門炊きの究極のご飯で', '朝から感動を'],
+  labelText: '朝食',
+  subtitle: 'BREAKFAST',
+  description:
+    '朝食の主役は、BBQハウスの竈門で炊かれた、びっくりするほど美味しいご飯です。山梨の清らかな空気と水、選び抜かれた米が融合し、竈門の炎がもたらす熱で完璧に炊き上げられます。このシンプルだけど驚くほどの美味しさは、「こんなに美味しいご飯があったのか！」と思わせるほど。おかずは控えめに、ご飯の美味しさを存分に楽しんでいただくために、最もシンプルで純粋な形で提供します。当ホテル自慢のご飯で、一日の素晴らしいスタートを切りましょう。',
+  images: [
+    { src: breakfastImage01, alt: 'breakfastの料理', widths: [330, 518] },
+    { src: breakfastImage02, alt: 'breakfastの料理', widths: [312, 465] },
+    { src: breakfastImage03, alt: 'breakfastの料理', widths: [373, 549] },
+    { src: breakfastImage04, alt: 'breakfastの料理', widths: [311, 465] },
+  ],
+};
+---
+
+<MenuSection {...breakfastProps}>
+  <!-- 固有の要素 -->
+</MenuSection>
+
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  :global(.breakfast) {
+    padding-top: spx(100);
+    padding-bottom: spx(120);
+    @include tablet-up {
+      padding-top: ppx(250 * 1.2);
+      padding-bottom: ppx(250 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(250);
+      padding-bottom: ppx(250);
+    }
+  }
+</style>

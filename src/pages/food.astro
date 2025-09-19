@@ -8,9 +8,26 @@ import Hero from '../components/pages/food/Hero.astro';
 import FoodNav from '../components/pages/food/FoodNav.astro';
 import Dinner from '../components/pages/food/Dinner.astro';
 import Bbq from '../components/pages/food/Bbq.astro';
+import Houtou from '../components/pages/food/Houtou.astro';
+import Curry from '../components/pages/food/Curry.astro';
+import Breakfast from '../components/pages/food/Breakfast.astro';
 
 // 画像
 import { getImage } from 'astro:assets';
+import restaurantImage01 from '../assets/images/food/restaurant/img-01.jpg';
+import restaurantImage02 from '../assets/images/food/restaurant/img-02.png';
+
+// フォーマット
+const restaurant01 = await getImage({
+  src: restaurantImage01,
+  format: 'webp',
+  widths: [431, 768, 1297],
+});
+const restaurant02 = await getImage({
+  src: restaurantImage02,
+  format: 'webp',
+  widths: [283, 568, 852],
+});
 
 // ページメタ情報（必ず変更）
 const pageTitle = 'お食事 | 光風閣くわるび';
@@ -29,10 +46,66 @@ const pageClass = 'main-content--food';
   <FoodNav />
   <Dinner />
   <Bbq />
+  <Houtou />
+  <Curry />
+  <Breakfast />
+  <div class="bg-white">
+    <section class="restaurant">
+      <h2 class="restaurant__title">お食事処</h2>
+      <div class="restaurant__images">
+        <figure class="restaurant__image-wrapper">
+          <picture class="restaurant__picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={restaurant01.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={restaurant01.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={restaurant01.src}
+              alt="レストラン内観"
+              class="restaurant__image left"
+            />
+          </picture>
+        </figure>
+        <figure
+          class="restaurant__image-wrapper restaurant__image-wrapper--outdoor"
+        >
+          <picture class="restaurant__picture">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={restaurant02.srcSet.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={restaurant02.srcSet.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={restaurant02.src}
+              alt="テラス席"
+              class="restaurant__image right"
+            />
+          </picture>
+        </figure>
+      </div>
+      <p class="restaurant__description">
+        レストラン「くわのねLive
+        Dining・くわのねテラス」は、自然に囲まれた暖かく心地よい雰囲気の中で、ライブキッチンやBBQビュッフェを楽しむことができる施設です。このレストランでは、地元山梨の美味しい食材を活かした料理を提供し、訪れるすべての人に素敵な食事体験と思い出を作ってもらうことを目指しています。また、レストランの名前には地域の歴史や文化が込められており、地元の桑の木をシンボルとして使用しています。
+      </p>
+    </section>
 
-  <!-- パンくずリスト -->
-  <div class="breadcrumb-wrapper">
-    <Breadcrumb items={[{ text: 'TOP', href: '/' }, { text: 'お食事' }]} />
+    <!-- パンくずリスト -->
+    <div class="breadcrumb-wrapper">
+      <Breadcrumb items={[{ text: 'TOP', href: '/' }, { text: 'お食事' }]} />
+    </div>
   </div>
 </BaseLayout>
 
@@ -43,5 +116,180 @@ const pageClass = 'main-content--food';
 
   :global(.main-content--food) {
     background: var(--blue_1, #f5fafc);
+  }
+
+  .restaurant {
+    padding-top: spx(90);
+    background: var(--white, #fff);
+    @include tablet-up {
+      padding-top: ppx(176 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(176);
+    }
+
+    &__title {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(35);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 52.5px */
+      position: relative;
+      padding-bottom: spx(12);
+      width: max-content;
+      margin-inline: auto;
+      @include tablet-up {
+        font-size: ppx(45 * 1.2);
+        font-weight: 500;
+        letter-spacing: ppx(9 * 1.2);
+        padding-bottom: ppx(12 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(45);
+        letter-spacing: ppx(9);
+        padding-bottom: ppx(12);
+      }
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: spx(5);
+        background: linear-gradient(
+          to right,
+          var(--green_2, #adc400) 0%,
+          var(--green_2, #adc400) 48.6%,
+          transparent 48.6%,
+          transparent 51.4%,
+          var(--blue_5, #026995) 51.4%,
+          var(--blue_5, #026995) 100%
+        );
+        position: absolute;
+        bottom: 0;
+        @include tablet-up {
+          height: ppx(5 * 1.2);
+        }
+        @include desktop-up {
+          height: ppx(5);
+        }
+      }
+    }
+
+    &__images {
+      display: flex;
+      justify-content: space-between;
+      margin-top: spx(60);
+      @include tablet-up {
+        justify-content: flex-end;
+        gap: ppx(15 * 1.2);
+        margin-top: ppx(136 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(15);
+        margin-top: ppx(136);
+      }
+    }
+
+    &__image-wrapper {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &--outdoor {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__image {
+      display: block;
+      object-fit: cover;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      &.left {
+        width: spx(431);
+        height: spx(268);
+        @include tablet-up {
+          width: ppx(1297 * 1);
+          height: ppx(807 * 1.2);
+          flex-shrink: 0;
+          border-radius: ppx(30 * 1.2) 0 0 ppx(30 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx(1297);
+          height: ppx(807);
+          flex-shrink: 0;
+          border-radius: ppx(30) 0 0 ppx(30);
+        }
+      }
+      &.right {
+        width: spx(283);
+        height: spx(268);
+        @include tablet-up {
+          width: ppx(851 * 1);
+          height: ppx(807 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx(851);
+          height: ppx(807);
+        }
+      }
+    }
+
+    &__description {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%; /* 54px */
+      width: spx(600);
+      margin-top: spx(80);
+      margin-inline: auto;
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+        letter-spacing: ppx(1.7 * 1.2);
+        width: ppx(1363 * 1.2);
+        margin-top: ppx(136 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        letter-spacing: ppx(1.7);
+        width: ppx(1363);
+        margin-top: ppx(136);
+      }
+    }
+  }
+  .bg-white {
+    background: var(--white, #fff);
+    padding-bottom: spx(120);
+    @include tablet-up {
+      padding-bottom: ppx(70 * 1.2);
+    }
+    @include desktop-up {
+      padding-bottom: ppx(70);
+    }
+  }
+  .breadcrumb-wrapper {
+    margin-top: spx(120);
+    @include tablet-up {
+      margin-top: ppx(250 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(250);
+    }
   }
 </style>

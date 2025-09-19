@@ -1,0 +1,88 @@
+---
+// コンポーネント
+import MenuSection from './MenuSection.astro';
+import ToggleMenu from '../../ui/ToggleMenu.astro';
+
+// 画像
+import { getImage } from 'astro:assets';
+import curryImage01 from '../../../assets/images/food/curry/img-01.jpg';
+import curryImage02 from '../../../assets/images/food/curry/img-02.jpg';
+import curryImage03 from '../../../assets/images/food/curry/img-03.jpg';
+import curryImage04 from '../../../assets/images/food/curry/img-04.jpg';
+
+// curryセクションのプロパティ
+const curryProps = {
+  sectionName: 'curry',
+  title: ['みんなで協力して作る', '野外料理の醍醐味'],
+  labelText: '竈門で炊くご飯・カレー作り体験',
+  subtitle: 'CURRY',
+  description:
+    'アウトドア体験の定番、飯ごうを使ったカレー作りをお楽しみいただけます。竈門でご飯を炊き、みんなで協力して作るカレーは、まさに野外料理の醍醐味。新鮮な野菜を切り、火加減を調整し、知恵を出し合うプロセスは、チームの絆を深めます。青空の下、みんなで頬張る自分たちのカレーの味と達成感は、きっと忘れられない思い出になるはずです。',
+  images: [
+    { src: curryImage01, alt: 'curryの料理', widths: [330, 518] },
+    { src: curryImage02, alt: 'curryの料理', widths: [312, 465] },
+    { src: curryImage03, alt: 'curryの料理', widths: [373, 549] },
+    { src: curryImage04, alt: 'curryの料理', widths: [311, 465] },
+  ],
+};
+
+// curryメニューのデータ
+const curryMenuData = {
+  menuTitle: 'カレー作り体験',
+  menuPrice: '',
+  menuItems: [
+    {
+      title: '昼食時',
+      description: '880円（税込）/人',
+    },
+    {
+      title: '夕食時（学生）',
+      description: '1870円（税込）/人',
+    },
+    {
+      title: '夕食時（一般）',
+      description: '2750円（税込）/人',
+    },
+  ],
+  menuNotes: [
+    'こちらは団体向けとなっています。<br>個人のお客様は事前にご相談ください。',
+  ],
+};
+---
+
+<MenuSection {...curryProps}>
+  <!-- 固有の要素 -->
+  <div class="curry-menu">
+    <ToggleMenu {...curryMenuData} />
+  </div>
+</MenuSection>
+
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  :global(.curry) {
+    padding-top: spx(100);
+    padding-bottom: spx(130);
+    @include tablet-up {
+      padding-top: ppx(250 * 1.2);
+      padding-bottom: ppx(250 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(250);
+      padding-bottom: ppx(250);
+    }
+  }
+  .curry-menu {
+    margin-top: spx(80);
+    width: max-content;
+    margin-inline: auto;
+    @include tablet-up {
+      margin-top: ppx(85 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(85);
+    }
+  }
+</style>

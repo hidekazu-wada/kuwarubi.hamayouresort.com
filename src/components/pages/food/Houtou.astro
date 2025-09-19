@@ -1,0 +1,88 @@
+---
+// コンポーネント
+import MenuSection from './MenuSection.astro';
+import ToggleMenu from '../../ui/ToggleMenu.astro';
+
+// 画像
+import { getImage } from 'astro:assets';
+import houtouImage01 from '../../../assets/images/food/houtou/img-01.jpg';
+import houtouImage02 from '../../../assets/images/food/houtou/img-02.jpg';
+import houtouImage03 from '../../../assets/images/food/houtou/img-03.jpg';
+import houtouImage04 from '../../../assets/images/food/houtou/img-04.jpg';
+
+// houtouセクションのプロパティ
+const houtouProps = {
+  sectionName: 'houtou',
+  title: ['手作りほうとうで味わう', '山梨の伝統'],
+  labelText: 'ダッチオーブンほうとう作り体験',
+  subtitle: 'HOUTOU',
+  description:
+    '当ホテルの特別な体験の一つ、ダッチオーブンでのほうとう作りをお楽しみいただけます。この伝統的な山梨の郷土料理を、自然豊かな環境の中で直接手作りすることで、食の原点に触れることができます。地元の新鮮な野菜と特製の麺を使い、一緒に料理をする楽しさと、完成した時の達成感は格別です。ご家族や友人と共に、暖かいほうとうを囲みながら、ふれあいと交流の時間をお過ごしください。',
+  images: [
+    { src: houtouImage01, alt: 'houtouの料理', widths: [330, 518] },
+    { src: houtouImage02, alt: 'houtouの料理', widths: [312, 465] },
+    { src: houtouImage03, alt: 'houtouの料理', widths: [373, 549] },
+    { src: houtouImage04, alt: 'houtouの料理', widths: [311, 465] },
+  ],
+};
+
+// ほうとうメニューのデータ
+const houtouMenuData = {
+  menuTitle: 'ほうとう作り体験',
+  menuPrice: '',
+  menuItems: [
+    {
+      title: '昼食時',
+      description: '880円（税込）/人',
+    },
+    {
+      title: '夕食時（学生）',
+      description: '1870円（税込）/人',
+    },
+    {
+      title: '夕食時（一般）',
+      description: '2750円（税込）/人',
+    },
+  ],
+  menuNotes: [
+    'こちらは団体向けとなっています。<br>個人のお客様は事前にご相談ください。',
+  ],
+};
+---
+
+<MenuSection {...houtouProps}>
+  <!-- 固有の要素 -->
+  <div class="houtou-menu">
+    <ToggleMenu {...houtouMenuData} />
+  </div>
+</MenuSection>
+
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  :global(.houtou) {
+    padding-top: spx(100);
+    padding-bottom: spx(130);
+    @include tablet-up {
+      padding-top: ppx(250 * 1.2);
+      padding-bottom: ppx(250 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(250);
+      padding-bottom: ppx(250);
+    }
+  }
+  .houtou-menu {
+    margin-top: spx(80);
+    width: max-content;
+    margin-inline: auto;
+    @include tablet-up {
+      margin-top: ppx(85 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(85);
+    }
+  }
+</style>

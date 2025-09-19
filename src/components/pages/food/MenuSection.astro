@@ -93,16 +93,12 @@ const titleContent = Array.isArray(title) ? title.join('<br />') : title;
   // 汎用的なメニューセクションのスタイル
   // クラス名は適時増やす
   .dinner,
-  .bbq {
+  .bbq,
+  .houtou,
+  .curry,
+  .breakfast {
     overflow-x: hidden;
     position: relative;
-    padding-bottom: spx(130);
-    @include tablet-up {
-      padding-bottom: ppx(250 * 1.2);
-    }
-    @include desktop-up {
-      padding-bottom: ppx(250);
-    }
 
     &__container {
       @include tablet-up {
@@ -391,5 +387,8 @@ const titleContent = Array.isArray(title) ? title.join('<br />') : title;
         width: ppx(1920);
       }
     }
+  }
+  .breakfast__decoration {
+    display: none;
   }
 </style>
