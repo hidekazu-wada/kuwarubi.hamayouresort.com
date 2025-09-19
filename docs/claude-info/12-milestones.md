@@ -54,6 +54,16 @@
   - 設備リストの表示
   - レスポンシブ画像最適化
   - spx/ppx関数によるレスポンシブ対応
+- ✅ お食事ページの実装（2025年9月）
+  - 食事セクションの汎用コンポーネント化（MenuSection）
+  - 5つの食事セクション実装（Dinner・BBQ・Houtou・Curry・Breakfast）
+  - 再利用可能なToggleMenuコンポーネント
+  - FoodNavコンポーネントの動的機能実装
+    - IntersectionObserver APIによるアクティブ状態の自動切り替え
+    - ページ内リンクのスムーススクロール
+    - stickyナビゲーション
+  - レストラン紹介セクション
+  - 各セクションへのID付与とナビゲーション連携
 
 **残りの予定作業**:
 
@@ -118,6 +128,7 @@
 - **information/index.astro**: インフォメーション一覧ページ（カテゴリーフィルタリング・URL状態管理実装完了）
 - **information/[slug].astro**: インフォメーション詳細ページ（動的ルーティング・カテゴリー別ナビゲーション対応）
 - **facility.astro**: お部屋・施設ページ（Swiperスライダー・設備リスト・レスポンシブ対応実装完了）
+- **food.astro**: お食事ページ（5つの食事セクション・FoodNav・レストラン紹介セクション実装完了）
 
 **レイアウト・ナビゲーション:**
 
@@ -146,10 +157,21 @@
 - **MoreButton.astro**: 再利用可能Moreボタン（Props対応、カスタマイズ可能）
 - **SectionWave.astro**: 再利用可能Waveコンポーネント（色カスタマイズ対応）
 - **Breadcrumb.astro**: 再利用可能パンくずナビゲーション（2-4+レベル対応）
+- **ToggleMenu.astro**: 再利用可能トグルメニュー（タイトル・価格・アイテム・注釈対応）
 
 **アクティビティページ専用コンポーネント:**
 
 - **ActivityFilters.astro**: 3つのフィルタ（料金・所要時間・天気）による絞り込み機能
+
+**お食事ページ専用コンポーネント:**
+
+- **MenuSection.astro**: 食事セクションの汎用テンプレート（ID対応・slot対応）
+- **FoodNav.astro**: stickyナビゲーション（IntersectionObserver・スムーススクロール実装）
+- **Dinner.astro**: 夕食セクション（トグルメニュー付き）
+- **Bbq.astro**: BBQセクション（ToggleMenuコンポーネント使用）
+- **Houtou.astro**: ほうとう作り体験セクション
+- **Curry.astro**: カレー作り体験セクション
+- **Breakfast.astro**: 朝食セクション
 
 **データ管理:**
 
