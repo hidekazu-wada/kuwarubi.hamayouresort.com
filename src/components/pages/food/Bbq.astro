@@ -74,8 +74,9 @@ const bbqProps = {
         </svg>
       </button>
     </header>
-    <dl class="bbq-menu__content">
-      <div class="bbq-menu__item">
+    <div class="bbq-menu__body">
+      <dl class="bbq-menu__content">
+        <div class="bbq-menu__item">
         <dt class="bbq-menu__item-label"></dt>
         <dd class="bbq-menu__item-detail">
           <h4 class="bbq-menu__item-title">お肉</h4>
@@ -141,17 +142,46 @@ const bbqProps = {
           <h4 class="bbq-menu__item-title">デザート</h4>
           <p class="bbq-menu__item-description">皮ごとバナナ</p>
         </dd>
+        </div>
+      </dl>
+      <div class="bbq-menu__footer">
+        <div class="bbq-menu__note">
+          季節や仕入状況などによりメニューが変わります。<br />
+          旬の食材をお楽しみください。
+        </div>
+        <!-- <div class="bbq-menu__note">は複数設置可能 -->
       </div>
-    </dl>
-    <div class="bbq-menu__footer">
-      <div class="bbq-menu__note">
-        季節や仕入状況などによりメニューが変わります。<br />
-        旬の食材をお楽しみください。
-      </div>
-      <!-- <div class="bbq-menu__note">は複数設置可能 -->
     </div>
   </article>
 </MenuSection>
+
+<script>
+  // BBQメニューのトグル機能
+  const bbqMenu = document.querySelector('.bbq-menu');
+  const bbqMenuHeader = document.querySelector('.bbq-menu__header');
+  const bbqMenuToggle = document.querySelector('.bbq-menu__toggle');
+
+  // トグル機能
+  function toggleBbqMenu() {
+    if (bbqMenu) {
+      bbqMenu.classList.toggle('is-open');
+    }
+  }
+
+  // イベントリスナーの設定
+  // ヘッダー全体をクリッカブルに
+  if (bbqMenuHeader) {
+    bbqMenuHeader.addEventListener('click', toggleBbqMenu);
+  }
+
+  // トグルボタン自体もクリック可能に（ヘッダーのイベントとは別に動作）
+  if (bbqMenuToggle) {
+    bbqMenuToggle.addEventListener('click', (e) => {
+      e.stopPropagation(); // ヘッダーのイベントと重複しないように
+      toggleBbqMenu(); // トグル機能を実行
+    });
+  }
+</script>
 
 <style lang="scss">
   @import '../../../styles/variables';
@@ -186,11 +216,46 @@ const bbqProps = {
       padding: ppx(37) ppx(52) ppx(50) ppx(104);
     }
 
+    // 開いた状態のスタイル
+    &.is-open {
+      .bbq-menu__body {
+        max-height: 3000px; // 十分な高さを設定
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .bbq-menu__toggle-icon--open {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .bbq-menu__toggle-icon--close {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
     &__header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      cursor: pointer;
 
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__body {
+      max-height: 0;
+      opacity: 0;
+      visibility: hidden;
+      overflow: hidden;
+      transition:
+        max-height 0.4s ease-in-out,
+        opacity 0.3s ease-in-out,
+        visibility 0.3s ease-in-out;
       @include tablet-up {
       }
       @include desktop-up {
@@ -249,6 +314,10 @@ const bbqProps = {
       width: spx(30);
       height: spx(30);
       position: relative;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
 
       @include tablet-up {
         width: ppx(45 * 1.2);
@@ -268,8 +337,8 @@ const bbqProps = {
       left: 50%;
       transform: translate(-50%, -50%);
       transition:
-        opacity 0.3s ease,
-        visibility 0.3s ease;
+        opacity 0.3s ease-in-out,
+        visibility 0.3s ease-in-out;
       @include tablet-up {
       }
       @include desktop-up {
@@ -278,6 +347,9 @@ const bbqProps = {
       &--open {
         opacity: 1;
         visibility: visible;
+        transition:
+          opacity 0.3s ease-in-out,
+          visibility 0.3s ease-in-out;
         @include tablet-up {
         }
         @include desktop-up {
@@ -287,6 +359,9 @@ const bbqProps = {
       &--close {
         opacity: 0;
         visibility: hidden;
+        transition:
+          opacity 0.3s ease-in-out,
+          visibility 0.3s ease-in-out;
         @include tablet-up {
         }
         @include desktop-up {
