@@ -14,10 +14,11 @@ export interface MenuSectionProps {
     alt: string; // 代替テキスト
     widths: number[]; // 画像の幅（スマホ, タブレット/デスクトップ）
   }[];
+  id?: string; // セクションID（オプション）
 }
 
 // プロパティを受け取る
-const { sectionName, title, labelText, subtitle, description, images } =
+const { sectionName, title, labelText, subtitle, description, images, id } =
   Astro.props as MenuSectionProps;
 
 // 画像の処理
@@ -35,7 +36,7 @@ const processedImages = await Promise.all(
 const titleContent = Array.isArray(title) ? title.join('<br />') : title;
 ---
 
-<section class={sectionName}>
+<section class={sectionName} id={id}>
   <article class={`${sectionName}__container`}>
     <div class={`${sectionName}__intro`}>
       <header class={`${sectionName}__header`}>

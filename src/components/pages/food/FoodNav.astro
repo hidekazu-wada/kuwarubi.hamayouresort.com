@@ -4,16 +4,16 @@
 
 <nav class="food-nav">
   <ul class="food-nav__list">
-    <li class="food-nav__item active">
-      <a href="#" class="food-nav__link">
+    <li class="food-nav__item" data-section="dinner">
+      <a href="#dinner" class="food-nav__link">
         <article class="food-nav__card">
           <span class="food-nav__subtitle">西湖と山の豊かな滋味を堪能</span>
           <h2 class="food-nav__title">夕食</h2>
         </article>
       </a>
     </li>
-    <li class="food-nav__item">
-      <a href="#" class="food-nav__link">
+    <li class="food-nav__item" data-section="bbq">
+      <a href="#bbq" class="food-nav__link">
         <article class="food-nav__card">
           <span class="food-nav__subtitle">大自然の中で食べる</span>
           <h2 class="food-nav__title">BBQ</h2>
@@ -21,8 +21,8 @@
         </article>
       </a>
     </li>
-    <li class="food-nav__item">
-      <a href="#" class="food-nav__link">
+    <li class="food-nav__item" data-section="houtou">
+      <a href="#houtou" class="food-nav__link">
         <article class="food-nav__card">
           <span class="food-nav__subtitle">ダッチオーブン</span>
           <h2 class="food-nav__title">
@@ -31,8 +31,8 @@
         </article>
       </a>
     </li>
-    <li class="food-nav__item">
-      <a href="#" class="food-nav__link">
+    <li class="food-nav__item" data-section="curry">
+      <a href="#curry" class="food-nav__link">
         <article class="food-nav__card">
           <span class="food-nav__subtitle">竈門で炊く</span>
           <h2 class="food-nav__title">
@@ -41,8 +41,8 @@
         </article>
       </a>
     </li>
-    <li class="food-nav__item">
-      <a href="#" class="food-nav__link">
+    <li class="food-nav__item" data-section="breakfast">
+      <a href="#breakfast" class="food-nav__link">
         <article class="food-nav__card">
           <span class="food-nav__subtitle">自然からの贈り物を味わう</span>
           <h2 class="food-nav__title">朝食</h2>
@@ -51,6 +51,78 @@
     </li>
   </ul>
 </nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // ===============================
+    // IntersectionObserver設定
+    // ===============================
+    const navItems = document.querySelectorAll('.food-nav__item');
+    const sections = ['dinner', 'bbq', 'houtou', 'curry', 'breakfast']
+      .map(id => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (sections.length > 0 && navItems.length > 0) {
+      // オプション設定（画面の中央付近で判定）
+      const options = {
+        rootMargin: '-30% 0px -60% 0px',
+        threshold: 0
+      };
+
+      // IntersectionObserverを作成
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // すべてのアイテムからactiveクラスを削除
+            navItems.forEach(item => item.classList.remove('active'));
+
+            // 対応するナビゲーションアイテムにactiveクラスを追加
+            const activeItem = document.querySelector(`.food-nav__item[data-section="${entry.target.id}"]`);
+            if (activeItem) {
+              activeItem.classList.add('active');
+            }
+          }
+        });
+      }, options);
+
+      // 各セクションを監視
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    }
+
+    // ===============================
+    // スムーススクロール設定
+    // ===============================
+    const navLinks = document.querySelectorAll('.food-nav__link');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const targetId = link.getAttribute('href');
+        if (targetId && targetId.startsWith('#')) {
+          const targetSection = document.querySelector(targetId) as HTMLElement | null;
+
+          if (targetSection) {
+            // sticky navの高さを取得
+            const nav = document.querySelector('.food-nav') as HTMLElement | null;
+            const navHeight = nav ? nav.offsetHeight : 0;
+
+            // 目標位置を計算（navの高さ分オフセット）
+            const targetPosition = targetSection.offsetTop - navHeight - 20;
+
+            // スムーススクロール
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+  });
+</script>
 
 <style lang="scss">
   @import '../../../styles/variables';
