@@ -59,25 +59,27 @@
     // ===============================
     const navItems = document.querySelectorAll('.food-nav__item');
     const sections = ['dinner', 'bbq', 'houtou', 'curry', 'breakfast']
-      .map(id => document.getElementById(id))
+      .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
 
     if (sections.length > 0 && navItems.length > 0) {
       // オプション設定（画面の中央付近で判定）
       const options = {
         rootMargin: '-30% 0px -60% 0px',
-        threshold: 0
+        threshold: 0,
       };
 
       // IntersectionObserverを作成
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             // すべてのアイテムからactiveクラスを削除
-            navItems.forEach(item => item.classList.remove('active'));
+            navItems.forEach((item) => item.classList.remove('active'));
 
             // 対応するナビゲーションアイテムにactiveクラスを追加
-            const activeItem = document.querySelector(`.food-nav__item[data-section="${entry.target.id}"]`);
+            const activeItem = document.querySelector(
+              `.food-nav__item[data-section="${entry.target.id}"]`
+            );
             if (activeItem) {
               activeItem.classList.add('active');
             }
@@ -86,7 +88,7 @@
       }, options);
 
       // 各セクションを監視
-      sections.forEach(section => {
+      sections.forEach((section) => {
         observer.observe(section);
       });
     }
@@ -96,26 +98,35 @@
     // ===============================
     const navLinks = document.querySelectorAll('.food-nav__link');
 
-    navLinks.forEach(link => {
+    navLinks.forEach((link) => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
 
         const targetId = link.getAttribute('href');
         if (targetId && targetId.startsWith('#')) {
-          const targetSection = document.querySelector(targetId) as HTMLElement | null;
+          const targetSection = document.querySelector(
+            targetId
+          ) as HTMLElement | null;
 
           if (targetSection) {
             // sticky navの高さを取得
-            const nav = document.querySelector('.food-nav') as HTMLElement | null;
+            const nav = document.querySelector(
+              '.food-nav'
+            ) as HTMLElement | null;
             const navHeight = nav ? nav.offsetHeight : 0;
 
-            // 目標位置を計算（navの高さ分オフセット）
-            const targetPosition = targetSection.offsetTop - navHeight - 20;
+            // デバイスサイズに応じた調整値
+            // モバイル: 0px, タブレット以上: 0px
+            const offsetAdjust = window.innerWidth >= 744 ? 0 : 0;
+
+            // 目標位置を計算（セクションの装飾要素が隠れる位置へ）
+            const targetPosition =
+              targetSection.offsetTop - navHeight + offsetAdjust;
 
             // スムーススクロール
             window.scrollTo({
               top: targetPosition,
-              behavior: 'smooth'
+              behavior: 'smooth',
             });
           }
         }
