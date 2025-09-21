@@ -13,6 +13,7 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import Hero from '../components/pages/access/Hero.astro';
 import Route from '../components/pages/access/Route.astro';
 import Transport from '../components/pages/access/Transport.astro';
+import Bus from '../components/pages/access/Bus.astro';
 
 // 画像
 
@@ -40,14 +41,7 @@ const pageClass = 'main-content--access';
   <Hero />
   <Route />
   <Transport />
-  <section>
-    <div class="">団体バスでお越しの場合</div>
-    <div class="">
-      当旅館敷地内に最大10台の大型バスが収容できる無料駐車場がございます。<br />
-      ご利用の際には、ご利用日の１ヶ月前までに当館にお申込みください。
-    </div>
-    <div class="map">駐車場案内図</div>
-  </section>
+  <Bus />
 
   <!-- パンくずリスト -->
   <div class="breadcrumb-wrapper">
@@ -61,7 +55,7 @@ const pageClass = 'main-content--access';
   @import '../styles/mixins';
 
   // ============================================================
-  // TODO: accessを適切な名前に変更してスタイルを記述
+  // アクセスページ全体スタイル
   // ============================================================
 
   :global(.main-content--access) {

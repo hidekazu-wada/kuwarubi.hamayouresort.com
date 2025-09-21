@@ -1,0 +1,142 @@
+---
+
+---
+
+<section class="access-bus">
+  <div class="access-bus__container">
+    <h2 class="access-bus__title">団体バスでお越しの場合</h2>
+    <p class="access-bus__description">
+      当旅館敷地内に最大10台の大型バスが収容できる無料駐車場がございます。<br />
+      ご利用の際には、ご利用日の１ヶ月前までに当館にお申込みください。
+    </p>
+    <figure class="access-bus__map">
+      <figcaption class="access-bus__map-caption">駐車場案内図</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  .access-bus {
+    // コンテナ
+    &__container {
+      padding-top: spx(90);
+      padding-bottom: spx(120);
+
+      @include tablet-up {
+        padding-top: ppx(227 * 1.2);
+        padding-bottom: ppx(152 * 1.2);
+      }
+
+      @include desktop-up {
+        padding-top: ppx(227 * 1.5);
+        padding-bottom: ppx(152 * 1.5);
+      }
+    }
+
+    // タイトル
+    &__title {
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(40);
+      font-style: normal;
+      font-weight: 500;
+      line-height: 150%; /* 60px */
+      letter-spacing: spx(4);
+      @include tablet-up {
+        font-size: ppx(40 * 1.2);
+        letter-spacing: ppx(8 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        letter-spacing: ppx(8);
+      }
+    }
+
+    // 説明文
+    &__description {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%; /* 54px */
+      margin-top: spx(40);
+      width: spx(600);
+      margin-inline: auto;
+      @include tablet-up {
+        text-align: center;
+        font-size: ppx(28 * 1.2);
+        line-height: 170%; /* 47.6px */
+        margin-top: ppx(46 * 1.2);
+        width: ppx(1424 * 1.2);
+      }
+
+      @include desktop-up {
+        text-align: center;
+        font-size: ppx(28);
+        line-height: 170%; /* 47.6px */
+        margin-top: ppx(46);
+        width: ppx(1424);
+      }
+    }
+
+    // 駐車場案内図
+    &__map {
+      display: flex;
+      width: spx(620);
+      padding: spx(170) 0;
+      justify-content: center;
+      align-items: center;
+      gap: spx(40);
+      border-radius: spx(20);
+      background: var(--white, #fff);
+      margin-top: spx(60);
+      margin-inline: auto;
+      @include tablet-up {
+        width: ppx(1616 * 1.2);
+        height: ppx(806 * 1.2);
+        border-radius: ppx(30 * 1.2);
+        margin-top: ppx(86 * 1.2);
+      }
+
+      @include desktop-up {
+        width: ppx(1616);
+        height: ppx(806);
+        flex-shrink: 0;
+        border-radius: ppx(30);
+        margin-top: ppx(86);
+      }
+    }
+
+    // 案内図キャプション
+    &__map-caption {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%; /* 54px */
+      @include tablet-up {
+        color: var(--blue_4, #59a1c0);
+        font-size: ppx(40 * 1.2);
+        font-weight: 500;
+        line-height: 150%; /* 60px */
+        letter-spacing: ppx(8 * 1.2);
+      }
+
+      @include desktop-up {
+        color: var(--blue_4, #59a1c0);
+        font-size: ppx(40);
+        font-weight: 500;
+        line-height: 150%; /* 60px */
+        letter-spacing: ppx(8);
+      }
+    }
+  }
+</style>
