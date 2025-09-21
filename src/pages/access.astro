@@ -12,12 +12,9 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
 // コンポーネント
 import Hero from '../components/pages/access/Hero.astro';
 import Route from '../components/pages/access/Route.astro';
+import Transport from '../components/pages/access/Transport.astro';
 
 // 画像
-import VisitSp1 from '../assets/images/access/visit/sp-01.svg';
-import VisitSp2 from '../assets/images/access/visit/sp-02.svg';
-import VisitTabletUp1 from '../assets/images/access/visit/tablet-up-01.svg';
-import VisitTabletUp2 from '../assets/images/access/visit/tablet-up-02.svg';
 
 // ============================================================
 // TODO: 以下の項目を必ず変更してください
@@ -42,108 +39,14 @@ const pageClass = 'main-content--access';
 
   <Hero />
   <Route />
+  <Transport />
   <section>
-    <div>
-      <div class="">公共交通機関で<br class="only-sp" />お越しの場合</div>
-      <div>
-        <div>
-          <picture class="クラス名 モディファイア名">
-            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-            <source
-              media="(min-width: 1024px)"
-              srcset={VisitTabletUp1.src.toString()}
-            />
-            <!-- タブレット（744px以上）→ 中解像度版 -->
-            <source
-              media="(min-width: 744px)"
-              srcset={VisitTabletUp1.src.toString()}
-            />
-            <!-- スマホ（744px未満）→ 最小解像度版 -->
-            <img
-              src={VisitSp1.src}
-              alt="画像の内容を説明するテキスト"
-              class="追加のクラス名（必要に応じて）"
-            />
-          </picture>
-        </div>
-        <div>
-          <picture class="クラス名 モディファイア名">
-            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-            <source
-              media="(min-width: 1024px)"
-              srcset={VisitTabletUp2.src.toString()}
-            />
-            <!-- タブレット（744px以上）→ 中解像度版 -->
-            <source
-              media="(min-width: 744px)"
-              srcset={VisitTabletUp2.src.toString()}
-            />
-            <!-- スマホ（744px未満）→ 最小解像度版 -->
-            <img
-              src={VisitSp2.src}
-              alt="画像の内容を説明するテキスト"
-              class="追加のクラス名（必要に応じて）"
-            />
-          </picture>
-        </div>
-      </div>
-    </div>
+    <div class="">団体バスでお越しの場合</div>
     <div class="">
-      <div class="">無料送迎バスについて</div>
-      <div>
-        <div class="">
-          河口湖駅から無料の送迎バス（シャトルバス）を運行しております。ホテルまでは約１５分。
-        </div>
-        <div class="">
-          事前にご予約が必要となります。ご予約がない場合は運行をしていない場合もございます。
-        </div>
-        <div class="">
-          １０名様以上の場合は規定時間外でも承っております。お気軽にお問合せください。
-        </div>
-      </div>
-      <div class="">
-        <div>
-          <div class="">時刻表</div>
-          <span></span>
-        </div>
-        <div>
-          <div>
-            <div class="">ホテル発　　⇒　河口湖駅行</div>
-            <div class="">（出発時間 10：00）</div>
-          </div>
-          <div>
-            <div class="">河口湖駅発　⇒　ホテル行①</div>
-            <div class="">（出発時間 15：00）</div>
-          </div>
-          <div>
-            <div class="">河口湖駅発　⇒　ホテル行②</div>
-            <div class="">（出発時間 17：00）</div>
-          </div>
-        </div>
-      </div>
-      <div class="">
-        <div class="">
-          シャトルバスは河口湖駅１０番乗り場からの発車となります。
-        </div>
-        <div class="">上記以外のお時間に関しましてはご相談ください。</div>
-        <div class="">
-          いずみの湯の日帰り利用、キャンプ場利用の場合の送迎はおこなっておりません。
-        </div>
-      </div>
+      当旅館敷地内に最大10台の大型バスが収容できる無料駐車場がございます。<br />
+      ご利用の際には、ご利用日の１ヶ月前までに当館にお申込みください。
     </div>
-    <div class="">
-      <div class="">高速バスのご予約はこちら</div>
-      <div>
-        <div>
-          <div class="">新宿 〜 河口湖駅</div>
-          <svg> </svg>
-        </div>
-        <div>
-          <div class="">三島駅 〜 河口湖駅</div>
-          <svg> </svg>
-        </div>
-      </div>
-    </div>
+    <div class="map">駐車場案内図</div>
   </section>
 
   <!-- パンくずリスト -->

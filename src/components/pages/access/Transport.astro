@@ -1,0 +1,657 @@
+---
+import TransportSp1 from '../../../assets/images/access/transport/sp-01.svg';
+import TransportSp2 from '../../../assets/images/access/transport/sp-02.svg';
+import TransportTabletUp1 from '../../../assets/images/access/transport/tablet-up-01.svg';
+import TransportTabletUp2 from '../../../assets/images/access/transport/tablet-up-02.svg';
+---
+
+<section class="access-transport">
+  <div class="access-transport__container">
+    <h2 class="access-transport__title">
+      公共交通機関で<br class="only-sp" />お越しの場合
+    </h2>
+    <div class="access-transport__routes">
+      <figure class="access-transport__route-image">
+        <picture class="access-transport__route-picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={TransportTabletUp1.src.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={TransportTabletUp1.src.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={TransportSp1.src}
+            alt="東日本方面からのアクセスルート"
+            class="access-transport__route-img"
+          />
+        </picture>
+      </figure>
+      <figure class="access-transport__route-image">
+        <picture class="access-transport__route-picture">
+          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+          <source
+            media="(min-width: 1024px)"
+            srcset={TransportTabletUp2.src.toString()}
+          />
+          <!-- タブレット（744px以上）→ 中解像度版 -->
+          <source
+            media="(min-width: 744px)"
+            srcset={TransportTabletUp2.src.toString()}
+          />
+          <!-- スマホ（744px未満）→ 最小解像度版 -->
+          <img
+            src={TransportSp2.src}
+            alt="西日本方面からのアクセスルート"
+            class="access-transport__route-img"
+          />
+        </picture>
+      </figure>
+    </div>
+  </div>
+  <article class="access-transport__shuttle">
+    <h3 class="access-transport__shuttle-title">無料送迎バスについて</h3>
+    <div class="access-transport__shuttle-info">
+      <p class="access-transport__shuttle-text">
+        河口湖駅から無料の送迎バス（シャトルバス）を運行しております。ホテルまでは約１５分。
+      </p>
+      <p class="access-transport__shuttle-text">
+        事前にご予約が必要となります。ご予約がない場合は運行をしていない場合もございます。
+      </p>
+      <p class="access-transport__shuttle-text">
+        １０名様以上の場合は規定時間外でも承っております。お気軽にお問合せください。
+      </p>
+    </div>
+    <div class="access-transport__timetable">
+      <header class="access-transport__timetable-header">
+        <h4 class="access-transport__timetable-title">時刻表</h4>
+        <span class="access-transport__timetable-line"></span>
+      </header>
+      <dl class="access-transport__timetable-list">
+        <div class="access-transport__timetable-item">
+          <dt class="access-transport__timetable-route">
+            ホテル発　　⇒　河口湖駅行
+          </dt>
+          <dd class="access-transport__timetable-time">（出発時間 10：00）</dd>
+        </div>
+        <div class="access-transport__timetable-item">
+          <dt class="access-transport__timetable-route">
+            河口湖駅発　⇒　ホテル行①
+          </dt>
+          <dd class="access-transport__timetable-time">（出発時間 15：00）</dd>
+        </div>
+        <div class="access-transport__timetable-item">
+          <dt class="access-transport__timetable-route">
+            河口湖駅発　⇒　ホテル行②
+          </dt>
+          <dd class="access-transport__timetable-time">（出発時間 17：00）</dd>
+        </div>
+      </dl>
+    </div>
+    <div class="access-transport__notes">
+      <p class="access-transport__note">
+        シャトルバスは河口湖駅１０番乗り場からの発車となります。
+      </p>
+      <p class="access-transport__note">
+        上記以外のお時間に関しましてはご相談ください。
+      </p>
+      <p class="access-transport__note">
+        いずみの湯の日帰り利用、キャンプ場利用の場合の送迎はおこなっておりません。
+      </p>
+    </div>
+  </article>
+  <footer class="access-transport__reservation">
+    <div class="access-transport__reservation-container">
+      <h3 class="access-transport__reservation-title">
+        高速バスのご予約はこちら
+      </h3>
+      <nav class="access-transport__reservation-links">
+        <a href="#" class="access-transport__reservation-link">
+          <span class="access-transport__reservation-text"
+            >新宿 〜 河口湖駅</span
+          >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+            class="access-transport__reservation-icon"
+          >
+            <path
+              d="M1.88281 21L20.1107 11L1.88281 1"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+        <a href="#" class="access-transport__reservation-link">
+          <span class="access-transport__reservation-text"
+            >三島駅 〜 河口湖駅</span
+          >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+            class="access-transport__reservation-icon"
+          >
+            <path
+              d="M1.88281 21L20.1107 11L1.88281 1"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </footer>
+</section>
+
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  // 公共交通機関セクション
+  .access-transport {
+    background: var(--blue_4, #59a1c0);
+    padding-top: spx(170);
+    padding-bottom: spx(80);
+    @include tablet-up {
+      padding-top: ppx(267 * 1.2);
+      padding-bottom: ppx(256 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(267);
+      padding-bottom: ppx(256);
+    }
+
+    // コンテナ
+    &__container {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    // タイトル
+    &__title {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(40);
+      font-style: normal;
+      font-weight: 500;
+      line-height: 150%;
+      letter-spacing: spx(4);
+      @include tablet-up {
+        font-size: ppx(40 * 1.2);
+        letter-spacing: ppx(8 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        letter-spacing: ppx(8);
+      }
+      .only-sp {
+        display: block;
+        @include tablet-up {
+          display: none;
+        }
+      }
+    }
+
+    // ルート画像コンテナ
+    &__routes {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: spx(267);
+      margin-top: spx(80);
+      @include tablet-up {
+        gap: ppx(181 * 1.2);
+        margin-top: ppx(172 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(181);
+        margin-top: ppx(172);
+      }
+    }
+
+    // ルート画像
+    &__route-image {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    // ルート画像ピクチャー
+    &__route-picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    // ルート画像img
+    &__route-img {
+      display: block;
+      width: spx(620);
+      @include tablet-up {
+        width: ppx(1616 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(1616);
+      }
+    }
+
+    // シャトルバス情報
+    &__shuttle {
+      margin-top: spx(160);
+      @include tablet-up {
+        margin-top: ppx(170 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(170);
+      }
+    }
+
+    // シャトルバスタイトル
+    &__shuttle-title {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(40);
+      font-style: normal;
+      font-weight: 500;
+      line-height: 150%;
+      letter-spacing: spx(4);
+      @include tablet-up {
+        font-size: ppx(40 * 1.2);
+        letter-spacing: ppx(8 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        letter-spacing: ppx(8);
+      }
+    }
+
+    // シャトルバス情報コンテナ
+    &__shuttle-info {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      margin-top: spx(60);
+      width: spx(610);
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: spx(20);
+      @include tablet-up {
+        font-size: ppx(28 * 1.2);
+        line-height: 170%;
+        margin-top: ppx(46 * 1.2);
+        width: ppx(1204 * 1.2);
+        gap: 0;
+      }
+      @include desktop-up {
+        font-size: ppx(28);
+        margin-top: ppx(46);
+        width: ppx(1204);
+      }
+    }
+
+    // シャトルバステキスト
+    &__shuttle-text {
+      display: grid;
+      grid-template-columns: max-content auto;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      &:before {
+        content: '・';
+        display: inline-block;
+      }
+    }
+
+    // 時刻表
+    &__timetable {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: spx(40);
+      border: spx(2) solid var(--white, #fff);
+      padding: spx(60) 0;
+      width: spx(570);
+      margin-inline: auto;
+      margin-top: spx(70);
+      @include tablet-up {
+        flex-direction: row;
+        justify-content: center;
+        gap: ppx(133 * 1.2);
+        border: ppx(2 * 1.2) solid var(--white, #fff);
+        padding: ppx(32 * 1.2) 0;
+        width: ppx(1204 * 1.2);
+        margin-top: ppx(70 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(133);
+        border: ppx(2) solid var(--white, #fff);
+        padding: ppx(32) 0;
+        width: ppx(1204);
+        margin-top: ppx(70);
+      }
+    }
+
+    // 時刻表ヘッダー
+    &__timetable-header {
+      @include tablet-up {
+        display: flex;
+        gap: ppx(63 * 1.2);
+        align-items: center;
+      }
+      @include desktop-up {
+        gap: ppx(63);
+      }
+    }
+
+    // 時刻表タイトル
+    &__timetable-title {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(40);
+      font-style: normal;
+      font-weight: 500;
+      line-height: 150%;
+      letter-spacing: spx(4);
+      @include tablet-up {
+        font-size: ppx(40 * 1.2);
+        line-height: 130%;
+        letter-spacing: ppx(8 * 1.2);
+        writing-mode: vertical-rl;
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        letter-spacing: ppx(8);
+      }
+    }
+
+    // 時刻表ライン
+    &__timetable-line {
+      display: block;
+      width: spx(120);
+      height: 1px;
+      background: var(--white, #fff);
+      margin-top: spx(10);
+      margin-inline: auto;
+      @include tablet-up {
+        width: 1px;
+        height: ppx(202 * 1.2);
+        margin-top: 0;
+        margin-inline: unset;
+      }
+      @include desktop-up {
+        height: ppx(202);
+      }
+    }
+
+    // 時刻表リスト
+    &__timetable-list {
+      display: flex;
+      flex-direction: column;
+      gap: spx(50);
+      align-items: center;
+
+      @include tablet-up {
+        gap: 0;
+        align-items: unset;
+        justify-content: center;
+      }
+      @include desktop-up {
+      }
+    }
+
+    // 時刻表アイテム
+    &__timetable-item {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 500;
+      line-height: 150%;
+      letter-spacing: spx(3);
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        font-weight: 400;
+        line-height: 200%;
+        letter-spacing: 0;
+        display: flex;
+        gap: 1em;
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+      }
+    }
+
+    // 時刻表ルート
+    &__timetable-route {
+      font-weight: 400;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    // 時刻表時間
+    &__timetable-time {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    // 注意事項コンテナ
+    &__notes {
+      color: var(--white, #fff);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      margin-top: spx(40);
+      width: spx(610);
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: spx(20);
+      @include tablet-up {
+        font-size: ppx(28 * 1.2);
+        line-height: 170%;
+        margin-top: ppx(70 * 1.2);
+        width: ppx(1204 * 1.2);
+        gap: 0;
+      }
+      @include desktop-up {
+        font-size: ppx(28);
+        margin-top: ppx(70);
+        width: ppx(1204);
+      }
+    }
+
+    // 注意事項
+    &__note {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      display: grid;
+      grid-template-columns: max-content auto;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      &:before {
+        content: '※';
+        display: inline-block;
+      }
+    }
+
+    // 予約セクション
+    &__reservation {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__reservation-container {
+      display: flex;
+      width: spx(620);
+      padding: spx(40) 0 spx(60) 0;
+      flex-direction: column;
+      align-items: center;
+      gap: spx(40);
+      border-radius: spx(20);
+      background: var(--white, #fff);
+      margin-inline: auto;
+      margin-top: spx(90);
+      @include tablet-up {
+        flex-direction: row;
+        justify-content: center;
+        width: ppx(1616 * 1.2);
+        height: ppx(182 * 1.2);
+        flex-shrink: 0;
+        border-radius: ppx(30 * 1.2);
+        padding: ppx(46 * 1.2) 0 ppx(46 * 1.2) 0;
+        gap: ppx(142 * 1.2);
+        margin-top: ppx(175 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(1616);
+        height: ppx(182);
+        border-radius: ppx(30);
+        padding: ppx(46) 0 ppx(46) 0;
+        gap: ppx(142);
+        margin-top: ppx(175);
+      }
+    }
+
+    // 予約タイトル
+    &__reservation-title {
+      color: var(--blue_5, #026995);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%;
+      @include tablet-up {
+        color: var(--blue_6, #054965);
+        font-size: ppx(33 * 1.2);
+        line-height: 160%;
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+      }
+    }
+
+    // 予約リンクコンテナ
+    &__reservation-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: spx(40);
+      @include tablet-up {
+        flex-direction: row;
+        justify-content: center;
+        gap: ppx(23 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(23);
+      }
+    }
+
+    // 予約リンク
+    &__reservation-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: spx(15);
+      background: var(--blue_5, #026995);
+      width: spx(398);
+      height: spx(70);
+      position: relative;
+      transition: background 0.3s ease;
+      @include tablet-up {
+        width: ppx(429 * 1.2);
+        height: ppx(90 * 1.2);
+        flex-shrink: 0;
+        border-radius: ppx(20 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(429);
+        height: ppx(90);
+        border-radius: ppx(20);
+      }
+      @include hover {
+        &:hover {
+          background: var(--green_2, #adc400);
+        }
+      }
+    }
+
+    // 予約テキスト
+    &__reservation-text {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(31);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%;
+      letter-spacing: spx(1.55);
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: ppx(33 * 1.2);
+        letter-spacing: ppx(1.65 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        line-height: ppx(33);
+        letter-spacing: ppx(1.65);
+      }
+    }
+
+    // 予約アイコン
+    &__reservation-icon {
+      display: block;
+      width: spx(20);
+      position: absolute;
+      right: spx(20);
+      top: 50%;
+      transform: translateY(-50%);
+      @include tablet-up {
+        width: ppx(20 * 1.2);
+        right: ppx(20 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(20);
+        right: ppx(20);
+      }
+    }
+  }
+</style>
