@@ -1,0 +1,515 @@
+---
+
+---
+
+<section class="access-route">
+  <div class="access-route__container">
+    <figure class="access-route__map">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51968.108919831255!2d138.64486859213216!3d35.5041099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601be1abf278b1dd%3A0x8bbcffa1146e4d31!2sHamayou%20Resort!5e0!3m2!1sja!2sjp!4v1758422955524!5m2!1sja!2sjp"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        class="access-route__iframe"></iframe>
+    </figure>
+    <div class="access-route__info">
+      <h2 class="access-route__title">お車でお越しの場合</h2>
+      <ul class="access-route__list">
+        <li class="access-route__item">
+          <div class="access-route__from">
+            <p class="access-route__city">東京（新宿）から</p>
+            <p class="access-route__via">中央自動車道経由</p>
+          </div>
+          <span class="access-route__line"></span>
+          <div class="access-route__to">
+            <p class="access-route__distance">１００km</p>
+            <p class="access-route__time">約２時間</p>
+          </div>
+        </li>
+        <li class="access-route__item">
+          <div class="access-route__from">
+            <p class="access-route__city">神奈川（横浜）から</p>
+            <p class="access-route__via">東名高速道路経由</p>
+          </div>
+          <span class="access-route__line"></span>
+          <div class="access-route__to">
+            <p class="access-route__distance">１２０km</p>
+            <p class="access-route__time">約２時間</p>
+          </div>
+        </li>
+        <li class="access-route__item">
+          <div class="access-route__from">
+            <p class="access-route__city">愛知（名古屋）から</p>
+            <p class="access-route__via">東名高速道路経由</p>
+          </div>
+          <span class="access-route__line"></span>
+          <div class="access-route__to">
+            <p class="access-route__distance">２６０km</p>
+            <p class="access-route__time">約３時間３０分</p>
+          </div>
+        </li>
+        <li class="access-route__item">
+          <div class="access-route__from">
+            <p class="access-route__city">大阪（大阪）から</p>
+            <p class="access-route__via">名神高速道路・東名高速道路経由</p>
+          </div>
+          <span class="access-route__line"></span>
+          <div class="access-route__to">
+            <p class="access-route__distance">４１０km</p>
+            <p class="access-route__time">約５時間</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <footer class="access-route__footer">
+    <div class="access-route__footer-container">
+      <p class="access-route__footer-text">
+        無料駐車場を完備しております。冬季はスタッドレスタイヤを推奨します。ご到着がスムーズになるよう、事前にルート情報をご確認ください。
+      </p>
+      <nav class="access-route__links">
+        <a href="" class="access-route__link">
+          <span class="access-route__link-text">ルート情報</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+            class="access-route__link-icon"
+          >
+            <path
+              d="M1.88281 21L20.1107 11L1.88281 1"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+        <a href="" class="access-route__link">
+          <span class="access-route__link-text">駐車場情報</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+            class="access-route__link-icon"
+          >
+            <path
+              d="M1.88281 21L20.1107 11L1.88281 1"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </footer>
+</section>
+
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+  .access-route {
+    padding-bottom: spx(80);
+    @include tablet-up {
+      padding-bottom: ppx(242 * 1.2);
+    }
+    @include desktop-up {
+      padding-bottom: ppx(242);
+    }
+
+    // コンテナ
+    &__container {
+      display: grid;
+      grid-template:
+        'map'
+        'info';
+      gap: spx(90);
+
+      @include tablet-up {
+        grid-template: 'info map';
+        gap: ppx(119 * 1.2);
+        width: max-content;
+        margin-left: auto;
+        margin-right: 0;
+      }
+      @include desktop-up {
+        gap: ppx(119);
+      }
+    }
+
+    // マップコンテナ
+    &__map {
+      grid-area: map;
+    }
+
+    // iframe
+    &__iframe {
+      display: block;
+      width: 100%;
+      height: spx(449);
+      @include tablet-up {
+        width: ppx(1158);
+        height: ppx(722 * 1.2);
+        border-radius: ppx(50 * 1.2) 0 0 ppx(50 * 1.2);
+        overflow: hidden;
+      }
+      @include desktop-up {
+        width: ppx(1158);
+        height: ppx(722);
+        border-radius: ppx(50) 0 0 ppx(50);
+      }
+    }
+
+    // 情報コンテナ
+    &__info {
+      grid-area: info;
+      @include tablet-up {
+        margin-top: ppx(99 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(99);
+      }
+    }
+
+    // タイトル
+    &__title {
+      color: var(--blue_6, #054965);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(40);
+      font-style: normal;
+      font-weight: 500;
+      line-height: 150%;
+      letter-spacing: spx(4);
+      @include tablet-up {
+        font-size: ppx(40 * 1.2);
+        letter-spacing: ppx(8 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        letter-spacing: ppx(8);
+      }
+    }
+
+    // リスト
+    &__list {
+      margin-top: spx(90);
+      display: flex;
+      flex-direction: column;
+      gap: spx(110);
+      @include tablet-up {
+        margin-top: ppx(85 * 1.2);
+        gap: 3vw;
+        width: 36vw;
+      }
+      @include desktop-up {
+        margin-top: ppx(85);
+        gap: ppx(76);
+        width: ppx(826);
+      }
+    }
+
+    // アイテム
+    &__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: spx(6);
+      @include tablet-up {
+        display: grid;
+        grid-template-columns: max-content auto 17vw;
+        align-items: center;
+        gap: unset;
+      }
+      @include desktop-up {
+        grid-template-columns: max-content auto ppx(360);
+      }
+    }
+
+    // 出発地
+    &__from {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: spx(1);
+      @include tablet-up {
+        gap: 0;
+      }
+      @include desktop-up {
+      }
+    }
+
+    // 都市名
+    &__city {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(35);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      @include tablet-up {
+        font-size: ppx(35 * 1.2);
+        width: max-content;
+      }
+      @include desktop-up {
+        font-size: ppx(35);
+      }
+    }
+
+    // 経由地
+    &__via {
+      color: var(--blue_4, #59a1c0);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(26);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%;
+      @include tablet-up {
+        font-size: ppx(26 * 1.2);
+        position: absolute;
+        left: 0;
+        bottom: ppx(-35 * 1.2);
+        width: max-content;
+      }
+      @include desktop-up {
+        font-size: ppx(26);
+        bottom: ppx(-35);
+      }
+    }
+
+    // ライン
+    &__line {
+      display: block;
+      width: 1px;
+      height: spx(41);
+      background: var(--blue_4, #59a1c0);
+      @include tablet-up {
+        height: 100%;
+        width: 100%;
+        background: none;
+        position: relative;
+      }
+      @include desktop-up {
+      }
+      &::after {
+        @include tablet-up {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 98%;
+          height: 1px;
+          background: var(--blue_4, #59a1c0);
+          transform: translate(-49.5%, -50%);
+        }
+      }
+    }
+
+    // 目的地
+    &__to {
+      display: flex;
+      gap: 1em;
+      align-items: baseline;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    // 距離
+    &__distance {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(35);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 90%;
+      @include tablet-up {
+        font-size: ppx(35 * 1.2);
+        line-height: 150%;
+        width: max-content;
+      }
+      @include desktop-up {
+        font-size: ppx(35);
+      }
+    }
+
+    // 時間
+    &__time {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(26);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 90%;
+      @include tablet-up {
+        font-size: ppx(24 * 1.2);
+        line-height: 150%;
+        width: max-content;
+      }
+      @include desktop-up {
+        font-size: ppx(24);
+      }
+    }
+
+    // フッター
+    &__footer {
+      margin-top: spx(120);
+
+      @include tablet-up {
+        margin-top: ppx(176 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(176);
+      }
+    }
+
+    // フッターコンテナ
+    &__footer-container {
+      display: flex;
+      flex-direction: column;
+      gap: spx(40);
+      align-items: center;
+      width: spx(620);
+      border-radius: spx(20);
+      background: var(--white, #fff);
+      padding-top: spx(40);
+      padding-bottom: spx(60);
+      margin-inline: auto;
+      @include tablet-up {
+        flex-direction: row;
+        gap: ppx(63 * 1.2);
+        width: 86vw;
+        border-radius: ppx(30 * 1.2);
+        padding-top: ppx(46 * 1.2);
+        padding-bottom: ppx(46 * 1.2);
+        justify-content: center;
+      }
+      @include desktop-up {
+        gap: ppx(63);
+        width: ppx(2013);
+        border-radius: ppx(30);
+        padding-top: ppx(46);
+        padding-bottom: ppx(46);
+      }
+    }
+
+    // フッターテキスト
+    &__footer-text {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%;
+      width: spx(540);
+      @include tablet-up {
+        color: var(--blue_6, #054965);
+        font-size: ppx(28 * 1.2);
+        line-height: 160%;
+        width: ppx(955);
+      }
+      @include desktop-up {
+        font-size: ppx(28);
+        width: ppx(955);
+      }
+    }
+
+    // リンクコンテナ
+    &__links {
+      display: flex;
+      flex-direction: column;
+      gap: spx(20);
+      @include tablet-up {
+        flex-direction: row;
+        gap: ppx(23 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(23);
+      }
+    }
+
+    // リンク
+    &__link {
+      display: block;
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(28);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%;
+      border-radius: spx(15);
+      background: var(--blue_5, #026995);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.3s ease;
+      width: spx(429);
+      height: spx(90);
+      @include tablet-up {
+        width: ppx(429 * 1.2);
+        height: ppx(90 * 1.2);
+        flex-shrink: 0;
+        border-radius: ppx(20 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(429);
+        height: ppx(90);
+        border-radius: ppx(20);
+      }
+      @include hover {
+        &:hover {
+          background: var(--green_2, #adc400);
+        }
+      }
+    }
+
+    // リンクテキスト
+    &__link-text {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(31);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%;
+      letter-spacing: spx(1.55);
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        line-height: ppx(33 * 1.2);
+        letter-spacing: ppx(1.65 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        line-height: ppx(33);
+        letter-spacing: ppx(1.65);
+      }
+    }
+
+    // リンクアイコン
+    &__link-icon {
+      display: block;
+      width: spx(18);
+      position: absolute;
+      top: 50%;
+      right: spx(20);
+      transform: translateY(-50%);
+      @include tablet-up {
+        width: ppx(18 * 1.2);
+        right: ppx(20 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(18);
+        right: ppx(20);
+      }
+    }
+  }
+</style>

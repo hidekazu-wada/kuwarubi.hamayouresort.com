@@ -7,12 +7,17 @@
 
 // 必須インポート
 import BaseLayout from '../layouts/BaseLayout.astro';
-import LowerPageHeader from '../components/ui/LowerPageHeader.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 
+// コンポーネント
+import Hero from '../components/pages/access/Hero.astro';
+import Route from '../components/pages/access/Route.astro';
+
 // 画像
-import JapanMapSpImage from '../assets/images/access/hero/sp.svg';
-import JapanMapTabletUpImage from '../assets/images/access/hero/tablet-up.svg';
+import VisitSp1 from '../assets/images/access/visit/sp-01.svg';
+import VisitSp2 from '../assets/images/access/visit/sp-02.svg';
+import VisitTabletUp1 from '../assets/images/access/visit/tablet-up-01.svg';
+import VisitTabletUp2 from '../assets/images/access/visit/tablet-up-02.svg';
 
 // ============================================================
 // TODO: 以下の項目を必ず変更してください
@@ -35,130 +40,110 @@ const pageClass = 'main-content--access';
   <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
   <!-- ============================================================ -->
 
-  <!-- メインコンテンツ -->
-  <section class="access-hero">
-    <!-- ページヘッダー -->
-    <div class="page-header-container">
-      <LowerPageHeader titleEn="ACCESS" titleJa="アクセス" />
-    </div>
-    <div class="access-hero__content">
-      <h1 class="access-hero__heading">
-        首都圏からすぐ<br />
-        息をのむ自然の中へ
-      </h1>
-      <p class="access-hero__description">
-        首都圏からわずかな距離で、息をのむような自然に囲まれた当ホテルへお越しください。緑豊かな山々、透き通るような湖、清々しい空気が、日常からの完全な逃避を提供します。手つかずの自然の中で過ごす時間は、都会の喧騒から解放され、心身ともにリフレッシュする貴重な瞬間です。自然と直接触れ合うことで、新たな発見と感動があなたを待っています。この美しい場所で、忘れられない思い出を作りましょう。
-      </p>
-      <address class="access-hero__address">
-        <div class="access-hero__address-block">
-          <p class="access-hero__postal-code">〒401-0332</p>
-          <p class="access-hero__address-text">
-            山梨県南都留郡富士河口湖町西湖９９７
-          </p>
+  <Hero />
+  <Route />
+  <section>
+    <div>
+      <div class="">公共交通機関で<br class="only-sp" />お越しの場合</div>
+      <div>
+        <div>
+          <picture class="クラス名 モディファイア名">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={VisitTabletUp1.src.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={VisitTabletUp1.src.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={VisitSp1.src}
+              alt="画像の内容を説明するテキスト"
+              class="追加のクラス名（必要に応じて）"
+            />
+          </picture>
         </div>
-        <p class="access-hero__phone">TEL 0555-82-2922</p>
-      </address>
-    </div>
-    <figure class="access-hero__map">
-      <picture class="access-hero__map-image">
-        <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-        <source
-          media="(min-width: 1024px)"
-          srcset={JapanMapTabletUpImage.src.toString()}
-        />
-        <!-- タブレット（744px以上）→ 中解像度版 -->
-        <source
-          media="(min-width: 744px)"
-          srcset={JapanMapTabletUpImage.src.toString()}
-        />
-        <!-- スマホ（744px未満）→ 最小解像度版 -->
-        <img
-          src={JapanMapSpImage.src}
-          alt="東京・名古屋・大阪からのアクセスマップ"
-          class="access-hero__map-img"
-        />
-      </picture>
-    </figure>
-  </section>
-
-  <section class="access-route">
-    <div class="access-route__container">
-      <figure class="access-route__map">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51968.108919831255!2d138.64486859213216!3d35.5041099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601be1abf278b1dd%3A0x8bbcffa1146e4d31!2sHamayou%20Resort!5e0!3m2!1sja!2sjp!4v1758422955524!5m2!1sja!2sjp"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          class="access-route__iframe"></iframe>
-      </figure>
-      <div class="access-route__info">
-        <h2 class="access-route__title">お車でお越しの場合</h2>
-        <ul class="access-route__list">
-          <li class="access-route__item">
-            <div class="access-route__from">
-              <p class="access-route__city">東京（新宿）から</p>
-              <p class="access-route__via">中央自動車道経由</p>
-            </div>
-            <span class="access-route__line"></span>
-            <div class="access-route__to">
-              <p class="access-route__distance">１００km</p>
-              <p class="access-route__time">約２時間</p>
-            </div>
-          </li>
-          <li class="access-route__item">
-            <div class="access-route__from">
-              <p class="access-route__city">神奈川（横浜）から</p>
-              <p class="access-route__via">東名高速道路経由</p>
-            </div>
-            <span class="access-route__line"></span>
-            <div class="access-route__to">
-              <p class="access-route__distance">１２０km</p>
-              <p class="access-route__time">約２時間</p>
-            </div>
-          </li>
-          <li class="access-route__item">
-            <div class="access-route__from">
-              <p class="access-route__city">愛知（名古屋）から</p>
-              <p class="access-route__via">東名高速道路経由</p>
-            </div>
-            <span class="access-route__line"></span>
-            <div class="access-route__to">
-              <p class="access-route__distance">２６０km</p>
-              <p class="access-route__time">約３時間３０分</p>
-            </div>
-          </li>
-          <li class="access-route__item">
-            <div class="access-route__from">
-              <p class="access-route__city">大阪（大阪）から</p>
-              <p class="access-route__via">名神高速道路・東名高速道路経由</p>
-            </div>
-            <span class="access-route__line"></span>
-            <div class="access-route__to">
-              <p class="access-route__distance">４１０km</p>
-              <p class="access-route__time">約５時間</p>
-            </div>
-          </li>
-        </ul>
+        <div>
+          <picture class="クラス名 モディファイア名">
+            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+            <source
+              media="(min-width: 1024px)"
+              srcset={VisitTabletUp2.src.toString()}
+            />
+            <!-- タブレット（744px以上）→ 中解像度版 -->
+            <source
+              media="(min-width: 744px)"
+              srcset={VisitTabletUp2.src.toString()}
+            />
+            <!-- スマホ（744px未満）→ 最小解像度版 -->
+            <img
+              src={VisitSp2.src}
+              alt="画像の内容を説明するテキスト"
+              class="追加のクラス名（必要に応じて）"
+            />
+          </picture>
+        </div>
       </div>
     </div>
-    <footer class="access-route__footer">
-      <div class="access-route__footer-container">
-        <p class="access-route__footer-text">
-          無料駐車場を完備しております。冬季はスタッドレスタイヤを推奨します。ご到着がスムーズになるよう、事前にルート情報をご確認ください。
-        </p>
-        <nav class="access-route__links">
-          <a href="" class="access-route__link">
-            <span class="access-route__link-text">ルート情報</span>
-            <svg class="access-route__link-icon"></svg>
-          </a>
-          <a href="" class="access-route__link">
-            <span class="access-route__link-text">駐車場情報</span>
-            <svg class="access-route__link-icon"></svg>
-          </a>
-        </nav>
+    <div class="">
+      <div class="">無料送迎バスについて</div>
+      <div>
+        <div class="">
+          河口湖駅から無料の送迎バス（シャトルバス）を運行しております。ホテルまでは約１５分。
+        </div>
+        <div class="">
+          事前にご予約が必要となります。ご予約がない場合は運行をしていない場合もございます。
+        </div>
+        <div class="">
+          １０名様以上の場合は規定時間外でも承っております。お気軽にお問合せください。
+        </div>
       </div>
-    </footer>
+      <div class="">
+        <div>
+          <div class="">時刻表</div>
+          <span></span>
+        </div>
+        <div>
+          <div>
+            <div class="">ホテル発　　⇒　河口湖駅行</div>
+            <div class="">（出発時間 10：00）</div>
+          </div>
+          <div>
+            <div class="">河口湖駅発　⇒　ホテル行①</div>
+            <div class="">（出発時間 15：00）</div>
+          </div>
+          <div>
+            <div class="">河口湖駅発　⇒　ホテル行②</div>
+            <div class="">（出発時間 17：00）</div>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <div class="">
+          シャトルバスは河口湖駅１０番乗り場からの発車となります。
+        </div>
+        <div class="">上記以外のお時間に関しましてはご相談ください。</div>
+        <div class="">
+          いずみの湯の日帰り利用、キャンプ場利用の場合の送迎はおこなっておりません。
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <div class="">高速バスのご予約はこちら</div>
+      <div>
+        <div>
+          <div class="">新宿 〜 河口湖駅</div>
+          <svg> </svg>
+        </div>
+        <div>
+          <div class="">三島駅 〜 河口湖駅</div>
+          <svg> </svg>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- パンくずリスト -->
@@ -179,490 +164,5 @@ const pageClass = 'main-content--access';
   :global(.main-content--access) {
     display: block;
     background: var(--blue_2, #e7f3f9);
-
-    // ヒーローセクション
-    .access-hero {
-      position: relative;
-      padding-top: spx(110);
-      padding-bottom: spx(72);
-      overflow-x: hidden;
-      @include tablet-up {
-        padding-top: ppx(280) * 1.2;
-        padding-bottom: ppx(231) * 1.2;
-      }
-      @include desktop-up {
-        padding-top: ppx(280);
-        padding-bottom: ppx(231);
-      }
-
-      .page-header-container {
-        position: relative;
-        z-index: 2;
-        @include tablet-up {
-          margin-left: ppx(233 * 1.2);
-        }
-        @include desktop-up {
-          margin-left: ppx(233);
-        }
-      }
-
-      // コンテンツコンテナ
-      &__content {
-        position: relative;
-        z-index: 2;
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      // 見出し
-      &__heading {
-        color: var(--blue_6, #054965);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(52);
-        font-style: normal;
-        font-weight: 400;
-        line-height: 150%;
-        letter-spacing: spx(2.6);
-        margin-top: spx(90);
-        width: spx(600);
-        margin-inline: auto;
-        @include tablet-up {
-          font-size: ppx(70 * 1.2);
-          letter-spacing: ppx(3.5 * 1.2);
-          margin-top: ppx(107 * 1.2);
-          width: auto;
-          margin-inline: unset;
-          margin-left: ppx(233 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(70);
-          letter-spacing: ppx(3.5);
-          margin-top: ppx(107);
-          margin-left: ppx(233);
-        }
-      }
-
-      // 説明文
-      &__description {
-        color: var(--blue_6, #054965);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(30);
-        font-style: normal;
-        font-weight: 400;
-        line-height: 180%;
-        width: spx(600);
-        margin-top: spx(40);
-        margin-inline: auto;
-        @include tablet-up {
-          font-size: ppx(26 * 1.2);
-          letter-spacing: ppx(-0.52 * 1.2);
-          width: 25vw;
-          margin-top: ppx(26 * 1.2);
-          margin-inline: unset;
-          margin-left: ppx(233 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(26);
-          letter-spacing: ppx(-0.52);
-          width: ppx(984);
-          margin-top: ppx(26);
-          margin-left: ppx(233);
-        }
-      }
-
-      // 住所ブロック
-      &__address {
-        color: var(--blue_6, #054965);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(30);
-        font-style: normal;
-        font-weight: 400;
-        line-height: 160%;
-        letter-spacing: spx(-0.6);
-        width: max-content;
-        margin-left: auto;
-        margin-right: spx(29);
-        margin-top: spx(614);
-        @include tablet-up {
-          text-align: right;
-          font-size: ppx(33 * 1.2);
-          line-height: 180%;
-          letter-spacing: ppx(1.65 * 1.2);
-          margin-top: 5vw;
-          margin-right: ppx(150 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(33);
-          letter-spacing: ppx(1.65);
-          margin-top: ppx(703);
-          margin-right: ppx(150);
-        }
-      }
-
-      &__address-block {
-        @include tablet-up {
-          display: flex;
-          gap: 1em;
-        }
-        @include desktop-up {
-        }
-      }
-
-      // 郵便番号
-      &__postal-code {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      // 住所テキスト
-      &__address-text {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      // 電話番号
-      &__phone {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      // マップコンテナ
-      &__map {
-        position: absolute;
-        z-index: 1;
-        right: 0;
-        top: spx(445);
-
-        @include tablet-up {
-          top: 0;
-        }
-        @include desktop-up {
-        }
-      }
-
-      // マップ画像コンテナ
-      &__map-image {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      // マップ画像
-      &__map-img {
-        display: block;
-        width: 100%;
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-    }
-
-    // ルートセクション
-    .access-route {
-      @include tablet-up {
-      }
-      @include desktop-up {
-      }
-
-      // コンテナ
-      &__container {
-        display: grid;
-        grid-template:
-          'map'
-          'info';
-        gap: spx(90);
-
-        @include tablet-up {
-          grid-template-areas: 'info map';
-          gap: ppx(119 * 1.2);
-          width: max-content;
-          margin-left: auto;
-          margin-right: 0;
-        }
-        @include desktop-up {
-          gap: ppx(119);
-        }
-      }
-
-      // マップコンテナ
-      &__map {
-        grid-area: map;
-      }
-
-      // iframe
-      &__iframe {
-        display: block;
-        width: 100%;
-        height: spx(449);
-        @include tablet-up {
-          width: ppx(1158);
-          height: ppx(722 * 1.2);
-          border-radius: ppx(50 * 1.2) 0 0 ppx(50 * 1.2);
-          overflow: hidden;
-        }
-        @include desktop-up {
-          width: ppx(1158);
-          height: ppx(722);
-          border-radius: ppx(50) 0 0 ppx(50);
-        }
-      }
-
-      // 情報コンテナ
-      &__info {
-        grid-area: info;
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      // タイトル
-      &__title {
-        color: var(--blue_6, #054965);
-        text-align: center;
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(40);
-        font-style: normal;
-        font-weight: 500;
-        line-height: 150%;
-        letter-spacing: spx(4);
-        @include tablet-up {
-          font-size: ppx(40 * 1.2);
-          letter-spacing: ppx(8 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(40);
-          letter-spacing: ppx(8);
-        }
-      }
-
-      // リスト
-      &__list {
-        margin-top: spx(90);
-        display: flex;
-        flex-direction: column;
-        gap: spx(110);
-        @include tablet-up {
-          margin-top: ppx(85 * 1.2);
-          gap: 3vw;
-          width: 36vw;
-        }
-        @include desktop-up {
-          margin-top: ppx(85);
-          gap: ppx(76);
-          width: ppx(826);
-        }
-      }
-
-      // アイテム
-      &__item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: spx(6);
-        @include tablet-up {
-          display: grid;
-          grid-template-columns: max-content auto 17vw;
-          align-items: center;
-          gap: unset;
-        }
-        @include desktop-up {
-          grid-template-columns: max-content auto ppx(360);
-        }
-      }
-
-      // 出発地
-      &__from {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: spx(1);
-        @include tablet-up {
-          gap: 0;
-        }
-        @include desktop-up {
-        }
-      }
-
-      // 都市名
-      &__city {
-        color: var(--blue_6, #054965);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(35);
-        font-style: normal;
-        font-weight: 400;
-        line-height: 150%;
-        @include tablet-up {
-          font-size: ppx(35 * 1.2);
-          width: max-content;
-        }
-        @include desktop-up {
-          font-size: ppx(35);
-        }
-      }
-
-      // 経由地
-      &__via {
-        color: var(--blue_4, #59a1c0);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(26);
-        font-style: normal;
-        font-weight: 400;
-        line-height: 130%;
-        @include tablet-up {
-          font-size: ppx(26 * 1.2);
-          position: absolute;
-          left: 0;
-          bottom: ppx(-35 * 1.2);
-          width: max-content;
-        }
-        @include desktop-up {
-          font-size: ppx(26);
-          bottom: ppx(-35);
-        }
-      }
-
-      // ライン
-      &__line {
-        display: block;
-        width: 1px;
-        height: spx(41);
-        background: var(--blue_4, #59a1c0);
-        @include tablet-up {
-          height: 100%;
-          width: 100%;
-          background: none;
-          position: relative;
-        }
-        @include desktop-up {
-        }
-        &::after {
-          @include tablet-up {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 98%;
-            height: 1px;
-            background: var(--blue_4, #59a1c0);
-            transform: translate(-49.5%, -50%);
-          }
-        }
-      }
-
-      // 目的地
-      &__to {
-        display: flex;
-        gap: 1em;
-        align-items: baseline;
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      // 距離
-      &__distance {
-        color: var(--blue_6, #054965);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(35);
-        font-style: normal;
-        font-weight: 400;
-        line-height: 90%;
-        @include tablet-up {
-          font-size: ppx(35 * 1.2);
-          line-height: 150%;
-          width: max-content;
-        }
-        @include desktop-up {
-          font-size: ppx(35);
-        }
-      }
-
-      // 時間
-      &__time {
-        color: var(--blue_6, #054965);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(26);
-        font-style: normal;
-        font-weight: 400;
-        line-height: 90%;
-        @include tablet-up {
-          font-size: ppx(24 * 1.2);
-          line-height: 150%;
-          width: max-content;
-        }
-        @include desktop-up {
-          font-size: ppx(24);
-        }
-      }
-
-      // フッター
-      &__footer {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      // フッターコンテナ
-      &__footer-container {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      // フッターテキスト
-      &__footer-text {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      // リンクコンテナ
-      &__links {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      // リンク
-      &__link {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      // リンクテキスト
-      &__link-text {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-
-      // リンクアイコン
-      &__link-icon {
-        @include tablet-up {
-        }
-        @include desktop-up {
-        }
-      }
-    }
   }
 </style>
