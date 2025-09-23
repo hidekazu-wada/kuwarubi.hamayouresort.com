@@ -11,6 +11,10 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
 
 import Hero from '../components/pages/enjoy/Hero.astro';
 
+// Swiper CSS
+import 'swiper/css';
+import 'swiper/css/thumbs';
+
 // 追加インポート（必要に応じて）
 // import { getImage } from 'astro:assets';
 // import sampleImage from '../assets/images/sample.jpg';
@@ -39,7 +43,241 @@ const pageClass = 'main-content--enjoy';
   <!-- メインコンテンツ -->
   <Hero />
   <section class="day-1">
-    <div class="">Day 1</div>
+    <h2 class="day-1__heading">Day 1</h2>
+    <div class="day-1__content">
+      <div class="day-1__timeline">
+        <!-- サムネイルSwiper -->
+        <div class="enjoy-day1__swiper-thumb">
+          <ol class="day-1__schedule-list swiper-wrapper">
+            <li class="day-1__schedule-item swiper-slide">
+              <div class="day-1__schedule-entry">
+                <time class="day-1__time">15:00</time>
+                <span class="day-1__connector"></span>
+                <span class="day-1__activity">チェックイン</span>
+              </div>
+            </li>
+            <li class="day-1__schedule-item swiper-slide">
+              <div class="day-1__schedule-entry">
+                <time class="day-1__time">15:30</time>
+                <span class="day-1__connector"></span>
+                <span class="day-1__activity">周辺散歩</span>
+              </div>
+            </li>
+            <li class="day-1__schedule-item swiper-slide">
+              <div class="day-1__schedule-entry">
+                <time class="day-1__time">16:00</time>
+                <span class="day-1__connector"></span>
+                <span class="day-1__activity">森のサウナ</span>
+              </div>
+            </li>
+            <li class="day-1__schedule-item swiper-slide">
+              <div class="day-1__schedule-entry">
+                <time class="day-1__time">18:00</time>
+                <span class="day-1__connector"></span>
+                <span class="day-1__activity">夕　食</span>
+              </div>
+            </li>
+            <li class="day-1__schedule-item swiper-slide">
+              <div class="day-1__schedule-entry">
+                <time class="day-1__time">19:00</time>
+                <span class="day-1__connector"></span>
+                <span class="day-1__activity">入　浴</span>
+              </div>
+            </li>
+            <li class="day-1__schedule-item swiper-slide">
+              <div class="day-1__schedule-entry">
+                <time class="day-1__time">20:30</time>
+                <span class="day-1__connector"></span>
+                <span class="day-1__activity">ナイトハイク</span>
+              </div>
+            </li>
+            <li class="day-1__schedule-item swiper-slide">
+              <div class="day-1__schedule-entry">
+                <time class="day-1__time">22:00</time>
+                <span class="day-1__connector"></span>
+                <span class="day-1__activity">就　寝</span>
+              </div>
+            </li>
+          </ol>
+        </div>
+        <span class="day-1__vertical-line"></span>
+      </div>
+      <div class="day-1__details">
+        <!-- メインSwiper -->
+        <div class="enjoy-day1__swiper-main">
+          <div class="day-1__details-list swiper-wrapper">
+            <article class="day-1__detail-item swiper-slide">
+              <div class="day-1__detail-content">
+                <div class="day-1__detail-image">
+                  <picture class="day-1__picture">
+                    <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                    <source media="(min-width: 1024px)" srcset="/" />
+                    <!-- タブレット（744px以上）→ 中解像度版 -->
+                    <source media="(min-width: 744px)" srcset="/" />
+                    <!-- スマホ（744px未満）→ 最小解像度版 -->
+                    <img
+                      src='alt="画像の内容を説明するテキスト"'
+                      class="day-1__img"
+                    />
+                  </picture>
+                </div>
+                <div class="day-1__detail-text">
+                  <time class="day-1__detail-time">15:00</time>
+                  <h3 class="day-1__detail-title">チェックイン</h3>
+                  <p class="day-1__detail-description">
+                    静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。
+                  </p>
+                </div>
+              </div>
+            </article>
+            <article class="day-1__detail-item swiper-slide">
+              <div class="day-1__detail-content">
+                <div class="day-1__detail-image">
+                  <picture class="day-1__picture">
+                    <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                    <source media="(min-width: 1024px)" srcset="/" />
+                    <!-- タブレット（744px以上）→ 中解像度版 -->
+                    <source media="(min-width: 744px)" srcset="/" />
+                    <!-- スマホ（744px未満）→ 最小解像度版 -->
+                    <img
+                      src='alt="画像の内容を説明するテキスト"'
+                      class="day-1__img"
+                    />
+                  </picture>
+                </div>
+                <div class="day-1__detail-text">
+                  <time class="day-1__detail-time">15:30</time>
+                  <h3 class="day-1__detail-title">周辺散歩</h3>
+                  <p class="day-1__detail-description">
+                    静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。
+                  </p>
+                </div>
+              </div>
+            </article>
+            <article class="day-1__detail-item swiper-slide">
+              <div class="day-1__detail-content">
+                <div class="day-1__detail-image">
+                  <picture class="day-1__picture">
+                    <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                    <source media="(min-width: 1024px)" srcset="/" />
+                    <!-- タブレット（744px以上）→ 中解像度版 -->
+                    <source media="(min-width: 744px)" srcset="/" />
+                    <!-- スマホ（744px未満）→ 最小解像度版 -->
+                    <img
+                      src='alt="画像の内容を説明するテキスト"'
+                      class="day-1__img"
+                    />
+                  </picture>
+                </div>
+                <div class="day-1__detail-text">
+                  <time class="day-1__detail-time">16:00</time>
+                  <h3 class="day-1__detail-title">森のサウナ</h3>
+                  <p class="day-1__detail-description">
+                    静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。
+                  </p>
+                </div>
+              </div>
+            </article>
+            <article class="day-1__detail-item swiper-slide">
+              <div class="day-1__detail-content">
+                <div class="day-1__detail-image">
+                  <picture class="day-1__picture">
+                    <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                    <source media="(min-width: 1024px)" srcset="/" />
+                    <!-- タブレット（744px以上）→ 中解像度版 -->
+                    <source media="(min-width: 744px)" srcset="/" />
+                    <!-- スマホ（744px未満）→ 最小解像度版 -->
+                    <img
+                      src='alt="画像の内容を説明するテキスト"'
+                      class="day-1__img"
+                    />
+                  </picture>
+                </div>
+                <div class="day-1__detail-text">
+                  <time class="day-1__detail-time">18:00</time>
+                  <h3 class="day-1__detail-title">夕　食</h3>
+                  <p class="day-1__detail-description">
+                    静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。
+                  </p>
+                </div>
+              </div>
+            </article>
+            <article class="day-1__detail-item swiper-slide">
+              <div class="day-1__detail-content">
+                <div class="day-1__detail-image">
+                  <picture class="day-1__picture">
+                    <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                    <source media="(min-width: 1024px)" srcset="/" />
+                    <!-- タブレット（744px以上）→ 中解像度版 -->
+                    <source media="(min-width: 744px)" srcset="/" />
+                    <!-- スマホ（744px未満）→ 最小解像度版 -->
+                    <img
+                      src='alt="画像の内容を説明するテキスト"'
+                      class="day-1__img"
+                    />
+                  </picture>
+                </div>
+                <div class="day-1__detail-text">
+                  <time class="day-1__detail-time">19:00</time>
+                  <h3 class="day-1__detail-title">入　浴</h3>
+                  <p class="day-1__detail-description">
+                    静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。
+                  </p>
+                </div>
+              </div>
+            </article>
+            <article class="day-1__detail-item swiper-slide">
+              <div class="day-1__detail-content">
+                <div class="day-1__detail-image">
+                  <picture class="day-1__picture">
+                    <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                    <source media="(min-width: 1024px)" srcset="/" />
+                    <!-- タブレット（744px以上）→ 中解像度版 -->
+                    <source media="(min-width: 744px)" srcset="/" />
+                    <!-- スマホ（744px未満）→ 最小解像度版 -->
+                    <img
+                      src='alt="画像の内容を説明するテキスト"'
+                      class="day-1__img"
+                    />
+                  </picture>
+                </div>
+                <div class="day-1__detail-text">
+                  <time class="day-1__detail-time">20:30</time>
+                  <h3 class="day-1__detail-title">ナイトハイク</h3>
+                  <p class="day-1__detail-description">
+                    静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。
+                  </p>
+                </div>
+              </div>
+            </article>
+            <article class="day-1__detail-item swiper-slide">
+              <div class="day-1__detail-content">
+                <div class="day-1__detail-image">
+                  <picture class="day-1__picture">
+                    <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+                    <source media="(min-width: 1024px)" srcset="/" />
+                    <!-- タブレット（744px以上）→ 中解像度版 -->
+                    <source media="(min-width: 744px)" srcset="/" />
+                    <!-- スマホ（744px未満）→ 最小解像度版 -->
+                    <img
+                      src='alt="画像の内容を説明するテキスト"'
+                      class="day-1__img"
+                    />
+                  </picture>
+                </div>
+                <div class="day-1__detail-text">
+                  <time class="day-1__detail-time">22:00</time>
+                  <h3 class="day-1__detail-title">就　寝</h3>
+                  <p class="day-1__detail-description">
+                    静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- パンくずリスト -->
@@ -47,6 +285,37 @@ const pageClass = 'main-content--enjoy';
     <Breadcrumb items={[{ text: 'TOP', href: '/' }, { text: '過ごし方' }]} />
   </div>
 </BaseLayout>
+
+<script>
+  import Swiper from 'swiper';
+  import { Thumbs, FreeMode } from 'swiper/modules';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // サムネイルSwiper
+    const thumbsSwiper = new Swiper('.enjoy-day1__swiper-thumb', {
+      modules: [Thumbs, FreeMode],
+      spaceBetween: 10,
+      slidesPerView: 'auto', // 全て表示
+      freeMode: true,
+      watchSlidesProgress: true,
+      breakpoints: {
+        1024: {
+          slidesPerView: 1,
+        },
+      },
+    });
+
+    // メインSwiper
+    new Swiper('.enjoy-day1__swiper-main', {
+      modules: [Thumbs],
+      spaceBetween: 10,
+      slidesPerView: 1, // 1枚ずつ表示
+      thumbs: {
+        swiper: thumbsSwiper, // サムネイルと連動
+      },
+    });
+  });
+</script>
 
 <style lang="scss">
   @import '../styles/variables';
@@ -67,7 +336,73 @@ const pageClass = 'main-content--enjoy';
     }
   }
 
+  // ============================================================
+  // Day 1 セクション
+  // ============================================================
+
   .day-1 {
     background: var(--blue_2, #e7f3f9);
+    &__heading {
+    }
+
+    &__content {
+    }
+
+    &__timeline {
+    }
+
+    &__schedule-list {
+    }
+
+    &__schedule-item {
+    }
+
+    &__schedule-entry {
+    }
+
+    &__time {
+    }
+
+    &__connector {
+    }
+
+    &__activity {
+    }
+
+    &__vertical-line {
+    }
+
+    &__details {
+    }
+
+    &__details-list {
+    }
+
+    &__detail-item {
+    }
+
+    &__detail-content {
+    }
+
+    &__detail-image {
+    }
+
+    &__picture {
+    }
+
+    &__img {
+    }
+
+    &__detail-text {
+    }
+
+    &__detail-time {
+    }
+
+    &__detail-title {
+    }
+
+    &__detail-description {
+    }
   }
 </style>
