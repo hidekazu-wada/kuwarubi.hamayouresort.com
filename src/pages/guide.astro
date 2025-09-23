@@ -1,0 +1,619 @@
+---
+// ============================================================
+// 汎用ページテンプレート
+// 使い方：このファイルをコピーして、ファイル名を変更して使用
+// 例：cp src/pages/_template.astro src/pages/about.astro
+// ============================================================
+
+// 必須インポート
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LowerPageHeader from '../components/ui/LowerPageHeader.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+
+// 追加インポート（必要に応じて）
+// import { getImage } from 'astro:assets';
+// import sampleImage from '../assets/images/sample.jpg';
+
+// ============================================================
+// TODO: 以下の項目を必ず変更してください
+// ============================================================
+
+// ページメタ情報（必ず変更）
+const pageTitle = 'ご利用案内 | 光風閣くわるび';
+const pageDescription = 'ページの説明文をここに記述します。';
+
+// ページ固有のクラス名（guideを適切な名前に変更）
+const pageClass = 'main-content--guide';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageClass={pageClass}
+>
+  <!-- ============================================================ -->
+  <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
+  <!-- ============================================================ -->
+
+  <!-- ページヘッダー -->
+  <div class="page-header-container">
+    <LowerPageHeader titleEn="GUIDE" titleJa="ご利用案内" />
+  </div>
+
+  <!-- メインコンテンツ -->
+  <section class="guide-tabs">
+    <!-- タブナビゲーション -->
+    <div class="guide-tabs__nav" role="tablist">
+      <button
+        class="guide-tabs__button guide-tabs__button--active"
+        role="tab"
+        aria-selected="true"
+        aria-controls="tab-panel-1"
+        data-tab="1"
+      >
+        営業時間
+      </button>
+      <button
+        class="guide-tabs__button"
+        role="tab"
+        aria-selected="false"
+        aria-controls="tab-panel-2"
+        data-tab="2"
+      >
+        利用規約
+      </button>
+      <button
+        class="guide-tabs__button"
+        role="tab"
+        aria-selected="false"
+        aria-controls="tab-panel-3"
+        data-tab="3"
+      >
+        特定商取引法に基づく表記
+      </button>
+    </div>
+
+    <!-- タブコンテンツ -->
+    <div class="guide-tabs__panels">
+      <!-- 営業時間タブ -->
+      <div
+        class="guide-tabs__panel guide-tabs__panel--active"
+        role="tabpanel"
+        id="tab-panel-1"
+        data-panel="1"
+      >
+        <dl class="guide-tabs__list">
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>チェックイン</dt>
+              <dd>15:00</dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>チェックアウト</dt>
+              <dd>10:00</dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>フロント</dt>
+              <dd>7:00 - 21:00　※門限24:00</dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>朝食</dt>
+              <dd>7:30 - 9:30　※ブッフェスタイル</dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>大浴場</dt>
+              <dd>6:00 - 24:00</dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>ランドリールーム</dt>
+              <dd>7:00 - 22:00</dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>BBQハウス</dt>
+              <dd>10:00 - 16:00</dd>
+            </div>
+          </div>
+        </dl>
+      </div>
+
+      <!-- 利用規約タブ -->
+      <div
+        class="guide-tabs__panel"
+        role="tabpanel"
+        id="tab-panel-2"
+        data-panel="2"
+        hidden
+      >
+        <dl class="guide-tabs__list">
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>項目</dt>
+              <dd>本文</dd>
+            </div>
+          </div>
+        </dl>
+      </div>
+
+      <!-- 特定商取引法タブ -->
+      <div
+        class="guide-tabs__panel"
+        role="tabpanel"
+        id="tab-panel-3"
+        data-panel="3"
+        hidden
+      >
+        <dl class="guide-tabs__list">
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>事業者名</dt>
+              <dd>株式会社HAMAYOUリゾート</dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>代表者名</dt>
+              <dd>和田 秀子</dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>所在地</dt>
+              <dd>
+                〒401-0332　<br
+                  class="only-sp"
+                />山梨県南都留郡富士河口湖町西湖1023
+              </dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>お問い合わせ先</dt>
+              <dd>
+                <a href="mailto:info@hamayouresort.com"
+                  >E-mail：info@hamayouresort.com</a
+                >
+                <br />
+                <a href="tel:0555822922">TEL：0555-82-2922</a>
+              </dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>商品価格</dt>
+              <dd>
+                商品により異なります。各アクティビティの詳細ページをご参照ください。
+              </dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>消費税</dt>
+              <dd>10%</dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>支払方法</dt>
+              <dd>
+                商品により異なります。各アクティビティの詳細ページをご参照ください。
+              </dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>送料・運賃</dt>
+              <dd>
+                商品により異なります。各アクティビティの詳細ページをご参照ください。
+              </dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>商品等の引渡時期</dt>
+              <dd>
+                商品により異なります。各アクティビティの詳細ページをご参照ください。
+              </dd>
+            </div>
+          </div>
+          <div class="guide-tabs__item">
+            <div class="guide-tabs__item-inner">
+              <dt>キャンセルについて</dt>
+              <dd>
+                <section class="guide-tabs__cancel">
+                  <article class="guide-tabs__cancel-group">
+                    <h3 class="guide-tabs__cancel-title">
+                      宿泊料金（一般利用時）
+                    </h3>
+                    <ul class="guide-tabs__cancel-list">
+                      <li class="guide-tabs__cancel-item">連絡なし：100%</li>
+                      <li class="guide-tabs__cancel-item">当日：100%</li>
+                      <li class="guide-tabs__cancel-item">前日〜15日前：50%</li>
+                      <li class="guide-tabs__cancel-item">
+                        16日前〜30日前：10%
+                      </li>
+                    </ul>
+                  </article>
+                  <article class="guide-tabs__cancel-group">
+                    <h3 class="guide-tabs__cancel-title">
+                      宿泊料金（団体利用時）
+                    </h3>
+                    <ul class="guide-tabs__cancel-list">
+                      <li class="guide-tabs__cancel-item">連絡なし：100%</li>
+                      <li class="guide-tabs__cancel-item">当日：100%</li>
+                      <li class="guide-tabs__cancel-item">前日〜15日前：50%</li>
+                      <li class="guide-tabs__cancel-item">
+                        16日前〜30日前：10%
+                      </li>
+                    </ul>
+                  </article>
+                  <article class="guide-tabs__cancel-group">
+                    <h3 class="guide-tabs__cancel-title">食事</h3>
+                    <ul class="guide-tabs__cancel-list">
+                      <li class="guide-tabs__cancel-item">連絡なし：100%</li>
+                      <li class="guide-tabs__cancel-item">当日：100%</li>
+                      <li class="guide-tabs__cancel-item">前日〜15日前：50%</li>
+                      <li class="guide-tabs__cancel-item">
+                        16日前〜30日前：10%
+                      </li>
+                    </ul>
+                  </article>
+                  <article class="guide-tabs__cancel-group">
+                    <h3 class="guide-tabs__cancel-title">アクティビティ</h3>
+                    <p class="guide-tabs__cancel-note">
+                      商品により異なります。各アクティビティの詳細ページをご参照ください。
+                    </p>
+                  </article>
+                </section>
+              </dd>
+            </div>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+  <!-- パンくずリスト -->
+  <div class="breadcrumb-wrapper">
+    <Breadcrumb items={[{ text: 'TOP', href: '/' }, { text: 'ご利用案内' }]} />
+  </div>
+</BaseLayout>
+
+<script>
+  // タブ切り替え機能
+  const buttons = document.querySelectorAll(
+    '.guide-tabs__button'
+  ) as NodeListOf<HTMLButtonElement>;
+  const panels = document.querySelectorAll(
+    '.guide-tabs__panel'
+  ) as NodeListOf<HTMLElement>;
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const tabId = button.dataset.tab;
+
+      // 全てのタブとパネルを非アクティブに
+      buttons.forEach((btn) => {
+        btn.classList.remove('guide-tabs__button--active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+
+      panels.forEach((panel) => {
+        panel.classList.remove('guide-tabs__panel--active');
+        panel.setAttribute('hidden', '');
+      });
+
+      // クリックされたタブとパネルをアクティブに
+      button.classList.add('guide-tabs__button--active');
+      button.setAttribute('aria-selected', 'true');
+
+      const activePanel = document.querySelector(
+        `[data-panel="${tabId}"]`
+      ) as HTMLElement;
+
+      if (activePanel) {
+        activePanel.classList.add('guide-tabs__panel--active');
+        activePanel.removeAttribute('hidden');
+      }
+    });
+  });
+</script>
+
+<style lang="scss">
+  @import '../styles/variables';
+  @import '../styles/functions';
+  @import '../styles/mixins';
+
+  :global(.main-content--guide) {
+    background: #e7f3f9;
+    padding-top: spx(110);
+    padding-bottom: spx(40);
+
+    @include tablet-up {
+      padding-top: ppx(280 * 1.2);
+      padding-bottom: ppx(70 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(280);
+      padding-bottom: ppx(70);
+    }
+  }
+
+  .page-header-container {
+    @include tablet-up {
+      margin-left: ppx(233 * 1.2);
+    }
+    @include desktop-up {
+      margin-left: ppx(233);
+    }
+  }
+
+  .guide-tabs {
+    margin-top: spx(100);
+    padding-bottom: spx(120);
+    @include tablet-up {
+      margin-top: ppx(128 * 1.2);
+      padding-bottom: ppx(150 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(128);
+      padding-bottom: ppx(150);
+    }
+
+    &__nav {
+      display: flex;
+      justify-content: center;
+      gap: spx(5);
+      @include tablet-up {
+        gap: ppx(5 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(5);
+      }
+    }
+
+    &__button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: spx(15) spx(15) 0 0;
+      background: var(--blue_4, #59a1c0);
+      width: spx(190);
+      height: spx(100);
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(25);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%; /* 30px */
+      letter-spacing: spx(-0.5);
+      transition: background 0.3s ease;
+      @include tablet-up {
+        width: ppx(530 * 1.2);
+        height: ppx(120 * 1.2);
+        border-radius: ppx(20 * 1.2) ppx(20 * 1.2) 0 0;
+        font-size: ppx(33 * 1.2);
+        line-height: ppx(33 * 1.2); /* 100% */
+        letter-spacing: ppx(1.65 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(530);
+        height: ppx(120);
+        flex-shrink: 0;
+        border-radius: ppx(20) ppx(20) 0 0;
+        font-size: ppx(33);
+        line-height: ppx(33); /* 100% */
+        letter-spacing: ppx(1.65);
+      }
+
+      &--active {
+        background: var(--green_2, #adc400);
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__panels {
+      width: spx(660);
+      padding: spx(60) 0;
+      border-radius: spx(20);
+      background: var(--white, #fff);
+      margin-inline: auto;
+      @include tablet-up {
+        width: 84vw;
+        padding: ppx(120 * 1.2) 0;
+        border-radius: ppx(30 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(2013);
+        padding: ppx(120) 0;
+        flex-shrink: 0;
+        border-radius: ppx(30);
+      }
+    }
+
+    &__panel {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &--active {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: spx(10);
+      @include tablet-up {
+        gap: ppx(40 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(40);
+      }
+    }
+
+    &__item {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 45px */
+      padding-bottom: spx(14);
+      position: relative;
+      width: spx(570);
+      @include tablet-up {
+        font-size: ppx(34 * 1.2);
+        line-height: 160%; /* 54.4px */
+        padding-bottom: ppx(40 * 1.2);
+        width: ppx(1683 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        padding-bottom: ppx(40);
+        width: ppx(1683);
+      }
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: var(--blue_3, #7fb8d1);
+      }
+    }
+
+    &__item-inner {
+      display: flex;
+      flex-direction: column;
+      margin-inline: spx(20);
+
+      @include tablet-up {
+        display: grid;
+        grid-template-columns: ppx(340 * 1.2) auto;
+        gap: ppx(60 * 1.2);
+        margin-inline: ppx(35 * 1.2);
+      }
+      @include desktop-up {
+        grid-template-columns: ppx(340) auto;
+        gap: ppx(60);
+        margin-inline: ppx(35);
+      }
+
+      dt {
+        font-weight: 400;
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      dd {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+        .only-sp {
+          display: block;
+          @include tablet-up {
+            display: none;
+          }
+          @include desktop-up {
+          }
+        }
+      }
+    }
+
+    &__content {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      h3 {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      p {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__cancel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__cancel-group {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__cancel-title {
+      color: var(--blue_4, #59a1c0);
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__cancel-list {
+      display: flex;
+      flex-direction: column;
+      @include tablet-up {
+        flex-direction: row;
+        gap: 1em;
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__cancel-item {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__cancel-note {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+  }
+</style>
