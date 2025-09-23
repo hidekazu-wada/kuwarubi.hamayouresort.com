@@ -293,7 +293,8 @@ const pageClass = 'main-content--enjoy';
 
   // ブレークポイント定数（744px = タブレット以上でSwiper有効）
   const TABLET_BP = 744;
-  const isTabletUp = () => window.matchMedia(`(min-width: ${TABLET_BP}px)`).matches;
+  const isTabletUp = () =>
+    window.matchMedia(`(min-width: ${TABLET_BP}px)`).matches;
 
   document.addEventListener('DOMContentLoaded', () => {
     let thumbsSwiper: any = null;
@@ -307,17 +308,18 @@ const pageClass = 'main-content--enjoy';
       // @ts-ignore
       thumbsSwiper = new Swiper('.enjoy-day1__swiper-thumb', {
         spaceBetween: 10,
-        slidesPerView: 7,  // デフォルトで7つ表示
+        slidesPerView: 7, // デフォルトで7つ表示
         freeMode: true,
         watchSlidesProgress: true,
+        slideToClickedSlide: true, // クリックしたスライドに移動
         breakpoints: {
           744: {
-            slidesPerView: 5,  // タブレットで5つ
+            slidesPerView: 5, // タブレットで5つ
           },
           1024: {
-            slidesPerView: 7,  // PCで7つ
-          }
-        }
+            slidesPerView: 7, // PCで7つ
+          },
+        },
       });
 
       // メインSwiper初期化
@@ -328,6 +330,16 @@ const pageClass = 'main-content--enjoy';
         thumbs: {
           swiper: thumbsSwiper,
         },
+      });
+
+      // サムネイルクリックイベントを手動で追加
+      const thumbSlides = document.querySelectorAll('.enjoy-day1__swiper-thumb .swiper-slide');
+      thumbSlides.forEach((slide, index) => {
+        slide.addEventListener('click', () => {
+          if (mainSwiper) {
+            mainSwiper.slideTo(index);
+          }
+        });
       });
     };
 
@@ -347,9 +359,9 @@ const pageClass = 'main-content--enjoy';
 
     const handleResize = () => {
       if (isTabletUp()) {
-        initSwipers();  // タブレット以上でSwiper有効
+        initSwipers(); // タブレット以上でSwiper有効
       } else {
-        destroySwipers();  // スマホでSwiper無効
+        destroySwipers(); // スマホでSwiper無効
       }
     };
 
@@ -397,67 +409,206 @@ const pageClass = 'main-content--enjoy';
 
   .day-1 {
     background: var(--blue_2, #e7f3f9);
+    @include tablet-up {
+    }
+    @include desktop-up {
+    }
+
     &__heading {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__content {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__timeline {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__schedule-list {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__schedule-item {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__schedule-entry {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__time {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__connector {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__activity {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__vertical-line {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__details {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__details-list {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__detail-item {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__detail-content {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__detail-image {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__picture {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__img {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__detail-text {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__detail-time {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__detail-title {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
 
     &__detail-description {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+  }
+
+  // ============================================================
+  // Swiper関連のセレクター
+  // ============================================================
+
+  .enjoy-day1__swiper-thumb {
+    display: none;
+    @include tablet-up {
+      display: flex;
+    }
+    @include desktop-up {
+    }
+
+    .swiper-wrapper {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    .swiper-slide {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+  }
+
+  .enjoy-day1__swiper-main {
+    @include tablet-up {
+    }
+    @include desktop-up {
+    }
+
+    .swiper-wrapper {
+      flex-direction: column;
+      @include tablet-up {
+        flex-direction: row;
+      }
+      @include desktop-up {
+      }
+    }
+
+    .swiper-slide {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
     }
   }
 </style>
