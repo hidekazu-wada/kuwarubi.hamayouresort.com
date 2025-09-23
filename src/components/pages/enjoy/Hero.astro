@@ -1,0 +1,312 @@
+---
+// 必須インポート
+import LowerPageHeader from '../../../components/ui/LowerPageHeader.astro';
+
+// 画像
+import { getImage } from 'astro:assets';
+import treeMountain from '../../../assets/images/enjoy/tree-mountain.svg';
+---
+
+<section class="enjoy-hero">
+  <header class="enjoy-hero__header">
+    <!-- ページヘッダー -->
+    <div class="page-header-container">
+      <LowerPageHeader titleEn="ENJOY" titleJa="" />
+    </div>
+    <div class="enjoy-hero__subtitle">
+      <span
+        class="enjoy-hero__subtitle-text enjoy-hero__subtitle-text--highlight"
+        >子供と一緒に</span
+      >
+      <h1 class="enjoy-hero__subtitle-text">自然に触れたい方</h1>
+    </div>
+    <img class="enjoy-hero__image" src="" alt="ここにイメージ画像を挿入" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="720"
+      height="268"
+      viewBox="0 0 720 268"
+      fill="none"
+      class="enjoy-hero__bg"
+    >
+      <path
+        d="M0 128.078C0 128.078 265.181 -54.2377 720 16.1705V268H0V128.078Z"
+        fill="#E7F3F9"></path>
+    </svg>
+  </header>
+  <div class="enjoy-hero__container">
+    <article class="enjoy-hero__content">
+      <h2 class="enjoy-hero__title">
+        <span class="highlight">自然の中で</span>
+        <span class="highlight">家族の絆を深める、</span>
+        <span class="highlight">忘れられない一日を</span>
+      </h2>
+      <p class="enjoy-hero__description">
+        当ホテル周辺の自然豊かな環境は、家族全員で楽しめるアドベンチャーが満載です。散策路を歩きながら、季節の花や野生の動物を探したり、湖でカヌー体験をしてみませんか？子どもたちにとっては新しい発見がいっぱいの場所、大人にとっては日常から離れてゆっくりとリラックスできる空間を提供します。
+      </p>
+      <img
+        class="enjoy-hero__decoration"
+        src={treeMountain.src}
+        alt="自然のイラスト"
+      />
+    </article>
+  </div>
+  <span class="enjoy-hero__line"></span>
+</section>
+
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+  .enjoy-hero {
+    position: relative;
+    @include tablet-up {
+    }
+    @include desktop-up {
+    }
+
+    &__header {
+      position: relative;
+      padding-bottom: spx(570);
+      @include tablet-up {
+        padding-bottom: ppx(559 * 1.2);
+      }
+      @include desktop-up {
+        padding-bottom: ppx(559);
+      }
+    }
+
+    .page-header-container {
+      position: relative;
+      z-index: 2;
+      @include tablet-up {
+        margin-left: ppx(233 * 1.2);
+      }
+      @include desktop-up {
+        margin-left: ppx(233);
+      }
+    }
+
+    &__subtitle {
+      position: relative;
+      z-index: 2;
+      margin-top: spx(94);
+      margin-left: spx(60);
+      @include tablet-up {
+        margin-top: ppx(187 * 1.2);
+        margin-left: ppx(230 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(187);
+        margin-left: ppx(230);
+      }
+    }
+
+    &__subtitle-text {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(52);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 78px */
+      letter-spacing: spx(2.6);
+      @include tablet-up {
+        color: var(--blue_6, #054965);
+        font-size: ppx(68 * 1.2);
+        line-height: 120%; /* 81.6px */
+        letter-spacing: ppx(13.6 * 1.2);
+        margin-top: ppx(32 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(68);
+        letter-spacing: ppx(13.6);
+        margin-top: ppx(32);
+      }
+
+      &--highlight {
+        color: var(--green_2, #adc400);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(28);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 42px */
+        letter-spacing: spx(1.4);
+        @include tablet-up {
+          font-size: ppx(45 * 1.2);
+          line-height: 120%; /* 54px */
+          margin-left: ppx(6 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(45);
+          margin-left: ppx(6);
+        }
+      }
+    }
+
+    &__image {
+      display: block;
+      width: spx(580);
+      height: spx(496);
+      background-color: rgb(231, 231, 231);
+      position: absolute;
+      z-index: 2;
+      top: spx(364);
+      right: 0;
+      @include tablet-up {
+        width: ppx(1252.006 * 0.9);
+        height: ppx(1069.972 * 0.9);
+        top: ppx(-105 * 0.9);
+      }
+      @include desktop-up {
+        width: ppx(1252.006);
+        height: ppx(1069.972);
+        top: ppx(-105);
+      }
+    }
+
+    &__bg {
+      display: block;
+      width: 100%;
+      height: auto;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__container {
+      background: var(--blue_2, #e7f3f9);
+      padding-bottom: spx(80);
+      position: relative;
+      @include tablet-up {
+        padding-bottom: ppx(283 * 1.2);
+      }
+      @include desktop-up {
+        padding-bottom: ppx(283);
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+
+      @include tablet-up {
+        display: grid;
+        grid-template: 'image description title';
+        width: max-content;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      @include desktop-up {
+        margin-right: ppx(464);
+      }
+    }
+
+    &__title {
+      grid-area: title;
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(52);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 78px */
+      letter-spacing: spx(2.6);
+      width: spx(600);
+      margin-inline: auto;
+      @include tablet-up {
+        writing-mode: vertical-rl;
+        color: var(--blue_6, #054965);
+        font-feature-settings: 'vert' on;
+        font-size: ppx(60 * 1.2);
+        line-height: 100%; /* 72px */
+        width: ppx(270 * 1.2);
+        justify-content: space-between;
+        margin-inline: unset;
+        display: flex;
+        flex-direction: column;
+      }
+      @include desktop-up {
+        font-size: ppx(60);
+        width: ppx(270);
+      }
+      .highlight {
+        display: block;
+      }
+    }
+
+    &__description {
+      grid-area: description;
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%; /* 54px */
+      width: spx(600);
+      margin-inline: auto;
+      margin-top: spx(40);
+      @include tablet-up {
+        writing-mode: vertical-rl;
+        color: var(--blue_6, #054965);
+        font-feature-settings: 'vert' on;
+        font-size: ppx(34 * 1.2);
+        line-height: 2em;
+        width: max-content;
+        height: ppx(656 * 1.2);
+        margin-inline: unset;
+        margin-top: ppx(99 * 1.2);
+        margin-left: ppx(92 * 1.2);
+        margin-right: ppx(202 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(34);
+        height: ppx(656);
+        margin-top: ppx(99);
+        margin-left: ppx(92);
+        margin-right: ppx(202);
+      }
+    }
+
+    &__decoration {
+      grid-area: image;
+      display: block;
+      width: spx(364);
+      margin-top: spx(50);
+      margin-left: auto;
+      margin-right: spx(20);
+      @include tablet-up {
+        width: ppx(505 * 1.2);
+        margin-top: ppx(556 * 1.2);
+        margin-left: unset;
+        margin-right: unset;
+      }
+      @include desktop-up {
+        width: ppx(505);
+        margin-top: ppx(556);
+      }
+    }
+
+    &__line {
+      display: block;
+      width: spx(600);
+      height: spx(4);
+      background-color: white;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      @include tablet-up {
+        height: ppx(6 * 1.2);
+        width: ppx(2013 * 1.2);
+      }
+      @include desktop-up {
+        height: ppx(6);
+        width: ppx(2013);
+      }
+    }
+  }
+</style>
