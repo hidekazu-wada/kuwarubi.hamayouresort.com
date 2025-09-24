@@ -1,10 +1,25 @@
 ---
 // 必須インポート
 import LowerPageHeader from '../../../components/ui/LowerPageHeader.astro';
+import type { HeroContent } from '../../../data/schedules';
 
 // 画像
 import { getImage } from 'astro:assets';
 import treeMountain from '../../../assets/images/enjoy/tree-mountain.svg';
+
+// Props定義
+export interface Props {
+  heroContent: HeroContent;
+}
+
+const { heroContent } = Astro.props;
+
+// Hero画像をフォーマット
+const formattedHeroImage = await getImage({
+  src: heroContent.heroImage.src,
+  format: 'webp',
+  widths: [580, 1252],
+});
 ---
 
 <section class="enjoy-hero">
@@ -16,11 +31,17 @@ import treeMountain from '../../../assets/images/enjoy/tree-mountain.svg';
     <div class="enjoy-hero__subtitle">
       <span
         class="enjoy-hero__subtitle-text enjoy-hero__subtitle-text--highlight"
-        >子供と一緒に</span
+        >{heroContent.subtitleHighlight}</span
       >
-      <h1 class="enjoy-hero__subtitle-text">自然に触れたい方</h1>
+      <h1 class="enjoy-hero__subtitle-text">{heroContent.subtitleText}</h1>
     </div>
-    <img class="enjoy-hero__image" src="" alt="ここにイメージ画像を挿入" />
+    <picture class="enjoy-hero__image">
+      <source
+        media="(min-width: 744px)"
+        srcset={formattedHeroImage.srcSet.toString()}
+      />
+      <img src={formattedHeroImage.src} alt={heroContent.heroImage.alt} />
+    </picture>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="720"
@@ -37,12 +58,14 @@ import treeMountain from '../../../assets/images/enjoy/tree-mountain.svg';
   <div class="enjoy-hero__container">
     <article class="enjoy-hero__content">
       <h2 class="enjoy-hero__title">
-        <span class="highlight">自然の中で</span>
-        <span class="highlight">家族の絆を深める、</span>
-        <span class="highlight">忘れられない一日を</span>
+        {
+          heroContent.mainTitle.map((titleLine) => (
+            <span class="highlight">{titleLine}</span>
+          ))
+        }
       </h2>
       <p class="enjoy-hero__description">
-        当ホテル周辺の自然豊かな環境は、家族全員で楽しめるアドベンチャーが満載です。散策路を歩きながら、季節の花や野生の動物を探したり、湖でカヌー体験をしてみませんか？子どもたちにとっては新しい発見がいっぱいの場所、大人にとっては日常から離れてゆっくりとリラックスできる空間を提供します。
+        {heroContent.description}
       </p>
       <img
         class="enjoy-hero__decoration"
@@ -144,23 +167,31 @@ import treeMountain from '../../../assets/images/enjoy/tree-mountain.svg';
     }
 
     &__image {
-      display: block;
-      width: spx(580);
-      height: spx(496);
-      background-color: rgb(231, 231, 231);
       position: absolute;
       z-index: 2;
       top: spx(364);
       right: 0;
       @include tablet-up {
-        width: ppx(1252.006 * 0.9);
-        height: ppx(1069.972 * 0.9);
         top: ppx(-105 * 0.9);
       }
       @include desktop-up {
-        width: ppx(1252.006);
-        height: ppx(1069.972);
         top: ppx(-105);
+      }
+      img {
+        display: block;
+        width: spx(580);
+        height: spx(496);
+        background-color: rgb(231, 231, 231);
+        object-fit: cover;
+
+        @include tablet-up {
+          width: ppx(1252.006 * 0.9);
+          height: ppx(1069.972 * 0.9);
+        }
+        @include desktop-up {
+          width: ppx(1252.006);
+          height: ppx(1069.972);
+        }
       }
     }
 

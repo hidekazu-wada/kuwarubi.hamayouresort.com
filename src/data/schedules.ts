@@ -2,6 +2,10 @@
 // 1日の過ごし方のスケジュールデータと画像を統合管理するファイル
 
 // 画像インポート
+// Hero用の画像
+import family_nature_hero from '../assets/images/enjoy/slide-day-1/slide-01.jpg';
+import rainy_day_hero from '../assets/images/enjoy/rainy-day-1/slide-01.jpg';
+
 // family-nature - day1の画像
 import fn_day1_slide01 from '../assets/images/enjoy/slide-day-1/slide-01.jpg';
 import fn_day1_slide02 from '../assets/images/enjoy/slide-day-1/slide-02.jpg';
@@ -65,6 +69,18 @@ export interface DaySchedule {
   items: ScheduleItem[]; // スケジュールアイテムの配列
 }
 
+// Hero用のデータ型定義
+export interface HeroContent {
+  subtitleHighlight: string; // サブタイトルハイライト（例: "子供と一緒に"）
+  subtitleText: string; // サブタイトルテキスト（例: "自然に触れたい方"）
+  mainTitle: string[]; // メインタイトル（配列で1行ずつ管理）
+  description: string; // 詳細説明文
+  heroImage: {
+    src: any; // 実際の画像インポート
+    alt: string; // 画像の代替テキスト
+  };
+}
+
 // 過ごし方プラン全体の型定義
 export interface StayPlan {
   id: string; // 識別子（例: "family-nature", "rainy-day"）
@@ -72,6 +88,7 @@ export interface StayPlan {
   title: string; // 表示タイトル（例: "家族で自然を満喫", "雨の日の過ごし方"）
   description: string; // 説明文
   thumbnail: string; // サムネイル画像のalt
+  hero: HeroContent; // Hero用のコンテンツ
   days: DaySchedule[]; // 各日のスケジュール
 }
 
@@ -491,6 +508,17 @@ export const familyNaturePlan: StayPlan = {
   description:
     '富士山と西湖の美しい自然の中で、家族みんなで楽しめるアクティビティを満喫するプランです。',
   thumbnail: '家族で自然を満喫プランのサムネイル',
+  hero: {
+    subtitleHighlight: '子供と一緒に',
+    subtitleText: '自然に触れたい',
+    mainTitle: ['自然の中で', '家族の絆を深める、', '忘れられない一日を'],
+    description:
+      '当ホテル周辺の自然豊かな環境は、家族全員で楽しめるアドベンチャーが満載です。散策路を歩きながら、季節の花や野生の動物を探したり、湖でカヌー体験をしてみませんか？子どもたちにとっては新しい発見がいっぱいの場所、大人にとっては日常から離れてゆっくりとリラックスできる空間を提供します。',
+    heroImage: {
+      src: family_nature_hero,
+      alt: '家族で自然を満喫する様子',
+    },
+  },
   days: [
     familyNatureDay1Schedule,
     familyNatureDay2Schedule,
@@ -505,6 +533,17 @@ export const rainyDayPlan: StayPlan = {
   description:
     '雨の日でも楽しめる、ホテル内での充実した過ごし方をご提案します。',
   thumbnail: '雨の日の過ごし方プランのサムネイル',
+  hero: {
+    subtitleHighlight: '雨の日でも',
+    subtitleText: '充実した時間を',
+    mainTitle: ['静かな、', '雨音と共に過ごす、', '特別なリラックスタイム'],
+    description:
+      '雨の日だからこそ楽しめる、ホテル内での特別な体験をご提案します。温かい温泉でリラックスしたり、静かなライブラリーで読書を楽しんだり、家族や友人とボードゲームを楽しんだり。雨音が心地よいBGMとなる、ゆったりとした時間をお過ごしください。',
+    heroImage: {
+      src: rainy_day_hero,
+      alt: '雨の日のリラックスタイム',
+    },
+  },
   days: [rainyDay1Schedule, rainyDay2Schedule],
 };
 
