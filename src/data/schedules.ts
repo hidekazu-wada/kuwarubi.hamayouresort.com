@@ -1,5 +1,15 @@
 // スケジュールデータの型定義とデータ管理
-// 1日の過ごし方のスケジュールデータを管理するファイル
+// 1日の過ごし方のスケジュールデータと画像を統合管理するファイル
+
+// 画像インポート
+// family-nature - day1の画像
+import fn_day1_slide01 from '../assets/images/enjoy/slide-day-1/slide-01.jpg';
+import fn_day1_slide02 from '../assets/images/enjoy/slide-day-1/slide-02.jpg';
+import fn_day1_slide03 from '../assets/images/enjoy/slide-day-1/slide-03.jpg';
+import fn_day1_slide04 from '../assets/images/enjoy/slide-day-1/slide-04.jpg';
+import fn_day1_slide05 from '../assets/images/enjoy/slide-day-1/slide-05.jpg';
+import fn_day1_slide06 from '../assets/images/enjoy/slide-day-1/slide-06.jpg';
+import fn_day1_slide07 from '../assets/images/enjoy/slide-day-1/slide-07.jpg';
 
 // スケジュールアイテムの型定義
 export interface ScheduleItem {
@@ -8,7 +18,7 @@ export interface ScheduleItem {
   detailTitle: string; // 詳細用タイトル
   description: string; // 説明文
   image: {
-    fileName: string; // 画像ファイル名（例: "slide-01.jpg"）
+    src: any; // 実際の画像インポート
     alt: string; // 画像の代替テキスト
   };
 }
@@ -17,13 +27,15 @@ export interface ScheduleItem {
 export interface DaySchedule {
   dayLabel: string; // 日付ラベル（例: "Day 1", "Day 2"）
   dayId: string; // ID（例: "day1", "day2"）
+  planId: string; // プランID（例: "family-nature", "rainy-day"）
   items: ScheduleItem[]; // スケジュールアイテムの配列
 }
 
-// Day 1のスケジュールデータ
-export const day1Schedule: DaySchedule = {
+// Family & Nature - Day 1のスケジュールデータ
+export const familyNatureDay1Schedule: DaySchedule = {
   dayLabel: 'Day 1',
   dayId: 'day1',
+  planId: 'family-nature',
   items: [
     {
       time: '15:00',
@@ -32,7 +44,7 @@ export const day1Schedule: DaySchedule = {
       description:
         '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。',
       image: {
-        fileName: 'slide-01.jpg',
+        src: fn_day1_slide01,
         alt: 'チェックインカウンターの様子',
       },
     },
@@ -43,7 +55,7 @@ export const day1Schedule: DaySchedule = {
       description:
         '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。',
       image: {
-        fileName: 'slide-02.jpg',
+        src: fn_day1_slide02,
         alt: '西湖湖畔の散歩道',
       },
     },
@@ -54,7 +66,7 @@ export const day1Schedule: DaySchedule = {
       description:
         '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。',
       image: {
-        fileName: 'slide-03.jpg',
+        src: fn_day1_slide03,
         alt: '森のサウナ施設',
       },
     },
@@ -65,7 +77,7 @@ export const day1Schedule: DaySchedule = {
       description:
         '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。',
       image: {
-        fileName: 'slide-04.jpg',
+        src: fn_day1_slide04,
         alt: '夕食の料理',
       },
     },
@@ -76,7 +88,7 @@ export const day1Schedule: DaySchedule = {
       description:
         '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。',
       image: {
-        fileName: 'slide-05.jpg',
+        src: fn_day1_slide05,
         alt: '露天風呂',
       },
     },
@@ -87,7 +99,7 @@ export const day1Schedule: DaySchedule = {
       description:
         '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。',
       image: {
-        fileName: 'slide-06.jpg',
+        src: fn_day1_slide06,
         alt: '星空観察の様子',
       },
     },
@@ -98,7 +110,7 @@ export const day1Schedule: DaySchedule = {
       description:
         '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。',
       image: {
-        fileName: 'slide-07.jpg',
+        src: fn_day1_slide07,
         alt: '客室の様子',
       },
     },

@@ -13,7 +13,7 @@ import Hero from '../components/pages/enjoy/Hero.astro';
 import DaySchedule from '../components/pages/enjoy/DaySchedule.astro';
 
 // データのインポート
-import { day1Schedule } from '../data/schedules';
+import { familyNatureDay1Schedule } from '../data/schedules';
 
 // 追加インポート（必要に応じて）
 // import { getImage } from 'astro:assets';
@@ -43,7 +43,7 @@ const pageClass = 'main-content--enjoy';
   <!-- メインコンテンツ -->
   <Hero />
   <section class="day-1">
-    <DaySchedule dayData={day1Schedule} />
+    <DaySchedule dayData={familyNatureDay1Schedule} />
   </section>
 
   <!-- パンくずリスト -->
