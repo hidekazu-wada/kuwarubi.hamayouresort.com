@@ -12,14 +12,49 @@ const { dayData } = Astro.props;
 
 // 画像
 import { getImage } from 'astro:assets';
-import slide_day1_01_image from '../../../assets/images/enjoy/slide-day-1/slide-01.jpg';
 
-// フォーマット
-const Day1_01 = await getImage({
-  src: slide_day1_01_image,
-  format: 'webp',
-  widths: [640, 960, 1074],
-});
+// Day1の画像を全てインポート
+import slide_01 from '../../../assets/images/enjoy/slide-day-1/slide-01.jpg';
+import slide_02 from '../../../assets/images/enjoy/slide-day-1/slide-02.jpg';
+import slide_03 from '../../../assets/images/enjoy/slide-day-1/slide-03.jpg';
+import slide_04 from '../../../assets/images/enjoy/slide-day-1/slide-04.jpg';
+import slide_05 from '../../../assets/images/enjoy/slide-day-1/slide-05.jpg';
+import slide_06 from '../../../assets/images/enjoy/slide-day-1/slide-06.jpg';
+import slide_07 from '../../../assets/images/enjoy/slide-day-1/slide-07.jpg';
+
+// 画像マッピング（ファイル名と実際のインポートを対応付け）
+const imageMap: Record<string, any> = {
+  'slide-01.jpg': slide_01,
+  'slide-02.jpg': slide_02,
+  'slide-03.jpg': slide_03,
+  'slide-04.jpg': slide_04,
+  'slide-05.jpg': slide_05,
+  'slide-06.jpg': slide_06,
+  'slide-07.jpg': slide_07,
+};
+
+// 各アイテムの画像をフォーマット
+const formattedImages = await Promise.all(
+  dayData.items.map(async (item) => {
+    const imageSource = imageMap[item.image.fileName];
+    if (!imageSource) {
+      console.warn(`Image not found: ${item.image.fileName}`);
+      return null;
+    }
+
+    return await getImage({
+      src: imageSource,
+      format: 'webp',
+      widths: [640, 960, 1074],
+    });
+  })
+);
+
+// 画像とアイテムを結合
+const itemsWithImages = dayData.items.map((item, index) => ({
+  ...item,
+  formattedImage: formattedImages[index]
+}));
 
 // Swiper CSS
 import 'swiper/css';
@@ -55,24 +90,28 @@ import 'swiper/css/navigation';
     <div class="enjoy-day1__swiper-main">
       <div class="schedule-slider__details-list swiper-wrapper">
         {
-          dayData.items.map((item) => (
+          itemsWithImages.map((item) => (
             <article class="schedule-slider__detail-item swiper-slide">
               <div class="schedule-slider__detail-content">
                 <div class="schedule-slider__detail-image">
                   <picture class="schedule-slider__picture">
-                    <source
-                      media="(min-width: 1024px)"
-                      srcset={Day1_01.srcSet.toString()}
-                    />
-                    <source
-                      media="(min-width: 744px)"
-                      srcset={Day1_01.srcSet.toString()}
-                    />
-                    <img
-                      src={Day1_01.src}
-                      alt={item.image.alt}
-                      class="schedule-slider__img"
-                    />
+                    {item.formattedImage && (
+                      <>
+                        <source
+                          media="(min-width: 1024px)"
+                          srcset={item.formattedImage.srcSet.toString()}
+                        />
+                        <source
+                          media="(min-width: 744px)"
+                          srcset={item.formattedImage.srcSet.toString()}
+                        />
+                        <img
+                          src={item.formattedImage.src}
+                          alt={item.image.alt}
+                          class="schedule-slider__img"
+                        />
+                      </>
+                    )}
                   </picture>
                 </div>
                 <div class="schedule-slider__detail-text">
