@@ -33,55 +33,17 @@ import 'swiper/css/navigation';
     <!-- サムネイルSwiper -->
     <div class="enjoy-day1__swiper-thumb">
       <ol class="schedule-slider__schedule-list swiper-wrapper">
-        <li class="schedule-slider__schedule-item swiper-slide">
-          <div class="schedule-slider__schedule-entry">
-            <time class="schedule-slider__time">15:00</time>
-            <span class="schedule-slider__connector"></span>
-            <span class="schedule-slider__activity">チェックイン</span>
-          </div>
-        </li>
-        <li class="schedule-slider__schedule-item swiper-slide">
-          <div class="schedule-slider__schedule-entry">
-            <time class="schedule-slider__time">15:30</time>
-            <span class="schedule-slider__connector"></span>
-            <span class="schedule-slider__activity">周辺散歩</span>
-          </div>
-        </li>
-        <li class="schedule-slider__schedule-item swiper-slide">
-          <div class="schedule-slider__schedule-entry">
-            <time class="schedule-slider__time">16:00</time>
-            <span class="schedule-slider__connector"></span>
-            <span class="schedule-slider__activity">森のサウナ</span>
-          </div>
-        </li>
-        <li class="schedule-slider__schedule-item swiper-slide">
-          <div class="schedule-slider__schedule-entry">
-            <time class="schedule-slider__time">18:00</time>
-            <span class="schedule-slider__connector"></span>
-            <span class="schedule-slider__activity">夕　食</span>
-          </div>
-        </li>
-        <li class="schedule-slider__schedule-item swiper-slide">
-          <div class="schedule-slider__schedule-entry">
-            <time class="schedule-slider__time">19:00</time>
-            <span class="schedule-slider__connector"></span>
-            <span class="schedule-slider__activity">入　浴</span>
-          </div>
-        </li>
-        <li class="schedule-slider__schedule-item swiper-slide">
-          <div class="schedule-slider__schedule-entry">
-            <time class="schedule-slider__time">20:30</time>
-            <span class="schedule-slider__connector"></span>
-            <span class="schedule-slider__activity">ナイトハイク</span>
-          </div>
-        </li>
-        <li class="schedule-slider__schedule-item swiper-slide">
-          <div class="schedule-slider__schedule-entry">
-            <time class="schedule-slider__time">22:00</time>
-            <span class="schedule-slider__connector"></span>
-            <span class="schedule-slider__activity">就　寝</span>
-          </div>
-        </li>
+        {
+          dayData.items.map((item) => (
+            <li class="schedule-slider__schedule-item swiper-slide">
+              <div class="schedule-slider__schedule-entry">
+                <time class="schedule-slider__time">{item.time}</time>
+                <span class="schedule-slider__connector" />
+                <span class="schedule-slider__activity">{item.thumbnailTitle}</span>
+              </div>
+            </li>
+          ))
+        }
       </ol>
     </div>
     <span class="schedule-slider__vertical-line"></span>
