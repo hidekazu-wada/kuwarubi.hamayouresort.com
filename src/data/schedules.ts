@@ -282,3 +282,11 @@ export const familyNatureDay3Schedule: DaySchedule = {
     },
   ],
 };
+
+// 全てのスケジュールデータを配列でエクスポート
+export const allDaySchedules: DaySchedule[] = [
+  familyNatureDay1Schedule,
+  familyNatureDay2Schedule,
+  familyNatureDay3Schedule,
+  // 新しいDayを追加する場合はここに追加するだけ
+];

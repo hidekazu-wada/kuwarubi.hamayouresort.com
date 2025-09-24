@@ -13,11 +13,7 @@ import Hero from '../components/pages/enjoy/Hero.astro';
 import DaySchedule from '../components/pages/enjoy/DaySchedule.astro';
 
 // データのインポート
-import {
-  familyNatureDay1Schedule,
-  familyNatureDay2Schedule,
-  familyNatureDay3Schedule,
-} from '../data/schedules';
+import { allDaySchedules } from '../data/schedules';
 
 // 追加インポート（必要に応じて）
 // import { getImage } from 'astro:assets';
@@ -46,15 +42,14 @@ const pageClass = 'main-content--enjoy';
 
   <!-- メインコンテンツ -->
   <Hero />
-  <section class="day-1">
-    <DaySchedule dayData={familyNatureDay1Schedule} />
-  </section>
-  <section class="day-2">
-    <DaySchedule dayData={familyNatureDay2Schedule} />
-  </section>
-  <section class="day-3">
-    <DaySchedule dayData={familyNatureDay3Schedule} />
-  </section>
+  {allDaySchedules.map((dayData) => (
+    <section
+      class={`day-section`}
+      data-day-id={dayData.dayId}
+    >
+      <DaySchedule dayData={dayData} />
+    </section>
+  ))}
 
   <!-- パンくずリスト -->
   <div class="breadcrumb-wrapper">
@@ -82,11 +77,10 @@ const pageClass = 'main-content--enjoy';
   }
 
   // ============================================================
-  // Day 1 セクション
+  // Day セクション共通スタイル
   // ============================================================
 
-  .day-1 {
-    background: var(--blue_2, #e7f3f9);
+  .day-section {
     padding-top: spx(120);
     padding-bottom: spx(160);
     overflow-x: hidden;
@@ -98,43 +92,18 @@ const pageClass = 'main-content--enjoy';
       padding-top: ppx(235);
       padding-bottom: ppx(312);
     }
-  }
 
-  // ============================================================
-  // Day 2 セクション
-  // ============================================================
-
-  .day-2 {
-    background: var(--blue_3, #d8edf7);
-    padding-top: spx(120);
-    padding-bottom: spx(160);
-    overflow-x: hidden;
-    @include tablet-up {
-      padding-top: ppx(235 * 1.2);
-      padding-bottom: ppx(312 * 1.2);
-    }
-    @include desktop-up {
-      padding-top: ppx(235);
-      padding-bottom: ppx(312);
-    }
-  }
-
-  // ============================================================
-  // Day 3 セクション
-  // ============================================================
-
-  .day-3 {
-    background: var(--blue_2, #e7f3f9);
-    padding-top: spx(120);
-    padding-bottom: spx(160);
-    overflow-x: hidden;
-    @include tablet-up {
-      padding-top: ppx(235 * 1.2);
-      padding-bottom: ppx(312 * 1.2);
-    }
-    @include desktop-up {
-      padding-top: ppx(235);
-      padding-bottom: ppx(312);
-    }
+    // Day1〜10までの背景色を事前定義
+    // 奇数日は青い背景、偶数日は薄い青背景
+    &[data-day-id="day1"] { background: var(--blue_2, #e7f3f9); }
+    &[data-day-id="day2"] { background: var(--blue_3, #d8edf7); }
+    &[data-day-id="day3"] { background: var(--blue_2, #e7f3f9); }
+    &[data-day-id="day4"] { background: var(--blue_3, #d8edf7); }
+    &[data-day-id="day5"] { background: var(--blue_2, #e7f3f9); }
+    &[data-day-id="day6"] { background: var(--blue_3, #d8edf7); }
+    &[data-day-id="day7"] { background: var(--blue_2, #e7f3f9); }
+    &[data-day-id="day8"] { background: var(--blue_3, #d8edf7); }
+    &[data-day-id="day9"] { background: var(--blue_2, #e7f3f9); }
+    &[data-day-id="day10"] { background: var(--blue_3, #d8edf7); }
   }
 </style>
