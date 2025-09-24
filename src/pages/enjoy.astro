@@ -887,4 +887,119 @@ const pageClass = 'main-content--enjoy';
       }
     }
   }
+
+  // ============================================================
+  // Prev/Nextボタン
+  // ============================================================
+
+  .enjoy-day1__swiper-prev {
+    display: none;
+    @include tablet-up {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      z-index: 10;
+      transition: opacity 0.3s ease;
+    }
+    @include desktop-up {
+      left: 8vw;
+    }
+    &.swiper-button-disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    @include hover {
+      :hover {
+        circle {
+          fill: #adc400; // ホバー時の円の色
+        }
+      }
+    }
+
+    svg {
+      @include tablet-up {
+        display: block;
+        width: ppx(100) * 1.2;
+        height: ppx(100) * 1.2;
+      }
+      @include desktop-up {
+        width: ppx(100);
+        height: ppx(100);
+      }
+    }
+
+    circle {
+      transition: fill 0.3s ease;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    path {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+  }
+
+  .enjoy-day1__swiper-next {
+    display: none;
+    @include tablet-up {
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      z-index: 10;
+      transition: opacity 0.3s ease;
+    }
+    @include desktop-up {
+      right: 8vw;
+    }
+
+    &.swiper-button-disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    @include hover {
+      :hover {
+        circle {
+          fill: #adc400; // ホバー時の円の色
+        }
+      }
+    }
+
+    svg {
+      @include tablet-up {
+        display: block;
+        width: ppx(100) * 1.2;
+        height: ppx(100) * 1.2;
+      }
+      @include desktop-up {
+        width: ppx(100);
+        height: ppx(100);
+      }
+    }
+
+    circle {
+      transition: fill 0.3s ease;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    path {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+  }
 </style>
