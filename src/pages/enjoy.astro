@@ -391,7 +391,7 @@ const pageClass = 'main-content--enjoy';
   // @ts-nocheck
   // Swiper型定義の問題を一時的に無効化（動作には影響なし）
   import Swiper from 'swiper';
-  import { Navigation } from 'swiper/modules';
+  import { Navigation, Thumbs } from 'swiper/modules';
 
   // ブレークポイント定数（744px = タブレット以上でSwiper有効）
   const TABLET_BP = 744;
@@ -406,19 +406,24 @@ const pageClass = 'main-content--enjoy';
       // 既に初期化済みなら何もしない（二重初期化防止）
       if (mainSwiper || thumbsSwiper) return;
 
+      console.log('Initializing Swipers...');
+
       // サムネイルSwiper初期化
       // @ts-ignore
       thumbsSwiper = new Swiper('.enjoy-day1__swiper-thumb', {
+        modules: [Thumbs], // Thumbsモジュールを追加
         slidesPerView: 'auto',
         freeMode: true,
         watchSlidesProgress: true,
         slideToClickedSlide: true, // クリックしたスライドに移動
       });
 
+      console.log('Thumbs Swiper initialized:', thumbsSwiper);
+
       // メインSwiper初期化
       // @ts-ignore
       mainSwiper = new Swiper('.enjoy-day1__swiper-main', {
-        modules: [Navigation],
+        modules: [Navigation, Thumbs], // Thumbsモジュールを追加
         slidesPerView: 1,
         thumbs: {
           swiper: thumbsSwiper,
@@ -427,7 +432,19 @@ const pageClass = 'main-content--enjoy';
           prevEl: '.enjoy-day1__swiper-prev',
           nextEl: '.enjoy-day1__swiper-next',
         },
+        on: {
+          slideChange: function () {
+            console.log('Main slide changed to:', this.activeIndex);
+            console.log(
+              'Thumbs active classes:',
+              document.querySelectorAll('.swiper-slide-thumb-active')
+            );
+          },
+        },
       });
+
+      console.log('Main Swiper initialized:', mainSwiper);
+      console.log('Thumbs module connected?', mainSwiper.thumbs);
 
       // サムネイルクリックイベントを手動で追加
       const thumbSlides = document.querySelectorAll(
@@ -435,11 +452,28 @@ const pageClass = 'main-content--enjoy';
       );
       thumbSlides.forEach((slide, index) => {
         slide.addEventListener('click', () => {
+          console.log(`Thumbnail ${index} clicked`);
           if (mainSwiper) {
             mainSwiper.slideTo(index);
+            console.log(`Moved to slide ${index}`);
+
+            // アクティブクラスの状態を確認
+            setTimeout(() => {
+              console.log(
+                'Active thumb classes after click:',
+                document.querySelectorAll('.swiper-slide-thumb-active')
+              );
+            }, 100);
           }
         });
       });
+
+      // Thumbsモジュールの状態確認
+      if (thumbsSwiper) {
+        thumbsSwiper.on('slideChange', function () {
+          console.log('Thumb slide changed to:', this.activeIndex);
+        });
+      }
     };
 
     const destroySwipers = () => {
@@ -509,12 +543,15 @@ const pageClass = 'main-content--enjoy';
   .day-1 {
     background: var(--blue_2, #e7f3f9);
     padding-top: spx(120);
+    padding-bottom: spx(160);
     overflow-x: hidden;
     @include tablet-up {
       padding-top: ppx(235 * 1.2);
+      padding-bottom: ppx(312 * 1.2);
     }
     @include desktop-up {
       padding-top: ppx(235);
+      padding-bottom: ppx(312);
     }
 
     &__heading {
@@ -549,15 +586,41 @@ const pageClass = 'main-content--enjoy';
 
     &__schedule-list {
       @include tablet-up {
+        position: relative;
       }
       @include desktop-up {
+      }
+      &:after {
+        @include tablet-up {
+          content: '';
+          height: 1px;
+          width: 94.2%;
+          background: var(--blue_4, #59a1c0);
+          position: absolute;
+          top: 3vw;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        @include desktop-up {
+          top: 2.6vw;
+        }
       }
     }
 
     &__schedule-item {
       @include tablet-up {
+        cursor: pointer;
       }
       @include desktop-up {
+      }
+      &.swiper-slide-thumb-active {
+        .day-1__time,
+        .day-1__activity {
+          font-weight: 700;
+        }
+        .day-1__connector {
+          width: 2px;
+        }
       }
     }
 
@@ -578,9 +641,10 @@ const pageClass = 'main-content--enjoy';
         font-family: 'Zen Kaku Gothic New';
         font-size: ppx(26 * 1.2);
         font-style: normal;
-        font-weight: 700;
+        font-weight: 400;
         line-height: 200%; /* 52px */
         letter-spacing: ppx(7.8 * 1.2);
+        transition: font-weight 0.3s ease;
       }
       @include desktop-up {
         font-size: ppx(26);
@@ -594,6 +658,7 @@ const pageClass = 'main-content--enjoy';
         width: 1px;
         height: ppx(30 * 1.2);
         background: #59a1c0;
+        transition: width 0.3s ease;
       }
       @include desktop-up {
         height: ppx(30);
@@ -612,6 +677,7 @@ const pageClass = 'main-content--enjoy';
         line-height: 110%; /* 28.6px */
         letter-spacing: ppx(7.8 * 1.2);
         margin-top: ppx(12 * 1.2);
+        transition: font-weight 0.3s ease;
       }
       @include desktop-up {
         font-size: ppx(26);
