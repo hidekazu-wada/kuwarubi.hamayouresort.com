@@ -20,6 +20,13 @@ import fn_day2_slide05 from '../assets/images/enjoy/slide-day-2/slide-05.jpg';
 import fn_day2_slide06 from '../assets/images/enjoy/slide-day-2/slide-06.jpg';
 import fn_day2_slide07 from '../assets/images/enjoy/slide-day-2/slide-07.jpg';
 
+// family-nature - day3の画像
+import fn_day3_slide01 from '../assets/images/enjoy/slide-day-3/slide-01.jpg';
+import fn_day3_slide02 from '../assets/images/enjoy/slide-day-3/slide-02.jpg';
+import fn_day3_slide03 from '../assets/images/enjoy/slide-day-3/slide-03.jpg';
+import fn_day3_slide04 from '../assets/images/enjoy/slide-day-3/slide-04.jpg';
+import fn_day3_slide05 from '../assets/images/enjoy/slide-day-3/slide-05.jpg';
+
 // スケジュールアイテムの型定義
 export interface ScheduleItem {
   time: string; // 時間（例: "15:00"）
@@ -207,6 +214,70 @@ export const familyNatureDay2Schedule: DaySchedule = {
       image: {
         src: fn_day2_slide07,
         alt: '夕暮れの西湖と富士山',
+      },
+    },
+  ],
+};
+
+// 家族で自然を満喫プラン - 3日目のスケジュール
+export const familyNatureDay3Schedule: DaySchedule = {
+  dayLabel: 'Day 3',
+  dayId: 'day3',
+  planId: 'family-nature',
+  items: [
+    {
+      time: '8:00',
+      thumbnailTitle: '朝　食',
+      detailTitle: '朝　食',
+      description:
+        '最終日の朝は、ゆったりとした時間を。地元の新鮮な食材で作った朝食で、一日のエネルギーをチャージ。富士山を眺めながら、旅の思い出を振り返ります。',
+      image: {
+        src: fn_day3_slide01,
+        alt: '朝食の風景',
+      },
+    },
+    {
+      time: '10:00',
+      thumbnailTitle: 'チェックアウト',
+      detailTitle: 'チェックアウト',
+      description:
+        '素敵な思い出とともにチェックアウト。フロントスタッフが心を込めてお見送りいたします。次回のご来館をお待ちしております。',
+      image: {
+        src: fn_day3_slide02,
+        alt: 'チェックアウト風景',
+      },
+    },
+    {
+      time: '11:00',
+      thumbnailTitle: '富士山世界遺産センター',
+      detailTitle: '富士山世界遺産センター',
+      description:
+        '富士山の文化的価値や自然の魅力を学べる施設へ。インタラクティブな展示で、富士山の歴史や信仰、芸術への影響を深く知ることができます。',
+      image: {
+        src: fn_day3_slide03,
+        alt: '富士山世界遺産センター',
+      },
+    },
+    {
+      time: '13:00',
+      thumbnailTitle: '昼　食',
+      detailTitle: '昼　食',
+      description:
+        '地元の名物料理を堪能。富士宮やきそばやほうとうなど、山梨・静岡の郷土料理をお楽しみください。地域の食文化を体験する貴重な機会です。',
+      image: {
+        src: fn_day3_slide04,
+        alt: '地元料理',
+      },
+    },
+    {
+      time: '15:00',
+      thumbnailTitle: '帰　路',
+      detailTitle: '帰　路',
+      description:
+        '3日間の素晴らしい思い出を胸に、帰路へ。富士五湖の自然、温泉、美食、そして心温まるおもてなし。また季節を変えて、ぜひお越しください。',
+      image: {
+        src: fn_day3_slide05,
+        alt: '富士山と西湖の風景',
       },
     },
   ],

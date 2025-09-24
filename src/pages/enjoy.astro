@@ -16,6 +16,7 @@ import DaySchedule from '../components/pages/enjoy/DaySchedule.astro';
 import {
   familyNatureDay1Schedule,
   familyNatureDay2Schedule,
+  familyNatureDay3Schedule,
 } from '../data/schedules';
 
 // 追加インポート（必要に応じて）
@@ -50,6 +51,9 @@ const pageClass = 'main-content--enjoy';
   </section>
   <section class="day-2">
     <DaySchedule dayData={familyNatureDay2Schedule} />
+  </section>
+  <section class="day-3">
+    <DaySchedule dayData={familyNatureDay3Schedule} />
   </section>
 
   <!-- パンくずリスト -->
@@ -102,6 +106,25 @@ const pageClass = 'main-content--enjoy';
 
   .day-2 {
     background: var(--blue_3, #d8edf7);
+    padding-top: spx(120);
+    padding-bottom: spx(160);
+    overflow-x: hidden;
+    @include tablet-up {
+      padding-top: ppx(235 * 1.2);
+      padding-bottom: ppx(312 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(235);
+      padding-bottom: ppx(312);
+    }
+  }
+
+  // ============================================================
+  // Day 3 セクション
+  // ============================================================
+
+  .day-3 {
+    background: var(--blue_2, #e7f3f9);
     padding-top: spx(120);
     padding-bottom: spx(160);
     overflow-x: hidden;
