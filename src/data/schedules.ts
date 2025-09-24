@@ -65,6 +65,16 @@ export interface DaySchedule {
   items: ScheduleItem[]; // スケジュールアイテムの配列
 }
 
+// 過ごし方プラン全体の型定義
+export interface StayPlan {
+  id: string; // 識別子（例: "family-nature", "rainy-day"）
+  slug: string; // URLパス用（例: "family-nature", "rainy-day"）
+  title: string; // 表示タイトル（例: "家族で自然を満喫", "雨の日の過ごし方"）
+  description: string; // 説明文
+  thumbnail: string; // サムネイル画像のalt
+  days: DaySchedule[]; // 各日のスケジュール
+}
+
 // Family & Nature - Day 1のスケジュールデータ
 export const familyNatureDay1Schedule: DaySchedule = {
   dayLabel: 'Day 1',
@@ -473,15 +483,50 @@ export const rainyDay2Schedule: DaySchedule = {
   ],
 };
 
-// 全てのスケジュールデータを配列でエクスポート
+// 過ごし方プランのデータ定義
+export const familyNaturePlan: StayPlan = {
+  id: 'family-nature',
+  slug: 'family-nature',
+  title: '家族で自然を満喫',
+  description:
+    '富士山と西湖の美しい自然の中で、家族みんなで楽しめるアクティビティを満喫するプランです。',
+  thumbnail: '家族で自然を満喫プランのサムネイル',
+  days: [
+    familyNatureDay1Schedule,
+    familyNatureDay2Schedule,
+    familyNatureDay3Schedule,
+  ],
+};
+
+export const rainyDayPlan: StayPlan = {
+  id: 'rainy-day',
+  slug: 'rainy-day',
+  title: '雨の日の過ごし方',
+  description:
+    '雨の日でも楽しめる、ホテル内での充実した過ごし方をご提案します。',
+  thumbnail: '雨の日の過ごし方プランのサムネイル',
+  days: [rainyDay1Schedule, rainyDay2Schedule],
+};
+
+// 全ての過ごし方プランを配列でエクスポート
+export const allStayPlans: StayPlan[] = [familyNaturePlan, rainyDayPlan];
+
+// プラン取得用のヘルパー関数
+export function getStayPlanBySlug(slug: string): StayPlan | undefined {
+  return allStayPlans.find((plan) => plan.slug === slug);
+}
+
+export function getAllStayPlanSlugs(): string[] {
+  return allStayPlans.map((plan) => plan.slug);
+}
+
+// 後方互換性のための既存エクスポート（段階的に削除予定）
 export const allDaySchedules: DaySchedule[] = [
   familyNatureDay1Schedule,
   familyNatureDay2Schedule,
   familyNatureDay3Schedule,
-  // 新しいDayを追加する場合はここに追加するだけ
 ];
 
-// 雨の日の過ごし方用の配列
 export const rainyDaySchedules: DaySchedule[] = [
   rainyDay1Schedule,
   rainyDay2Schedule,

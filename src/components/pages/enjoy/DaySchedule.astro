@@ -6,12 +6,13 @@ import type { DaySchedule } from '../../../data/schedules';
 // Props定義
 export interface Props {
   dayData: DaySchedule;
+  stayPlanId?: string; // プランID（動的ルーティング用）
 }
 
-const { dayData } = Astro.props;
+const { dayData, stayPlanId = 'default' } = Astro.props;
 
-// dayIdからクラス名プレフィックスを生成
-const classPrefix = `enjoy-${dayData.dayId}`;
+// プランIDとdayIdからクラス名プレフィックスを生成
+const classPrefix = `${stayPlanId}-${dayData.dayId}`;
 
 // 画像
 import { getImage } from 'astro:assets';
@@ -30,7 +31,7 @@ const formattedImages = await Promise.all(
 // 画像とアイテムを結合
 const itemsWithImages = dayData.items.map((item, index) => ({
   ...item,
-  formattedImage: formattedImages[index]
+  formattedImage: formattedImages[index],
 }));
 
 // Swiper CSS
@@ -62,7 +63,11 @@ import 'swiper/css/navigation';
     </div>
     <span class="schedule-slider__vertical-line"></span>
   </div>
-  <div class="schedule-slider__details" style="position: relative;" data-day-id={dayData.dayId}>
+  <div
+    class="schedule-slider__details"
+    style="position: relative;"
+    data-day-id={dayData.dayId}
+  >
     <!-- メインSwiper -->
     <div class={`${classPrefix}__swiper-main`}>
       <div class="schedule-slider__details-list swiper-wrapper">
@@ -166,8 +171,11 @@ import 'swiper/css/navigation';
       const dayId = dayElement.getAttribute('data-day-id');
       if (!dayId) return;
 
-      const thumbSelector = `.enjoy-${dayId}__swiper-thumb`;
-      const mainSelector = `.enjoy-${dayId}__swiper-main`;
+      // プランIDを取得（data-plan-id属性から）
+      const planId = dayElement.getAttribute('data-plan-id') || 'default';
+
+      const thumbSelector = `.${planId}-${dayId}__swiper-thumb`;
+      const mainSelector = `.${planId}-${dayId}__swiper-main`;
 
       let thumbsSwiper: any = null;
       let mainSwiper: any = null;
@@ -178,73 +186,73 @@ import 'swiper/css/navigation';
 
         console.log(`Initializing Swipers for ${dayId}...`);
 
-      // サムネイルSwiper初期化
-      // @ts-ignore
-      thumbsSwiper = new Swiper(thumbSelector, {
-        modules: [Thumbs], // Thumbsモジュールを追加
-        slidesPerView: 'auto',
-        freeMode: true,
-        watchSlidesProgress: true,
-        slideToClickedSlide: true, // クリックしたスライドに移動
-      });
+        // サムネイルSwiper初期化
+        // @ts-ignore
+        thumbsSwiper = new Swiper(thumbSelector, {
+          modules: [Thumbs], // Thumbsモジュールを追加
+          slidesPerView: 'auto',
+          freeMode: true,
+          watchSlidesProgress: true,
+          slideToClickedSlide: true, // クリックしたスライドに移動
+        });
 
-      console.log('Thumbs Swiper initialized:', thumbsSwiper);
+        console.log('Thumbs Swiper initialized:', thumbsSwiper);
 
-      // メインSwiper初期化
-      // @ts-ignore
-      mainSwiper = new Swiper(mainSelector, {
-        modules: [Navigation, Thumbs], // Thumbsモジュールを追加
-        slidesPerView: 1,
-        thumbs: {
-          swiper: thumbsSwiper,
-        },
-        navigation: {
-          prevEl: '.schedule-slider__swiper-prev',
-          nextEl: '.schedule-slider__swiper-next',
-        },
-        on: {
-          slideChange: function () {
-            console.log('Main slide changed to:', this.activeIndex);
-            console.log(
-              'Thumbs active classes:',
-              document.querySelectorAll('.swiper-slide-thumb-active')
-            );
+        // メインSwiper初期化
+        // @ts-ignore
+        mainSwiper = new Swiper(mainSelector, {
+          modules: [Navigation, Thumbs], // Thumbsモジュールを追加
+          slidesPerView: 1,
+          thumbs: {
+            swiper: thumbsSwiper,
           },
-        },
-      });
-
-      console.log('Main Swiper initialized:', mainSwiper);
-      console.log('Thumbs module connected?', mainSwiper.thumbs);
-
-      // サムネイルクリックイベントを手動で追加
-      const thumbSlides = document.querySelectorAll(
-        `${thumbSelector} .swiper-slide`
-      );
-      thumbSlides.forEach((slide, index) => {
-        slide.addEventListener('click', () => {
-          console.log(`Thumbnail ${index} clicked`);
-          if (mainSwiper) {
-            mainSwiper.slideTo(index);
-            console.log(`Moved to slide ${index}`);
-
-            // アクティブクラスの状態を確認
-            setTimeout(() => {
+          navigation: {
+            prevEl: '.schedule-slider__swiper-prev',
+            nextEl: '.schedule-slider__swiper-next',
+          },
+          on: {
+            slideChange: function () {
+              console.log('Main slide changed to:', this.activeIndex);
               console.log(
-                'Active thumb classes after click:',
+                'Thumbs active classes:',
                 document.querySelectorAll('.swiper-slide-thumb-active')
               );
-            }, 100);
-          }
+            },
+          },
         });
-      });
 
-      // Thumbsモジュールの状態確認
-      if (thumbsSwiper) {
-        thumbsSwiper.on('slideChange', function () {
-          console.log('Thumb slide changed to:', this.activeIndex);
+        console.log('Main Swiper initialized:', mainSwiper);
+        console.log('Thumbs module connected?', mainSwiper.thumbs);
+
+        // サムネイルクリックイベントを手動で追加
+        const thumbSlides = document.querySelectorAll(
+          `${thumbSelector} .swiper-slide`
+        );
+        thumbSlides.forEach((slide, index) => {
+          slide.addEventListener('click', () => {
+            console.log(`Thumbnail ${index} clicked`);
+            if (mainSwiper) {
+              mainSwiper.slideTo(index);
+              console.log(`Moved to slide ${index}`);
+
+              // アクティブクラスの状態を確認
+              setTimeout(() => {
+                console.log(
+                  'Active thumb classes after click:',
+                  document.querySelectorAll('.swiper-slide-thumb-active')
+                );
+              }, 100);
+            }
+          });
         });
-      }
-    }; // initSwipers終了
+
+        // Thumbsモジュールの状態確認
+        if (thumbsSwiper) {
+          thumbsSwiper.on('slideChange', function () {
+            console.log('Thumb slide changed to:', this.activeIndex);
+          });
+        }
+      }; // initSwipers終了
 
       const destroySwipers = () => {
         // destroy(true, true) = 完全クリーンアップ
@@ -350,7 +358,49 @@ import 'swiper/css/navigation';
       }
     }
 
+    // 動的セレクターでもタイムラインスタイルを適用
+    &__timeline [class*='__swiper-thumb'] .schedule-slider__schedule-list {
+      @include tablet-up {
+        position: relative;
+      }
+      @include desktop-up {
+      }
+      &:after {
+        @include tablet-up {
+          content: '';
+          height: 1px;
+          width: 94.2%;
+          background: var(--blue_4, #59a1c0);
+          position: absolute;
+          top: 3vw;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        @include desktop-up {
+          top: 2.6vw;
+        }
+      }
+    }
+
     &__schedule-item {
+      @include tablet-up {
+        cursor: pointer;
+      }
+      @include desktop-up {
+      }
+      &.swiper-slide-thumb-active {
+        .schedule-slider__time,
+        .schedule-slider__activity {
+          font-weight: 700;
+        }
+        .schedule-slider__connector {
+          width: 2px;
+        }
+      }
+    }
+
+    // 動的セレクターでもスケジュールアイテムスタイルを適用
+    &__timeline [class*='__swiper-thumb'] .schedule-slider__schedule-item {
       @include tablet-up {
         cursor: pointer;
       }
@@ -642,17 +692,9 @@ import 'swiper/css/navigation';
   // Swiper関連のセレクター
   // ============================================================
 
-  // Day1〜Day10のSwiper thumbスタイル
-  .enjoy-day1__swiper-thumb,
-  .enjoy-day2__swiper-thumb,
-  .enjoy-day3__swiper-thumb,
-  .enjoy-day4__swiper-thumb,
-  .enjoy-day5__swiper-thumb,
-  .enjoy-day6__swiper-thumb,
-  .enjoy-day7__swiper-thumb,
-  .enjoy-day8__swiper-thumb,
-  .enjoy-day9__swiper-thumb,
-  .enjoy-day10__swiper-thumb {
+  // 動的Swiper thumbスタイル（プランID + dayId）
+  // より具体的なセレクターを使用
+  .schedule-slider__timeline > [class*='__swiper-thumb'] {
     display: none;
     width: 100%;
 
@@ -685,17 +727,8 @@ import 'swiper/css/navigation';
     }
   }
 
-  // Day1〜Day10のSwiper mainスタイル
-  .enjoy-day1__swiper-main,
-  .enjoy-day2__swiper-main,
-  .enjoy-day3__swiper-main,
-  .enjoy-day4__swiper-main,
-  .enjoy-day5__swiper-main,
-  .enjoy-day6__swiper-main,
-  .enjoy-day7__swiper-main,
-  .enjoy-day8__swiper-main,
-  .enjoy-day9__swiper-main,
-  .enjoy-day10__swiper-main {
+  // 動的Swiper mainスタイル（プランID + dayId）
+  .schedule-slider__details > [class*='__swiper-main'] {
     position: relative;
     @include tablet-up {
     }

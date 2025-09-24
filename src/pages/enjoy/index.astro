@@ -1,0 +1,383 @@
+---
+// 過ごし方プラン一覧ページ
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import { allStayPlans } from '../../data/schedules';
+
+// ページメタ情報
+const pageTitle = '過ごし方 | 光風閣くわるび';
+const pageDescription =
+  '富士山と西湖の美しい自然の中で、様々な過ごし方プランをご提案します。';
+const pageClass = 'main-content--enjoy-index';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageClass={pageClass}
+>
+  <!-- ヒーローセクション -->
+  <section class="enjoy-hero">
+    <div class="enjoy-hero__content">
+      <h1 class="enjoy-hero__title">
+        <span class="enjoy-hero__title-en">ENJOY</span>
+        <span class="enjoy-hero__title-ja">過ごし方</span>
+      </h1>
+      <p class="enjoy-hero__description">
+        富士山と西湖の美しい自然の中で、<br />
+        様々な過ごし方プランをご提案します。
+      </p>
+    </div>
+  </section>
+
+  <!-- プラン一覧 -->
+  <section class="enjoy-plans">
+    <div class="enjoy-plans__container">
+      <h2 class="enjoy-plans__heading">過ごし方プラン</h2>
+      <div class="enjoy-plans__grid">
+        {
+          allStayPlans.map((plan) => (
+            <article class="enjoy-plan-card">
+              <a href={`/enjoy/${plan.slug}`} class="enjoy-plan-card__link">
+                <div class="enjoy-plan-card__content">
+                  <h3 class="enjoy-plan-card__title">{plan.title}</h3>
+                  <p class="enjoy-plan-card__description">{plan.description}</p>
+                  <div class="enjoy-plan-card__meta">
+                    <span class="enjoy-plan-card__days">
+                      {plan.days.length}日間プラン
+                    </span>
+                  </div>
+                </div>
+                <div class="enjoy-plan-card__arrow">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M5 12H19M19 12L12 5M19 12L12 19"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- パンくずリスト -->
+  <div class="breadcrumb-wrapper">
+    <Breadcrumb items={[{ text: 'TOP', href: '/' }, { text: '過ごし方' }]} />
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  @import '../../styles/variables';
+  @import '../../styles/functions';
+  @import '../../styles/mixins';
+
+  // ============================================================
+  // enjoy-indexページのスタイル
+  // ============================================================
+
+  :global(.main-content--enjoy-index) {
+    padding-top: spx(110);
+    @include tablet-up {
+      padding-top: ppx(280 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(280);
+    }
+  }
+
+  // ============================================================
+  // ヒーローセクション
+  // ============================================================
+
+  .enjoy-hero {
+    background: linear-gradient(
+      135deg,
+      var(--blue_2, #e7f3f9) 0%,
+      var(--blue_3, #d8edf7) 100%
+    );
+    padding: spx(80) 0 spx(100);
+    text-align: center;
+    @include tablet-up {
+      padding: ppx(120 * 1.2) 0 ppx(150 * 1.2);
+    }
+    @include desktop-up {
+      padding: ppx(120) 0 ppx(150);
+    }
+
+    &__content {
+      max-width: spx(640);
+      margin: 0 auto;
+      padding: 0 spx(20);
+      @include tablet-up {
+        max-width: ppx(800 * 1.2);
+        padding: 0 ppx(40 * 1.2);
+      }
+      @include desktop-up {
+        max-width: ppx(800);
+        padding: 0 ppx(40);
+      }
+    }
+
+    &__title {
+      margin-bottom: spx(40);
+      @include tablet-up {
+        margin-bottom: ppx(60 * 1.2);
+      }
+      @include desktop-up {
+        margin-bottom: ppx(60);
+      }
+
+      &-en {
+        display: block;
+        color: var(--blue_5, #026995);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(48);
+        font-weight: 700;
+        letter-spacing: spx(14.4);
+        margin-bottom: spx(10);
+        @include tablet-up {
+          font-size: ppx(60 * 1.2);
+          letter-spacing: ppx(18 * 1.2);
+          margin-bottom: ppx(15 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(60);
+          letter-spacing: ppx(18);
+          margin-bottom: ppx(15);
+        }
+      }
+
+      &-ja {
+        display: block;
+        color: var(--blue_6, #054965);
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(36);
+        font-weight: 400;
+        @include tablet-up {
+          font-size: ppx(45 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(45);
+        }
+      }
+    }
+
+    &__description {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(28);
+      font-weight: 400;
+      line-height: 1.6;
+      @include tablet-up {
+        font-size: ppx(32 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(32);
+      }
+    }
+  }
+
+  // ============================================================
+  // プラン一覧セクション
+  // ============================================================
+
+  .enjoy-plans {
+    padding: spx(100) 0 spx(120);
+    @include tablet-up {
+      padding: ppx(150 * 1.2) 0 ppx(180 * 1.2);
+    }
+    @include desktop-up {
+      padding: ppx(150) 0 ppx(180);
+    }
+
+    &__container {
+      max-width: spx(640);
+      margin: 0 auto;
+      padding: 0 spx(20);
+      @include tablet-up {
+        max-width: ppx(1200 * 1.2);
+        padding: 0 ppx(40 * 1.2);
+      }
+      @include desktop-up {
+        max-width: ppx(1200);
+        padding: 0 ppx(40);
+      }
+    }
+
+    &__heading {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(42);
+      font-weight: 400;
+      text-align: center;
+      margin-bottom: spx(60);
+      @include tablet-up {
+        font-size: ppx(50 * 1.2);
+        margin-bottom: ppx(80 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(50);
+        margin-bottom: ppx(80);
+      }
+    }
+
+    &__grid {
+      display: grid;
+      gap: spx(40);
+      @include tablet-up {
+        grid-template-columns: repeat(2, 1fr);
+        gap: ppx(60 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(60);
+      }
+    }
+  }
+
+  // ============================================================
+  // プランカード
+  // ============================================================
+
+  .enjoy-plan-card {
+    background: var(--white, #fff);
+    border-radius: spx(20);
+    overflow: hidden;
+    box-shadow: 0 spx(10) spx(30) rgba(0, 0, 0, 0.1);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    @include tablet-up {
+      border-radius: ppx(30 * 1.2);
+      box-shadow: 0 ppx(15 * 1.2) ppx(40 * 1.2) rgba(0, 0, 0, 0.1);
+    }
+    @include desktop-up {
+      border-radius: ppx(30);
+      box-shadow: 0 ppx(15) ppx(40) rgba(0, 0, 0, 0.1);
+    }
+
+    &:hover {
+      transform: translateY(spx(-5));
+      box-shadow: 0 spx(20) spx(40) rgba(0, 0, 0, 0.15);
+      @include tablet-up {
+        transform: translateY(ppx(-8 * 1.2));
+        box-shadow: 0 ppx(25 * 1.2) ppx(50 * 1.2) rgba(0, 0, 0, 0.15);
+      }
+      @include desktop-up {
+        transform: translateY(ppx(-8));
+        box-shadow: 0 ppx(25) ppx(50) rgba(0, 0, 0, 0.15);
+      }
+    }
+
+    &__link {
+      display: block;
+      padding: spx(40);
+      text-decoration: none;
+      color: inherit;
+      @include tablet-up {
+        padding: ppx(50 * 1.2);
+      }
+      @include desktop-up {
+        padding: ppx(50);
+      }
+    }
+
+    &__content {
+      margin-bottom: spx(30);
+      @include tablet-up {
+        margin-bottom: ppx(40 * 1.2);
+      }
+      @include desktop-up {
+        margin-bottom: ppx(40);
+      }
+    }
+
+    &__title {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(32);
+      font-weight: 700;
+      margin-bottom: spx(20);
+      @include tablet-up {
+        font-size: ppx(38 * 1.2);
+        margin-bottom: ppx(25 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(38);
+        margin-bottom: ppx(25);
+      }
+    }
+
+    &__description {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(26);
+      font-weight: 400;
+      line-height: 1.6;
+      margin-bottom: spx(25);
+      @include tablet-up {
+        font-size: ppx(30 * 1.2);
+        margin-bottom: ppx(30 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(30);
+        margin-bottom: ppx(30);
+      }
+    }
+
+    &__meta {
+      display: flex;
+      align-items: center;
+      gap: spx(15);
+      @include tablet-up {
+        gap: ppx(20 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(20);
+      }
+    }
+
+    &__days {
+      color: var(--green_2, #adc400);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(24);
+      font-weight: 600;
+      @include tablet-up {
+        font-size: ppx(28 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(28);
+      }
+    }
+
+    &__arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: spx(50);
+      height: spx(50);
+      background: var(--blue_4, #59a1c0);
+      border-radius: 50%;
+      color: var(--white, #fff);
+      transition: background-color 0.3s ease;
+      @include tablet-up {
+        width: ppx(60 * 1.2);
+        height: ppx(60 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(60);
+        height: ppx(60);
+      }
+
+      .enjoy-plan-card:hover & {
+        background: var(--green_2, #adc400);
+      }
+    }
+  }
+</style>
