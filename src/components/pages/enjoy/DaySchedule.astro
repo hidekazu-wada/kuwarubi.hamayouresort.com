@@ -10,45 +10,6 @@ export interface Props {
 
 const { dayData } = Astro.props;
 
-// 詳細セクション用のハードコードデータ（テスト用）
-const detailItems = [
-  {
-    time: '15:00',
-    title: 'チェックイン',
-    description: '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。'
-  },
-  {
-    time: '15:30',
-    title: '周辺散歩',
-    description: '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。'
-  },
-  {
-    time: '16:00',
-    title: '森のサウナ',
-    description: '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。'
-  },
-  {
-    time: '18:00',
-    title: '夕　食',
-    description: '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。'
-  },
-  {
-    time: '19:00',
-    title: '入　浴',
-    description: '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。'
-  },
-  {
-    time: '20:30',
-    title: 'ナイトハイク',
-    description: '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。'
-  },
-  {
-    time: '22:00',
-    title: '就　寝',
-    description: '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。荷物を預け、深呼吸一つで、日常のせわしなさが溶けていくのを感じていただけるはずです。'
-  }
-];
-
 // 画像
 import { getImage } from 'astro:assets';
 import slide_day1_01_image from '../../../assets/images/enjoy/slide-day-1/slide-01.jpg';
@@ -78,7 +39,9 @@ import 'swiper/css/navigation';
               <div class="schedule-slider__schedule-entry">
                 <time class="schedule-slider__time">{item.time}</time>
                 <span class="schedule-slider__connector" />
-                <span class="schedule-slider__activity">{item.thumbnailTitle}</span>
+                <span class="schedule-slider__activity">
+                  {item.thumbnailTitle}
+                </span>
               </div>
             </li>
           ))
@@ -91,39 +54,40 @@ import 'swiper/css/navigation';
     <!-- メインSwiper -->
     <div class="enjoy-day1__swiper-main">
       <div class="schedule-slider__details-list swiper-wrapper">
-        {detailItems.map((item) => (
-          <article class="schedule-slider__detail-item swiper-slide">
-            <div class="schedule-slider__detail-content">
-              <div class="schedule-slider__detail-image">
-                <picture class="schedule-slider__picture">
-                  <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                  <source
-                    media="(min-width: 1024px)"
-                    srcset={Day1_01.srcSet.toString()}
-                  />
-                  <!-- タブレット（744px以上）→ 中解像度版 -->
-                  <source
-                    media="(min-width: 744px)"
-                    srcset={Day1_01.srcSet.toString()}
-                  />
-                  <!-- スマホ（744px未満）→ 最小解像度版 -->
-                  <img
-                    src={Day1_01.src}
-                    alt="画像の内容を説明するテキスト"
-                    class="schedule-slider__img"
-                  />
-                </picture>
+        {
+          dayData.items.map((item) => (
+            <article class="schedule-slider__detail-item swiper-slide">
+              <div class="schedule-slider__detail-content">
+                <div class="schedule-slider__detail-image">
+                  <picture class="schedule-slider__picture">
+                    <source
+                      media="(min-width: 1024px)"
+                      srcset={Day1_01.srcSet.toString()}
+                    />
+                    <source
+                      media="(min-width: 744px)"
+                      srcset={Day1_01.srcSet.toString()}
+                    />
+                    <img
+                      src={Day1_01.src}
+                      alt={item.image.alt}
+                      class="schedule-slider__img"
+                    />
+                  </picture>
+                </div>
+                <div class="schedule-slider__detail-text">
+                  <time class="schedule-slider__detail-time">{item.time}</time>
+                  <h3 class="schedule-slider__detail-title">
+                    {item.detailTitle}
+                  </h3>
+                  <p class="schedule-slider__detail-description">
+                    {item.description}
+                  </p>
+                </div>
               </div>
-              <div class="schedule-slider__detail-text">
-                <time class="schedule-slider__detail-time">{item.time}</time>
-                <h3 class="schedule-slider__detail-title">{item.title}</h3>
-                <p class="schedule-slider__detail-description">
-                  {item.description}
-                </p>
-              </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))
+        }
       </div>
       <!-- Prev/Nextボタン -->
       <button class="schedule-slider__swiper-prev" type="button">
