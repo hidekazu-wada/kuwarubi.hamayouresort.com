@@ -27,6 +27,24 @@ import fn_day3_slide03 from '../assets/images/enjoy/slide-day-3/slide-03.jpg';
 import fn_day3_slide04 from '../assets/images/enjoy/slide-day-3/slide-04.jpg';
 import fn_day3_slide05 from '../assets/images/enjoy/slide-day-3/slide-05.jpg';
 
+// rainy-day - day1の画像
+import rd_day1_slide01 from '../assets/images/enjoy/rainy-day-1/slide-01.jpg';
+import rd_day1_slide02 from '../assets/images/enjoy/rainy-day-1/slide-02.jpg';
+import rd_day1_slide03 from '../assets/images/enjoy/rainy-day-1/slide-03.jpg';
+import rd_day1_slide04 from '../assets/images/enjoy/rainy-day-1/slide-04.jpg';
+import rd_day1_slide05 from '../assets/images/enjoy/rainy-day-1/slide-05.jpg';
+import rd_day1_slide06 from '../assets/images/enjoy/rainy-day-1/slide-06.jpg';
+import rd_day1_slide07 from '../assets/images/enjoy/rainy-day-1/slide-07.jpg';
+
+// rainy-day - day2の画像
+import rd_day2_slide01 from '../assets/images/enjoy/rainy-day-2/slide-01.jpg';
+import rd_day2_slide02 from '../assets/images/enjoy/rainy-day-2/slide-02.jpg';
+import rd_day2_slide03 from '../assets/images/enjoy/rainy-day-2/slide-03.jpg';
+import rd_day2_slide04 from '../assets/images/enjoy/rainy-day-2/slide-04.jpg';
+import rd_day2_slide05 from '../assets/images/enjoy/rainy-day-2/slide-05.jpg';
+import rd_day2_slide06 from '../assets/images/enjoy/rainy-day-2/slide-06.jpg';
+import rd_day2_slide07 from '../assets/images/enjoy/rainy-day-2/slide-07.jpg';
+
 // スケジュールアイテムの型定義
 export interface ScheduleItem {
   time: string; // 時間（例: "15:00"）
@@ -283,10 +301,188 @@ export const familyNatureDay3Schedule: DaySchedule = {
   ],
 };
 
+// 雨の日の過ごし方 - Day 1のスケジュールデータ
+export const rainyDay1Schedule: DaySchedule = {
+  dayLabel: 'Day 1',
+  dayId: 'day1',
+  planId: 'rainy-day',
+  items: [
+    {
+      time: '15:00',
+      thumbnailTitle: 'チェックイン',
+      detailTitle: 'チェックイン',
+      description:
+        '雨の音を聞きながら、温かな雰囲気のロビーでチェックイン。雨の日だからこそ楽しめる、ゆったりとした時間の始まりです。',
+      image: {
+        src: rd_day1_slide01,
+        alt: 'チェックインカウンターの様子',
+      },
+    },
+    {
+      time: '15:30',
+      thumbnailTitle: '屋内施設探索',
+      detailTitle: '屋内施設探索',
+      description:
+        'ホテル内の施設をゆっくりと探索。ラウンジ、ライブラリー、展示コーナーなど、雨の日でも楽しめる施設が充実しています。',
+      image: {
+        src: rd_day1_slide02,
+        alt: 'ホテル内ラウンジ',
+      },
+    },
+    {
+      time: '16:00',
+      thumbnailTitle: '温泉でリラックス',
+      detailTitle: '温泉でリラックス',
+      description:
+        '雨音を聞きながらの露天風呂は格別。雨に濡れた森の香りを感じながら、ゆったりと温泉を楽しみます。',
+      image: {
+        src: rd_day1_slide03,
+        alt: '雨の日の温泉',
+      },
+    },
+    {
+      time: '18:00',
+      thumbnailTitle: '夕　食',
+      detailTitle: '夕　食',
+      description:
+        '地元の旬の食材を使った会席料理。窓の外の雨景色を眺めながら、ゆっくりとお食事を楽しんでいただけます。',
+      image: {
+        src: rd_day1_slide04,
+        alt: '夕食の料理',
+      },
+    },
+    {
+      time: '19:30',
+      thumbnailTitle: 'ボードゲーム',
+      detailTitle: 'ボードゲーム',
+      description:
+        'ラウンジで家族や友人とボードゲーム。囲碁、将棋、トランプなど、様々なゲームをご用意しています。',
+      image: {
+        src: rd_day1_slide05,
+        alt: 'ボードゲームの様子',
+      },
+    },
+    {
+      time: '20:30',
+      thumbnailTitle: '星空シアター',
+      detailTitle: '星空シアター',
+      description:
+        'プラネタリウムのような星空投影を楽しめる特別室。雨の日でも満天の星を堪能できます。',
+      image: {
+        src: rd_day1_slide06,
+        alt: '星空シアター',
+      },
+    },
+    {
+      time: '22:00',
+      thumbnailTitle: '就　寝',
+      detailTitle: '就　寝',
+      description:
+        '雨音が心地よいBGMとなる静かな夜。ゆったりとした客室で、明日への活力を蓄えます。',
+      image: {
+        src: rd_day1_slide07,
+        alt: '客室の様子',
+      },
+    },
+  ],
+};
+
+// 雨の日の過ごし方 - Day 2のスケジュールデータ
+export const rainyDay2Schedule: DaySchedule = {
+  dayLabel: 'Day 2',
+  dayId: 'day2',
+  planId: 'rainy-day',
+  items: [
+    {
+      time: '8:00',
+      thumbnailTitle: '朝　食',
+      detailTitle: '朝　食',
+      description:
+        '雨に濡れた庭園を眺めながらの朝食。地元の新鮮な食材で作った和洋バイキングをお楽しみください。',
+      image: {
+        src: rd_day2_slide01,
+        alt: '朝食バイキング',
+      },
+    },
+    {
+      time: '9:30',
+      thumbnailTitle: 'クラフト体験',
+      detailTitle: 'クラフト体験',
+      description:
+        '屋内でできるクラフト体験。陶芸、絵付け、アクセサリー作りなど、雨の日だからこそじっくりと取り組めます。',
+      image: {
+        src: rd_day2_slide02,
+        alt: 'クラフト体験の様子',
+      },
+    },
+    {
+      time: '11:00',
+      thumbnailTitle: 'ライブラリー',
+      detailTitle: 'ライブラリー',
+      description:
+        '静かなライブラリーで読書タイム。富士山や地域の歴史に関する本も充実しています。',
+      image: {
+        src: rd_day2_slide03,
+        alt: 'ライブラリーの様子',
+      },
+    },
+    {
+      time: '12:00',
+      thumbnailTitle: '昼　食',
+      detailTitle: '昼　食',
+      description:
+        '雨の日限定の特別メニュー。温かいスープやほうとうなど、体が温まる料理をご用意しています。',
+      image: {
+        src: rd_day2_slide04,
+        alt: '昼食の料理',
+      },
+    },
+    {
+      time: '13:30',
+      thumbnailTitle: '屋内プール',
+      detailTitle: '屋内プール',
+      description:
+        '温水の屋内プールで運動不足を解消。ジャグジーも併設されており、リラックスもできます。',
+      image: {
+        src: rd_day2_slide05,
+        alt: '屋内プール',
+      },
+    },
+    {
+      time: '15:00',
+      thumbnailTitle: 'ティータイム',
+      detailTitle: 'ティータイム',
+      description:
+        'ラウンジでアフタヌーンティー。雨音を聞きながら、優雅なひとときをお過ごしください。',
+      image: {
+        src: rd_day2_slide06,
+        alt: 'アフタヌーンティー',
+      },
+    },
+    {
+      time: '16:30',
+      thumbnailTitle: 'チェックアウト準備',
+      detailTitle: 'チェックアウト準備',
+      description:
+        '楽しい時間もあっという間。雨の日ならではの思い出を胸に、帰路の準備をします。',
+      image: {
+        src: rd_day2_slide07,
+        alt: 'チェックアウト準備',
+      },
+    },
+  ],
+};
+
 // 全てのスケジュールデータを配列でエクスポート
 export const allDaySchedules: DaySchedule[] = [
   familyNatureDay1Schedule,
   familyNatureDay2Schedule,
   familyNatureDay3Schedule,
   // 新しいDayを追加する場合はここに追加するだけ
+];
+
+// 雨の日の過ごし方用の配列
+export const rainyDaySchedules: DaySchedule[] = [
+  rainyDay1Schedule,
+  rainyDay2Schedule,
 ];

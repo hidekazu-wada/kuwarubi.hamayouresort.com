@@ -1,0 +1,109 @@
+---
+// ============================================================
+// 汎用ページテンプレート
+// 使い方：このファイルをコピーして、ファイル名を変更して使用
+// 例：cp src/pages/_template.astro src/pages/about.astro
+// ============================================================
+
+// 必須インポート
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+
+import Hero from '../components/pages/enjoy/Hero.astro';
+import DaySchedule from '../components/pages/enjoy/DaySchedule.astro';
+
+// データのインポート
+import { rainyDaySchedules } from '../data/schedules';
+
+// 追加インポート（必要に応じて）
+// import { getImage } from 'astro:assets';
+// import sampleImage from '../assets/images/sample.jpg';
+
+// ============================================================
+// TODO: 以下の項目を必ず変更してください
+// ============================================================
+
+// ページメタ情報（必ず変更）
+const pageTitle = '雨の日の過ごし方 | 光風閣くわるび';
+const pageDescription = '雨の日でも楽しめる、ホテル内での充実した過ごし方をご提案します。';
+
+// ページ固有のクラス名（enjoyを適切な名前に変更）
+const pageClass = 'main-content--enjoy-rainy';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageClass={pageClass}
+>
+  <!-- ============================================================ -->
+  <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
+  <!-- ============================================================ -->
+
+  <!-- メインコンテンツ -->
+  <Hero />
+  {rainyDaySchedules.map((dayData) => (
+    <section
+      class={`day-section`}
+      data-day-id={dayData.dayId}
+    >
+      <DaySchedule dayData={dayData} />
+    </section>
+  ))}
+
+  <!-- パンくずリスト -->
+  <div class="breadcrumb-wrapper">
+    <Breadcrumb items={[{ text: 'TOP', href: '/' }, { text: '雨の日の過ごし方' }]} />
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  @import '../styles/variables';
+  @import '../styles/functions';
+  @import '../styles/mixins';
+
+  // ============================================================
+  // enjoy-rainyページのスタイル
+  // ============================================================
+
+  :global(.main-content--enjoy-rainy) {
+    padding-top: spx(110);
+    @include tablet-up {
+      padding-top: ppx(280 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(280);
+    }
+  }
+
+  // ============================================================
+  // Day セクション共通スタイル
+  // ============================================================
+
+  .day-section {
+    padding-top: spx(120);
+    padding-bottom: spx(160);
+    overflow-x: hidden;
+    @include tablet-up {
+      padding-top: ppx(235 * 1.2);
+      padding-bottom: ppx(312 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(235);
+      padding-bottom: ppx(312);
+    }
+
+    // Day1〜10までの背景色を事前定義
+    // 奇数日は青い背景、偶数日は薄い青背景
+    &[data-day-id="day1"] { background: var(--blue_2, #e7f3f9); }
+    &[data-day-id="day2"] { background: var(--blue_3, #d8edf7); }
+    &[data-day-id="day3"] { background: var(--blue_2, #e7f3f9); }
+    &[data-day-id="day4"] { background: var(--blue_3, #d8edf7); }
+    &[data-day-id="day5"] { background: var(--blue_2, #e7f3f9); }
+    &[data-day-id="day6"] { background: var(--blue_3, #d8edf7); }
+    &[data-day-id="day7"] { background: var(--blue_2, #e7f3f9); }
+    &[data-day-id="day8"] { background: var(--blue_3, #d8edf7); }
+    &[data-day-id="day9"] { background: var(--blue_2, #e7f3f9); }
+    &[data-day-id="day10"] { background: var(--blue_3, #d8edf7); }
+  }
+</style>
