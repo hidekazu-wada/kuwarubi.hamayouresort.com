@@ -10,6 +10,9 @@ export interface Props {
 
 const { dayData } = Astro.props;
 
+// dayIdからクラス名プレフィックスを生成
+const classPrefix = `enjoy-${dayData.dayId}`;
+
 // 画像
 import { getImage } from 'astro:assets';
 
@@ -40,7 +43,7 @@ import 'swiper/css/navigation';
 <div class="schedule-slider__content">
   <div class="schedule-slider__timeline">
     <!-- サムネイルSwiper -->
-    <div class="enjoy-day1__swiper-thumb">
+    <div class={`${classPrefix}__swiper-thumb`}>
       <ol class="schedule-slider__schedule-list swiper-wrapper">
         {
           dayData.items.map((item) => (
@@ -59,9 +62,9 @@ import 'swiper/css/navigation';
     </div>
     <span class="schedule-slider__vertical-line"></span>
   </div>
-  <div class="schedule-slider__details">
+  <div class="schedule-slider__details" style="position: relative;" data-day-id={dayData.dayId}>
     <!-- メインSwiper -->
-    <div class="enjoy-day1__swiper-main">
+    <div class={`${classPrefix}__swiper-main`}>
       <div class="schedule-slider__details-list swiper-wrapper">
         {
           itemsWithImages.map((item) => (
@@ -158,18 +161,26 @@ import 'swiper/css/navigation';
     window.matchMedia(`(min-width: ${TABLET_BP}px)`).matches;
 
   document.addEventListener('DOMContentLoaded', () => {
-    let thumbsSwiper: any = null;
-    let mainSwiper: any = null;
+    // 各DayScheduleインスタンスごとに初期化
+    document.querySelectorAll('[data-day-id]').forEach((dayElement) => {
+      const dayId = dayElement.getAttribute('data-day-id');
+      if (!dayId) return;
 
-    const initSwipers = () => {
-      // 既に初期化済みなら何もしない（二重初期化防止）
-      if (mainSwiper || thumbsSwiper) return;
+      const thumbSelector = `.enjoy-${dayId}__swiper-thumb`;
+      const mainSelector = `.enjoy-${dayId}__swiper-main`;
 
-      console.log('Initializing Swipers...');
+      let thumbsSwiper: any = null;
+      let mainSwiper: any = null;
+
+      const initSwipers = () => {
+        // 既に初期化済みなら何もしない（二重初期化防止）
+        if (mainSwiper || thumbsSwiper) return;
+
+        console.log(`Initializing Swipers for ${dayId}...`);
 
       // サムネイルSwiper初期化
       // @ts-ignore
-      thumbsSwiper = new Swiper('.enjoy-day1__swiper-thumb', {
+      thumbsSwiper = new Swiper(thumbSelector, {
         modules: [Thumbs], // Thumbsモジュールを追加
         slidesPerView: 'auto',
         freeMode: true,
@@ -181,7 +192,7 @@ import 'swiper/css/navigation';
 
       // メインSwiper初期化
       // @ts-ignore
-      mainSwiper = new Swiper('.enjoy-day1__swiper-main', {
+      mainSwiper = new Swiper(mainSelector, {
         modules: [Navigation, Thumbs], // Thumbsモジュールを追加
         slidesPerView: 1,
         thumbs: {
@@ -207,7 +218,7 @@ import 'swiper/css/navigation';
 
       // サムネイルクリックイベントを手動で追加
       const thumbSlides = document.querySelectorAll(
-        '.enjoy-day1__swiper-thumb .swiper-slide'
+        `${thumbSelector} .swiper-slide`
       );
       thumbSlides.forEach((slide, index) => {
         slide.addEventListener('click', () => {
@@ -233,46 +244,47 @@ import 'swiper/css/navigation';
           console.log('Thumb slide changed to:', this.activeIndex);
         });
       }
-    };
+    }; // initSwipers終了
 
-    const destroySwipers = () => {
-      // destroy(true, true) = 完全クリーンアップ
-      // 第1引数: deleteInstance（インスタンス削除）
-      // 第2引数: cleanStyles（付与されたスタイル除去）
-      if (mainSwiper) {
-        mainSwiper.destroy(true, true);
-        mainSwiper = null;
+      const destroySwipers = () => {
+        // destroy(true, true) = 完全クリーンアップ
+        // 第1引数: deleteInstance（インスタンス削除）
+        // 第2引数: cleanStyles（付与されたスタイル除去）
+        if (mainSwiper) {
+          mainSwiper.destroy(true, true);
+          mainSwiper = null;
+        }
+        if (thumbsSwiper) {
+          thumbsSwiper.destroy(true, true);
+          thumbsSwiper = null;
+        }
+      };
+
+      const handleResize = () => {
+        if (isTabletUp()) {
+          initSwipers(); // タブレット以上でSwiper有効
+        } else {
+          destroySwipers(); // スマホでSwiper無効
+        }
+      };
+
+      // 初期セットアップ
+      handleResize();
+
+      // リサイズイベント（デバウンス付きで負荷軽減）
+      let resizeTimer: number;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(handleResize, 150);
+      });
+
+      // MediaQueryList変更イベント（より効率的）
+      // resizeイベントの代わりにこちらを使うこともできます
+      const mediaQuery = window.matchMedia(`(min-width: ${TABLET_BP}px)`);
+      if (mediaQuery.addEventListener) {
+        mediaQuery.addEventListener('change', handleResize);
       }
-      if (thumbsSwiper) {
-        thumbsSwiper.destroy(true, true);
-        thumbsSwiper = null;
-      }
-    };
-
-    const handleResize = () => {
-      if (isTabletUp()) {
-        initSwipers(); // タブレット以上でSwiper有効
-      } else {
-        destroySwipers(); // スマホでSwiper無効
-      }
-    };
-
-    // 初期セットアップ
-    handleResize();
-
-    // リサイズイベント（デバウンス付きで負荷軽減）
-    let resizeTimer: number;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(handleResize, 150);
-    });
-
-    // MediaQueryList変更イベント（より効率的）
-    // resizeイベントの代わりにこちらを使うこともできます
-    const mediaQuery = window.matchMedia(`(min-width: ${TABLET_BP}px)`);
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', handleResize);
-    }
+    }); // forEach終了
   });
 </script>
 
@@ -630,7 +642,9 @@ import 'swiper/css/navigation';
   // Swiper関連のセレクター
   // ============================================================
 
-  .enjoy-day1__swiper-thumb {
+  // Day1とDay2両方のSwiper thumbスタイル
+  .enjoy-day1__swiper-thumb,
+  .enjoy-day2__swiper-thumb {
     display: none;
     width: 100%;
 
@@ -663,7 +677,9 @@ import 'swiper/css/navigation';
     }
   }
 
-  .enjoy-day1__swiper-main {
+  // Day1とDay2両方のSwiper mainスタイル
+  .enjoy-day1__swiper-main,
+  .enjoy-day2__swiper-main {
     position: relative;
     @include tablet-up {
     }

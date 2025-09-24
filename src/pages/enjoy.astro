@@ -10,8 +10,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 
 import Hero from '../components/pages/enjoy/Hero.astro';
-import Day1Schedule from '../components/pages/enjoy/Day1Schedule.astro';
-import Day2Schedule from '../components/pages/enjoy/Day2Schedule.astro';
+import DaySchedule from '../components/pages/enjoy/DaySchedule.astro';
 
 // データのインポート
 import {
@@ -47,10 +46,10 @@ const pageClass = 'main-content--enjoy';
   <!-- メインコンテンツ -->
   <Hero />
   <section class="day-1">
-    <Day1Schedule dayData={familyNatureDay1Schedule} />
+    <DaySchedule dayData={familyNatureDay1Schedule} />
   </section>
   <section class="day-2">
-    <Day2Schedule dayData={familyNatureDay2Schedule} />
+    <DaySchedule dayData={familyNatureDay2Schedule} />
   </section>
 
   <!-- パンくずリスト -->
