@@ -138,6 +138,29 @@ src/
                 └── day-2/
 ```
 
+### ✅ 完了済みの作業
+
+#### **完了: DayScheduleコンポーネント化（2025-09-24）**
+1. **schedules.tsの作成と画像統合**
+   - ScheduleItem、DaySchedule型定義を作成
+   - 画像インポートを直接schedules.ts内で管理
+   - `familyNatureDay1Schedule`としてDay1データを定義
+   - image.srcに画像オブジェクトを直接格納する方式を採用
+
+2. **DaySchedule.astroのコンポーネント化**
+   - Props interfaceを定義（dayData: DaySchedule）
+   - ハードコードからmap()関数による動的生成に変更
+   - サムネイル部分とディテール部分の両方を動的化
+   - getImage()でWebP画像最適化を維持
+
+3. **enjoy.astroの更新**
+   - familyNatureDay1Scheduleをインポート
+   - DayScheduleコンポーネントにdayDataを渡す実装
+
+4. **不要ファイルの削除**
+   - enjoy-images.ts削除（データ一元管理のため）
+   - 空のutilsディレクトリ削除
+
 ### 📝 実装手順（詳細）
 
 #### **Step 1: schedules.tsのデータ構造拡張**
@@ -193,9 +216,11 @@ src/
 
 ### 🔄 現在の進捗
 - [x] 基本的なデータ構造（schedules.ts）作成済み
-- [ ] StayPlan型への拡張
-- [ ] DaySchedule.astroのProps対応
-- [ ] 動的ルーティングページの作成
+- [x] DaySchedule.astroのコンポーネント化完了
+- [x] schedules.tsへの画像インポート統合完了
+- [x] enjoy.astroからDayScheduleへのデータ受け渡し実装済み
+- [ ] StayPlan型への拡張（複数プラン対応）
+- [ ] 動的ルーティングページの作成（/enjoy/[slug].astro）
 - [ ] Swiper初期化の動的対応
 
 ### 🚨 エラーチェックポイント
