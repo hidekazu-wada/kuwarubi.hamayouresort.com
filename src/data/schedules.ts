@@ -20,8 +20,18 @@ export interface DaySchedule {
   items: ScheduleItem[];       // スケジュールアイテムの配列
 }
 
-// デモデータ
-export const scheduleData: DaySchedule[] = [
+// 過ごし方プラン全体の型定義
+export interface StayPlan {
+  id: string;                  // プランID（例: "family-nature"）
+  slug: string;                // URLスラッグ（例: "family-nature"）
+  title: string;               // プランタイトル（例: "子供と自然に触れ合う過ごし方"）
+  description: string;         // プラン説明文
+  thumbnail: string;           // サムネイル画像パス
+  days: DaySchedule[];        // 各日のスケジュール配列
+}
+
+// family-nature（子供と自然に触れ合う）のデータ
+const familyNatureData: DaySchedule[] = [
   {
     dayLabel: "Day 1",
     dayId: "day1",
@@ -136,9 +146,40 @@ export const scheduleData: DaySchedule[] = [
   }
 ];
 
-// 画像パスを取得するヘルパー関数
-export function getScheduleImagePath(dayId: string, fileName: string): string {
-  // 例: /src/assets/images/enjoy/slide-day-1/slide-01.jpg
+// すべての過ごし方プランデータ
+export const stayPlans: StayPlan[] = [
+  {
+    id: "family-nature",
+    slug: "family-nature",
+    title: "子供と自然に触れ合う過ごし方",
+    description: "富士山の麓で、家族みんなで楽しむ自然体験。都会では味わえない特別な思い出を作りましょう。",
+    thumbnail: "/images/enjoy/family-nature-thumb.jpg",
+    days: familyNatureData
+  }
+  // 今後追加予定:
+  // {
+  //   id: "rainy-day",
+  //   slug: "rainy-day",
+  //   title: "雨の日の過ごし方",
+  //   description: "雨の日でも楽しめる、室内アクティビティと癒しの時間。",
+  //   thumbnail: "/images/enjoy/rainy-day-thumb.jpg",
+  //   days: rainyDayData
+  // }
+];
+
+// スラッグから過ごし方プランを取得
+export function getStayPlanBySlug(slug: string): StayPlan | undefined {
+  return stayPlans.find(plan => plan.slug === slug);
+}
+
+// すべての過ごし方プランのスラッグを取得
+export function getAllStayPlanSlugs(): string[] {
+  return stayPlans.map(plan => plan.slug);
+}
+
+// 画像パスを取得するヘルパー関数（更新版）
+export function getScheduleImagePath(stayPlanId: string, dayId: string, fileName: string): string {
+  // 例: /src/assets/images/enjoy/family-nature/day-1/slide-01.jpg
   const dayNumber = dayId.replace('day', '');
-  return `/src/assets/images/enjoy/slide-day-${dayNumber}/${fileName}`;
+  return `/src/assets/images/enjoy/${stayPlanId}/day-${dayNumber}/${fileName}`;
 }
