@@ -10,7 +10,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 
 import Hero from '../components/pages/enjoy/Hero.astro';
-import Day1 from '../components/pages/enjoy/DaySchedule.astro';
+import DaySchedule from '../components/pages/enjoy/DaySchedule.astro';
+
+// データのインポート
+import { day1Schedule } from '../data/schedules';
 
 // 追加インポート（必要に応じて）
 // import { getImage } from 'astro:assets';
@@ -40,7 +43,7 @@ const pageClass = 'main-content--enjoy';
   <!-- メインコンテンツ -->
   <Hero />
   <section class="day-1">
-    <Day1 />
+    <DaySchedule dayData={day1Schedule} />
   </section>
 
   <!-- パンくずリスト -->

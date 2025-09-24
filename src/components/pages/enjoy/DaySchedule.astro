@@ -1,6 +1,15 @@
 ---
 // DaySchedule Component
 // 1日のスケジュールをタイムライン形式で表示するコンポーネント
+import type { DaySchedule } from '../../../data/schedules';
+
+// Props定義
+export interface Props {
+  dayData: DaySchedule;
+}
+
+const { dayData } = Astro.props;
+
 // 画像
 import { getImage } from 'astro:assets';
 import slide_day1_01_image from '../../../assets/images/enjoy/slide-day-1/slide-01.jpg';
@@ -18,7 +27,7 @@ import 'swiper/css/thumbs';
 import 'swiper/css/navigation';
 ---
 
-<h2 class="schedule-slider__heading">Day 1</h2>
+<h2 class="schedule-slider__heading">{dayData.dayLabel}</h2>
 <div class="schedule-slider__content">
   <div class="schedule-slider__timeline">
     <!-- サムネイルSwiper -->
