@@ -25,6 +25,7 @@ const Day1_01 = await getImage({
 // Swiper CSS
 import 'swiper/css';
 import 'swiper/css/thumbs';
+import 'swiper/css/navigation';
 
 // 追加インポート（必要に応じて）
 // import { getImage } from 'astro:assets';
@@ -335,6 +336,46 @@ const pageClass = 'main-content--enjoy';
               </div>
             </article>
           </div>
+          <!-- Prev/Nextボタン -->
+          <button class="enjoy-day1__swiper-prev" type="button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="100"
+              height="100"
+              viewBox="0 0 100 100"
+              fill="none"
+            >
+              <circle
+                cx="50"
+                cy="50"
+                r="50"
+                transform="matrix(-1 0 0 1 100 0)"
+                fill="#59A1C0"></circle>
+              <path
+                d="M56.6719 66.6654L40.0052 49.9987L56.6719 33.332"
+                stroke="white"
+                stroke-width="5"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </button>
+          <button class="enjoy-day1__swiper-next" type="button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="100"
+              height="100"
+              viewBox="0 0 100 100"
+              fill="none"
+            >
+              <circle cx="50" cy="50" r="50" fill="#59A1C0"></circle>
+              <path
+                d="M43.3281 66.6654L59.9948 49.9987L43.3281 33.332"
+                stroke="white"
+                stroke-width="5"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </button>
         </div>
       </div>
     </div>
@@ -350,6 +391,7 @@ const pageClass = 'main-content--enjoy';
   // @ts-nocheck
   // Swiper型定義の問題を一時的に無効化（動作には影響なし）
   import Swiper from 'swiper';
+  import { Navigation } from 'swiper/modules';
 
   // ブレークポイント定数（744px = タブレット以上でSwiper有効）
   const TABLET_BP = 744;
@@ -376,9 +418,14 @@ const pageClass = 'main-content--enjoy';
       // メインSwiper初期化
       // @ts-ignore
       mainSwiper = new Swiper('.enjoy-day1__swiper-main', {
+        modules: [Navigation],
         slidesPerView: 1,
         thumbs: {
           swiper: thumbsSwiper,
+        },
+        navigation: {
+          prevEl: '.enjoy-day1__swiper-prev',
+          nextEl: '.enjoy-day1__swiper-next',
         },
       });
 
