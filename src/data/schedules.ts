@@ -15,6 +15,11 @@ export interface ScheduleItem {
     src: any; // 実際の画像インポート
     alt: string; // 画像の代替テキスト
   };
+  link?: {
+    // オプショナルなリンク情報
+    url: string; // リンク先URL
+    text: string; // リンクテキスト
+  };
 }
 
 // 1日のスケジュールデータの型定義
@@ -53,7 +58,7 @@ export interface StayPlan {
 // ============================================================
 
 // 1. 子供と一緒に自然に触れたい方（Family Nature）
-import family_nature_hero from '../assets/images/enjoy/family-nature/hero.jpg';
+import family_nature_hero from '../assets/images/enjoy/family-nature/hero.png';
 import fn_day1_slide01 from '../assets/images/enjoy/family-nature/day1/slide-01.jpg';
 import fn_day1_slide02 from '../assets/images/enjoy/family-nature/day1/slide-02.jpg';
 import fn_day1_slide03 from '../assets/images/enjoy/family-nature/day1/slide-03.jpg';
@@ -255,6 +260,10 @@ export const familyNaturePlan: StayPlan = {
           description:
             '家族でカヌー体験。湖上から見る富士山は格別で、子どもたちも大喜びです。',
           image: { src: fn_day2_slide02, alt: '西湖でのカヌー体験' },
+          link: {
+            url: '/activities/canoe',
+            text: 'カヌー体験の詳細を見る',
+          },
         },
         {
           time: '10:00',
@@ -386,6 +395,10 @@ export const couplesPlan: StayPlan = {
           detailTitle: 'フォトセッション',
           description: '美しい自然を背景に、二人の思い出を写真に残します。',
           image: { src: cp_day2_slide03, alt: 'フォトセッション' },
+          link: {
+            url: '/activities/photography',
+            text: 'フォトセッションの詳細を見る',
+          },
         },
         {
           time: '11:30',

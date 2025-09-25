@@ -183,14 +183,17 @@ const formattedHeroImage = await getImage({
         height: spx(496);
         background-color: rgb(231, 231, 231);
         object-fit: cover;
+        border-radius: spx(20) 0 0 spx(20);
 
         @include tablet-up {
           width: ppx(1252.006 * 0.9);
           height: ppx(1069.972 * 0.9);
+          border-radius: ppx(30 * 1.2) 0 0 ppx(30 * 1.2);
         }
         @include desktop-up {
           width: ppx(1252.006);
           height: ppx(1069.972);
+          border-radius: ppx(30) 0 0 ppx(30);
         }
       }
     }

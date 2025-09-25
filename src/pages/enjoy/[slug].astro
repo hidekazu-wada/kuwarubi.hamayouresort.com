@@ -50,20 +50,18 @@ const pageClass = `main-content--enjoy main-content--enjoy-${stayPlan.id}`;
         data-plan-id={stayPlan.id}
       >
         <DaySchedule dayData={dayData} stayPlanId={stayPlan.id} />
+        <div class="breadcrumb-wrapper">
+          <Breadcrumb
+            items={[
+              { text: 'TOP', href: '/' },
+              { text: '過ごし方', href: '/enjoy' },
+              { text: stayPlan.title },
+            ]}
+          />
+        </div>
       </section>
     ))
   }
-
-  <!-- パンくずリスト -->
-  <div class="breadcrumb-wrapper">
-    <Breadcrumb
-      items={[
-        { text: 'TOP', href: '/' },
-        { text: '過ごし方', href: '/enjoy' },
-        { text: stayPlan.title },
-      ]}
-    />
-  </div>
 </BaseLayout>
 
 <style lang="scss">
@@ -91,15 +89,15 @@ const pageClass = `main-content--enjoy main-content--enjoy-${stayPlan.id}`;
 
   .day-section {
     padding-top: spx(120);
-    padding-bottom: spx(160);
+    padding-bottom: spx(40);
     overflow-x: hidden;
     @include tablet-up {
       padding-top: ppx(235 * 1.2);
-      padding-bottom: ppx(312 * 1.2);
+      padding-bottom: ppx(70 * 1.2);
     }
     @include desktop-up {
       padding-top: ppx(235);
-      padding-bottom: ppx(312);
+      padding-bottom: ppx(70);
     }
 
     // Day1〜10までの背景色を事前定義
@@ -133,6 +131,16 @@ const pageClass = `main-content--enjoy main-content--enjoy-${stayPlan.id}`;
     }
     &[data-day-id='day10'] {
       background: var(--blue_3, #d8edf7);
+    }
+
+    .breadcrumb-wrapper {
+      margin-top: spx(120);
+      @include tablet-up {
+        margin-top: ppx(150 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(150);
+      }
     }
   }
 </style>
