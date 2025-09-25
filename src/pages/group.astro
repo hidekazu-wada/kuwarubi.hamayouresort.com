@@ -1,0 +1,66 @@
+---
+// ============================================================
+// 汎用ページテンプレート
+// 使い方：このファイルをコピーして、ファイル名を変更して使用
+// 例：cp src/pages/_template.astro src/pages/about.astro
+// ============================================================
+
+// 必須インポート
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LowerPageHeader from '../components/ui/LowerPageHeader.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+
+// 追加インポート（必要に応じて）
+// import { getImage } from 'astro:assets';
+// import sampleImage from '../assets/images/sample.jpg';
+
+// ============================================================
+// TODO: 以下の項目を必ず変更してください
+// ============================================================
+
+// ページメタ情報（必ず変更）
+const pageTitle = '団体利用の方 | 光風閣くわるび';
+const pageDescription = 'ページの説明文をここに記述します。';
+
+// ページ固有のクラス名（group-useを適切な名前に変更）
+const pageClass = 'main-content--group-use';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageClass={pageClass}
+>
+  <!-- ============================================================ -->
+  <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
+  <!-- ============================================================ -->
+
+  <!-- ページヘッダー -->
+  <div class="page-header-container">
+    <LowerPageHeader titleEn="GROUP USE" titleJa="団体利用の方" />
+  </div>
+
+  <!-- メインコンテンツ -->
+  <section class=""></section>
+
+  <!-- パンくずリスト -->
+  <div class="breadcrumb-wrapper">
+    <Breadcrumb
+      items={[{ text: 'TOP', href: '/' }, { text: '団体利用の方' }]}
+    />
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  @import '../styles/variables';
+  @import '../styles/functions';
+  @import '../styles/mixins';
+
+  // ============================================================
+  // TODO: group-useを適切な名前に変更してスタイルを記述
+  // ============================================================
+
+  :global(.main-content--group-use) {
+    display: block;
+  }
+</style>
