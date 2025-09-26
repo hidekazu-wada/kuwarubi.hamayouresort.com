@@ -10,6 +10,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LowerPageHeader from '../components/ui/LowerPageHeader.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 
+// コンポーネント
+import Hero from '../components/pages/group/hero.astro';
+
+// 画像
+import { getImage } from 'astro:assets';
+import category_circle from '../assets/images/group/slider/category-circle.svg';
+
 // 追加インポート（必要に応じて）
 // import { getImage } from 'astro:assets';
 // import sampleImage from '../assets/images/sample.jpg';
@@ -39,9 +46,91 @@ const pageClass = 'main-content--group-use';
   <div class="page-header-container">
     <LowerPageHeader titleEn="GROUP USE" titleJa="団体利用の方" />
   </div>
-
-  <!-- メインコンテンツ -->
-  <section class=""></section>
+  <Hero />
+  <section class="slider-section">
+    <div>
+      <img src={category_circle.src} alt="" class="" />
+    </div>
+    <div class="">
+      <div>
+        <!-- サムネslider -->
+        <button>
+          <!-- svgアイコンを入れます -->
+          <img src="" alt="アイコン1" class="" />
+        </button>
+        <button>
+          <!-- svgアイコンを入れます -->
+          <img src="" alt="アイコン2" class="" />
+        </button>
+        <button>
+          <!-- svgアイコンを入れます -->
+          <img src="" alt="アイコン3" class="" />
+        </button>
+        <button>
+          <!-- svgアイコンを入れます -->
+          <img src="" alt="アイコン4" class="" />
+        </button>
+        <button>
+          <!-- svgアイコンを入れます -->
+          <img src="" alt="アイコン5" class="" />
+        </button>
+      </div>
+      <div>
+        <!-- メインslider -->
+        <div class="">
+          <!-- イメージ画像を入れます -->
+          <div><img src="" alt="" /></div>
+          <div>
+            <div class="">自然に恵まれた環境</div>
+            <div class="">
+              周辺に商業施設がほとんどない西湖は、富士五湖の中でも特に静寂が際立つ場所。感覚が研ぎ澄まされるような透き通った空気が、心と学びを深くします。日常から完全に切り離されたこの環境が、研修に圧倒的な集中力と一体感をもたらします。
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <!-- イメージ画像を入れます -->
+          <div><img src="" alt="" /></div>
+          <div>
+            <div class="">バリアフリー対応の施設</div>
+            <div class="">
+              私たちは、多様な方々が共に過ごせる環境を大切にしています。館内は段差の少ない設計で、多目的トイレも完備。さらに、車椅子をご利用の方も快適にお過ごしいただけるよう、各フロアにバリアフリー対応の客室もご用意しております。
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <!-- イメージ画像を入れます -->
+          <div><img src="" alt="" /></div>
+          <div>
+            <div class="">充実した設備</div>
+            <div class="">
+              最大４００名以上を収容する大ホールや、最大１８会場まで分割可能な研修室をご用意。全体会から分科会、事務局や控室まで自在に設定でき、あらゆるニーズに応えます。プロジェクター等、研修に必須の備品ももちろん完備しています。
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <!-- イメージ画像を入れます -->
+          <div><img src="" alt="" /></div>
+          <div>
+            <div class="">想いを込めた食事の時間</div>
+            <div class="">
+              食事は、仲間との絆を深める大切な体験。私たちのビュッフェに並ぶのは、チームで考え抜いた手作りの料理です。地元の恵みも取り入れつつ、誰もが楽しめる多彩なメニュ
+              ーを栄養士監修のもとご用意。アレルギー等にも丁寧に対応します。
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <!-- イメージ画像を入れます -->
+          <div><img src="" alt="" /></div>
+          <div>
+            <div class="">豊富なアクティビティ</div>
+            <div class="">
+              ここでは、西湖の自然そのものが学びのフィールドです。カヌーで湖面に溶け込み、青木ヶ原樹海で地球の呼吸を感じる。五感を使い自然と一つになる体験は、机上では得られない発見と、仲間との揺るぎない一体感をもたらしてくれます。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- パンくずリスト -->
   <div class="breadcrumb-wrapper">
@@ -56,11 +145,22 @@ const pageClass = 'main-content--group-use';
   @import '../styles/functions';
   @import '../styles/mixins';
 
-  // ============================================================
-  // TODO: group-useを適切な名前に変更してスタイルを記述
-  // ============================================================
-
   :global(.main-content--group-use) {
-    display: block;
+    background: var(--blue_2, #e7f3f9);
+    padding-top: spx(110);
+    @include tablet-up {
+      padding-top: ppx(280 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(280);
+    }
+  }
+  .page-header-container {
+    @include tablet-up {
+      margin-left: ppx(233 * 1.2);
+    }
+    @include desktop-up {
+      margin-left: ppx(233);
+    }
   }
 </style>

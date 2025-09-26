@@ -1,0 +1,268 @@
+---
+// 画像
+import { getImage } from 'astro:assets';
+import heroImage01 from '../../../assets/images/group/hero/img-01.png';
+import heroImage02 from '../../../assets/images/group/hero/img-02.jpg';
+import heroImageTree from '../../../assets/images/group/hero/decoration.svg';
+
+// フォーマット
+const hero01 = await getImage({
+  src: heroImage01,
+  format: 'webp',
+  widths: [505, 640, 765],
+});
+
+const hero02 = await getImage({
+  src: heroImage02,
+  format: 'webp',
+  widths: [620, 660, 729],
+});
+---
+
+<section class="group-hero">
+  <figure class="group-hero__image-block group-hero__image-block--left">
+    <picture class="group-hero__picture group-hero__picture--main">
+      <source media="(min-width: 1024px)" srcset={hero01.srcSet.toString()} />
+      <source media="(min-width: 744px)" srcset={hero01.srcSet.toString()} />
+      <img
+        src={hero01.src}
+        alt="団体利用イメージ1"
+        class="group-hero__img group-hero__img--main"
+      />
+    </picture>
+  </figure>
+  <div class="group-hero__decoration">
+    <img src={heroImageTree.src} alt="" class="group-hero__decoration-img" />
+  </div>
+  <section class="group-hero__content">
+    <header class="group-hero__header">
+      <h2 class="group-hero__catchcopy">
+        豊かな自然の中<br />新たな価値観と<br />出会う学びの場
+      </h2>
+    </header>
+    <div class="group-hero__description">
+      当施設では、教育旅行や企業研修に特化し、40年以上にわたる実績と進化を続けるノウハウをもって、団体のお客様をお迎えしています。自然と学びをテーマにした独自のプログラムを通じて、新しい価値観に触れる体験を提供しています。参加者それぞれが個々の興味や必要に応じた活動に参加できるよう、柔軟にプランを組んでおります。当施設でしか得られない貴重な体験をお楽しみください。
+    </div>
+  </section>
+  <figure class="group-hero__image-block group-hero__image-block--right">
+    <picture class="group-hero__picture group-hero__picture--sub">
+      <source media="(min-width: 1024px)" srcset={hero02.srcSet.toString()} />
+      <source media="(min-width: 744px)" srcset={hero02.srcSet.toString()} />
+      <img
+        src={hero02.src}
+        alt="団体利用イメージ2"
+        class="group-hero__img group-hero__img--sub"
+      />
+    </picture>
+  </figure>
+</section>
+
+<style lang="scss">
+  @import '../../../styles/variables';
+  @import '../../../styles/functions';
+  @import '../../../styles/mixins';
+
+  .group-hero {
+    position: relative;
+    margin-top: spx(60);
+    @include tablet-up {
+      width: 100%;
+      display: flex;
+      gap: 6vw;
+      margin-top: ppx(169 * 1.2);
+      padding-bottom: ppx(112 * 1.2);
+    }
+    @include desktop-up {
+      gap: ppx(139);
+      margin-top: ppx(169);
+      padding-bottom: ppx(112);
+    }
+
+    &__image-block {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &--left {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+      &--right {
+        margin-top: spx(90);
+        @include tablet-up {
+          margin-top: 0;
+          position: absolute;
+          top: ppx(717 * 1.2);
+          right: 0;
+        }
+        @include desktop-up {
+          top: ppx(717);
+          right: 0;
+        }
+      }
+    }
+
+    &__picture {
+      display: block;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &--main {
+      }
+      &--sub {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+    }
+
+    &__img {
+      display: block;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      &--main {
+        width: spx(505);
+        height: spx(624);
+        object-fit: cover;
+        border-radius: 0 spx(30) spx(30) 0;
+        @include tablet-up {
+          width: 30vw;
+          height: ppx(945 * 1.2);
+          border-radius: 0 ppx(30 * 1.2) ppx(30 * 1.2) 0;
+        }
+        @include desktop-up {
+          width: ppx(765);
+          height: ppx(945);
+          border-radius: 0 ppx(30) ppx(30) 0;
+        }
+      }
+      &--sub {
+        width: spx(620);
+        height: spx(409);
+        object-fit: cover;
+        border-radius: spx(30) 0 0 spx(30);
+        margin-left: auto;
+        margin-right: 0;
+        @include tablet-up {
+          margin-left: unset;
+          margin-right: unset;
+          width: 23vw;
+          height: ppx(481 * 1.2);
+          border-radius: ppx(30 * 1.2) 0 0 ppx(30 * 1.2);
+        }
+        @include desktop-up {
+          width: ppx(729);
+          height: ppx(481);
+          border-radius: ppx(30) 0 0 ppx(30);
+        }
+      }
+    }
+
+    &__decoration {
+      margin-top: spx(40);
+      @include tablet-up {
+        margin-top: 0;
+        position: absolute;
+        top: 20vw;
+        right: ppx(47 * 1.2);
+      }
+      @include desktop-up {
+        top: ppx(375);
+        right: ppx(47);
+      }
+
+      &-img {
+        display: block;
+        width: spx(420);
+        margin-left: auto;
+        margin-right: spx(20);
+        @include tablet-up {
+          margin-left: unset;
+          margin-right: unset;
+          width: 19vw;
+        }
+        @include desktop-up {
+          width: ppx(583);
+        }
+      }
+    }
+
+    &__content {
+      margin-top: spx(40);
+      @include tablet-up {
+        margin-top: ppx(236 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(236);
+      }
+    }
+
+    &__header {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__catchcopy {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(52);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 78px */
+      letter-spacing: spx(2.6);
+      width: spx(600);
+      margin-inline: auto;
+      @include tablet-up {
+        color: var(--blue_6, #054965);
+        font-size: ppx(70 * 1.2);
+        letter-spacing: ppx(3.5 * 1.2);
+        line-height: 170%; /* 119px */
+        width: max-content;
+        margin-inline: unset;
+      }
+      @include desktop-up {
+        font-size: ppx(70);
+        letter-spacing: ppx(3.5);
+      }
+    }
+
+    &__description {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%; /* 54px */
+      width: spx(600);
+      margin-inline: auto;
+      margin-top: spx(40);
+      @include tablet-up {
+        color: var(--blue_6, #054965);
+        font-size: ppx(26 * 1.2);
+        letter-spacing: ppx(-0.52 * 1.2);
+        width: ppx(528 * 1.2);
+        margin-inline: unset;
+        margin-left: ppx(9 * 1.2);
+        margin-top: ppx(70 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(26);
+        letter-spacing: ppx(-0.52);
+        width: ppx(528);
+        margin-left: ppx(9);
+        margin-top: ppx(70);
+      }
+    }
+  }
+</style>
