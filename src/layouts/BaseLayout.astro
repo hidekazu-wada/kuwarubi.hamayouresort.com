@@ -57,12 +57,12 @@ import BookingModal from '../components/Booking-modal.astro';
     />
   </head>
   <body>
-    <div class="layout-container">
-      <!-- ローディング要素をここに配置 -->
-      <div id="loading" class="loading-overlay">
-        <img src={logo.src} alt="loading" />
-      </div>
+    <!-- ローディング要素をbodyの直下の最初に配置 -->
+    <div id="loading" class="loading-overlay">
+      <img src={logo.src} alt="loading" />
+    </div>
 
+    <div class="layout-container">
       <!-- サイドバー -->
       <Sidebar />
       <!-- スマホ専用の下部固定バー -->
