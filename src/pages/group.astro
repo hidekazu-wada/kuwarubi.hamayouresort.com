@@ -447,6 +447,25 @@ const pageClass = 'main-content--group-use';
         </div>
       </div>
     </div>
+
+    <a href="#" class="group-download">
+      <h2 class="group-download__title">PDFの詳細資料をダウンロード</h2>
+      <svg
+        class="group-download__icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="12"
+        height="22"
+        viewBox="0 0 12 22"
+        fill="none"
+      >
+        <path
+          d="M1 21L11 11L1 1"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </a>
   </section>
 
   <!-- パンくずリスト -->
@@ -770,6 +789,7 @@ const pageClass = 'main-content--group-use';
       font-weight: 400;
       line-height: 150%; /* 78px */
       letter-spacing: spx(2.6);
+      white-space: nowrap;
       @include tablet-up {
         text-align: left;
         font-size: ppx(55 * 1.2);
@@ -795,6 +815,72 @@ const pageClass = 'main-content--group-use';
       @include desktop-up {
         font-size: ppx(27);
         margin-top: ppx(38);
+      }
+    }
+  }
+  .group-download {
+    display: block;
+    width: spx(588.228);
+    height: spx(70);
+    border-radius: spx(15);
+    background: var(--blue_5, #026995);
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-inline: auto;
+    margin-top: spx(80);
+    @include tablet-up {
+      width: ppx(630 * 1.2);
+      height: ppx(90 * 1.2);
+      border-radius: ppx(20 * 1.2);
+      margin-top: ppx(120 * 1.2);
+    }
+    @include desktop-up {
+      width: ppx(630);
+      height: ppx(90);
+      border-radius: ppx(20);
+      margin-top: ppx(120);
+    }
+
+    &__title {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(31);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%; /* 31px */
+      letter-spacing: spx(1.55);
+      margin-left: ppx(20);
+      width: spx(530);
+      text-align: center;
+      @include tablet-up {
+        font-size: ppx(33 * 1.2);
+        letter-spacing: ppx(1.65 * 1.2);
+        width: max-content;
+        margin-left: ppx(46 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(33);
+        letter-spacing: ppx(1.65);
+        margin-left: ppx(46);
+      }
+    }
+
+    &__icon {
+      display: block;
+      width: spx(10);
+      position: absolute;
+      top: 50%;
+      right: spx(20);
+      transform: translateY(-50%);
+      @include tablet-up {
+        width: ppx(10 * 1.2);
+        right: ppx(28 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(10);
+        right: ppx(28);
       }
     }
   }
@@ -866,6 +952,18 @@ const pageClass = 'main-content--group-use';
         @include desktop-up {
         }
       }
+    }
+  }
+  .breadcrumb-wrapper {
+    margin-top: spx(120);
+    margin-bottom: spx(40);
+    @include tablet-up {
+      margin-top: ppx(183 * 1.2);
+      margin-bottom: ppx(70 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(183);
+      margin-bottom: ppx(70);
     }
   }
 </style>
