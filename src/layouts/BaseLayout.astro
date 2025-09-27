@@ -8,10 +8,18 @@ export interface Props {
 }
 
 // Propsを受け取る
-const { title, description = '', ogImage = '/default-og-image.jpg', pageClass = '' } = Astro.props;
+const {
+  title,
+  description = '',
+  ogImage = '/default-og-image.jpg',
+  pageClass = '',
+} = Astro.props;
 
 // メインSCSSファイルをインポート
 import '../styles/main.scss';
+
+// 画像
+import logo from '../assets/images/loading-logo.svg';
 
 // 共通コンポーネントをインポート
 import BottomBar from '../components/BottomBar.astro';
@@ -28,18 +36,18 @@ import BookingModal from '../components/Booking-modal.astro';
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    
+
     <!-- SEO Meta Tags -->
     {description && <meta name="description" content={description} />}
-    
+
     <!-- Noindex for development -->
     <meta name="robots" content="noindex, nofollow" />
-    
+
     <!-- OG Tags -->
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:image" content={ogImage} />
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -50,6 +58,11 @@ import BookingModal from '../components/Booking-modal.astro';
   </head>
   <body>
     <div class="layout-container">
+      <!-- ローディング要素をここに配置 -->
+      <div id="loading" class="loading-overlay">
+        <img src={logo.src} alt="loading" />
+      </div>
+
       <!-- サイドバー -->
       <Sidebar />
       <!-- スマホ専用の下部固定バー -->
@@ -63,7 +76,7 @@ import BookingModal from '../components/Booking-modal.astro';
       <main class={`main-content ${pageClass}`}>
         <slot />
       </main>
-      
+
       <!-- フッター -->
       <Footer />
     </div>
@@ -216,6 +229,48 @@ import BookingModal from '../components/Booking-modal.astro';
           }
         }
       });
+      // ローディング制御機能
+      document.addEventListener('DOMContentLoaded', () => {
+        // ローディング要素の取得
+        const loadingElement = document.getElementById('loading');
+
+        // セッションストレージから訪問履歴を確認
+        const hasVisited = sessionStorage.getItem('hasVisited');
+
+        if (!hasVisited) {
+          // 初回訪問の場合
+          // ローディング要素を表示
+          if (loadingElement) {
+            loadingElement.style.display = 'flex';
+            loadingElement.style.opacity = '1';
+          }
+
+          // 3秒後にフェードアウト
+          setTimeout(() => {
+            if (loadingElement) {
+              loadingElement.style.transition = 'opacity 0.5s ease-out';
+              loadingElement.style.opacity = '0';
+
+              // フェードアウト完了後に要素を完全に非表示
+              setTimeout(() => {
+                loadingElement.style.display = 'none';
+                // レイアウトに影響を与えないよう要素を削除
+                loadingElement.remove();
+              }, 500); // トランジション時間と合わせる
+            }
+          }, 3000);
+
+          // 訪問履歴をセッションストレージに保存
+          sessionStorage.setItem('hasVisited', 'true');
+        } else {
+          // 2回目以降の訪問の場合
+          // ローディング要素を即座に非表示
+          if (loadingElement) {
+            loadingElement.style.display = 'none';
+            loadingElement.remove();
+          }
+        }
+      });
     </script>
   </body>
 
@@ -251,6 +306,29 @@ import BookingModal from '../components/Booking-modal.astro';
     .main-content {
       grid-area: main;
       position: relative;
+    }
+
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      z-index: 1000;
+      img {
+        width: spx(239);
+        object-fit: cover;
+        @include tablet-up {
+          width: tpx(478);
+        }
+        @include desktop-up {
+          width: ppx(361);
+        }
+      }
     }
   </style>
 </html>
