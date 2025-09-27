@@ -7,7 +7,6 @@
 
 // 必須インポート
 import BaseLayout from '../layouts/BaseLayout.astro';
-import LowerPageHeader from '../components/ui/LowerPageHeader.astro';
 
 // 追加インポート（必要に応じて）
 // import { getImage } from 'astro:assets';
@@ -42,10 +41,32 @@ const pageClass = 'main-content--404';
       />トップページへご案内いたします。
     </p>
     <p class="error-page__notice">
-      ※このページは10秒後に自動的にジャンプします。
+      ※このページは<span id="countdown">10</span>秒後に自動的にジャンプします。
     </p>
   </main>
 </BaseLayout>
+
+<script>
+  // カウントダウン機能
+  document.addEventListener('DOMContentLoaded', function () {
+    const countdownElement = document.getElementById('countdown');
+    let count = 10;
+
+    // カウントダウンを開始
+    const countdownInterval = setInterval(function () {
+      count--;
+      if (countdownElement) {
+        countdownElement.textContent = String(count);
+      }
+
+      // カウントが0になったらリダイレクト
+      if (count <= 0) {
+        clearInterval(countdownInterval);
+        window.location.href = '/';
+      }
+    }, 1000);
+  });
+</script>
 
 <style lang="scss">
   @import '../styles/variables';
