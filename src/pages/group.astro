@@ -16,8 +16,44 @@ import Hero from '../components/pages/group/hero.astro';
 // 画像
 import { getImage } from 'astro:assets';
 import category_circle from '../assets/images/group/slider/category-circle.svg';
+import sliderImage01 from '../assets/images/group/slider/slide-01.png';
+import sliderImage02 from '../assets/images/group/slider/slide-02.png';
+import sliderImage03 from '../assets/images/group/slider/slide-03.png';
+import sliderImage04 from '../assets/images/group/slider/slide-04.png';
+import sliderImage05 from '../assets/images/group/slider/slide-05.png';
 
-// 追加インポート（必要に応じて）
+// フォーマット
+const slide01 = await getImage({
+  src: sliderImage01,
+  format: 'webp',
+  widths: [720, 1024, 2316],
+});
+const slide02 = await getImage({
+  src: sliderImage02,
+  format: 'webp',
+  widths: [720, 1024, 2316],
+});
+const slide03 = await getImage({
+  src: sliderImage03,
+  format: 'webp',
+  widths: [720, 1024, 2316],
+});
+const slide04 = await getImage({
+  src: sliderImage04,
+  format: 'webp',
+  widths: [720, 1024, 2316],
+});
+const slide05 = await getImage({
+  src: sliderImage05,
+  format: 'webp',
+  widths: [720, 1024, 2316],
+});
+
+// Swiper CSS (必要なモジュールのみ)
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/thumbs';
 // import { getImage } from 'astro:assets';
 // import sampleImage from '../assets/images/sample.jpg';
 
@@ -48,83 +84,362 @@ const pageClass = 'main-content--group-use';
   </div>
   <Hero />
   <section class="slider-section">
-    <div>
-      <img src={category_circle.src} alt="" class="" />
-    </div>
-    <div class="">
-      <div>
-        <!-- サムネslider -->
-        <button>
-          <!-- svgアイコンを入れます -->
-          <img src="" alt="アイコン1" class="" />
-        </button>
-        <button>
-          <!-- svgアイコンを入れます -->
-          <img src="" alt="アイコン2" class="" />
-        </button>
-        <button>
-          <!-- svgアイコンを入れます -->
-          <img src="" alt="アイコン3" class="" />
-        </button>
-        <button>
-          <!-- svgアイコンを入れます -->
-          <img src="" alt="アイコン4" class="" />
-        </button>
-        <button>
-          <!-- svgアイコンを入れます -->
-          <img src="" alt="アイコン5" class="" />
-        </button>
-      </div>
-      <div>
-        <!-- メインslider -->
-        <div class="">
-          <!-- イメージ画像を入れます -->
-          <div><img src="" alt="" /></div>
-          <div>
-            <div class="">自然に恵まれた環境</div>
-            <div class="">
-              周辺に商業施設がほとんどない西湖は、富士五湖の中でも特に静寂が際立つ場所。感覚が研ぎ澄まされるような透き通った空気が、心と学びを深くします。日常から完全に切り離されたこの環境が、研修に圧倒的な集中力と一体感をもたらします。
-            </div>
+    <div class="slider-section__container">
+      <figure class="slider-section__circle">
+        <img
+          src={category_circle.src}
+          alt=""
+          class="slider-section__circle-image"
+        />
+      </figure>
+
+      <div class="slider-section__content">
+        <!-- サムネイルスライダー -->
+        <nav
+          class="slider-section__thumbnails"
+          role="navigation"
+          aria-label="施設の特徴"
+        >
+          <div class="swiper group-slider__thumbnails-swiper">
+            <ul class="swiper-wrapper">
+              <li class="swiper-slide">
+                <button
+                  type="button"
+                  class="slider-section__thumb-button"
+                  aria-label="自然に恵まれた環境"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 136 135"
+                    fill="none"
+                    class="slider-section__thumb-icon"
+                  >
+                    <circle cx="68.2969" cy="67.5" r="67.5" fill="white"
+                    ></circle>
+                    <path
+                      d="M93.0377 59.3293C95.2906 60.4511 99.4266 58.3341 99.4266 58.3341C90.4094 48.3529 85.4011 30.2891 85.4011 30.2891C85.4011 30.2891 80.3928 48.3529 71.3756 58.3341C71.3756 58.3341 75.5059 60.4569 77.7645 59.3293C77.7645 59.3293 75.9795 68.9941 68.4758 79.1076C60.972 68.9941 59.1871 59.3293 59.1871 59.3293C61.4399 60.4511 65.5759 58.3341 65.5759 58.3341C56.553 48.3529 51.5389 30.2891 51.5389 30.2891C51.5389 30.2891 46.5306 48.3529 37.5134 58.3341C37.5134 58.3341 41.6436 60.4569 43.9023 59.3293C43.9023 59.3293 41.6494 71.5771 31.5 82.9332C40.5172 85.4299 46.8194 81.1325 46.8194 81.1325V94.8185H56.2583V81.1325C56.2583 81.1325 61.1453 84.4519 68.47 83.5487C75.7889 84.4519 80.6817 81.1325 80.6817 81.1325V94.8185H90.1206V81.1325C90.1206 81.1325 96.4228 85.4242 105.44 82.9332C95.2964 71.5829 93.0377 59.3293 93.0377 59.3293Z"
+                      fill="#054965"></path>
+                  </svg>
+                </button>
+              </li>
+              <li class="swiper-slide">
+                <button
+                  type="button"
+                  class="slider-section__thumb-button"
+                  aria-label="バリアフリー対応の施設"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 136 135"
+                    fill="none"
+                    class="slider-section__thumb-icon"
+                  >
+                    <circle cx="68.2969" cy="67.5" r="67.5" fill="white"
+                    ></circle>
+                    <mask
+                      id="mask0_222_2110"
+                      style="mask-type:luminance"
+                      maskUnits="userSpaceOnUse"
+                      x="40"
+                      y="30"
+                      width="51"
+                      height="71"
+                    >
+                      <path
+                        d="M90.5863 30.3662H40.6562V100.241H90.5863V30.3662Z"
+                        fill="white"></path>
+                    </mask>
+                    <g mask="url(#mask0_222_2110)">
+                      <path
+                        d="M72.5975 43.5535C73.8806 43.2255 75.0377 42.5243 75.9223 41.5386C76.807 40.553 77.3795 39.3271 77.5675 38.0161C77.7555 36.705 77.5504 35.3677 76.9784 34.1732C76.4063 32.9787 75.4928 31.9806 74.3536 31.3052C73.2143 30.6299 71.9003 30.3075 70.5778 30.3789C69.2552 30.4503 67.9836 30.9122 66.9236 31.7063C65.8637 32.5004 65.063 33.591 64.6228 34.8402C64.1827 36.0893 64.1228 37.441 64.4508 38.7241C64.6684 39.5763 65.0518 40.3772 65.5791 41.0811C66.1063 41.785 66.7671 42.3781 67.5236 42.8266C68.2802 43.2751 69.1176 43.5701 69.9882 43.6948C70.8588 43.8196 71.7454 43.7716 72.5975 43.5535Z"
+                        fill="#054965"></path>
+                      <path
+                        d="M78.7976 60.7939L78.2477 66.5596C79.1484 67.1436 79.9862 67.8191 80.7479 68.5753C82.4379 70.2603 83.714 72.3143 84.4759 74.5758C85.2378 76.8373 85.4648 79.2448 85.1391 81.6089C84.8133 83.973 83.9436 86.2293 82.5984 88.2004C81.2533 90.1716 79.4692 91.8039 77.3865 92.969C75.3038 94.1341 72.9793 94.8003 70.5957 94.9152C68.212 95.03 65.8342 94.5905 63.6491 93.631C61.464 92.6716 59.5313 91.2184 58.0028 89.3857C56.4743 87.553 55.3917 85.3908 54.8402 83.069L51.8125 89.7471C53.4199 92.578 55.6712 94.9908 58.3841 96.7902C61.097 98.5897 64.1955 99.7252 67.4287 100.105C70.6619 100.485 73.9391 100.098 76.9952 98.9763C80.0513 97.8545 82.8003 96.0291 85.02 93.6477C87.2397 91.2663 88.8676 88.3959 89.7721 85.2686C90.6766 82.1413 90.8322 78.845 90.2263 75.6464C89.6205 72.4479 88.2702 69.4368 86.2848 66.8569C84.2993 64.277 81.7344 62.2007 78.7976 60.796"
+                        fill="#054965"></path>
+                      <path
+                        d="M65.3054 78.2248C71.1658 78.1601 73.9407 75.6987 74.5424 70.0264L76.2426 52.2148C76.5151 49.211 74.7066 46.5759 71.7014 46.3013C70.7361 46.2564 69.7723 46.4186 68.8748 46.7769C67.9773 47.1353 67.1669 47.6815 66.4979 48.379L58.1319 56.6108L49.3828 57.3461C48.7045 57.403 48.0722 57.7126 47.6114 58.2137C47.1506 58.7148 46.8949 59.3707 46.8949 60.0514V60.215C46.8954 60.9343 47.1814 61.6241 47.69 62.1328C48.1986 62.6416 48.8883 62.9277 49.6077 62.9285H59.9295L64.6233 59.4667L63.8389 68.1504L52.405 68.9851C49.0864 69.116 47.6233 70.4461 46.3742 73.4268L40.9786 88.2515C40.6187 89.1194 40.6112 90.0933 40.9576 90.9667C41.304 91.84 41.9771 92.5439 42.834 92.9291C43.691 93.3143 44.6643 93.3504 45.5474 93.0298C46.4305 92.7091 47.1539 92.057 47.564 91.2117L53.6459 78.2241L65.3054 78.2248Z"
+                        fill="#054965"></path>
+                    </g>
+                  </svg>
+                </button>
+              </li>
+              <li class="swiper-slide">
+                <button
+                  type="button"
+                  aria-label="充実した設備"
+                  class="slider-section__thumb-button"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 136 135"
+                    fill="none"
+                    class="slider-section__thumb-icon"
+                  >
+                    <circle cx="68.2969" cy="67.5" r="67.5" fill="white"
+                    ></circle>
+                    <path
+                      d="M46.4853 46.9747C49.3574 46.9747 51.6893 44.654 51.6893 41.7837C51.6893 38.9135 49.3574 36.5928 46.4853 36.5928C43.6132 36.5928 41.2812 38.9188 41.2812 41.7837C41.2812 44.6486 43.6132 46.9747 46.4853 46.9747Z"
+                      fill="#054965"></path>
+                    <path
+                      d="M61.0732 36.9448H94.9555V64.4521H61.0732V62.1527C60.6293 62.1474 60.1853 62.1047 59.7521 62.03L59.6077 62.0033L58.1797 61.6085V67.3383H97.8544V34.0586H58.1797V47.8816L61.0732 48.8899V36.9448Z"
+                      fill="#054965"></path>
+                    <path
+                      d="M61.9531 79.8238C61.9531 82.6887 64.2797 85.0147 67.1572 85.0147C70.0346 85.0147 72.3612 82.6887 72.3612 79.8238C72.3612 76.9589 70.0293 74.6328 67.1572 74.6328C64.285 74.6328 61.9531 76.9535 61.9531 79.8238Z"
+                      fill="#054965"></path>
+                    <path
+                      d="M67.1473 87.6064C62.2695 87.6064 57.9319 89.2283 56.8516 94.6273L56.9371 98.1964H77.3575L77.443 94.6273C76.3627 89.2283 72.0251 87.6064 67.1473 87.6064Z"
+                      fill="#054965"></path>
+                    <path
+                      d="M83.6562 79.8238C83.6562 82.6887 85.9882 85.0147 88.8603 85.0147C91.7324 85.0147 94.0643 82.6887 94.0643 79.8238C94.0643 76.9589 91.7324 74.6328 88.8603 74.6328C85.9882 74.6328 83.6562 76.9535 83.6562 79.8238Z"
+                      fill="#054965"></path>
+                    <path
+                      d="M88.866 87.6064C83.9883 87.6064 79.6507 89.2283 78.5703 94.6273L78.6559 98.1964H99.0762L99.1618 94.6273C98.0814 89.2283 93.7438 87.6064 88.866 87.6064Z"
+                      fill="#054965"></path>
+                    <path
+                      d="M63.5643 58.3653L71.9613 54.3587C73.0952 53.8785 73.6247 52.5768 73.1433 51.4458C72.6673 50.3148 71.357 49.7866 70.2231 50.2667L62.6711 52.8382L55.8411 50.4535C54.8463 50.1067 53.8087 49.8826 52.7658 49.7812L48.1608 56.8608V53.0676H45.3529V56.8875L40.197 50.6775C37.4265 51.8192 35.3246 53.9852 34.5758 57.7251L30.757 73.6447C30.4896 74.8451 31.2437 76.0294 32.4471 76.2962C33.6451 76.5629 34.8378 75.8107 35.1053 74.6103L39.1273 64.0044L40.1649 95.5609C40.1649 97.0173 41.3469 98.191 42.8017 98.191C44.2564 98.191 45.4438 97.012 45.4438 95.5609L46.4921 76.739L47.5404 95.5609C47.5404 97.0173 48.7224 98.191 50.1825 98.191C51.6426 98.191 52.8246 97.012 52.8246 95.5609L54.3115 57.2129L60.3392 58.8774C61.4463 59.0802 62.5855 58.8934 63.575 58.3599L63.5643 58.3653Z"
+                      fill="#054965"></path>
+                    <path
+                      d="M48.1595 49.8838H45.3516V51.8471H48.1595V49.8838Z"
+                      fill="#054965"></path>
+                  </svg>
+                </button>
+              </li>
+              <li class="swiper-slide">
+                <button
+                  type="button"
+                  class="slider-section__thumb-button"
+                  aria-label="想いを込めた食事の時間"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 136 135"
+                    fill="none"
+                    class="slider-section__thumb-icon"
+                  >
+                    <circle cx="68.2969" cy="67.5" r="67.5" fill="white"
+                    ></circle>
+                    <mask
+                      id="mask0_222_2130"
+                      style="mask-type:luminance"
+                      maskUnits="userSpaceOnUse"
+                      x="40"
+                      y="36"
+                      width="56"
+                      height="65"
+                    >
+                      <path
+                        d="M95.6653 36.377H40.9453V100.023H95.6653V36.377Z"
+                        fill="white"></path>
+                    </mask>
+                    <g mask="url(#mask0_222_2130)">
+                      <path
+                        d="M61.764 36.6664C61.4299 36.6666 61.0993 36.7349 60.7924 36.8672C60.4856 36.9995 60.2089 37.1929 59.9793 37.4357C59.7497 37.6785 59.5721 37.9656 59.4572 38.2793C59.3423 38.5931 59.2925 38.927 59.311 39.2607V51.6207C59.311 53.0262 58.5883 53.6978 57.4805 53.6978C57.252 53.6919 57.0273 53.6389 56.8202 53.5422C56.6132 53.4455 56.4283 53.3071 56.2772 53.1356C56.1261 52.9642 56.0121 52.7634 55.9421 52.5458C55.8722 52.3283 55.8479 52.0986 55.8708 51.8713L55.8151 39.0333C55.7994 38.3208 55.5053 37.6428 54.9959 37.1445C54.4865 36.6462 53.8022 36.3672 53.0896 36.3672C52.3769 36.3672 51.6926 36.6462 51.1832 37.1445C50.6738 37.6428 50.3797 38.3208 50.364 39.0333V51.8719C50.3808 52.1026 50.3504 52.3343 50.2748 52.5528C50.1991 52.7714 50.0797 52.9722 49.9239 53.1431C49.7681 53.314 49.5791 53.4514 49.3684 53.5469C49.1577 53.6424 48.9298 53.6939 48.6986 53.6984C47.5914 53.6984 46.8688 53.0262 46.8688 51.6213V39.2613C46.8873 38.9276 46.8377 38.5937 46.7228 38.2798C46.6079 37.966 46.4303 37.6788 46.2007 37.436C45.9711 37.1931 45.6944 36.9996 45.3875 36.8673C45.0806 36.735 44.7499 36.6666 44.4157 36.6664C42.9492 36.6664 42.1682 37.9307 42.0091 39.1692C41.85 40.4076 41.0365 49.2565 40.9463 54.9117C40.9178 56.9914 41.48 59.0365 42.5675 60.8095C43.6551 62.5824 45.2234 64.0103 47.0902 64.9274C47.8824 65.2873 48.5546 65.867 49.0272 66.5976C49.4997 67.3282 49.7527 68.1791 49.7561 69.0492L48.8312 100.023H57.3479L56.4197 69.0485C56.423 68.1784 56.676 67.3275 57.1485 66.5969C57.6211 65.8663 58.2934 65.2866 59.0856 64.9267C60.9526 64.0099 62.5212 62.5822 63.6091 60.8094C64.697 59.0366 65.2596 56.9915 65.2314 54.9117C65.1419 49.2565 64.3298 40.4076 64.1707 39.1692C64.0115 37.9307 63.2292 36.6691 61.764 36.6664Z"
+                        fill="#054965"></path>
+                      <path
+                        d="M83.5332 36.8662C77.6412 36.8662 71.3906 43.1526 71.3906 53.0278C71.3906 58.6843 75.6655 63.2762 77.5345 64.9283C79.3617 66.5447 80.2003 67.1917 80.2003 69.0494L79.2722 100.024H87.7915L86.8633 69.0494C86.8633 67.1931 87.7033 66.5447 89.5312 64.9283C91.3975 63.2768 95.6731 58.6843 95.6731 53.0278C95.675 43.1526 89.4251 36.8662 83.5332 36.8662Z"
+                        fill="#054965"></path>
+                    </g>
+                  </svg>
+                </button>
+              </li>
+              <li class="swiper-slide">
+                <button
+                  type="button"
+                  class="slider-section__thumb-button"
+                  aria-label="豊富なアクティビティ"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 136 135"
+                    fill="none"
+                    class="slider-section__thumb-icon"
+                  >
+                    <circle cx="68.2969" cy="67.5" r="67.5" fill="white"
+                    ></circle>
+                    <mask
+                      id="mask0_222_2138"
+                      style="mask-type:luminance"
+                      maskUnits="userSpaceOnUse"
+                      x="23"
+                      y="44"
+                      width="92"
+                      height="44"
+                    >
+                      <path
+                        d="M114.534 44H23.5938V87.3047H114.534V44Z"
+                        fill="white"></path>
+                    </mask>
+                    <g mask="url(#mask0_222_2138)">
+                      <path
+                        d="M71.2076 56.0079C72.3951 56.0079 73.556 55.6557 74.5434 54.996C75.5308 54.3362 76.3004 53.3985 76.7549 52.3014C77.2093 51.2043 77.3283 49.997 77.0966 48.8323C76.865 47.6675 76.2932 46.5976 75.4535 45.7579C74.6139 44.9181 73.544 44.3462 72.3793 44.1145C71.2146 43.8827 70.0073 44.0015 68.9102 44.4559C67.813 44.9103 66.8752 45.6798 66.2153 46.6671C65.5555 47.6545 65.2032 48.8153 65.2031 50.0029C65.2031 51.5954 65.8357 53.1227 66.9617 54.2488C68.0878 55.375 69.615 56.0077 71.2076 56.0079Z"
+                        fill="#054965"></path>
+                      <path
+                        d="M53.9504 62.1805C51.5406 62.8144 51.4142 67.2547 55.2188 67.0012C58.7657 66.7627 72.724 64.7161 72.724 64.7161L76.4594 71.0139C81.23 70.8946 85.3095 70.6281 88.7926 70.2745C87.0263 67.4514 83.7888 62.2503 82.7035 60.3223C81.1817 57.6156 78.2209 56.3478 74.9238 57.1087C72.4735 57.6741 54.6833 61.9903 53.9516 62.1829"
+                        fill="#054965"></path>
+                      <path
+                        d="M37.2074 82.6411C37.5582 82.5889 37.9059 82.5182 38.2492 82.4294C38.8656 82.2604 39.4717 82.0557 40.0644 81.8164C40.2433 81.749 40.4222 81.6792 40.6089 81.6112C41.2541 81.3652 41.9151 81.163 42.5875 81.0059C43.816 80.7378 45.0709 80.6099 46.3283 80.6249C47.716 80.6034 49.1007 80.7617 50.4477 81.096C51.1786 81.2941 51.8974 81.5347 52.6004 81.8164C52.7758 81.8843 52.9505 81.9511 53.1252 82.0155C53.6371 82.2113 54.1614 82.3728 54.6947 82.4992C55.6814 82.7126 56.6891 82.8126 57.6984 82.7973C58.8045 82.8173 59.9085 82.6943 60.983 82.4312C61.5995 82.2622 62.2056 82.0575 62.7982 81.8181C62.9771 81.7502 63.156 81.681 63.3427 81.613C63.9879 81.3671 64.6489 81.1649 65.3213 81.0077C65.7471 80.9099 66.1884 80.8288 66.6487 80.7692L59.135 71.7873C44.7951 71.0347 36.1018 68.8224 32.3766 66.1222C31.6997 65.6141 31.3199 66.7006 31.2 67.3888C30.528 71.2566 31.7313 79.5825 37.2086 82.6435"
+                        fill="#054965"></path>
+                      <path
+                        d="M64.9405 72.0037L72.3982 80.9218C72.6605 80.9737 72.9193 81.0297 73.1734 81.0965C73.9046 81.2946 74.6236 81.5351 75.3267 81.8169C75.5056 81.8849 75.6768 81.9517 75.8515 82.0161C76.3634 82.2117 76.8878 82.3733 77.421 82.4997C78.4078 82.7132 79.4158 82.8132 80.4253 82.7979C81.5312 82.8178 82.635 82.6948 83.7093 82.4317C84.3259 82.2627 84.9322 82.058 85.5251 81.8187C85.704 81.7513 85.8829 81.6815 86.0684 81.6136C86.7138 81.3677 87.375 81.1655 88.0476 81.0083C89.2761 80.7402 90.531 80.6123 91.7884 80.6272C93.1763 80.6056 94.5612 80.764 95.9084 81.0983C96.6399 81.2962 97.3592 81.5372 98.0623 81.8199C98.2412 81.8867 98.4118 81.9535 98.5859 82.0173C99.0981 82.2128 99.6226 82.3743 100.156 82.5009C101.143 82.7144 102.152 82.8144 103.162 82.7991H103.262C108.987 79.8729 110.239 71.3263 109.557 67.3917C109.438 66.7036 109.059 65.6171 108.381 66.1251C103.766 69.4729 91.5319 72.0705 70.3742 72.0705C68.4906 72.0705 66.6784 72.0506 64.9375 72.0109"
+                        fill="#054965"></path>
+                      <path
+                        d="M114.534 82.418C113.348 82.4027 112.165 82.5228 111.006 82.7758C110.376 82.9242 109.755 83.114 109.15 83.3441C108.347 83.6721 107.528 83.956 106.695 84.1945C105.541 84.4795 104.354 84.6126 103.165 84.5904C102.082 84.6072 101 84.4993 99.941 84.269C99.367 84.1337 98.8026 83.9604 98.2516 83.7502C97.4071 83.4062 96.5443 83.1088 95.6671 82.8593C94.4013 82.5463 93.1002 82.3986 91.7964 82.4198C90.611 82.4045 89.4278 82.5245 88.2697 82.7776C87.6388 82.9259 87.0185 83.1157 86.4127 83.3459C85.6106 83.6738 84.7913 83.9577 83.9582 84.1963C82.8041 84.4814 81.6177 84.6145 80.4292 84.5922C79.347 84.6088 78.2665 84.501 77.209 84.2708C76.6349 84.1359 76.0705 83.9626 75.5196 83.752C74.6746 83.4082 73.8114 83.1108 72.9339 82.8611C71.6681 82.5481 70.367 82.4003 69.0632 82.4216C67.8778 82.4063 66.6946 82.5264 65.5365 82.7794C64.9058 82.9277 64.2857 83.1176 63.6801 83.3477C62.8767 83.6739 62.0562 83.956 61.222 84.1927C60.0679 84.4778 58.8815 84.6109 57.693 84.5887C56.6108 84.6053 55.5303 84.4974 54.4728 84.2672C53.8988 84.1321 53.3344 83.9588 52.7834 83.7484C51.9385 83.4044 51.0753 83.107 50.1977 82.8575C48.9321 82.5445 47.6312 82.3967 46.3276 82.418C45.1426 82.4027 43.9598 82.5227 42.8021 82.7758C42.1712 82.924 41.5508 83.1138 40.9451 83.3441C40.1433 83.6721 39.3241 83.956 38.4912 84.1945C37.3371 84.4795 36.1507 84.6126 34.9621 84.5904C33.879 84.6071 32.7975 84.4993 31.739 84.269C31.1652 84.1338 30.601 83.9605 30.0502 83.7502C29.2051 83.4056 28.3417 83.1076 27.4639 82.8575C26.1983 82.5445 24.8974 82.3968 23.5938 82.418V83.7741C23.9718 83.7741 24.3165 83.786 24.6427 83.8039C24.3093 83.7878 23.9665 83.7759 23.5938 83.7759V85.1331C24.6759 85.1176 25.7563 85.2258 26.8139 85.4557C27.3879 85.5912 27.9522 85.7645 28.5033 85.9745C29.3479 86.3185 30.2107 86.616 31.0878 86.8654C32.3535 87.1781 33.6544 87.3259 34.958 87.3049C36.1429 87.3207 37.3258 87.2006 38.4835 86.9471C39.1149 86.7995 39.7357 86.6094 40.3416 86.3782C41.1437 86.0514 41.9629 85.7682 42.7955 85.5297C43.9495 85.2447 45.1356 85.1112 46.324 85.1325C47.4062 85.117 48.4866 85.2252 49.5441 85.4551C50.1182 85.5904 50.6825 85.7637 51.2335 85.9739C52.0785 86.318 52.9417 86.6154 53.8192 86.8648C55.0849 87.1775 56.3858 87.3253 57.6894 87.3043C58.8746 87.3201 60.0576 87.2 61.2155 86.9465C61.8468 86.7986 62.4676 86.6088 63.0736 86.3782C63.8758 86.0506 64.6951 85.7669 65.5281 85.5285C66.6821 85.2436 67.8682 85.11 69.0566 85.1313C70.1398 85.1156 71.2212 85.2239 72.2797 85.4539C72.8537 85.5894 73.4181 85.7627 73.9691 85.9727C74.8137 86.3166 75.6765 86.6141 76.5536 86.8636C77.8196 87.1763 79.1206 87.324 80.4244 87.3031C81.6096 87.3189 82.7926 87.1988 83.9505 86.9453C84.5818 86.7975 85.2026 86.6076 85.8086 86.377C86.6108 86.0494 87.4301 85.7658 88.2631 85.5273C89.4173 85.2423 90.6036 85.1088 91.7922 85.1301C92.8758 85.1145 93.9576 85.2227 95.0165 85.4527C95.5903 85.5883 96.1544 85.7616 96.7053 85.9715C97.5503 86.3156 98.4135 86.613 99.291 86.8625C100.557 87.1751 101.858 87.3229 103.162 87.302C104.347 87.3177 105.53 87.1976 106.688 86.9442C107.319 86.7963 107.94 86.6065 108.547 86.3759C109.349 86.0483 110.168 85.7647 111.001 85.5261C112.155 85.2413 113.342 85.1078 114.531 85.1289V83.7759C114.387 83.7759 114.261 83.783 114.125 83.7848C114.262 83.7848 114.385 83.7741 114.531 83.7741L114.534 82.418ZM46.3258 83.7759C46.1821 83.7759 46.0562 83.783 45.9197 83.7848C46.0574 83.7848 46.1797 83.7741 46.3258 83.7741C46.7038 83.7741 47.0473 83.786 47.3747 83.8039C47.0437 83.7878 46.6991 83.7753 46.3258 83.7753M69.0602 83.7753C68.9165 83.7753 68.7918 83.7824 68.6547 83.7842C68.7924 83.7842 68.9147 83.7735 69.0602 83.7735C69.4382 83.7735 69.7817 83.7854 70.1091 83.8033C69.7782 83.7872 69.4335 83.7753 69.0602 83.7753ZM91.7958 83.7747C91.6521 83.7747 91.5262 83.7818 91.3903 83.7836C91.5274 83.7836 91.6497 83.7729 91.7958 83.7729C92.1738 83.7729 92.5173 83.7848 92.8447 83.8027C92.5137 83.7866 92.1691 83.7747 91.7958 83.7747Z"
+                        fill="#054965"></path>
+                      <path
+                        d="M53.7035 61.2353C53.7829 61.2144 54.0411 61.1506 54.4394 61.0522L51.0165 56.9805L49.1172 58.3962L52.2354 62.1071C52.6341 61.6864 53.1417 61.3846 53.7018 61.2353"
+                        fill="#054965"></path>
+                      <path
+                        d="M57.0312 67.812L67.8302 80.6611C68.2261 80.6378 68.6346 80.6253 69.0616 80.6253C69.7372 80.6253 70.3622 80.6539 70.9549 80.7112L59.8382 67.4805C58.8 67.6099 57.844 67.725 57.0312 67.812Z"
+                        fill="#054965"></path>
+                    </g>
+                  </svg>
+                </button>
+              </li>
+            </ul>
           </div>
-        </div>
-        <div class="">
-          <!-- イメージ画像を入れます -->
-          <div><img src="" alt="" /></div>
-          <div>
-            <div class="">バリアフリー対応の施設</div>
-            <div class="">
-              私たちは、多様な方々が共に過ごせる環境を大切にしています。館内は段差の少ない設計で、多目的トイレも完備。さらに、車椅子をご利用の方も快適にお過ごしいただけるよう、各フロアにバリアフリー対応の客室もご用意しております。
-            </div>
-          </div>
-        </div>
-        <div class="">
-          <!-- イメージ画像を入れます -->
-          <div><img src="" alt="" /></div>
-          <div>
-            <div class="">充実した設備</div>
-            <div class="">
-              最大４００名以上を収容する大ホールや、最大１８会場まで分割可能な研修室をご用意。全体会から分科会、事務局や控室まで自在に設定でき、あらゆるニーズに応えます。プロジェクター等、研修に必須の備品ももちろん完備しています。
-            </div>
-          </div>
-        </div>
-        <div class="">
-          <!-- イメージ画像を入れます -->
-          <div><img src="" alt="" /></div>
-          <div>
-            <div class="">想いを込めた食事の時間</div>
-            <div class="">
-              食事は、仲間との絆を深める大切な体験。私たちのビュッフェに並ぶのは、チームで考え抜いた手作りの料理です。地元の恵みも取り入れつつ、誰もが楽しめる多彩なメニュ
-              ーを栄養士監修のもとご用意。アレルギー等にも丁寧に対応します。
-            </div>
-          </div>
-        </div>
-        <div class="">
-          <!-- イメージ画像を入れます -->
-          <div><img src="" alt="" /></div>
-          <div>
-            <div class="">豊富なアクティビティ</div>
-            <div class="">
-              ここでは、西湖の自然そのものが学びのフィールドです。カヌーで湖面に溶け込み、青木ヶ原樹海で地球の呼吸を感じる。五感を使い自然と一つになる体験は、机上では得られない発見と、仲間との揺るぎない一体感をもたらしてくれます。
+        </nav>
+
+        <!-- メインスライダー -->
+        <div class="slider-section__main">
+          <div class="swiper group-slider__main-swiper">
+            <div class="swiper-wrapper">
+              <article class="swiper-slide slider-section__slide">
+                <figure class="slider-section__slide-figure">
+                  <picture class="slider-section__slide-picture">
+                    <source
+                      media="(min-width: 1024px)"
+                      srcset={slide01.srcSet.toString()}
+                    />
+                    <source
+                      media="(min-width: 744px)"
+                      srcset={slide01.srcSet.toString()}
+                    />
+                    <img
+                      src={slide01.src}
+                      alt="自然に恵まれた環境"
+                      class="slider-section__slide-image"
+                    />
+                  </picture>
+                </figure>
+                <div class="slider-section__slide-content content-1">
+                  <h3 class="slider-section__slide-title">
+                    自然に恵まれた環境
+                  </h3>
+                  <p class="slider-section__slide-description">
+                    周辺に商業施設がほとんどない西湖は、富士五湖の中でも特に静寂が際立つ場所。感覚が研ぎ澄まされるような透き通った空気が、心と学びを深くします。日常から完全に切り離されたこの環境が、研修に圧倒的な集中力と一体感をもたらします。
+                  </p>
+                </div>
+              </article>
+
+              <article class="swiper-slide slider-section__slide">
+                <figure class="slider-section__slide-figure">
+                  <picture class="slider-section__slide-picture">
+                    <source
+                      media="(min-width: 1024px)"
+                      srcset={slide02.srcSet.toString()}
+                    />
+                    <source
+                      media="(min-width: 744px)"
+                      srcset={slide02.srcSet.toString()}
+                    />
+                    <img
+                      src={slide02.src}
+                      alt="バリアフリー対応の施設"
+                      class="slider-section__slide-image"
+                    />
+                  </picture>
+                </figure>
+                <div class="slider-section__slide-content content-2">
+                  <h3 class="slider-section__slide-title">
+                    バリアフリー対応の施設
+                  </h3>
+                  <p class="slider-section__slide-description">
+                    私たちは、多様な方々が共に過ごせる環境を大切にしています。館内は段差の少ない設計で、多目的トイレも完備。さらに、車椅子をご利用の方も快適にお過ごしいただけるよう、各フロアにバリアフリー対応の客室もご用意しております。
+                  </p>
+                </div>
+              </article>
+
+              <article class="swiper-slide slider-section__slide">
+                <figure class="slider-section__slide-figure">
+                  <picture class="slider-section__slide-picture">
+                    <source
+                      media="(min-width: 1024px)"
+                      srcset={slide03.srcSet.toString()}
+                    />
+                    <source
+                      media="(min-width: 744px)"
+                      srcset={slide03.srcSet.toString()}
+                    />
+                    <img
+                      src={slide03.src}
+                      alt="充実した設備"
+                      class="slider-section__slide-image"
+                    />
+                  </picture>
+                </figure>
+                <div class="slider-section__slide-content content-3">
+                  <h3 class="slider-section__slide-title">充実した設備</h3>
+                  <p class="slider-section__slide-description">
+                    最大４００名以上を収容する大ホールや、最大１８会場まで分割可能な研修室をご用意。全体会から分科会、事務局や控室まで自在に設定でき、あらゆるニーズに応えます。プロジェクター等、研修に必須の備品ももちろん完備しています。
+                  </p>
+                </div>
+              </article>
+
+              <article class="swiper-slide slider-section__slide">
+                <figure class="slider-section__slide-figure">
+                  <picture class="slider-section__slide-picture">
+                    <source
+                      media="(min-width: 1024px)"
+                      srcset={slide04.srcSet.toString()}
+                    />
+                    <source
+                      media="(min-width: 744px)"
+                      srcset={slide04.srcSet.toString()}
+                    />
+                    <img
+                      src={slide04.src}
+                      alt="想いを込めた食事の時間"
+                      class="slider-section__slide-image"
+                    />
+                  </picture>
+                </figure>
+                <div class="slider-section__slide-content content-4">
+                  <h3 class="slider-section__slide-title">
+                    想いを込めた食事の時間
+                  </h3>
+                  <p class="slider-section__slide-description">
+                    食事は、仲間との絆を深める大切な体験。私たちのビュッフェに並ぶのは、チームで考え抜いた手作りの料理です。地元の恵みも取り入れつつ、誰もが楽しめる多彩なメニューを栄養士監修のもとご用意。アレルギー等にも丁寧に対応します。
+                  </p>
+                </div>
+              </article>
+
+              <article class="swiper-slide slider-section__slide">
+                <figure class="slider-section__slide-figure">
+                  <picture class="slider-section__slide-picture">
+                    <source
+                      media="(min-width: 1024px)"
+                      srcset={slide05.srcSet.toString()}
+                    />
+                    <source
+                      media="(min-width: 744px)"
+                      srcset={slide05.srcSet.toString()}
+                    />
+                    <img
+                      src={slide05.src}
+                      alt="豊富なアクティビティ"
+                      class="slider-section__slide-image"
+                    />
+                  </picture>
+                </figure>
+                <div class="slider-section__slide-content content-5">
+                  <h3 class="slider-section__slide-title">
+                    豊富なアクティビティ
+                  </h3>
+                  <p class="slider-section__slide-description">
+                    ここでは、西湖の自然そのものが学びのフィールドです。カヌーで湖面に溶け込み、青木ヶ原樹海で地球の呼吸を感じる。五感を使い自然と一つになる体験は、机上では得られない発見と、仲間との揺るぎない一体感をもたらしてくれます。
+                  </p>
+                </div>
+              </article>
             </div>
           </div>
         </div>
@@ -139,6 +454,34 @@ const pageClass = 'main-content--group-use';
     />
   </div>
 </BaseLayout>
+
+<script>
+  // @ts-nocheck
+  import Swiper from 'swiper';
+  import { Thumbs } from 'swiper/modules';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // サムネイル用Swiperインスタンス
+    const thumbsSwiper = new Swiper('.group-slider__thumbnails-swiper', {
+      modules: [Thumbs],
+      slidesPerView: 'auto',
+      freeMode: true,
+      watchSlidesProgress: true,
+      // サムネイルボタンをクリック可能にする
+      slideToClickedSlide: true,
+    });
+
+    // メイン用Swiperインスタンス
+    const mainSwiper = new Swiper('.group-slider__main-swiper', {
+      modules: [Thumbs],
+      slidesPerView: 1,
+      // サムネイルとの連動
+      thumbs: {
+        swiper: thumbsSwiper,
+      },
+    });
+  });
+</script>
 
 <style lang="scss">
   @import '../styles/variables';
@@ -161,6 +504,353 @@ const pageClass = 'main-content--group-use';
     }
     @include desktop-up {
       margin-left: ppx(233);
+    }
+  }
+
+  // ============================================================
+  // Slider Section
+  // ============================================================
+
+  .slider-section {
+    margin-top: spx(70);
+    @include tablet-up {
+      margin-top: ppx(89 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(89);
+    }
+
+    &__container {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__circle {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__circle-image {
+      display: block;
+      width: spx(646);
+      margin-inline: auto;
+      @include tablet-up {
+        width: ppx(1072 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(1072);
+      }
+    }
+
+    &__content {
+      position: relative;
+      margin-top: spx(81);
+      @include tablet-up {
+        margin-top: ppx(260 * 1.2);
+      }
+      @include desktop-up {
+        margin-top: ppx(260);
+      }
+    }
+
+    &__thumbnails {
+      position: absolute;
+      z-index: 2;
+      top: spx(460);
+      left: 50%;
+      transform: translateX(-50%);
+      @include tablet-up {
+        top: ppx(60 * 1.2);
+        left: ppx(48 * 1.2);
+        transform: unset;
+      }
+      @include desktop-up {
+        top: ppx(60);
+        left: ppx(48);
+      }
+    }
+
+    &__thumb-button {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+      @include hover {
+        &:hover {
+          .slider-section__thumb-icon {
+            circle {
+              fill: var(--green_2, #adc400);
+            }
+            path {
+              fill: white;
+            }
+            g {
+              path {
+                fill: white;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__thumb-icon {
+      display: block;
+      width: spx(70);
+      height: spx(70);
+      @include tablet-up {
+        width: ppx(135 * 1.2);
+        height: ppx(135 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(135);
+        height: ppx(135);
+      }
+      circle {
+        transition: fill 0.3s ease;
+      }
+      path {
+        transition: fill 0.3s ease;
+      }
+      g {
+        path {
+          transition: fill 0.3s ease;
+        }
+      }
+    }
+
+    &__main {
+      position: relative;
+      z-index: 1;
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__slide {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__slide-figure {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__slide-image {
+      display: block;
+      width: 100%;
+      height: spx(430);
+      object-fit: cover;
+      @include tablet-up {
+        height: ppx(1100 * 1.2);
+      }
+      @include desktop-up {
+        height: ppx(1100);
+      }
+    }
+
+    &__slide-content {
+      width: spx(600);
+      margin-inline: auto;
+      margin-top: spx(140);
+      color: var(--blue_5, #026995);
+      @include tablet-up {
+        width: ppx(826 * 1.2);
+        margin-inline: unset;
+        background-color: rgba(255, 255, 255, 0.85);
+        margin-top: 0;
+        padding-top: ppx(58 * 1.2);
+        padding-bottom: ppx(48 * 1.2);
+        padding-left: ppx(68 * 1.2);
+        padding-right: ppx(52 * 1.2);
+        position: absolute;
+      }
+      @include desktop-up {
+        width: ppx(826);
+        padding-top: ppx(58);
+        padding-bottom: ppx(48);
+        padding-left: ppx(68);
+        padding-right: ppx(52);
+      }
+      &.content-1 {
+        @include tablet-up {
+          top: ppx(378 * 1.2);
+          right: ppx(115 * 1.2);
+          width: ppx(706 * 1.2);
+          background: none;
+          padding: 0;
+          color: var(--white, #fff);
+        }
+        @include desktop-up {
+          top: ppx(378);
+          right: ppx(115);
+          width: ppx(706);
+        }
+      }
+      &.content-2 {
+        @include tablet-up {
+          top: ppx(320 * 1.2);
+          left: ppx(80 * 1.2);
+          color: var(--blue_6, #054965);
+        }
+        @include desktop-up {
+          top: ppx(320);
+          right: ppx(80);
+        }
+      }
+      &.content-3 {
+        @include tablet-up {
+          top: ppx(320 * 1.2);
+          left: ppx(80 * 1.2);
+          color: var(--blue_6, #054965);
+        }
+        @include desktop-up {
+          top: ppx(320);
+          right: ppx(80);
+        }
+      }
+      &.content-4 {
+        @include tablet-up {
+          top: ppx(320 * 1.2);
+          right: ppx(90 * 1.2);
+          color: var(--blue_6, #054965);
+        }
+        @include desktop-up {
+          top: ppx(320);
+          right: ppx(90);
+        }
+      }
+      &.content-5 {
+        @include tablet-up {
+          top: ppx(598 * 1.2);
+          right: ppx(142 * 1.2);
+          width: ppx(706 * 1.2);
+          background: none;
+          padding: 0;
+          color: var(--white, #fff);
+        }
+        @include desktop-up {
+          top: ppx(598);
+          right: ppx(142);
+          width: ppx(706);
+        }
+      }
+    }
+
+    &__slide-title {
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(52);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 78px */
+      letter-spacing: spx(2.6);
+      @include tablet-up {
+        text-align: left;
+        font-size: ppx(55 * 1.2);
+        line-height: 120%;
+        letter-spacing: 0;
+      }
+      @include desktop-up {
+        font-size: ppx(55);
+      }
+    }
+
+    &__slide-description {
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%; /* 48px */
+      margin-top: spx(40);
+      @include tablet-up {
+        font-size: ppx(27 * 1.2);
+        margin-top: ppx(38 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+        margin-top: ppx(38);
+      }
+    }
+  }
+
+  // ============================================================
+  // Swiper関連のセレクター
+  // ============================================================
+
+  .group-slider {
+    &__thumbnails-swiper {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      .swiper-wrapper {
+        display: grid;
+        grid-template-columns: repeat(5, max-content);
+        gap: spx(13);
+        @include tablet-up {
+          gap: ppx(10 * 1.2);
+        }
+        @include desktop-up {
+          gap: ppx(10);
+        }
+      }
+
+      .swiper-slide {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+
+        &.swiper-slide-thumb-active {
+          .slider-section__thumb-icon {
+            circle {
+              fill: #054965;
+            }
+            path {
+              fill: white;
+            }
+            g {
+              path {
+                fill: white;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__main-swiper {
+      @include tablet-up {
+      }
+      @include desktop-up {
+      }
+
+      .swiper-wrapper {
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
+
+      .swiper-slide {
+        position: relative;
+        @include tablet-up {
+        }
+        @include desktop-up {
+        }
+      }
     }
   }
 </style>
