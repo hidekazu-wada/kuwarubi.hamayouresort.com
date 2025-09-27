@@ -54,6 +54,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/thumbs';
+import 'swiper/css/effect-fade';
+import 'swiper/css/autoplay';
 // import { getImage } from 'astro:assets';
 // import sampleImage from '../assets/images/sample.jpg';
 
@@ -458,7 +460,7 @@ const pageClass = 'main-content--group-use';
 <script>
   // @ts-nocheck
   import Swiper from 'swiper';
-  import { Thumbs } from 'swiper/modules';
+  import { Thumbs, EffectFade, Autoplay } from 'swiper/modules';
 
   document.addEventListener('DOMContentLoaded', () => {
     // サムネイル用Swiperインスタンス
@@ -473,8 +475,21 @@ const pageClass = 'main-content--group-use';
 
     // メイン用Swiperインスタンス
     const mainSwiper = new Swiper('.group-slider__main-swiper', {
-      modules: [Thumbs],
+      modules: [Thumbs, EffectFade, Autoplay],
       slidesPerView: 1,
+      // フェードエフェクトを適用
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true,
+      },
+      // 切り替えスピードをゆっくりに
+      speed: 1500, // 1.5秒かけてフェード
+      // オートプレイ設定
+      autoplay: {
+        delay: 5000, // 5秒ごとに切り替え
+        disableOnInteraction: false, // ユーザー操作後も自動再生を継続
+        pauseOnMouseEnter: true, // マウスホバーで一時停止
+      },
       // サムネイルとの連動
       thumbs: {
         swiper: thumbsSwiper,
