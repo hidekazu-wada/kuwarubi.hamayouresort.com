@@ -1,19 +1,27 @@
 ---
 // Props定義
 export interface Props {
-  title: string;
-  description?: string;
+  pageTitle: string; // ページ固有のタイトル部分
   ogImage?: string;
   pageClass?: string; // ページ固有のクラス名
 }
 
 // Propsを受け取る
 const {
-  title,
-  description = '',
+  pageTitle,
   ogImage = '/default-og-image.jpg',
   pageClass = '',
 } = Astro.props;
+
+// サイト名の定数
+const SITE_NAME = '光風閣くわるび | 大自然に触れ合いながら学べる大型宿泊施設';
+
+// 統一ディスクリプション
+const SITE_DESCRIPTION =
+  '富士山の麓にある富士河口湖町西湖の大自然で学ぶ！山と湖に囲まれた環境で自然と触れ合いながら成長できる大型宿泊施設。豊富なアクティビティと充実した設備で、忘れられない体験をご提供します。学生研修旅行・企業研修・ワーケーションに最適です。';
+
+// 完全なタイトルを生成
+const fullTitle = pageTitle ? `${pageTitle} | ${SITE_NAME}` : SITE_NAME;
 
 // メインSCSSファイルをインポート
 import '../styles/main.scss';
@@ -35,17 +43,21 @@ import BookingModal from '../components/Booking-modal.astro';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <title>{fullTitle}</title>
 
     <!-- SEO Meta Tags -->
-    {description && <meta name="description" content={description} />}
+    <meta name="description" content={SITE_DESCRIPTION} />
+    <meta
+      name="keywords"
+      content="大型宿泊施設,学生研修旅行,企業研修,ワーケーション,自然体験,山梨県,河口湖町,西湖,富士山"
+    />
 
     <!-- Noindex for development -->
     <meta name="robots" content="noindex, nofollow" />
 
     <!-- OG Tags -->
-    <meta property="og:title" content={title} />
-    {description && <meta property="og:description" content={description} />}
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={SITE_DESCRIPTION} />
     <meta property="og:image" content={ogImage} />
 
     <!-- Google Fonts -->

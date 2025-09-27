@@ -16,27 +16,11 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
 // 4. データインポート（必要に応じて追加）
 // import { data } from '../data/sample.ts';
 
-// 5. ページメタ情報（必ず変更すること）
-const pageTitle = 'よくあるご質問 | クワルビリゾート';
-const pageDescription =
-  'クワルビリゾートに関するよくあるご質問と回答をまとめています。ご不明な点がございましたらお気軽にお問い合わせください。';
-
-// 6. 画像最適化処理（必要に応じてコメント解除）
-// const optimizedImage = await getImage({
-//   src: sampleImage,
-//   format: 'webp',
-//   width: 1200,
-// });
-
-// 7. ページ固有のクラス名（スタイリング用）
+// 5. ページ固有のクラス名（スタイリング用）
 const pageClass = 'main-content--faq';
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  pageClass={pageClass}
->
+<BaseLayout pageTitle="よくあるご質問" pageClass={pageClass}>
   <!-- ページヘッダー -->
   <div class="page-header-container">
     <LowerPageHeader titleEn="FAQ" titleJa="よくあるご質問" />
@@ -474,7 +458,9 @@ const pageClass = 'main-content--faq';
   }
 
   .page-header-container {
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
     @include tablet-up {
       position: fixed;
       top: ppx(280 * 1.2);
@@ -484,7 +470,7 @@ const pageClass = 'main-content--faq';
       top: ppx(280);
       left: ppx(475);
     }
-    
+
     &.hide-at-footer {
       opacity: 0;
       visibility: hidden;
@@ -533,7 +519,9 @@ const pageClass = 'main-content--faq';
 
     &__categories {
       display: none;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+      transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
       @include tablet-up {
         display: block;
         position: fixed;
@@ -544,7 +532,7 @@ const pageClass = 'main-content--faq';
         top: ppx(753);
         left: ppx(475);
       }
-      
+
       &.hide-at-footer {
         opacity: 0;
         visibility: hidden;
@@ -949,34 +937,38 @@ const pageClass = 'main-content--faq';
   });
 
   // Hide navigation and header when reaching footer
-  const pageHeaderContainer = document.querySelector('.page-header-container') as HTMLElement | null;
-  const faqNavCategories = document.querySelector('.faq-nav__categories') as HTMLElement | null;
+  const pageHeaderContainer = document.querySelector(
+    '.page-header-container'
+  ) as HTMLElement | null;
+  const faqNavCategories = document.querySelector(
+    '.faq-nav__categories'
+  ) as HTMLElement | null;
   const footer = document.querySelector('.footer') as HTMLElement | null;
-  
+
   function checkFooterPosition() {
     if (!footer) return;
-    
+
     const footerRect = footer.getBoundingClientRect();
     const footerTop = footerRect.top;
     const triggerPoint = footerTop - 300; // フッターから300px上を切り替えポイントに
-    
+
     // Check page header container
     if (pageHeaderContainer) {
       const headerRect = pageHeaderContainer.getBoundingClientRect();
       const headerBottom = headerRect.bottom;
-      
+
       if (headerBottom > triggerPoint) {
         pageHeaderContainer.classList.add('hide-at-footer');
       } else {
         pageHeaderContainer.classList.remove('hide-at-footer');
       }
     }
-    
+
     // Check FAQ navigation categories
     if (faqNavCategories) {
       const navRect = faqNavCategories.getBoundingClientRect();
       const navBottom = navRect.bottom;
-      
+
       if (navBottom > triggerPoint) {
         faqNavCategories.classList.add('hide-at-footer');
       } else {
@@ -984,30 +976,30 @@ const pageClass = 'main-content--faq';
       }
     }
   }
-  
+
   // Check on scroll and resize
   let scrollTimeout: number | null = null;
-  
+
   function handleScroll() {
     if (scrollTimeout) {
       clearTimeout(scrollTimeout);
     }
-    
+
     scrollTimeout = window.setTimeout(() => {
       checkFooterPosition();
     }, 10);
   }
-  
+
   window.addEventListener('scroll', handleScroll);
   window.addEventListener('resize', handleScroll);
-  
+
   // Initial check
   checkFooterPosition();
 
   // FAQ navigation active state based on visible category
   const faqCategories = document.querySelectorAll('.faq-content__category');
   const faqNavItems = document.querySelectorAll('.faq-nav__item');
-  
+
   // Create a map of category IDs to nav items
   const navItemsMap = new Map<string, HTMLElement>();
   faqNavItems.forEach((item) => {
@@ -1020,19 +1012,19 @@ const pageClass = 'main-content--faq';
       }
     }
   });
-  
+
   // Intersection Observer to detect which category is visible
   const observerOptions = {
     root: null,
     rootMargin: '-20% 0px -70% 0px', // Trigger when category is in the upper portion of viewport
-    threshold: 0
+    threshold: 0,
   };
-  
+
   const categoryObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const categoryId = entry.target.id;
       const navItem = navItemsMap.get(categoryId);
-      
+
       if (navItem) {
         if (entry.isIntersecting) {
           // Remove active class from all items
@@ -1045,7 +1037,7 @@ const pageClass = 'main-content--faq';
       }
     });
   }, observerOptions);
-  
+
   // Observe all FAQ categories
   faqCategories.forEach((category) => {
     categoryObserver.observe(category);

@@ -29,19 +29,11 @@ const restaurant02 = await getImage({
   widths: [283, 568, 852],
 });
 
-// ページメタ情報（必ず変更）
-const pageTitle = 'お食事 | 光風閣くわるび';
-const pageDescription = 'ページの説明文をここに記述します。';
-
 // ページ固有のクラス名（page-nameを適切な名前に変更）
 const pageClass = 'main-content--food';
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  pageClass={pageClass}
->
+<BaseLayout pageTitle="お食事" pageClass={pageClass}>
   <Hero />
   <FoodNav />
   <Dinner />

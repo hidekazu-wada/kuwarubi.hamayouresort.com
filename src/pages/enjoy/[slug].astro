@@ -27,17 +27,11 @@ if (!stayPlan) {
   return Astro.redirect('/404');
 }
 
-// ページメタ情報
-const pageTitle = `${stayPlan.title} | 光風閣くわるび`;
-const pageDescription = stayPlan.description;
+// ページ固有のクラス名
 const pageClass = `main-content--enjoy main-content--enjoy-${stayPlan.id}`;
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  pageClass={pageClass}
->
+<BaseLayout pageTitle={stayPlan.title} pageClass={pageClass}>
   <!-- メインコンテンツ -->
   <Hero heroContent={stayPlan.hero} />
 

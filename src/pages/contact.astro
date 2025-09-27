@@ -18,10 +18,6 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
 // TODO: 以下の項目を必ず変更してください
 // ============================================================
 
-// ページメタ情報（必ず変更）
-const pageTitle = 'お問い合わせ | 光風閣くわるび';
-const pageDescription = 'ページの説明文をここに記述します。';
-
 // ページ固有のクラス名（page-nameを適切な名前に変更）
 const pageClass = 'main-content--contact';
 
@@ -29,11 +25,7 @@ const pageClass = 'main-content--contact';
 const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  pageClass={pageClass}
->
+<BaseLayout pageTitle="お問い合わせ" pageClass={pageClass}>
   <!-- ============================================================ -->
   <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
   <!-- ============================================================ -->
@@ -771,7 +763,9 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
       margin-inline: auto;
       margin-top: spx(50);
       cursor: pointer;
-      transition: background 0.3s ease, opacity 0.3s ease;
+      transition:
+        background 0.3s ease,
+        opacity 0.3s ease;
       border: none;
 
       &:disabled {
@@ -780,7 +774,7 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
 
       @include hover {
         &:hover:not(:disabled) {
-          background: var(--green_2, #A5D26A);
+          background: var(--green_2, #a5d26a);
         }
       }
 

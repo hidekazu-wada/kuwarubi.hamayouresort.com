@@ -18,19 +18,11 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
 // TODO: 以下の項目を必ず変更してください
 // ============================================================
 
-// ページメタ情報（必ず変更）
-const pageTitle = 'ご利用案内 | 光風閣くわるび';
-const pageDescription = 'ページの説明文をここに記述します。';
-
 // ページ固有のクラス名（guideを適切な名前に変更）
 const pageClass = 'main-content--guide';
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  pageClass={pageClass}
->
+<BaseLayout pageTitle="ご利用案内" pageClass={pageClass}>
   <!-- ============================================================ -->
   <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
   <!-- ============================================================ -->

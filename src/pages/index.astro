@@ -11,14 +11,9 @@ import Enjoy from '../components/pages/top/Enjoy.astro';
 import Hospitality from '../components/pages/top/Hospitality.astro';
 import News from '../components/pages/top/News.astro';
 import Blog from '../components/pages/top/Blog.astro';
-
-// ページメタ情報
-const pageTitle = 'クワルビリゾート - 自然と調和する極上のリゾート体験';
-const pageDescription =
-  '富士山の麓、河口湖畔に佇むクワルビリゾート。四季折々の自然と共に、心身ともにリフレッシュできる特別な時間をお過ごしください。';
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout pageTitle="">
   <!-- 動画モーダル（TOPページ専用） -->
   <VideoModal />
 

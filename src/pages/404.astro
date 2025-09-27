@@ -16,19 +16,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 // TODO: 以下の項目を必ず変更してください
 // ============================================================
 
-// ページメタ情報（必ず変更）
-const pageTitle = '404エラー | 光風閣くわるび';
-const pageDescription = 'ページの説明文をここに記述します。';
-
 // ページ固有のクラス名（404を適切な名前に変更）
 const pageClass = 'main-content--404';
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  pageClass={pageClass}
->
+<BaseLayout pageTitle="404エラー" pageClass={pageClass}>
   <!-- ============================================================ -->
   <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
   <!-- ============================================================ -->

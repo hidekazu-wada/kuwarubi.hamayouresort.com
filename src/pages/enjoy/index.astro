@@ -4,18 +4,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { allStayPlans } from '../../data/schedules';
 
-// ページメタ情報
-const pageTitle = '過ごし方 | 光風閣くわるび';
-const pageDescription =
-  '富士山と西湖の美しい自然の中で、様々な過ごし方プランをご提案します。';
+// ページ固有のクラス名
 const pageClass = 'main-content--enjoy-index';
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  pageClass={pageClass}
->
+<BaseLayout pageTitle="過ごし方" pageClass={pageClass}>
   <!-- ヒーローセクション -->
   <section class="enjoy-hero">
     <div class="enjoy-hero__content">

@@ -96,1170 +96,1146 @@ const activityImages: Record<string, typeof supImage> = {
   'rental-cycle': supImage, // 一時的に同じ画像
   'forest-trail': supImage, // 一時的に同じ画像
 };
-
-// ページメタ情報
-const pageTitle = 'アクティビティ一覧 | クワルビリゾート';
-const pageDescription = 'クワルビリゾートで体験できる様々なアクティビティをご紹介。SUP体験、キャンプファイヤー、レンタルサイクル、樹海トレイルなど、自然を満喫できるプログラムをご用意しています。';
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} pageClass="main-content--activities">
-        <div class="page-header-container">
-          <LowerPageHeader titleEn="ACTIVITIES" titleJa="アクティビティ" />
-        </div>
-        <section class="filter-section">
-          <!-- タブレット以上用：フィルターパネル -->
-          <div class="filter-section__desktop-panel">
-            <h3 class="filter-section__title">絞り込み検索</h3>
-            <ActivityFilters
-              priceOptions={filterOptions.priceOptions}
-              durationOptions={filterOptions.durationOptions}
-              weatherOptions={filterOptions.weatherOptions}
-            />
-          </div>
-          <button class="filter-section__reset"> リセットする </button>
-        </section>
+<BaseLayout pageTitle="アクティビティ" pageClass="main-content--activities">
+  <div class="page-header-container">
+    <LowerPageHeader titleEn="ACTIVITIES" titleJa="アクティビティ" />
+  </div>
+  <section class="filter-section">
+    <!-- タブレット以上用：フィルターパネル -->
+    <div class="filter-section__desktop-panel">
+      <h3 class="filter-section__title">絞り込み検索</h3>
+      <ActivityFilters
+        priceOptions={filterOptions.priceOptions}
+        durationOptions={filterOptions.durationOptions}
+        weatherOptions={filterOptions.weatherOptions}
+      />
+    </div>
+    <button class="filter-section__reset"> リセットする </button>
+  </section>
 
-        <!-- アクティビティカード -->
-        <section class="activity-showcase">
-          {
-            activities.map((activity) => {
-              // aboutデータから詳細項目を取得
-              const durationData = activity.about.find(
-                (item) => item.term === '所要時間'
-              );
-              const ageData = activity.about.find(
-                (item) => item.term === '対象年齢'
-              );
-              const seasonData = activity.about.find(
-                (item) => item.term === '実施時期'
-              );
+  <!-- アクティビティカード -->
+  <section class="activity-showcase">
+    {
+      activities.map((activity) => {
+        // aboutデータから詳細項目を取得
+        const durationData = activity.about.find(
+          (item) => item.term === '所要時間'
+        );
+        const ageData = activity.about.find((item) => item.term === '対象年齢');
+        const seasonData = activity.about.find(
+          (item) => item.term === '実施時期'
+        );
 
-              // アクティビティに対応する画像を取得
-              const activityImage = activityImages[activity.slug] || supImage;
+        // アクティビティに対応する画像を取得
+        const activityImage = activityImages[activity.slug] || supImage;
 
-              return (
-                <article class="activity-card">
-                  <a
-                    href={`/activities/${activity.slug}`}
-                    class="activity-card__link"
-                  >
-                    <div class="activity-card__image">
-                      <picture class="activity-card__picture">
-                        <source
-                          media="(min-width: 1024px)"
-                          srcset={activityImage.srcSet.toString()}
-                        />
-                        <source
-                          media="(min-width: 744px)"
-                          srcset={activityImage.srcSet.toString()}
-                        />
-                        <img
-                          src={activityImage.src}
-                          alt={`${activity.title}の様子`}
-                          class="activity-card__img"
-                        />
-                      </picture>
-                    </div>
-                    <div class="activity-card__title">
-                      <h3 class="activity-card__name">{activity.title}</h3>
-                      <svg
-                        class="activity-card__arrow-icon"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 10 17"
-                        fill="none"
+        return (
+          <article class="activity-card">
+            <a
+              href={`/activities/${activity.slug}`}
+              class="activity-card__link"
+            >
+              <div class="activity-card__image">
+                <picture class="activity-card__picture">
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={activityImage.srcSet.toString()}
+                  />
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={activityImage.srcSet.toString()}
+                  />
+                  <img
+                    src={activityImage.src}
+                    alt={`${activity.title}の様子`}
+                    class="activity-card__img"
+                  />
+                </picture>
+              </div>
+              <div class="activity-card__title">
+                <h3 class="activity-card__name">{activity.title}</h3>
+                <svg
+                  class="activity-card__arrow-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 10 17"
+                  fill="none"
+                >
+                  <path
+                    d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
+                    stroke="#054965"
+                    stroke-width="1.84"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </a>
+            <div class="activity-card__info">
+              <div class="activity-card__pricing">
+                <div class="activity-card__badges">
+                  {activity.badges.map((badge) => (
+                    <div class="activity-card__badge-group">
+                      <span
+                        class={`activity-card__badge activity-card__badge--${badge.type}`}
                       >
-                        <path
-                          d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
-                          stroke="#054965"
-                          stroke-width="1.84"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </div>
-                  </a>
-                  <div class="activity-card__info">
-                    <div class="activity-card__pricing">
-                      <div class="activity-card__badges">
-                        {activity.badges.map((badge) => (
-                          <div class="activity-card__badge-group">
-                            <span
-                              class={`activity-card__badge activity-card__badge--${badge.type}`}
-                            >
-                              {badge.text.split('\n').map((line, index) => (
-                                <>
-                                  {line}
-                                  {index <
-                                    badge.text.split('\n').length - 1 && <br />}
-                                </>
-                              ))}
-                            </span>
-                          </div>
+                        {badge.text.split('\n').map((line, index) => (
+                          <>
+                            {line}
+                            {index < badge.text.split('\n').length - 1 && (
+                              <br />
+                            )}
+                          </>
                         ))}
-                      </div>
-                      <div class="activity-card__price">
-                        ¥{activity.price.adult.toLocaleString()}〜
-                      </div>
+                      </span>
                     </div>
-                    <dl class="activity-card__details">
-                      {durationData && (
-                        <div class="activity-card__detail-item">
-                          <dt class="activity-card__detail-term">所要時間：</dt>
-                          <dd class="activity-card__detail-desc">
-                            {durationData.description}
-                          </dd>
-                        </div>
-                      )}
-                      {ageData && (
-                        <div class="activity-card__detail-item">
-                          <dt class="activity-card__detail-term">対象年齢：</dt>
-                          <dd class="activity-card__detail-desc">
-                            {ageData.description}
-                          </dd>
-                        </div>
-                      )}
-                      {seasonData && (
-                        <div class="activity-card__detail-item">
-                          <dt class="activity-card__detail-term">実施時期：</dt>
-                          <dd class="activity-card__detail-desc">
-                            {seasonData.description}
-                          </dd>
-                        </div>
-                      )}
-                    </dl>
+                  ))}
+                </div>
+                <div class="activity-card__price">
+                  ¥{activity.price.adult.toLocaleString()}〜
+                </div>
+              </div>
+              <dl class="activity-card__details">
+                {durationData && (
+                  <div class="activity-card__detail-item">
+                    <dt class="activity-card__detail-term">所要時間：</dt>
+                    <dd class="activity-card__detail-desc">
+                      {durationData.description}
+                    </dd>
                   </div>
-                  <div class="activity-card__description">
-                    {activity.description}
+                )}
+                {ageData && (
+                  <div class="activity-card__detail-item">
+                    <dt class="activity-card__detail-term">対象年齢：</dt>
+                    <dd class="activity-card__detail-desc">
+                      {ageData.description}
+                    </dd>
                   </div>
-                </article>
-              );
-            })
-          }
-        </section>
-        <div class="breadcrumb-wrapper">
-          <Breadcrumb
-            items={[{ text: 'TOP', href: '/' }, { text: 'アクティビティ' }]}
-          />
-        </div>
+                )}
+                {seasonData && (
+                  <div class="activity-card__detail-item">
+                    <dt class="activity-card__detail-term">実施時期：</dt>
+                    <dd class="activity-card__detail-desc">
+                      {seasonData.description}
+                    </dd>
+                  </div>
+                )}
+              </dl>
+            </div>
+            <div class="activity-card__description">{activity.description}</div>
+          </article>
+        );
+      })
+    }
+  </section>
+  <div class="breadcrumb-wrapper">
+    <Breadcrumb
+      items={[{ text: 'TOP', href: '/' }, { text: 'アクティビティ' }]}
+    />
+  </div>
 </BaseLayout>
 
-    <script is:inline define:vars={{ activitiesData: activities }}>
-      // activities データをグローバルスコープに設定
-      window.activitiesData = activitiesData;
-    </script>
+<script is:inline define:vars={{ activitiesData: activities }}>
+  // activities データをグローバルスコープに設定
+  window.activitiesData = activitiesData;
+</script>
 
-    <script>
-      // DOMロード後に実行
-      document.addEventListener('DOMContentLoaded', () => {
-          // ============= アクティビティフィルタリング機能 =============
+<script>
+  // DOMロード後に実行
+  document.addEventListener('DOMContentLoaded', () => {
+    // ============= アクティビティフィルタリング機能 =============
 
-          // TypeScript型定義
-          interface Activity {
-            slug: string;
-            title: string;
-            about: Array<{ term: string; description: string }>;
-          }
+    // TypeScript型定義
+    interface Activity {
+      slug: string;
+      title: string;
+      about: Array<{ term: string; description: string }>;
+    }
 
-          // activities.tsからデータを動的に取得（グローバル変数経由）
-          let activitiesData: Activity[];
-          try {
-            activitiesData = (window as any).activitiesData;
+    // activities.tsからデータを動的に取得（グローバル変数経由）
+    let activitiesData: Activity[];
+    try {
+      activitiesData = (window as any).activitiesData;
 
-            if (!activitiesData) {
-              return;
-            }
-          } catch (error: any) {
-            return;
-          }
+      if (!activitiesData) {
+        return;
+      }
+    } catch (error: any) {
+      return;
+    }
 
-          // フィルタ要素の取得（3つのカテゴリのみ）
-          const filterSelects = {
-            price: document.querySelector(
-              'select[name="price"]'
-            ) as HTMLSelectElement,
-            duration: document.querySelector(
-              'select[name="duration"]'
-            ) as HTMLSelectElement,
-            weather: document.querySelector(
-              'select[name="weather"]'
-            ) as HTMLSelectElement,
-          };
+    // フィルタ要素の取得（3つのカテゴリのみ）
+    const filterSelects = {
+      price: document.querySelector(
+        'select[name="price"]'
+      ) as HTMLSelectElement,
+      duration: document.querySelector(
+        'select[name="duration"]'
+      ) as HTMLSelectElement,
+      weather: document.querySelector(
+        'select[name="weather"]'
+      ) as HTMLSelectElement,
+    };
 
-          // 各フィルターの初期選択肢を保存（連動フィルタリング用）
-          const initialOptions: Record<
-            string,
-            Array<{ value: string; text: string }>
-          > = {};
+    // 各フィルターの初期選択肢を保存（連動フィルタリング用）
+    const initialOptions: Record<
+      string,
+      Array<{ value: string; text: string }>
+    > = {};
 
-          Object.entries(filterSelects).forEach(([key, select]) => {
-            if (select) {
-              initialOptions[key] = Array.from(select.options)
-                .slice(1)
-                .map((option) => ({
-                  value: option.value,
-                  text: option.textContent || '',
-                }));
-            }
-          });
+    Object.entries(filterSelects).forEach(([key, select]) => {
+      if (select) {
+        initialOptions[key] = Array.from(select.options)
+          .slice(1)
+          .map((option) => ({
+            value: option.value,
+            text: option.textContent || '',
+          }));
+      }
+    });
 
-          // アクティビティカード要素を取得
-          const activityCards = document.querySelectorAll('.activity-card');
-          const activitiesSection =
-            document.querySelector('.activity-showcase');
+    // アクティビティカード要素を取得
+    const activityCards = document.querySelectorAll('.activity-card');
+    const activitiesSection = document.querySelector('.activity-showcase');
 
-          // 「該当するアクティビティがありません」メッセージ要素を作成
-          const noResultsMessage = document.createElement('div');
-          noResultsMessage.className = 'no-results-message';
-          noResultsMessage.innerHTML = `
+    // 「該当するアクティビティがありません」メッセージ要素を作成
+    const noResultsMessage = document.createElement('div');
+    noResultsMessage.className = 'no-results-message';
+    noResultsMessage.innerHTML = `
             <p class="no-results-message__text">該当するアクティビティがありません</p>
             <p class="no-results-message__subtext">条件を変更してお試しください</p>
           `;
-          noResultsMessage.style.display = 'none';
-          if (activitiesSection) {
-            activitiesSection.appendChild(noResultsMessage);
-          }
+    noResultsMessage.style.display = 'none';
+    if (activitiesSection) {
+      activitiesSection.appendChild(noResultsMessage);
+    }
 
-          // 範囲文字列から数値を抽出する関数
-          function parseRange(
-            rangeStr: string,
-            type: 'age' | 'capacity' | 'price' | 'duration'
-          ): { min: number; max: number } | null {
-            try {
-              switch (type) {
-                case 'age':
-                  // 例: '12歳〜65歳', '3歳以上'
-                  if (rangeStr.includes('以上')) {
-                    const match = rangeStr.match(/(\d+)歳以上/);
-                    return match ? { min: parseInt(match[1]), max: 999 } : null;
-                  } else {
-                    const match = rangeStr.match(/(\d+)歳〜(\d+)歳/);
-                    return match
-                      ? { min: parseInt(match[1]), max: parseInt(match[2]) }
-                      : null;
-                  }
-
-                case 'capacity':
-                  // 例: '2名〜8名', '1名〜12名'
-                  const capacityMatch = rangeStr.match(/(\d+)名〜(\d+)名/);
-                  return capacityMatch
-                    ? {
-                        min: parseInt(capacityMatch[1]),
-                        max: parseInt(capacityMatch[2]),
-                      }
-                    : null;
-
-                case 'price':
-                  // 例: '4,000円〜5,000円', '2,800円'
-                  if (rangeStr.includes('〜')) {
-                    const priceRangeMatch =
-                      rangeStr.match(/([\d,]+)円〜([\d,]+)円/);
-                    if (priceRangeMatch) {
-                      return {
-                        min: parseInt(priceRangeMatch[1].replace(/,/g, '')),
-                        max: parseInt(priceRangeMatch[2].replace(/,/g, '')),
-                      };
-                    }
-                  } else {
-                    const singlePriceMatch = rangeStr.match(/([\d,]+)円/);
-                    if (singlePriceMatch) {
-                      const price = parseInt(
-                        singlePriceMatch[1].replace(/,/g, '')
-                      );
-                      return { min: price, max: price };
-                    }
-                  }
-                  return null;
-
-                case 'duration':
-                  // 例: '2時間', '1時間30分'
-                  const hourMatch = rangeStr.match(/(\d+)時間(?:(\d+)分)?/);
-                  if (hourMatch) {
-                    const hours = parseInt(hourMatch[1]);
-                    const minutes = hourMatch[2] ? parseInt(hourMatch[2]) : 0;
-                    const totalMinutes = hours * 60 + minutes;
-                    return { min: totalMinutes, max: totalMinutes };
-                  }
-                  return null;
-              }
-            } catch (e) {
-              console.warn('範囲解析エラー:', rangeStr, e);
-              return null;
-            }
-          }
-
-          // 範囲の重複判定関数
-          function rangesOverlap(
-            range1: { min: number; max: number },
-            range2: { min: number; max: number }
-          ): boolean {
-            return range1.min <= range2.max && range2.min <= range1.max;
-          }
-
-          // フィルター値がアクティビティの値と適合するかチェック
-          function filterMatches(
-            filterValue: string,
-            activityValue: string,
-            filterType: string
-          ): boolean {
-            // 完全一致の場合（季節、天気、予約など）
-            if (['season', 'weather', 'booking'].includes(filterType)) {
-              if (filterType === 'season') {
-                // 季節の場合、部分一致もチェック
-                return (
-                  activityValue.includes(filterValue) ||
-                  filterValue.includes(activityValue)
-                );
-              }
-              return filterValue === activityValue;
+    // 範囲文字列から数値を抽出する関数
+    function parseRange(
+      rangeStr: string,
+      type: 'age' | 'capacity' | 'price' | 'duration'
+    ): { min: number; max: number } | null {
+      try {
+        switch (type) {
+          case 'age':
+            // 例: '12歳〜65歳', '3歳以上'
+            if (rangeStr.includes('以上')) {
+              const match = rangeStr.match(/(\d+)歳以上/);
+              return match ? { min: parseInt(match[1]), max: 999 } : null;
+            } else {
+              const match = rangeStr.match(/(\d+)歳〜(\d+)歳/);
+              return match
+                ? { min: parseInt(match[1]), max: parseInt(match[2]) }
+                : null;
             }
 
-            // 範囲値の場合（年齢、人数、料金、時間）
-            const typeMap: Record<
-              string,
-              'age' | 'capacity' | 'price' | 'duration'
-            > = {
-              targetAge: 'age',
-              capacity: 'capacity',
-              price: 'price',
-              duration: 'duration',
-            };
-
-            const type = typeMap[filterType];
-            if (type) {
-              const filterRange = parseRange(filterValue, type);
-              const activityRange = parseRange(activityValue, type);
-
-              if (filterRange && activityRange) {
-                return rangesOverlap(filterRange, activityRange);
-              }
-            }
-
-            // フォールバック：完全一致
-            return filterValue === activityValue;
-          }
-
-          // 現在の選択状態から利用可能な選択肢を取得する関数（3つのカテゴリのみ）
-          function getAvailableOptions() {
-            const currentFilters = {
-              price: filterSelects.price?.value || '',
-              duration: filterSelects.duration?.value || '',
-              weather: filterSelects.weather?.value || '',
-            };
-
-            // 各フィルターの利用可能な値を収集（3つのカテゴリのみ）
-            const availableValues: Record<string, Set<string>> = {
-              price: new Set(),
-              duration: new Set(),
-              weather: new Set(),
-            };
-
-            // アクティビティデータから現在の選択条件に合致するものを抽出
-            activitiesData.forEach((activity) => {
-              let matchesCurrentFilters = true;
-
-              // 現在の選択フィルタ条件をチェック（範囲対応）
-              Object.entries(currentFilters).forEach(
-                ([filterKey, filterValue]) => {
-                  if (filterValue) {
-                    const matchingTerm = {
-                      price: '料金',
-                      duration: '所要時間',
-                      weather: '実施可能天気',
-                    }[filterKey];
-
-                    const item = activity.about.find(
-                      (aboutItem) => aboutItem.term === matchingTerm
-                    );
-                    if (
-                      !item ||
-                      !filterMatches(filterValue, item.description, filterKey)
-                    ) {
-                      matchesCurrentFilters = false;
-                    }
-                  }
+          case 'capacity':
+            // 例: '2名〜8名', '1名〜12名'
+            const capacityMatch = rangeStr.match(/(\d+)名〜(\d+)名/);
+            return capacityMatch
+              ? {
+                  min: parseInt(capacityMatch[1]),
+                  max: parseInt(capacityMatch[2]),
                 }
-              );
+              : null;
 
-              // 条件に合致する場合、このアクティビティの選択肢をすべて追加
-              if (matchesCurrentFilters) {
-                activity.about.forEach((aboutItem) => {
-                  const filterKey = {
-                    料金: 'price',
-                    所要時間: 'duration',
-                    実施可能天気: 'weather',
-                  }[aboutItem.term];
-
-                  if (filterKey) {
-                    availableValues[filterKey].add(aboutItem.description);
-                  }
-                });
+          case 'price':
+            // 例: '4,000円〜5,000円', '2,800円'
+            if (rangeStr.includes('〜')) {
+              const priceRangeMatch = rangeStr.match(/([\d,]+)円〜([\d,]+)円/);
+              if (priceRangeMatch) {
+                return {
+                  min: parseInt(priceRangeMatch[1].replace(/,/g, '')),
+                  max: parseInt(priceRangeMatch[2].replace(/,/g, '')),
+                };
               }
-            });
-
-            return availableValues;
-          }
-
-          // フィルター選択肢を更新する関数
-          function updateFilterOptions(changedFilterKey?: string) {
-            const availableOptions = getAvailableOptions();
-
-            Object.entries(filterSelects).forEach(([filterKey, select]) => {
-              if (select && filterKey !== changedFilterKey) {
-                const currentValue = select.value;
-                const availableSet = availableOptions[filterKey];
-
-                // 現在の選択肢をクリア（最初のoption「選択してください」は残す）
-                const firstOption = select.options[0];
-                select.innerHTML = '';
-                select.appendChild(firstOption);
-
-                // 利用可能な選択肢のみを追加
-                initialOptions[filterKey].forEach((option) => {
-                  if (availableSet.has(option.value)) {
-                    const optionElement = document.createElement('option');
-                    optionElement.value = option.value;
-                    optionElement.textContent = option.text;
-
-                    // 以前選択されていた値があれば再選択
-                    if (option.value === currentValue) {
-                      optionElement.selected = true;
-                    }
-
-                    select.appendChild(optionElement);
-                  }
-                });
-
-                // 以前の選択値が利用できなくなった場合はリセット
-                if (currentValue && !availableSet.has(currentValue)) {
-                  select.value = '';
-                }
+            } else {
+              const singlePriceMatch = rangeStr.match(/([\d,]+)円/);
+              if (singlePriceMatch) {
+                const price = parseInt(singlePriceMatch[1].replace(/,/g, ''));
+                return { min: price, max: price };
               }
-            });
-          }
+            }
+            return null;
 
-          // フィルタリング関数（3つのカテゴリのみ）
-          function filterActivities() {
-            const filters = {
-              price: filterSelects.price?.value || '',
-              duration: filterSelects.duration?.value || '',
-              weather: filterSelects.weather?.value || '',
-            };
+          case 'duration':
+            // 例: '2時間', '1時間30分'
+            const hourMatch = rangeStr.match(/(\d+)時間(?:(\d+)分)?/);
+            if (hourMatch) {
+              const hours = parseInt(hourMatch[1]);
+              const minutes = hourMatch[2] ? parseInt(hourMatch[2]) : 0;
+              const totalMinutes = hours * 60 + minutes;
+              return { min: totalMinutes, max: totalMinutes };
+            }
+            return null;
+        }
+      } catch (e) {
+        console.warn('範囲解析エラー:', rangeStr, e);
+        return null;
+      }
+    }
 
-            let visibleCount = 0;
+    // 範囲の重複判定関数
+    function rangesOverlap(
+      range1: { min: number; max: number },
+      range2: { min: number; max: number }
+    ): boolean {
+      return range1.min <= range2.max && range2.min <= range1.max;
+    }
 
-            activityCards.forEach((card, index) => {
-              if (index >= activitiesData.length) {
-                return;
-              }
+    // フィルター値がアクティビティの値と適合するかチェック
+    function filterMatches(
+      filterValue: string,
+      activityValue: string,
+      filterType: string
+    ): boolean {
+      // 完全一致の場合（季節、天気、予約など）
+      if (['season', 'weather', 'booking'].includes(filterType)) {
+        if (filterType === 'season') {
+          // 季節の場合、部分一致もチェック
+          return (
+            activityValue.includes(filterValue) ||
+            filterValue.includes(activityValue)
+          );
+        }
+        return filterValue === activityValue;
+      }
 
-              const activity = activitiesData[index];
-              let isVisible = true;
+      // 範囲値の場合（年齢、人数、料金、時間）
+      const typeMap: Record<string, 'age' | 'capacity' | 'price' | 'duration'> =
+        {
+          targetAge: 'age',
+          capacity: 'capacity',
+          price: 'price',
+          duration: 'duration',
+        };
 
-              // 各フィルタ条件をチェック（3つのカテゴリのみ）
-              if (filters.price) {
-                const priceItem = activity.about.find(
-                  (item) => item.term === '料金'
-                );
-                isVisible =
-                  isVisible &&
-                  !!(
-                    priceItem &&
-                    filterMatches(filters.price, priceItem.description, 'price')
-                  );
-              }
+      const type = typeMap[filterType];
+      if (type) {
+        const filterRange = parseRange(filterValue, type);
+        const activityRange = parseRange(activityValue, type);
 
-              if (filters.duration) {
-                const durationItem = activity.about.find(
-                  (item) => item.term === '所要時間'
-                );
-                isVisible =
-                  isVisible &&
-                  !!(
-                    durationItem &&
-                    filterMatches(
-                      filters.duration,
-                      durationItem.description,
-                      'duration'
-                    )
-                  );
-              }
+        if (filterRange && activityRange) {
+          return rangesOverlap(filterRange, activityRange);
+        }
+      }
 
-              if (filters.weather) {
-                const weatherItem = activity.about.find(
-                  (item) => item.term === '実施可能天気'
-                );
-                isVisible =
-                  isVisible &&
-                  !!(
-                    weatherItem &&
-                    filterMatches(
-                      filters.weather,
-                      weatherItem.description,
-                      'weather'
-                    )
-                  );
-              }
+      // フォールバック：完全一致
+      return filterValue === activityValue;
+    }
 
-              // カードの表示/非表示
-              (card as HTMLElement).style.display = isVisible
-                ? 'block'
-                : 'none';
-              if (isVisible) visibleCount++;
-            });
+    // 現在の選択状態から利用可能な選択肢を取得する関数（3つのカテゴリのみ）
+    function getAvailableOptions() {
+      const currentFilters = {
+        price: filterSelects.price?.value || '',
+        duration: filterSelects.duration?.value || '',
+        weather: filterSelects.weather?.value || '',
+      };
 
-            // 該当なしメッセージの表示制御
-            if (noResultsMessage) {
-              noResultsMessage.style.display =
-                visibleCount === 0 ? 'block' : 'none';
+      // 各フィルターの利用可能な値を収集（3つのカテゴリのみ）
+      const availableValues: Record<string, Set<string>> = {
+        price: new Set(),
+        duration: new Set(),
+        weather: new Set(),
+      };
+
+      // アクティビティデータから現在の選択条件に合致するものを抽出
+      activitiesData.forEach((activity) => {
+        let matchesCurrentFilters = true;
+
+        // 現在の選択フィルタ条件をチェック（範囲対応）
+        Object.entries(currentFilters).forEach(([filterKey, filterValue]) => {
+          if (filterValue) {
+            const matchingTerm = {
+              price: '料金',
+              duration: '所要時間',
+              weather: '実施可能天気',
+            }[filterKey];
+
+            const item = activity.about.find(
+              (aboutItem) => aboutItem.term === matchingTerm
+            );
+            if (
+              !item ||
+              !filterMatches(filterValue, item.description, filterKey)
+            ) {
+              matchesCurrentFilters = false;
             }
           }
+        });
 
-          // 各selectタグに連動フィルタリング対応のchangeイベントリスナーを追加
-          Object.entries(filterSelects).forEach(([filterKey, select]) => {
-            if (select) {
-              select.addEventListener('change', () => {
-                // フィルタリング実行
-                filterActivities();
-                // 他のフィルター選択肢を更新
-                updateFilterOptions(filterKey);
-              });
+        // 条件に合致する場合、このアクティビティの選択肢をすべて追加
+        if (matchesCurrentFilters) {
+          activity.about.forEach((aboutItem) => {
+            const filterKey = {
+              料金: 'price',
+              所要時間: 'duration',
+              実施可能天気: 'weather',
+            }[aboutItem.term];
+
+            if (filterKey) {
+              availableValues[filterKey].add(aboutItem.description);
+            }
+          });
+        }
+      });
+
+      return availableValues;
+    }
+
+    // フィルター選択肢を更新する関数
+    function updateFilterOptions(changedFilterKey?: string) {
+      const availableOptions = getAvailableOptions();
+
+      Object.entries(filterSelects).forEach(([filterKey, select]) => {
+        if (select && filterKey !== changedFilterKey) {
+          const currentValue = select.value;
+          const availableSet = availableOptions[filterKey];
+
+          // 現在の選択肢をクリア（最初のoption「選択してください」は残す）
+          const firstOption = select.options[0];
+          select.innerHTML = '';
+          select.appendChild(firstOption);
+
+          // 利用可能な選択肢のみを追加
+          initialOptions[filterKey].forEach((option) => {
+            if (availableSet.has(option.value)) {
+              const optionElement = document.createElement('option');
+              optionElement.value = option.value;
+              optionElement.textContent = option.text;
+
+              // 以前選択されていた値があれば再選択
+              if (option.value === currentValue) {
+                optionElement.selected = true;
+              }
+
+              select.appendChild(optionElement);
             }
           });
 
-          // 初期化完了（プロダクション準備完了）
-
-          // 初期化時に利用可能な選択肢のみを表示
-          updateFilterOptions();
-
-          // ============= リセット機能 =============
-
-          // リセットボタンの取得
-          const resetButton = document.querySelector(
-            '.filter-section__reset'
-          ) as HTMLElement | null;
-
-          // リセット機能の実装
-          function resetFilters() {
-            // 全てのフィルタ選択肢をリセット
-            Object.values(filterSelects).forEach((select) => {
-              if (select) {
-                select.value = '';
-              }
-            });
-
-            // 全てのアクティビティカードを表示
-            activityCards.forEach((card) => {
-              (card as HTMLElement).style.display = 'block';
-            });
-
-            // 該当なしメッセージを非表示
-            if (noResultsMessage) {
-              noResultsMessage.style.display = 'none';
-            }
-
-            // フィルタオプションを初期状態に戻す
-            updateFilterOptions();
-
-            // ページの最上部にスムーズスクロール
-            window.scrollTo({
-              top: 0,
-              behavior: 'smooth',
-            });
+          // 以前の選択値が利用できなくなった場合はリセット
+          if (currentValue && !availableSet.has(currentValue)) {
+            select.value = '';
           }
-
-          // リセットボタンにイベントリスナーを追加
-          if (resetButton) {
-            resetButton.addEventListener('click', resetFilters);
-          }
+        }
       });
-    </script>
+    }
 
-  <style lang="scss">
-    // 必要なmixin/functionをインポート
-    @import '../../styles/variables';
-    @import '../../styles/functions';
-    @import '../../styles/mixins';
+    // フィルタリング関数（3つのカテゴリのみ）
+    function filterActivities() {
+      const filters = {
+        price: filterSelects.price?.value || '',
+        duration: filterSelects.duration?.value || '',
+        weather: filterSelects.weather?.value || '',
+      };
 
-    /* アクティビティ一覧ページ専用スタイル */
-    :global(.main-content--activities) {
-      background: var(--blue_2, #e7f3f9);
-      padding-top: spx(110);
-      @include tablet-up {
-        padding-top: ppx(280 * 1.2);
-      }
-      @include desktop-up {
-        padding-top: ppx(280);
+      let visibleCount = 0;
+
+      activityCards.forEach((card, index) => {
+        if (index >= activitiesData.length) {
+          return;
+        }
+
+        const activity = activitiesData[index];
+        let isVisible = true;
+
+        // 各フィルタ条件をチェック（3つのカテゴリのみ）
+        if (filters.price) {
+          const priceItem = activity.about.find((item) => item.term === '料金');
+          isVisible =
+            isVisible &&
+            !!(
+              priceItem &&
+              filterMatches(filters.price, priceItem.description, 'price')
+            );
+        }
+
+        if (filters.duration) {
+          const durationItem = activity.about.find(
+            (item) => item.term === '所要時間'
+          );
+          isVisible =
+            isVisible &&
+            !!(
+              durationItem &&
+              filterMatches(
+                filters.duration,
+                durationItem.description,
+                'duration'
+              )
+            );
+        }
+
+        if (filters.weather) {
+          const weatherItem = activity.about.find(
+            (item) => item.term === '実施可能天気'
+          );
+          isVisible =
+            isVisible &&
+            !!(
+              weatherItem &&
+              filterMatches(filters.weather, weatherItem.description, 'weather')
+            );
+        }
+
+        // カードの表示/非表示
+        (card as HTMLElement).style.display = isVisible ? 'block' : 'none';
+        if (isVisible) visibleCount++;
+      });
+
+      // 該当なしメッセージの表示制御
+      if (noResultsMessage) {
+        noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
       }
     }
 
-    /* ページヘッダーコンテナ */
-    .page-header-container {
-      margin-bottom: spx(68);
-      @include tablet-up {
-        margin-left: ppx(233 * 1.2);
-        margin-bottom: ppx(101 * 1.2);
+    // 各selectタグに連動フィルタリング対応のchangeイベントリスナーを追加
+    Object.entries(filterSelects).forEach(([filterKey, select]) => {
+      if (select) {
+        select.addEventListener('change', () => {
+          // フィルタリング実行
+          filterActivities();
+          // 他のフィルター選択肢を更新
+          updateFilterOptions(filterKey);
+        });
       }
-      @include desktop-up {
-        margin-left: ppx(233);
-        margin-bottom: ppx(101);
+    });
+
+    // 初期化完了（プロダクション準備完了）
+
+    // 初期化時に利用可能な選択肢のみを表示
+    updateFilterOptions();
+
+    // ============= リセット機能 =============
+
+    // リセットボタンの取得
+    const resetButton = document.querySelector(
+      '.filter-section__reset'
+    ) as HTMLElement | null;
+
+    // リセット機能の実装
+    function resetFilters() {
+      // 全てのフィルタ選択肢をリセット
+      Object.values(filterSelects).forEach((select) => {
+        if (select) {
+          select.value = '';
+        }
+      });
+
+      // 全てのアクティビティカードを表示
+      activityCards.forEach((card) => {
+        (card as HTMLElement).style.display = 'block';
+      });
+
+      // 該当なしメッセージを非表示
+      if (noResultsMessage) {
+        noResultsMessage.style.display = 'none';
       }
+
+      // フィルタオプションを初期状態に戻す
+      updateFilterOptions();
+
+      // ページの最上部にスムーズスクロール
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     }
 
-    /* フィルターセクション */
-    .filter-section {
-      padding-top: spx(15);
-      padding-bottom: spx(15);
-      background: #e4f1f8;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+    // リセットボタンにイベントリスナーを追加
+    if (resetButton) {
+      resetButton.addEventListener('click', resetFilters);
+    }
+  });
+</script>
 
+<style lang="scss">
+  // 必要なmixin/functionをインポート
+  @import '../../styles/variables';
+  @import '../../styles/functions';
+  @import '../../styles/mixins';
+
+  /* アクティビティ一覧ページ専用スタイル */
+  :global(.main-content--activities) {
+    background: var(--blue_2, #e7f3f9);
+    padding-top: spx(110);
+    @include tablet-up {
+      padding-top: ppx(280 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(280);
+    }
+  }
+
+  /* ページヘッダーコンテナ */
+  .page-header-container {
+    margin-bottom: spx(68);
+    @include tablet-up {
+      margin-left: ppx(233 * 1.2);
+      margin-bottom: ppx(101 * 1.2);
+    }
+    @include desktop-up {
+      margin-left: ppx(233);
+      margin-bottom: ppx(101);
+    }
+  }
+
+  /* フィルターセクション */
+  .filter-section {
+    padding-top: spx(15);
+    padding-bottom: spx(15);
+    background: #e4f1f8;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    @include tablet-up {
+      padding-top: ppx(45 * 1.2);
+      padding-bottom: ppx(45 * 1.2);
+      box-shadow: 0 ppx(7 * 1.2) ppx(7 * 1.2) 0 rgba(0, 0, 0, 0.1);
+    }
+    @include desktop-up {
+      padding-top: ppx(45);
+      padding-bottom: ppx(45);
+      box-shadow: 0 ppx(7) ppx(7) 0 rgba(0, 0, 0, 0.1);
+    }
+
+    &__desktop-panel {
       @include tablet-up {
-        padding-top: ppx(45 * 1.2);
-        padding-bottom: ppx(45 * 1.2);
-        box-shadow: 0 ppx(7 * 1.2) ppx(7 * 1.2) 0 rgba(0, 0, 0, 0.1);
-      }
-      @include desktop-up {
-        padding-top: ppx(45);
-        padding-bottom: ppx(45);
-        box-shadow: 0 ppx(7) ppx(7) 0 rgba(0, 0, 0, 0.1);
-      }
-
-      &__desktop-panel {
-        @include tablet-up {
-          display: flex;
-          align-items: center;
-          gap: ppx(37 * 1.2);
-          margin-left: ppx(233 * 0.1);
-        }
-        @include desktop-up {
-          gap: ppx(37);
-          margin-left: ppx(233);
-        }
-      }
-
-      &__title {
-        display: block;
-        color: var(--blue_6, #054965);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(30);
-        font-style: normal;
-        font-weight: 400;
-        line-height: spx(30); /* 100% */
-        letter-spacing: spx(0.9);
-        text-align: center;
-        margin-bottom: spx(30);
-        @include tablet-up {
-          text-align: left;
-          font-size: ppx(30 * 1.2);
-          line-height: ppx(30 * 1.2); /* 100% */
-          letter-spacing: ppx(0.9 * 1.2);
-          margin-bottom: 0;
-        }
-        @include desktop-up {
-          font-size: ppx(30);
-          line-height: ppx(30); /* 100% */
-          letter-spacing: ppx(0.9);
-        }
-      }
-      &__reset {
         display: flex;
         align-items: center;
-        justify-content: center;
-        color: white;
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(26);
-        font-style: normal;
-        font-weight: 400;
-        line-height: spx(26); /* 100% */
-        letter-spacing: spx(0.9);
-        text-align: center;
-        margin-bottom: spx(30);
-        margin-top: spx(40);
-        margin-inline: auto;
-        border-radius: spx(30);
-        background: var(--blue_4, #59a1c0);
-        width: spx(260);
-        height: spx(60);
-
-        @include tablet-up {
-          text-align: left;
-          font-size: ppx(26 * 1.2);
-          line-height: ppx(26 * 1.2); /* 100% */
-          letter-spacing: ppx(0.9 * 1.2);
-          margin-bottom: ppx(30 * 1.2);
-          margin-top: ppx(40 * 1.2);
-          width: ppx(260 * 1.2);
-          height: ppx(60 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(26);
-          line-height: ppx(26); /* 100% */
-          letter-spacing: ppx(0.9);
-          margin-bottom: ppx(30);
-          margin-top: ppx(40);
-          width: ppx(260);
-          height: ppx(60);
-        }
-      }
-    }
-
-    /* アクティビティカードショーケース */
-    .activity-showcase {
-      padding-top: spx(68);
-      padding-bottom: spx(100);
-      display: grid;
-      grid-template-columns: spx(576);
-      gap: spx(120);
-      justify-content: center;
-      @include tablet-up {
-        padding-top: ppx(160 * 1.2);
-        padding-bottom: ppx(50 * 1.2);
-        grid-template-columns: ppx(500 * 1.2) ppx(500 * 1.2) ppx(500 * 1.2);
-        gap: ppx(140 * 1.2) ppx(110 * 1.2);
+        gap: ppx(37 * 1.2);
+        margin-left: ppx(233 * 0.1);
       }
       @include desktop-up {
-        padding-top: ppx(180);
-        padding-bottom: ppx(150);
-        grid-template-columns: ppx(500) ppx(500) ppx(500);
-        gap: ppx(140) ppx(110);
+        gap: ppx(37);
+        margin-left: ppx(233);
       }
     }
 
-    /* アクティビティカード */
-    .activity-card {
-      $card-width-spx: 576;
-      $card-width-tpx: 500 * 1.2;
-      $card-width-ppx: 500;
-
+    &__title {
+      display: block;
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: spx(30); /* 100% */
+      letter-spacing: spx(0.9);
+      text-align: center;
+      margin-bottom: spx(30);
+      @include tablet-up {
+        text-align: left;
+        font-size: ppx(30 * 1.2);
+        line-height: ppx(30 * 1.2); /* 100% */
+        letter-spacing: ppx(0.9 * 1.2);
+        margin-bottom: 0;
+      }
+      @include desktop-up {
+        font-size: ppx(30);
+        line-height: ppx(30); /* 100% */
+        letter-spacing: ppx(0.9);
+      }
+    }
+    &__reset {
       display: flex;
-      flex-flow: column;
       align-items: center;
-      width: spx($card-width-spx);
+      justify-content: center;
+      color: white;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(26);
+      font-style: normal;
+      font-weight: 400;
+      line-height: spx(26); /* 100% */
+      letter-spacing: spx(0.9);
+      text-align: center;
+      margin-bottom: spx(30);
+      margin-top: spx(40);
       margin-inline: auto;
-      transition: all 0.3s ease;
+      border-radius: spx(30);
+      background: var(--blue_4, #59a1c0);
+      width: spx(260);
+      height: spx(60);
+
       @include tablet-up {
-        width: ppx($card-width-tpx);
+        text-align: left;
+        font-size: ppx(26 * 1.2);
+        line-height: ppx(26 * 1.2); /* 100% */
+        letter-spacing: ppx(0.9 * 1.2);
+        margin-bottom: ppx(30 * 1.2);
+        margin-top: ppx(40 * 1.2);
+        width: ppx(260 * 1.2);
+        height: ppx(60 * 1.2);
       }
       @include desktop-up {
-        width: ppx($card-width-ppx);
+        font-size: ppx(26);
+        line-height: ppx(26); /* 100% */
+        letter-spacing: ppx(0.9);
+        margin-bottom: ppx(30);
+        margin-top: ppx(40);
+        width: ppx(260);
+        height: ppx(60);
       }
+    }
+  }
 
-      &__link {
-        display: block;
-        text-decoration: none;
-        color: inherit;
-        position: relative;
+  /* アクティビティカードショーケース */
+  .activity-showcase {
+    padding-top: spx(68);
+    padding-bottom: spx(100);
+    display: grid;
+    grid-template-columns: spx(576);
+    gap: spx(120);
+    justify-content: center;
+    @include tablet-up {
+      padding-top: ppx(160 * 1.2);
+      padding-bottom: ppx(50 * 1.2);
+      grid-template-columns: ppx(500 * 1.2) ppx(500 * 1.2) ppx(500 * 1.2);
+      gap: ppx(140 * 1.2) ppx(110 * 1.2);
+    }
+    @include desktop-up {
+      padding-top: ppx(180);
+      padding-bottom: ppx(150);
+      grid-template-columns: ppx(500) ppx(500) ppx(500);
+      gap: ppx(140) ppx(110);
+    }
+  }
 
-        @include hover {
-          &:hover {
-            .activity-card__image::after {
-              opacity: 1;
-            }
-            .activity-card__title {
-              background: var(--green_2, #adc400);
-            }
-            .activity-card__name {
-              color: white;
-            }
-            .activity-card__arrow-icon path {
-              stroke: white;
-            }
+  /* アクティビティカード */
+  .activity-card {
+    $card-width-spx: 576;
+    $card-width-tpx: 500 * 1.2;
+    $card-width-ppx: 500;
+
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: spx($card-width-spx);
+    margin-inline: auto;
+    transition: all 0.3s ease;
+    @include tablet-up {
+      width: ppx($card-width-tpx);
+    }
+    @include desktop-up {
+      width: ppx($card-width-ppx);
+    }
+
+    &__link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+
+      @include hover {
+        &:hover {
+          .activity-card__image::after {
+            opacity: 1;
+          }
+          .activity-card__title {
+            background: var(--green_2, #adc400);
+          }
+          .activity-card__name {
+            color: white;
+          }
+          .activity-card__arrow-icon path {
+            stroke: white;
           }
         }
       }
+    }
 
-      &__image {
-        position: relative;
+    &__image {
+      position: relative;
 
-        &::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(255, 255, 255, 0.3);
-          border-radius: spx(20);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          pointer-events: none;
-          @include tablet-up {
-            border-radius: ppx(20 * 1.2);
-          }
-          @include desktop-up {
-            border-radius: ppx(20);
-          }
-        }
-      }
-
-      &__img {
-        display: block;
-        width: spx($card-width-spx);
-        height: spx($card-width-spx);
-        flex-shrink: 0;
-        aspect-ratio: 1/1;
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.3);
         border-radius: spx(20);
-        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
         @include tablet-up {
-          width: ppx($card-width-tpx);
-          height: ppx($card-width-tpx);
           border-radius: ppx(20 * 1.2);
         }
         @include desktop-up {
-          width: ppx($card-width-ppx);
-          height: ppx($card-width-ppx);
           border-radius: ppx(20);
         }
       }
-
-      &__title {
-        width: spx(358.4);
-        height: spx(60.8);
-        flex-shrink: 0;
-        border-radius: spx(120);
-        background: rgba($color: #fff, $alpha: 0.9);
-        display: grid;
-        place-items: center;
-        position: absolute;
-        bottom: spx(28);
-        left: 50%;
-        transform: translateX(-50%);
-        transition: background 0.3s ease;
-        @include tablet-up {
-          width: ppx(390 * 1.2);
-          height: ppx(66 * 1.2);
-          border-radius: ppx(130 * 1.2);
-          bottom: ppx(30 * 1.2);
-        }
-        @include desktop-up {
-          width: ppx(390);
-          height: ppx(66);
-          border-radius: ppx(130);
-          bottom: ppx(30);
-        }
-      }
-
-      &__name {
-        color: var(--blue_6, #054965);
-        text-align: center;
-        font-size: spx(28.8);
-        font-weight: 400;
-        line-height: spx(28.8); /* 100% */
-        letter-spacing: spx(-1.44);
-        transition: color 0.3s ease;
-        @include tablet-up {
-          font-size: ppx(32 * 1.2);
-          line-height: ppx(32 * 1.2); /* 100% */
-          letter-spacing: ppx(-1.6 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(32);
-          line-height: ppx(32); /* 100% */
-          letter-spacing: ppx(-1.6);
-        }
-      }
-
-      &__arrow-icon {
-        display: block;
-        width: spx(7.36);
-        position: absolute;
-        top: 50%;
-        right: spx(21);
-        transform: translateY(-50%);
-        @include tablet-up {
-          width: ppx(8 * 1.2);
-          right: ppx(24 * 1.2);
-        }
-        @include desktop-up {
-          width: ppx(8);
-          right: ppx(24);
-        }
-
-        path {
-          transition: stroke 0.3s ease;
-        }
-      }
-
-      &__info {
-        display: flex;
-        flex-flow: column;
-        gap: spx(21.6);
-        margin-top: spx(12);
-        width: spx($card-width-spx);
-        @include tablet-up {
-          gap: ppx(25 * 1.2);
-          margin-top: ppx(20 * 1.2);
-          width: ppx($card-width-tpx);
-        }
-        @include desktop-up {
-          gap: ppx(25);
-          margin-top: ppx(20);
-          width: ppx($card-width-ppx);
-        }
-      }
-
-      &__pricing {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      &__badges {
-        display: flex;
-        gap: spx(6.4);
-        @include tablet-up {
-          gap: ppx(5 * 1.2);
-        }
-        @include desktop-up {
-          gap: ppx(5);
-        }
-      }
-
-      &__badge-group {
-        width: spx(80);
-        height: spx(80);
-        flex-shrink: 0;
-        aspect-ratio: 1/1;
-        border-radius: spx(11.04);
-        background: var(--blue_5, #026995);
-        display: grid;
-        place-items: center;
-        @include tablet-up {
-          width: ppx(88 * 1.2);
-          height: ppx(88 * 1.2);
-          border-radius: ppx(12 * 1.2);
-        }
-        @include desktop-up {
-          width: ppx(88);
-          height: ppx(88);
-          border-radius: ppx(12);
-        }
-      }
-
-      &__badge {
-        color: var(--white, #fff);
-        text-align: center;
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(21.6);
-        font-style: normal;
-        font-weight: 400;
-        line-height: 130%; /* 28.08px */
-        letter-spacing: spx(2.16);
-        @include tablet-up {
-          font-size: ppx(24 * 1.2);
-          line-height: 130%; /* 31.2px */
-          letter-spacing: ppx(2.4 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(24);
-          line-height: 130%; /* 31.2px */
-          letter-spacing: ppx(2.4);
-        }
-
-        &--reservation {
-        }
-
-        &--group {
-        }
-      }
-
-      &__price {
-        color: var(--blue_5, #026995);
-        text-align: right;
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(36.8);
-        font-style: normal;
-        font-weight: 700;
-        line-height: 130%; /* 47.84px */
-        @include tablet-up {
-          font-size: ppx(40 * 1.2);
-          line-height: 130%; /* 52px */
-        }
-        @include desktop-up {
-          font-size: ppx(40);
-          line-height: 130%; /* 52px */
-        }
-      }
-
-      &__details {
-        display: flex;
-        flex-flow: column;
-        gap: spx(9.6);
-        @include tablet-up {
-          gap: ppx(12 * 1.2);
-        }
-        @include desktop-up {
-          gap: ppx(12);
-        }
-      }
-
-      &__detail-item {
-        display: grid;
-        grid-template-columns: 21vw auto;
-        position: relative;
-        padding-bottom: spx(9.6);
-        padding-inline: spx(16);
-        @include tablet-up {
-          grid-template-columns: 6.4vw * 1.2 auto;
-          padding-bottom: ppx(10 * 1.2);
-          padding-inline: ppx(18 * 1.2);
-        }
-        @include desktop-up {
-          grid-template-columns: 6.4vw auto;
-          padding-bottom: ppx(10);
-          padding-inline: ppx(18);
-        }
-
-        &:after {
-          content: '';
-          display: block;
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 1px;
-          background: linear-gradient(
-              to right,
-              #026995,
-              #026995 25%,
-              rgba(0, 0, 0, 0) 25%,
-              rgba(0, 0, 0, 0) 100%
-            )
-            0% 0%;
-          background-size: 4px 1px;
-        }
-      }
-
-      &__detail-term {
-        color: var(--blue_5, #026995);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(24.8);
-        font-style: normal;
-        font-weight: 700;
-        line-height: 135%; /* 33.48px */
-        letter-spacing: spx(4.96);
-        @include tablet-up {
-          font-size: ppx(27 * 1.2);
-          line-height: 150%; /* 40.5px */
-          letter-spacing: ppx(5.4 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(27);
-          line-height: 150%; /* 40.5px */
-          letter-spacing: ppx(5.4);
-        }
-      }
-
-      &__detail-desc {
-        color: var(--blue_5, #026995);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(24.8);
-        font-style: normal;
-        font-weight: 400;
-        line-height: 130%; /* 32.24px */
-        letter-spacing: spx(4.96);
-        @include tablet-up {
-          font-size: ppx(27 * 1.2);
-          line-height: 150%;
-          letter-spacing: ppx(5.4 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(27);
-          line-height: 150%;
-          letter-spacing: ppx(5.4);
-        }
-      }
-      &__description {
-        color: var(--blue_5, #026995);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(30);
-        font-style: normal;
-        font-weight: 400;
-        line-height: 160%; /* 48px */
-        letter-spacing: spx(-0.6);
-        width: spx(533);
-        margin-inline: auto;
-        margin-top: spx(20);
-        @include tablet-up {
-          font-size: ppx(27 * 1.2);
-          letter-spacing: ppx(-1.35 * 1.2);
-          width: ppx(464 * 1.2);
-          margin-top: ppx(20 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(27);
-          letter-spacing: ppx(-1.35);
-          width: ppx(464);
-          margin-top: ppx(20);
-        }
-      }
     }
-    .breadcrumb-wrapper {
-      margin-top: spx(120);
-      margin-bottom: spx(40);
+
+    &__img {
+      display: block;
+      width: spx($card-width-spx);
+      height: spx($card-width-spx);
+      flex-shrink: 0;
+      aspect-ratio: 1/1;
+      border-radius: spx(20);
+      object-fit: cover;
       @include tablet-up {
-        margin-top: ppx(150 * 1.2);
-        margin-bottom: ppx(70 * 1.2);
+        width: ppx($card-width-tpx);
+        height: ppx($card-width-tpx);
+        border-radius: ppx(20 * 1.2);
       }
       @include desktop-up {
-        margin-top: ppx(150);
-        margin-bottom: ppx(70);
+        width: ppx($card-width-ppx);
+        height: ppx($card-width-ppx);
+        border-radius: ppx(20);
       }
     }
 
-    // 該当なしメッセージのスタイル
-    .no-results-message {
+    &__title {
+      width: spx(358.4);
+      height: spx(60.8);
+      flex-shrink: 0;
+      border-radius: spx(120);
+      background: rgba($color: #fff, $alpha: 0.9);
+      display: grid;
+      place-items: center;
+      position: absolute;
+      bottom: spx(28);
+      left: 50%;
+      transform: translateX(-50%);
+      transition: background 0.3s ease;
+      @include tablet-up {
+        width: ppx(390 * 1.2);
+        height: ppx(66 * 1.2);
+        border-radius: ppx(130 * 1.2);
+        bottom: ppx(30 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(390);
+        height: ppx(66);
+        border-radius: ppx(130);
+        bottom: ppx(30);
+      }
+    }
+
+    &__name {
+      color: var(--blue_6, #054965);
       text-align: center;
-      padding: spx(100) spx(40);
+      font-size: spx(28.8);
+      font-weight: 400;
+      line-height: spx(28.8); /* 100% */
+      letter-spacing: spx(-1.44);
+      transition: color 0.3s ease;
       @include tablet-up {
-        padding: ppx(150 * 1.2) ppx(60 * 1.2);
+        font-size: ppx(32 * 1.2);
+        line-height: ppx(32 * 1.2); /* 100% */
+        letter-spacing: ppx(-1.6 * 1.2);
       }
       @include desktop-up {
-        padding: ppx(150) ppx(60);
-      }
-
-      &__text {
-        color: var(--blue_6, #054965);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(36);
-        font-style: normal;
-        font-weight: 700;
-        line-height: spx(48);
-        letter-spacing: spx(1.08);
-        margin-bottom: spx(20);
-        @include tablet-up {
-          font-size: ppx(42 * 1.2);
-          line-height: ppx(56 * 1.2);
-          letter-spacing: ppx(1.26 * 1.2);
-          margin-bottom: ppx(24 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(42);
-          line-height: ppx(56);
-          letter-spacing: ppx(1.26);
-          margin-bottom: ppx(24);
-        }
-      }
-
-      &__subtext {
-        color: var(--blue_5, #026995);
-        font-family: 'Zen Kaku Gothic New';
-        font-size: spx(26);
-        font-style: normal;
-        font-weight: 400;
-        line-height: spx(36);
-        letter-spacing: spx(0.78);
-        @include tablet-up {
-          font-size: ppx(28 * 1.2);
-          line-height: ppx(38 * 1.2);
-          letter-spacing: ppx(0.84 * 1.2);
-        }
-        @include desktop-up {
-          font-size: ppx(28);
-          line-height: ppx(38);
-          letter-spacing: ppx(0.84);
-        }
+        font-size: ppx(32);
+        line-height: ppx(32); /* 100% */
+        letter-spacing: ppx(-1.6);
       }
     }
-  </style>
+
+    &__arrow-icon {
+      display: block;
+      width: spx(7.36);
+      position: absolute;
+      top: 50%;
+      right: spx(21);
+      transform: translateY(-50%);
+      @include tablet-up {
+        width: ppx(8 * 1.2);
+        right: ppx(24 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(8);
+        right: ppx(24);
+      }
+
+      path {
+        transition: stroke 0.3s ease;
+      }
+    }
+
+    &__info {
+      display: flex;
+      flex-flow: column;
+      gap: spx(21.6);
+      margin-top: spx(12);
+      width: spx($card-width-spx);
+      @include tablet-up {
+        gap: ppx(25 * 1.2);
+        margin-top: ppx(20 * 1.2);
+        width: ppx($card-width-tpx);
+      }
+      @include desktop-up {
+        gap: ppx(25);
+        margin-top: ppx(20);
+        width: ppx($card-width-ppx);
+      }
+    }
+
+    &__pricing {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__badges {
+      display: flex;
+      gap: spx(6.4);
+      @include tablet-up {
+        gap: ppx(5 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(5);
+      }
+    }
+
+    &__badge-group {
+      width: spx(80);
+      height: spx(80);
+      flex-shrink: 0;
+      aspect-ratio: 1/1;
+      border-radius: spx(11.04);
+      background: var(--blue_5, #026995);
+      display: grid;
+      place-items: center;
+      @include tablet-up {
+        width: ppx(88 * 1.2);
+        height: ppx(88 * 1.2);
+        border-radius: ppx(12 * 1.2);
+      }
+      @include desktop-up {
+        width: ppx(88);
+        height: ppx(88);
+        border-radius: ppx(12);
+      }
+    }
+
+    &__badge {
+      color: var(--white, #fff);
+      text-align: center;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(21.6);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%; /* 28.08px */
+      letter-spacing: spx(2.16);
+      @include tablet-up {
+        font-size: ppx(24 * 1.2);
+        line-height: 130%; /* 31.2px */
+        letter-spacing: ppx(2.4 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(24);
+        line-height: 130%; /* 31.2px */
+        letter-spacing: ppx(2.4);
+      }
+
+      &--reservation {
+      }
+
+      &--group {
+      }
+    }
+
+    &__price {
+      color: var(--blue_5, #026995);
+      text-align: right;
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(36.8);
+      font-style: normal;
+      font-weight: 700;
+      line-height: 130%; /* 47.84px */
+      @include tablet-up {
+        font-size: ppx(40 * 1.2);
+        line-height: 130%; /* 52px */
+      }
+      @include desktop-up {
+        font-size: ppx(40);
+        line-height: 130%; /* 52px */
+      }
+    }
+
+    &__details {
+      display: flex;
+      flex-flow: column;
+      gap: spx(9.6);
+      @include tablet-up {
+        gap: ppx(12 * 1.2);
+      }
+      @include desktop-up {
+        gap: ppx(12);
+      }
+    }
+
+    &__detail-item {
+      display: grid;
+      grid-template-columns: 21vw auto;
+      position: relative;
+      padding-bottom: spx(9.6);
+      padding-inline: spx(16);
+      @include tablet-up {
+        grid-template-columns: 6.4vw * 1.2 auto;
+        padding-bottom: ppx(10 * 1.2);
+        padding-inline: ppx(18 * 1.2);
+      }
+      @include desktop-up {
+        grid-template-columns: 6.4vw auto;
+        padding-bottom: ppx(10);
+        padding-inline: ppx(18);
+      }
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+            to right,
+            #026995,
+            #026995 25%,
+            rgba(0, 0, 0, 0) 25%,
+            rgba(0, 0, 0, 0) 100%
+          )
+          0% 0%;
+        background-size: 4px 1px;
+      }
+    }
+
+    &__detail-term {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(24.8);
+      font-style: normal;
+      font-weight: 700;
+      line-height: 135%; /* 33.48px */
+      letter-spacing: spx(4.96);
+      @include tablet-up {
+        font-size: ppx(27 * 1.2);
+        line-height: 150%; /* 40.5px */
+        letter-spacing: ppx(5.4 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+        line-height: 150%; /* 40.5px */
+        letter-spacing: ppx(5.4);
+      }
+    }
+
+    &__detail-desc {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(24.8);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%; /* 32.24px */
+      letter-spacing: spx(4.96);
+      @include tablet-up {
+        font-size: ppx(27 * 1.2);
+        line-height: 150%;
+        letter-spacing: ppx(5.4 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+        line-height: 150%;
+        letter-spacing: ppx(5.4);
+      }
+    }
+    &__description {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(30);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%; /* 48px */
+      letter-spacing: spx(-0.6);
+      width: spx(533);
+      margin-inline: auto;
+      margin-top: spx(20);
+      @include tablet-up {
+        font-size: ppx(27 * 1.2);
+        letter-spacing: ppx(-1.35 * 1.2);
+        width: ppx(464 * 1.2);
+        margin-top: ppx(20 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(27);
+        letter-spacing: ppx(-1.35);
+        width: ppx(464);
+        margin-top: ppx(20);
+      }
+    }
+  }
+  .breadcrumb-wrapper {
+    margin-top: spx(120);
+    margin-bottom: spx(40);
+    @include tablet-up {
+      margin-top: ppx(150 * 1.2);
+      margin-bottom: ppx(70 * 1.2);
+    }
+    @include desktop-up {
+      margin-top: ppx(150);
+      margin-bottom: ppx(70);
+    }
+  }
+
+  // 該当なしメッセージのスタイル
+  .no-results-message {
+    text-align: center;
+    padding: spx(100) spx(40);
+    @include tablet-up {
+      padding: ppx(150 * 1.2) ppx(60 * 1.2);
+    }
+    @include desktop-up {
+      padding: ppx(150) ppx(60);
+    }
+
+    &__text {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(36);
+      font-style: normal;
+      font-weight: 700;
+      line-height: spx(48);
+      letter-spacing: spx(1.08);
+      margin-bottom: spx(20);
+      @include tablet-up {
+        font-size: ppx(42 * 1.2);
+        line-height: ppx(56 * 1.2);
+        letter-spacing: ppx(1.26 * 1.2);
+        margin-bottom: ppx(24 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(42);
+        line-height: ppx(56);
+        letter-spacing: ppx(1.26);
+        margin-bottom: ppx(24);
+      }
+    }
+
+    &__subtext {
+      color: var(--blue_5, #026995);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(26);
+      font-style: normal;
+      font-weight: 400;
+      line-height: spx(36);
+      letter-spacing: spx(0.78);
+      @include tablet-up {
+        font-size: ppx(28 * 1.2);
+        line-height: ppx(38 * 1.2);
+        letter-spacing: ppx(0.84 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(28);
+        line-height: ppx(38);
+        letter-spacing: ppx(0.84);
+      }
+    }
+  }
+</style>

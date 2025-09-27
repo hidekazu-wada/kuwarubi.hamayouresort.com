@@ -49,19 +49,11 @@ const sortedPosts = [...informationPosts].sort(
 // TODO: 以下の項目を必ず変更してください
 // ============================================================
 
-// ページメタ情報（必ず変更）
-const pageTitle = 'インフォメーション | 光風閣くわるび';
-const pageDescription = 'ページの説明文をここに記述します。';
-
 // ページ固有のクラス名（page-nameを適切な名前に変更）
 const pageClass = 'main-content--information';
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  pageClass={pageClass}
->
+<BaseLayout pageTitle="インフォメーション" pageClass={pageClass}>
   <!-- ============================================================ -->
   <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
   <!-- ============================================================ -->

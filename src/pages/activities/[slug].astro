@@ -48,10 +48,6 @@ if (!activity) {
   return Astro.redirect('/404');
 }
 
-// ページメタ情報
-const pageTitle = `${activity.title} | クワルビリゾート`;
-const pageDescription = activity.description || `${activity.title}の詳細情報`;
-
 // 人気のアクティビティをフィルタリング
 const popularActivities = activities.filter((activity) => activity.isPopular);
 
@@ -67,430 +63,423 @@ await Promise.all(
 );
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} pageClass="main-content--activity-detail">
-        <article class="activity-detail">
-          <header class="activity-detail__header">
-            <div class="activity-detail__title-wrapper">
-              <div class="activity-detail__category">
-                {activity.category.toUpperCase()}
-              </div>
-            </div>
-            <h1 class="activity-detail__title">{activity.title}</h1>
-          </header>
+<BaseLayout
+  pageTitle={activity.title}
+  pageClass="main-content--activity-detail"
+>
+  <article class="activity-detail">
+    <header class="activity-detail__header">
+      <div class="activity-detail__title-wrapper">
+        <div class="activity-detail__category">
+          {activity.category.toUpperCase()}
+        </div>
+      </div>
+      <h1 class="activity-detail__title">{activity.title}</h1>
+    </header>
 
-          <section class="activity-detail__gallery">
-            <div class="activities-detail__swiper">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <picture class="activity-detail__picture">
-                    <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                    <source
-                      media="(min-width: 1024px)"
-                      srcset={slideImage01.srcSet.toString()}
-                    />
-                    <!-- タブレット（744px以上）→ 中解像度版 -->
-                    <source
-                      media="(min-width: 744px)"
-                      srcset={slideImage01.srcSet.toString()}
-                    />
-                    <!-- スマホ（744px未満）→ 最小解像度版 -->
-                    <img
-                      src={slideImage01.src}
-                      alt={`${activity.title}の風景`}
-                      class="activity-detail__image"
-                    />
-                  </picture>
-                </div>
-                <!-- テスト用スライド2 -->
-                <div class="swiper-slide">
-                  <picture class="activity-detail__picture">
-                    <img
-                      src={slideImage01.src}
-                      alt="樹海トレイルの風景2"
-                      class="activity-detail__image"
-                    />
-                  </picture>
-                </div>
-                <!-- テスト用スライド3 -->
-                <div class="swiper-slide">
-                  <picture class="activity-detail__picture">
-                    <img
-                      src={slideImage01.src}
-                      alt="樹海トレイルの風景3"
-                      class="activity-detail__image"
-                    />
-                  </picture>
-                </div>
-              </div>
-              <!-- ページネーション（既存のクラス名も維持） -->
-              <div class="swiper-pagination activity-detail__pager"></div>
-            </div>
-          </section>
-
-          <section class="activity-detail__intro">
-            <h2 class="activity-detail__intro-title">
-              {activity.intro.title}
-            </h2>
-
-            <div class="activity-detail__intro-content">
-              <p class="activity-detail__intro-text">
-                {activity.intro.text}
-              </p>
-            </div>
-          </section>
-
-          <span class="activity-detail__divider"></span>
-
-          <nav class="activity-detail__nav">
-            <a href="#highlights" class="activity-detail__nav-item"
-              ><span class="activity-detail__nav-text">おすすめポイント</span
-              ></a
-            >
-            <a href="#overview" class="activity-detail__nav-item"
-              ><span class="activity-detail__nav-text">概要・料金</span></a
-            >
-            <a href="#program" class="activity-detail__nav-item"
-              ><span class="activity-detail__nav-text">プログラムの流れ</span
-              ></a
-            >
-            <a href="#booking" class="activity-detail__nav-item"
-              ><span class="activity-detail__nav-text">ご予約</span></a
-            >
-          </nav>
-        </article>
-        <section class="point" id="highlights">
-          <figure class="point__figure">
-            <picture class="point__picture">
+    <section class="activity-detail__gallery">
+      <div class="activities-detail__swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <picture class="activity-detail__picture">
               <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
               <source
                 media="(min-width: 1024px)"
-                srcset={bgImage.srcSet.toString()}
+                srcset={slideImage01.srcSet.toString()}
               />
               <!-- タブレット（744px以上）→ 中解像度版 -->
               <source
                 media="(min-width: 744px)"
-                srcset={bgImage.srcSet.toString()}
+                srcset={slideImage01.srcSet.toString()}
               />
               <!-- スマホ（744px未満）→ 最小解像度版 -->
               <img
-                class="point__image"
-                src={bgImage.src}
-                alt={`${activity.title}のポイント画像`}
+                src={slideImage01.src}
+                alt={`${activity.title}の風景`}
+                class="activity-detail__image"
               />
             </picture>
-          </figure>
-          <article class="point__content">
-            <header class="point__header">
-              <div class="point__header-wrapper">
-                <p class="point__label">POINT</p>
-                <hgroup class="point__title-group">
-                  <h3 class="point__title">
-                    {
-                      activity.point.titleLines.map((line) => (
-                        <span class="point__title-line">{line}</span>
-                      ))
-                    }
-                  </h3>
-                </hgroup>
-              </div>
-            </header>
-            <div class="point__description">
-              {activity.point.description}
-            </div>
-          </article>
-        </section>
-        <section class="about" id="overview">
-          <header class="about__header">
-            <h4 class="about__title">About</h4>
-            <p class="about__subtitle">概要</p>
-          </header>
-          <div class="about__content">
-            <dl class="about__list">
-              {
-                activity.about.map((item) => (
-                  <div class="about__item">
-                    <dt class="about__term">{item.term}</dt>
-                    <dd class="about__description">
-                      {item.description}
-                      {item.note && (
-                        <small class="about__note">＊{item.note}</small>
-                      )}
-                    </dd>
-                  </div>
-                ))
-              }
-            </dl>
           </div>
-        </section>
-
-        <section class="flow" id="program">
-          <header class="flow__header">
-            <h4 class="flow__title">Flow</h4>
-            <p class="flow__subtitle">プログラムの流れ</p>
-          </header>
-          <div class="flow__content">
-            <ol class="flow__list">
-              {
-                activity.flow.map((step) => (
-                  <li class="flow__item">
-                    <article class="flow__step">
-                      <header class="flow__step-header">
-                        <span class="flow__step-number">{step.stepNumber}</span>
-                        <h5 class="flow__step-title">{step.title}</h5>
-                      </header>
-                      <p class="flow__step-description">{step.description}</p>
-                    </article>
-                  </li>
-                ))
-              }
-            </ol>
+          <!-- テスト用スライド2 -->
+          <div class="swiper-slide">
+            <picture class="activity-detail__picture">
+              <img
+                src={slideImage01.src}
+                alt="樹海トレイルの風景2"
+                class="activity-detail__image"
+              />
+            </picture>
           </div>
-        </section>
-
-        <section class="reservation" id="booking">
-          <header class="reservation__header">
-            <p class="reservation__subtitle">Reservation</p>
-            <h3 class="reservation__title">ご予約</h3>
-          </header>
-          <address class="reservation__contact">
-            {
-              activity.reservation.map((method, index) => (
-                <>
-                  <div class="reservation__method">
-                    <dt class="reservation__method-label">{method.label}</dt>
-                    <dd class="reservation__method-value">
-                      <a href={method.link}>{method.value}</a>
-                    </dd>
-                    <dd class="reservation__method-time">{method.hours}</dd>
-                  </div>
-                  {index < activity.reservation.length - 1 && (
-                    <span class="reservation__divider" />
-                  )}
-                </>
-              ))
-            }
-          </address>
-        </section>
-
-        <section class="popular-activities">
-          <header class="popular-activities__header">
-            <h2 class="popular-activities__title">人気のアクティビティ</h2>
-          </header>
-
-          <div
-            class="popular-activities__slider activities-detail-popular__swiper"
-          >
-            <div class="swiper-wrapper">
-              {
-                popularActivities.map((popularActivity) => {
-                  // 各アクティビティの所要時間、対象年齢、実施時期をaboutデータから取得
-                  const durationData = popularActivity.about.find(
-                    (item) => item.term === '所要時間'
-                  );
-                  const ageData = popularActivity.about.find(
-                    (item) => item.term === '対象年齢'
-                  );
-                  const seasonData = popularActivity.about.find(
-                    (item) => item.term === '実施時期'
-                  );
-
-                  return (
-                    <div class="swiper-slide">
-                      <a
-                        href={`/activities/${popularActivity.slug}`}
-                        class="popular-activities__card-link"
-                      >
-                        <article class="popular-activities__card">
-                          <div class="popular-activities__card-image">
-                            <picture class="popular-activities__picture">
-                              <source
-                                media="(min-width: 1024px)"
-                                srcset={supImage.srcSet.toString()}
-                              />
-                              <source
-                                media="(min-width: 744px)"
-                                srcset={supImage.srcSet.toString()}
-                              />
-                              <img
-                                src={supImage.src}
-                                alt={`${popularActivity.title}の様子`}
-                                class="popular-activities__img"
-                              />
-                            </picture>
-                          </div>
-                          <div class="popular-activities__card-title">
-                            <h3 class="popular-activities__activity-name">
-                              {popularActivity.title}
-                            </h3>
-                            <svg
-                              class="popular-activities__arrow-icon"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 10 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
-                                stroke="#054965"
-                                stroke-width="1.84"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
-                          </div>
-                        </article>
-                      </a>
-                      <div class="popular-activities__card-info">
-                        <div class="popular-activities__pricing">
-                          <div class="popular-activities__badges">
-                            {popularActivity.badges.map((badge) => (
-                              <div class="popular-activities__badge-group">
-                                <span
-                                  class={`popular-activities__badge popular-activities__badge--${badge.type}`}
-                                >
-                                  {badge.text.split('\n').map((line, index) => (
-                                    <>
-                                      {line}
-                                      {index <
-                                        badge.text.split('\n').length - 1 && (
-                                        <br />
-                                      )}
-                                    </>
-                                  ))}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                          <div class="popular-activities__price">
-                            ¥{popularActivity.price.adult.toLocaleString()}〜
-                          </div>
-                        </div>
-                        <dl class="popular-activities__details">
-                          {durationData && (
-                            <div class="popular-activities__detail-item">
-                              <dt class="popular-activities__detail-term">
-                                所要時間：
-                              </dt>
-                              <dd class="popular-activities__detail-desc">
-                                {durationData.description}
-                              </dd>
-                            </div>
-                          )}
-                          {ageData && (
-                            <div class="popular-activities__detail-item">
-                              <dt class="popular-activities__detail-term">
-                                対象年齢：
-                              </dt>
-                              <dd class="popular-activities__detail-desc">
-                                {ageData.description}
-                              </dd>
-                            </div>
-                          )}
-                          {seasonData && (
-                            <div class="popular-activities__detail-item">
-                              <dt class="popular-activities__detail-term">
-                                実施時期：
-                              </dt>
-                              <dd class="popular-activities__detail-desc">
-                                {seasonData.description}
-                              </dd>
-                            </div>
-                          )}
-                        </dl>
-                      </div>
-                    </div>
-                  );
-                })
-              }
-            </div>
+          <!-- テスト用スライド3 -->
+          <div class="swiper-slide">
+            <picture class="activity-detail__picture">
+              <img
+                src={slideImage01.src}
+                alt="樹海トレイルの風景3"
+                class="activity-detail__image"
+              />
+            </picture>
           </div>
-
-          <div
-            class="popular-activities__pagination swiper-pagination activities-detail-popular__swiper-pagination"
-          >
-          </div>
-
-          <a href="/activities" class="popular-activities__more">
-            <span class="popular-activities__more-text">more</span>
-            <svg
-              class="popular-activities__more-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 22 23"
-              fill="none"
-            >
-              <path
-                d="M1.88672 21.4004L20.1146 11.4004L1.88672 1.40039"
-                stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"></path>
-            </svg>
-          </a>
-        </section>
-        <div class="breadcrumb-wrapper">
-          <Breadcrumb
-            items={[
-              { text: 'TOP', href: '/' },
-              { text: 'アクティビティ', href: '/activities' },
-              { text: activity.title },
-            ]}
-          />
         </div>
+        <!-- ページネーション（既存のクラス名も維持） -->
+        <div class="swiper-pagination activity-detail__pager"></div>
+      </div>
+    </section>
+
+    <section class="activity-detail__intro">
+      <h2 class="activity-detail__intro-title">
+        {activity.intro.title}
+      </h2>
+
+      <div class="activity-detail__intro-content">
+        <p class="activity-detail__intro-text">
+          {activity.intro.text}
+        </p>
+      </div>
+    </section>
+
+    <span class="activity-detail__divider"></span>
+
+    <nav class="activity-detail__nav">
+      <a href="#highlights" class="activity-detail__nav-item"
+        ><span class="activity-detail__nav-text">おすすめポイント</span></a
+      >
+      <a href="#overview" class="activity-detail__nav-item"
+        ><span class="activity-detail__nav-text">概要・料金</span></a
+      >
+      <a href="#program" class="activity-detail__nav-item"
+        ><span class="activity-detail__nav-text">プログラムの流れ</span></a
+      >
+      <a href="#booking" class="activity-detail__nav-item"
+        ><span class="activity-detail__nav-text">ご予約</span></a
+      >
+    </nav>
+  </article>
+  <section class="point" id="highlights">
+    <figure class="point__figure">
+      <picture class="point__picture">
+        <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
+        <source
+          media="(min-width: 1024px)"
+          srcset={bgImage.srcSet.toString()}
+        />
+        <!-- タブレット（744px以上）→ 中解像度版 -->
+        <source media="(min-width: 744px)" srcset={bgImage.srcSet.toString()} />
+        <!-- スマホ（744px未満）→ 最小解像度版 -->
+        <img
+          class="point__image"
+          src={bgImage.src}
+          alt={`${activity.title}のポイント画像`}
+        />
+      </picture>
+    </figure>
+    <article class="point__content">
+      <header class="point__header">
+        <div class="point__header-wrapper">
+          <p class="point__label">POINT</p>
+          <hgroup class="point__title-group">
+            <h3 class="point__title">
+              {
+                activity.point.titleLines.map((line) => (
+                  <span class="point__title-line">{line}</span>
+                ))
+              }
+            </h3>
+          </hgroup>
+        </div>
+      </header>
+      <div class="point__description">
+        {activity.point.description}
+      </div>
+    </article>
+  </section>
+  <section class="about" id="overview">
+    <header class="about__header">
+      <h4 class="about__title">About</h4>
+      <p class="about__subtitle">概要</p>
+    </header>
+    <div class="about__content">
+      <dl class="about__list">
+        {
+          activity.about.map((item) => (
+            <div class="about__item">
+              <dt class="about__term">{item.term}</dt>
+              <dd class="about__description">
+                {item.description}
+                {item.note && <small class="about__note">＊{item.note}</small>}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="flow" id="program">
+    <header class="flow__header">
+      <h4 class="flow__title">Flow</h4>
+      <p class="flow__subtitle">プログラムの流れ</p>
+    </header>
+    <div class="flow__content">
+      <ol class="flow__list">
+        {
+          activity.flow.map((step) => (
+            <li class="flow__item">
+              <article class="flow__step">
+                <header class="flow__step-header">
+                  <span class="flow__step-number">{step.stepNumber}</span>
+                  <h5 class="flow__step-title">{step.title}</h5>
+                </header>
+                <p class="flow__step-description">{step.description}</p>
+              </article>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="reservation" id="booking">
+    <header class="reservation__header">
+      <p class="reservation__subtitle">Reservation</p>
+      <h3 class="reservation__title">ご予約</h3>
+    </header>
+    <address class="reservation__contact">
+      {
+        activity.reservation.map((method, index) => (
+          <>
+            <div class="reservation__method">
+              <dt class="reservation__method-label">{method.label}</dt>
+              <dd class="reservation__method-value">
+                <a href={method.link}>{method.value}</a>
+              </dd>
+              <dd class="reservation__method-time">{method.hours}</dd>
+            </div>
+            {index < activity.reservation.length - 1 && (
+              <span class="reservation__divider" />
+            )}
+          </>
+        ))
+      }
+    </address>
+  </section>
+
+  <section class="popular-activities">
+    <header class="popular-activities__header">
+      <h2 class="popular-activities__title">人気のアクティビティ</h2>
+    </header>
+
+    <div class="popular-activities__slider activities-detail-popular__swiper">
+      <div class="swiper-wrapper">
+        {
+          popularActivities.map((popularActivity) => {
+            // 各アクティビティの所要時間、対象年齢、実施時期をaboutデータから取得
+            const durationData = popularActivity.about.find(
+              (item) => item.term === '所要時間'
+            );
+            const ageData = popularActivity.about.find(
+              (item) => item.term === '対象年齢'
+            );
+            const seasonData = popularActivity.about.find(
+              (item) => item.term === '実施時期'
+            );
+
+            return (
+              <div class="swiper-slide">
+                <a
+                  href={`/activities/${popularActivity.slug}`}
+                  class="popular-activities__card-link"
+                >
+                  <article class="popular-activities__card">
+                    <div class="popular-activities__card-image">
+                      <picture class="popular-activities__picture">
+                        <source
+                          media="(min-width: 1024px)"
+                          srcset={supImage.srcSet.toString()}
+                        />
+                        <source
+                          media="(min-width: 744px)"
+                          srcset={supImage.srcSet.toString()}
+                        />
+                        <img
+                          src={supImage.src}
+                          alt={`${popularActivity.title}の様子`}
+                          class="popular-activities__img"
+                        />
+                      </picture>
+                    </div>
+                    <div class="popular-activities__card-title">
+                      <h3 class="popular-activities__activity-name">
+                        {popularActivity.title}
+                      </h3>
+                      <svg
+                        class="popular-activities__arrow-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 10 17"
+                        fill="none"
+                      >
+                        <path
+                          d="M0.958984 15.9192L8.31898 8.55922L0.958984 1.19922"
+                          stroke="#054965"
+                          stroke-width="1.84"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </article>
+                </a>
+                <div class="popular-activities__card-info">
+                  <div class="popular-activities__pricing">
+                    <div class="popular-activities__badges">
+                      {popularActivity.badges.map((badge) => (
+                        <div class="popular-activities__badge-group">
+                          <span
+                            class={`popular-activities__badge popular-activities__badge--${badge.type}`}
+                          >
+                            {badge.text.split('\n').map((line, index) => (
+                              <>
+                                {line}
+                                {index < badge.text.split('\n').length - 1 && (
+                                  <br />
+                                )}
+                              </>
+                            ))}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <div class="popular-activities__price">
+                      ¥{popularActivity.price.adult.toLocaleString()}〜
+                    </div>
+                  </div>
+                  <dl class="popular-activities__details">
+                    {durationData && (
+                      <div class="popular-activities__detail-item">
+                        <dt class="popular-activities__detail-term">
+                          所要時間：
+                        </dt>
+                        <dd class="popular-activities__detail-desc">
+                          {durationData.description}
+                        </dd>
+                      </div>
+                    )}
+                    {ageData && (
+                      <div class="popular-activities__detail-item">
+                        <dt class="popular-activities__detail-term">
+                          対象年齢：
+                        </dt>
+                        <dd class="popular-activities__detail-desc">
+                          {ageData.description}
+                        </dd>
+                      </div>
+                    )}
+                    {seasonData && (
+                      <div class="popular-activities__detail-item">
+                        <dt class="popular-activities__detail-term">
+                          実施時期：
+                        </dt>
+                        <dd class="popular-activities__detail-desc">
+                          {seasonData.description}
+                        </dd>
+                      </div>
+                    )}
+                  </dl>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+
+    <div
+      class="popular-activities__pagination swiper-pagination activities-detail-popular__swiper-pagination"
+    >
+    </div>
+
+    <a href="/activities" class="popular-activities__more">
+      <span class="popular-activities__more-text">more</span>
+      <svg
+        class="popular-activities__more-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 22 23"
+        fill="none"
+      >
+        <path
+          d="M1.88672 21.4004L20.1146 11.4004L1.88672 1.40039"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </a>
+  </section>
+  <div class="breadcrumb-wrapper">
+    <Breadcrumb
+      items={[
+        { text: 'TOP', href: '/' },
+        { text: 'アクティビティ', href: '/activities' },
+        { text: activity.title },
+      ]}
+    />
+  </div>
 </BaseLayout>
 
-  <script>
-    // Swiperのインポート
-    import Swiper from 'swiper';
-    import { Pagination, Autoplay } from 'swiper/modules';
+<script>
+  // Swiperのインポート
+  import Swiper from 'swiper';
+  import { Pagination, Autoplay } from 'swiper/modules';
 
-    // DOMロード後に実行
-    document.addEventListener('DOMContentLoaded', () => {
-      // Swiper初期化（activities-detail専用・完全独立）
-      new Swiper('.activities-detail__swiper', {
-        modules: [Pagination, Autoplay],
-        slidesPerView: 1,
-        spaceBetween: 20,
-        autoplay: {
-          delay: 4000,
-          disableOnInteraction: false,
-        },
-        pagination: {
-          el: '.activity-detail__pager',
-          clickable: true,
-        },
-      });
-
-      // 人気のアクティビティSwiper初期化（activities-detail-popular専用・完全独立）
-      new Swiper('.activities-detail-popular__swiper', {
-        modules: [Pagination, Autoplay],
-        slidesPerView: 1.35,
-        centeredSlides: true, // スマホでセンターモード有効
-        autoplay: {
-          delay: 5000,
-          disableOnInteraction: false,
-        },
-        pagination: {
-          el: '.activities-detail-popular__swiper-pagination',
-          clickable: true,
-        },
-        // レスポンシブ設定（variables.scssのブレイクポイントに対応）
-        breakpoints: {
-          // タブレット以上（744px以上）
-          744: {
-            slidesPerView: 3,
-            centeredSlides: false, // タブレット以上ではセンターモード無効
-          },
-          // デスクトップ以上（1024px以上）
-          1024: {
-            slidesPerView: 3,
-            centeredSlides: false, // デスクトップでもセンターモード無効
-          },
-        },
-      });
-
-      // ページ固有のJavaScriptコードのみここに残す
-      // メニューとモーダルの制御はBaseLayoutで処理されるため削除
+  // DOMロード後に実行
+  document.addEventListener('DOMContentLoaded', () => {
+    // Swiper初期化（activities-detail専用・完全独立）
+    new Swiper('.activities-detail__swiper', {
+      modules: [Pagination, Autoplay],
+      slidesPerView: 1,
+      spaceBetween: 20,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.activity-detail__pager',
+        clickable: true,
+      },
     });
-  </script>
+
+    // 人気のアクティビティSwiper初期化（activities-detail-popular専用・完全独立）
+    new Swiper('.activities-detail-popular__swiper', {
+      modules: [Pagination, Autoplay],
+      slidesPerView: 1.35,
+      centeredSlides: true, // スマホでセンターモード有効
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.activities-detail-popular__swiper-pagination',
+        clickable: true,
+      },
+      // レスポンシブ設定（variables.scssのブレイクポイントに対応）
+      breakpoints: {
+        // タブレット以上（744px以上）
+        744: {
+          slidesPerView: 3,
+          centeredSlides: false, // タブレット以上ではセンターモード無効
+        },
+        // デスクトップ以上（1024px以上）
+        1024: {
+          slidesPerView: 3,
+          centeredSlides: false, // デスクトップでもセンターモード無効
+        },
+      },
+    });
+
+    // ページ固有のJavaScriptコードのみここに残す
+    // メニューとモーダルの制御はBaseLayoutで処理されるため削除
+  });
+</script>
 
 <style lang="scss">
   // 必要なmixin/functionをインポート

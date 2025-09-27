@@ -52,19 +52,11 @@ const nextDateInfo = next ? formatDate(next.date) : null;
 // TODO: 以下の項目を必ず変更してください
 // ============================================================
 
-// ページメタ情報（動的に設定）
-const pageTitle = `${post.title} | 光風閣くわるび`;
-const pageDescription = post.title;
-
 // ページ固有のクラス名
 const pageClass = 'main-content--blog-detail';
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  pageClass={pageClass}
->
+<BaseLayout pageTitle={post.title} pageClass={pageClass}>
   <!-- ============================================================ -->
   <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
   <!-- ============================================================ -->
@@ -129,8 +121,13 @@ const pageClass = 'main-content--blog-detail';
         }
       </div>
 
-      <a href={`/information?category=${encodeURIComponent(post.category)}`} class="blog-detail__list-link">
-        <span class="blog-detail__list-text">{post.category === 'ブログ記事' ? 'ブログ' : post.category}一覧</span>
+      <a
+        href={`/information?category=${encodeURIComponent(post.category)}`}
+        class="blog-detail__list-link"
+      >
+        <span class="blog-detail__list-text"
+          >{post.category === 'ブログ記事' ? 'ブログ' : post.category}一覧</span
+        >
         <svg
           class="blog-detail__list-icon"
           xmlns="http://www.w3.org/2000/svg"
