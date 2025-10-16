@@ -945,6 +945,283 @@ const eventPosts = getTopPageEventPosts();
 
 ---
 
+## 🎯 完了: TOPページBlogセクションの動的化 ✅
+
+### 📋 実装完了概要
+
+**目的**: TOPページのBlogセクションのコンテンツをハードコードから`information.ts`データベースを使用した動的表示に変更し、最新のブログ記事を自動的に表示できるようにする
+
+**結果**: スタイルとスクリプトを完全に維持しながら、コンテンツのみが動的化されたシステムが完成。最新10件のブログ記事が日付降順でTOPページに表示される。
+
+### 🎨 実装内容
+
+#### **1. information.tsの拡張**
+
+- **型定義追加**: `topPageDisplay`オプショナルフィールドの実装
+- **画像インポート**: TOPページBlogスライダー用の画像（ImageMetadata）
+- **ヘルパー関数**: `getTopPageBlogPosts()`の実装（最大10件、日付降順）
+- **データ追加**: 合計10件のブログ記事にTOPページ表示用データを追加
+
+#### **2. Blog.astroの動的化**
+
+- **ファイル**: `/src/components/pages/top/Blog.astro`
+- **変更**: 9つのハードコードされたスライドを動的map()ループに置き換え
+- **維持**: 全てのBEMクラス名、HTML構造、スタイル、Swiperスクリプトは完全に維持
+
+### 📁 主な変更ファイル
+
+```
+src/
+├── data/
+│   └── information.ts           # 型定義拡張、画像インポート、ヘルパー関数追加
+├── components/
+│   └── pages/
+│       └── top/
+│           └── Blog.astro       # ハードコード→動的map()ループに変更
+└── assets/
+    └── images/
+        └── top/
+            └── blog/
+                ├── slide-01.png  # ブログスライダー用画像
+                ├── slide-02.png
+                ├── slide-03.png
+                └── slide-04.png
+```
+
+### 🔧 技術的な実装詳細
+
+#### **型定義拡張（information.ts）**
+
+```typescript
+export interface InformationPost {
+  id: string;
+  slug: string;
+  date: string;
+  category: 'お知らせ' | 'イベント情報' | 'ブログ記事';
+  title: string;
+  content: string;
+  thumbnail?: string;
+
+  // TOPページBlogスライダー表示用データ（オプション）
+  topPageDisplay?: {
+    showOnTop: boolean;           // TOPページに表示するか
+    slideImage: any;              // スライダー用画像（ImageMetadata）
+    displayOrder: number;         // 表示順序（1から開始）
+  };
+}
+```
+
+#### **画像インポート（ImageMetadata方式）**
+
+```typescript
+// TOPページBlogセクション用画像インポート
+import TopBlogSlide01 from '../assets/images/top/blog/slide-01.png';
+import TopBlogSlide02 from '../assets/images/top/blog/slide-02.png';
+import TopBlogSlide03 from '../assets/images/top/blog/slide-03.png';
+import TopBlogSlide04 from '../assets/images/top/blog/slide-04.png';
+```
+
+#### **ヘルパー関数**
+
+```typescript
+// Helper function to get blog posts for TOP page Blog slider (最大10件、日付降順)
+export function getTopPageBlogPosts(): InformationPost[] {
+  return informationPosts
+    .filter((post) => post.topPageDisplay?.showOnTop)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 10);
+}
+```
+
+**処理フロー**:
+1. `filter()` - `topPageDisplay.showOnTop === true`の記事のみ抽出
+2. `sort()` - 日付の新しい順に並び替え（`new Date().getTime()`で数値比較）
+3. `slice(0, 10)` - 最大10件取得
+
+#### **動的レンダリング（Blog.astro フロントマター）**
+
+```astro
+---
+import { getImage } from 'astro:assets';
+import MoreButton from '../../ui/MoreButton.astro';
+import SectionWave from '../../ui/SectionWave.astro';
+import { getTopPageBlogPosts, formatDate } from '../../../data/information';
+// Swiper CSS
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+// TOPページBlogスライダー用のブログ記事を取得
+const blogPosts = getTopPageBlogPosts();
+
+// 各ブログ記事のスライド画像を最適化
+const optimizedBlogPosts = await Promise.all(
+  blogPosts.map(async (post) => {
+    const optimizedImage = await getImage({
+      src: post.topPageDisplay!.slideImage,
+      format: 'webp',
+      widths: [500],
+    });
+    return {
+      ...post,
+      optimizedSlideImage: optimizedImage,
+    };
+  }),
+);
+---
+```
+
+#### **動的レンダリング（スライダー部分）**
+
+**変更前**: 9つのハードコードされた`<div class="swiper-slide">`要素
+
+**変更後**: 動的map()ループ
+
+```astro
+<div class="swiper-wrapper">
+  {
+    optimizedBlogPosts.map((post) => {
+      const formattedDate = formatDate(post.date);
+      return (
+        <div class="swiper-slide">
+          <article class="top-blog__article">
+            <div class="top-blog__image-container">
+              <a href={`/information/${post.slug}`} class="top-blog__image-link">
+                <picture class="top-blog__image">
+                  <source media="(min-width: 1024px)" srcset={post.optimizedSlideImage.srcSet.toString()} />
+                  <source media="(min-width: 744px)" srcset={post.optimizedSlideImage.srcSet.toString()} />
+                  <img src={post.optimizedSlideImage.src} alt={post.title} />
+                </picture>
+                <time class="top-blog__date" datetime={post.date}>
+                  <span class="top-blog__date-month">
+                    {formattedDate.year}.{formattedDate.month}
+                  </span>
+                  <span class="top-blog__date-day">{formattedDate.day}</span>
+                </time>
+              </a>
+            </div>
+            <h3 class="top-blog__title">
+              <a href={`/information/${post.slug}`} class="top-blog__title-link">
+                {post.title}
+              </a>
+            </h3>
+          </article>
+        </div>
+      );
+    })
+  }
+</div>
+```
+
+**重要なポイント**:
+- `formatDate(post.date)` - 日付を年.月と日に分割して表示
+- `datetime={post.date}` - ISO形式の日付を属性に設定（SEO対策）
+- `href={/information/${post.slug}}` - 各ブログ記事の詳細ページへリンク
+- WebP最適化とsrcSet生成による最適なレスポンシブ画像
+
+#### **MoreButtonリンク先の更新**
+
+```astro
+<MoreButton
+  href="/information?category=ブログ記事"
+  textColor="var(--blue_5, #026995)"
+  hoverColor="var(--green_2, #adc400)"
+  arrowColor="#026995"
+/>
+```
+
+**機能**: クエリパラメータでフィルタリングされたブログ一覧ページへ遷移
+
+### ⚙️ 実装された機能
+
+#### **1. 完全な動的コンテンツ管理**
+
+- TOPページに表示するブログ記事を`information.ts`で一元管理
+- 日付の新しい順に自動ソート
+- 最大10件の自動取得
+
+#### **2. 画像最適化**
+
+- `getImage()`によるWebP変換
+- レスポンシブ画像の自動生成（srcSet）
+- ImageMetadata型による型安全性
+
+#### **3. Swiper自動対応**
+
+- スライド数が変わってもSwiperが自動的に対応
+- ページネーションも自動生成
+- スクリプトとスタイルは一切変更不要
+
+#### **4. 後方互換性**
+
+- `topPageDisplay`はオプショナルフィールド
+- 既存のinformationデータに影響なし
+- 段階的なデータ移行が可能
+
+### 📊 実装データ
+
+合計10件のブログ記事を実装：
+
+| ID | タイトル | 日付 | displayOrder | 画像 |
+|:---:|---|---|:---:|---|
+| info-004 | 西湖周辺の隠れた絶景スポット | 2024-06-25 | 1 | slide-01.png |
+| info-005 | 夏のアクティビティおすすめ5選 | 2024-05-15 | 2 | slide-02.png |
+| info-006 | 地元食材を使った季節の料理 | 2024-04-10 | 3 | slide-03.png |
+| info-007 | ファミリーで楽しむ自然体験 | 2024-03-05 | 4 | slide-04.png |
+| info-009 | 冬のアクティビティ特集 | 2024-02-20 | 5 | slide-01.png |
+| info-010 | バレンタイン特別プラン | 2024-02-10 | 6 | slide-02.png |
+| info-011 | 新年のご挨拶 | 2024-01-25 | 7 | slide-03.png |
+| info-012 | スキーシーズン到来 | 2024-01-15 | 8 | slide-04.png |
+| info-013 | 年末年始営業のお知らせ | 2023-12-20 | 9 | slide-01.png |
+| info-014 | クリスマスイベント | 2023-12-10 | 10 | slide-02.png |
+
+**画像の再利用**: 4つの画像を10件の記事でローテーション使用
+
+### 🎉 成果
+
+- **保守性の向上**: TOPページコンテンツの変更は`information.ts`の編集のみ
+- **一貫性の確保**: 単一データソースから複数ページへの展開
+- **型安全性**: TypeScriptによる完全な型チェック
+- **パフォーマンス**: WebP最適化とレスポンシブ画像
+- **拡張性**: 新しいブログ記事の追加が容易
+- **スタイル完全維持**: BEMクラス名、HTML構造、SCSS、Swiperスクリプトが100%維持
+- **自動ソート**: 常に最新10件のブログ記事を日付降順で表示
+
+### 🚀 新しいブログ記事追加手順
+
+1. **画像の準備**
+   ```
+   src/assets/images/top/blog/
+   └── slide-XX.png  （既存のslide-01～04を使い回すか、新規追加）
+   ```
+
+2. **information.tsへの追加**
+   ```typescript
+   {
+     id: 'info-015',
+     slug: 'new-blog-post',
+     date: '2024-07-01',
+     category: 'ブログ記事',
+     title: '新しいブログ記事のタイトル',
+     content: `記事の内容...`,
+     thumbnail: 'demo.png',
+     topPageDisplay: {
+       showOnTop: true,
+       slideImage: TopBlogSlide01,  // 使用する画像を選択
+       displayOrder: 11,  // 次の番号を指定（実際は日付順で表示）
+     },
+   }
+   ```
+
+3. **ビルド確認**
+   ```bash
+   npm run build
+   ```
+
+**注意**: `displayOrder`は現在使用されていません（日付降順ソートのため）。将来的に削除してもOK。
+
+---
+
 ## ⚠️ 検証が必要な項目
 
 ### 🔍 画像処理の2つのアプローチ
