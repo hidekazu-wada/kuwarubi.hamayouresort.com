@@ -1,3 +1,9 @@
+// TOPページBlogセクション用画像インポート
+import TopBlogSlide01 from '../assets/images/top/blog/slide-01.png';
+import TopBlogSlide02 from '../assets/images/top/blog/slide-02.png';
+import TopBlogSlide03 from '../assets/images/top/blog/slide-03.png';
+import TopBlogSlide04 from '../assets/images/top/blog/slide-04.png';
+
 export interface InformationPost {
   id: string;
   slug: string;
@@ -6,6 +12,13 @@ export interface InformationPost {
   title: string;
   content: string; // HTML content
   thumbnail?: string; // サムネイル画像のパス（ブログ記事用）
+
+  // TOPページBlogスライダー表示用データ（オプション）
+  topPageDisplay?: {
+    showOnTop: boolean;           // TOPページに表示するか
+    slideImage: any;              // スライダー用画像（ImageMetadata）
+    displayOrder: number;         // 表示順序（1から開始）
+  };
 }
 
 export const informationPosts: InformationPost[] = [
@@ -92,6 +105,11 @@ export const informationPosts: InformationPost[] = [
       <p>朝の静かな海でのSUPは、特におすすめです。</p>
       <p>皆様もぜひ、当ホテルでマリンアクティビティをお楽しみください！</p>
     `,
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopBlogSlide01,
+      displayOrder: 1,
+    },
   },
   {
     id: 'info-005',
@@ -136,6 +154,11 @@ export const informationPosts: InformationPost[] = [
       <p>朝のヨガクラスや、夕方のサンセットタイムには、ドリンクサービスも行っております。</p>
       <p>ぜひ新しいcoolturfエリアで、至福のひとときをお過ごしください。</p>
     `,
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopBlogSlide02,
+      displayOrder: 2,
+    },
   },
   {
     id: 'info-007',
@@ -161,6 +184,11 @@ export const informationPosts: InformationPost[] = [
       <p>春の沖縄は過ごしやすい気候で、観光にも最適な季節です。</p>
       <p>この機会にぜひ、光風閣くわるびでゆったりとした時間をお過ごしください。</p>
     `,
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopBlogSlide03,
+      displayOrder: 3,
+    },
   },
   {
     id: 'info-008',
@@ -185,6 +213,11 @@ export const informationPosts: InformationPost[] = [
       <p>各メニューとも、施術後はハーブティーのサービスがございます。</p>
       <p>日頃の疲れを癒しに、ぜひお試しください。</p>
     `,
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopBlogSlide04,
+      displayOrder: 4,
+    },
   },
 ];
 
@@ -263,4 +296,15 @@ export function getTopPageEventPosts(): InformationPost[] {
     .filter((post) => post.category === 'イベント情報')
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 4);
+}
+
+// Helper function to get blog posts for TOP page Blog slider
+export function getTopPageBlogPosts(): InformationPost[] {
+  return informationPosts
+    .filter((post) => post.topPageDisplay?.showOnTop)
+    .sort(
+      (a, b) =>
+        (a.topPageDisplay?.displayOrder || 0) -
+        (b.topPageDisplay?.displayOrder || 0),
+    );
 }
