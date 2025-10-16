@@ -51,6 +51,17 @@ export interface StayPlan {
   thumbnail: string; // サムネイル画像のalt
   hero: HeroContent; // Hero用のコンテンツ
   days: DaySchedule[]; // 各日のスケジュール
+  // TOPページ表示用データ（オプション）
+  topPageDisplay?: {
+    showOnTop: boolean; // TOPページに表示するか
+    titleLine1: string; // タイトル1行目（緑色）例:「子供と一緒に」
+    titleLine2: string; // タイトル2行目（青色）例:「自然に触れたい方」
+    category: string; // カテゴリーラベル（例:「Family」）
+    imageSp: any; // スマホ用画像（ImageMetadata）
+    imageTabletUp: any; // タブレット以上用画像（ImageMetadata）
+    imageAlt: string; // 画像のalt属性
+    displayOrder: number; // 表示順序（1から開始）
+  };
 }
 
 // ============================================================
@@ -152,6 +163,18 @@ import rd_day2_slide04 from '../assets/images/enjoy/rainy-day/day2/slide-04.jpg'
 import rd_day2_slide05 from '../assets/images/enjoy/rainy-day/day2/slide-05.jpg';
 import rd_day2_slide06 from '../assets/images/enjoy/rainy-day/day2/slide-06.jpg';
 import rd_day2_slide07 from '../assets/images/enjoy/rainy-day/day2/slide-07.jpg';
+
+// TOPページEnjoyセクション用画像
+import top_enjoy_01_sp from '../assets/images/top/enjoy/image-01-sp.png';
+import top_enjoy_01_tablet from '../assets/images/top/enjoy/image-01-tablet-up.png';
+import top_enjoy_02_sp from '../assets/images/top/enjoy/image-02-sp.png';
+import top_enjoy_02_tablet from '../assets/images/top/enjoy/image-02-tablet-up.png';
+import top_enjoy_03_sp from '../assets/images/top/enjoy/image-03-sp.png';
+import top_enjoy_03_tablet from '../assets/images/top/enjoy/image-03-tablet-up.png';
+import top_enjoy_04_sp from '../assets/images/top/enjoy/image-04-sp.png';
+import top_enjoy_04_tablet from '../assets/images/top/enjoy/image-04-tablet-up.png';
+import top_enjoy_05_sp from '../assets/images/top/enjoy/image-05-sp.png';
+import top_enjoy_05_tablet from '../assets/images/top/enjoy/image-05-tablet-up.png';
 
 // ============================================================
 // プランデータ定義（スタッフお勧めの過ごし方）
@@ -284,6 +307,16 @@ export const familyNaturePlan: StayPlan = {
       ],
     },
   ],
+  topPageDisplay: {
+    showOnTop: true,
+    titleLine1: '子供と一緒に',
+    titleLine2: '自然に触れたい方',
+    category: 'Family',
+    imageSp: top_enjoy_01_sp,
+    imageTabletUp: top_enjoy_01_tablet,
+    imageAlt: '自然に触れたい方',
+    displayOrder: 1,
+  },
 };
 
 // 2. カップル夫婦で自然体験をしたい方
@@ -410,6 +443,16 @@ export const couplesPlan: StayPlan = {
       ],
     },
   ],
+  topPageDisplay: {
+    showOnTop: true,
+    titleLine1: 'カップル・夫婦で',
+    titleLine2: '自然体験をしたい方',
+    category: 'Couple',
+    imageSp: top_enjoy_02_sp,
+    imageTabletUp: top_enjoy_02_tablet,
+    imageAlt: '自然体験をしたい方',
+    displayOrder: 2,
+  },
 };
 
 // 3. 非日常を満喫、ゆったりと過ごしたい方
@@ -532,6 +575,16 @@ export const relaxationPlan: StayPlan = {
       ],
     },
   ],
+  topPageDisplay: {
+    showOnTop: true,
+    titleLine1: '非日常を満喫',
+    titleLine2: 'ゆったりと過ごしたい方',
+    category: 'Comfortable',
+    imageSp: top_enjoy_03_sp,
+    imageTabletUp: top_enjoy_03_tablet,
+    imageAlt: 'ゆったりと過ごしたい方',
+    displayOrder: 3,
+  },
 };
 
 // 4. 近隣観光メインで最高拠点に楽しみたい方
@@ -650,6 +703,16 @@ export const sightseeingPlan: StayPlan = {
       ],
     },
   ],
+  topPageDisplay: {
+    showOnTop: true,
+    titleLine1: '近隣観光メインで',
+    titleLine2: '西湖を拠点に楽しみたい方',
+    category: 'Tourism',
+    imageSp: top_enjoy_04_sp,
+    imageTabletUp: top_enjoy_04_tablet,
+    imageAlt: '西湖を拠点に楽しみたい方',
+    displayOrder: 4,
+  },
 };
 
 // 5. 雨の日でも特別な体験をしたい方
@@ -799,6 +862,16 @@ export const rainyDayPlan: StayPlan = {
       ],
     },
   ],
+  topPageDisplay: {
+    showOnTop: true,
+    titleLine1: '雨の日でも',
+    titleLine2: '特別な体験をしたい方',
+    category: 'Rainy Day',
+    imageSp: top_enjoy_05_sp,
+    imageTabletUp: top_enjoy_05_tablet,
+    imageAlt: '特別な体験をしたい方',
+    displayOrder: 5,
+  },
 };
 
 // ============================================================

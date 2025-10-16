@@ -3,75 +3,41 @@
 import TitleTreeSp from '../../../assets/images/top/enjoy/title-tree-sp.svg';
 import TitleTreeTabletUp from '../../../assets/images/top/enjoy/title-tree-tablet-up.svg';
 import SectionWave from '../../ui/SectionWave.astro';
-
-import { getImage } from 'astro:assets';
-import content01Sp from '../../../assets/images/top/enjoy/image-01-sp.png';
-import content01TabletUp from '../../../assets/images/top/enjoy/image-01-tablet-up.png';
-import content02Sp from '../../../assets/images/top/enjoy/image-02-sp.png';
-import content02TabletUp from '../../../assets/images/top/enjoy/image-02-tablet-up.png';
-import content03Sp from '../../../assets/images/top/enjoy/image-03-sp.png';
-import content03TabletUp from '../../../assets/images/top/enjoy/image-03-tablet-up.png';
-import content04Sp from '../../../assets/images/top/enjoy/image-04-sp.png';
-import content04TabletUp from '../../../assets/images/top/enjoy/image-04-tablet-up.png';
-import content05Sp from '../../../assets/images/top/enjoy/image-05-sp.png';
-import content05TabletUp from '../../../assets/images/top/enjoy/image-05-tablet-up.png';
 import bottomImageSp from '../../../assets/images/top/enjoy/section-bottom-sp.svg';
 import bottomImageTabletUp from '../../../assets/images/top/enjoy/section-bottom-tablet-up.svg';
 
-const contentImage01Sp = await getImage({
-  src: content01Sp,
-  format: 'webp', // WebP形式で最適化
-  widths: [640],
-});
-const contentImage01TabletUp = await getImage({
-  src: content01TabletUp,
-  format: 'webp', // WebP形式で最適化
-  widths: [1680],
-});
+import { getImage } from 'astro:assets';
+import { allStayPlans } from '../../../data/schedules';
 
-const contentImage02Sp = await getImage({
-  src: content02Sp,
-  format: 'webp', // WebP形式で最適化
-  widths: [640],
-});
-const contentImage02TabletUp = await getImage({
-  src: content02TabletUp,
-  format: 'webp', // WebP形式で最適化
-  widths: [1680],
-});
+// TOPページに表示するプランを取得（表示順序でソート）
+const topPlans = allStayPlans
+  .filter((plan) => plan.topPageDisplay?.showOnTop)
+  .sort(
+    (a, b) =>
+      (a.topPageDisplay?.displayOrder || 0) -
+      (b.topPageDisplay?.displayOrder || 0),
+  );
 
-const contentImage03Sp = await getImage({
-  src: content03Sp,
-  format: 'webp', // WebP形式で最適化
-  widths: [640],
-});
-const contentImage03TabletUp = await getImage({
-  src: content03TabletUp,
-  format: 'webp', // WebP形式で最適化
-  widths: [1680],
-});
-
-const contentImage04Sp = await getImage({
-  src: content04Sp,
-  format: 'webp', // WebP形式で最適化
-  widths: [640],
-});
-const contentImage04TabletUp = await getImage({
-  src: content04TabletUp,
-  format: 'webp', // WebP形式で最適化
-  widths: [1680],
-});
-
-const contentImage05Sp = await getImage({
-  src: content05Sp,
-  format: 'webp', // WebP形式で最適化
-  widths: [640],
-});
-const contentImage05TabletUp = await getImage({
-  src: content05TabletUp,
-  format: 'webp', // WebP形式で最適化
-  widths: [1680],
-});
+// 各プランの画像を最適化
+const optimizedPlans = await Promise.all(
+  topPlans.map(async (plan) => {
+    const optimizedImageSp = await getImage({
+      src: plan.topPageDisplay!.imageSp,
+      format: 'webp',
+      widths: [640],
+    });
+    const optimizedImageTabletUp = await getImage({
+      src: plan.topPageDisplay!.imageTabletUp,
+      format: 'webp',
+      widths: [1680],
+    });
+    return {
+      ...plan,
+      optimizedImageSp,
+      optimizedImageTabletUp,
+    };
+  }),
+);
 ---
 
 <section class="enjoy">
@@ -96,300 +62,74 @@ const contentImage05TabletUp = await getImage({
   </header>
   <div class="enjoy__content">
     <ul class="enjoy__list">
-      <li class="enjoy__item">
-        <a href="#">
-          <article class="enjoy__card">
-            <header class="enjoy__card-header">
-              <h3 class="enjoy__card-title">
-                <span class="enjoy__card-title-line first">子供と一緒に</span>
-                <span class="enjoy__card-title-line second"
-                  >自然に触れたい方</span
-                >
-              </h3>
-            </header>
-            <div class="enjoy__card-content">
-              <div class="enjoy__card-media">
-                <picture class="enjoy__card-image">
-                  <!-- デスクトップ（1024px以上） -->
-                  <source
-                    media="(min-width: 1024px)"
-                    srcset={contentImage01TabletUp.src}
-                  />
-                  <!-- タブレット（744px以上） -->
-                  <source
-                    media="(min-width: 744px)"
-                    srcset={contentImage01Sp.src}
-                  />
-                  <!-- スマホ（744px未満） -->
-                  <img src={contentImage01Sp.src} alt="自然に触れたい方" />
-                </picture>
-                <p class="enjoy__card-category">Family</p>
-                <button
-                  class="enjoy__card-button"
-                  type="button"
-                  aria-label="自然に触れたい方の詳細を見る"
-                >
-                  <svg
-                    class="enjoy__card-arrow"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="70"
-                    height="70"
-                    viewBox="0 0 70 70"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <circle cx="35" cy="35" r="35" fill="white"></circle>
-                    <path
-                      d="M30.333 46.6654L41.9997 34.9987L30.333 23.332"
-                      stroke="#026995"
-                      stroke-width="3.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </article>
-        </a>
-      </li>
-
-      <li class="enjoy__item">
-        <a href="#">
-          <article class="enjoy__card">
-            <header class="enjoy__card-header">
-              <h3 class="enjoy__card-title">
-                <span class="enjoy__card-title-line first"
-                  >カップル・夫婦で</span
-                >
-                <span class="enjoy__card-title-line second"
-                  >自然体験をしたい方</span
-                >
-              </h3>
-            </header>
-            <div class="enjoy__card-content">
-              <div class="enjoy__card-media">
-                <picture class="enjoy__card-image">
-                  <!-- デスクトップ（1024px以上） -->
-                  <source
-                    media="(min-width: 1024px)"
-                    srcset={contentImage02TabletUp.src}
-                  />
-                  <!-- タブレット（744px以上） -->
-                  <source
-                    media="(min-width: 744px)"
-                    srcset={contentImage02Sp.src}
-                  />
-                  <!-- スマホ（744px未満） -->
-                  <img src={contentImage02Sp.src} alt="自然体験をしたい方" />
-                </picture>
-                <p class="enjoy__card-category">Couple</p>
-                <button
-                  class="enjoy__card-button"
-                  type="button"
-                  aria-label="自然体験をしたい方の詳細を見る"
-                >
-                  <svg
-                    class="enjoy__card-arrow"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="70"
-                    height="70"
-                    viewBox="0 0 70 70"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <circle cx="35" cy="35" r="35" fill="white"></circle>
-                    <path
-                      d="M30.333 46.6654L41.9997 34.9987L30.333 23.332"
-                      stroke="#026995"
-                      stroke-width="3.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </article>
-        </a>
-      </li>
-
-      <li class="enjoy__item">
-        <a href="#">
-          <article class="enjoy__card">
-            <header class="enjoy__card-header">
-              <h3 class="enjoy__card-title">
-                <span class="enjoy__card-title-line first">非日常を満喫</span>
-                <span class="enjoy__card-title-line second"
-                  >ゆったりと過ごしたい方</span
-                >
-              </h3>
-            </header>
-            <div class="enjoy__card-content">
-              <div class="enjoy__card-media">
-                <picture class="enjoy__card-image">
-                  <!-- デスクトップ（1024px以上） -->
-                  <source
-                    media="(min-width: 1024px)"
-                    srcset={contentImage03TabletUp.src}
-                  />
-                  <!-- タブレット（744px以上） -->
-                  <source
-                    media="(min-width: 744px)"
-                    srcset={contentImage03Sp.src}
-                  />
-                  <!-- スマホ（744px未満） -->
-                  <img
-                    src={contentImage03Sp.src}
-                    alt="ゆったりと過ごしたい方"
-                  />
-                </picture>
-                <p class="enjoy__card-category">Comfortable</p>
-                <button
-                  class="enjoy__card-button"
-                  type="button"
-                  aria-label="ゆったりと過ごしたい方の詳細を見る"
-                >
-                  <svg
-                    class="enjoy__card-arrow"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="70"
-                    height="70"
-                    viewBox="0 0 70 70"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <circle cx="35" cy="35" r="35" fill="white"></circle>
-                    <path
-                      d="M30.333 46.6654L41.9997 34.9987L30.333 23.332"
-                      stroke="#026995"
-                      stroke-width="3.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </article>
-        </a>
-      </li>
-
-      <li class="enjoy__item">
-        <a href="#">
-          <article class="enjoy__card">
-            <header class="enjoy__card-header">
-              <h3 class="enjoy__card-title">
-                <span class="enjoy__card-title-line first"
-                  >近隣観光メインで</span
-                >
-                <span class="enjoy__card-title-line second"
-                  >西湖を拠点に楽しみたい方</span
-                >
-              </h3>
-            </header>
-            <div class="enjoy__card-content">
-              <div class="enjoy__card-media">
-                <picture class="enjoy__card-image">
-                  <!-- デスクトップ（1024px以上） -->
-                  <source
-                    media="(min-width: 1024px)"
-                    srcset={contentImage04TabletUp.src}
-                  />
-                  <!-- タブレット（744px以上） -->
-                  <source
-                    media="(min-width: 744px)"
-                    srcset={contentImage04Sp.src}
-                  />
-                  <!-- スマホ（744px未満） -->
-                  <img
-                    src={contentImage04Sp.src}
-                    alt="西湖を拠点に楽しみたい方"
-                  />
-                </picture>
-                <p class="enjoy__card-category">Tourism</p>
-                <button
-                  class="enjoy__card-button"
-                  type="button"
-                  aria-label="西湖を拠点に楽しみたい方の詳細を見る"
-                >
-                  <svg
-                    class="enjoy__card-arrow"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="70"
-                    height="70"
-                    viewBox="0 0 70 70"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <circle cx="35" cy="35" r="35" fill="white"></circle>
-                    <path
-                      d="M30.333 46.6654L41.9997 34.9987L30.333 23.332"
-                      stroke="#026995"
-                      stroke-width="3.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </article>
-        </a>
-      </li>
-
-      <li class="enjoy__item">
-        <a href="#">
-          <article class="enjoy__card">
-            <header class="enjoy__card-header">
-              <h3 class="enjoy__card-title">
-                <span class="enjoy__card-title-line first">雨の日でも</span>
-                <span class="enjoy__card-title-line second"
-                  >特別な体験をしたい方</span
-                >
-              </h3>
-            </header>
-            <div class="enjoy__card-content">
-              <div class="enjoy__card-media">
-                <picture class="enjoy__card-image">
-                  <!-- デスクトップ（1024px以上） -->
-                  <source
-                    media="(min-width: 1024px)"
-                    srcset={contentImage05TabletUp.src}
-                  />
-                  <!-- タブレット（744px以上） -->
-                  <source
-                    media="(min-width: 744px)"
-                    srcset={contentImage05Sp.src}
-                  />
-                  <!-- スマホ（744px未満） -->
-                  <img src={contentImage05Sp.src} alt="特別な体験をしたい方" />
-                </picture>
-                <p class="enjoy__card-category">Rainy Day</p>
-                <button
-                  class="enjoy__card-button"
-                  type="button"
-                  aria-label="特別な体験をしたい方の詳細を見る"
-                >
-                  <svg
-                    class="enjoy__card-arrow"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="70"
-                    height="70"
-                    viewBox="0 0 70 70"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <circle cx="35" cy="35" r="35" fill="white"></circle>
-                    <path
-                      d="M30.333 46.6654L41.9997 34.9987L30.333 23.332"
-                      stroke="#026995"
-                      stroke-width="3.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </article>
-        </a>
-      </li>
+      {
+        optimizedPlans.map((plan) => (
+          <li class="enjoy__item">
+            <a href={`/enjoy/${plan.slug}`}>
+              <article class="enjoy__card">
+                <header class="enjoy__card-header">
+                  <h3 class="enjoy__card-title">
+                    <span class="enjoy__card-title-line first">
+                      {plan.topPageDisplay!.titleLine1}
+                    </span>
+                    <span class="enjoy__card-title-line second">
+                      {plan.topPageDisplay!.titleLine2}
+                    </span>
+                  </h3>
+                </header>
+                <div class="enjoy__card-content">
+                  <div class="enjoy__card-media">
+                    <picture class="enjoy__card-image">
+                      {/* デスクトップ（1024px以上） */}
+                      <source
+                        media="(min-width: 1024px)"
+                        srcset={plan.optimizedImageTabletUp.src}
+                      />
+                      {/* タブレット（744px以上） */}
+                      <source
+                        media="(min-width: 744px)"
+                        srcset={plan.optimizedImageSp.src}
+                      />
+                      {/* スマホ（744px未満） */}
+                      <img
+                        src={plan.optimizedImageSp.src}
+                        alt={plan.topPageDisplay!.imageAlt}
+                      />
+                    </picture>
+                    <p class="enjoy__card-category">
+                      {plan.topPageDisplay!.category}
+                    </p>
+                    <button
+                      class="enjoy__card-button"
+                      type="button"
+                      aria-label={`${plan.topPageDisplay!.titleLine2}の詳細を見る`}
+                    >
+                      <svg
+                        class="enjoy__card-arrow"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="70"
+                        height="70"
+                        viewBox="0 0 70 70"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <circle cx="35" cy="35" r="35" fill="white" />
+                        <path
+                          d="M30.333 46.6654L41.9997 34.9987L30.333 23.332"
+                          stroke="#026995"
+                          stroke-width="3.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </div>
   <div class="enjoy__bottom-image">
