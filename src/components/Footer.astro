@@ -20,7 +20,10 @@ import logoIzumi from '../../src/assets/images/logo_izumi.webp';
   <nav class="footer__nav" aria-label="フッターナビゲーション">
     <ul class="footer__nav-list">
       <li class="footer__nav-item">
-        <a href="" class="footer__nav-link">
+        <button
+          type="button"
+          class="footer__nav-link footer__nav-link--booking"
+        >
           <div class="footer__nav-text">
             <span class="footer__nav-title">ご宿泊の</span>
             <span class="footer__nav-subtitle">ご予約はこちら</span>
@@ -41,10 +44,10 @@ import logoIzumi from '../../src/assets/images/logo_izumi.webp';
               stroke-linecap="round"
               stroke-linejoin="round"></path>
           </svg>
-        </a>
+        </button>
       </li>
       <li class="footer__nav-item">
-        <a href="" class="footer__nav-link">
+        <a href="/contact" class="footer__nav-link">
           <div class="footer__nav-text">
             <span class="footer__nav-title">ご宿泊・アクティビティの</span>
             <span class="footer__nav-subtitle">お問い合わせはこちら</span>
@@ -214,6 +217,13 @@ import logoIzumi from '../../src/assets/images/logo_izumi.webp';
             stroke: $blue_6;
           }
         }
+      }
+
+      // ボタン要素として使用する場合のスタイル
+      &--booking {
+        background: none; // ボタンのデフォルト背景を削除
+        font-family: inherit; // フォントを継承
+        padding: 0; // ボタンのデフォルトパディングを削除
       }
     }
 

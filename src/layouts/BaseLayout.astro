@@ -159,6 +159,9 @@ import BookingModal from '../components/Booking-modal.astro';
         const bottomBarBookingButton = document.querySelector(
           '.bottom-bar__button'
         ) as HTMLElement | null;
+        const footerBookingButton = document.querySelector(
+          '.footer__nav-link--booking'
+        ) as HTMLElement | null;
 
         // ブッキングモーダルを開く関数
         function openBookingModal() {
@@ -204,6 +207,14 @@ import BookingModal from '../components/Booking-modal.astro';
         // スマホ下部バーの宿泊予約ボタンクリック
         if (bottomBarBookingButton) {
           bottomBarBookingButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openBookingModal();
+          });
+        }
+
+        // フッターの宿泊予約ボタンクリック
+        if (footerBookingButton) {
+          footerBookingButton.addEventListener('click', (e) => {
             e.preventDefault();
             openBookingModal();
           });
