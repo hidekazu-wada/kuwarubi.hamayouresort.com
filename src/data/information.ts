@@ -219,6 +219,152 @@ export const informationPosts: InformationPost[] = [
       displayOrder: 4,
     },
   },
+  {
+    id: 'info-009',
+    slug: 'winter-activities',
+    date: '2024-02-20',
+    category: 'ブログ記事',
+    title: '冬のアクティビティ特集',
+    thumbnail: 'demo.png',
+    content: `
+      <p>冬の西湖エリアは、夏とは違った魅力がいっぱいです。</p>
+      <p>今回は、冬ならではのアクティビティをご紹介します。</p>
+      <h3>おすすめの冬アクティビティ</h3>
+      <ul>
+        <li>氷上ワカサギ釣り体験</li>
+        <li>スノーシュートレッキング</li>
+        <li>冬の星空観察ツアー</li>
+        <li>薪割り＆焚き火体験</li>
+      </ul>
+      <p>寒い季節だからこそ楽しめる、特別な体験をご用意しています。</p>
+    `,
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopBlogSlide01,
+      displayOrder: 5,
+    },
+  },
+  {
+    id: 'info-010',
+    slug: 'valentine-plan',
+    date: '2024-02-10',
+    category: 'ブログ記事',
+    title: 'バレンタイン特別プラン受付開始',
+    thumbnail: 'demo.png',
+    content: `
+      <p>大切な方と過ごす特別な時間を、くわるびで。</p>
+      <p>バレンタイン限定の特別プランをご用意いたしました。</p>
+      <h3>プラン特典</h3>
+      <ul>
+        <li>シェフ特製チョコレートデザート</li>
+        <li>スパークリングワインサービス</li>
+        <li>お部屋にフラワーアレンジメント</li>
+        <li>レイトチェックアウト14:00まで</li>
+      </ul>
+      <p>期間：2024年2月10日〜14日限定</p>
+    `,
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopBlogSlide02,
+      displayOrder: 6,
+    },
+  },
+  {
+    id: 'info-011',
+    slug: 'new-year-greeting',
+    date: '2024-01-25',
+    category: 'ブログ記事',
+    title: '新年のご挨拶',
+    thumbnail: 'demo.png',
+    content: `
+      <p>新年あけましておめでとうございます。</p>
+      <p>旧年中は格別のご愛顧を賜り、厚く御礼申し上げます。</p>
+      <p>本年も、皆様に愛されるホテルを目指して、スタッフ一同精進してまいります。</p>
+      <h3>2024年の抱負</h3>
+      <p>今年は、より多くのお客様に西湖の魅力をお届けできるよう、</p>
+      <p>新しいアクティビティプログラムの開発に取り組んでまいります。</p>
+      <p>本年もどうぞよろしくお願いいたします。</p>
+    `,
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopBlogSlide03,
+      displayOrder: 7,
+    },
+  },
+  {
+    id: 'info-012',
+    slug: 'ski-season-arrival',
+    date: '2024-01-15',
+    category: 'ブログ記事',
+    title: 'スキーシーズン到来！周辺スキー場情報',
+    thumbnail: 'demo.png',
+    content: `
+      <p>いよいよスキーシーズンが本格化してまいりました。</p>
+      <p>当ホテルから車で30分圏内にある、おすすめスキー場をご紹介します。</p>
+      <h3>アクセス抜群のスキー場</h3>
+      <ul>
+        <li>富士見パノラマリゾート（車で25分）</li>
+        <li>サンメドウズ清里スキー場（車で35分）</li>
+        <li>ふじてんスノーリゾート（車で40分）</li>
+      </ul>
+      <p>スキー・スノーボード後の温泉もお楽しみください。</p>
+    `,
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopBlogSlide04,
+      displayOrder: 8,
+    },
+  },
+  {
+    id: 'info-013',
+    slug: 'year-end-notice',
+    date: '2023-12-20',
+    category: 'ブログ記事',
+    title: '年末年始営業のお知らせ',
+    thumbnail: 'demo.png',
+    content: `
+      <p>年末年始の営業についてお知らせいたします。</p>
+      <h3>営業日程</h3>
+      <ul>
+        <li>年末：12月31日まで通常営業</li>
+        <li>休館日：なし（年中無休）</li>
+        <li>年始：1月1日より通常営業</li>
+      </ul>
+      <h3>年越し特別プラン</h3>
+      <p>12月31日〜1月2日限定で、年越し特別プランをご用意しております。</p>
+      <p>除夜の鐘を聞きながら、静かな湖畔で新年をお迎えください。</p>
+    `,
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopBlogSlide01,
+      displayOrder: 9,
+    },
+  },
+  {
+    id: 'info-014',
+    slug: 'christmas-event',
+    date: '2023-12-10',
+    category: 'ブログ記事',
+    title: 'クリスマスイベント開催のお知らせ',
+    thumbnail: 'demo.png',
+    content: `
+      <p>今年のクリスマスは、くわるびで特別な時間を。</p>
+      <p>12月23日〜25日の3日間、クリスマス特別イベントを開催いたします。</p>
+      <h3>イベント内容</h3>
+      <ul>
+        <li>クリスマスディナーコース</li>
+        <li>キャンドルナイトイベント</li>
+        <li>聖夜のミニコンサート</li>
+        <li>お子様向けプレゼント抽選会</li>
+      </ul>
+      <p>ご予約はお早めに！</p>
+    `,
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopBlogSlide02,
+      displayOrder: 10,
+    },
+  },
 ];
 
 // Helper function to get an information post by slug
@@ -298,13 +444,10 @@ export function getTopPageEventPosts(): InformationPost[] {
     .slice(0, 4);
 }
 
-// Helper function to get blog posts for TOP page Blog slider
+// Helper function to get blog posts for TOP page Blog slider (最大10件、日付降順)
 export function getTopPageBlogPosts(): InformationPost[] {
   return informationPosts
     .filter((post) => post.topPageDisplay?.showOnTop)
-    .sort(
-      (a, b) =>
-        (a.topPageDisplay?.displayOrder || 0) -
-        (b.topPageDisplay?.displayOrder || 0),
-    );
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 10);
 }
