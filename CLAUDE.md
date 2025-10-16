@@ -571,6 +571,380 @@ const optimizedActivities = await Promise.all(
 
 ---
 
+## 🎯 完了: TOPページEnjoyセクションの動的化 ✅
+
+### 📋 実装完了概要
+
+**目的**: TOPページのEnjoyセクションのコンテンツをハードコードから`schedules.ts`データベースを使用した動的表示に変更
+
+**結果**: スタイルとスクリプトを完全に維持しながら、コンテンツのみが動的化されたシステムが完成。全5つの過ごし方プランがTOPページに表示可能。
+
+### 🎨 実装内容
+
+#### **1. schedules.tsの拡張**
+
+- **型定義追加**: `topPageDisplay`オプショナルフィールドの実装
+- **画像インポート**: TOPページEnjoy用の画像（SP用×5、Tablet以上用×5）
+- **データ追加**: 全5つのプランにTOPページ表示用データを追加
+
+#### **2. Enjoy.astroの動的化**
+
+- **ファイル**: `/src/components/pages/top/Enjoy.astro`
+- **変更**: 5つのハードコードされたカードを動的map()ループに置き換え
+- **維持**: 全てのBEMクラス名、HTML構造、スタイルは完全に維持
+
+### 📁 主な変更ファイル
+
+```
+src/
+├── data/
+│   └── schedules.ts              # 型定義拡張、画像インポート、データ追加
+└── components/
+    └── pages/
+        └── top/
+            └── Enjoy.astro       # ハードコード→動的map()ループに変更
+```
+
+### 🔧 技術的な実装詳細
+
+#### **型定義拡張**
+
+```typescript
+export interface StayPlan {
+  // 既存フィールド...
+
+  // TOPページ表示用データ（オプション）
+  topPageDisplay?: {
+    showOnTop: boolean;           // TOPページに表示するか
+    titleLine1: string;           // タイトル1行目（緑色）
+    titleLine2: string;           // タイトル2行目（青色）
+    category: string;             // カテゴリーラベル（例:「Family」）
+    imageSp: any;                 // スマホ用画像（ImageMetadata）
+    imageTabletUp: any;           // タブレット以上用画像（ImageMetadata）
+    imageAlt: string;             // 画像のalt属性
+    displayOrder: number;         // 表示順序（1から開始）
+  };
+}
+```
+
+#### **画像インポート（ImageMetadata方式）**
+
+```typescript
+// TOPページEnjoyセクション用画像
+import top_enjoy_01_sp from '../assets/images/top/enjoy/image-01-sp.png';
+import top_enjoy_01_tablet from '../assets/images/top/enjoy/image-01-tablet-up.png';
+import top_enjoy_02_sp from '../assets/images/top/enjoy/image-02-sp.png';
+import top_enjoy_02_tablet from '../assets/images/top/enjoy/image-02-tablet-up.png';
+// ... 03, 04, 05も同様
+```
+
+#### **データ対応表**
+
+| displayOrder | プランID | titleLine1 | titleLine2 | category | SP画像 | Tablet画像 |
+|:---:|---|---|---|---|---|---|
+| 1 | family-nature | 子供と一緒に | 自然に触れたい方 | Family | image-01-sp.png | image-01-tablet-up.png |
+| 2 | couples | カップル・夫婦で | 自然体験をしたい方 | Couple | image-02-sp.png | image-02-tablet-up.png |
+| 3 | relaxation | 非日常を満喫 | ゆったりと過ごしたい方 | Comfortable | image-03-sp.png | image-03-tablet-up.png |
+| 4 | sightseeing | 近隣観光メインで | 西湖を拠点に楽しみたい方 | Tourism | image-04-sp.png | image-04-tablet-up.png |
+| 5 | rainy-day | 雨の日でも | 特別な体験をしたい方 | Rainy Day | image-05-sp.png | image-05-tablet-up.png |
+
+#### **動的レンダリング（Enjoy.astro）**
+
+**変更前**: 5つのハードコードされた`<li>`要素
+
+**変更後**: 動的map()ループ
+
+```astro
+---
+import { getImage } from 'astro:assets';
+import { allStayPlans } from '../../../data/schedules';
+
+// TOPページに表示するプランを取得（表示順序でソート）
+const topPlans = allStayPlans
+  .filter((plan) => plan.topPageDisplay?.showOnTop)
+  .sort(
+    (a, b) =>
+      (a.topPageDisplay?.displayOrder || 0) -
+      (b.topPageDisplay?.displayOrder || 0),
+  );
+
+// 各プランの画像を最適化（SP用とTablet以上用）
+const optimizedPlans = await Promise.all(
+  topPlans.map(async (plan) => {
+    const optimizedImageSp = await getImage({
+      src: plan.topPageDisplay!.imageSp,
+      format: 'webp',
+      widths: [640],
+    });
+    const optimizedImageTabletUp = await getImage({
+      src: plan.topPageDisplay!.imageTabletUp,
+      format: 'webp',
+      widths: [1680],
+    });
+    return {
+      ...plan,
+      optimizedImageSp,
+      optimizedImageTabletUp,
+    };
+  }),
+);
+---
+
+<ul class="enjoy__list">
+  {optimizedPlans.map((plan) => (
+    <li class="enjoy__item">
+      <a href={`/enjoy/${plan.slug}`}>
+        <article class="enjoy__card">
+          <header class="enjoy__card-header">
+            <h3 class="enjoy__card-title">
+              <span class="enjoy__card-title-line first">
+                {plan.topPageDisplay!.titleLine1}
+              </span>
+              <span class="enjoy__card-title-line second">
+                {plan.topPageDisplay!.titleLine2}
+              </span>
+            </h3>
+          </header>
+          <div class="enjoy__card-content">
+            <div class="enjoy__card-media">
+              <picture class="enjoy__card-image">
+                {/* レスポンシブ画像 */}
+                <source media="(min-width: 1024px)" srcset={plan.optimizedImageTabletUp.src} />
+                <source media="(min-width: 744px)" srcset={plan.optimizedImageSp.src} />
+                <img src={plan.optimizedImageSp.src} alt={plan.topPageDisplay!.imageAlt} />
+              </picture>
+              <p class="enjoy__card-category">
+                {plan.topPageDisplay!.category}
+              </p>
+              <!-- ボタンなど -->
+            </div>
+          </div>
+        </article>
+      </a>
+    </li>
+  ))}
+</ul>
+```
+
+### ⚙️ 実装された機能
+
+#### **1. 完全な動的コンテンツ管理**
+
+- TOPページに表示するプランを`schedules.ts`で一元管理
+- 表示順序の柔軟な制御（`displayOrder`フィールド）
+- 表示/非表示の簡単な切り替え（`showOnTop`フラグ）
+
+#### **2. レスポンシブ画像最適化**
+
+- SP用とTablet以上用の2種類の画像を個別に最適化
+- `getImage()`によるWebP変換
+- picture要素による適切な画像の配信
+
+#### **3. データの一元管理**
+
+- `schedules.ts`で過ごし方プランの全データを管理
+- TOPページと詳細ページで同じデータソースを使用
+- データの整合性を保証
+
+#### **4. 後方互換性**
+
+- `topPageDisplay`はオプショナルフィールド
+- 既存のプランデータに影響なし
+
+### 🎉 成果
+
+- **保守性の向上**: TOPページコンテンツの変更は`schedules.ts`の編集のみ
+- **一貫性の確保**: 単一データソースから複数ページへの展開
+- **型安全性**: TypeScriptによる完全な型チェック
+- **パフォーマンス**: WebP最適化とレスポンシブ画像（2種類）
+- **拡張性**: 新しいプランの追加が容易
+- **スタイル完全維持**: BEMクラス名、HTML構造、SCSSが100%維持
+
+---
+
+## 🎯 完了: TOPページNewsセクションの動的化 ✅
+
+### 📋 実装完了概要
+
+**目的**: TOPページのNewsセクション（INFORMATIONとEVENT）のコンテンツをハードコードから`information.ts`データベースを使用した動的表示に変更
+
+**結果**: スタイルとスクリプトを完全に維持しながら、コンテンツのみが動的化されたシステムが完成。最新の「お知らせ」と「イベント情報」が自動的にTOPページに表示される。
+
+### 🎨 実装内容
+
+#### **1. information.tsへのヘルパー関数追加**
+
+- **関数1**: `getTopPageInformationPosts()` - 「お知らせ」カテゴリーの最新4件を取得
+- **関数2**: `getTopPageEventPosts()` - 「イベント情報」カテゴリーの最新4件を取得
+- **機能**: カテゴリーフィルタリング → 日付降順ソート → 最大4件取得
+
+#### **2. News.astroの動的化**
+
+- **ファイル**: `/src/components/pages/top/News.astro`
+- **変更**: INFORMATIONとEVENTの各4つのハードコードされた`<li>`を動的map()ループに置き換え
+- **リンク更新**: MoreButtonのリンク先をクエリパラメータ付きのURLに更新
+- **維持**: 全てのBEMクラス名、HTML構造、スタイルは完全に維持
+
+### 📁 主な変更ファイル
+
+```
+src/
+├── data/
+│   └── information.ts           # ヘルパー関数追加
+└── components/
+    └── pages/
+        └── top/
+            └── News.astro       # ハードコード→動的map()ループに変更
+```
+
+### 🔧 技術的な実装詳細
+
+#### **ヘルパー関数（information.ts）**
+
+```typescript
+// Helper function to get latest information posts for TOP page (max 4)
+export function getTopPageInformationPosts(): InformationPost[] {
+  return informationPosts
+    .filter((post) => post.category === 'お知らせ')
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 4);
+}
+
+// Helper function to get latest event posts for TOP page (max 4)
+export function getTopPageEventPosts(): InformationPost[] {
+  return informationPosts
+    .filter((post) => post.category === 'イベント情報')
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 4);
+}
+```
+
+**処理フロー**:
+1. `filter()` - 指定カテゴリーのみ抽出
+2. `sort()` - 日付の新しい順に並び替え（`new Date().getTime()`で数値比較）
+3. `slice(0, 4)` - 最大4件取得（データが不足している場合は存在する分のみ）
+
+#### **動的レンダリング（News.astro フロントマター）**
+
+```astro
+---
+import MoreButton from '../../ui/MoreButton.astro';
+import {
+  getTopPageInformationPosts,
+  getTopPageEventPosts,
+  formatDate,
+} from '../../../data/information';
+
+// TOPページ用のお知らせとイベント情報を取得
+const informationPosts = getTopPageInformationPosts();
+const eventPosts = getTopPageEventPosts();
+---
+```
+
+#### **動的レンダリング（INFORMATIONセクション）**
+
+**変更前**: 4つのハードコードされた`<li>`要素
+
+**変更後**: 動的map()ループ
+
+```astro
+<ul class="news__list">
+  {
+    informationPosts.map((post) => {
+      const formattedDate = formatDate(post.date);
+      return (
+        <li class="news__item">
+          <a href={`/information/${post.slug}`} class="news__link">
+            <article class="news__article">
+              <time class="news__date" datetime={post.date}>
+                {formattedDate.full}
+              </time>
+              <p class="news__text">{post.title}</p>
+            </article>
+          </a>
+        </li>
+      );
+    })
+  }
+</ul>
+```
+
+**重要なポイント**:
+- `formatDate(post.date)` - "2024.06.25"形式に変換
+- `datetime={post.date}` - ISO形式の日付を属性に設定（SEO対策）
+- `href={/information/${post.slug}}` - 各投稿の詳細ページへリンク
+
+#### **MoreButtonリンク先の更新**
+
+```astro
+<!-- INFORMATIONセクション -->
+<MoreButton
+  href="/information?category=お知らせ"
+  textColor="var(--green_3, #43512A)"
+  hoverColor="var(--green_2, #adc400)"
+  arrowColor="#43512A"
+/>
+
+<!-- EVENTセクション -->
+<MoreButton
+  href="/information?category=イベント情報"
+  textColor="var(--green_3, #43512A)"
+  hoverColor="var(--blue_5, #026995)"
+  arrowColor="#43512A"
+/>
+```
+
+**機能**: クエリパラメータでフィルタリングされた一覧ページへ遷移
+
+### ⚙️ 実装された機能
+
+#### **1. 完全な動的コンテンツ管理**
+
+- TOPページに表示するニュースを`information.ts`で一元管理
+- カテゴリー別の自動フィルタリング
+- 日付の新しい順に自動ソート
+- 最大4件の自動取得（件数不足時は存在する分のみ表示）
+
+#### **2. 柔軟なデータ表示**
+
+- 「お知らせ」が3件しかない場合 → 3件表示
+- 「イベント情報」が1件しかない場合 → 1件表示
+- 将来データが増えても自動的に最新4件を表示
+
+#### **3. フィルタリング連携**
+
+- MoreButtonから一覧ページへ遷移
+- クエリパラメータでカテゴリーフィルタリング
+- `/information?category=お知らせ`
+- `/information?category=イベント情報`
+
+#### **4. データの一元管理**
+
+- `information.ts`でニュース/イベント/ブログの全データを管理
+- TOPページと一覧ページで同じデータソースを使用
+- データの整合性を保証
+
+### 📊 現在のデータ状況
+
+| カテゴリー | 投稿数 | TOP表示 | 備考 |
+|:---:|:---:|:---:|---|
+| お知らせ | 3件 | 3件 | 最新3件を表示 |
+| イベント情報 | 1件 | 1件 | 最新1件を表示 |
+| ブログ記事 | 4件 | 非表示 | TOPページには表示しない |
+
+**将来の拡張**: データが増えれば自動的に最新4件まで表示
+
+### 🎉 成果
+
+- **保守性の向上**: TOPページコンテンツの変更は`information.ts`の編集のみ
+- **一貫性の確保**: 単一データソースから複数ページへの展開
+- **型安全性**: TypeScriptによる完全な型チェック
+- **柔軟性**: データ件数の変動に自動対応
+- **スタイル完全維持**: BEMクラス名、HTML構造、SCSSが100%維持
+- **SEO対策**: time要素のdatetime属性による構造化データ
+
+---
+
 ## ⚠️ 検証が必要な項目
 
 ### 🔍 画像処理の2つのアプローチ

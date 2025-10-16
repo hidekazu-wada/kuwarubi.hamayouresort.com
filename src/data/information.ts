@@ -248,3 +248,19 @@ export function formatDate(dateString: string): {
     full: `${year}.${month}.${day}`,
   };
 }
+
+// Helper function to get latest information posts for TOP page (max 4)
+export function getTopPageInformationPosts(): InformationPost[] {
+  return informationPosts
+    .filter((post) => post.category === 'お知らせ')
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 4);
+}
+
+// Helper function to get latest event posts for TOP page (max 4)
+export function getTopPageEventPosts(): InformationPost[] {
+  return informationPosts
+    .filter((post) => post.category === 'イベント情報')
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 4);
+}

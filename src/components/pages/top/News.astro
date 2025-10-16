@@ -1,5 +1,14 @@
 ---
 import MoreButton from '../../ui/MoreButton.astro';
+import {
+  getTopPageInformationPosts,
+  getTopPageEventPosts,
+  formatDate,
+} from '../../../data/information';
+
+// TOPページ用のお知らせとイベント情報を取得
+const informationPosts = getTopPageInformationPosts();
+const eventPosts = getTopPageEventPosts();
 ---
 
 <section class="news">
@@ -12,51 +21,28 @@ import MoreButton from '../../ui/MoreButton.astro';
 
       <div class="news__content">
         <ul class="news__list">
-          <li class="news__item">
-            <a href="#" class="news__link">
-              <article class="news__article">
-                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">
-                  ホームページをリニューアルいたしました。
-                </p>
-              </article>
-            </a>
-          </li>
-          <li class="news__item">
-            <a href="#" class="news__link">
-              <article class="news__article">
-                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">
-                  ホームページをリニューアルいたしました。
-                </p>
-              </article>
-            </a>
-          </li>
-          <li class="news__item">
-            <a href="#" class="news__link">
-              <article class="news__article">
-                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">
-                  ホームページをリニューアルいたしました。
-                </p>
-              </article>
-            </a>
-          </li>
-          <li class="news__item">
-            <a href="#" class="news__link">
-              <article class="news__article">
-                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">
-                  ホームページをリニューアルいたしました。
-                </p>
-              </article>
-            </a>
-          </li>
+          {
+            informationPosts.map((post) => {
+              const formattedDate = formatDate(post.date);
+              return (
+                <li class="news__item">
+                  <a href={`/information/${post.slug}`} class="news__link">
+                    <article class="news__article">
+                      <time class="news__date" datetime={post.date}>
+                        {formattedDate.full}
+                      </time>
+                      <p class="news__text">{post.title}</p>
+                    </article>
+                  </a>
+                </li>
+              );
+            })
+          }
         </ul>
       </div>
       <div class="news__more">
         <MoreButton
-          href="#"
+          href="/information?category=お知らせ"
           textColor="var(--green_3, #43512A)"
           hoverColor="var(--green_2, #adc400)"
           arrowColor="#43512A"
@@ -72,51 +58,28 @@ import MoreButton from '../../ui/MoreButton.astro';
 
       <div class="news__content">
         <ul class="news__list">
-          <li class="news__item">
-            <a href="#" class="news__link">
-              <article class="news__article">
-                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">
-                  ホームページをリニューアルいたしました。
-                </p>
-              </article>
-            </a>
-          </li>
-          <li class="news__item">
-            <a href="#" class="news__link">
-              <article class="news__article">
-                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">
-                  ホームページをリニューアルいたしました。
-                </p>
-              </article>
-            </a>
-          </li>
-          <li class="news__item">
-            <a href="#" class="news__link">
-              <article class="news__article">
-                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">
-                  ホームページをリニューアルいたしました。
-                </p>
-              </article>
-            </a>
-          </li>
-          <li class="news__item">
-            <a href="#" class="news__link">
-              <article class="news__article">
-                <time class="news__date" datetime="2025-01-01">2025.01.01</time>
-                <p class="news__text">
-                  ホームページをリニューアルいたしました。
-                </p>
-              </article>
-            </a>
-          </li>
+          {
+            eventPosts.map((post) => {
+              const formattedDate = formatDate(post.date);
+              return (
+                <li class="news__item">
+                  <a href={`/information/${post.slug}`} class="news__link">
+                    <article class="news__article">
+                      <time class="news__date" datetime={post.date}>
+                        {formattedDate.full}
+                      </time>
+                      <p class="news__text">{post.title}</p>
+                    </article>
+                  </a>
+                </li>
+              );
+            })
+          }
         </ul>
       </div>
       <div class="news__more">
         <MoreButton
-          href="#"
+          href="/information?category=イベント情報"
           textColor="var(--green_3, #43512A)"
           hoverColor="var(--blue_5, #026995)"
           arrowColor="#43512A"
