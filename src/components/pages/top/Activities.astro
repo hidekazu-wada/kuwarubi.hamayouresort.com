@@ -1,42 +1,38 @@
 ---
 import { getImage } from 'astro:assets';
 import MoreButton from '../../ui/MoreButton.astro';
+import { getTopPageActivities } from '../../../data/activities';
 // Swiper CSS
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import TitleImage from '../../../assets/images/top/activities/picture-tree.png';
-import SlideImg1 from '../../../assets/images/top/activities/slide-01.png';
-import SlideImg2 from '../../../assets/images/top/activities/slide-02.png';
-import SlideImg3 from '../../../assets/images/top/activities/slide-03.png';
-import SlideImg4 from '../../../assets/images/top/activities/slide-04.png';
 
+// TOPページ表示用アクティビティを取得
+const topActivities = getTopPageActivities();
+
+// タイトルツリー画像の最適化
 const TitleTree = await getImage({
   src: TitleImage,
   format: 'webp',
   widths: [170, 210],
 });
-const ActivitiesSlide1 = await getImage({
-  src: SlideImg1,
-  format: 'webp',
-  widths: [800],
-});
-const ActivitiesSlide2 = await getImage({
-  src: SlideImg2,
-  format: 'webp',
-  widths: [800],
-});
-const ActivitiesSlide3 = await getImage({
-  src: SlideImg3,
-  format: 'webp',
-  widths: [800],
-});
-const ActivitiesSlide4 = await getImage({
-  src: SlideImg4,
-  format: 'webp',
-  widths: [800],
-});
+
+// 各アクティビティのスライド画像を最適化
+const optimizedActivities = await Promise.all(
+  topActivities.map(async (activity) => {
+    const optimizedImage = await getImage({
+      src: activity.topPageDisplay!.slideImage,
+      format: 'webp',
+      widths: [800],
+    });
+    return {
+      ...activity,
+      optimizedSlideImage: optimizedImage,
+    };
+  }),
+);
 ---
 
 <section class="activities">
@@ -63,408 +59,67 @@ const ActivitiesSlide4 = await getImage({
   <!-- Swiper コンテナ -->
   <div class="top-activities__swiper">
     <div class="swiper-wrapper">
-      <!-- スライド1 -->
-      <div class="swiper-slide">
-        <div class="top-activities__item">
-          <a
-            href="#"
-            class="top-activities__link"
-            aria-label="SUP体験の詳細を見る"
-          >
-            <div class="top-activities__image-wrapper">
-              <picture class="top-activities__image">
-                <!-- デスクトップ（1024px以上） -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={ActivitiesSlide1.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上） -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={ActivitiesSlide1.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満） -->
-                <img src={ActivitiesSlide1.src} alt="SUP体験の様子" />
-              </picture>
-              <h3 class="top-activities__title">水の上を歩く</h3>
-              <footer class="top-activities__meta">
-                <p class="top-activities__name">ＳＵＰ体験</p>
-                <svg
-                  class="top-activities__arrow"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="10"
-                  height="18"
-                  viewBox="0 0 10 18"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M1 17L9 9L1 1"
-                    stroke="#054965"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                </svg>
-              </footer>
+      {
+        optimizedActivities.map((activity) => (
+          <div class="swiper-slide">
+            <div class="top-activities__item">
+              <a
+                href={`/activities/${activity.slug}`}
+                class="top-activities__link"
+                aria-label={`${activity.title}の詳細を見る`}
+              >
+                <div class="top-activities__image-wrapper">
+                  <picture class="top-activities__image">
+                    {/* デスクトップ（1024px以上） */}
+                    <source
+                      media="(min-width: 1024px)"
+                      srcset={activity.optimizedSlideImage.srcSet.toString()}
+                    />
+                    {/* タブレット（744px以上） */}
+                    <source
+                      media="(min-width: 744px)"
+                      srcset={activity.optimizedSlideImage.srcSet.toString()}
+                    />
+                    {/* スマホ（744px未満） */}
+                    <img
+                      src={activity.optimizedSlideImage.src}
+                      alt={`${activity.title}の様子`}
+                    />
+                  </picture>
+                  <h3
+                    class:list={[
+                      'top-activities__title',
+                      activity.topPageDisplay?.titleColorClass,
+                    ]}
+                  >
+                    {activity.topPageDisplay!.catchphrase}
+                  </h3>
+                  <footer class="top-activities__meta">
+                    <p class="top-activities__name">{activity.title}</p>
+                    <svg
+                      class="top-activities__arrow"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="10"
+                      height="18"
+                      viewBox="0 0 10 18"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M1 17L9 9L1 1"
+                        stroke="#054965"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </footer>
+                </div>
+              </a>
             </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- スライド2 -->
-      <div class="swiper-slide">
-        <div class="top-activities__item">
-          <a
-            href="#"
-            class="top-activities__link"
-            aria-label="キャンプファイヤーの詳細を見る"
-          >
-            <div class="top-activities__image-wrapper">
-              <picture class="top-activities__image">
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={ActivitiesSlide2.srcSet.toString()}
-                />
-                <source
-                  media="(min-width: 744px)"
-                  srcset={ActivitiesSlide2.srcSet.toString()}
-                />
-                <img
-                  src={ActivitiesSlide2.src}
-                  alt="キャンプファイヤーの様子"
-                />
-              </picture>
-              <h3 class="top-activities__title">火と向き合う</h3>
-              <footer class="top-activities__meta">
-                <p class="top-activities__name">キャンプファイヤー</p>
-                <svg
-                  class="top-activities__arrow"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="10"
-                  height="18"
-                  viewBox="0 0 10 18"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M1 17L9 9L1 1"
-                    stroke="#054965"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                </svg>
-              </footer>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- スライド3 -->
-      <div class="swiper-slide">
-        <div class="top-activities__item">
-          <a
-            href="#"
-            class="top-activities__link"
-            aria-label="サイクリングの詳細を見る"
-          >
-            <div class="top-activities__image-wrapper">
-              <picture class="top-activities__image">
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={ActivitiesSlide3.srcSet.toString()}
-                />
-                <source
-                  media="(min-width: 744px)"
-                  srcset={ActivitiesSlide3.srcSet.toString()}
-                />
-                <img src={ActivitiesSlide3.src} alt="サイクリングの様子" />
-              </picture>
-              <h3 class="top-activities__title color-blue">風を感じる</h3>
-              <footer class="top-activities__meta">
-                <p class="top-activities__name">サイクリング</p>
-                <svg
-                  class="top-activities__arrow"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="10"
-                  height="18"
-                  viewBox="0 0 10 18"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M1 17L9 9L1 1"
-                    stroke="#054965"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                </svg>
-              </footer>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- スライド4 -->
-      <div class="swiper-slide">
-        <div class="top-activities__item">
-          <a
-            href="#"
-            class="top-activities__link"
-            aria-label="樹海トレイルの詳細を見る"
-          >
-            <div class="top-activities__image-wrapper">
-              <picture class="top-activities__image">
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={ActivitiesSlide4.srcSet.toString()}
-                />
-                <source
-                  media="(min-width: 744px)"
-                  srcset={ActivitiesSlide4.srcSet.toString()}
-                />
-                <img src={ActivitiesSlide4.src} alt="樹海トレイルの様子" />
-              </picture>
-              <h3 class="top-activities__title">森に触れる</h3>
-              <footer class="top-activities__meta">
-                <p class="top-activities__name">樹海トレイル</p>
-                <svg
-                  class="top-activities__arrow"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="10"
-                  height="18"
-                  viewBox="0 0 10 18"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M1 17L9 9L1 1"
-                    stroke="#054965"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                </svg>
-              </footer>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- スライド4(demo) -->
-      <div class="swiper-slide">
-        <div class="top-activities__item">
-          <a
-            href="#"
-            class="top-activities__link"
-            aria-label="樹海トレイルの詳細を見る"
-          >
-            <div class="top-activities__image-wrapper">
-              <picture class="top-activities__image">
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={ActivitiesSlide4.srcSet.toString()}
-                />
-                <source
-                  media="(min-width: 744px)"
-                  srcset={ActivitiesSlide4.srcSet.toString()}
-                />
-                <img src={ActivitiesSlide4.src} alt="樹海トレイルの様子" />
-              </picture>
-              <h3 class="top-activities__title">森に触れる</h3>
-              <footer class="top-activities__meta">
-                <p class="top-activities__name">樹海トレイル</p>
-                <svg
-                  class="top-activities__arrow"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="10"
-                  height="18"
-                  viewBox="0 0 10 18"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M1 17L9 9L1 1"
-                    stroke="#054965"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                </svg>
-              </footer>
-            </div>
-          </a>
-        </div>
-      </div><!-- スライド4(demo) -->
-      <div class="swiper-slide">
-        <div class="top-activities__item">
-          <a
-            href="#"
-            class="top-activities__link"
-            aria-label="樹海トレイルの詳細を見る"
-          >
-            <div class="top-activities__image-wrapper">
-              <picture class="top-activities__image">
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={ActivitiesSlide4.srcSet.toString()}
-                />
-                <source
-                  media="(min-width: 744px)"
-                  srcset={ActivitiesSlide4.srcSet.toString()}
-                />
-                <img src={ActivitiesSlide4.src} alt="樹海トレイルの様子" />
-              </picture>
-              <h3 class="top-activities__title">森に触れる</h3>
-              <footer class="top-activities__meta">
-                <p class="top-activities__name">樹海トレイル</p>
-                <svg
-                  class="top-activities__arrow"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="10"
-                  height="18"
-                  viewBox="0 0 10 18"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M1 17L9 9L1 1"
-                    stroke="#054965"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                </svg>
-              </footer>
-            </div>
-          </a>
-        </div>
-      </div><!-- スライド4(demo) -->
-      <div class="swiper-slide">
-        <div class="top-activities__item">
-          <a
-            href="#"
-            class="top-activities__link"
-            aria-label="樹海トレイルの詳細を見る"
-          >
-            <div class="top-activities__image-wrapper">
-              <picture class="top-activities__image">
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={ActivitiesSlide4.srcSet.toString()}
-                />
-                <source
-                  media="(min-width: 744px)"
-                  srcset={ActivitiesSlide4.srcSet.toString()}
-                />
-                <img src={ActivitiesSlide4.src} alt="樹海トレイルの様子" />
-              </picture>
-              <h3 class="top-activities__title">森に触れる</h3>
-              <footer class="top-activities__meta">
-                <p class="top-activities__name">樹海トレイル</p>
-                <svg
-                  class="top-activities__arrow"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="10"
-                  height="18"
-                  viewBox="0 0 10 18"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M1 17L9 9L1 1"
-                    stroke="#054965"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                </svg>
-              </footer>
-            </div>
-          </a>
-        </div>
-      </div><!-- スライド4(demo) -->
-      <div class="swiper-slide">
-        <div class="top-activities__item">
-          <a
-            href="#"
-            class="top-activities__link"
-            aria-label="樹海トレイルの詳細を見る"
-          >
-            <div class="top-activities__image-wrapper">
-              <picture class="top-activities__image">
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={ActivitiesSlide4.srcSet.toString()}
-                />
-                <source
-                  media="(min-width: 744px)"
-                  srcset={ActivitiesSlide4.srcSet.toString()}
-                />
-                <img src={ActivitiesSlide4.src} alt="樹海トレイルの様子" />
-              </picture>
-              <h3 class="top-activities__title">森に触れる</h3>
-              <footer class="top-activities__meta">
-                <p class="top-activities__name">樹海トレイル</p>
-                <svg
-                  class="top-activities__arrow"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="10"
-                  height="18"
-                  viewBox="0 0 10 18"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M1 17L9 9L1 1"
-                    stroke="#054965"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                </svg>
-              </footer>
-            </div>
-          </a>
-        </div>
-      </div><!-- スライド4(demo) -->
-      <div class="swiper-slide">
-        <div class="top-activities__item">
-          <a
-            href="#"
-            class="top-activities__link"
-            aria-label="樹海トレイルの詳細を見る"
-          >
-            <div class="top-activities__image-wrapper">
-              <picture class="top-activities__image">
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={ActivitiesSlide4.srcSet.toString()}
-                />
-                <source
-                  media="(min-width: 744px)"
-                  srcset={ActivitiesSlide4.srcSet.toString()}
-                />
-                <img src={ActivitiesSlide4.src} alt="樹海トレイルの様子" />
-              </picture>
-              <h3 class="top-activities__title">森に触れる</h3>
-              <footer class="top-activities__meta">
-                <p class="top-activities__name">樹海トレイル</p>
-                <svg
-                  class="top-activities__arrow"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="10"
-                  height="18"
-                  viewBox="0 0 10 18"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M1 17L9 9L1 1"
-                    stroke="#054965"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                </svg>
-              </footer>
-            </div>
-          </a>
-        </div>
-      </div>
+          </div>
+        ))
+      }
     </div>
 
     <!-- ページネーションとmoreリンクのコンテナ -->

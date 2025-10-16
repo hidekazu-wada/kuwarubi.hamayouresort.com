@@ -1,3 +1,9 @@
+// TOPページActivitiesスライダー用画像
+import TopSlide01 from '../assets/images/top/activities/slide-01.png';
+import TopSlide02 from '../assets/images/top/activities/slide-02.png';
+import TopSlide03 from '../assets/images/top/activities/slide-03.png';
+import TopSlide04 from '../assets/images/top/activities/slide-04.png';
+
 // アクティビティデータの型定義
 export interface Activity {
   slug: string; // URL用（sup-experience等）
@@ -8,6 +14,15 @@ export interface Activity {
     thumbnail: string; // 一覧用サムネイル
     hero: string; // 詳細ページメイン画像
     gallery: string[]; // ギャラリー画像配列
+  };
+
+  // TOPページスライダー表示用データ（オプション）
+  topPageDisplay?: {
+    showOnTop: boolean; // TOPページに表示するか
+    slideImage: any; // スライダー用画像（ImageMetadata）
+    catchphrase: string; // キャッチコピー（例：「水の上を歩く」）
+    titleColorClass?: string; // タイトルの色クラス（例：'color-blue'）
+    displayOrder: number; // 表示順序（1から開始）
   };
 
   // 詳細ページ用追加データ
@@ -97,6 +112,12 @@ export const activities: Activity[] = [
         '/images/activities/sup-gallery2.jpg',
         '/images/activities/sup-gallery3.jpg',
       ],
+    },
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopSlide01,
+      catchphrase: '水の上を歩く',
+      displayOrder: 1,
     },
     intro: {
       title: 'SUPで体験する湖の静寂',
@@ -211,6 +232,12 @@ export const activities: Activity[] = [
         '/images/activities/campfire-gallery3.jpg',
       ],
     },
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopSlide02,
+      catchphrase: '火と向き合う',
+      displayOrder: 2,
+    },
     intro: {
       title: '満天の星空に包まれて',
       text: '夜が深まるにつれて、空に無数の星が輝き始めます。暖かな焚き火を囲みながら、マシュマロを焼いたり、自然の音に耳を傾けたり。都市では味わえない静寂と美しさに包まれた、特別な夜の時間をお楽しみください。',
@@ -324,6 +351,13 @@ export const activities: Activity[] = [
         '/images/activities/cycle-gallery3.jpg',
       ],
     },
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopSlide03,
+      catchphrase: '風を感じる',
+      titleColorClass: 'color-blue',
+      displayOrder: 3,
+    },
     intro: {
       title: '風を感じながら自然を巡る',
       text: 'リゾート周辺に広がる美しい自然を、自転車でゆったりと巡ってみませんか。3つのコースからお好みに合わせてお選びいただけます。電動アシスト付き自転車もご用意しているので、体力に自信のない方でも安心してお楽しみいただけます。',
@@ -433,6 +467,12 @@ export const activities: Activity[] = [
         '/images/activities/trail-gallery2.jpg',
         '/images/activities/trail-gallery3.jpg',
       ],
+    },
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopSlide04,
+      catchphrase: '森に触れる',
+      displayOrder: 4,
     },
     intro: {
       title: '神秘の樹海で出会う自然の声',
@@ -550,6 +590,12 @@ export const activities: Activity[] = [
         '/images/activities/yoga-gallery2.jpg',
       ],
     },
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopSlide01, // デモ用：SUP画像を再利用
+      catchphrase: '心を整える',
+      displayOrder: 5,
+    },
     intro: {
       title: '心と身体の調和を求めて',
       text: '美しい湖畔の朝、静寂な空間でヨガと瞑想を通じて内なる平和を見つけましょう。経験豊富なインストラクターが初心者の方にも丁寧に指導いたします。',
@@ -623,6 +669,12 @@ export const activities: Activity[] = [
       hero: '/images/activities/fishing-hero.jpg',
       gallery: ['/images/activities/fishing-gallery1.jpg'],
     },
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopSlide02, // デモ用：キャンプファイヤー画像を再利用
+      catchphrase: '静寂と向き合う',
+      displayOrder: 6,
+    },
     intro: {
       title: '湖での静寂な釣り体験',
       text: '美しい湖で釣りを楽しみませんか。初心者から上級者まで楽しめる釣り体験をご用意しています。',
@@ -689,6 +741,13 @@ export const activities: Activity[] = [
       thumbnail: '/images/activities/stargazing-thumbnail.jpg',
       hero: '/images/activities/stargazing-hero.jpg',
       gallery: ['/images/activities/stargazing-gallery1.jpg'],
+    },
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopSlide03, // デモ用：サイクリング画像を再利用
+      catchphrase: '星を見上げる',
+      titleColorClass: 'color-blue', // デモ用：青色適用
+      displayOrder: 7,
     },
     intro: {
       title: '満天の星空との出会い',
@@ -760,6 +819,12 @@ export const activities: Activity[] = [
       hero: '/images/activities/pottery-hero.jpg',
       gallery: ['/images/activities/pottery-gallery1.jpg'],
     },
+    topPageDisplay: {
+      showOnTop: true,
+      slideImage: TopSlide04, // デモ用：樹海トレイル画像を再利用
+      catchphrase: '土と触れ合う',
+      displayOrder: 8,
+    },
     intro: {
       title: '土に触れる創作体験',
       text: '地元の粘土を使った陶芸体験で、オリジナルの作品を作りませんか。天候に関係なく楽しめる屋内アクティビティです。',
@@ -821,3 +886,19 @@ export const activities: Activity[] = [
     notes: ['作品は後日お渡し（要相談）', 'エプロン貸出あり'],
   },
 ];
+
+// ===== ヘルパー関数 =====
+
+/**
+ * TOPページに表示するアクティビティを取得（表示順序でソート）
+ * @returns TOPページ表示用のアクティビティ配列
+ */
+export function getTopPageActivities(): Activity[] {
+  return activities
+    .filter((activity) => activity.topPageDisplay?.showOnTop)
+    .sort(
+      (a, b) =>
+        (a.topPageDisplay?.displayOrder || 0) -
+        (b.topPageDisplay?.displayOrder || 0),
+    );
+}
