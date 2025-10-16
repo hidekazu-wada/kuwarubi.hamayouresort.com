@@ -417,3 +417,250 @@ import Hero from '../components/pages/group/hero.astro';
 - **保守性**: コンポーネント化による管理しやすい構造
 
 ---
+
+## 🎯 完了: TOPページActivitiesセクションの動的化 ✅
+
+### 📋 実装完了概要
+
+**目的**: TOPページのActivitiesスライダーのコンテンツをハードコードから`activities.ts`データベースを使用した動的表示に変更
+
+**結果**: スタイルとスクリプトを完全に維持しながら、コンテンツのみが動的化されたシステムが完成。全8つのアクティビティがTOPページに表示可能。
+
+### 🎨 実装内容
+
+#### **1. activities.tsの拡張**
+
+- **型定義追加**: `topPageDisplay`オプショナルフィールドの実装
+- **画像インポート**: TOPページスライダー用の画像（ImageMetadata）
+- **ヘルパー関数**: `getTopPageActivities()`の実装
+- **データ追加**: 全8つのアクティビティにTOPページ表示用データを追加
+
+#### **2. Activities.astroの動的化**
+
+- **ファイル**: `/src/components/pages/top/Activities.astro`
+- **変更**: ~300行のハードコードスライドを動的map()ループに置き換え
+- **維持**: 全てのBEMクラス名、HTML構造、スタイル、Swiperスクリプトは完全に維持
+
+### 📁 主な変更ファイル
+
+```
+src/
+├── data/
+│   └── activities.ts              # 型定義拡張、画像インポート、ヘルパー関数追加
+└── components/
+    └── pages/
+        └── top/
+            └── Activities.astro   # ハードコード→動的map()ループに変更
+```
+
+### 🔧 技術的な実装詳細
+
+#### **型定義拡張**
+
+```typescript
+export interface Activity {
+  // 既存フィールド...
+
+  // TOPページスライダー表示用データ（オプション）
+  topPageDisplay?: {
+    showOnTop: boolean;           // TOPページに表示するか
+    slideImage: any;              // スライダー用画像（ImageMetadata）
+    catchphrase: string;          // キャッチコピー
+    titleColorClass?: string;     // タイトルの色クラス
+    displayOrder: number;         // 表示順序（1から開始）
+  };
+}
+```
+
+#### **画像インポート（ImageMetadata方式）**
+
+```typescript
+// TOPページActivitiesスライダー用画像
+import TopSlide01 from '../assets/images/top/activities/slide-01.png';
+import TopSlide02 from '../assets/images/top/activities/slide-02.png';
+import TopSlide03 from '../assets/images/top/activities/slide-03.png';
+import TopSlide04 from '../assets/images/top/activities/slide-04.png';
+```
+
+#### **ヘルパー関数**
+
+```typescript
+/**
+ * TOPページに表示するアクティビティを取得（表示順序でソート）
+ * @returns TOPページ表示用のアクティビティ配列
+ */
+export function getTopPageActivities(): Activity[] {
+  return activities
+    .filter((activity) => activity.topPageDisplay?.showOnTop)
+    .sort(
+      (a, b) =>
+        (a.topPageDisplay?.displayOrder || 0) -
+        (b.topPageDisplay?.displayOrder || 0),
+    );
+}
+```
+
+#### **動的レンダリング（Activities.astro）**
+
+**変更前**: ~300行のハードコードされたスライド
+
+**変更後**: 動的map()ループ
+
+```astro
+---
+import { getImage } from 'astro:assets';
+import { getTopPageActivities } from '../../../data/activities';
+
+const topActivities = getTopPageActivities();
+
+// 各アクティビティのスライド画像を最適化
+const optimizedActivities = await Promise.all(
+  topActivities.map(async (activity) => {
+    const optimizedImage = await getImage({
+      src: activity.topPageDisplay!.slideImage,
+      format: 'webp',
+      widths: [800],
+    });
+    return {
+      ...activity,
+      optimizedSlideImage: optimizedImage,
+    };
+  }),
+);
+---
+
+<div class="swiper-wrapper">
+  {optimizedActivities.map((activity) => (
+    <div class="swiper-slide">
+      <div class="top-activities__item">
+        <a href={`/activities/${activity.slug}`} class="top-activities__link">
+          <!-- 画像、タイトル、メタ情報など -->
+        </a>
+      </div>
+    </div>
+  ))}
+</div>
+```
+
+### ⚙️ 実装された機能
+
+#### **1. 完全な動的コンテンツ管理**
+
+- TOPページに表示するアクティビティを`activities.ts`で一元管理
+- 表示順序の柔軟な制御（`displayOrder`フィールド）
+- 表示/非表示の簡単な切り替え（`showOnTop`フラグ）
+
+#### **2. 画像最適化**
+
+- `getImage()`によるWebP変換
+- レスポンシブ画像の自動生成
+- ImageMetadata型による型安全性
+
+#### **3. 後方互換性**
+
+- `topPageDisplay`はオプショナルフィールド
+- 既存のアクティビティデータに影響なし
+
+### 🎉 成果
+
+- **保守性の向上**: TOPページコンテンツの変更は`activities.ts`の編集のみ
+- **一貫性の確保**: 単一データソースから複数ページへの展開
+- **型安全性**: TypeScriptによる完全な型チェック
+- **パフォーマンス**: WebP最適化とレスポンシブ画像
+- **拡張性**: 新しいアクティビティの追加が容易
+
+---
+
+## ⚠️ 検証が必要な項目
+
+### 🔍 画像処理の2つのアプローチ
+
+プロジェクト内で画像を扱う方法が2つ存在することが判明しました。
+
+#### **方法1: ImageMetadataインポート方式（現在使用中）**
+
+**使用場所**: TOPページActivitiesスライダー、過ごし方ページ（schedules.ts）
+
+```typescript
+// データファイル内でImageMetadataとして直接インポート
+import TopSlide01 from '../assets/images/top/activities/slide-01.png';
+
+export const activity = {
+  topPageDisplay: {
+    slideImage: TopSlide01,  // ImageMetadataオブジェクト
+  },
+};
+```
+
+```astro
+<!-- コンポーネント側でgetImage()による最適化 -->
+---
+const optimizedImage = await getImage({
+  src: activity.topPageDisplay.slideImage,
+  format: 'webp',
+  widths: [800],
+});
+---
+```
+
+**利点**:
+- Astroの画像最適化機能をフル活用（WebP変換、複数解像度生成）
+- TypeScriptによる型安全性（ImageMetadata型）
+- ビルド時の存在チェック
+- srcSet生成による最適なレスポンシブ画像
+
+#### **方法2: 文字列パス方式（定義されているが未使用）**
+
+**定義場所**: `activities.ts`の`images`フィールド
+
+```typescript
+export const activities: Activity[] = [
+  {
+    slug: 'sup',
+    title: 'SUP',
+    // ...
+    images: [
+      '/assets/images/activities/sup/gallery-01.jpg',
+      '/assets/images/activities/sup/gallery-02.jpg',
+      // ...
+    ],
+  },
+];
+```
+
+**現状**: このimagesフィールドは**どのコンポーネントでも使用されていない**
+
+**確認結果**:
+- `/src/pages/activities/[slug].astro` → ハードコードされた画像インポートを使用
+- `/src/pages/activities/index.astro` → ハードコードされた画像インポートを使用
+- その他のページ → imagesフィールドを参照していない
+
+### 📋 検証タスク
+
+以下の点について今後検証が必要です：
+
+1. **imagesフィールドの使用意図**
+   - 元々どのような用途で定義されたのか？
+   - 将来的にギャラリー機能で使用する予定があるのか？
+
+2. **統一の必要性**
+   - 2つの方式を併用する明確な理由があるか？
+   - ImageMetadata方式に統一すべきか？
+
+3. **パフォーマンスへの影響**
+   - 文字列パス方式でもAstroの最適化は可能か？
+   - どちらの方式がより効率的か？
+
+4. **今後の方針**
+   - 新しいページ/コンポーネント作成時の推奨方式は？
+   - データ構造のリファクタリングが必要か？
+
+### 💡 推奨事項（暫定）
+
+現時点では以下のアプローチを推奨します：
+
+- **新規実装**: ImageMetadata方式を使用（型安全性と最適化のメリット）
+- **既存のimagesフィールド**: 使用予定が明確になるまで残す
+- **ドキュメント化**: この2つの方式の違いと使い分けを明記
+
+---
