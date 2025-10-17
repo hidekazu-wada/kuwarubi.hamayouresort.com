@@ -250,6 +250,68 @@ import BookingModal from '../components/Booking-modal.astro';
           if (mobileMenuClose) {
             mobileMenuClose.addEventListener('click', closeMenu);
           }
+
+          // メニュー内の全リンクにイベントリスナーを追加
+          const menuLinks = document.querySelectorAll('.menu-overlay__nav-link');
+          console.log('[Menu] Found menu links:', menuLinks.length);
+
+          menuLinks.forEach((link) => {
+            link.addEventListener('click', (e) => {
+              const href = link.getAttribute('href');
+              console.log('[Menu] Link clicked:', href);
+
+              // ハッシュリンクの場合（例: /#enjoy）
+              if (href?.startsWith('/#')) {
+                const hash = href.substring(1); // '/#enjoy' → '#enjoy'
+                const currentPath = window.location.pathname;
+                console.log('[Menu] Current path:', currentPath);
+                console.log('[Menu] Hash:', hash);
+
+                // 同一ページ（トップページ）の場合
+                if (currentPath === '/' || currentPath === '/index.html') {
+                  console.log('[Menu] Same page detected - closing menu and scrolling');
+                  e.preventDefault(); // デフォルトの動作を防止
+                  closeMenu(); // メニューを閉じる
+
+                  // スムーススクロール
+                  const targetElement = document.querySelector(hash);
+                  if (targetElement) {
+                    console.log('[Menu] Target element found, scrolling...');
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    console.warn('[Menu] Target element not found:', hash);
+                  }
+                } else {
+                  console.log('[Menu] Different page - allowing normal navigation');
+                  // 別ページの場合は通常の遷移を許可（e.preventDefaultしない）
+                }
+              }
+            });
+          });
+        }
+
+        // ページロード時にURLハッシュがある場合、該当セクションにスクロール
+        const hash = window.location.hash;
+        console.log('[Page Load] URL hash:', hash);
+
+        if (hash) {
+          console.log('[Page Load] Hash detected, preparing to scroll...');
+
+          // 画像を含む全てのリソースのロード完了を待つ
+          window.addEventListener('load', () => {
+            console.log('[Page Load] All resources loaded, attempting scroll...');
+
+            // さらに少し遅延を追加（レイアウト調整とローディングアニメーション終了のため）
+            setTimeout(() => {
+              const targetElement = document.querySelector(hash);
+              if (targetElement) {
+                console.log('[Page Load] Target element found, scrolling to:', hash);
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                console.warn('[Page Load] Target element not found:', hash);
+              }
+            }, 300); // レイアウトシフト完了を待つ
+          });
         }
       });
 
