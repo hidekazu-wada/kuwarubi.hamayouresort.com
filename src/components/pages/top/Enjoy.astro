@@ -15,7 +15,7 @@ const topPlans = allStayPlans
   .sort(
     (a, b) =>
       (a.topPageDisplay?.displayOrder || 0) -
-      (b.topPageDisplay?.displayOrder || 0),
+      (b.topPageDisplay?.displayOrder || 0)
   );
 
 // 各プランの画像を最適化
@@ -36,15 +36,12 @@ const optimizedPlans = await Promise.all(
       optimizedImageSp,
       optimizedImageTabletUp,
     };
-  }),
+  })
 );
 ---
 
-<section class="enjoy">
-  <SectionWave 
-    fillColor="white"
-    className="enjoy__wave"
-  />
+<section class="enjoy" id="enjoy">
+  <SectionWave fillColor="white" className="enjoy__wave" />
   <header class="enjoy__header">
     <h2 class="enjoy__title">ENJOY</h2>
     <div class="enjoy__subtitle">
