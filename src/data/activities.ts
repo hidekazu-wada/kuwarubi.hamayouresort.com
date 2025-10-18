@@ -10,11 +10,6 @@ export interface Activity {
   title: string; // アクティビティ名
   category: string; // カテゴリ（水上体験、陸上体験等）
   description: string; // 概要
-  images: {
-    thumbnail: string; // 一覧用サムネイル
-    hero: string; // 詳細ページメイン画像
-    gallery: string[]; // ギャラリー画像配列
-  };
 
   // TOPページスライダー表示用データ（オプション）
   topPageDisplay?: {
@@ -33,7 +28,6 @@ export interface Activity {
 
   // ポイントセクション用データ
   point: {
-    image: string; // ポイント画像パス
     titleLines: string[]; // ポイントタイトル（複数行対応）
     description: string; // ポイント説明文
   };
@@ -69,62 +63,31 @@ export interface Activity {
   // 人気アクティビティ表示フラグ
   isPopular: boolean; // 人気のアクティビティセクションに表示するかどうか
 
-  // フィルタリング・ソート用データ
-  targetAge: {
-    min: number; // 最小年齢
-    max?: number; // 最大年齢（制限なしの場合はundefined）
-  };
-  season: string[]; // 実施時期 ['春', '夏', '秋', '冬']
-  capacity: {
-    min: number; // 最小人数
-    max: number; // 最大人数
-  };
-  duration: number; // 所要時間（分）
+  // 料金
   price: {
     adult: number; // 大人料金
-    child?: number; // 子供料金（設定がある場合）
   };
-  weather: string[]; // 実施可能天気 ['晴れ', '曇り', '小雨']
-
-  // 詳細ページ用データ
-  highlights: string[]; // おすすめポイント
-  program: {
-    time: string; // 時刻
-    content: string; // 内容
-  }[];
-  notes: string[]; // 注意事項
-  bookingUrl?: string; // 予約URL
 }
 
 // アクティビティデータ
 export const activities: Activity[] = [
   {
-    slug: 'sup-experience',
-    title: 'SUP体験',
-    category: 'SUP',
+    slug: 'kunimasu',
+    title: 'クニマスの謎を解け',
+    category: 'KUNIMASU',
     description:
-      '静かな湖面でSUP（スタンドアップパドルボード）を楽しめます。初心者でも安心してご参加いただけるレクチャー付きです。',
-    images: {
-      thumbnail: '/images/activities/sup-thumbnail.jpg',
-      hero: '/images/activities/sup-hero.jpg',
-      gallery: [
-        '/images/activities/sup-gallery1.jpg',
-        '/images/activities/sup-gallery2.jpg',
-        '/images/activities/sup-gallery3.jpg',
-      ],
-    },
+      'クニマスが西湖で生き残れた理由はなんだったのでしょうか。その秘密は西湖だけではなく北岸の御坂山塊にもあったのです！クニマスを通して生物多様性の大切さを学びましょう。',
     topPageDisplay: {
       showOnTop: true,
       slideImage: TopSlide01,
-      catchphrase: '水の上を歩く',
+      catchphrase: '生物多様性を学ぶ',
       displayOrder: 1,
     },
     intro: {
-      title: 'SUPで体験する湖の静寂',
-      text: '静かな湖面に立ち、パドルを使って水上を進むSUP（スタンドアップパドルボード）体験。初心者の方でも安心してご参加いただけるよう、経験豊富なインストラクターが丁寧にレクチャーいたします。美しい自然に囲まれながら、心身ともにリフレッシュできる特別な時間をお過ごしください。',
+      title: 'クニマスは、なぜ西湖で生き延びたのか？',
+      text: 'クニマスが西湖で生き残れた理由はなんだったのでしょうか。その秘密は西湖だけではなく北岸の御坂山塊にもあったのです！クニマスを通して生物多様性の大切さを学びましょう。',
     },
     point: {
-      image: '/images/activities/sup-point.jpg',
       titleLines: ['湖面に立ち', '心を静める水上体験'],
       description:
         '初心者でも安心して楽しめるSUP体験。経験豊富なインストラクターによる丁寧なレクチャーで、美しい湖面での特別な時間をお過ごしいただけます。バランス感覚を養いながら、自然との一体感を味わえる贅沢なアクティビティです。',
@@ -135,7 +98,7 @@ export const activities: Activity[] = [
       {
         term: '人数',
         description: '10名未満',
-        note: '＊人数が多い場合や少ない場合などはご相談ください',
+        note: '人数が多い場合や少ない場合などはご相談ください',
       },
       { term: '所要時間', description: '2時間以上' },
       { term: '料金', description: '3000円から5000円' },
@@ -184,38 +147,9 @@ export const activities: Activity[] = [
       { type: 'group', text: '団体' },
     ],
     isPopular: true,
-    targetAge: {
-      min: 12,
-      max: 65,
-    },
-    season: ['春', '夏', '秋'],
-    capacity: {
-      min: 2,
-      max: 8,
-    },
-    duration: 120,
     price: {
       adult: 4500,
-      child: 3500,
     },
-    weather: ['晴れ', '曇り'],
-    highlights: [
-      '初心者向けの丁寧なレクチャー',
-      '美しい湖面での爽快体験',
-      '写真撮影サービス付き',
-    ],
-    program: [
-      { time: '09:00', content: '受付・着替え' },
-      { time: '09:30', content: 'セーフティレクチャー' },
-      { time: '10:00', content: 'SUP体験（90分）' },
-      { time: '11:30', content: '終了・着替え' },
-    ],
-    notes: [
-      '水着・タオルをご持参ください',
-      '悪天候時は中止となる場合があります',
-      '泳げない方でもライフジャケット着用で安心です',
-    ],
-    bookingUrl: 'https://example.com/booking/sup',
   },
   {
     slug: 'campfire-experience',
@@ -223,15 +157,6 @@ export const activities: Activity[] = [
     category: 'Campfire',
     description:
       '星空の下でのキャンプファイヤー。マシュマロ焼きや歌、自然の音を楽しみながら特別な夜をお過ごしください。',
-    images: {
-      thumbnail: '/images/activities/campfire-thumbnail.jpg',
-      hero: '/images/activities/campfire-hero.jpg',
-      gallery: [
-        '/images/activities/campfire-gallery1.jpg',
-        '/images/activities/campfire-gallery2.jpg',
-        '/images/activities/campfire-gallery3.jpg',
-      ],
-    },
     topPageDisplay: {
       showOnTop: true,
       slideImage: TopSlide02,
@@ -243,7 +168,6 @@ export const activities: Activity[] = [
       text: '夜が深まるにつれて、空に無数の星が輝き始めます。暖かな焚き火を囲みながら、マシュマロを焼いたり、自然の音に耳を傾けたり。都市では味わえない静寂と美しさに包まれた、特別な夜の時間をお楽しみください。',
     },
     point: {
-      image: '/images/activities/campfire-point.jpg',
       titleLines: ['星空の下で過ごす', '特別な夜の時間'],
       description:
         '満天の星空の下でのキャンプファイヤー体験。暖かな炎を囲みながら、マシュマロ焼きやホットドリンクをお楽しみいただけます。都市では味わえない静寂な夜に、家族や友人との絆を深める特別な時間をお過ごしください。',
@@ -304,37 +228,9 @@ export const activities: Activity[] = [
       { type: 'group', text: '団体' },
     ],
     isPopular: true,
-    targetAge: {
-      min: 3,
-    },
-    season: ['春', '夏', '秋', '冬'],
-    capacity: {
-      min: 4,
-      max: 20,
-    },
-    duration: 90,
     price: {
       adult: 2000,
-      child: 1500,
     },
-    weather: ['晴れ', '曇り'],
-    highlights: [
-      '満天の星空の下での焚き火体験',
-      'マシュマロ焼きやホットドリンク付き',
-      'ファミリーで楽しめるアクティビティ',
-    ],
-    program: [
-      { time: '19:00', content: '集合・説明' },
-      { time: '19:15', content: '火起こし体験' },
-      { time: '19:30', content: 'キャンプファイヤー開始' },
-      { time: '20:30', content: '終了' },
-    ],
-    notes: [
-      '防寒着をご持参ください',
-      '雨天中止',
-      '小さなお子様は保護者同伴でお願いします',
-    ],
-    bookingUrl: 'https://example.com/booking/campfire',
   },
   {
     slug: 'rental-cycle',
@@ -342,15 +238,6 @@ export const activities: Activity[] = [
     category: 'Rental Cycle',
     description:
       'リゾート周辺の美しい自然を自転車で巡ります。お好きなコースを選んで、自由にサイクリングをお楽しみください。',
-    images: {
-      thumbnail: '/images/activities/cycle-thumbnail.jpg',
-      hero: '/images/activities/cycle-hero.jpg',
-      gallery: [
-        '/images/activities/cycle-gallery1.jpg',
-        '/images/activities/cycle-gallery2.jpg',
-        '/images/activities/cycle-gallery3.jpg',
-      ],
-    },
     topPageDisplay: {
       showOnTop: true,
       slideImage: TopSlide03,
@@ -363,7 +250,6 @@ export const activities: Activity[] = [
       text: 'リゾート周辺に広がる美しい自然を、自転車でゆったりと巡ってみませんか。3つのコースからお好みに合わせてお選びいただけます。電動アシスト付き自転車もご用意しているので、体力に自信のない方でも安心してお楽しみいただけます。',
     },
     point: {
-      image: '/images/activities/cycle-point.jpg',
       titleLines: ['自然を巡る', '爽快サイクリング体験'],
       description:
         '美しい自然の中を自転車で巡る爽快な体験。3つのコースから選択でき、電動アシスト付き自転車もご用意。マップとおすすめスポット案内で、リゾート周辺の魅力を存分にお楽しみいただけます。',
@@ -422,36 +308,9 @@ export const activities: Activity[] = [
     ],
     badges: [{ type: 'reservation', text: '事前\n予約' }],
     isPopular: true,
-    targetAge: {
-      min: 8,
-    },
-    season: ['春', '夏', '秋'],
-    capacity: {
-      min: 1,
-      max: 10,
-    },
-    duration: 180,
     price: {
       adult: 1500,
     },
-    weather: ['晴れ', '曇り'],
-    highlights: [
-      '3つのコースから選択可能',
-      '電動アシスト付き自転車もご用意',
-      'マップとおすすめスポット案内付き',
-    ],
-    program: [
-      { time: '09:00', content: '受付・自転車選択' },
-      { time: '09:15', content: '安全説明・コース案内' },
-      { time: '09:30', content: 'サイクリング出発' },
-      { time: '12:30', content: '返却・終了' },
-    ],
-    notes: [
-      'ヘルメットの着用をお願いします',
-      '雨天中止',
-      '交通ルールを守ってご利用ください',
-    ],
-    bookingUrl: 'https://example.com/booking/cycle',
   },
   {
     slug: 'forest-trail',
@@ -459,15 +318,6 @@ export const activities: Activity[] = [
     category: 'Jukai Trail',
     description:
       '神秘的な樹海を歩くトレッキング体験。ガイド付きで安全に、珍しい植物や野鳥観察を楽しめます。',
-    images: {
-      thumbnail: '/images/activities/trail-thumbnail.jpg',
-      hero: '/images/activities/trail-hero.jpg',
-      gallery: [
-        '/images/activities/trail-gallery1.jpg',
-        '/images/activities/trail-gallery2.jpg',
-        '/images/activities/trail-gallery3.jpg',
-      ],
-    },
     topPageDisplay: {
       showOnTop: true,
       slideImage: TopSlide04,
@@ -479,7 +329,6 @@ export const activities: Activity[] = [
       text: '古くから続く神秘的な樹海の中を、経験豊富なガイドとともに歩いてみませんか。普段は見ることのできない珍しい植物や野鳥たちとの出会いが待っています。自然の息づかいを感じながら、心も体もリフレッシュできる贅沢な時間をお過ごしください。',
     },
     point: {
-      image: '/images/activities/trail-point.jpg',
       titleLines: ['樹海の不思議に触れ', '観察力と考える力を育てる'],
       description:
         '神秘的な樹海を歩くトレッキング体験。経験豊富なガイドが案内し、珍しい植物や野鳥観察を通じて自然の不思議を発見できます。観察力と考える力を育みながら、自然との深いつながりを感じられる特別な体験です。',
@@ -542,38 +391,9 @@ export const activities: Activity[] = [
       { type: 'group', text: '団体' },
     ],
     isPopular: true,
-    targetAge: {
-      min: 10,
-      max: 70,
-    },
-    season: ['春', '夏', '秋'],
-    capacity: {
-      min: 3,
-      max: 12,
-    },
-    duration: 150,
     price: {
       adult: 3000,
-      child: 2500,
     },
-    weather: ['晴れ', '曇り', '小雨'],
-    highlights: [
-      '経験豊富なガイドによる案内',
-      '希少な植物・野鳥の観察',
-      'フォトスポットでの記念撮影',
-    ],
-    program: [
-      { time: '09:00', content: '集合・準備体操' },
-      { time: '09:15', content: 'トレイル出発' },
-      { time: '10:30', content: '中間地点で休憩' },
-      { time: '11:45', content: 'ゴール・解散' },
-    ],
-    notes: [
-      '歩きやすい靴でご参加ください',
-      '虫除けスプレーをご持参ください',
-      '体力に自信のない方はご相談ください',
-    ],
-    bookingUrl: 'https://example.com/booking/trail',
   },
   // === フィルタリング機能テスト用デモデータ ===
   {
@@ -582,14 +402,6 @@ export const activities: Activity[] = [
     category: 'Wellness',
     description:
       '朝の静寂な湖畔でヨガと瞑想を体験。心身のバランスを整える贅沢な時間をお過ごしください。',
-    images: {
-      thumbnail: '/images/activities/yoga-thumbnail.jpg',
-      hero: '/images/activities/yoga-hero.jpg',
-      gallery: [
-        '/images/activities/yoga-gallery1.jpg',
-        '/images/activities/yoga-gallery2.jpg',
-      ],
-    },
     topPageDisplay: {
       showOnTop: true,
       slideImage: TopSlide01, // デモ用：SUP画像を再利用
@@ -601,7 +413,6 @@ export const activities: Activity[] = [
       text: '美しい湖畔の朝、静寂な空間でヨガと瞑想を通じて内なる平和を見つけましょう。経験豊富なインストラクターが初心者の方にも丁寧に指導いたします。',
     },
     point: {
-      image: '/images/activities/yoga-point.jpg',
       titleLines: ['朝の湖畔で', '心身の調和体験'],
       description:
         '朝の清々しい空気の中で行うヨガ・瞑想体験。初心者でも安心してご参加いただけます。',
@@ -643,20 +454,7 @@ export const activities: Activity[] = [
     ],
     badges: [], // 予約不要
     isPopular: false,
-    targetAge: { min: 16, max: 70 },
-    season: ['春', '夏', '秋'],
-    capacity: { min: 1, max: 12 },
-    duration: 60, // 1時間
-    price: { adult: 2800, child: undefined },
-    weather: ['晴れ', '曇り'],
-    highlights: ['初心者歓迎', '少人数制', '朝の特別体験'],
-    program: [
-      { time: '06:30', content: '集合・準備' },
-      { time: '06:45', content: 'ヨガ体験' },
-      { time: '07:25', content: '瞑想・クールダウン' },
-      { time: '07:40', content: '終了' },
-    ],
-    notes: ['動きやすい服装でお越しください', '雨天中止'],
+    price: { adult: 2800 },
   },
   {
     slug: 'fishing-experience',
@@ -664,11 +462,6 @@ export const activities: Activity[] = [
     category: 'Fishing',
     description:
       '湖での釣り体験。初心者でも楽しめる手軽な釣りから、本格的なフライフィッシングまで対応。',
-    images: {
-      thumbnail: '/images/activities/fishing-thumbnail.jpg',
-      hero: '/images/activities/fishing-hero.jpg',
-      gallery: ['/images/activities/fishing-gallery1.jpg'],
-    },
     topPageDisplay: {
       showOnTop: true,
       slideImage: TopSlide02, // デモ用：キャンプファイヤー画像を再利用
@@ -680,7 +473,6 @@ export const activities: Activity[] = [
       text: '美しい湖で釣りを楽しみませんか。初心者から上級者まで楽しめる釣り体験をご用意しています。',
     },
     point: {
-      image: '/images/activities/fishing-point.jpg',
       titleLines: ['静寂な湖で', '心落ち着く釣り時間'],
       description: '初心者にも優しい指導で、釣りの醍醐味を味わえます。',
     },
@@ -717,19 +509,7 @@ export const activities: Activity[] = [
     ],
     badges: [{ type: 'reservation', text: '事前\n予約' }],
     isPopular: true,
-    targetAge: { min: 8, max: undefined },
-    season: ['春', '夏', '秋', '冬'], // 通年
-    capacity: { min: 1, max: 6 },
-    duration: 180, // 3時間
-    price: { adult: 5500, child: 4000 },
-    weather: ['晴れ', '曇り', '小雨'],
-    highlights: ['道具レンタル込み', '初心者指導', '通年実施'],
-    program: [
-      { time: '09:00', content: '受付・道具説明' },
-      { time: '09:30', content: '釣り体験開始' },
-      { time: '12:00', content: '終了・片付け' },
-    ],
-    notes: ['道具は全てレンタルします', '汚れても良い服装でお越しください'],
+    price: { adult: 5500 },
   },
   {
     slug: 'stargazing',
@@ -737,11 +517,6 @@ export const activities: Activity[] = [
     category: 'Astronomy',
     description:
       '都市部では見ることのできない満天の星空を観察。天体望遠鏡を使った本格的な星空観察体験。',
-    images: {
-      thumbnail: '/images/activities/stargazing-thumbnail.jpg',
-      hero: '/images/activities/stargazing-hero.jpg',
-      gallery: ['/images/activities/stargazing-gallery1.jpg'],
-    },
     topPageDisplay: {
       showOnTop: true,
       slideImage: TopSlide03, // デモ用：サイクリング画像を再利用
@@ -754,7 +529,6 @@ export const activities: Activity[] = [
       text: '光害のない環境で、本物の星空をご覧ください。天体望遠鏡を使った観察で、宇宙の神秘に触れる体験です。',
     },
     point: {
-      image: '/images/activities/stargazing-point.jpg',
       titleLines: ['都市では見えない', '本物の星空体験'],
       description: '天体望遠鏡を使った本格的な星空観察をお楽しみいただけます。',
     },
@@ -794,19 +568,7 @@ export const activities: Activity[] = [
       { type: 'group', text: '団体' },
     ],
     isPopular: false,
-    targetAge: { min: 5, max: undefined },
-    season: ['春', '夏', '秋', '冬'], // 通年
-    capacity: { min: 2, max: 15 },
-    duration: 90, // 1時間30分
-    price: { adult: 3200, child: 2500 },
-    weather: ['晴れ'], // 晴れのみ
-    highlights: ['天体望遠鏡使用', '専門ガイド', '子供から大人まで'],
-    program: [
-      { time: '19:30', content: '集合・説明' },
-      { time: '19:45', content: '星空観察' },
-      { time: '21:00', content: '終了' },
-    ],
-    notes: ['防寒着必須', '曇り・雨天中止', '小さなお子様は保護者同伴'],
+    price: { adult: 3200 },
   },
   {
     slug: 'pottery-workshop',
@@ -814,11 +576,6 @@ export const activities: Activity[] = [
     category: 'Crafts',
     description:
       '地元の粘土を使った陶芸体験。初心者でも楽しく作品作りができます。雨の日でも安心の屋内アクティビティ。',
-    images: {
-      thumbnail: '/images/activities/pottery-thumbnail.jpg',
-      hero: '/images/activities/pottery-hero.jpg',
-      gallery: ['/images/activities/pottery-gallery1.jpg'],
-    },
     topPageDisplay: {
       showOnTop: true,
       slideImage: TopSlide04, // デモ用：樹海トレイル画像を再利用
@@ -830,7 +587,6 @@ export const activities: Activity[] = [
       text: '地元の粘土を使った陶芸体験で、オリジナルの作品を作りませんか。天候に関係なく楽しめる屋内アクティビティです。',
     },
     point: {
-      image: '/images/activities/pottery-point.jpg',
       titleLines: ['手作りの', '世界に一つの作品'],
       description: '初心者でも安心の指導で、素敵な作品を作ることができます。',
     },
@@ -871,19 +627,7 @@ export const activities: Activity[] = [
     ],
     badges: [{ type: 'reservation', text: '事前\n予約' }],
     isPopular: true,
-    targetAge: { min: 6, max: undefined },
-    season: ['春', '夏', '秋', '冬'], // 通年
-    capacity: { min: 2, max: 8 },
-    duration: 120, // 2時間
-    price: { adult: 4200, child: 3500 },
-    weather: ['晴れ', '曇り', '雨天'], // 天候不問
-    highlights: ['屋内アクティビティ', '作品お持ち帰り', '雨天でも実施'],
-    program: [
-      { time: '10:00', content: '受付・準備' },
-      { time: '10:15', content: '陶芸体験' },
-      { time: '11:45', content: '仕上げ・終了' },
-    ],
-    notes: ['作品は後日お渡し（要相談）', 'エプロン貸出あり'],
+    price: { adult: 4200 },
   },
 ];
 
@@ -899,6 +643,6 @@ export function getTopPageActivities(): Activity[] {
     .sort(
       (a, b) =>
         (a.topPageDisplay?.displayOrder || 0) -
-        (b.topPageDisplay?.displayOrder || 0),
+        (b.topPageDisplay?.displayOrder || 0)
     );
 }
