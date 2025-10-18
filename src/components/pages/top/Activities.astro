@@ -23,7 +23,7 @@ const TitleTree = await getImage({
 const optimizedActivities = await Promise.all(
   topActivities.map(async (activity) => {
     const optimizedImage = await getImage({
-      src: activity.topPageDisplay!.slideImage,
+      src: activity.images.thumbnail,
       format: 'webp',
       widths: [800],
     });

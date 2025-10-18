@@ -80,22 +80,21 @@ const filterOptions = generateFilterOptions();
 
 // 画像インポート
 import { getImage } from 'astro:assets';
-import ImageSup from '../../assets/images/activities/image-sup.png';
 
-// 画像最適化（一時的に全てのアクティビティで同じ画像を使用）
-const supImage = await getImage({
-  src: ImageSup,
-  format: 'webp',
-  widths: [460, 480, 500],
-});
-
-// 各アクティビティの画像マッピング（将来の拡張用）
-const activityImages: Record<string, typeof supImage> = {
-  'sup-experience': supImage,
-  'campfire-experience': supImage, // 一時的に同じ画像
-  'rental-cycle': supImage, // 一時的に同じ画像
-  'forest-trail': supImage, // 一時的に同じ画像
-};
+// 各アクティビティのサムネイル画像を最適化
+const optimizedActivities = await Promise.all(
+  activities.map(async (activity) => {
+    const optimizedImage = await getImage({
+      src: activity.images.thumbnail,
+      format: 'webp',
+      widths: [460, 480, 500],
+    });
+    return {
+      ...activity,
+      optimizedThumbnail: optimizedImage,
+    };
+  }),
+);
 ---
 
 <BaseLayout pageTitle="アクティビティ" pageClass="main-content--activities">
@@ -118,7 +117,7 @@ const activityImages: Record<string, typeof supImage> = {
   <!-- アクティビティカード -->
   <section class="activity-showcase">
     {
-      activities.map((activity) => {
+      optimizedActivities.map((activity) => {
         // aboutデータから詳細項目を取得
         const durationData = activity.about.find(
           (item) => item.term === '所要時間'
@@ -127,9 +126,6 @@ const activityImages: Record<string, typeof supImage> = {
         const seasonData = activity.about.find(
           (item) => item.term === '実施時期'
         );
-
-        // アクティビティに対応する画像を取得
-        const activityImage = activityImages[activity.slug] || supImage;
 
         return (
           <article class="activity-card">
@@ -141,14 +137,14 @@ const activityImages: Record<string, typeof supImage> = {
                 <picture class="activity-card__picture">
                   <source
                     media="(min-width: 1024px)"
-                    srcset={activityImage.srcSet.toString()}
+                    srcset={activity.optimizedThumbnail.srcSet.toString()}
                   />
                   <source
                     media="(min-width: 744px)"
-                    srcset={activityImage.srcSet.toString()}
+                    srcset={activity.optimizedThumbnail.srcSet.toString()}
                   />
                   <img
-                    src={activityImage.src}
+                    src={activity.optimizedThumbnail.src}
                     alt={`${activity.title}の様子`}
                     class="activity-card__img"
                   />

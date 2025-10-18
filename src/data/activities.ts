@@ -1,8 +1,65 @@
-// TOPページActivitiesスライダー用画像
+// TOPページActivitiesスライダー用画像（後方互換性のため残す）
 import TopSlide01 from '../assets/images/top/activities/slide-01.png';
 import TopSlide02 from '../assets/images/top/activities/slide-02.png';
 import TopSlide03 from '../assets/images/top/activities/slide-03.png';
 import TopSlide04 from '../assets/images/top/activities/slide-04.png';
+
+// アクティビティ画像（ImageMetadata方式）
+// kunimasu
+import kunimasu_thumbnail from '../assets/images/activities/kunimasu/thumbnail.png';
+import kunimasu_gallery_01 from '../assets/images/activities/kunimasu/gallery/slide-01.jpg';
+import kunimasu_gallery_02 from '../assets/images/activities/kunimasu/gallery/slide-02.jpg';
+import kunimasu_gallery_03 from '../assets/images/activities/kunimasu/gallery/slide-03.jpg';
+import kunimasu_point_bg from '../assets/images/activities/kunimasu/point-bg.png';
+
+// campfire-experience
+import campfire_thumbnail from '../assets/images/activities/campfire-experience/thumbnail.png';
+import campfire_gallery_01 from '../assets/images/activities/campfire-experience/gallery/slide-01.jpg';
+import campfire_gallery_02 from '../assets/images/activities/campfire-experience/gallery/slide-02.jpg';
+import campfire_gallery_03 from '../assets/images/activities/campfire-experience/gallery/slide-03.jpg';
+import campfire_point_bg from '../assets/images/activities/campfire-experience/point-bg.png';
+
+// rental-cycle
+import cycle_thumbnail from '../assets/images/activities/rental-cycle/thumbnail.png';
+import cycle_gallery_01 from '../assets/images/activities/rental-cycle/gallery/slide-01.jpg';
+import cycle_gallery_02 from '../assets/images/activities/rental-cycle/gallery/slide-02.jpg';
+import cycle_gallery_03 from '../assets/images/activities/rental-cycle/gallery/slide-03.jpg';
+import cycle_point_bg from '../assets/images/activities/rental-cycle/point-bg.png';
+
+// forest-trail
+import forest_thumbnail from '../assets/images/activities/forest-trail/thumbnail.png';
+import forest_gallery_01 from '../assets/images/activities/forest-trail/gallery/slide-01.jpg';
+import forest_gallery_02 from '../assets/images/activities/forest-trail/gallery/slide-02.jpg';
+import forest_gallery_03 from '../assets/images/activities/forest-trail/gallery/slide-03.jpg';
+import forest_point_bg from '../assets/images/activities/forest-trail/point-bg.png';
+
+// yoga-meditation
+import yoga_thumbnail from '../assets/images/activities/yoga-meditation/thumbnail.png';
+import yoga_gallery_01 from '../assets/images/activities/yoga-meditation/gallery/slide-01.jpg';
+import yoga_gallery_02 from '../assets/images/activities/yoga-meditation/gallery/slide-02.jpg';
+import yoga_gallery_03 from '../assets/images/activities/yoga-meditation/gallery/slide-03.jpg';
+import yoga_point_bg from '../assets/images/activities/yoga-meditation/point-bg.png';
+
+// fishing-experience
+import fishing_thumbnail from '../assets/images/activities/fishing-experience/thumbnail.png';
+import fishing_gallery_01 from '../assets/images/activities/fishing-experience/gallery/slide-01.jpg';
+import fishing_gallery_02 from '../assets/images/activities/fishing-experience/gallery/slide-02.jpg';
+import fishing_gallery_03 from '../assets/images/activities/fishing-experience/gallery/slide-03.jpg';
+import fishing_point_bg from '../assets/images/activities/fishing-experience/point-bg.png';
+
+// stargazing
+import stargazing_thumbnail from '../assets/images/activities/stargazing/thumbnail.png';
+import stargazing_gallery_01 from '../assets/images/activities/stargazing/gallery/slide-01.jpg';
+import stargazing_gallery_02 from '../assets/images/activities/stargazing/gallery/slide-02.jpg';
+import stargazing_gallery_03 from '../assets/images/activities/stargazing/gallery/slide-03.jpg';
+import stargazing_point_bg from '../assets/images/activities/stargazing/point-bg.png';
+
+// pottery-workshop
+import pottery_thumbnail from '../assets/images/activities/pottery-workshop/thumbnail.png';
+import pottery_gallery_01 from '../assets/images/activities/pottery-workshop/gallery/slide-01.jpg';
+import pottery_gallery_02 from '../assets/images/activities/pottery-workshop/gallery/slide-02.jpg';
+import pottery_gallery_03 from '../assets/images/activities/pottery-workshop/gallery/slide-03.jpg';
+import pottery_point_bg from '../assets/images/activities/pottery-workshop/point-bg.png';
 
 // アクティビティデータの型定義
 export interface Activity {
@@ -11,10 +68,16 @@ export interface Activity {
   category: string; // カテゴリ（水上体験、陸上体験等）
   description: string; // 概要
 
+  // 画像管理（ImageMetadata方式）
+  images: {
+    thumbnail: any; // 一覧・TOPページ用サムネイル（ImageMetadata）
+    gallery: any[]; // 詳細ページスライダー用画像配列（ImageMetadata[]）
+    pointBackground: any; // ポイントセクション背景画像（ImageMetadata）
+  };
+
   // TOPページスライダー表示用データ（オプション）
   topPageDisplay?: {
     showOnTop: boolean; // TOPページに表示するか
-    slideImage: any; // スライダー用画像（ImageMetadata）
     catchphrase: string; // キャッチコピー（例：「水の上を歩く」）
     titleColorClass?: string; // タイトルの色クラス（例：'color-blue'）
     displayOrder: number; // 表示順序（1から開始）
@@ -77,9 +140,13 @@ export const activities: Activity[] = [
     category: 'KUNIMASU',
     description:
       'クニマスが西湖で生き残れた理由はなんだったのでしょうか。その秘密は西湖だけではなく北岸の御坂山塊にもあったのです！クニマスを通して生物多様性の大切さを学びましょう。',
+    images: {
+      thumbnail: kunimasu_thumbnail,
+      gallery: [kunimasu_gallery_01, kunimasu_gallery_02, kunimasu_gallery_03],
+      pointBackground: kunimasu_point_bg,
+    },
     topPageDisplay: {
       showOnTop: true,
-      slideImage: TopSlide01,
       catchphrase: '生物多様性を学ぶ',
       displayOrder: 1,
     },
@@ -157,9 +224,13 @@ export const activities: Activity[] = [
     category: 'Campfire',
     description:
       '星空の下でのキャンプファイヤー。マシュマロ焼きや歌、自然の音を楽しみながら特別な夜をお過ごしください。',
+    images: {
+      thumbnail: campfire_thumbnail,
+      gallery: [campfire_gallery_01, campfire_gallery_02, campfire_gallery_03],
+      pointBackground: campfire_point_bg,
+    },
     topPageDisplay: {
       showOnTop: true,
-      slideImage: TopSlide02,
       catchphrase: '火と向き合う',
       displayOrder: 2,
     },
@@ -238,9 +309,13 @@ export const activities: Activity[] = [
     category: 'Rental Cycle',
     description:
       'リゾート周辺の美しい自然を自転車で巡ります。お好きなコースを選んで、自由にサイクリングをお楽しみください。',
+    images: {
+      thumbnail: cycle_thumbnail,
+      gallery: [cycle_gallery_01, cycle_gallery_02, cycle_gallery_03],
+      pointBackground: cycle_point_bg,
+    },
     topPageDisplay: {
       showOnTop: true,
-      slideImage: TopSlide03,
       catchphrase: '風を感じる',
       titleColorClass: 'color-blue',
       displayOrder: 3,
@@ -318,9 +393,13 @@ export const activities: Activity[] = [
     category: 'Jukai Trail',
     description:
       '神秘的な樹海を歩くトレッキング体験。ガイド付きで安全に、珍しい植物や野鳥観察を楽しめます。',
+    images: {
+      thumbnail: forest_thumbnail,
+      gallery: [forest_gallery_01, forest_gallery_02, forest_gallery_03],
+      pointBackground: forest_point_bg,
+    },
     topPageDisplay: {
       showOnTop: true,
-      slideImage: TopSlide04,
       catchphrase: '森に触れる',
       displayOrder: 4,
     },
@@ -402,9 +481,13 @@ export const activities: Activity[] = [
     category: 'Wellness',
     description:
       '朝の静寂な湖畔でヨガと瞑想を体験。心身のバランスを整える贅沢な時間をお過ごしください。',
+    images: {
+      thumbnail: yoga_thumbnail,
+      gallery: [yoga_gallery_01, yoga_gallery_02, yoga_gallery_03],
+      pointBackground: yoga_point_bg,
+    },
     topPageDisplay: {
       showOnTop: true,
-      slideImage: TopSlide01, // デモ用：SUP画像を再利用
       catchphrase: '心を整える',
       displayOrder: 5,
     },
@@ -462,9 +545,13 @@ export const activities: Activity[] = [
     category: 'Fishing',
     description:
       '湖での釣り体験。初心者でも楽しめる手軽な釣りから、本格的なフライフィッシングまで対応。',
+    images: {
+      thumbnail: fishing_thumbnail,
+      gallery: [fishing_gallery_01, fishing_gallery_02, fishing_gallery_03],
+      pointBackground: fishing_point_bg,
+    },
     topPageDisplay: {
       showOnTop: true,
-      slideImage: TopSlide02, // デモ用：キャンプファイヤー画像を再利用
       catchphrase: '静寂と向き合う',
       displayOrder: 6,
     },
@@ -517,11 +604,19 @@ export const activities: Activity[] = [
     category: 'Astronomy',
     description:
       '都市部では見ることのできない満天の星空を観察。天体望遠鏡を使った本格的な星空観察体験。',
+    images: {
+      thumbnail: stargazing_thumbnail,
+      gallery: [
+        stargazing_gallery_01,
+        stargazing_gallery_02,
+        stargazing_gallery_03,
+      ],
+      pointBackground: stargazing_point_bg,
+    },
     topPageDisplay: {
       showOnTop: true,
-      slideImage: TopSlide03, // デモ用：サイクリング画像を再利用
       catchphrase: '星を見上げる',
-      titleColorClass: 'color-blue', // デモ用：青色適用
+      titleColorClass: 'color-blue',
       displayOrder: 7,
     },
     intro: {
@@ -576,9 +671,13 @@ export const activities: Activity[] = [
     category: 'Crafts',
     description:
       '地元の粘土を使った陶芸体験。初心者でも楽しく作品作りができます。雨の日でも安心の屋内アクティビティ。',
+    images: {
+      thumbnail: pottery_thumbnail,
+      gallery: [pottery_gallery_01, pottery_gallery_02, pottery_gallery_03],
+      pointBackground: pottery_point_bg,
+    },
     topPageDisplay: {
       showOnTop: true,
-      slideImage: TopSlide04, // デモ用：樹海トレイル画像を再利用
       catchphrase: '土と触れ合う',
       displayOrder: 8,
     },

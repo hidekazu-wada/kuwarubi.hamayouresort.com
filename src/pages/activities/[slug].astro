@@ -10,28 +10,6 @@ import { activities, type Activity } from '../../data/activities';
 // 画像
 import { getImage } from 'astro:assets';
 
-// 動的アクティビティ用画像（一時的に代替画像を使用）
-import slide01 from '../../assets/images/activities/01_jukai-trail.jpg';
-import bg from '../../assets/images/activities/bg_jukai-trail.png';
-import ImageSup from '../../assets/images/activities/image-sup.png';
-
-// フォーマット
-const slideImage01 = await getImage({
-  src: slide01,
-  format: 'webp',
-  widths: [580, 900, 1050],
-});
-const bgImage = await getImage({
-  src: bg,
-  format: 'webp',
-  widths: [720, 1080, 2316],
-});
-const supImage = await getImage({
-  src: ImageSup,
-  format: 'webp',
-  widths: [460, 480, 500],
-});
-
 // 動的ルーティング用のパス生成
 export async function getStaticPaths() {
   return activities.map((activity: Activity) => ({
@@ -51,15 +29,37 @@ if (!activity) {
 // 人気のアクティビティをフィルタリング
 const popularActivities = activities.filter((activity) => activity.isPopular);
 
+// 現在のアクティビティのギャラリー画像を最適化
+const optimizedGallery = await Promise.all(
+  activity.images.gallery.map(async (image) => {
+    return await getImage({
+      src: image,
+      format: 'webp',
+      widths: [580, 900, 1050],
+    });
+  }),
+);
+
+// 現在のアクティビティのポイント背景画像を最適化
+const bgImage = await getImage({
+  src: activity.images.pointBackground,
+  format: 'webp',
+  widths: [720, 1080, 2316],
+});
+
 // 人気アクティビティの画像最適化
-await Promise.all(
-  popularActivities.map(async (activity) => {
-    // 実際の画像ファイルは後で追加するため、一時的にsupImageを使用
+const optimizedPopularActivities = await Promise.all(
+  popularActivities.map(async (popularActivity) => {
+    const optimizedImage = await getImage({
+      src: popularActivity.images.thumbnail,
+      format: 'webp',
+      widths: [460, 480, 500],
+    });
     return {
-      activity,
-      optimizedImage: supImage, // 一時的な代替画像
+      ...popularActivity,
+      optimizedThumbnail: optimizedImage,
     };
-  })
+  }),
 );
 ---
 
@@ -80,46 +80,27 @@ await Promise.all(
     <section class="activity-detail__gallery">
       <div class="activities-detail__swiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <picture class="activity-detail__picture">
-              <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-              <source
-                media="(min-width: 1024px)"
-                srcset={slideImage01.srcSet.toString()}
-              />
-              <!-- タブレット（744px以上）→ 中解像度版 -->
-              <source
-                media="(min-width: 744px)"
-                srcset={slideImage01.srcSet.toString()}
-              />
-              <!-- スマホ（744px未満）→ 最小解像度版 -->
-              <img
-                src={slideImage01.src}
-                alt={`${activity.title}の風景`}
-                class="activity-detail__image"
-              />
-            </picture>
-          </div>
-          <!-- テスト用スライド2 -->
-          <div class="swiper-slide">
-            <picture class="activity-detail__picture">
-              <img
-                src={slideImage01.src}
-                alt="樹海トレイルの風景2"
-                class="activity-detail__image"
-              />
-            </picture>
-          </div>
-          <!-- テスト用スライド3 -->
-          <div class="swiper-slide">
-            <picture class="activity-detail__picture">
-              <img
-                src={slideImage01.src}
-                alt="樹海トレイルの風景3"
-                class="activity-detail__image"
-              />
-            </picture>
-          </div>
+          {
+            optimizedGallery.map((image, index) => (
+              <div class="swiper-slide">
+                <picture class="activity-detail__picture">
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={image.srcSet.toString()}
+                  />
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={image.srcSet.toString()}
+                  />
+                  <img
+                    src={image.src}
+                    alt={`${activity.title}の風景${index + 1}`}
+                    class="activity-detail__image"
+                  />
+                </picture>
+              </div>
+            ))
+          }
         </div>
         <!-- ページネーション（既存のクラス名も維持） -->
         <div class="swiper-pagination activity-detail__pager"></div>
@@ -272,7 +253,7 @@ await Promise.all(
     <div class="popular-activities__slider activities-detail-popular__swiper">
       <div class="swiper-wrapper">
         {
-          popularActivities.map((popularActivity) => {
+          optimizedPopularActivities.map((popularActivity) => {
             // 各アクティビティの所要時間、対象年齢、実施時期をaboutデータから取得
             const durationData = popularActivity.about.find(
               (item) => item.term === '所要時間'
@@ -295,14 +276,14 @@ await Promise.all(
                       <picture class="popular-activities__picture">
                         <source
                           media="(min-width: 1024px)"
-                          srcset={supImage.srcSet.toString()}
+                          srcset={popularActivity.optimizedThumbnail.srcSet.toString()}
                         />
                         <source
                           media="(min-width: 744px)"
-                          srcset={supImage.srcSet.toString()}
+                          srcset={popularActivity.optimizedThumbnail.srcSet.toString()}
                         />
                         <img
-                          src={supImage.src}
+                          src={popularActivity.optimizedThumbnail.src}
                           alt={`${popularActivity.title}の様子`}
                           class="popular-activities__img"
                         />
