@@ -1,9 +1,3 @@
-// TOPページActivitiesスライダー用画像（後方互換性のため残す）
-import TopSlide01 from '../assets/images/top/activities/slide-01.png';
-import TopSlide02 from '../assets/images/top/activities/slide-02.png';
-import TopSlide03 from '../assets/images/top/activities/slide-03.png';
-import TopSlide04 from '../assets/images/top/activities/slide-04.png';
-
 // アクティビティ画像（ImageMetadata方式）
 // kunimasu
 import kunimasu_thumbnail from '../assets/images/activities/kunimasu/thumbnail.png';
