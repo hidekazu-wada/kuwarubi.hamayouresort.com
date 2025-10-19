@@ -129,10 +129,10 @@ export interface Activity {
 export const activities: Activity[] = [
   {
     slug: 'jukai_private_tour',
-    title: '青木ヶ原樹海プライベートツアー',
+    title: '青木ヶ原樹海\nプライベートツアー',
     category: 'JUKAI',
     description:
-      '樹海は富士山の噴火で流れてきた溶岩の上にできた森です。樹海の中を歩き、樹海の地下をのぞき、山に登って上から樹海を見下ろします。富士山の噴火活動でできた広大な樹海を様々な角度から満喫するツアーです。',
+      '富士山の麓に広がる神秘の森・青木ヶ原樹海を探検。森の中を歩き、地下の洞窟をのぞき、山の上から見下ろす。一度で3つの視点から樹海を満喫できる特別なツアーです。',
     images: {
       thumbnail: jukai_private_tour_thumbnail,
       gallery: [jukai_private_tour_gallery_01, jukai_private_tour_gallery_02],
@@ -140,17 +140,17 @@ export const activities: Activity[] = [
     },
     topPageDisplay: {
       showOnTop: true,
-      catchphrase: 'JUKAI～プライベートツアー～',
+      catchphrase: '命の森に触れる',
       displayOrder: 1,
     },
     intro: {
-      title: '絶景とパワースポット',
-      text: '皆さんは樹海と聞くとどんなことを思い浮かべますか？怖い森でしょうか？コンパスが効かない、一度入ると出られない等、様々な都市伝説があります。しかし実際の樹海はどんな場所なのでしょう？',
+      title: '歩くたびに出会う神秘',
+      text: '樹海は「怖い森」というイメージを持たれがちですが、実は富士山の噴火で流れた溶岩の上にできた特別な森です。土や水が少ない厳しい環境の中で、植物や動物たちは独自の方法で生きています。歩いて、のぞいて、見下ろして──樹海の神秘を多角的に体感できるツアーです。',
     },
     point: {
       titleLines: ['樹海を歩き', '生物の戦略を学ぶ'],
       description:
-        '1組限定なので周りを気にせず好きなペースで進めます。お好きなポイントで長めに滞在したりも可能です。',
+        '1組限定のプライベートツアーで、周囲を気にせず自分たちのペースで満喫できます。午前は爽やかな空気の中で、午後は夕日に染まる絶景を楽しめます。富士山の溶岩洞窟や樹海の展望ポイントなど見どころ満載。歩行は平坦で短時間、体力に自信のない方も安心してご参加いただけます。',
     },
     about: [
       {
@@ -190,19 +190,25 @@ export const activities: Activity[] = [
         title: '終了',
         description: '送迎車にて戻ってきます。',
       },
+      {
+        stepNumber: 'ATTN.',
+        title: 'ご注意事項',
+        description:
+          '・樹海の中は平坦な道が多いですが、下は溶岩で木の根などがでています。\n・絶景スポットへは10分ほどの上りがあります。\n・動きやすい服装、歩きやすい靴でお越しください。\n・3才以上からご参加いただけます。\n・小学生以上のお子様から人数に含まれます。\n・安全のため、必ずガイドの指示にしたがってください。\n・天候によっては中止させていただく場合がございます。',
+      },
     ],
     reservation: [
       {
-        label: 'TEL',
-        value: '',
-        link: '',
-        hours: '現在お電話でのご予約は承っておりません',
-      },
-      {
         label: 'Web',
-        value: 'ご予約はこちら',
+        value: '予約サイトへ',
         link: 'https://hamayouresort.rezio.shop/ja-JP/product/jukai01',
         hours: '受付時間　24時間',
+      },
+      {
+        label: 'お問い合わせ',
+        value: 'activity@hamayouresort.com',
+        link: 'mailto:activity@hamayouresort.com',
+        hours: '北山宛にメールください',
       },
     ],
     badges: [
@@ -273,6 +279,11 @@ export const activities: Activity[] = [
       {
         stepNumber: 'STEP 4',
         title: '終了',
+        description: '火の片付けをして、体験終了となります。',
+      },
+      {
+        stepNumber: '注意事項',
+        title: '注意事項',
         description: '火の片付けをして、体験終了となります。',
       },
     ],

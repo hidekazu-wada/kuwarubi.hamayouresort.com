@@ -170,7 +170,16 @@ const optimizedPopularActivities = await Promise.all(
         </div>
       </header>
       <div class="point__description">
-        {activity.point.description}
+        {
+          activity.point.description.split('\n').map((line, index) => (
+            <>
+              {line}
+              {index < activity.point.description.split('\n').length - 1 && (
+                <br />
+              )}
+            </>
+          ))
+        }
       </div>
     </article>
   </section>
@@ -211,7 +220,18 @@ const optimizedPopularActivities = await Promise.all(
                   <span class="flow__step-number">{step.stepNumber}</span>
                   <h5 class="flow__step-title">{step.title}</h5>
                 </header>
-                <p class="flow__step-description">{step.description}</p>
+                <p class="flow__step-description">
+                  {
+                    step.description.split('\n').map((line, index) => (
+                      <>
+                        {line}
+                        {index < step.description.split('\n').length - 1 && (
+                          <br />
+                        )}
+                      </>
+                    ))
+                  }
+                </p>
               </article>
             </li>
           ))
@@ -291,7 +311,19 @@ const optimizedPopularActivities = await Promise.all(
                     </div>
                     <div class="popular-activities__card-title">
                       <h3 class="popular-activities__activity-name">
-                        {popularActivity.title}
+                        {
+                          popularActivity.title
+                            .split('\n')
+                            .map((line, index) => (
+                              <>
+                                {line}
+                                {index <
+                                  popularActivity.title.split('\n').length - 1 && (
+                                  <br />
+                                )}
+                              </>
+                            ))
+                        }
                       </h3>
                       <svg
                         class="popular-activities__arrow-icon"

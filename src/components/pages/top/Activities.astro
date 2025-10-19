@@ -95,7 +95,18 @@ const optimizedActivities = await Promise.all(
                     {activity.topPageDisplay!.catchphrase}
                   </h3>
                   <footer class="top-activities__meta">
-                    <p class="top-activities__name">{activity.title}</p>
+                    <p class="top-activities__name">
+                      {
+                        activity.title.split('\n').map((line, index) => (
+                          <>
+                            {line}
+                            {index < activity.title.split('\n').length - 1 && (
+                              <br />
+                            )}
+                          </>
+                        ))
+                      }
+                    </p>
                     <svg
                       class="top-activities__arrow"
                       xmlns="http://www.w3.org/2000/svg"

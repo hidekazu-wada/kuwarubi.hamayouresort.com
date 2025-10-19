@@ -151,7 +151,18 @@ const optimizedActivities = await Promise.all(
                 </picture>
               </div>
               <div class="activity-card__title">
-                <h3 class="activity-card__name">{activity.title}</h3>
+                <h3 class="activity-card__name">
+                  {
+                    activity.title.split('\n').map((line, index) => (
+                      <>
+                        {line}
+                        {index < activity.title.split('\n').length - 1 && (
+                          <br />
+                        )}
+                      </>
+                    ))
+                  }
+                </h3>
                 <svg
                   class="activity-card__arrow-icon"
                   xmlns="http://www.w3.org/2000/svg"
