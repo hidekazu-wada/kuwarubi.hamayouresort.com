@@ -1,10 +1,9 @@
 // アクティビティ画像（ImageMetadata方式）
-// kunimasu
-import kunimasu_thumbnail from '../assets/images/activities/kunimasu/thumbnail.png';
-import kunimasu_gallery_01 from '../assets/images/activities/kunimasu/gallery/slide-01.jpg';
-import kunimasu_gallery_02 from '../assets/images/activities/kunimasu/gallery/slide-02.jpg';
-import kunimasu_gallery_03 from '../assets/images/activities/kunimasu/gallery/slide-03.jpg';
-import kunimasu_point_bg from '../assets/images/activities/kunimasu/point-bg.png';
+// 青木ヶ原樹海プライベートツアー
+import jukai_private_tour_thumbnail from '../assets/images/activities/01_jukai_private_tour/thumbnail.jpg';
+import jukai_private_tour_gallery_01 from '../assets/images/activities/01_jukai_private_tour/gallery/slide-01.jpg';
+import jukai_private_tour_gallery_02 from '../assets/images/activities/01_jukai_private_tour/gallery/slide-02.jpg';
+import jukai_private_tour_point_bg from '../assets/images/activities/01_jukai_private_tour/point-bg.jpg';
 
 // campfire-experience
 import campfire_thumbnail from '../assets/images/activities/campfire-experience/thumbnail.png';
@@ -129,83 +128,86 @@ export interface Activity {
 // アクティビティデータ
 export const activities: Activity[] = [
   {
-    slug: 'kunimasu',
-    title: 'クニマスの謎を解け',
-    category: 'KUNIMASU',
+    slug: 'jukai_private_tour',
+    title: '青木ヶ原樹海プライベートツアー',
+    category: 'JUKAI',
     description:
-      'クニマスが西湖で生き残れた理由はなんだったのでしょうか。その秘密は西湖だけではなく北岸の御坂山塊にもあったのです！クニマスを通して生物多様性の大切さを学びましょう。',
+      '樹海は富士山の噴火で流れてきた溶岩の上にできた森です。樹海の中を歩き、樹海の地下をのぞき、山に登って上から樹海を見下ろします。富士山の噴火活動でできた広大な樹海を様々な角度から満喫するツアーです。',
     images: {
-      thumbnail: kunimasu_thumbnail,
-      gallery: [kunimasu_gallery_01, kunimasu_gallery_02, kunimasu_gallery_03],
-      pointBackground: kunimasu_point_bg,
+      thumbnail: jukai_private_tour_thumbnail,
+      gallery: [jukai_private_tour_gallery_01, jukai_private_tour_gallery_02],
+      pointBackground: jukai_private_tour_point_bg,
     },
     topPageDisplay: {
       showOnTop: true,
-      catchphrase: '生物多様性を学ぶ',
+      catchphrase: 'JUKAI～プライベートツアー～',
       displayOrder: 1,
     },
     intro: {
-      title: 'クニマスは、なぜ西湖で生き延びたのか？',
-      text: 'クニマスが西湖で生き残れた理由はなんだったのでしょうか。その秘密は西湖だけではなく北岸の御坂山塊にもあったのです！クニマスを通して生物多様性の大切さを学びましょう。',
+      title: '絶景とパワースポット',
+      text: '皆さんは樹海と聞くとどんなことを思い浮かべますか？怖い森でしょうか？コンパスが効かない、一度入ると出られない等、様々な都市伝説があります。しかし実際の樹海はどんな場所なのでしょう？',
     },
     point: {
-      titleLines: ['湖面に立ち', '心を静める水上体験'],
+      titleLines: ['樹海を歩き', '生物の戦略を学ぶ'],
       description:
-        '初心者でも安心して楽しめるSUP体験。経験豊富なインストラクターによる丁寧なレクチャーで、美しい湖面での特別な時間をお過ごしいただけます。バランス感覚を養いながら、自然との一体感を味わえる贅沢なアクティビティです。',
+        '1組限定なので周りを気にせず好きなペースで進めます。お好きなポイントで長めに滞在したりも可能です。',
     },
     about: [
-      { term: '対象年齢', description: '中学生以上' },
-      { term: '実施時期', description: '夏' },
+      {
+        term: '対象年齢',
+        description: '3歳以上',
+        note: 'お子様だけでのご参加はできません。',
+      },
+      { term: '実施時期', description: '通年' },
       {
         term: '人数',
-        description: '10名未満',
-        note: '人数が多い場合や少ない場合などはご相談ください',
+        description: '1-4名',
       },
       { term: '所要時間', description: '2時間以上' },
-      { term: '料金', description: '3000円から5000円' },
-      { term: '実施可能天気', description: '晴れ' },
+      { term: '料金', description: '12000円～' },
+      { term: '実施可能天気', description: '小雨決行' },
       { term: 'ご予約', description: '事前予約' },
-      { term: '持ち物', description: '水着・タオル' },
+      { term: '持ち物', description: '動きやすい服装・靴' },
     ],
     flow: [
       {
         stepNumber: 'STEP 1',
-        title: '受付・着替え',
-        description: '受付を済ませ、ウェットスーツに着替えます。',
+        title: '受付',
+        description: '受付を済ませ、誓約書にサインを頂きます。',
       },
       {
         stepNumber: 'STEP 2',
-        title: 'セーフティレクチャー',
-        description: 'SUPの基本操作と安全について説明いたします。',
+        title: '移動',
+        description: '送迎車にて樹海入り口へ移動。',
       },
       {
         stepNumber: 'STEP 3',
-        title: 'SUP体験',
-        description: '美しい湖面でSUPをお楽しみください（90分間）。',
+        title: '体験',
+        description: '樹海を歩き、各スポットを巡ります。',
       },
       {
         stepNumber: 'STEP 4',
-        title: '終了・着替え',
-        description: '体験終了後、着替えをして解散となります。',
+        title: '終了',
+        description: '送迎車にて戻ってきます。',
       },
     ],
     reservation: [
       {
         label: 'TEL',
-        value: '0555-82-2922',
-        link: 'tel:0555822922',
-        hours: '受付時間　10:00 〜 17:00',
+        value: '',
+        link: '',
+        hours: '現在お電話でのご予約は承っておりません',
       },
       {
-        label: 'E-mail',
-        value: 'info@hamayouresort.com',
-        link: 'mailto:info@hamayouresort.com',
+        label: 'Web',
+        value: 'ご予約はこちら',
+        link: 'https://hamayouresort.rezio.shop/ja-JP/product/jukai01',
         hours: '受付時間　24時間',
       },
     ],
     badges: [
       { type: 'reservation', text: '事前\n予約' },
-      { type: 'group', text: '団体' },
+      { type: 'group', text: '個人' },
     ],
     isPopular: true,
     price: {
