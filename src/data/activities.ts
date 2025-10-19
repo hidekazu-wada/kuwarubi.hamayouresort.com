@@ -3,6 +3,9 @@
 import jukai_private_tour_thumbnail from '../assets/images/activities/01_jukai_private_tour/thumbnail.jpg';
 import jukai_private_tour_gallery_01 from '../assets/images/activities/01_jukai_private_tour/gallery/slide-01.jpg';
 import jukai_private_tour_gallery_02 from '../assets/images/activities/01_jukai_private_tour/gallery/slide-02.jpg';
+import jukai_private_tour_gallery_03 from '../assets/images/activities/01_jukai_private_tour/gallery/slide-03.jpg';
+import jukai_private_tour_gallery_04 from '../assets/images/activities/01_jukai_private_tour/gallery/slide-04.jpg';
+import jukai_private_tour_gallery_05 from '../assets/images/activities/01_jukai_private_tour/gallery/slide-05.jpg';
 import jukai_private_tour_point_bg from '../assets/images/activities/01_jukai_private_tour/point-bg.jpg';
 
 // campfire-experience
@@ -135,7 +138,13 @@ export const activities: Activity[] = [
       '富士山の麓に広がる神秘の森・青木ヶ原樹海を探検。森の中を歩き、地下の洞窟をのぞき、山の上から見下ろす。一度で3つの視点から樹海を満喫できる特別なツアーです。',
     images: {
       thumbnail: jukai_private_tour_thumbnail,
-      gallery: [jukai_private_tour_gallery_01, jukai_private_tour_gallery_02],
+      gallery: [
+        jukai_private_tour_gallery_01,
+        jukai_private_tour_gallery_02,
+        jukai_private_tour_gallery_03,
+        jukai_private_tour_gallery_04,
+        jukai_private_tour_gallery_05,
+      ],
       pointBackground: jukai_private_tour_point_bg,
     },
     topPageDisplay: {
@@ -164,7 +173,7 @@ export const activities: Activity[] = [
         description: '1-4名',
       },
       { term: '所要時間', description: '2時間以上' },
-      { term: '料金', description: '12000円～' },
+      { term: '料金', description: '12,000円～' },
       { term: '実施可能天気', description: '小雨決行' },
       { term: 'ご予約', description: '事前予約' },
       { term: '持ち物', description: '動きやすい服装・靴' },
@@ -173,7 +182,8 @@ export const activities: Activity[] = [
       {
         stepNumber: 'STEP 1',
         title: '受付',
-        description: '受付を済ませ、誓約書にサインを頂きます。',
+        description:
+          'キャンプビレッジGNOME内のアクティビティ管理棟（赤いトレーラーハウス）にて受付',
       },
       {
         stepNumber: 'STEP 2',
@@ -188,7 +198,7 @@ export const activities: Activity[] = [
       {
         stepNumber: 'STEP 4',
         title: '終了',
-        description: '送迎車にて戻ってきます。',
+        description: '送迎者にてキャンプビレッジGNOMEまで戻って終了です',
       },
       {
         stepNumber: 'ATTN.',
@@ -217,7 +227,7 @@ export const activities: Activity[] = [
     ],
     isPopular: true,
     price: {
-      adult: 4500,
+      adult: 12000,
     },
   },
   {
