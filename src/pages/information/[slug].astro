@@ -10,20 +10,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import LowerPageHeader from '../../components/ui/LowerPageHeader.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 
-// 追加インポート（必要に応じて）
-// import { getImage } from 'astro:assets';
-// import sampleImage from '../assets/images/sample.jpg';
-
-// インフォメーションデータのインポート
+// インフォメーションデータのインポート（microCMSから取得）
 import {
-  getInformationBySlug,
+  getInformationPostBySlug,
   getAdjacentPosts,
   formatDate,
-  informationPosts,
-} from '../../data/information';
+  getAllInformationPosts,
+} from '../../lib/informationAPI';
 
 // 静的パスの生成（Astroの動的ルーティング用）
 export async function getStaticPaths() {
+  const informationPosts = await getAllInformationPosts();
   return informationPosts.map((post) => ({
     params: { slug: post.slug },
   }));
@@ -32,8 +29,8 @@ export async function getStaticPaths() {
 // パラメータからスラッグを取得
 const { slug } = Astro.params;
 
-// インフォメーション記事を取得
-const post = getInformationBySlug(slug);
+// インフォメーション記事を取得（microCMSから）
+const post = await getInformationPostBySlug(slug);
 
 // 記事が見つからない場合は404（通常はgetStaticPathsで防がれる）
 if (!post) {
@@ -41,12 +38,12 @@ if (!post) {
 }
 
 // 前後の記事を取得
-const { prev, next } = getAdjacentPosts(slug);
+const { prev, next } = await getAdjacentPosts(slug);
 
 // 日付をフォーマット
-const dateInfo = formatDate(post.date);
-const prevDateInfo = prev ? formatDate(prev.date) : null;
-const nextDateInfo = next ? formatDate(next.date) : null;
+const dateInfo = formatDate(post.publishedAt || post.createdAt);
+const prevDateInfo = prev ? formatDate(prev.publishedAt || prev.createdAt) : null;
+const nextDateInfo = next ? formatDate(next.publishedAt || next.createdAt) : null;
 
 // ============================================================
 // TODO: 以下の項目を必ず変更してください
@@ -63,14 +60,14 @@ const pageClass = 'main-content--blog-detail';
 
   <!-- ページヘッダー -->
   <header class="page-header-container">
-    <time class="page-header-container__date" datetime={post.date}>
+    <time class="page-header-container__date" datetime={post.publishedAt || post.createdAt}>
       <span class="page-header-container__date__year"
         >{dateInfo.year}.{dateInfo.month}</span
       >
       <span class="page-header-container__date__day">{dateInfo.day}</span>
     </time>
     <!-- お知らせ、イベント情報、ブログ記事などのカテゴリ名を入れます -->
-    <span class="page-header-container__category">{post.category}</span>
+    <span class="page-header-container__category">{post.category[0]}</span>
   </header>
 
   <!-- メインコンテンツ -->
@@ -90,7 +87,7 @@ const pageClass = 'main-content--blog-detail';
               class="blog-detail__nav-item blog-detail__nav-item--prev"
             >
               <article class="blog-detail__nav-article">
-                <time class="blog-detail__nav-date" datetime={prev.date}>
+                <time class="blog-detail__nav-date" datetime={prev.publishedAt || prev.createdAt}>
                   <span class="blog-detail__nav-year">
                     {prevDateInfo?.year}.{prevDateInfo?.month}
                   </span>
@@ -108,7 +105,7 @@ const pageClass = 'main-content--blog-detail';
               class="blog-detail__nav-item blog-detail__nav-item--next"
             >
               <article class="blog-detail__nav-article">
-                <time class="blog-detail__nav-date" datetime={next.date}>
+                <time class="blog-detail__nav-date" datetime={next.publishedAt || next.createdAt}>
                   <span class="blog-detail__nav-year">
                     {nextDateInfo?.year}.{nextDateInfo?.month}
                   </span>
@@ -122,11 +119,11 @@ const pageClass = 'main-content--blog-detail';
       </div>
 
       <a
-        href={`/information?category=${encodeURIComponent(post.category)}`}
+        href={`/information?category=${encodeURIComponent(post.category[0])}`}
         class="blog-detail__list-link"
       >
         <span class="blog-detail__list-text"
-          >{post.category === 'ブログ記事' ? 'ブログ' : post.category}一覧</span
+          >{post.category[0] === 'ブログ記事' ? 'ブログ' : post.category[0]}一覧</span
         >
         <svg
           class="blog-detail__list-icon"

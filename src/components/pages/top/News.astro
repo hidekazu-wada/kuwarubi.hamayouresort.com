@@ -4,11 +4,11 @@ import {
   getTopPageInformationPosts,
   getTopPageEventPosts,
   formatDate,
-} from '../../../data/information';
+} from '../../../lib/informationAPI';
 
-// TOPページ用のお知らせとイベント情報を取得
-const informationPosts = getTopPageInformationPosts();
-const eventPosts = getTopPageEventPosts();
+// TOPページ用のお知らせとイベント情報を取得（microCMSから）
+const informationPosts = await getTopPageInformationPosts();
+const eventPosts = await getTopPageEventPosts();
 ---
 
 <section class="news">
@@ -23,12 +23,12 @@ const eventPosts = getTopPageEventPosts();
         <ul class="news__list">
           {
             informationPosts.map((post) => {
-              const formattedDate = formatDate(post.date);
+              const formattedDate = formatDate(post.publishedAt || post.createdAt);
               return (
                 <li class="news__item">
                   <a href={`/information/${post.slug}`} class="news__link">
                     <article class="news__article">
-                      <time class="news__date" datetime={post.date}>
+                      <time class="news__date" datetime={post.publishedAt || post.createdAt}>
                         {formattedDate.full}
                       </time>
                       <p class="news__text">{post.title}</p>
@@ -60,12 +60,12 @@ const eventPosts = getTopPageEventPosts();
         <ul class="news__list">
           {
             eventPosts.map((post) => {
-              const formattedDate = formatDate(post.date);
+              const formattedDate = formatDate(post.publishedAt || post.createdAt);
               return (
                 <li class="news__item">
                   <a href={`/information/${post.slug}`} class="news__link">
                     <article class="news__article">
-                      <time class="news__date" datetime={post.date}>
+                      <time class="news__date" datetime={post.publishedAt || post.createdAt}>
                         {formattedDate.full}
                       </time>
                       <p class="news__text">{post.title}</p>

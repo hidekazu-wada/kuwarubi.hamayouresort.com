@@ -10,39 +10,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import LowerPageHeader from '../../components/ui/LowerPageHeader.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 
-// 追加インポート（必要に応じて）
-import { getImage } from 'astro:assets';
-
-// ブログ記事のサムネイル画像を動的にインポート
-import blogThumb1 from '../../assets/images/information/demo.png';
-
-// 画像の最適化処理
-const blogImages = new Map();
-for (const post of informationPosts) {
-  if (post.category === 'ブログ記事' && post.thumbnail) {
-    // 現時点では全てdemo.pngを使用（後で個別画像に対応）
-    const optimizedImage = await getImage({
-      src: blogThumb1,
-      format: 'webp',
-      widths: [500],
-    });
-    blogImages.set(post.id, optimizedImage);
-  }
-}
-
-// インフォメーションデータのインポート
+// インフォメーションデータのインポート（microCMSから取得）
 import {
-  informationPosts,
+  getAllInformationPosts,
   formatDate,
-  type InformationPost,
-} from '../../data/information';
+} from '../../lib/informationAPI';
 
-// カテゴリーの一覧を取得（重複を除去）
-const categories = [...new Set(informationPosts.map((post) => post.category))];
+// microCMSから全ての記事を取得（既に日付降順でソート済み）
+const informationPosts = await getAllInformationPosts();
+
+// カテゴリーの一覧を固定順序で定義（お知らせ → イベント情報 → ブログ記事）
+const categories = ['お知らせ', 'イベント情報', 'ブログ記事'];
 
 // 全ての記事を日付の新しい順にソート
 const sortedPosts = [...informationPosts].sort(
-  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  (a, b) => new Date(b.publishedAt || b.createdAt).getTime() - new Date(a.publishedAt || a.createdAt).getTime()
 );
 
 // ============================================================
@@ -86,33 +68,31 @@ const pageClass = 'main-content--information';
       <div class="information-list__items">
         {
           sortedPosts.map((post) => {
-            const dateInfo = formatDate(post.date);
+            const dateInfo = formatDate(post.publishedAt || post.createdAt);
 
             // ブログカテゴリーの場合は別のHTML構造を使用
-            if (post.category === 'ブログ記事') {
-              const blogImage = blogImages.get(post.id);
+            if (post.category[0] === 'ブログ記事') {
+              const thumbnailUrl = post.thumbnail?.url || '/images/default-thumbnail.jpg';
 
               return (
                 <article
                   class="information-list__blog-item"
-                  data-category={post.category}
+                  data-category={post.category[0]}
                 >
                   <a
                     href={`/information/${post.slug}`}
                     class="information-list__blog-link"
                   >
                     <figure class="information-list__blog-image">
-                      {blogImage && (
-                        <img
-                          class="information-list__blog-img"
-                          src={blogImage.src}
-                          alt={post.title}
-                        />
-                      )}
+                      <img
+                        class="information-list__blog-img"
+                        src={thumbnailUrl}
+                        alt={post.title}
+                      />
                       <figcaption class="information-list__blog-date">
                         <time
                           class="information-list__blog-time"
-                          datetime={post.date}
+                          datetime={post.publishedAt || post.createdAt}
                         >
                           <span class="information-list__blog-year-month">
                             {dateInfo.year}.{dateInfo.month}
@@ -133,14 +113,14 @@ const pageClass = 'main-content--information';
             return (
               <article
                 class="information-list__item"
-                data-category={post.category}
+                data-category={post.category[0]}
               >
                 <a
                   href={`/information/${post.slug}`}
                   class="information-list__link"
                 >
                   <div class="information-list__content">
-                    <time class="information-list__date" datetime={post.date}>
+                    <time class="information-list__date" datetime={post.publishedAt || post.createdAt}>
                       <span class="information-list__date-month">
                         {dateInfo.year}.{dateInfo.month}
                       </span>
@@ -150,7 +130,7 @@ const pageClass = 'main-content--information';
                     </time>
                     <div class="information-list__text">
                       <span class="information-list__category">
-                        {post.category}
+                        {post.category[0]}
                       </span>
                       <h3 class="information-list__title">{post.title}</h3>
                     </div>

@@ -1,30 +1,14 @@
 ---
-import { getImage } from 'astro:assets';
 import MoreButton from '../../ui/MoreButton.astro';
 import SectionWave from '../../ui/SectionWave.astro';
-import { getTopPageBlogPosts, formatDate } from '../../../data/information';
+import { getTopPageBlogPosts, formatDate } from '../../../lib/informationAPI';
 // Swiper CSS
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-// TOPページBlogスライダー用のブログ記事を取得
-const blogPosts = getTopPageBlogPosts();
-
-// 各ブログ記事のスライド画像を最適化
-const optimizedBlogPosts = await Promise.all(
-  blogPosts.map(async (post) => {
-    const optimizedImage = await getImage({
-      src: post.topPageDisplay!.slideImage,
-      format: 'webp',
-      widths: [500],
-    });
-    return {
-      ...post,
-      optimizedSlideImage: optimizedImage,
-    };
-  })
-);
+// TOPページBlogスライダー用のブログ記事を取得（microCMSから）
+const blogPosts = await getTopPageBlogPosts();
 ---
 
 <section class="blog">
@@ -40,8 +24,9 @@ const optimizedBlogPosts = await Promise.all(
   <div class="top-blog__swiper">
     <div class="swiper-wrapper">
       {
-        optimizedBlogPosts.map((post) => {
-          const formattedDate = formatDate(post.date);
+        blogPosts.map((post) => {
+          const formattedDate = formatDate(post.publishedAt || post.createdAt);
+          const thumbnailUrl = post.thumbnail?.url || '/images/default-thumbnail.jpg';
           return (
             <div class="swiper-slide">
               <article class="top-blog__article">
@@ -51,20 +36,12 @@ const optimizedBlogPosts = await Promise.all(
                     class="top-blog__image-link"
                   >
                     <picture class="top-blog__image">
-                      <source
-                        media="(min-width: 1024px)"
-                        srcset={post.optimizedSlideImage.srcSet.toString()}
-                      />
-                      <source
-                        media="(min-width: 744px)"
-                        srcset={post.optimizedSlideImage.srcSet.toString()}
-                      />
                       <img
-                        src={post.optimizedSlideImage.src}
+                        src={thumbnailUrl}
                         alt={post.title}
                       />
                     </picture>
-                    <time class="top-blog__date" datetime={post.date}>
+                    <time class="top-blog__date" datetime={post.publishedAt || post.createdAt}>
                       <span class="top-blog__date-month">
                         {formattedDate.year}.{formattedDate.month}
                       </span>
