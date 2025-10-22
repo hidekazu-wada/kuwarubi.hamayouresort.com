@@ -1,14 +1,18 @@
 ---
 import iconHaburashi from '../../../assets/images/facility/room/icon-haburashi.svg';
+import iconBathtowel from '../../../assets/images/facility/room/icon-bathtowel.svg';
+import iconFacetowel from '../../../assets/images/facility/room/icon-facetowel.svg';
+import iconSamue from '../../../assets/images/facility/room/icon-samue.svg';
 import iconDryer from '../../../assets/images/facility/room/icon-dryer.svg';
-import iconIron from '../../../assets/images/facility/room/icon-iron.svg';
+import iconKettle from '../../../assets/images/facility/room/icon-kettle.svg';
+import iconTv from '../../../assets/images/facility/room/icon-tv.svg';
 ---
 
 <section class="room-amenities">
   <article class="room-amenities__category room-amenities__category--amenities">
     <header class="room-amenities__header">
       <h3 class="room-amenities__title-en">Amenities</h3>
-      <p class="room-amenities__title-ja">アメニティ</p>
+      <p class="room-amenities__title-ja">アメニティ（一般利用時のみ）</p>
     </header>
     <ul class="room-amenities__list">
       <li class="room-amenities__item">
@@ -23,8 +27,8 @@ import iconIron from '../../../assets/images/facility/room/icon-iron.svg';
       <li class="room-amenities__item">
         <figure class="room-amenities__icon">
           <img
-            src={iconHaburashi.src}
-            alt="歯ブラシセット"
+            src={iconBathtowel.src}
+            alt="バススタオル"
             class="room-amenities__icon-image"
           />
         </figure>
@@ -32,8 +36,8 @@ import iconIron from '../../../assets/images/facility/room/icon-iron.svg';
       <li class="room-amenities__item">
         <figure class="room-amenities__icon">
           <img
-            src={iconHaburashi.src}
-            alt="歯ブラシセット"
+            src={iconFacetowel.src}
+            alt="フェイスタオル"
             class="room-amenities__icon-image"
           />
         </figure>
@@ -41,17 +45,8 @@ import iconIron from '../../../assets/images/facility/room/icon-iron.svg';
       <li class="room-amenities__item">
         <figure class="room-amenities__icon">
           <img
-            src={iconHaburashi.src}
-            alt="歯ブラシセット"
-            class="room-amenities__icon-image"
-          />
-        </figure>
-      </li>
-      <li class="room-amenities__item">
-        <figure class="room-amenities__icon">
-          <img
-            src={iconHaburashi.src}
-            alt="歯ブラシセット"
+            src={iconSamue.src}
+            alt="作務衣"
             class="room-amenities__icon-image"
           />
         </figure>
@@ -77,79 +72,21 @@ import iconIron from '../../../assets/images/facility/room/icon-iron.svg';
       <li class="room-amenities__item">
         <figure class="room-amenities__icon">
           <img
-            src={iconDryer.src}
-            alt="ドライヤー"
+            src={iconKettle.src}
+            alt="ケトル"
             class="room-amenities__icon-image"
           />
         </figure>
       </li>
       <li class="room-amenities__item">
         <figure class="room-amenities__icon">
-          <img
-            src={iconDryer.src}
-            alt="ドライヤー"
-            class="room-amenities__icon-image"
-          />
-        </figure>
-      </li>
-      <li class="room-amenities__item">
-        <figure class="room-amenities__icon">
-          <img
-            src={iconDryer.src}
-            alt="ドライヤー"
-            class="room-amenities__icon-image"
-          />
-        </figure>
-      </li>
-      <li class="room-amenities__item">
-        <figure class="room-amenities__icon">
-          <img
-            src={iconDryer.src}
-            alt="ドライヤー"
-            class="room-amenities__icon-image"
-          />
-        </figure>
-      </li>
-      <li class="room-amenities__item">
-        <figure class="room-amenities__icon">
-          <img
-            src={iconDryer.src}
-            alt="ドライヤー"
-            class="room-amenities__icon-image"
-          />
-        </figure>
-      </li>
-      <li class="room-amenities__item">
-        <figure class="room-amenities__icon">
-          <img
-            src={iconDryer.src}
-            alt="ドライヤー"
-            class="room-amenities__icon-image"
-          />
-        </figure>
-      </li>
-      <li class="room-amenities__item">
-        <figure class="room-amenities__icon">
-          <img
-            src={iconDryer.src}
-            alt="ドライヤー"
-            class="room-amenities__icon-image"
-          />
-        </figure>
-      </li>
-      <li class="room-amenities__item">
-        <figure class="room-amenities__icon">
-          <img
-            src={iconDryer.src}
-            alt="ドライヤー"
-            class="room-amenities__icon-image"
-          />
+          <img src={iconTv.src} alt="TV" class="room-amenities__icon-image" />
         </figure>
       </li>
     </ul>
   </article>
 
-  <article class="room-amenities__category room-amenities__category--rental">
+  <!-- <article class="room-amenities__category room-amenities__category--rental">
     <header class="room-amenities__header">
       <h3 class="room-amenities__title-en">
         Rental items<span class="room-amenities__title-note">(free)</span>
@@ -203,7 +140,7 @@ import iconIron from '../../../assets/images/facility/room/icon-iron.svg';
         </figure>
       </li>
     </ul>
-  </article>
+  </article> -->
 </section>
 <style lang="scss">
   @import '../../../styles/variables';
