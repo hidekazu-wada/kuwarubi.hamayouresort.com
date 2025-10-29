@@ -1,12 +1,21 @@
 // アクティビティ画像（ImageMetadata方式）
-// 青木ヶ原樹海プライベートツアー
-import jukai_private_tour_thumbnail from '../assets/images/activities/01_jukai_private_tour/thumbnail.jpg';
-import jukai_private_tour_gallery_01 from '../assets/images/activities/01_jukai_private_tour/gallery/slide-01.jpg';
-import jukai_private_tour_gallery_02 from '../assets/images/activities/01_jukai_private_tour/gallery/slide-02.jpg';
-import jukai_private_tour_gallery_03 from '../assets/images/activities/01_jukai_private_tour/gallery/slide-03.jpg';
-import jukai_private_tour_gallery_04 from '../assets/images/activities/01_jukai_private_tour/gallery/slide-04.jpg';
-import jukai_private_tour_gallery_05 from '../assets/images/activities/01_jukai_private_tour/gallery/slide-05.jpg';
-import jukai_private_tour_point_bg from '../assets/images/activities/01_jukai_private_tour/point-bg.jpg';
+// 001_青木ヶ原樹海プライベートツアー
+import thumbnail_001 from '../assets/images/activities/001/thumbnail.jpg';
+import gallery_01_001 from '../assets/images/activities/001/gallery/slide-01.jpg';
+import gallery_02_001 from '../assets/images/activities/001/gallery/slide-02.jpg';
+import gallery_03_001 from '../assets/images/activities/001/gallery/slide-03.jpg';
+import gallery_04_001 from '../assets/images/activities/001/gallery/slide-04.jpg';
+import gallery_05_001 from '../assets/images/activities/001/gallery/slide-05.jpg';
+import point_bg_001 from '../assets/images/activities/001/point-bg.jpg';
+
+// 002_青木ヶ原樹海早朝プライベートツアー
+import thumbnail_002 from '../assets/images/activities/002/thumbnail.jpg';
+import gallery_01_002 from '../assets/images/activities/002/gallery/slide-01.jpg';
+import gallery_02_002 from '../assets/images/activities/002/gallery/slide-02.jpg';
+import gallery_03_002 from '../assets/images/activities/002/gallery/slide-03.jpg';
+import gallery_04_002 from '../assets/images/activities/002/gallery/slide-04.jpg';
+import gallery_05_002 from '../assets/images/activities/002/gallery/slide-05.jpg';
+import point_bg_002 from '../assets/images/activities/002/point-bg.jpg';
 
 // campfire-experience
 import campfire_thumbnail from '../assets/images/activities/campfire-experience/thumbnail.png';
@@ -137,15 +146,15 @@ export const activities: Activity[] = [
     description:
       '富士山の麓に広がる神秘の森・青木ヶ原樹海を探検。森の中を歩き、地下の洞窟をのぞき、山の上から見下ろす。一度で3つの視点から樹海を満喫できる特別なツアーです。',
     images: {
-      thumbnail: jukai_private_tour_thumbnail,
+      thumbnail: thumbnail_001,
       gallery: [
-        jukai_private_tour_gallery_01,
-        jukai_private_tour_gallery_02,
-        jukai_private_tour_gallery_03,
-        jukai_private_tour_gallery_04,
-        jukai_private_tour_gallery_05,
+        gallery_01_001,
+        gallery_02_001,
+        gallery_03_001,
+        gallery_04_001,
+        gallery_05_001,
       ],
-      pointBackground: jukai_private_tour_point_bg,
+      pointBackground: point_bg_001,
     },
     topPageDisplay: {
       showOnTop: true,
@@ -231,19 +240,25 @@ export const activities: Activity[] = [
     },
   },
   {
-    slug: 'campfire-experience',
-    title: 'キャンプファイヤー体験',
-    category: 'Campfire',
+    slug: 'jukai_private_tour_early',
+    title: '青木ヶ原樹海\n早朝プライベートツアー',
+    category: 'JUKAI',
     description:
-      '星空の下でのキャンプファイヤー。マシュマロ焼きや歌、自然の音を楽しみながら特別な夜をお過ごしください。',
+      '樹海は富士山の噴火で流れてきた溶岩の上にできた森です。樹海の中を歩き、樹海の地下をのぞき、山に登って上から樹海を見下ろします。\n富士山の噴火活動でできた広大な樹海を様々な角度から満喫するツアーです。',
     images: {
-      thumbnail: campfire_thumbnail,
-      gallery: [campfire_gallery_01, campfire_gallery_02, campfire_gallery_03],
-      pointBackground: campfire_point_bg,
+      thumbnail: thumbnail_002,
+      gallery: [
+        gallery_01_002,
+        gallery_02_002,
+        gallery_03_002,
+        gallery_04_002,
+        gallery_05_002,
+      ],
+      pointBackground: point_bg_002,
     },
     topPageDisplay: {
       showOnTop: true,
-      catchphrase: '火と向き合う',
+      catchphrase: '命の森の朝の顔',
       displayOrder: 2,
     },
     intro: {
@@ -315,7 +330,7 @@ export const activities: Activity[] = [
       { type: 'reservation', text: '事前\n予約' },
       { type: 'group', text: '団体' },
     ],
-    isPopular: true,
+    isPopular: false,
     price: {
       adult: 2000,
     },
