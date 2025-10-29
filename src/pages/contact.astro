@@ -153,9 +153,59 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
           </fieldset>
           <section class="contact-form__privacy">
             <h3 class="contact-form__privacy-title">個人情報の取り扱い</h3>
-            <p class="contact-form__privacy-text">
-              ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入りま
-            </p>
+            <div class="contact-form__privacy-text">
+              HAMAYOUリゾートでは以下のとおり「情報保護方針」を定め、個人情報の適切な保護に努めます。
+              <ul>
+                <li>情報の適切な生成、収集、利用及び提供を行います。</li>
+                <li>
+                  情報への不正アクセス、情報の紛失、破壊、改ざん及び漏えいなどを防ぎます。
+                </li>
+                <li>情報に関する法令及びその他規範を遵守します。</li>
+                <li>
+                  情報保護に関する規程類を整備し、継続した改善を行っていきます。
+                </li>
+                <li>
+                  HAMAYOUリゾートは、この方針を文書化し本規程の全ての適用対象者に周知します。
+                </li>
+              </ul>
+
+              <h4>お客様の個人情報の利用目的について</h4>
+              HAMAYOUリゾートは、ご提供いただいた個人情報につきましては、下記の目的の範囲内で取り扱いさせていただきます。
+              <ul>
+                <li>
+                  ご本人確認、ご利用サービスの停止・中止・契約解除の通知並びにその他当社サービスの提供に係ること。
+                </li>
+                <li>
+                  電話、電子メール、郵送等各種媒体により、当社のサービスに関する販売推奨・アンケート調査並びに景品等の送付を行うこと。
+                </li>
+                <li>
+                  HAMAYOUリゾートのサービスの改善又は新たなサービスの開発を行うこと。
+                </li>
+                <li>上記の他、HAMAYOUリゾートの営業に関する行為。</li>
+                <li>損害保険およびこれらに付帯・関連するサービスの提供。</li>
+              </ul>
+              なお、HAMAYOUリゾートは、ご提供いただいた個人情報につきましては、上記利用目的を達成するため、業務委託先又は提携先に預託する場合がございます。また、法令等に基づき、裁判所・警察機関などの公的機関から開示の要請があった場合には、当該公的機関に提供することがございます。HAMAYOUリゾートは以上の方針を改定することがあります。その場合すべての改定はこのサイトで通知いたします。
+
+              <h4>本サイトご利用にあたって</h4>
+
+              <h4>クッキー（Cookies）について</h4>
+              クッキー（Cookies）は、お客さまが当サイトに再度訪問された際、より便利に当サイトを閲覧していただくためのものであり、お客さまのプライバシーを侵害するものではなく、またお客さまのコンピューターへ悪影響を及ぼすことはありません。<br
+              />
+              HAMAYOUリゾートでは、当サイトの訪問者から、クッキーに含まれる当サイト上での視聴行動についての全体傾向やパターン等の情報を収集する場合があります。収集した情報は、HAMAYOUリゾート（当社が調査分析作業を委託する会社を含みます。）がアクセス傾向を分析し、より良いお客さまサービスを提供していくために使用致します。また、収集した情報につきましては、お客さまの個人情報同様秘密として扱われますのでご安心ください。<br
+              />
+              なお、お客さまがご自分に関する情報の収集を希望しない場合は、インターネット閲覧ソフト（ブラウザ）の設定により、クッキー（Cookies）の受け取りを拒否することも可能です。ブラウザの設定方法は各ソフト製造元へお問い合わせ下さい。
+
+              <h4>保証および責任制限</h4>
+              当サイトの利用は、お客さまの責任において行われるものとします。<br
+              />
+              当サイトおよび当サイトにリンクが設定されている他のウェブサイトから取得された各種情報の利用によって生じたあらゆる損害に関して、HAMAYOUリゾートは一切の責任を負いません。
+
+              <h4>準拠法</h4>
+              当サイトはHAMAYOUリゾートの管理下にあります。<br />
+              当サイトは法律の異なる全世界の国々からアクセスすることが可能ですが、当サイトにアクセスされたお客さまおよびHAMAYOUリゾートの両者は、かかる法律原理の違いに関わらず、当サイトの利用に関して日本国の法律に拘束されることに同意するものとします。<br
+              />
+              またHAMAYOUリゾートは当サイト上で、お客さまの環境において当サイトのコンテンツが適切であるかなどの記述や表示は一切行いません。当サイトへのアクセスはお客さまの自由意志によるものとし、当サイトの利用に関しての責任はお客さまにあるものとします。
+            </div>
           </section>
           <div class="contact-form__agreement">
             <label class="contact-form__checkbox-label">
@@ -634,6 +684,73 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
       @include desktop-up {
         font-size: ppx(24);
         letter-spacing: ppx(0.72);
+      }
+
+      // リストのスタイリング
+      ul {
+        margin-top: spx(15);
+        margin-bottom: spx(20);
+        padding-left: spx(25);
+        @include tablet-up {
+          margin-top: ppx(15 * 1.2);
+          margin-bottom: ppx(20 * 1.2);
+          padding-left: ppx(30 * 1.2);
+        }
+        @include desktop-up {
+          margin-top: ppx(15);
+          margin-bottom: ppx(20);
+          padding-left: ppx(30);
+        }
+
+        li {
+          margin-bottom: spx(8);
+          list-style-type: disc;
+          @include tablet-up {
+            margin-bottom: ppx(10 * 1.2);
+          }
+          @include desktop-up {
+            margin-bottom: ppx(10);
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      // 見出し（h4）のスタイリング
+      h4 {
+        font-family: 'Zen Kaku Gothic New';
+        font-size: spx(29);
+        font-weight: 700;
+        font-style: normal;
+        line-height: 160%;
+        margin-top: spx(25);
+        margin-bottom: spx(10);
+        @include tablet-up {
+          font-size: ppx(26 * 1.2);
+          line-height: 180%;
+          letter-spacing: ppx(0.78 * 1.2);
+          margin-top: ppx(30 * 1.2);
+          margin-bottom: ppx(12 * 1.2);
+        }
+        @include desktop-up {
+          font-size: ppx(26);
+          letter-spacing: ppx(0.78);
+          margin-top: ppx(30);
+          margin-bottom: ppx(12);
+        }
+
+        // 最初のh4は上マージンを小さく
+        &:first-of-type {
+          margin-top: spx(15);
+          @include tablet-up {
+            margin-top: ppx(20 * 1.2);
+          }
+          @include desktop-up {
+            margin-top: ppx(20);
+          }
+        }
       }
     }
 
