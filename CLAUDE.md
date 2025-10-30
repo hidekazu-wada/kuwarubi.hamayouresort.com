@@ -1466,8 +1466,8 @@ export interface Activity {
     showOnTop: boolean;            // TOPページに表示するか（現状全てtrue）
     slideImage: any;               // ImageMetadata - TOPページスライダー用画像
     catchphrase: string;           // キャッチコピー（例: '水上散歩を楽しむ'）
-    titleColorClass?: string;      // タイトル色クラス（例: 'color-blue'）
-    displayOrder: number;          // 表示順序（1から開始）
+    titleColorClass?: string;      // タイトル色クラス（例: 'color-blue'） ※非推奨、catchphraseColorを推奨
+    displayOrder: number;          // 表示順序（1から開始、季節や人気度で調整）
   };
 
   // 詳細ページコンテンツ（必須）
@@ -1503,8 +1503,7 @@ export interface Activity {
 
   // メタ情報（必須）
   badges: Array<{
-    type: 'reservation' | 'group';  // バッジタイプ
-    text: string;                   // バッジテキスト
+    badge: '事前予約' | '当日予約' | '団体向け' | '個人向け';  // バッジ
   }>;
 
   isPopular: boolean;              // 人気アクティビティフラグ
@@ -1852,9 +1851,9 @@ const gallery = activity.images.gallery;  // URL文字列の配列
 
   // TOPページ表示設定
   showOnTop: boolean (真偽値、デフォルト: false)
-  topPageCatchphrase: string (テキストフィールド、オプション)
-  topPageTitleColorClass: string (テキストフィールド、オプション)
-  displayOrder: number (数値、オプション)
+  topPageCatchphrase: string (テキストフィールド、必須)
+  catchphraseColor: string (セレクトフィールド、必須、選択肢: ['white', 'blue'])
+  displayOrder: number (数値、必須)
 
   // 詳細コンテンツ
   introTitle: string (テキストフィールド、必須)
@@ -1885,8 +1884,7 @@ const gallery = activity.images.gallery;  // URL文字列の配列
 
   // 繰り返しフィールド: バッジ
   badges: 繰り返しフィールド (オプション)
-    - type: string (セレクトフィールド、選択肢: ['reservation', 'group'])
-    - text: string (テキストフィールド)
+    - badge: string (セレクトフィールド、選択肢: ['事前予約', '当日予約', '団体向け', '個人向け'])
 
   // メタ情報
   isPopular: boolean (真偽値、デフォルト: false)
@@ -1922,11 +1920,11 @@ const gallery = activity.images.gallery;  // URL文字列の配列
 | images.pointBackground | pointBackgroundImage | 画像アップロード | - |
 | ~~topPageDisplay.slideImage~~ | - | **削除** | **gallery[0]を使用** |
 | topPageDisplay.showOnTop | showOnTop | そのまま | 真偽値 |
-| topPageDisplay.catchphrase | topPageCatchphrase | そのまま | - |
-| topPageDisplay.titleColorClass | topPageTitleColorClass | そのまま | - |
-| topPageDisplay.displayOrder | displayOrder | そのまま | - |
+| topPageDisplay.catchphrase | topPageCatchphrase | そのまま | 必須 |
+| ~~topPageDisplay.titleColorClass~~ | catchphraseColor | **フィールド名変更** | **セレクトフィールド (white/blue)、必須** |
+| topPageDisplay.displayOrder | displayOrder | そのまま | 必須、季節や人気度で調整可能 |
 | intro.title | introTitle | そのまま | - |
-| intro.text | introText | そのまま | - |
+| intro.text | introText | そのまま | **詳細ページ + 一覧ページで使用** |
 | point.titleLines[0] | pointTitleLine1 | 配列→個別フィールド | - |
 | point.titleLines[1] | pointTitleLine2 | 配列→個別フィールド | オプション |
 | point.description | pointDescription | そのまま | - |
@@ -2178,9 +2176,9 @@ export interface Activity {
   pointBackgroundImage: MicroCMSImage;
 
   showOnTop: boolean;
-  topPageCatchphrase?: string;
-  topPageTitleColorClass?: string;
-  displayOrder?: number;
+  topPageCatchphrase: string;
+  catchphraseColor: 'white' | 'blue';
+  displayOrder: number;
 
   introTitle: string;
   introText: string;
@@ -2213,8 +2211,7 @@ export interface Activity {
 
   badges: Array<{
     fieldId: string;
-    type: 'reservation' | 'group';
-    text: string;
+    badge: '事前予約' | '当日予約' | '団体向け' | '個人向け';
   }>;
 
   isPopular: boolean;

@@ -45,9 +45,9 @@ export interface Activity extends MicroCMSDate {
 
   // TOPページ表示設定
   showOnTop: boolean;
-  topPageCatchphrase?: string;
-  topPageTitleColorClass?: string;
-  displayOrder?: number;
+  topPageCatchphrase: string;
+  catchphraseColor: 'white' | 'blue';
+  displayOrder: number;
 
   // 詳細コンテンツ
   introTitle: string;
@@ -85,8 +85,7 @@ export interface Activity extends MicroCMSDate {
   // 繰り返しフィールド: バッジ
   badges: Array<{
     fieldId: string;
-    type: 'reservation' | 'group';
-    text: string;
+    badge: '事前予約' | '当日予約' | '団体向け' | '個人向け';
   }>;
 
   // メタ情報
