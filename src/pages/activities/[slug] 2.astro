@@ -63,82 +63,6 @@ const optimizedPopularActivities = popularActivities.map((popularActivity) => ({
     srcSet: generateSrcSet(popularActivity.gallery[0].url, [460, 480, 500]),
   },
 }));
-
-// 実施可能天気の表示テキストを取得（配列・文字列両対応）
-const weatherDisplayText = (() => {
-  let weatherValue = activity.filterWeather;
-
-  // 配列の場合は最初の要素を取得（複数選択OFF前の古いデータ対応）
-  if (Array.isArray(weatherValue)) {
-    weatherValue = weatherValue[0];
-  }
-
-  if (!weatherValue) return '';
-
-  switch (weatherValue) {
-    case 'all':
-      return '全天候可能';
-    case 'sunny':
-      return '晴天可能';
-    case 'light-rain':
-      return '小雨可能';
-    case 'rainy':
-      return '雨天可能';
-    default:
-      return '';
-  }
-})();
-
-// badgesフィールドから予約方法と対象を抽出（配列対応版）
-const extractBadges = () => {
-  // badges配列が空または存在しない場合
-  if (!activity.badges || activity.badges.length === 0) {
-    return { reservationMethod: undefined, targetAudience: undefined };
-  }
-
-  // badges[0].badgeが配列の場合と文字列の場合の両方に対応
-  const badgeValues = activity.badges[0]?.badge;
-
-  // 配列の場合はそのまま、文字列の場合は配列に変換
-  const badgeArray = Array.isArray(badgeValues) ? badgeValues : [badgeValues];
-
-  // 予約方法を抽出
-  const reservationMethod = badgeArray.find(
-    (badge) => badge === '事前予約' || badge === '当日予約'
-  );
-
-  // 対象を抽出
-  const targetAudience = badgeArray.find(
-    (badge) => badge === '団体向け' || badge === '個人向け'
-  );
-
-  return { reservationMethod, targetAudience };
-};
-
-const { reservationMethod, targetAudience } = extractBadges();
-
-// 対象年齢の表示テキストを取得（配列対応）
-const ageGroupDisplayText = (() => {
-  let ageGroupValue = activity.filterAgeGroup;
-
-  // 配列の場合は最初の要素を取得
-  if (Array.isArray(ageGroupValue)) {
-    ageGroupValue = ageGroupValue[0];
-  }
-
-  if (!ageGroupValue) return '';
-
-  switch (ageGroupValue) {
-    case 'all-ages':
-      return '全年齢対象';
-    case 'ages-3-and-up':
-      return '3歳以上';
-    case 'adults-only':
-      return '大人のみ';
-    default:
-      return '';
-  }
-})();
 ---
 
 <BaseLayout
@@ -274,30 +198,14 @@ const ageGroupDisplayText = (() => {
 
         <!-- 対象年齢（filterAgeGroupフィールド）を表示 -->
         {
-          ageGroupDisplayText && (
+          activity.filterAgeGroup && (
             <div class="about__item">
               <dt class="about__term">対象年齢</dt>
-              <dd class="about__description">{ageGroupDisplayText}</dd>
-            </div>
-          )
-        }
-
-        <!-- 予約方法（badgesフィールドから抽出）を表示 -->
-        {
-          reservationMethod && (
-            <div class="about__item">
-              <dt class="about__term">予約方法</dt>
-              <dd class="about__description">{reservationMethod}</dd>
-            </div>
-          )
-        }
-
-        <!-- 対象（badgesフィールドから抽出）を表示 -->
-        {
-          targetAudience && (
-            <div class="about__item">
-              <dt class="about__term">対象</dt>
-              <dd class="about__description">{targetAudience}</dd>
+              <dd class="about__description">
+                {activity.filterAgeGroup === 'all-ages'
+                  ? '全年齢対象'
+                  : '大人のみ'}
+              </dd>
             </div>
           )
         }
@@ -331,7 +239,19 @@ const ageGroupDisplayText = (() => {
           activity.filterWeather && (
             <div class="about__item">
               <dt class="about__term">実施可能天気</dt>
-              <dd class="about__description">{weatherDisplayText}</dd>
+              <dd class="about__description">
+                {activity.filterWeather === 'all'
+                  ? '全天候可能'
+                  : activity.filterWeather === 'sunny'
+                    ? '晴天可能'
+                    : activity.filterWeather === 'light-rain'
+                      ? '小雨可能'
+                      : '雨天可能'}
+                <br />
+                <small style="color: red;">
+                  [DEBUG] 実際の値: "{activity.filterWeather}"
+                </small>
+              </dd>
             </div>
           )
         }
@@ -477,37 +397,13 @@ const ageGroupDisplayText = (() => {
                 <div class="popular-activities__card-info">
                   <div class="popular-activities__pricing">
                     <div class="popular-activities__badges">
-                      {popularActivity.badges &&
-                        popularActivity.badges.length > 0 &&
-                        (() => {
-                          // badges[0].badgeが配列か文字列かを判定して処理
-                          const badgeValues = popularActivity.badges[0]?.badge;
-                          const badgeArray = Array.isArray(badgeValues)
-                            ? badgeValues
-                            : [badgeValues];
-
-                          return badgeArray
-                            .filter((badge) => badge)
-                            .map((badgeText) => {
-                              // 2文字ずつ改行するロジック
-                              const firstTwo = badgeText.slice(0, 2);
-                              const lastTwo = badgeText.slice(2);
-
-                              return (
-                                <div class="popular-activities__badge-group">
-                                  <span class="popular-activities__badge">
-                                    {firstTwo}
-                                    {lastTwo && (
-                                      <>
-                                        <br />
-                                        {lastTwo}
-                                      </>
-                                    )}
-                                  </span>
-                                </div>
-                              );
-                            });
-                        })()}
+                      {popularActivity.badges.map((badge) => (
+                        <div class="popular-activities__badge-group">
+                          <span class="popular-activities__badge">
+                            {badge.badge}
+                          </span>
+                        </div>
+                      ))}
                     </div>
                     <div class="popular-activities__price">
                       ¥{popularActivity.priceAdult.toLocaleString()}〜
@@ -530,17 +426,9 @@ const ageGroupDisplayText = (() => {
                           対象年齢：
                         </dt>
                         <dd class="popular-activities__detail-desc">
-                          {(() => {
-                            let ageGroup = popularActivity.filterAgeGroup;
-                            // 配列の場合は最初の要素を取得
-                            if (Array.isArray(ageGroup)) {
-                              ageGroup = ageGroup[0];
-                            }
-                            if (ageGroup === 'all-ages') return '全年齢対象';
-                            if (ageGroup === 'ages-3-and-up') return '3歳以上';
-                            if (ageGroup === 'adults-only') return '大人のみ';
-                            return '';
-                          })()}
+                          {popularActivity.filterAgeGroup === 'all-ages'
+                            ? '全年齢対象'
+                            : '大人のみ'}
                         </dd>
                       </div>
                     )}
@@ -1644,12 +1532,13 @@ const ageGroupDisplayText = (() => {
     padding-bottom: spx(110);
     @include tablet-up {
       flex-flow: row;
-      gap: 0;
+      gap: ppx(181 * 0.7);
       padding-left: ppx(196 * 0.7);
       padding-top: ppx(173 * 1.2);
       padding-bottom: ppx(214 * 1.2);
     }
     @include desktop-up {
+      gap: ppx(181);
       padding-left: ppx(196);
       padding-top: ppx(173);
       padding-bottom: ppx(214);
@@ -1736,7 +1625,6 @@ const ageGroupDisplayText = (() => {
       @include tablet-up {
         display: flex;
         align-items: center;
-        margin-inline: auto;
       }
       @include desktop-up {
       }
@@ -2015,8 +1903,7 @@ const ageGroupDisplayText = (() => {
 
     &__card-title {
       width: spx(358.4);
-      height: auto;
-      padding: spx(15) spx(50);
+      height: spx(60.8);
       flex-shrink: 0;
       border-radius: spx(120);
       background: rgba($color: #fff, $alpha: 0.9);
@@ -2029,13 +1916,13 @@ const ageGroupDisplayText = (() => {
       transition: background 0.3s ease;
       @include tablet-up {
         width: ppx(390 * 1.2);
-        padding: ppx(15) * 1.2 ppx(50) * 1.2;
+        height: ppx(66 * 1.2);
         border-radius: ppx(130 * 1.2);
         bottom: ppx(30 * 1.2);
       }
       @include desktop-up {
         width: ppx(390);
-        padding: ppx(15) ppx(50);
+        height: ppx(66);
         border-radius: ppx(130);
         bottom: ppx(30);
       }

@@ -37,7 +37,7 @@ export interface Activity extends MicroCMSDate {
   // 基本情報
   slug: string;
   title: string;
-  category: string;
+  category?: string; // オプショナル（再作成時にデータが空の可能性があるため）
 
   // 画像
   gallery: MicroCMSImage[];
@@ -46,7 +46,7 @@ export interface Activity extends MicroCMSDate {
   // TOPページ表示設定
   showOnTop: boolean;
   topPageCatchphrase: string;
-  catchphraseColor: 'white' | 'blue';
+  catchphraseColor: 'white' | 'blue' | ('white' | 'blue')[]; // 配列形式（旧データ）にも対応
   displayOrder: number;
 
   // 詳細コンテンツ
@@ -82,10 +82,10 @@ export interface Activity extends MicroCMSDate {
     hours: string;
   }>;
 
-  // 繰り返しフィールド: バッジ
+  // 繰り返しフィールド: バッジ（配列形式にも対応）
   badges: Array<{
     fieldId: string;
-    badge: '事前予約' | '当日予約' | '団体向け' | '個人向け';
+    badge: ('事前予約' | '当日予約' | '団体向け' | '個人向け') | ('事前予約' | '当日予約' | '団体向け' | '個人向け')[];
   }>;
 
   // メタ情報
@@ -94,8 +94,8 @@ export interface Activity extends MicroCMSDate {
 
   // フィルタリング用データ
   filterDurationHours?: number;
-  filterWeather?: 'all' | 'sunny' | 'rainy';
+  filterWeather?: 'all' | 'sunny' | 'light-rain' | 'rainy' | ('all' | 'sunny' | 'light-rain' | 'rainy')[]; // 配列形式（旧データ）にも対応
   filterSeasons?: string[];
   filterDifficulty?: '初心者向け' | '中級者向け' | '上級者向け';
-  filterAgeGroup?: 'adults-only' | 'all-ages';
+  filterAgeGroup?: 'adults-only' | 'all-ages' | 'ages-3-and-up' | ('adults-only' | 'all-ages' | 'ages-3-and-up')[]; // 配列形式（旧データ）にも対応
 }

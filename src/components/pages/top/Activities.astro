@@ -1,7 +1,8 @@
 ---
 import { getImage } from 'astro:assets';
 import MoreButton from '../../ui/MoreButton.astro';
-import { getTopPageActivities } from '../../../data/activities';
+import { getTopPageActivities } from '../../../lib/activitiesAPI';
+import { optimizeMicroCMSImage, generateSrcSet } from '../../../utils/image';
 // Swiper CSS
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -9,8 +10,8 @@ import 'swiper/css/pagination';
 
 import TitleImage from '../../../assets/images/top/activities/picture-tree.png';
 
-// TOPページ表示用アクティビティを取得
-const topActivities = getTopPageActivities();
+// TOPページ表示用アクティビティを取得（microCMSから）
+const topActivities = await getTopPageActivities();
 
 // タイトルツリー画像の最適化
 const TitleTree = await getImage({
@@ -19,20 +20,31 @@ const TitleTree = await getImage({
   widths: [170, 210],
 });
 
-// 各アクティビティのスライド画像を最適化
-const optimizedActivities = await Promise.all(
-  topActivities.map(async (activity) => {
-    const optimizedImage = await getImage({
-      src: activity.images.thumbnail,
-      format: 'webp',
-      widths: [800],
-    });
-    return {
-      ...activity,
-      optimizedSlideImage: optimizedImage,
-    };
-  }),
-);
+// 各アクティビティのスライド画像を最適化（gallery[0]を使用）
+const optimizedActivities = topActivities.map((activity) => {
+  // catchphraseColorから適切なクラス名を生成（配列対応）
+  let colorValue = activity.catchphraseColor;
+
+  // 配列の場合は最初の要素を取得（複数選択OFF前の古いデータ対応）
+  if (Array.isArray(colorValue)) {
+    colorValue = colorValue[0];
+  }
+
+  const titleColorClass = colorValue === 'blue' ? 'color-blue' : '';
+
+  return {
+    ...activity,
+    optimizedSlideImage: {
+      url: optimizeMicroCMSImage(activity.gallery[0].url, {
+        width: 800,
+        format: 'webp',
+        quality: 85,
+      }),
+      srcSet: generateSrcSet(activity.gallery[0].url, [800]),
+    },
+    titleColorClass,
+  };
+});
 ---
 
 <section class="activities">
@@ -73,39 +85,37 @@ const optimizedActivities = await Promise.all(
                     {/* デスクトップ（1024px以上） */}
                     <source
                       media="(min-width: 1024px)"
-                      srcset={activity.optimizedSlideImage.srcSet.toString()}
+                      srcset={activity.optimizedSlideImage.srcSet}
                     />
                     {/* タブレット（744px以上） */}
                     <source
                       media="(min-width: 744px)"
-                      srcset={activity.optimizedSlideImage.srcSet.toString()}
+                      srcset={activity.optimizedSlideImage.srcSet}
                     />
                     {/* スマホ（744px未満） */}
                     <img
-                      src={activity.optimizedSlideImage.src}
+                      src={activity.optimizedSlideImage.url}
                       alt={`${activity.title}の様子`}
                     />
                   </picture>
                   <h3
                     class:list={[
                       'top-activities__title',
-                      activity.topPageDisplay?.titleColorClass,
+                      activity.titleColorClass,
                     ]}
                   >
-                    {activity.topPageDisplay!.catchphrase}
+                    {activity.topPageCatchphrase}
                   </h3>
                   <footer class="top-activities__meta">
                     <p class="top-activities__name">
-                      {
-                        activity.title.split('\n').map((line, index) => (
-                          <>
-                            {line}
-                            {index < activity.title.split('\n').length - 1 && (
-                              <br />
-                            )}
-                          </>
-                        ))
-                      }
+                      {activity.title.split('\n').map((line, index) => (
+                        <>
+                          {line}
+                          {index < activity.title.split('\n').length - 1 && (
+                            <br />
+                          )}
+                        </>
+                      ))}
                     </p>
                     <svg
                       class="top-activities__arrow"
@@ -425,7 +435,8 @@ const optimizedActivities = await Promise.all(
       background-color: rgba($color: #fff, $alpha: 0.9);
       border-radius: spx(130);
       width: spx(390);
-      height: spx(66);
+      height: auto;
+      padding: spx(15) spx(50);
       display: grid;
       place-items: center;
       transition: background-color 0.3s ease;
@@ -433,13 +444,13 @@ const optimizedActivities = await Promise.all(
         bottom: ppx(30) * 1.2;
         border-radius: ppx(130) * 1.2;
         width: ppx(390) * 1.2;
-        height: ppx(66) * 1.2;
+        padding: ppx(15) * 1.2 ppx(50) * 1.2;
       }
       @include desktop-up {
         bottom: ppx(30);
         border-radius: ppx(130);
         width: ppx(390);
-        height: ppx(66);
+        padding: ppx(15) ppx(50);
       }
     }
 

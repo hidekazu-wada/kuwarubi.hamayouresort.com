@@ -6,16 +6,25 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ActivityFilters from '../../components/pages/activities/ActivityFilters.astro';
 import LowerPageHeader from '../../components/ui/LowerPageHeader.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
-import { activities } from '../../data/activities';
+import { getAllActivities } from '../../lib/activitiesAPI';
+import { optimizeMicroCMSImage, generateSrcSet } from '../../utils/image';
 import type { FilterOption } from '../../components/pages/activities/ActivityFilters.astro';
+
+// microCMSからアクティビティデータを取得
+const activities = await getAllActivities();
 
 // フィルタオプション生成関数（3つのカテゴリに絞り込み）
 function generateFilterOptions() {
   // 料金の選択肢を生成（カスタム順序）
   const priceSet = new Set<string>();
   activities.forEach((activity) => {
-    const priceItem = activity.about.find((item) => item.term === '料金');
-    if (priceItem) priceSet.add(priceItem.description);
+    // priceAdultを使用して料金範囲を判定
+    const price = activity.priceAdult;
+    if (price >= 500 && price < 1000) priceSet.add('500円から1000円');
+    else if (price >= 1000 && price < 3000) priceSet.add('1000円から3000円');
+    else if (price >= 3000 && price < 5000) priceSet.add('3000円から5000円');
+    else if (price >= 5000 && price <= 10000) priceSet.add('5000円から1万円');
+    else if (price > 10000) priceSet.add('1万円以上');
   });
 
   // 料金の希望する順序を定義（安い順）
@@ -24,6 +33,7 @@ function generateFilterOptions() {
     '1000円から3000円',
     '3000円から5000円',
     '5000円から1万円',
+    '1万円以上',
   ];
   const priceOptions: FilterOption[] = priceOrder
     .filter((price) => priceSet.has(price))
@@ -32,13 +42,15 @@ function generateFilterOptions() {
       label: price,
     }));
 
-  // 所要時間の選択肢を生成（カスタム順序）
+  // 所要時間の選択肢を生成（filterDurationHoursを使用）
   const durationSet = new Set<string>();
   activities.forEach((activity) => {
-    const durationItem = activity.about.find(
-      (item) => item.term === '所要時間'
-    );
-    if (durationItem) durationSet.add(durationItem.description);
+    if (activity.filterDurationHours) {
+      const hours = activity.filterDurationHours;
+      if (hours < 1) durationSet.add('1時間未満');
+      else if (hours >= 1 && hours < 2) durationSet.add('1時間以上');
+      else if (hours >= 2) durationSet.add('2時間以上');
+    }
   });
 
   // 所要時間の希望する順序を定義（短い順）
@@ -50,17 +62,25 @@ function generateFilterOptions() {
       label: duration,
     }));
 
-  // 天気の選択肢を生成（カスタム順序）
+  // 天気の選択肢を生成（filterWeatherを使用・配列対応）
   const weatherSet = new Set<string>();
   activities.forEach((activity) => {
-    const weatherItem = activity.about.find(
-      (item) => item.term === '実施可能天気'
-    );
-    if (weatherItem) weatherSet.add(weatherItem.description);
+    if (activity.filterWeather) {
+      // 配列の場合は最初の要素を取得
+      let weather = activity.filterWeather;
+      if (Array.isArray(weather)) {
+        weather = weather[0];
+      }
+
+      if (weather === 'all') weatherSet.add('全天候');
+      else if (weather === 'sunny') weatherSet.add('晴れ');
+      else if (weather === 'light-rain') weatherSet.add('小雨');
+      else if (weather === 'rainy') weatherSet.add('雨天');
+    }
   });
 
   // 天気の希望する順序を定義
-  const weatherOrder = ['晴れ', '雨', '全天候'];
+  const weatherOrder = ['全天候', '晴れ', '小雨', '雨天'];
   const weatherOptions: FilterOption[] = weatherOrder
     .filter((weather) => weatherSet.has(weather))
     .map((weather) => ({
@@ -78,23 +98,18 @@ function generateFilterOptions() {
 // フィルタオプションを生成
 const filterOptions = generateFilterOptions();
 
-// 画像インポート
-import { getImage } from 'astro:assets';
-
-// 各アクティビティのサムネイル画像を最適化
-const optimizedActivities = await Promise.all(
-  activities.map(async (activity) => {
-    const optimizedImage = await getImage({
-      src: activity.images.thumbnail,
+// 各アクティビティのサムネイル画像を最適化（gallery[0]を使用）
+const optimizedActivities = activities.map((activity) => ({
+  ...activity,
+  optimizedThumbnail: {
+    url: optimizeMicroCMSImage(activity.gallery[0].url, {
+      width: 500,
       format: 'webp',
-      widths: [460, 480, 500],
-    });
-    return {
-      ...activity,
-      optimizedThumbnail: optimizedImage,
-    };
-  }),
-);
+      quality: 80,
+    }),
+    srcSet: generateSrcSet(activity.gallery[0].url, [460, 480, 500]),
+  },
+}));
 ---
 
 <BaseLayout pageTitle="アクティビティ" pageClass="main-content--activities">
@@ -118,15 +133,6 @@ const optimizedActivities = await Promise.all(
   <section class="activity-showcase">
     {
       optimizedActivities.map((activity) => {
-        // aboutデータから詳細項目を取得
-        const durationData = activity.about.find(
-          (item) => item.term === '所要時間'
-        );
-        const ageData = activity.about.find((item) => item.term === '対象年齢');
-        const seasonData = activity.about.find(
-          (item) => item.term === '実施時期'
-        );
-
         return (
           <article class="activity-card">
             <a
@@ -137,14 +143,14 @@ const optimizedActivities = await Promise.all(
                 <picture class="activity-card__picture">
                   <source
                     media="(min-width: 1024px)"
-                    srcset={activity.optimizedThumbnail.srcSet.toString()}
+                    srcset={activity.optimizedThumbnail.srcSet}
                   />
                   <source
                     media="(min-width: 744px)"
-                    srcset={activity.optimizedThumbnail.srcSet.toString()}
+                    srcset={activity.optimizedThumbnail.srcSet}
                   />
                   <img
-                    src={activity.optimizedThumbnail.src}
+                    src={activity.optimizedThumbnail.url}
                     alt={`${activity.title}の様子`}
                     class="activity-card__img"
                   />
@@ -152,16 +158,12 @@ const optimizedActivities = await Promise.all(
               </div>
               <div class="activity-card__title">
                 <h3 class="activity-card__name">
-                  {
-                    activity.title.split('\n').map((line, index) => (
-                      <>
-                        {line}
-                        {index < activity.title.split('\n').length - 1 && (
-                          <br />
-                        )}
-                      </>
-                    ))
-                  }
+                  {activity.title.split('\n').map((line, index) => (
+                    <>
+                      {line}
+                      {index < activity.title.split('\n').length - 1 && <br />}
+                    </>
+                  ))}
                 </h3>
                 <svg
                   class="activity-card__arrow-icon"
@@ -182,55 +184,82 @@ const optimizedActivities = await Promise.all(
             <div class="activity-card__info">
               <div class="activity-card__pricing">
                 <div class="activity-card__badges">
-                  {activity.badges.map((badge) => (
-                    <div class="activity-card__badge-group">
-                      <span
-                        class={`activity-card__badge activity-card__badge--${badge.type}`}
-                      >
-                        {badge.text.split('\n').map((line, index) => (
-                          <>
-                            {line}
-                            {index < badge.text.split('\n').length - 1 && (
-                              <br />
-                            )}
-                          </>
-                        ))}
-                      </span>
-                    </div>
-                  ))}
+                  {activity.badges &&
+                    activity.badges.length > 0 &&
+                    (() => {
+                      // badges[0].badgeが配列の場合と文字列の場合の両方に対応
+                      const badgeValues = activity.badges[0]?.badge;
+                      const badgeArray = Array.isArray(badgeValues)
+                        ? badgeValues
+                        : [badgeValues];
+
+                      // 各バッジを個別に表示（2文字ずつ改行）
+                      return badgeArray
+                        .filter((badge) => badge) // 空の値を除外
+                        .map((badgeText) => {
+                          // 4文字のバッジを2文字ずつに分割
+                          const firstTwo = badgeText.slice(0, 2);
+                          const lastTwo = badgeText.slice(2);
+
+                          return (
+                            <div class="activity-card__badge-group">
+                              <span class="activity-card__badge">
+                                {firstTwo}
+                                {lastTwo && (
+                                  <>
+                                    <br />
+                                    {lastTwo}
+                                  </>
+                                )}
+                              </span>
+                            </div>
+                          );
+                        });
+                    })()}
                 </div>
                 <div class="activity-card__price">
-                  ¥{activity.price.adult.toLocaleString()}〜
+                  ¥{activity.priceAdult.toLocaleString()}〜
                 </div>
               </div>
               <dl class="activity-card__details">
-                {durationData && (
+                {activity.filterDurationHours && (
                   <div class="activity-card__detail-item">
                     <dt class="activity-card__detail-term">所要時間：</dt>
                     <dd class="activity-card__detail-desc">
-                      {durationData.description}
+                      約{activity.filterDurationHours}時間
                     </dd>
                   </div>
                 )}
-                {ageData && (
+                {activity.filterAgeGroup && (
                   <div class="activity-card__detail-item">
                     <dt class="activity-card__detail-term">対象年齢：</dt>
                     <dd class="activity-card__detail-desc">
-                      {ageData.description}
+                      {(() => {
+                        let ageGroup = activity.filterAgeGroup;
+                        // 配列の場合は最初の要素を取得
+                        if (Array.isArray(ageGroup)) {
+                          ageGroup = ageGroup[0];
+                        }
+                        if (ageGroup === 'all-ages') return '全年齢対象';
+                        if (ageGroup === 'ages-3-and-up') return '3歳以上';
+                        if (ageGroup === 'adults-only') return '大人のみ';
+                        return '';
+                      })()}
                     </dd>
                   </div>
                 )}
-                {seasonData && (
-                  <div class="activity-card__detail-item">
-                    <dt class="activity-card__detail-term">実施時期：</dt>
-                    <dd class="activity-card__detail-desc">
-                      {seasonData.description}
-                    </dd>
-                  </div>
-                )}
+                {activity.filterSeasons &&
+                  activity.filterSeasons.length > 0 && (
+                    <div class="activity-card__detail-item">
+                      <dt class="activity-card__detail-term">実施時期：</dt>
+                      <dd class="activity-card__detail-desc">
+                        {activity.filterSeasons.join('・')}
+                      </dd>
+                    </div>
+                  )}
               </dl>
             </div>
-            <div class="activity-card__description">{activity.description}</div>
+            <div class="activity-card__description">{activity.introText}</div>
           </article>
         );
       })
@@ -243,7 +272,7 @@ const optimizedActivities = await Promise.all(
   </div>
 </BaseLayout>
 
-<script is:inline define:vars={{ activitiesData: activities }}>
+<script is:inline define:vars={{ activitiesData: optimizedActivities }}>
   // activities データをグローバルスコープに設定
   window.activitiesData = activitiesData;
 </script>
@@ -257,10 +286,26 @@ const optimizedActivities = await Promise.all(
     interface Activity {
       slug: string;
       title: string;
-      about: Array<{ term: string; description: string }>;
+      priceAdult: number;
+      filterDurationHours: number | null;
+      filterWeather:
+        | 'all'
+        | 'sunny'
+        | 'light-rain'
+        | 'rainy'
+        | ('all' | 'sunny' | 'light-rain' | 'rainy')[]
+        | null;
+      filterSeasons: string[] | null;
+      filterDifficulty: string | null;
+      filterAgeGroup:
+        | 'all-ages'
+        | 'adults-only'
+        | 'ages-3-and-up'
+        | ('all-ages' | 'adults-only' | 'ages-3-and-up')[]
+        | null;
     }
 
-    // activities.tsからデータを動的に取得（グローバル変数経由）
+    // microCMSからデータを動的に取得（グローバル変数経由）
     let activitiesData: Activity[];
     try {
       activitiesData = (window as any).activitiesData;
@@ -318,118 +363,65 @@ const optimizedActivities = await Promise.all(
       activitiesSection.appendChild(noResultsMessage);
     }
 
-    // 範囲文字列から数値を抽出する関数
-    function parseRange(
-      rangeStr: string,
-      type: 'age' | 'capacity' | 'price' | 'duration'
-    ): { min: number; max: number } | null {
-      try {
-        switch (type) {
-          case 'age':
-            // 例: '12歳〜65歳', '3歳以上'
-            if (rangeStr.includes('以上')) {
-              const match = rangeStr.match(/(\d+)歳以上/);
-              return match ? { min: parseInt(match[1]), max: 999 } : null;
-            } else {
-              const match = rangeStr.match(/(\d+)歳〜(\d+)歳/);
-              return match
-                ? { min: parseInt(match[1]), max: parseInt(match[2]) }
-                : null;
-            }
-
-          case 'capacity':
-            // 例: '2名〜8名', '1名〜12名'
-            const capacityMatch = rangeStr.match(/(\d+)名〜(\d+)名/);
-            return capacityMatch
-              ? {
-                  min: parseInt(capacityMatch[1]),
-                  max: parseInt(capacityMatch[2]),
-                }
-              : null;
-
-          case 'price':
-            // 例: '4,000円〜5,000円', '2,800円'
-            if (rangeStr.includes('〜')) {
-              const priceRangeMatch = rangeStr.match(/([\d,]+)円〜([\d,]+)円/);
-              if (priceRangeMatch) {
-                return {
-                  min: parseInt(priceRangeMatch[1].replace(/,/g, '')),
-                  max: parseInt(priceRangeMatch[2].replace(/,/g, '')),
-                };
-              }
-            } else {
-              const singlePriceMatch = rangeStr.match(/([\d,]+)円/);
-              if (singlePriceMatch) {
-                const price = parseInt(singlePriceMatch[1].replace(/,/g, ''));
-                return { min: price, max: price };
-              }
-            }
-            return null;
-
-          case 'duration':
-            // 例: '2時間', '1時間30分'
-            const hourMatch = rangeStr.match(/(\d+)時間(?:(\d+)分)?/);
-            if (hourMatch) {
-              const hours = parseInt(hourMatch[1]);
-              const minutes = hourMatch[2] ? parseInt(hourMatch[2]) : 0;
-              const totalMinutes = hours * 60 + minutes;
-              return { min: totalMinutes, max: totalMinutes };
-            }
-            return null;
-        }
-      } catch (e) {
-        console.warn('範囲解析エラー:', rangeStr, e);
-        return null;
+    // 料金フィルターマッチング関数
+    function matchesPriceFilter(
+      priceAdult: number,
+      filterValue: string
+    ): boolean {
+      switch (filterValue) {
+        case '500円から1000円':
+          return priceAdult >= 500 && priceAdult < 1000;
+        case '1000円から3000円':
+          return priceAdult >= 1000 && priceAdult < 3000;
+        case '3000円から5000円':
+          return priceAdult >= 3000 && priceAdult < 5000;
+        case '5000円から1万円':
+          return priceAdult >= 5000 && priceAdult <= 10000;
+        case '1万円以上':
+          return priceAdult > 10000;
+        default:
+          return false;
       }
     }
 
-    // 範囲の重複判定関数
-    function rangesOverlap(
-      range1: { min: number; max: number },
-      range2: { min: number; max: number }
+    // 所要時間フィルターマッチング関数
+    function matchesDurationFilter(
+      durationHours: number | null,
+      filterValue: string
     ): boolean {
-      return range1.min <= range2.max && range2.min <= range1.max;
+      if (!durationHours) return false;
+      switch (filterValue) {
+        case '1時間未満':
+          return durationHours < 1;
+        case '1時間以上':
+          return durationHours >= 1 && durationHours < 2;
+        case '2時間以上':
+          return durationHours >= 2;
+        default:
+          return false;
+      }
     }
 
-    // フィルター値がアクティビティの値と適合するかチェック
-    function filterMatches(
-      filterValue: string,
-      activityValue: string,
-      filterType: string
+    // 天気フィルターマッチング関数（配列対応）
+    function matchesWeatherFilter(
+      weather: string | string[] | null,
+      filterValue: string
     ): boolean {
-      // 完全一致の場合（季節、天気、予約など）
-      if (['season', 'weather', 'booking'].includes(filterType)) {
-        if (filterType === 'season') {
-          // 季節の場合、部分一致もチェック
-          return (
-            activityValue.includes(filterValue) ||
-            filterValue.includes(activityValue)
-          );
-        }
-        return filterValue === activityValue;
+      if (!weather) return false;
+
+      // 配列の場合は最初の要素を取得
+      let weatherValue = weather;
+      if (Array.isArray(weatherValue)) {
+        weatherValue = weatherValue[0];
       }
 
-      // 範囲値の場合（年齢、人数、料金、時間）
-      const typeMap: Record<string, 'age' | 'capacity' | 'price' | 'duration'> =
-        {
-          targetAge: 'age',
-          capacity: 'capacity',
-          price: 'price',
-          duration: 'duration',
-        };
-
-      const type = typeMap[filterType];
-      if (type) {
-        const filterRange = parseRange(filterValue, type);
-        const activityRange = parseRange(activityValue, type);
-
-        if (filterRange && activityRange) {
-          return rangesOverlap(filterRange, activityRange);
-        }
-      }
-
-      // フォールバック：完全一致
-      return filterValue === activityValue;
+      const weatherMap: Record<string, string> = {
+        all: '全天候',
+        sunny: '晴れ',
+        'light-rain': '小雨',
+        rainy: '雨天',
+      };
+      return weatherMap[weatherValue] === filterValue;
     }
 
     // 現在の選択状態から利用可能な選択肢を取得する関数（3つのカテゴリのみ）
@@ -451,40 +443,73 @@ const optimizedActivities = await Promise.all(
       activitiesData.forEach((activity) => {
         let matchesCurrentFilters = true;
 
-        // 現在の選択フィルタ条件をチェック（範囲対応）
-        Object.entries(currentFilters).forEach(([filterKey, filterValue]) => {
-          if (filterValue) {
-            const matchingTerm = {
-              price: '料金',
-              duration: '所要時間',
-              weather: '実施可能天気',
-            }[filterKey];
-
-            const item = activity.about.find(
-              (aboutItem) => aboutItem.term === matchingTerm
-            );
-            if (
-              !item ||
-              !filterMatches(filterValue, item.description, filterKey)
-            ) {
-              matchesCurrentFilters = false;
-            }
+        // 現在の選択フィルタ条件をチェック
+        if (currentFilters.price) {
+          if (!matchesPriceFilter(activity.priceAdult, currentFilters.price)) {
+            matchesCurrentFilters = false;
           }
-        });
+        }
+        if (currentFilters.duration) {
+          if (
+            !matchesDurationFilter(
+              activity.filterDurationHours,
+              currentFilters.duration
+            )
+          ) {
+            matchesCurrentFilters = false;
+          }
+        }
+        if (currentFilters.weather) {
+          if (
+            !matchesWeatherFilter(
+              activity.filterWeather,
+              currentFilters.weather
+            )
+          ) {
+            matchesCurrentFilters = false;
+          }
+        }
 
         // 条件に合致する場合、このアクティビティの選択肢をすべて追加
         if (matchesCurrentFilters) {
-          activity.about.forEach((aboutItem) => {
-            const filterKey = {
-              料金: 'price',
-              所要時間: 'duration',
-              実施可能天気: 'weather',
-            }[aboutItem.term];
+          // 料金の選択肢を追加
+          const price = activity.priceAdult;
+          if (price >= 500 && price < 1000)
+            availableValues.price.add('500円から1000円');
+          else if (price >= 1000 && price < 3000)
+            availableValues.price.add('1000円から3000円');
+          else if (price >= 3000 && price < 5000)
+            availableValues.price.add('3000円から5000円');
+          else if (price >= 5000 && price <= 10000)
+            availableValues.price.add('5000円から1万円');
+          else if (price > 10000) availableValues.price.add('1万円以上');
 
-            if (filterKey) {
-              availableValues[filterKey].add(aboutItem.description);
+          // 所要時間の選択肢を追加
+          if (activity.filterDurationHours) {
+            const hours = activity.filterDurationHours;
+            if (hours < 1) availableValues.duration.add('1時間未満');
+            else if (hours >= 1 && hours < 2)
+              availableValues.duration.add('1時間以上');
+            else if (hours >= 2) availableValues.duration.add('2時間以上');
+          }
+
+          // 天気の選択肢を追加（配列対応）
+          if (activity.filterWeather) {
+            // 配列の場合は最初の要素を取得
+            let weatherValue = activity.filterWeather;
+            if (Array.isArray(weatherValue)) {
+              weatherValue = weatherValue[0];
             }
-          });
+
+            const weatherMap: Record<string, string> = {
+              all: '全天候',
+              sunny: '晴れ',
+              'light-rain': '小雨',
+              rainy: '雨天',
+            };
+            const weatherLabel = weatherMap[weatherValue];
+            if (weatherLabel) availableValues.weather.add(weatherLabel);
+          }
         }
       });
 
@@ -547,43 +572,25 @@ const optimizedActivities = await Promise.all(
         const activity = activitiesData[index];
         let isVisible = true;
 
-        // 各フィルタ条件をチェック（3つのカテゴリのみ）
+        // 各フィルタ条件をチェック
         if (filters.price) {
-          const priceItem = activity.about.find((item) => item.term === '料金');
           isVisible =
-            isVisible &&
-            !!(
-              priceItem &&
-              filterMatches(filters.price, priceItem.description, 'price')
-            );
+            isVisible && matchesPriceFilter(activity.priceAdult, filters.price);
         }
 
         if (filters.duration) {
-          const durationItem = activity.about.find(
-            (item) => item.term === '所要時間'
-          );
           isVisible =
             isVisible &&
-            !!(
-              durationItem &&
-              filterMatches(
-                filters.duration,
-                durationItem.description,
-                'duration'
-              )
+            matchesDurationFilter(
+              activity.filterDurationHours,
+              filters.duration
             );
         }
 
         if (filters.weather) {
-          const weatherItem = activity.about.find(
-            (item) => item.term === '実施可能天気'
-          );
           isVisible =
             isVisible &&
-            !!(
-              weatherItem &&
-              filterMatches(filters.weather, weatherItem.description, 'weather')
-            );
+            matchesWeatherFilter(activity.filterWeather, filters.weather);
         }
 
         // カードの表示/非表示
@@ -898,7 +905,8 @@ const optimizedActivities = await Promise.all(
 
     &__title {
       width: spx(358.4);
-      height: spx(60.8);
+      height: auto;
+      padding: spx(15) spx(50);
       flex-shrink: 0;
       border-radius: spx(120);
       background: rgba($color: #fff, $alpha: 0.9);
@@ -911,13 +919,13 @@ const optimizedActivities = await Promise.all(
       transition: background 0.3s ease;
       @include tablet-up {
         width: ppx(390 * 1.2);
-        height: ppx(66 * 1.2);
+        padding: ppx(15) * 1.2 ppx(50) * 1.2;
         border-radius: ppx(130 * 1.2);
         bottom: ppx(30 * 1.2);
       }
       @include desktop-up {
         width: ppx(390);
-        height: ppx(66);
+        padding: ppx(15) ppx(50);
         border-radius: ppx(130);
         bottom: ppx(30);
       }
