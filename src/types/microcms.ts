@@ -94,7 +94,8 @@ export interface Activity extends MicroCMSDate {
 
   // フィルタリング用データ
   filterDurationHours?: number;
-  filterDurationMinutes?: number;
   filterWeather?: 'all' | 'sunny' | 'rainy';
   filterSeasons?: string[];
+  filterDifficulty?: '初心者向け' | '中級者向け' | '上級者向け';
+  filterAgeGroup?: 'adults-only' | 'all-ages';
 }

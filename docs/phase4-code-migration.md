@@ -107,7 +107,7 @@ export interface Activity {
   pointTitleLine2?: string;
   pointDescription: string;
 
-  // 繰り返しフィールド: 詳細情報
+  // 繰り返しフィールド: 詳細情報（料金は含めない - priceAdultを使用）
   displayInfo: Array<{
     fieldId: string;
     term: string;
@@ -144,9 +144,10 @@ export interface Activity {
 
   // フィルタリング用データ
   filterDurationHours?: number;
-  filterDurationMinutes?: number;
   filterWeather?: 'all' | 'sunny' | 'rainy';
   filterSeasons?: string[];
+  filterDifficulty?: '初心者向け' | '中級者向け' | '上級者向け';
+  filterAgeGroup?: 'adults-only' | 'all-ages';
 }
 
 /**

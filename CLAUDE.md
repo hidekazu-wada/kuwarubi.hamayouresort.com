@@ -1483,7 +1483,7 @@ export interface Activity {
 
   // 詳細情報配列（必須）
   about: Array<{
-    term: string;                  // 項目名（例: '料金', '所要時間'）
+    term: string;                  // 項目名（例: '所要時間', '持ち物'）※料金は含めない
     description: string;           // 項目内容
     note?: string;                 // 補足情報（オプション）
   }>;
@@ -1507,10 +1507,7 @@ export interface Activity {
   }>;
 
   isPopular: boolean;              // 人気アクティビティフラグ
-
-  price: {
-    adult: number;                 // 大人料金（円）
-  };
+  priceAdult: number;              // 大人料金（円）- 一覧ページと詳細ページの両方で使用
 }
 ```
 
@@ -1568,7 +1565,7 @@ export interface Activity {
 | reservation[] | ✅ | ❌ | ❌ | 詳細ページの予約情報 |
 | badges[] | ✅ | ✅ | ❌ | 詳細・一覧ページでバッジ表示 |
 | isPopular | ✅ | ✅ | ❌ | 人気バッジ表示 |
-| price.adult | ✅ | ✅ | ❌ | 料金表示 |
+| priceAdult | ✅ | ✅ | ❌ | 料金表示（一覧・詳細ページ） |
 
 **凡例**:
 - ✅ = 使用中
@@ -1579,9 +1576,9 @@ export interface Activity {
 
 ### ⚠️ 4. 発見された問題点（4つの主要課題）
 
-#### **問題1: 価格データの重複**
+#### **✅ 問題1: 価格データの重複（解決済み）**
 
-**現状**: 価格が2箇所に存在
+**旧状況**: 価格が2箇所に存在していた
 ```typescript
 {
   about: [
@@ -1598,10 +1595,13 @@ export interface Activity {
 - 不整合のリスク
 - about[]の料金は表示用文字列、price.adultは数値計算用
 
-**推奨解決策**:
-- `about[]`から料金を削除
-- `price.adult`のみを使用
-- 表示時に動的にフォーマット（例: `¥${price.adult.toLocaleString()}〜`）
+**✅ 採用された解決策**:
+- `displayInfo[]`（旧about[]）から料金項目を**完全削除**
+- `priceAdult`（数値フィールド）のみを使用
+- 一覧ページと詳細ページの両方で`priceAdult`を使用
+- 表示時に動的にフォーマット（例: `¥${priceAdult.toLocaleString()}〜`）
+
+**結果**: データの一元管理により整合性とソート/フィルタリングが可能に
 
 ---
 
@@ -1609,8 +1609,7 @@ export interface Activity {
 
 **現状**: 一覧ページのフィルタリングが文字列比較に依存
 ```typescript
-// /src/pages/activities/index.astro の実装
-const priceItem = activity.about.find((item) => item.term === '料金');
+// /src/pages/activities/index.astro の旧実装（料金は既にpriceAdultに移行済み）
 const durationItem = activity.about.find((item) => item.term === '所要時間');
 const weatherItem = activity.about.find((item) => item.term === '実施可能天気');
 ```
@@ -1828,9 +1827,11 @@ const gallery = activity.images.gallery;  // URL文字列の配列
 
 ### 🏗️ 7. microCMS APIスキーマ設計
 
-#### **API名**: `activities`
+#### **API名**: `activities-kuwarubi`
 
-#### **エンドポイント**: `https://[service-name].microcms.io/api/v1/activities`
+**注**: API名は管理画面での表示名。エンドポイント名は `activities` のまま。
+
+#### **エンドポイント**: `https://hamayou-resort.microcms.io/api/v1/activities`
 
 #### **APIタイプ**: リスト形式
 
@@ -1892,13 +1893,14 @@ const gallery = activity.images.gallery;  // URL文字列の配列
 
   // フィルタリング用データ（問題2の解決策）
   filterDurationHours: number (数値、オプション)
-  filterDurationMinutes: number (数値、オプション)
   filterWeather: string (セレクトフィールド、選択肢: ['all', 'sunny', 'rainy'])
   filterSeasons: 複数選択 (選択肢: ['春', '夏', '秋', '冬'])
+  filterDifficulty: string (セレクトフィールド、選択肢: ['初心者向け', '中級者向け', '上級者向け'])
+  filterAgeGroup: string (セレクトフィールド、選択肢: ['adults-only', 'all-ages'])
 }
 ```
 
-#### **合計フィールド数**: 約27フィールド
+#### **合計フィールド数**: 25フィールド（サブフィールド含めて28）
 
 **⚠️ 注意**:
 - `description`フィールドは削除されました。一覧ページでは`introText`を使用します。
@@ -1928,16 +1930,17 @@ const gallery = activity.images.gallery;  // URL文字列の配列
 | point.titleLines[0] | pointTitleLine1 | 配列→個別フィールド | - |
 | point.titleLines[1] | pointTitleLine2 | 配列→個別フィールド | オプション |
 | point.description | pointDescription | そのまま | - |
-| about[] | displayInfo[] | **フィルタ用除外** | 料金削除推奨 |
-| - | filterDurationHours | **新規追加** | about[]から抽出 |
-| - | filterDurationMinutes | **新規追加** | about[]から抽出 |
+| about[] | displayInfo[] | **フィルタ用除外** | **料金は含めない（priceAdult使用）** |
+| - | filterDurationHours | **新規追加** | about[]から抽出（時間単位） |
 | - | filterWeather | **新規追加** | about[]から抽出 |
 | - | filterSeasons | **新規追加** | about[]から抽出 |
+| - | filterDifficulty | **新規追加** | 難易度フィルター用 |
+| - | filterAgeGroup | **新規追加** | 対象年齢フィルター用 |
 | flow[] | flow[] | そのまま | 繰り返しフィールド |
 | reservation[] | reservation[] | そのまま | 繰り返しフィールド |
 | badges[] | badges[] | そのまま | 繰り返しフィールド |
 | isPopular | isPopular | そのまま | 真偽値 |
-| price.adult | priceAdult | そのまま | 数値 |
+| price.adult | priceAdult | そのまま | **数値、一覧・詳細ページで使用** |
 
 ---
 
@@ -2071,8 +2074,9 @@ const weatherItem = activity.about.find((item) => item.term === '実施可能天
 // 変更後（型安全）
 const priceAdult = activity.priceAdult;
 const durationHours = activity.filterDurationHours;
-const durationMinutes = activity.filterDurationMinutes;
 const weather = activity.filterWeather;
+const difficulty = activity.filterDifficulty;
+const ageGroup = activity.filterAgeGroup;
 ```
 
 **変更箇所3: サムネイル画像**
@@ -2218,9 +2222,10 @@ export interface Activity {
   priceAdult: number;
 
   filterDurationHours?: number;
-  filterDurationMinutes?: number;
   filterWeather?: 'all' | 'sunny' | 'rainy';
   filterSeasons?: string[];
+  filterDifficulty?: '初心者向け' | '中級者向け' | '上級者向け';
+  filterAgeGroup?: 'adults-only' | 'all-ages';
 }
 
 export interface MicroCMSImage {
@@ -2376,12 +2381,12 @@ export interface MicroCMSImage {
 
 | タスク | 所要時間 | 備考 |
 |---|:---:|---|
-| microCMS API作成 | 30分 | activities API設定 |
-| APIスキーマ設定 | 1時間 | 30フィールドの設定 |
-| 画像アップロード | 1.5時間 | 49枚の画像 |
-| テストデータ登録 | 2時間 | 9アクティビティ |
+| microCMS API作成 | 30分 | activities-kuwarubi API設定 |
+| APIスキーマ設定 | 1時間 | 25フィールド（サブフィールド含めて28） |
+| 画像アップロード | 1.3時間 | 40枚の画像（gallery: 31枚、pointBackground: 9枚） |
+| テストデータ登録 | 2〜4時間 | アクティビティ件数による |
 | 環境変数設定 | 15分 | .env設定 |
-| **合計** | **5時間15分** | |
+| **合計** | **約5〜7時間** | データ件数により変動 |
 
 #### **Phase 4: コード移行**
 
