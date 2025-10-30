@@ -1222,6 +1222,1366 @@ const optimizedBlogPosts = await Promise.all(
 
 ---
 
+## 🚧 進行中: アクティビティデータのmicroCMS移行プロジェクト
+
+### 📋 プロジェクト概要
+
+**目的**: 現在`activities.ts`で管理しているアクティビティデータをmicroCMSへ移行し、コンテンツ管理をCMS化する
+
+**最終ゴール**: アクティビティデータをmicroCMSで管理し、既存のマークアップ・スタイリング・スクリプトに一切の変更や不具合を生じさせない
+
+**開始日**: 2025-01-XX
+
+---
+
+### 🎯 現状の把握
+
+#### 移行対象
+- **activities.ts**: 全アクティビティデータ
+  - データ構造、型定義
+  - 画像管理（ImageMetadata方式 vs 文字列パス方式）
+  - ヘルパー関数
+
+#### 使用箇所（推定）
+- `/src/pages/activities/index.astro` - アクティビティ一覧ページ
+- `/src/pages/activities/[slug].astro` - アクティビティ詳細ページ
+- `/src/components/pages/top/Activities.astro` - TOPページActivitiesセクション
+- その他、アクティビティデータを参照しているコンポーネント
+
+#### 既存のmicroCMS導入状況
+- ✅ microCMSアカウント・プロジェクト作成済み
+- ✅ Information（お知らせ・イベント・ブログ）は既にmicroCMS化済み
+- ⏳ Activities APIは未作成（これから作成）
+
+---
+
+### ⚠️ 重要な制約事項
+
+#### 絶対に変更してはいけないもの
+1. **マークアップ（HTML構造）**: BEMクラス名を含む全てのHTML構造を維持
+2. **スタイリング（SCSS）**: 既存のスタイルに一切の影響を与えない
+3. **スクリプト（JavaScript/TypeScript）**: Swiper、GSAP、その他のスクリプトの動作を維持
+4. **URL構造**: `/activities/[slug]`のルーティングを維持
+
+#### 考慮すべき点
+- 画像管理方式の統一（microCMS画像管理機能を使用）
+- データ構造の最適化（重複・未使用フィールドの整理）
+- 型定義の調整（microCMS APIレスポンスに対応）
+- ビルドパフォーマンス
+
+---
+
+### 📝 タスクのマイルストーン
+
+#### **Phase 1: 現状調査**（Current Phase ⏳）
+
+- [x] **Task 1-1**: プロジェクトタスクをCLAUDE.mdに記録
+- [ ] **Task 1-2**: activities.tsの完全なデータ構造分析
+  - 型定義（Activity interface）の全フィールド
+  - 各フィールドの用途
+  - データ件数
+- [ ] **Task 1-3**: アクティビティデータを使用している全ファイルの特定
+  - Grep/Globによるファイル検索
+  - インポート文の特定
+- [ ] **Task 1-4**: 各使用箇所でのデータ利用状況の詳細分析
+  - どのフィールドがどこで使われているか
+  - TOPページ、一覧ページ、詳細ページごとの使用状況
+- [ ] **Task 1-5**: 重複データ・未使用フィールドの特定
+  - `images`フィールド（文字列パス方式）の使用状況
+  - `topPageDisplay`の使用状況
+  - その他のオプショナルフィールド
+- [ ] **Task 1-6**: 画像管理パターンの整理
+  - ImageMetadata方式の使用箇所
+  - 文字列パス方式の使用箇所
+  - microCMS移行時の画像管理方針の決定
+
+#### **Phase 2: microCMS移行計画の策定**（待機中 ⏸️）
+
+- [ ] **Task 2-1**: microCMS APIスキーマ設計
+  - activities.tsの型定義をもとにCMSフィールドを設計
+  - 画像フィールドの設計（microCMS画像管理）
+  - リレーションフィールドの検討
+- [ ] **Task 2-2**: データマッピング計画
+  - 既存データ → microCMSフィールドの対応表作成
+  - 変換が必要なデータの特定
+- [ ] **Task 2-3**: 移行手順書の作成
+  - Step-by-Stepの移行手順
+  - ロールバック手順
+  - テスト計画
+
+#### **Phase 3: microCMS環境準備**（待機中 ⏸️）
+
+- [ ] **Task 3-1**: microCMS API作成（activities）
+- [ ] **Task 3-2**: APIスキーマ設定
+- [ ] **Task 3-3**: 画像アップロード
+- [ ] **Task 3-4**: テストデータ登録
+- [ ] **Task 3-5**: 環境変数設定（.env）
+
+#### **Phase 4: コード移行**（待機中 ⏸️）
+
+- [ ] **Task 4-1**: microCMSクライアント設定
+- [ ] **Task 4-2**: 型定義の更新
+- [ ] **Task 4-3**: データ取得処理の実装
+- [ ] **Task 4-4**: 詳細ページ（[slug].astro）の更新
+- [ ] **Task 4-5**: 一覧ページ（index.astro）の更新
+- [ ] **Task 4-6**: TOPページ（Activities.astro）の更新
+- [ ] **Task 4-7**: その他の使用箇所の更新
+
+#### **Phase 5: テスト・検証**（待機中 ⏸️）
+
+- [ ] **Task 5-1**: ローカル環境でのビルドテスト
+- [ ] **Task 5-2**: 全ページの表示確認
+- [ ] **Task 5-3**: スタイルの確認（視覚的な差異がないか）
+- [ ] **Task 5-4**: スクリプトの動作確認（Swiper等）
+- [ ] **Task 5-5**: レスポンシブ対応の確認
+- [ ] **Task 5-6**: パフォーマンス測定
+
+#### **Phase 6: 本番リリース**（待機中 ⏸️）
+
+- [ ] **Task 6-1**: 本番環境へのデプロイ
+- [ ] **Task 6-2**: 本番環境での動作確認
+- [ ] **Task 6-3**: activities.tsファイルの削除または退避
+- [ ] **Task 6-4**: ドキュメント更新（CLAUDE.md等）
+
+---
+
+### 🔍 調査項目の詳細
+
+#### **1. データ構造分析で確認すること**
+- [ ] Activity interfaceの全フィールドリスト
+- [ ] 各フィールドの型
+- [ ] オプショナルフィールドの特定
+- [ ] ネストされたオブジェクトの構造（例: topPageDisplay）
+- [ ] 配列フィールドの内容（例: images, tags）
+- [ ] リレーション関係の有無
+
+#### **2. 使用箇所の特定で確認すること**
+- [ ] `import { ... } from '../../../data/activities'` のパターン
+- [ ] `activities.ts`をインポートしている全ファイル
+- [ ] ヘルパー関数の使用状況（例: `getActivityBySlug`, `getTopPageActivities`）
+- [ ] コンポーネント内での直接参照
+
+#### **3. 各使用箇所での利用状況で確認すること**
+- [ ] TOPページ: どのフィールドを使用しているか
+- [ ] 一覧ページ: どのフィールドを使用しているか
+- [ ] 詳細ページ: どのフィールドを使用しているか
+- [ ] フィルタリング機能: どのフィールドでフィルタリングしているか
+- [ ] 検索機能: どのフィールドで検索しているか
+
+#### **4. 画像管理の確認で確認すること**
+- [ ] ImageMetadataとして直接インポートされている画像
+- [ ] `topPageDisplay.slideImage`の使用状況
+- [ ] `images`配列（文字列パス）の使用状況
+- [ ] 詳細ページでの画像表示方法
+- [ ] ギャラリー機能の有無
+
+---
+
+### 📊 現在の進捗状況
+
+**現在のフェーズ**: Phase 1 - 現状調査
+
+**完了タスク**:
+- [x] プロジェクトタスクをCLAUDE.mdに記録
+
+**進行中タスク**:
+- [ ] activities.tsの完全なデータ構造分析（次のタスク）
+
+**ブロッカー**: なし
+
+---
+
+### 📌 重要な注意事項
+
+1. **段階的な移行**: 一度に全てを変更せず、段階的にテストしながら進める
+2. **バックアップ**: 移行前に必ずactivities.tsのバックアップを取る
+3. **並行稼働期間**: 移行中はactivities.tsとmicroCMSの両方が動作するよう、一時的に併存させる可能性も検討
+4. **ロールバック計画**: 問題が発生した場合、即座に元に戻せる手順を確保
+5. **型安全性**: TypeScriptの型定義を適切に維持し、コンパイルエラーが発生しないようにする
+
+---
+
+### 🔗 関連ドキュメント
+
+- [アクティビティページ](./docs/claude-info/09-activities.md) - アクティビティシステムの仕様
+- [フィルタリング機能](./docs/claude-info/10-filtering.md) - フィルタリングの実装詳細
+- [ベストプラクティス](./docs/claude-info/11-best-practices.md) - コーディング規約
+- [TypeScript設定](./docs/claude-info/08-typescript.md) - 型定義システム
+
+---
+
+### 📝 メモ・備考
+
+- information.tsは既にmicroCMS化済み（ファイルは残っているが使用されていない）
+- schedules.ts（過ごし方プラン）は今回の対象外
+- 画像はmicroCMSの画像管理機能を使用する予定
+- CLAUDE.mdに記載の「画像処理の2つのアプローチ」問題も、この移行で解決する
+
+---
+
+## 📘 Phase 1完了: 現状調査結果とmicroCMS移行計画書
+
+### 📊 Phase 1 調査結果サマリー
+
+**調査期間**: 2025-01-XX
+
+**調査完了日**: 2025-01-XX
+
+#### ✅ 完了した調査タスク
+
+1. ✅ **activities.tsの完全なデータ構造分析**
+2. ✅ **アクティビティデータを使用している全ファイルの特定**
+3. ✅ **各使用箇所でのデータ利用状況の詳細分析**
+4. ✅ **重複データ・未使用フィールドの特定**
+5. ✅ **画像管理パターンの整理と移行方針の決定**
+
+---
+
+### 🔍 1. データ構造分析結果
+
+#### **activities.ts 基本情報**
+
+- **ファイルサイズ**: 780行
+- **アクティビティ数**: 9件
+- **画像総数**: 40枚（gallery×31, pointBackground×9）
+- **型定義**: Activity interface（14フィールド）
+
+#### **Activity Interface 完全フィールドリスト**
+
+```typescript
+export interface Activity {
+  // 基本情報（必須）
+  slug: string;                    // URL用スラッグ（例: 'sup'）
+  title: string;                   // アクティビティ名（例: 'SUP'）
+  category: string;                // カテゴリー（例: 'ウォーター'）
+
+  // 画像管理（必須）
+  images: {
+    gallery: any[];                // ImageMetadata[] - ギャラリー画像（3-5枚）。1枚目をサムネイルとしても使用
+    pointBackground: any;          // ImageMetadata - ポイントセクション背景
+  };
+
+  // TOPページ表示用（オプション）
+  topPageDisplay?: {
+    showOnTop: boolean;            // TOPページに表示するか（現状全てtrue）
+    slideImage: any;               // ImageMetadata - TOPページスライダー用画像
+    catchphrase: string;           // キャッチコピー（例: '水上散歩を楽しむ'）
+    titleColorClass?: string;      // タイトル色クラス（例: 'color-blue'）
+    displayOrder: number;          // 表示順序（1から開始）
+  };
+
+  // 詳細ページコンテンツ（必須）
+  intro: {
+    title: string;                 // イントロタイトル
+    text: string;                  // イントロ本文
+  };
+
+  point: {
+    titleLines: string[];          // ポイントタイトル（複数行）
+    description: string;           // ポイント説明文
+  };
+
+  // 詳細情報配列（必須）
+  about: Array<{
+    term: string;                  // 項目名（例: '料金', '所要時間'）
+    description: string;           // 項目内容
+    note?: string;                 // 補足情報（オプション）
+  }>;
+
+  flow: Array<{
+    stepNumber: string;            // ステップ番号（例: '01', '02'）
+    title: string;                 // ステップタイトル
+    description: string;           // ステップ説明
+  }>;
+
+  reservation: Array<{
+    label: string;                 // 予約方法ラベル（例: '電話予約'）
+    value: string;                 // 予約方法の値（例: '0555-82-2641'）
+    link: string;                  // リンク（例: 'tel:0555-82-2641'）
+    hours: string;                 // 受付時間（例: '9:00-18:00'）
+  }>;
+
+  // メタ情報（必須）
+  badges: Array<{
+    type: 'reservation' | 'group';  // バッジタイプ
+    text: string;                   // バッジテキスト
+  }>;
+
+  isPopular: boolean;              // 人気アクティビティフラグ
+
+  price: {
+    adult: number;                 // 大人料金（円）
+  };
+}
+```
+
+#### **現在の9アクティビティ**
+
+| No | slug | title | category | gallery枚数 | isPopular | showOnTop |
+|:---:|---|---|---|:---:|:---:|:---:|
+| 1 | sup | SUP | ウォーター | 5 | true | true |
+| 2 | canoe | カヌー | ウォーター | 5 | true | true |
+| 3 | trekking | トレッキング | マウンテン | 5 | false | true |
+| 4 | fishing | 釣り | レイク | 5 | false | true |
+| 5 | cycling | サイクリング | マウンテン | 3 | false | true |
+| 6 | craft | クラフト体験 | インドア | 3 | false | true |
+| 7 | camping | キャンプ | アウトドア | 3 | true | true |
+| 8 | stargazing | 星空観察 | ナイト | 3 | false | true |
+| 9 | winter | 冬のアクティビティ | ウィンター | 4 | false | true |
+
+**合計**: 9アクティビティ、gallery画像31枚
+
+---
+
+### 🗂️ 2. 使用箇所の特定結果
+
+#### **使用ファイル: 合計3ファイル**
+
+1. **`/src/pages/activities/[slug].astro`** (2260行)
+   - **用途**: アクティビティ詳細ページ（動的ルーティング）
+   - **使用範囲**: **最も包括的** - Activity interfaceの全14フィールドを使用
+
+2. **`/src/pages/activities/index.astro`** (1249行)
+   - **用途**: アクティビティ一覧ページ（フィルタリング・検索機能付き）
+   - **使用範囲**: gallery[0], about[], badges[], price, intro.text
+
+3. **`/src/components/pages/top/Activities.astro`** (637行)
+   - **用途**: TOPページのActivitiesセクション（Swiperスライダー）
+   - **使用範囲**: topPageDisplay fields, gallery[0]
+
+---
+
+### 📋 3. フィールド使用状況マトリクス
+
+| フィールド | 詳細ページ | 一覧ページ | TOPページ | 備考 |
+|---|:---:|:---:|:---:|---|
+| slug | ✅ | ✅ | ✅ | URL生成に使用 |
+| title | ✅ | ✅ | ✅ | 全ページで表示 |
+| category | ✅ | ✅ | ⚠️ | 一覧ページでフィルタリング使用 |
+| ~~description~~ | ❌ | ❌ | ❌ | **削除済み** - 一覧ページでintro.textを使用 |
+| images.gallery | ✅ | ✅ | ✅ | **gallery[0]をサムネイルとしても使用** |
+| images.pointBackground | ✅ | ❌ | ❌ | 詳細ページのポイントセクション背景 |
+| topPageDisplay.* | ❌ | ❌ | ✅ | TOPページ専用 |
+| intro | ✅ | **✅** | ❌ | 詳細ページ + **一覧ページ（intro.text）** |
+| point | ✅ | ❌ | ❌ | 詳細ページのポイントセクション |
+| about[] | ✅ | ⚠️ | ❌ | 一覧ページでフィルタリングに使用 |
+| flow[] | ✅ | ❌ | ❌ | 詳細ページの体験の流れ |
+| reservation[] | ✅ | ❌ | ❌ | 詳細ページの予約情報 |
+| badges[] | ✅ | ✅ | ❌ | 詳細・一覧ページでバッジ表示 |
+| isPopular | ✅ | ✅ | ❌ | 人気バッジ表示 |
+| price.adult | ✅ | ✅ | ❌ | 料金表示 |
+
+**凡例**:
+- ✅ = 使用中
+- ❌ = 未使用
+- ⚠️ = 重要な依存関係あり（後述の問題点参照）
+
+---
+
+### ⚠️ 4. 発見された問題点（4つの主要課題）
+
+#### **問題1: 価格データの重複**
+
+**現状**: 価格が2箇所に存在
+```typescript
+{
+  about: [
+    { term: '料金', description: '大人: 8,800円〜' }  // ← 文字列
+  ],
+  price: {
+    adult: 8800  // ← 数値
+  }
+}
+```
+
+**問題点**:
+- データの二重管理によるメンテナンス性の低下
+- 不整合のリスク
+- about[]の料金は表示用文字列、price.adultは数値計算用
+
+**推奨解決策**:
+- `about[]`から料金を削除
+- `price.adult`のみを使用
+- 表示時に動的にフォーマット（例: `¥${price.adult.toLocaleString()}〜`）
+
+---
+
+#### **問題2: about[]のterm文字列依存による型安全性の欠如**
+
+**現状**: 一覧ページのフィルタリングが文字列比較に依存
+```typescript
+// /src/pages/activities/index.astro の実装
+const priceItem = activity.about.find((item) => item.term === '料金');
+const durationItem = activity.about.find((item) => item.term === '所要時間');
+const weatherItem = activity.about.find((item) => item.term === '実施可能天気');
+```
+
+**問題点**:
+- タイポによるバグのリスク（例: '所用時間'と誤記）
+- TypeScriptの型チェックが効かない
+- リファクタリング時の変更漏れ
+- 多言語対応が困難
+
+**推奨解決策**:
+- **Option A（推奨）**: about[]を目的別に分離
+  ```typescript
+  {
+    displayInfo: Array<{ term: string; description: string; note?: string }>;  // 表示専用
+    filterableData: {
+      priceRange: { min: number; max: number };
+      duration: { hours: number; minutes: number };
+      weather: 'all' | 'sunny' | 'rainy';
+      season: string[];
+    };
+  }
+  ```
+
+- **Option B**: Enumによる型安全化
+  ```typescript
+  enum AboutTerm {
+    PRICE = '料金',
+    DURATION = '所要時間',
+    WEATHER = '実施可能天気',
+    // ...
+  }
+  ```
+
+---
+
+#### **問題3: topPageDisplay.showOnTopフラグの無意味化**
+
+**現状**: 全9アクティビティが`showOnTop: true`（100%）
+
+**問題点**:
+- フラグの存在意義がない
+- フィルタリング処理が無駄
+- データ容量の浪費
+
+**推奨解決策**:
+- **Option A**: フラグを削除し、`displayOrder`のみで管理
+  - `displayOrder`が存在 → TOPページに表示
+  - `displayOrder`が`null` → 非表示
+
+- **Option B**: フラグを残し、将来の拡張に備える
+  - 現在は全てtrueだが、将来的に季節限定アクティビティ等で使用
+
+---
+
+#### **問題4: 画像管理方式の混在（実際は不使用だが定義が残存）**
+
+**現状**: CLAUDE.mdには「方法2: 文字列パス方式」が記載されているが、**実際にはどのコンポーネントでも使用されていない**
+
+**調査結果**:
+- `activities.ts`に`images`フィールド（文字列パス配列）の定義なし
+- 全ての画像は`images: { gallery[], pointBackground }`構造で**ImageMetadata方式**のみ
+- gallery[0]をサムネイルとして使用（thumbnailフィールドは削除済み）
+
+**推奨解決策**:
+- microCMS移行後は、全画像をmicroCMS画像管理機能で管理
+- Astroの`getImage()`は使用せず、microCMSクエリパラメータで最適化
+- 詳細は「6. 画像管理移行戦略」参照
+
+---
+
+### 📸 5. 画像管理の現状分析
+
+#### **現在の画像構造（ImageMetadata方式）**
+
+| 画像タイプ | 枚数 | 使用箇所 | 最適化パターン |
+|---|:---:|---|---|
+| gallery | 31枚 | 詳細ページギャラリー、一覧ページ、TOPページ（[0]をサムネイルとして使用） | `widths: [580, 900, 1050]` |
+| pointBackground | 9枚 | 詳細ページポイントセクション背景 | `widths: [1920]` |
+
+**合計**: 40枚
+
+#### **現在の最適化処理**
+
+```astro
+<!-- 詳細ページ: ギャラリー画像 -->
+const optimizedGallery = await Promise.all(
+  activity.images.gallery.map(async (image) => {
+    return await getImage({
+      src: image,
+      format: 'webp',
+      widths: [580, 900, 1050],
+    });
+  }),
+);
+
+<!-- TOPページ: スライダー画像 -->
+const optimizedImage = await getImage({
+  src: activity.topPageDisplay!.slideImage,
+  format: 'webp',
+  widths: [800],
+});
+```
+
+---
+
+### 🖼️ 6. microCMS画像管理移行戦略
+
+#### **推奨アプローチ: microCMSクエリパラメータ方式**
+
+**選定理由**:
+1. ✅ **シンプル**: Astroの`getImage()`処理を削除可能
+2. ✅ **柔軟性**: クエリパラメータで動的に最適化
+3. ✅ **パフォーマンス**: microCMS CDNによる高速配信
+4. ✅ **メンテナンス性**: コードがシンプルになる
+
+#### **microCMS画像最適化クエリパラメータ**
+
+```typescript
+// ヘルパー関数の実装例
+interface ImageOptimizationOptions {
+  width?: number;
+  format?: 'webp' | 'jpg' | 'png';
+  quality?: number;  // 1-100
+  fit?: 'crop' | 'contain' | 'cover';
+}
+
+/**
+ * microCMSの画像URLを最適化
+ * @param url microCMSから取得した画像URL
+ * @param options 最適化オプション
+ * @returns 最適化された画像URL
+ */
+export function optimizeMicroCMSImage(
+  url: string,
+  options: ImageOptimizationOptions = {}
+): string {
+  const params = new URLSearchParams();
+
+  if (options.width) params.set('w', options.width.toString());
+  if (options.format) params.set('fm', options.format);
+  if (options.quality) params.set('q', options.quality.toString());
+  if (options.fit) params.set('fit', options.fit);
+
+  return `${url}?${params.toString()}`;
+}
+
+/**
+ * レスポンシブ画像のsrcset生成
+ * @param url microCMSから取得した画像URL
+ * @param widths 生成する幅の配列（例: [640, 1024, 1920]）
+ * @returns srcset文字列
+ */
+export function generateSrcSet(url: string, widths: number[]): string {
+  return widths
+    .map((width) => {
+      const optimizedUrl = optimizeMicroCMSImage(url, { width, format: 'webp' });
+      return `${optimizedUrl} ${width}w`;
+    })
+    .join(', ');
+}
+```
+
+#### **使用例: 詳細ページのギャラリー**
+
+**変更前（Astro getImage方式）**:
+```astro
+---
+const optimizedGallery = await Promise.all(
+  activity.images.gallery.map(async (image) => {
+    return await getImage({
+      src: image,
+      format: 'webp',
+      widths: [580, 900, 1050],
+    });
+  }),
+);
+---
+
+<img src={optimizedGallery[0].src} srcset={optimizedGallery[0].srcSet} />
+```
+
+**変更後（microCMSクエリパラメータ方式）**:
+```astro
+---
+import { optimizeMicroCMSImage, generateSrcSet } from '@/utils/image';
+
+// activityはmicroCMS APIから取得したデータ
+const gallery = activity.images.gallery;  // URL文字列の配列
+---
+
+<img
+  src={optimizeMicroCMSImage(gallery[0].url, { width: 1050, format: 'webp' })}
+  srcset={generateSrcSet(gallery[0].url, [580, 900, 1050])}
+  sizes="(max-width: 744px) 580px, (max-width: 1024px) 900px, 1050px"
+  alt={gallery[0].alt}
+/>
+```
+
+**メリット**:
+- `Promise.all()`の非同期処理が不要
+- ビルド時間の短縮
+- コードが読みやすい
+
+#### **画像アップロード計画**
+
+| 画像タイプ | 枚数 | microCMSフィールド名 | アップロード優先度 |
+|---|:---:|---|:---:|
+| gallery | 31枚 | `gallery` (複数画像フィールド) | 高 |
+| pointBackground | 9枚 | `pointBackgroundImage` | 中 |
+
+**推定作業時間**: 40枚 × 2分/枚 = **約1.3時間**
+
+---
+
+### 🏗️ 7. microCMS APIスキーマ設計
+
+#### **API名**: `activities`
+
+#### **エンドポイント**: `https://[service-name].microcms.io/api/v1/activities`
+
+#### **APIタイプ**: リスト形式
+
+#### **フィールド設計**
+
+```typescript
+// microCMS APIスキーマ（推奨構造）
+{
+  // 基本情報
+  slug: string (テキストフィールド、必須、ユニーク)
+  title: string (テキストフィールド、必須)
+  category: string (セレクトフィールド、必須)
+    選択肢: ['ウォーター', 'マウンテン', 'レイク', 'インドア', 'アウトドア', 'ナイト', 'ウィンター']
+
+  // 画像
+  gallery: 複数画像 (必須、3-5枚) ※1枚目をサムネイルとしても使用
+  pointBackgroundImage: 画像 (必須)
+
+  // TOPページ表示設定
+  showOnTop: boolean (真偽値、デフォルト: false)
+  topPageCatchphrase: string (テキストフィールド、オプション)
+  topPageTitleColorClass: string (テキストフィールド、オプション)
+  displayOrder: number (数値、オプション)
+
+  // 詳細コンテンツ
+  introTitle: string (テキストフィールド、必須)
+  introText: string (リッチエディタ、必須)
+
+  pointTitleLine1: string (テキストフィールド、必須)
+  pointTitleLine2: string (テキストフィールド、オプション)
+  pointDescription: string (リッチエディタ、必須)
+
+  // 繰り返しフィールド: 詳細情報
+  displayInfo: 繰り返しフィールド (必須)
+    - term: string (テキストフィールド、必須)
+    - description: string (テキストエリア、必須)
+    - note: string (テキストフィールド、オプション)
+
+  // 繰り返しフィールド: 体験の流れ
+  flow: 繰り返しフィールド (必須)
+    - stepNumber: string (テキストフィールド、必須)
+    - title: string (テキストフィールド、必須)
+    - description: string (テキストエリア、必須)
+
+  // 繰り返しフィールド: 予約方法
+  reservation: 繰り返しフィールド (必須)
+    - label: string (テキストフィールド、必須)
+    - value: string (テキストフィールド、必須)
+    - link: string (テキストフィールド、必須)
+    - hours: string (テキストフィールド、必須)
+
+  // 繰り返しフィールド: バッジ
+  badges: 繰り返しフィールド (オプション)
+    - type: string (セレクトフィールド、選択肢: ['reservation', 'group'])
+    - text: string (テキストフィールド)
+
+  // メタ情報
+  isPopular: boolean (真偽値、デフォルト: false)
+  priceAdult: number (数値、必須)
+
+  // フィルタリング用データ（問題2の解決策）
+  filterDurationHours: number (数値、オプション)
+  filterDurationMinutes: number (数値、オプション)
+  filterWeather: string (セレクトフィールド、選択肢: ['all', 'sunny', 'rainy'])
+  filterSeasons: 複数選択 (選択肢: ['春', '夏', '秋', '冬'])
+}
+```
+
+#### **合計フィールド数**: 約27フィールド
+
+**⚠️ 注意**:
+- `description`フィールドは削除されました。一覧ページでは`introText`を使用します。
+- `thumbnail`と`topPageSlideImage`フィールドは削除されました。`gallery[0]`をサムネイルとして使用します。
+
+---
+
+### 📊 8. データマッピング表
+
+#### **activities.ts → microCMS 完全対応表**
+
+| activities.ts | microCMS | 変換処理 | 備考 |
+|---|---|---|---|
+| slug | slug | そのまま | ユニーク制約 |
+| title | title | そのまま | - |
+| category | category | そのまま | セレクトフィールド |
+| ~~description~~ | - | **削除** | **一覧ページでintroTextを使用** |
+| images.gallery | gallery | 画像アップロード | **複数画像フィールド、[0]をサムネイルとしても使用** |
+| images.pointBackground | pointBackgroundImage | 画像アップロード | - |
+| ~~topPageDisplay.slideImage~~ | - | **削除** | **gallery[0]を使用** |
+| topPageDisplay.showOnTop | showOnTop | そのまま | 真偽値 |
+| topPageDisplay.catchphrase | topPageCatchphrase | そのまま | - |
+| topPageDisplay.titleColorClass | topPageTitleColorClass | そのまま | - |
+| topPageDisplay.displayOrder | displayOrder | そのまま | - |
+| intro.title | introTitle | そのまま | - |
+| intro.text | introText | そのまま | - |
+| point.titleLines[0] | pointTitleLine1 | 配列→個別フィールド | - |
+| point.titleLines[1] | pointTitleLine2 | 配列→個別フィールド | オプション |
+| point.description | pointDescription | そのまま | - |
+| about[] | displayInfo[] | **フィルタ用除外** | 料金削除推奨 |
+| - | filterDurationHours | **新規追加** | about[]から抽出 |
+| - | filterDurationMinutes | **新規追加** | about[]から抽出 |
+| - | filterWeather | **新規追加** | about[]から抽出 |
+| - | filterSeasons | **新規追加** | about[]から抽出 |
+| flow[] | flow[] | そのまま | 繰り返しフィールド |
+| reservation[] | reservation[] | そのまま | 繰り返しフィールド |
+| badges[] | badges[] | そのまま | 繰り返しフィールド |
+| isPopular | isPopular | そのまま | 真偽値 |
+| price.adult | priceAdult | そのまま | 数値 |
+
+---
+
+### 💻 9. コード変更仕様
+
+#### **9-1. 詳細ページ (`/src/pages/activities/[slug].astro`)**
+
+**変更箇所1: データ取得処理**
+
+```astro
+// 変更前
+---
+import { activities, type Activity } from '@/data/activities';
+
+export async function getStaticPaths() {
+  return activities.map((activity: Activity) => ({
+    params: { slug: activity.slug },
+    props: { activity },
+  }));
+}
+
+const { activity } = Astro.props;
+---
+
+// 変更後
+---
+import { createClient } from 'microcms-js-sdk';
+import type { Activity } from '@/types/microcms';
+
+const client = createClient({
+  serviceDomain: import.meta.env.MICROCMS_SERVICE_DOMAIN,
+  apiKey: import.meta.env.MICROCMS_API_KEY,
+});
+
+export async function getStaticPaths() {
+  const { contents } = await client.get({
+    endpoint: 'activities',
+    queries: { limit: 100 },
+  });
+
+  return contents.map((activity: Activity) => ({
+    params: { slug: activity.slug },
+    props: { activity },
+  }));
+}
+
+const { activity } = Astro.props;
+---
+```
+
+**変更箇所2: 画像最適化処理**
+
+```astro
+// 変更前
+---
+import { getImage } from 'astro:assets';
+
+const optimizedGallery = await Promise.all(
+  activity.images.gallery.map(async (image) => {
+    return await getImage({
+      src: image,
+      format: 'webp',
+      widths: [580, 900, 1050],
+    });
+  }),
+);
+---
+
+// 変更後
+---
+import { optimizeMicroCMSImage, generateSrcSet } from '@/utils/image';
+
+const gallery = activity.gallery.map((img) => ({
+  url: img.url,
+  alt: activity.title,
+  srcset: generateSrcSet(img.url, [580, 900, 1050]),
+}));
+---
+```
+
+**変更箇所3: フィールド名の変更**
+
+```astro
+// 変更前
+<h2>{activity.intro.title}</h2>
+<p>{activity.intro.text}</p>
+
+// 変更後
+<h2>{activity.introTitle}</h2>
+<p>{activity.introText}</p>
+```
+
+**推定変更行数**: 約50-80行
+
+---
+
+#### **9-2. 一覧ページ (`/src/pages/activities/index.astro`)**
+
+**変更箇所1: データ取得**
+
+```astro
+// 変更前
+---
+import { activities } from '@/data/activities';
+---
+
+// 変更後
+---
+import { createClient } from 'microcms-js-sdk';
+
+const client = createClient({
+  serviceDomain: import.meta.env.MICROCMS_SERVICE_DOMAIN,
+  apiKey: import.meta.env.MICROCMS_API_KEY,
+});
+
+const { contents: activities } = await client.get({
+  endpoint: 'activities',
+  queries: { limit: 100 },
+});
+---
+```
+
+**変更箇所2: フィルタリングロジック（重要）**
+
+```typescript
+// 変更前（問題あり）
+const priceItem = activity.about.find((item) => item.term === '料金');
+const durationItem = activity.about.find((item) => item.term === '所要時間');
+const weatherItem = activity.about.find((item) => item.term === '実施可能天気');
+
+// 変更後（型安全）
+const priceAdult = activity.priceAdult;
+const durationHours = activity.filterDurationHours;
+const durationMinutes = activity.filterDurationMinutes;
+const weather = activity.filterWeather;
+```
+
+**変更箇所3: サムネイル画像**
+
+```astro
+// 変更前
+<img src={activity.images.gallery[0].src} alt={activity.title} />
+
+// 変更後
+<img
+  src={optimizeMicroCMSImage(activity.gallery[0].url, { width: 580, format: 'webp' })}
+  srcset={generateSrcSet(activity.gallery[0].url, [580, 900, 1050])}
+  alt={activity.title}
+/>
+```
+
+**推定変更行数**: 約100-150行
+
+---
+
+#### **9-3. TOPページ (`/src/components/pages/top/Activities.astro`)**
+
+**変更箇所1: データ取得とフィルタリング**
+
+```astro
+// 変更前
+---
+import { getTopPageActivities } from '@/data/activities';
+const topActivities = getTopPageActivities();
+---
+
+// 変更後
+---
+import { createClient } from 'microcms-js-sdk';
+
+const client = createClient({
+  serviceDomain: import.meta.env.MICROCMS_SERVICE_DOMAIN,
+  apiKey: import.meta.env.MICROCMS_API_KEY,
+});
+
+const { contents } = await client.get({
+  endpoint: 'activities',
+  queries: {
+    filters: 'showOnTop[equals]true',
+    orders: 'displayOrder',
+    limit: 100,
+  },
+});
+
+const topActivities = contents;
+---
+```
+
+**変更箇所2: 画像処理**
+
+```astro
+// 変更前
+const optimizedImage = await getImage({
+  src: activity.topPageDisplay!.slideImage,
+  format: 'webp',
+  widths: [800],
+});
+
+// 変更後
+const slideImageUrl = optimizeMicroCMSImage(activity.gallery[0].url, {
+  width: 800,
+  format: 'webp',
+});
+```
+
+**推定変更行数**: 約30-50行
+
+---
+
+#### **9-4. 新規ファイル作成**
+
+**ファイル1: `/src/utils/image.ts`** (画像最適化ヘルパー)
+
+```typescript
+// 上記「6. microCMS画像管理移行戦略」のヘルパー関数実装
+export interface ImageOptimizationOptions { /* ... */ }
+export function optimizeMicroCMSImage(/* ... */) { /* ... */ }
+export function generateSrcSet(/* ... */) { /* ... */ }
+```
+
+**ファイル2: `/src/types/microcms.ts`** (型定義)
+
+```typescript
+export interface Activity {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+
+  slug: string;
+  title: string;
+  category: string;
+
+  gallery: MicroCMSImage[];
+  pointBackgroundImage: MicroCMSImage;
+
+  showOnTop: boolean;
+  topPageCatchphrase?: string;
+  topPageTitleColorClass?: string;
+  displayOrder?: number;
+
+  introTitle: string;
+  introText: string;
+
+  pointTitleLine1: string;
+  pointTitleLine2?: string;
+  pointDescription: string;
+
+  displayInfo: Array<{
+    fieldId: string;
+    term: string;
+    description: string;
+    note?: string;
+  }>;
+
+  flow: Array<{
+    fieldId: string;
+    stepNumber: string;
+    title: string;
+    description: string;
+  }>;
+
+  reservation: Array<{
+    fieldId: string;
+    label: string;
+    value: string;
+    link: string;
+    hours: string;
+  }>;
+
+  badges: Array<{
+    fieldId: string;
+    type: 'reservation' | 'group';
+    text: string;
+  }>;
+
+  isPopular: boolean;
+  priceAdult: number;
+
+  filterDurationHours?: number;
+  filterDurationMinutes?: number;
+  filterWeather?: 'all' | 'sunny' | 'rainy';
+  filterSeasons?: string[];
+}
+
+export interface MicroCMSImage {
+  url: string;
+  width: number;
+  height: number;
+}
+```
+
+---
+
+### ✅ 10. テストチェックリスト
+
+#### **Phase 5-1: ローカル環境ビルドテスト**
+
+- [ ] `npm run build` が成功する
+- [ ] TypeScriptコンパイルエラーがない
+- [ ] 警告が増えていない
+- [ ] ビルド時間の比較（移行前後）
+
+#### **Phase 5-2: 全ページ表示確認**
+
+- [ ] TOPページ表示確認
+  - [ ] Activitiesセクションのスライダー動作
+  - [ ] 8つのアクティビティが表示される
+  - [ ] 画像が正常に表示される
+  - [ ] リンクが正常に機能する
+
+- [ ] 一覧ページ表示確認
+  - [ ] 全9アクティビティが表示される
+  - [ ] サムネイル画像が表示される
+  - [ ] バッジ表示が正常
+  - [ ] 料金表示が正常
+
+- [ ] 詳細ページ表示確認（全9ページ）
+  - [ ] /activities/sup
+  - [ ] /activities/canoe
+  - [ ] /activities/trekking
+  - [ ] /activities/fishing
+  - [ ] /activities/cycling
+  - [ ] /activities/craft
+  - [ ] /activities/camping
+  - [ ] /activities/stargazing
+  - [ ] /activities/winter
+
+#### **Phase 5-3: スタイル確認（視覚的差異チェック）**
+
+- [ ] BEMクラス名が維持されている
+- [ ] レイアウトに崩れがない
+- [ ] 画像のアスペクト比が維持されている
+- [ ] フォントサイズ・色が変わっていない
+- [ ] スペーシングが維持されている
+
+#### **Phase 5-4: スクリプト動作確認**
+
+- [ ] TOPページSwiperが正常に動作する
+  - [ ] スライダーの左右ナビゲーション
+  - [ ] ページネーション
+  - [ ] スワイプ操作（モバイル）
+
+- [ ] 一覧ページフィルタリングが正常に動作する
+  - [ ] カテゴリーフィルタ
+  - [ ] 価格フィルタ
+  - [ ] 所要時間フィルタ
+  - [ ] 天気フィルタ
+  - [ ] 検索機能
+  - [ ] ソート機能
+
+- [ ] 詳細ページのギャラリーSwiperが正常に動作する
+  - [ ] サムネイル連動
+  - [ ] 拡大表示
+
+#### **Phase 5-5: レスポンシブ対応確認**
+
+- [ ] モバイル（375px）表示確認
+- [ ] タブレット（768px）表示確認
+- [ ] デスクトップ（1440px）表示確認
+- [ ] 画像の切り替え（srcset）が正常に機能
+
+#### **Phase 5-6: パフォーマンス測定**
+
+- [ ] Lighthouse スコア測定（移行前後比較）
+  - [ ] Performance
+  - [ ] Accessibility
+  - [ ] Best Practices
+  - [ ] SEO
+
+- [ ] ビルドサイズ比較
+- [ ] 画像最適化効果の確認
+
+---
+
+### 🔄 11. ロールバック戦略
+
+#### **ロールバック手順**
+
+**Step 1: 緊急ロールバック（本番環境で問題発生時）**
+
+1. Gitで直前のコミットにrevert
+   ```bash
+   git revert HEAD
+   git push origin main
+   ```
+
+2. Vercel/Netlifyが自動的に再デプロイ
+
+**Step 2: activities.tsの復元**
+
+1. バックアップファイルから復元
+   ```bash
+   cp src/data/activities.ts.backup src/data/activities.ts
+   ```
+
+2. microCMS関連コードの削除
+   ```bash
+   git checkout HEAD~1 -- src/pages/activities/
+   git checkout HEAD~1 -- src/components/pages/top/Activities.astro
+   ```
+
+3. ビルド確認
+   ```bash
+   npm run build
+   ```
+
+**Step 3: 環境変数の無効化**
+
+```env
+# .env
+# MICROCMS_SERVICE_DOMAIN=your-service
+# MICROCMS_API_KEY=your-api-key
+```
+
+#### **ロールバック判断基準**
+
+以下のいずれかが発生した場合、即座にロールバック：
+
+- [ ] ビルドが失敗する
+- [ ] 本番環境で3ページ以上が404エラー
+- [ ] 画像が50%以上表示されない
+- [ ] フィルタリング機能が完全に動作しない
+- [ ] Swiperスライダーが全く動作しない
+- [ ] ページロード時間が2倍以上に増加
+
+---
+
+### ⏱️ 12. タイムライン・作業時間見積もり
+
+#### **Phase 2: microCMS移行計画の策定**（完了）
+
+- **所要時間**: 完了済み（本ドキュメント作成）
+
+#### **Phase 3: microCMS環境準備**
+
+| タスク | 所要時間 | 備考 |
+|---|:---:|---|
+| microCMS API作成 | 30分 | activities API設定 |
+| APIスキーマ設定 | 1時間 | 30フィールドの設定 |
+| 画像アップロード | 1.5時間 | 49枚の画像 |
+| テストデータ登録 | 2時間 | 9アクティビティ |
+| 環境変数設定 | 15分 | .env設定 |
+| **合計** | **5時間15分** | |
+
+#### **Phase 4: コード移行**
+
+| タスク | 所要時間 | 備考 |
+|---|:---:|---|
+| microCMSクライアント設定 | 30分 | ライブラリインストール |
+| 型定義の作成 | 1時間 | /src/types/microcms.ts |
+| 画像ヘルパー関数作成 | 1時間 | /src/utils/image.ts |
+| 詳細ページ更新 | 2時間 | [slug].astro |
+| 一覧ページ更新 | 2.5時間 | index.astro（フィルタリング含む） |
+| TOPページ更新 | 1時間 | Activities.astro |
+| ビルドエラー修正 | 1時間 | バッファ |
+| **合計** | **9時間** | |
+
+#### **Phase 5: テスト・検証**
+
+| タスク | 所要時間 | 備考 |
+|---|:---:|---|
+| ローカルビルドテスト | 30分 | npm run build確認 |
+| 全ページ表示確認 | 1.5時間 | 11ページ（TOP+一覧+詳細9） |
+| スタイル確認 | 1時間 | 視覚的差異チェック |
+| スクリプト動作確認 | 1.5時間 | Swiper、フィルタリング |
+| レスポンシブ確認 | 1時間 | 3ブレークポイント |
+| パフォーマンス測定 | 30分 | Lighthouse |
+| **合計** | **6時間** | |
+
+#### **Phase 6: 本番リリース**
+
+| タスク | 所要時間 | 備考 |
+|---|:---:|---|
+| 本番環境デプロイ | 30分 | Vercel/Netlify |
+| 本番環境動作確認 | 1時間 | 全ページチェック |
+| activities.ts削除 | 15分 | ファイル退避 |
+| ドキュメント更新 | 30分 | CLAUDE.md更新 |
+| **合計** | **2時間15分** | |
+
+#### **📊 総所要時間**
+
+| Phase | 所要時間 |
+|---|:---:|
+| Phase 3: 環境準備 | 5時間15分 |
+| Phase 4: コード移行 | 9時間 |
+| Phase 5: テスト検証 | 6時間 |
+| Phase 6: 本番リリース | 2時間15分 |
+| **合計** | **22時間30分** |
+
+**推奨スケジュール**: 3日間（1日8時間作業想定）
+
+- **Day 1**: Phase 3完了（環境準備）
+- **Day 2**: Phase 4完了（コード移行）
+- **Day 3**: Phase 5-6完了（テスト・リリース）
+
+---
+
+### ⚠️ 13. リスク評価と軽減策
+
+#### **リスク1: フィルタリング機能の破壊（高リスク）**
+
+**影響度**: 🔴 高（ユーザー体験に直接影響）
+
+**発生確率**: 中（データ構造変更による）
+
+**軽減策**:
+- [ ] フィルタリングロジックの徹底的なテスト
+- [ ] 全フィルタ組み合わせのテストケース作成
+- [ ] ステージング環境での先行検証
+
+#### **リスク2: 画像表示の不具合（中リスク）**
+
+**影響度**: 🟠 中（視覚的品質に影響）
+
+**発生確率**: 低（実装がシンプル）
+
+**軽減策**:
+- [ ] 画像URLの事前検証
+- [ ] microCMSクエリパラメータの動作確認
+- [ ] 画像最適化ヘルパー関数のユニットテスト
+
+#### **リスク3: ビルドパフォーマンスの低下（低リスク）**
+
+**影響度**: 🟡 低（開発体験に影響）
+
+**発生確率**: 低（microCMS APIキャッシュあり）
+
+**軽減策**:
+- [ ] microCMSのレスポンス時間を事前測定
+- [ ] キャッシュ戦略の検討
+- [ ] ビルド時間の定期的なモニタリング
+
+#### **リスク4: データ不整合（中リスク）**
+
+**影響度**: 🟠 中（コンテンツ品質に影響）
+
+**発生確率**: 中（手動データ入力）
+
+**軽減策**:
+- [ ] データ入力チェックリストの作成
+- [ ] 必須フィールドの厳密な設定
+- [ ] ステージング環境での全データ検証
+
+#### **リスク5: TypeScriptコンパイルエラー（低リスク）**
+
+**影響度**: 🟡 低（開発時に発見可能）
+
+**発生確率**: 低（型定義を正確に作成）
+
+**軽減策**:
+- [ ] 型定義の段階的実装
+- [ ] tscコマンドでの事前チェック
+- [ ] エディタのTypeScript補完を活用
+
+---
+
+### 🎯 14. Phase 2以降の推奨アクションプラン
+
+#### **即座に実行すべきアクション**
+
+1. ✅ **このドキュメントをCLAUDE.mdに追記**（完了）
+2. ⏳ **microCMS環境の最終確認**
+   - アカウント・プロジェクトへのアクセス確認
+   - API作成権限の確認
+   - 画像アップロード容量の確認
+
+3. ⏳ **バックアップの作成**
+   ```bash
+   cp src/data/activities.ts src/data/activities.ts.backup
+   git add .
+   git commit -m "Backup: activities.ts before microCMS migration"
+   git push
+   ```
+
+#### **Phase 3開始前の準備**
+
+1. **ステージング環境の準備**
+   - Vercel/NetlifyのPreview Deploymentの確認
+   - microCMSの開発環境とプロダクション環境の分離検討
+
+2. **チーム内共有**（該当する場合）
+   - 移行計画の共有
+   - スケジュールの調整
+   - ロールバック手順の周知
+
+#### **Phase 3実行時の注意点**
+
+- microCMS APIスキーマは一度作成すると変更が困難
+- 必ずテストデータで動作確認してから本データを入力
+- 画像のファイル名規則を統一（例: `sup-gallery-01.jpg`）
+
+---
+
+### 📝 15. まとめと次のステップ
+
+#### **Phase 1で達成したこと**
+
+✅ activities.tsの完全な構造把握（780行、9アクティビティ、49画像）
+✅ 使用箇所の完全特定（3ファイル）
+✅ データ利用状況の詳細分析（フィールド使用マトリクス）
+✅ 4つの主要問題の発見と解決策の提示
+✅ 画像管理の現状分析とmicroCMS移行戦略の決定
+✅ 包括的なmicroCMS移行計画書の作成
+
+#### **Phase 1の成果物**
+
+- ✅ 完全なデータ構造ドキュメント
+- ✅ フィールド使用状況マトリクス
+- ✅ microCMS APIスキーマ設計
+- ✅ データマッピング表
+- ✅ コード変更仕様
+- ✅ テストチェックリスト
+- ✅ リスク評価と軽減策
+- ✅ タイムライン（総22.5時間、3日間）
+
+#### **次のステップ: Phase 3へ進む準備**
+
+**ユーザーへの確認事項**:
+
+1. **このmicroCMS移行計画書の承認**
+   - データ構造設計は適切か？
+   - 作業時間見積もり（22.5時間）は許容範囲か？
+   - リスク評価と軽減策は十分か？
+
+2. **Phase 3開始のタイミング**
+   - いつからmicroCMS環境準備を開始するか？
+   - 本番リリースの希望日はあるか？
+
+3. **追加の要望や懸念事項**
+   - データ構造に追加したいフィールドはあるか？
+   - 特に重点的にテストすべき機能はあるか？
+
+**承認後の流れ**:
+1. Phase 3: microCMS環境準備（5時間15分）
+2. Phase 4: コード移行（9時間）
+3. Phase 5: テスト・検証（6時間）
+4. Phase 6: 本番リリース（2時間15分）
+
+---
+
 ## ⚠️ 検証が必要な項目
 
 ### 🔍 画像処理の2つのアプローチ
