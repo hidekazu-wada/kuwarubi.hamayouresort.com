@@ -342,7 +342,7 @@ const ageGroupDisplayText = (() => {
             <div class="about__item">
               <dt class="about__term">{item.term}</dt>
               <dd class="about__description">
-                {item.description}
+                <div set:html={item.description}></div>
                 {item.note && <small class="about__note">＊{item.note}</small>}
               </dd>
             </div>
