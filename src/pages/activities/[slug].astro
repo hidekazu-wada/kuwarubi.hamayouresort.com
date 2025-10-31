@@ -264,14 +264,6 @@ const ageGroupDisplayText = (() => {
     </header>
     <div class="about__content">
       <dl class="about__list">
-        <!-- 料金（priceAdultフィールド）を最初に表示 -->
-        <div class="about__item">
-          <dt class="about__term">料金（大人）</dt>
-          <dd class="about__description">
-            ¥{activity.priceAdult.toLocaleString()}
-          </dd>
-        </div>
-
         <!-- 対象年齢（filterAgeGroupフィールド）を表示 -->
         {
           ageGroupDisplayText && (
@@ -510,7 +502,7 @@ const ageGroupDisplayText = (() => {
                         })()}
                     </div>
                     <div class="popular-activities__price">
-                      ¥{popularActivity.priceAdult.toLocaleString()}〜
+                      ¥{popularActivity.basePrice.toLocaleString()}〜
                     </div>
                   </div>
                   <dl class="popular-activities__details">

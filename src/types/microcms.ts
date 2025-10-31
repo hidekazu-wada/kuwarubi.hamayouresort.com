@@ -90,7 +90,7 @@ export interface Activity extends MicroCMSDate {
 
   // メタ情報
   isPopular: boolean;
-  priceAdult: number;
+  basePrice: number; // 基準価格（フィルタ・一覧表示用）
 
   // フィルタリング用データ
   filterDurationHours?: number;

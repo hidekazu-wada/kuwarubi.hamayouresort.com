@@ -18,8 +18,8 @@ function generateFilterOptions() {
   // 料金の選択肢を生成（カスタム順序）
   const priceSet = new Set<string>();
   activities.forEach((activity) => {
-    // priceAdultを使用して料金範囲を判定
-    const price = activity.priceAdult;
+    // basePriceを使用して料金範囲を判定
+    const price = activity.basePrice;
     if (price >= 500 && price < 1000) priceSet.add('500円から1000円');
     else if (price >= 1000 && price < 3000) priceSet.add('1000円から3000円');
     else if (price >= 3000 && price < 5000) priceSet.add('3000円から5000円');
@@ -218,7 +218,7 @@ const optimizedActivities = activities.map((activity) => ({
                     })()}
                 </div>
                 <div class="activity-card__price">
-                  ¥{activity.priceAdult.toLocaleString()}〜
+                  ¥{activity.basePrice.toLocaleString()}〜
                 </div>
               </div>
               <dl class="activity-card__details">
@@ -286,7 +286,7 @@ const optimizedActivities = activities.map((activity) => ({
     interface Activity {
       slug: string;
       title: string;
-      priceAdult: number;
+      basePrice: number;
       filterDurationHours: number | null;
       filterWeather:
         | 'all'
@@ -365,20 +365,20 @@ const optimizedActivities = activities.map((activity) => ({
 
     // 料金フィルターマッチング関数
     function matchesPriceFilter(
-      priceAdult: number,
+      basePrice: number,
       filterValue: string
     ): boolean {
       switch (filterValue) {
         case '500円から1000円':
-          return priceAdult >= 500 && priceAdult < 1000;
+          return basePrice >= 500 && basePrice < 1000;
         case '1000円から3000円':
-          return priceAdult >= 1000 && priceAdult < 3000;
+          return basePrice >= 1000 && basePrice < 3000;
         case '3000円から5000円':
-          return priceAdult >= 3000 && priceAdult < 5000;
+          return basePrice >= 3000 && basePrice < 5000;
         case '5000円から1万円':
-          return priceAdult >= 5000 && priceAdult <= 10000;
+          return basePrice >= 5000 && basePrice <= 10000;
         case '1万円以上':
-          return priceAdult > 10000;
+          return basePrice > 10000;
         default:
           return false;
       }
@@ -445,7 +445,7 @@ const optimizedActivities = activities.map((activity) => ({
 
         // 現在の選択フィルタ条件をチェック
         if (currentFilters.price) {
-          if (!matchesPriceFilter(activity.priceAdult, currentFilters.price)) {
+          if (!matchesPriceFilter(activity.basePrice, currentFilters.price)) {
             matchesCurrentFilters = false;
           }
         }
@@ -473,7 +473,7 @@ const optimizedActivities = activities.map((activity) => ({
         // 条件に合致する場合、このアクティビティの選択肢をすべて追加
         if (matchesCurrentFilters) {
           // 料金の選択肢を追加
-          const price = activity.priceAdult;
+          const price = activity.basePrice;
           if (price >= 500 && price < 1000)
             availableValues.price.add('500円から1000円');
           else if (price >= 1000 && price < 3000)
@@ -575,7 +575,7 @@ const optimizedActivities = activities.map((activity) => ({
         // 各フィルタ条件をチェック
         if (filters.price) {
           isVisible =
-            isVisible && matchesPriceFilter(activity.priceAdult, filters.price);
+            isVisible && matchesPriceFilter(activity.basePrice, filters.price);
         }
 
         if (filters.duration) {
