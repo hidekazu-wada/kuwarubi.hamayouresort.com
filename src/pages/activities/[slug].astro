@@ -156,7 +156,16 @@ const ageGroupDisplayText = (() => {
           )
         }
       </div>
-      <h1 class="activity-detail__title">{activity.title}</h1>
+      <h1 class="activity-detail__title">
+        {
+          activity.title.split('\n').map((line, index) => (
+            <>
+              {line}
+              {index < activity.title.split('\n').length - 1 && <br />}
+            </>
+          ))
+        }
+      </h1>
     </header>
 
     <section class="activity-detail__gallery">
@@ -185,7 +194,9 @@ const ageGroupDisplayText = (() => {
 
     <section class="activity-detail__intro">
       <h2 class="activity-detail__intro-title">
-        {activity.introTitle}
+        {activity.introTitleLine1}
+        {activity.introTitleLine2 && <br />}
+        {activity.introTitleLine2}
       </h2>
 
       <div class="activity-detail__intro-content">

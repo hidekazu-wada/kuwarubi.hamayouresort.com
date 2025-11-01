@@ -50,7 +50,8 @@ export interface Activity extends MicroCMSDate {
   displayOrder: number;
 
   // 詳細コンテンツ
-  introTitle: string;
+  introTitleLine1: string;
+  introTitleLine2?: string;
   introText: string;
 
   pointTitleLine1: string;
