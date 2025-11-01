@@ -89,11 +89,11 @@ const weatherDisplayText = (() => {
   }
 })();
 
-// badgesフィールドから予約方法と対象を抽出（配列対応版）
+// badgesフィールドから予約方法と対象を抽出（複数対応版）
 const extractBadges = () => {
   // badges配列が空または存在しない場合
   if (!activity.badges || activity.badges.length === 0) {
-    return { reservationMethod: undefined, targetAudience: undefined };
+    return { reservationMethods: [], targetAudiences: [] };
   }
 
   // badges[0].badgeが配列の場合と文字列の場合の両方に対応
@@ -102,20 +102,20 @@ const extractBadges = () => {
   // 配列の場合はそのまま、文字列の場合は配列に変換
   const badgeArray = Array.isArray(badgeValues) ? badgeValues : [badgeValues];
 
-  // 予約方法を抽出
-  const reservationMethod = badgeArray.find(
+  // 予約方法を全て抽出（複数対応）
+  const reservationMethods = badgeArray.filter(
     (badge) => badge === '事前予約' || badge === '当日予約'
   );
 
-  // 対象を抽出
-  const targetAudience = badgeArray.find(
+  // 対象を全て抽出（複数対応）
+  const targetAudiences = badgeArray.filter(
     (badge) => badge === '団体向け' || badge === '個人向け'
   );
 
-  return { reservationMethod, targetAudience };
+  return { reservationMethods, targetAudiences };
 };
 
-const { reservationMethod, targetAudience } = extractBadges();
+const { reservationMethods, targetAudiences } = extractBadges();
 
 // 対象年齢の表示テキストを取得（配列対応）
 const ageGroupDisplayText = (() => {
@@ -133,6 +133,8 @@ const ageGroupDisplayText = (() => {
       return '全年齢対象';
     case 'ages-3-and-up':
       return '3歳以上';
+    case 'middle-school-and-up':
+      return '中学生以上';
     case 'adults-only':
       return '大人のみ';
     default:
@@ -274,22 +276,24 @@ const ageGroupDisplayText = (() => {
           )
         }
 
-        <!-- 予約方法（badgesフィールドから抽出）を表示 -->
+        <!-- 予約方法（badgesフィールドから抽出）を表示（複数対応） -->
         {
-          reservationMethod && (
+          reservationMethods.length > 0 && (
             <div class="about__item">
               <dt class="about__term">予約方法</dt>
-              <dd class="about__description">{reservationMethod}</dd>
+              <dd class="about__description">
+                {reservationMethods.join('・')}
+              </dd>
             </div>
           )
         }
 
-        <!-- 対象（badgesフィールドから抽出）を表示 -->
+        <!-- 対象（badgesフィールドから抽出）を表示（複数対応） -->
         {
-          targetAudience && (
+          targetAudiences.length > 0 && (
             <div class="about__item">
               <dt class="about__term">対象</dt>
-              <dd class="about__description">{targetAudience}</dd>
+              <dd class="about__description">{targetAudiences.join('・')}</dd>
             </div>
           )
         }
@@ -530,6 +534,8 @@ const ageGroupDisplayText = (() => {
                             }
                             if (ageGroup === 'all-ages') return '全年齢対象';
                             if (ageGroup === 'ages-3-and-up') return '3歳以上';
+                            if (ageGroup === 'middle-school-and-up')
+                              return '中学生以上';
                             if (ageGroup === 'adults-only') return '大人のみ';
                             return '';
                           })()}
@@ -2097,8 +2103,12 @@ const ageGroupDisplayText = (() => {
       justify-content: space-between;
       align-items: center;
       @include tablet-up {
+        flex-direction: column;
+        gap: ppx(20 * 1.2);
+        align-items: normal;
       }
       @include desktop-up {
+        gap: ppx(20);
       }
     }
 

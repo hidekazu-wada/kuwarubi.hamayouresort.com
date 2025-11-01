@@ -97,5 +97,5 @@ export interface Activity extends MicroCMSDate {
   filterWeather?: 'all' | 'sunny' | 'light-rain' | 'rainy' | ('all' | 'sunny' | 'light-rain' | 'rainy')[]; // 配列形式（旧データ）にも対応
   filterSeasons?: string[];
   filterDifficulty?: '初心者向け' | '中級者向け' | '上級者向け';
-  filterAgeGroup?: 'adults-only' | 'all-ages' | 'ages-3-and-up' | ('adults-only' | 'all-ages' | 'ages-3-and-up')[]; // 配列形式（旧データ）にも対応
+  filterAgeGroup?: 'adults-only' | 'all-ages' | 'ages-3-and-up' | 'middle-school-and-up' | ('adults-only' | 'all-ages' | 'ages-3-and-up' | 'middle-school-and-up')[]; // 配列形式（旧データ）にも対応
 }
