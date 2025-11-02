@@ -133,6 +133,8 @@ const ageGroupDisplayText = (() => {
       return '全年齢対象';
     case 'ages-3-and-up':
       return '3歳以上';
+    case 'elementary-school-and-up':
+      return '小学生以上';
     case 'middle-school-and-up':
       return '中学生以上';
     case 'adults-only':
@@ -545,6 +547,8 @@ const ageGroupDisplayText = (() => {
                             }
                             if (ageGroup === 'all-ages') return '全年齢対象';
                             if (ageGroup === 'ages-3-and-up') return '3歳以上';
+                            if (ageGroup === 'elementary-school-and-up')
+                              return '小学生以上';
                             if (ageGroup === 'middle-school-and-up')
                               return '中学生以上';
                             if (ageGroup === 'adults-only') return '大人のみ';
