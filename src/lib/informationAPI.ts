@@ -23,9 +23,7 @@ export async function getAllInformationPosts(): Promise<InformationPost[]> {
 /**
  * TOPページ用：お知らせカテゴリーの最新4件を取得
  */
-export async function getTopPageInformationPosts(): Promise<
-  InformationPost[]
-> {
+export async function getTopPageInformationPosts(): Promise<InformationPost[]> {
   try {
     const response = await client.get<MicroCMSListResponse<InformationPost>>({
       endpoint: 'information',
@@ -129,7 +127,9 @@ export async function getAdjacentPosts(slug: string): Promise<{
     );
 
     // 同じカテゴリー内での現在の記事のインデックスを見つける
-    const currentIndex = sameCategoryPosts.findIndex((post) => post.slug === slug);
+    const currentIndex = sameCategoryPosts.findIndex(
+      (post) => post.slug === slug
+    );
 
     if (currentIndex === -1) {
       return { prev: null, next: null };
@@ -137,7 +137,10 @@ export async function getAdjacentPosts(slug: string): Promise<{
 
     // prev = 古い記事（インデックスが大きい方）
     // next = 新しい記事（インデックスが小さい方）
-    const prev = currentIndex < sameCategoryPosts.length - 1 ? sameCategoryPosts[currentIndex + 1] : null;
+    const prev =
+      currentIndex < sameCategoryPosts.length - 1
+        ? sameCategoryPosts[currentIndex + 1]
+        : null;
     const next = currentIndex > 0 ? sameCategoryPosts[currentIndex - 1] : null;
 
     return { prev, next };
