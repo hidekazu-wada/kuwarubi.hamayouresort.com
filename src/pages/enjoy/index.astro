@@ -26,11 +26,11 @@ const pageClass = 'main-content--enjoy-index';
   <!-- プラン一覧 -->
   <section class="enjoy-plans">
     <div class="enjoy-plans__container">
-      <h2 class="enjoy-plans__heading">過ごし方プラン</h2>
+      <h2 class="enjoy-plans__heading js-fade-in-up">過ごし方プラン</h2>
       <div class="enjoy-plans__grid">
         {
           allStayPlans.map((plan) => (
-            <article class="enjoy-plan-card">
+            <article class="enjoy-plan-card js-fade-in-up">
               <a href={`/enjoy/${plan.slug}`} class="enjoy-plan-card__link">
                 <div class="enjoy-plan-card__content">
                   <h3 class="enjoy-plan-card__title">{plan.title}</h3>

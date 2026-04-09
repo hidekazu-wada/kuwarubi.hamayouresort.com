@@ -40,8 +40,8 @@ const titleContent = Array.isArray(title) ? title.join('<br />') : title;
   <article class={`${sectionName}__container`}>
     <div class={`${sectionName}__intro`}>
       <header class={`${sectionName}__header`}>
-        <h2 class={`${sectionName}__title`} set:html={titleContent} />
-        <div class={`${sectionName}__label`}>
+        <h2 class={`${sectionName}__title js-fade-in-up`} set:html={titleContent} />
+        <div class={`${sectionName}__label js-fade-in-up`}>
           <span
             class={`${sectionName}__label-line ${sectionName}__label-line--left`}
           ></span>
@@ -78,7 +78,7 @@ const titleContent = Array.isArray(title) ? title.join('<br />') : title;
           ))
         }
       </div>
-      <p class={`${sectionName}__description`}>{description}</p>
+      <p class={`${sectionName}__description js-fade-in-up`}>{description}</p>
     </div>
     <!-- slotで追加コンテンツを受け取る（メニューの代わり） -->
     <slot />
