@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../../../utils/image';
 // 画像
 import { getImage } from 'astro:assets';
 import publicBath01 from '../../../assets/images/facility/public-bath/img-01.png';
@@ -38,41 +39,31 @@ const bathImageBg = await getImage({
       </header>
       <figure class="public-bath__image public-bath__image--small">
         <picture class="public-bath__picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={bathImage01.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={bathImage01.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={bathImage01.src}
+            src={largestSrc(bathImage01)}
+            width={bathImage01.attributes.width}
+            height={bathImage01.attributes.height}
+            srcset={bathImage01.srcSet.attribute}
+            sizes="(min-width: 1024px) 39.06vw, (min-width: 744px) 37.5vw, 97.22vw"
             alt="大浴場の内観"
             class="public-bath__img"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
       </figure>
       <figure class="public-bath__image public-bath__image--large">
         <picture class="public-bath__picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={bathImage02.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={bathImage02.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={bathImage02.src}
+            src={largestSrc(bathImage02)}
+            width={bathImage02.attributes.width}
+            height={bathImage02.attributes.height}
+            srcset={bathImage02.srcSet.attribute}
+            sizes="(min-width: 1024px) 39.06vw, (min-width: 744px) 37.5vw, 97.22vw"
             alt="大浴場の露天風呂"
             class="public-bath__img"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
       </figure>
@@ -107,21 +98,16 @@ const bathImageBg = await getImage({
   </div>
   <figure class="public-bath__background">
     <picture class="public-bath__background-picture">
-      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-      <source
-        media="(min-width: 1024px)"
-        srcset={bathImageBg.srcSet.toString()}
-      />
-      <!-- タブレット（744px以上）→ 中解像度版 -->
-      <source
-        media="(min-width: 744px)"
-        srcset={bathImageBg.srcSet.toString()}
-      />
-      <!-- スマホ（744px未満）→ 最小解像度版 -->
       <img
-        src={bathImageBg.src}
+        src={largestSrc(bathImageBg)}
+        width={bathImageBg.attributes.width}
+        height={bathImageBg.attributes.height}
+        srcset={bathImageBg.srcSet.attribute}
+        sizes="(min-width: 1024px) 91.25vw, (min-width: 744px) 89.06vw, 100vw"
         alt="大浴場の背景画像"
         class="public-bath__background-img"
+        loading="lazy"
+        decoding="async"
       />
     </picture>
   </figure>

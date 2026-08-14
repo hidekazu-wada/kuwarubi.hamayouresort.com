@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../../../utils/image';
 // DaySchedule Component
 // 1日のスケジュールをタイムライン形式で表示するコンポーネント
 import type { DaySchedule } from '../../../data/schedules';
@@ -78,21 +79,17 @@ import 'swiper/css/navigation';
                 <div class="schedule-slider__detail-image">
                   <picture class="schedule-slider__picture">
                     {item.formattedImage && (
-                      <>
-                        <source
-                          media="(min-width: 1024px)"
-                          srcset={item.formattedImage.srcSet.toString()}
-                        />
-                        <source
-                          media="(min-width: 744px)"
-                          srcset={item.formattedImage.srcSet.toString()}
-                        />
-                        <img
-                          src={item.formattedImage.src}
-                          alt={item.image.alt}
-                          class="schedule-slider__img"
-                        />
-                      </>
+                      <img
+                        src={largestSrc(item.formattedImage)}
+                        srcset={item.formattedImage.srcSet.attribute}
+                        sizes="(min-width: 1024px) 41.95vw, (min-width: 744px) 50.34vw, 88.89vw"
+                        width={item.formattedImage.attributes.width}
+                        height={item.formattedImage.attributes.height}
+                        alt={item.image.alt}
+                        class="schedule-slider__img"
+                        loading="lazy"
+                        decoding="async"
+                      />
                     )}
                   </picture>
                 </div>

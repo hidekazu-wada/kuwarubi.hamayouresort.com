@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../../../utils/image';
 // 画像
 import { getImage } from 'astro:assets';
 
@@ -45,21 +46,16 @@ const hodohodoImage05 = await getImage({
 <section class="hodohodo-forest">
   <figure class="hodohodo-forest__hero">
     <picture class="hodohodo-forest__hero-picture">
-      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-      <source
-        media="(min-width: 1024px)"
-        srcset={hodohodoImage01.srcSet.toString()}
-      />
-      <!-- タブレット（744px以上）→ 中解像度版 -->
-      <source
-        media="(min-width: 744px)"
-        srcset={hodohodoImage01.srcSet.toString()}
-      />
-      <!-- スマホ（744px未満）→ 最小解像度版 -->
       <img
-        src={hodohodoImage01.src}
+        src={largestSrc(hodohodoImage01)}
+        width={hodohodoImage01.attributes.width}
+        height={hodohodoImage01.attributes.height}
+        srcset={hodohodoImage01.srcSet.attribute}
+        sizes="(min-width: 1024px) 65.16vw, (min-width: 744px) 65.15vw, 83.33vw"
         alt="ほどほどの森の全景"
         class="hodohodo-forest__hero-image"
+        loading="lazy"
+        decoding="async"
       />
     </picture>
   </figure>
@@ -96,82 +92,62 @@ const hodohodoImage05 = await getImage({
   <div class="hodohodo-forest__gallery">
     <figure class="hodohodo-forest__gallery-item">
       <picture class="hodohodo-forest__gallery-picture">
-        <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-        <source
-          media="(min-width: 1024px)"
-          srcset={hodohodoImage02.srcSet.toString()}
-        />
-        <!-- タブレット（744px以上）→ 中解像度版 -->
-        <source
-          media="(min-width: 744px)"
-          srcset={hodohodoImage02.srcSet.toString()}
-        />
-        <!-- スマホ（744px未満）→ 最小解像度版 -->
         <img
-          src={hodohodoImage02.src}
+          src={largestSrc(hodohodoImage02)}
+          width={hodohodoImage02.attributes.width}
+          height={hodohodoImage02.attributes.height}
+          srcset={hodohodoImage02.srcSet.attribute}
+          sizes="(min-width: 1024px) 16.33vw, (min-width: 744px) 19.59vw, 31.94vw"
           alt="サウナ施設"
           class="hodohodo-forest__gallery-image sauna"
+          loading="lazy"
+          decoding="async"
         />
       </picture>
     </figure>
     <figure class="hodohodo-forest__gallery-item">
       <picture class="hodohodo-forest__gallery-picture">
-        <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-        <source
-          media="(min-width: 1024px)"
-          srcset={hodohodoImage03.srcSet.toString()}
-        />
-        <!-- タブレット（744px以上）→ 中解像度版 -->
-        <source
-          media="(min-width: 744px)"
-          srcset={hodohodoImage03.srcSet.toString()}
-        />
-        <!-- スマホ（744px未満）→ 最小解像度版 -->
         <img
-          src={hodohodoImage03.src}
+          src={largestSrc(hodohodoImage03)}
+          width={hodohodoImage03.attributes.width}
+          height={hodohodoImage03.attributes.height}
+          srcset={hodohodoImage03.srcSet.attribute}
+          sizes="(min-width: 1024px) 16.33vw, (min-width: 744px) 19.59vw, 31.94vw"
           alt="ツリーハウス"
           class="hodohodo-forest__gallery-image footbath"
+          loading="lazy"
+          decoding="async"
         />
       </picture>
     </figure>
   </div>
   <figure class="hodohodo-forest__image hodohodo-forest__image--wide">
     <picture class="hodohodo-forest__picture">
-      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-      <source
-        media="(min-width: 1024px)"
-        srcset={hodohodoImage04.srcSet.toString()}
-      />
-      <!-- タブレット（744px以上）→ 中解像度版 -->
-      <source
-        media="(min-width: 744px)"
-        srcset={hodohodoImage04.srcSet.toString()}
-      />
-      <!-- スマホ（744px未満）→ 最小解像度版 -->
       <img
-        src={hodohodoImage04.src}
+        src={largestSrc(hodohodoImage04)}
+        width={hodohodoImage04.attributes.width}
+        height={hodohodoImage04.attributes.height}
+        srcset={hodohodoImage04.srcSet.attribute}
+        sizes="(min-width: 1024px) 30.08vw, (min-width: 744px) 36.09vw, 46.8vw"
         alt="キャンプファイヤー"
         class="hodohodo-forest__img"
+        loading="lazy"
+        decoding="async"
       />
     </picture>
   </figure>
   <figure class="hodohodo-forest__image hodohodo-forest__image--large">
     <picture class="hodohodo-forest__picture">
-      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-      <source
-        media="(min-width: 1024px)"
-        srcset={hodohodoImage05.srcSet.toString()}
-      />
-      <!-- タブレット（744px以上）→ 中解像度版 -->
-      <source
-        media="(min-width: 744px)"
-        srcset={hodohodoImage05.srcSet.toString()}
-      />
-      <!-- スマホ（744px未満）→ 最小解像度版 -->
       <img
-        src={hodohodoImage05.src}
+        src={largestSrc(hodohodoImage05)}
+        width={hodohodoImage05.attributes.width}
+        height={hodohodoImage05.attributes.height}
+        srcset={hodohodoImage05.srcSet.attribute}
+        sizes="(min-width: 1024px) 30.08vw, (min-width: 744px) 36.09vw, 46.8vw"
         alt="森のイベントスペース"
         class="hodohodo-forest__img"
+        loading="lazy"
+        decoding="async"
       />
     </picture>
   </figure>

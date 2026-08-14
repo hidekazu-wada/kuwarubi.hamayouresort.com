@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../../../utils/image';
 // 画像
 import { getImage } from 'astro:assets';
 
@@ -34,6 +35,15 @@ const processedImages = await Promise.all(
 
 // タイトルの処理（配列の場合は<br />で結合）
 const titleContent = Array.isArray(title) ? title.join('<br />') : title;
+
+// ギャラリー画像の表示幅。4枚それぞれサイズが違うので、実測値（scripts/measure-sizes.mjs）を
+// 並び順で持たせる。ブラウザに正しい候補を選ばせるために sizes は必須。
+const GALLERY_SIZES = [
+  '(min-width: 1024px) 20.23vw, (min-width: 744px) 20vw, 45.83vw',
+  '(min-width: 1024px) 18.16vw, (min-width: 744px) 18vw, 43.33vw',
+  '(min-width: 1024px) 21.45vw, (min-width: 744px) 22vw, 51.8vw',
+  '(min-width: 1024px) 18.16vw, (min-width: 744px) 21.8vw, 43.19vw',
+];
 ---
 
 <section class={sectionName} id={id}>
@@ -57,21 +67,16 @@ const titleContent = Array.isArray(title) ? title.join('<br />') : title;
           processedImages.map((img, index) => (
             <figure class={`${sectionName}__gallery-item`}>
               <picture class={`${sectionName}__gallery-picture`}>
-                {/* デスクトップ（1024px以上）→ 最高解像度版 */}
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={img.srcSet.toString()}
-                />
-                {/* タブレット（744px以上）→ 中解像度版 */}
-                <source
-                  media="(min-width: 744px)"
-                  srcset={img.srcSet.toString()}
-                />
-                {/* スマホ（744px未満）→ 最小解像度版 */}
                 <img
-                  src={img.src}
+                  src={largestSrc(img)}
+                  width={img.attributes.width}
+                  height={img.attributes.height}
+                  srcset={img.srcSet.attribute}
+                  sizes={GALLERY_SIZES[index] ?? GALLERY_SIZES[0]}
                   alt={images[index].alt}
                   class={`${sectionName}__gallery-image image0${index + 1}`}
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </figure>

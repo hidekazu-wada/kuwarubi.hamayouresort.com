@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../../../utils/image';
 // コンポーネント
 import MenuSection from './MenuSection.astro';
 
@@ -40,21 +41,16 @@ const dinnerProps = {
   <aside class="dinner__menu">
     <div class="dinner__menu-main-image">
       <picture>
-        <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-        <source
-          media="(min-width: 1024px)"
-          srcset={dinnerMain.srcSet.toString()}
-        />
-        <!-- タブレット（744px以上）→ 中解像度版 -->
-        <source
-          media="(min-width: 744px)"
-          srcset={dinnerMain.srcSet.toString()}
-        />
-        <!-- スマホ（744px未満）→ 最小解像度版 -->
         <img
-          src={dinnerMain.src}
+          src={largestSrc(dinnerMain)}
+          width={dinnerMain.attributes.width}
+          height={dinnerMain.attributes.height}
+          srcset={dinnerMain.srcSet.attribute}
+          sizes="(min-width: 1024px) 69.53vw, (min-width: 744px) 83.44vw, 88.89vw"
           alt="夕食の料理"
           class="dinner__menu-main-image-img"
+          loading="lazy"
+          decoding="async"
         />
       </picture>
     </div>

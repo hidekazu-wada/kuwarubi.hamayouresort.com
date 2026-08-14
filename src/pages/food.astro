@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../utils/image';
 // 必須インポート
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
@@ -47,21 +48,16 @@ const pageClass = 'main-content--food';
       <div class="restaurant__images js-fade-in-up">
         <figure class="restaurant__image-wrapper">
           <picture class="restaurant__picture">
-            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-            <source
-              media="(min-width: 1024px)"
-              srcset={restaurant01.srcSet.toString()}
-            />
-            <!-- タブレット（744px以上）→ 中解像度版 -->
-            <source
-              media="(min-width: 744px)"
-              srcset={restaurant01.srcSet.toString()}
-            />
-            <!-- スマホ（744px未満）→ 最小解像度版 -->
             <img
-              src={restaurant01.src}
+              src={largestSrc(restaurant01)}
+              width={restaurant01.attributes.width}
+              height={restaurant01.attributes.height}
+              srcset={restaurant01.srcSet.attribute}
+              sizes="(min-width: 1024px) 50.66vw, (min-width: 744px) 50.66vw, 59.86vw"
               alt="レストラン内観"
               class="restaurant__image left"
+              loading="lazy"
+              decoding="async"
             />
           </picture>
         </figure>
@@ -69,21 +65,16 @@ const pageClass = 'main-content--food';
           class="restaurant__image-wrapper restaurant__image-wrapper--outdoor"
         >
           <picture class="restaurant__picture">
-            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-            <source
-              media="(min-width: 1024px)"
-              srcset={restaurant02.srcSet.toString()}
-            />
-            <!-- タブレット（744px以上）→ 中解像度版 -->
-            <source
-              media="(min-width: 744px)"
-              srcset={restaurant02.srcSet.toString()}
-            />
-            <!-- スマホ（744px未満）→ 最小解像度版 -->
             <img
-              src={restaurant02.src}
+              src={largestSrc(restaurant02)}
+              width={restaurant02.attributes.width}
+              height={restaurant02.attributes.height}
+              srcset={restaurant02.srcSet.attribute}
+              sizes="(min-width: 1024px) 33.24vw, (min-width: 744px) 33.24vw, 39.3vw"
               alt="テラス席"
               class="restaurant__image right"
+              loading="lazy"
+              decoding="async"
             />
           </picture>
         </figure>

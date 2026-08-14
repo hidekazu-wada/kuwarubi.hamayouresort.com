@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../../../utils/image';
 // 画像
 import { getImage } from 'astro:assets';
 import heroImage01 from '../../../assets/images/group/hero/img-01.png';
@@ -22,12 +23,16 @@ const hero02 = await getImage({
 <section class="group-hero">
   <figure class="group-hero__image-block group-hero__image-block--left">
     <picture class="group-hero__picture group-hero__picture--main">
-      <source media="(min-width: 1024px)" srcset={hero01.srcSet.toString()} />
-      <source media="(min-width: 744px)" srcset={hero01.srcSet.toString()} />
       <img
-        src={hero01.src}
+        src={largestSrc(hero01)}
+        width={hero01.attributes.width}
+        height={hero01.attributes.height}
+        srcset={hero01.srcSet.attribute}
+        sizes="(min-width: 1024px) 29.88vw, (min-width: 744px) 30vw, 70.14vw"
         alt="団体利用イメージ1"
         class="group-hero__img group-hero__img--main"
+        loading="lazy"
+        decoding="async"
       />
     </picture>
   </figure>
@@ -46,12 +51,16 @@ const hero02 = await getImage({
   </section>
   <figure class="group-hero__image-block group-hero__image-block--right">
     <picture class="group-hero__picture group-hero__picture--sub">
-      <source media="(min-width: 1024px)" srcset={hero02.srcSet.toString()} />
-      <source media="(min-width: 744px)" srcset={hero02.srcSet.toString()} />
       <img
-        src={hero02.src}
+        src={largestSrc(hero02)}
+        width={hero02.attributes.width}
+        height={hero02.attributes.height}
+        srcset={hero02.srcSet.attribute}
+        sizes="(min-width: 1024px) 28.48vw, (min-width: 744px) 23vw, 86.11vw"
         alt="団体利用イメージ2"
         class="group-hero__img group-hero__img--sub"
+        loading="lazy"
+        decoding="async"
       />
     </picture>
   </figure>

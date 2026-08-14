@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../../../utils/image';
 import { getImage } from 'astro:assets';
 import RoomImage from '../../../assets/images/top/hospitality/room.png';
 import foodImage from '../../../assets/images/top/hospitality/food.png';
@@ -38,12 +39,17 @@ const Onsen = await getImage({
     <div class="hospitality__content">
       <div class="hospitality__media">
         <picture class="hospitality__image">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source media="(min-width: 1024px)" srcset={Room.srcSet.toString()} />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source media="(min-width: 744px)" srcset={Room.srcSet.toString()} />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
-          <img src={Room.src} alt="お部屋の画像" class="hospitality__img" />
+          <img
+            src={largestSrc(Room)}
+            width={Room.attributes.width}
+            height={Room.attributes.height}
+            srcset={Room.srcSet.attribute}
+            sizes="(min-width: 1024px) 39.18vw, (min-width: 744px) 43.1vw, 88.47vw"
+            alt="お部屋の画像"
+            class="hospitality__img"
+            loading="lazy"
+            decoding="async"
+          />
         </picture>
       </div>
       <div class="hospitality__link">
@@ -70,12 +76,17 @@ const Onsen = await getImage({
     <div class="hospitality__content">
       <div class="hospitality__media">
         <picture class="hospitality__image">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source media="(min-width: 1024px)" srcset={Food.srcSet.toString()} />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source media="(min-width: 744px)" srcset={Food.srcSet.toString()} />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
-          <img src={Food.src} alt="お料理の画像" class="hospitality__img" />
+          <img
+            src={largestSrc(Food)}
+            width={Food.attributes.width}
+            height={Food.attributes.height}
+            srcset={Food.srcSet.attribute}
+            sizes="(min-width: 1024px) 39.18vw, (min-width: 744px) 43.1vw, 88.47vw"
+            alt="お料理の画像"
+            class="hospitality__img"
+            loading="lazy"
+            decoding="async"
+          />
         </picture>
         <img
           src={leaf1Url}
@@ -107,15 +118,17 @@ const Onsen = await getImage({
     <div class="hospitality__content">
       <div class="hospitality__media">
         <picture class="hospitality__image">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={Onsen.srcSet.toString()}
+          <img
+            src={largestSrc(Onsen)}
+            width={Onsen.attributes.width}
+            height={Onsen.attributes.height}
+            srcset={Onsen.srcSet.attribute}
+            sizes="(min-width: 1024px) 39.18vw, (min-width: 744px) 43.1vw, 88.47vw"
+            alt="天然温泉の画像"
+            class="hospitality__img"
+            loading="lazy"
+            decoding="async"
           />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source media="(min-width: 744px)" srcset={Onsen.srcSet.toString()} />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
-          <img src={Onsen.src} alt="天然温泉の画像" class="hospitality__img" />
         </picture>
         <img
           src={leaf2Url}

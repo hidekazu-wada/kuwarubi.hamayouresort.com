@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../../../utils/image';
 // 画像
 import { getImage } from 'astro:assets';
 
@@ -54,84 +55,64 @@ import 'swiper/css/pagination';
     <div class="swiper-wrapper">
       <figure class="room__gallery-slide swiper-slide">
         <picture class="room__gallery-picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={room01.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={room01.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={room01.src}
+            src={largestSrc(room01)}
+            width={room01.attributes.width}
+            height={room01.attributes.height}
+            srcset={room01.srcSet.attribute}
+            sizes="(min-width: 1024px) 50.78vw, (min-width: 744px) 50.78vw, 86.11vw"
             alt="和洋室の内観"
             class="room__gallery-image"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
         <figcaption class="room__gallery-caption">和洋室</figcaption>
       </figure>
       <figure class="room__gallery-slide swiper-slide">
         <picture class="room__gallery-picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={room02.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={room02.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={room02.src}
+            src={largestSrc(room02)}
+            width={room02.attributes.width}
+            height={room02.attributes.height}
+            srcset={room02.srcSet.attribute}
+            sizes="(min-width: 1024px) 50.78vw, (min-width: 744px) 50.78vw, 86.11vw"
             alt="和洋室の内観"
             class="room__gallery-image"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
         <figcaption class="room__gallery-caption">洋室</figcaption>
       </figure>
       <figure class="room__gallery-slide swiper-slide">
         <picture class="room__gallery-picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={room03.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={room03.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={room03.src}
+            src={largestSrc(room03)}
+            width={room03.attributes.width}
+            height={room03.attributes.height}
+            srcset={room03.srcSet.attribute}
+            sizes="(min-width: 1024px) 50.78vw, (min-width: 744px) 50.78vw, 86.11vw"
             alt="和洋室の内観"
             class="room__gallery-image"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
         <figcaption class="room__gallery-caption">和室</figcaption>
       </figure>
       <figure class="room__gallery-slide swiper-slide">
         <picture class="room__gallery-picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={room04.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={room04.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={room04.src}
+            src={largestSrc(room04)}
+            width={room04.attributes.width}
+            height={room04.attributes.height}
+            srcset={room04.srcSet.attribute}
+            sizes="(min-width: 1024px) 50.78vw, (min-width: 744px) 50.78vw, 86.11vw"
             alt="和洋室の内観"
             class="room__gallery-image"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
         <figcaption class="room__gallery-caption">
@@ -141,42 +122,32 @@ import 'swiper/css/pagination';
       </figure>
       <figure class="room__gallery-slide swiper-slide">
         <picture class="room__gallery-picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={room05.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={room05.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={room05.src}
+            src={largestSrc(room05)}
+            width={room05.attributes.width}
+            height={room05.attributes.height}
+            srcset={room05.srcSet.attribute}
+            sizes="(min-width: 1024px) 50.78vw, (min-width: 744px) 50.78vw, 86.11vw"
             alt="和洋室の内観"
             class="room__gallery-image"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
         <figcaption class="room__gallery-caption">お風呂</figcaption>
       </figure>
       <figure class="room__gallery-slide swiper-slide">
         <picture class="room__gallery-picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={room06.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={room06.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={room06.src}
+            src={largestSrc(room06)}
+            width={room06.attributes.width}
+            height={room06.attributes.height}
+            srcset={room06.srcSet.attribute}
+            sizes="(min-width: 1024px) 50.78vw, (min-width: 744px) 50.78vw, 86.11vw"
             alt="和洋室の内観"
             class="room__gallery-image"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
         <figcaption class="room__gallery-caption">トイレ</figcaption>
@@ -191,21 +162,16 @@ import 'swiper/css/pagination';
       <button class="room__gallery-thumb swiper-slide">
         <figure class="room__gallery-thumb-inner">
           <picture class="room__gallery-thumb-picture">
-            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-            <source
-              media="(min-width: 1024px)"
-              srcset={room01.srcSet.toString()}
-            />
-            <!-- タブレット（744px以上）→ 中解像度版 -->
-            <source
-              media="(min-width: 744px)"
-              srcset={room01.srcSet.toString()}
-            />
-            <!-- スマホ（744px未満）→ 最小解像度版 -->
             <img
-              src={room01.src}
+              src={largestSrc(room01)}
+              width={room01.attributes.width}
+              height={room01.attributes.height}
+              srcset={room01.srcSet.attribute}
+              sizes="(min-width: 1024px) 7.46vw, (min-width: 744px) 8.95vw, 20.97vw"
               alt="和洋室のサムネイル"
               class="room__gallery-thumb-image"
+              loading="lazy"
+              decoding="async"
             />
           </picture>
           <figcaption class="room__gallery-thumb-caption">和洋室</figcaption>
@@ -215,21 +181,16 @@ import 'swiper/css/pagination';
       <button class="room__gallery-thumb swiper-slide">
         <figure class="room__gallery-thumb-inner">
           <picture class="room__gallery-thumb-picture">
-            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-            <source
-              media="(min-width: 1024px)"
-              srcset={room02.srcSet.toString()}
-            />
-            <!-- タブレット（744px以上）→ 中解像度版 -->
-            <source
-              media="(min-width: 744px)"
-              srcset={room02.srcSet.toString()}
-            />
-            <!-- スマホ（744px未満）→ 最小解像度版 -->
             <img
-              src={room02.src}
+              src={largestSrc(room02)}
+              width={room02.attributes.width}
+              height={room02.attributes.height}
+              srcset={room02.srcSet.attribute}
+              sizes="(min-width: 1024px) 7.46vw, (min-width: 744px) 8.95vw, 20.97vw"
               alt="洋室のサムネイル"
               class="room__gallery-thumb-image"
+              loading="lazy"
+              decoding="async"
             />
           </picture>
           <figcaption class="room__gallery-thumb-caption">洋室</figcaption>
@@ -239,21 +200,16 @@ import 'swiper/css/pagination';
       <button class="room__gallery-thumb swiper-slide">
         <figure class="room__gallery-thumb-inner">
           <picture class="room__gallery-thumb-picture">
-            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-            <source
-              media="(min-width: 1024px)"
-              srcset={room03.srcSet.toString()}
-            />
-            <!-- タブレット（744px以上）→ 中解像度版 -->
-            <source
-              media="(min-width: 744px)"
-              srcset={room03.srcSet.toString()}
-            />
-            <!-- スマホ（744px未満）→ 最小解像度版 -->
             <img
-              src={room03.src}
+              src={largestSrc(room03)}
+              width={room03.attributes.width}
+              height={room03.attributes.height}
+              srcset={room03.srcSet.attribute}
+              sizes="(min-width: 1024px) 7.46vw, (min-width: 744px) 8.95vw, 20.97vw"
               alt="和室のサムネイル"
               class="room__gallery-thumb-image"
+              loading="lazy"
+              decoding="async"
             />
           </picture>
           <figcaption class="room__gallery-thumb-caption">和室</figcaption>
@@ -263,21 +219,16 @@ import 'swiper/css/pagination';
       <button class="room__gallery-thumb swiper-slide">
         <figure class="room__gallery-thumb-inner">
           <picture class="room__gallery-thumb-picture">
-            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-            <source
-              media="(min-width: 1024px)"
-              srcset={room04.srcSet.toString()}
-            />
-            <!-- タブレット（744px以上）→ 中解像度版 -->
-            <source
-              media="(min-width: 744px)"
-              srcset={room04.srcSet.toString()}
-            />
-            <!-- スマホ（744px未満）→ 最小解像度版 -->
             <img
-              src={room04.src}
+              src={largestSrc(room04)}
+              width={room04.attributes.width}
+              height={room04.attributes.height}
+              srcset={room04.srcSet.attribute}
+              sizes="(min-width: 1024px) 7.46vw, (min-width: 744px) 8.95vw, 20.97vw"
               alt="コネクティングルームのサムネイル"
               class="room__gallery-thumb-image"
+              loading="lazy"
+              decoding="async"
             />
           </picture>
           <figcaption class="room__gallery-thumb-caption">
@@ -289,21 +240,16 @@ import 'swiper/css/pagination';
       <button class="room__gallery-thumb swiper-slide">
         <figure class="room__gallery-thumb-inner">
           <picture class="room__gallery-thumb-picture">
-            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-            <source
-              media="(min-width: 1024px)"
-              srcset={room05.srcSet.toString()}
-            />
-            <!-- タブレット（744px以上）→ 中解像度版 -->
-            <source
-              media="(min-width: 744px)"
-              srcset={room05.srcSet.toString()}
-            />
-            <!-- スマホ（744px未満）→ 最小解像度版 -->
             <img
-              src={room05.src}
+              src={largestSrc(room05)}
+              width={room05.attributes.width}
+              height={room05.attributes.height}
+              srcset={room05.srcSet.attribute}
+              sizes="(min-width: 1024px) 7.46vw, (min-width: 744px) 8.95vw, 20.97vw"
               alt="お風呂のサムネイル"
               class="room__gallery-thumb-image"
+              loading="lazy"
+              decoding="async"
             />
           </picture>
           <figcaption class="room__gallery-thumb-caption">お風呂</figcaption>
@@ -313,21 +259,16 @@ import 'swiper/css/pagination';
       <button class="room__gallery-thumb swiper-slide">
         <figure class="room__gallery-thumb-inner">
           <picture class="room__gallery-thumb-picture">
-            <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-            <source
-              media="(min-width: 1024px)"
-              srcset={room06.srcSet.toString()}
-            />
-            <!-- タブレット（744px以上）→ 中解像度版 -->
-            <source
-              media="(min-width: 744px)"
-              srcset={room06.srcSet.toString()}
-            />
-            <!-- スマホ（744px未満）→ 最小解像度版 -->
             <img
-              src={room06.src}
+              src={largestSrc(room06)}
+              width={room06.attributes.width}
+              height={room06.attributes.height}
+              srcset={room06.srcSet.attribute}
+              sizes="(min-width: 1024px) 7.46vw, (min-width: 744px) 8.95vw, 20.97vw"
               alt="トイレのサムネイル"
               class="room__gallery-thumb-image"
+              loading="lazy"
+              decoding="async"
             />
           </picture>
           <figcaption class="room__gallery-thumb-caption">トイレ</figcaption>

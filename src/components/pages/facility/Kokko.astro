@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../../../utils/image';
 // 画像
 import { getImage } from 'astro:assets';
 
@@ -98,208 +99,158 @@ import 'swiper/css/pagination';
             <!-- メインスライド 表示するのは1枚づつ -->
             <div class="kokko__main-slide swiper-slide">
               <picture class="kokko__main-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage01.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage01.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage01.src}
+                  src={largestSrc(kokkoImage01)}
+                  width={kokkoImage01.attributes.width}
+                  height={kokkoImage01.attributes.height}
+                  srcset={kokkoImage01.srcSet.attribute}
+                  sizes="(min-width: 1024px) 53.05vw, (min-width: 744px) 63.66vw, 86.11vw"
                   alt="KOKKO BBQ施設のメインビュー"
                   class="kokko__main-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </div>
             <div class="kokko__main-slide swiper-slide">
               <picture class="kokko__main-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage02.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage02.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage02.src}
+                  src={largestSrc(kokkoImage02)}
+                  width={kokkoImage02.attributes.width}
+                  height={kokkoImage02.attributes.height}
+                  srcset={kokkoImage02.srcSet.attribute}
+                  sizes="(min-width: 1024px) 53.05vw, (min-width: 744px) 63.66vw, 86.11vw"
                   alt="KOKKO BBQ施設の内観"
                   class="kokko__main-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </div>
             <div class="kokko__main-slide swiper-slide">
               <picture class="kokko__main-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage03.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage03.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage03.src}
+                  src={largestSrc(kokkoImage03)}
+                  width={kokkoImage03.attributes.width}
+                  height={kokkoImage03.attributes.height}
+                  srcset={kokkoImage03.srcSet.attribute}
+                  sizes="(min-width: 1024px) 53.05vw, (min-width: 744px) 63.66vw, 86.11vw"
                   alt="KOKKO BBQ施設の設備"
                   class="kokko__main-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </div>
             <!-- スライド4 -->
             <div class="kokko__main-slide swiper-slide">
               <picture class="kokko__main-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage04.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage04.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage04.src}
+                  src={largestSrc(kokkoImage04)}
+                  width={kokkoImage04.attributes.width}
+                  height={kokkoImage04.attributes.height}
+                  srcset={kokkoImage04.srcSet.attribute}
+                  sizes="(min-width: 1024px) 53.05vw, (min-width: 744px) 63.66vw, 86.11vw"
                   alt="KOKKO BBQ施設の画像4"
                   class="kokko__main-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </div>
             <!-- スライド5 -->
             <div class="kokko__main-slide swiper-slide">
               <picture class="kokko__main-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage05.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage05.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage05.src}
+                  src={largestSrc(kokkoImage05)}
+                  width={kokkoImage05.attributes.width}
+                  height={kokkoImage05.attributes.height}
+                  srcset={kokkoImage05.srcSet.attribute}
+                  sizes="(min-width: 1024px) 53.05vw, (min-width: 744px) 63.66vw, 86.11vw"
                   alt="KOKKO BBQ施設の画像5"
                   class="kokko__main-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </div>
             <!-- スライド6 -->
             <div class="kokko__main-slide swiper-slide">
               <picture class="kokko__main-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage06.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage06.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage06.src}
+                  src={largestSrc(kokkoImage06)}
+                  width={kokkoImage06.attributes.width}
+                  height={kokkoImage06.attributes.height}
+                  srcset={kokkoImage06.srcSet.attribute}
+                  sizes="(min-width: 1024px) 53.05vw, (min-width: 744px) 63.66vw, 86.11vw"
                   alt="KOKKO BBQ施設の画像6"
                   class="kokko__main-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </div>
             <!-- スライド7 -->
             <div class="kokko__main-slide swiper-slide">
               <picture class="kokko__main-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage07.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage07.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage07.src}
+                  src={largestSrc(kokkoImage07)}
+                  width={kokkoImage07.attributes.width}
+                  height={kokkoImage07.attributes.height}
+                  srcset={kokkoImage07.srcSet.attribute}
+                  sizes="(min-width: 1024px) 53.05vw, (min-width: 744px) 63.66vw, 86.11vw"
                   alt="KOKKO BBQ施設の画像7"
                   class="kokko__main-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </div>
             <!-- スライド8 -->
             <div class="kokko__main-slide swiper-slide">
               <picture class="kokko__main-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage08.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage08.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage08.src}
+                  src={largestSrc(kokkoImage08)}
+                  width={kokkoImage08.attributes.width}
+                  height={kokkoImage08.attributes.height}
+                  srcset={kokkoImage08.srcSet.attribute}
+                  sizes="(min-width: 1024px) 53.05vw, (min-width: 744px) 63.66vw, 86.11vw"
                   alt="KOKKO BBQ施設の画像8"
                   class="kokko__main-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </div>
             <!-- スライド9 -->
             <div class="kokko__main-slide swiper-slide">
               <picture class="kokko__main-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage09.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage09.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage09.src}
+                  src={largestSrc(kokkoImage09)}
+                  width={kokkoImage09.attributes.width}
+                  height={kokkoImage09.attributes.height}
+                  srcset={kokkoImage09.srcSet.attribute}
+                  sizes="(min-width: 1024px) 53.05vw, (min-width: 744px) 63.66vw, 86.11vw"
                   alt="KOKKO BBQ施設の画像9"
                   class="kokko__main-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </div>
             <!-- スライド10 -->
             <div class="kokko__main-slide swiper-slide">
               <picture class="kokko__main-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage10.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage10.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage10.src}
+                  src={largestSrc(kokkoImage10)}
+                  width={kokkoImage10.attributes.width}
+                  height={kokkoImage10.attributes.height}
+                  srcset={kokkoImage10.srcSet.attribute}
+                  sizes="(min-width: 1024px) 53.05vw, (min-width: 744px) 63.66vw, 86.11vw"
                   alt="KOKKO BBQ施設の画像10"
                   class="kokko__main-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </div>
@@ -312,208 +263,158 @@ import 'swiper/css/pagination';
             <!-- サムネ 全て表示させておく -->
             <button class="kokko__thumbnail swiper-slide" type="button">
               <picture class="kokko__thumbnail-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage01.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage01.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage01.src}
+                  src={largestSrc(kokkoImage01)}
+                  width={kokkoImage01.attributes.width}
+                  height={kokkoImage01.attributes.height}
+                  srcset={kokkoImage01.srcSet.attribute}
+                  sizes="(min-width: 1024px) 6.05vw, (min-width: 744px) 7.27vw, 10.97vw"
                   alt="KOKKO BBQ施設のサムネイル1"
                   class="kokko__thumbnail-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </button>
             <button class="kokko__thumbnail swiper-slide" type="button">
               <picture class="kokko__thumbnail-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage02.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage02.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage02.src}
+                  src={largestSrc(kokkoImage02)}
+                  width={kokkoImage02.attributes.width}
+                  height={kokkoImage02.attributes.height}
+                  srcset={kokkoImage02.srcSet.attribute}
+                  sizes="(min-width: 1024px) 6.05vw, (min-width: 744px) 7.27vw, 10.97vw"
                   alt="KOKKO BBQ施設のサムネイル2"
                   class="kokko__thumbnail-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </button>
             <button class="kokko__thumbnail swiper-slide" type="button">
               <picture class="kokko__thumbnail-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage03.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage03.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage03.src}
+                  src={largestSrc(kokkoImage03)}
+                  width={kokkoImage03.attributes.width}
+                  height={kokkoImage03.attributes.height}
+                  srcset={kokkoImage03.srcSet.attribute}
+                  sizes="(min-width: 1024px) 6.05vw, (min-width: 744px) 7.27vw, 10.97vw"
                   alt="KOKKO BBQ施設のサムネイル3"
                   class="kokko__thumbnail-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </button>
             <!-- サムネイル4 -->
             <button class="kokko__thumbnail swiper-slide" type="button">
               <picture class="kokko__thumbnail-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage04.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage04.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage04.src}
+                  src={largestSrc(kokkoImage04)}
+                  width={kokkoImage04.attributes.width}
+                  height={kokkoImage04.attributes.height}
+                  srcset={kokkoImage04.srcSet.attribute}
+                  sizes="(min-width: 1024px) 6.05vw, (min-width: 744px) 7.27vw, 10.97vw"
                   alt="KOKKO BBQ施設のサムネイル4"
                   class="kokko__thumbnail-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </button>
             <!-- サムネイル5 -->
             <button class="kokko__thumbnail swiper-slide" type="button">
               <picture class="kokko__thumbnail-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage05.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage05.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage05.src}
+                  src={largestSrc(kokkoImage05)}
+                  width={kokkoImage05.attributes.width}
+                  height={kokkoImage05.attributes.height}
+                  srcset={kokkoImage05.srcSet.attribute}
+                  sizes="(min-width: 1024px) 6.05vw, (min-width: 744px) 7.27vw, 10.97vw"
                   alt="KOKKO BBQ施設のサムネイル5"
                   class="kokko__thumbnail-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </button>
             <!-- サムネイル6 -->
             <button class="kokko__thumbnail swiper-slide" type="button">
               <picture class="kokko__thumbnail-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage06.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage06.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage06.src}
+                  src={largestSrc(kokkoImage06)}
+                  width={kokkoImage06.attributes.width}
+                  height={kokkoImage06.attributes.height}
+                  srcset={kokkoImage06.srcSet.attribute}
+                  sizes="(min-width: 1024px) 6.05vw, (min-width: 744px) 7.27vw, 10.97vw"
                   alt="KOKKO BBQ施設のサムネイル6"
                   class="kokko__thumbnail-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </button>
             <!-- サムネイル7 -->
             <button class="kokko__thumbnail swiper-slide" type="button">
               <picture class="kokko__thumbnail-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage07.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage07.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage07.src}
+                  src={largestSrc(kokkoImage07)}
+                  width={kokkoImage07.attributes.width}
+                  height={kokkoImage07.attributes.height}
+                  srcset={kokkoImage07.srcSet.attribute}
+                  sizes="(min-width: 1024px) 6.05vw, (min-width: 744px) 7.27vw, 10.97vw"
                   alt="KOKKO BBQ施設のサムネイル7"
                   class="kokko__thumbnail-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </button>
             <!-- サムネイル8 -->
             <button class="kokko__thumbnail swiper-slide" type="button">
               <picture class="kokko__thumbnail-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage08.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage08.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage08.src}
+                  src={largestSrc(kokkoImage08)}
+                  width={kokkoImage08.attributes.width}
+                  height={kokkoImage08.attributes.height}
+                  srcset={kokkoImage08.srcSet.attribute}
+                  sizes="(min-width: 1024px) 6.05vw, (min-width: 744px) 7.27vw, 10.97vw"
                   alt="KOKKO BBQ施設のサムネイル8"
                   class="kokko__thumbnail-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </button>
             <!-- サムネイル9 -->
             <button class="kokko__thumbnail swiper-slide" type="button">
               <picture class="kokko__thumbnail-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage09.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage09.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage09.src}
+                  src={largestSrc(kokkoImage09)}
+                  width={kokkoImage09.attributes.width}
+                  height={kokkoImage09.attributes.height}
+                  srcset={kokkoImage09.srcSet.attribute}
+                  sizes="(min-width: 1024px) 6.05vw, (min-width: 744px) 7.27vw, 10.97vw"
                   alt="KOKKO BBQ施設のサムネイル9"
                   class="kokko__thumbnail-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </button>
             <!-- サムネイル10 -->
             <button class="kokko__thumbnail swiper-slide" type="button">
               <picture class="kokko__thumbnail-picture">
-                <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-                <source
-                  media="(min-width: 1024px)"
-                  srcset={kokkoImage10.srcSet.toString()}
-                />
-                <!-- タブレット（744px以上）→ 中解像度版 -->
-                <source
-                  media="(min-width: 744px)"
-                  srcset={kokkoImage10.srcSet.toString()}
-                />
-                <!-- スマホ（744px未満）→ 最小解像度版 -->
                 <img
-                  src={kokkoImage10.src}
+                  src={largestSrc(kokkoImage10)}
+                  width={kokkoImage10.attributes.width}
+                  height={kokkoImage10.attributes.height}
+                  srcset={kokkoImage10.srcSet.attribute}
+                  sizes="(min-width: 1024px) 6.05vw, (min-width: 744px) 7.27vw, 10.97vw"
                   alt="KOKKO BBQ施設のサムネイル10"
                   class="kokko__thumbnail-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </button>
@@ -558,15 +459,16 @@ import 'swiper/css/pagination';
   </div>
   <figure class="kokko__background">
     <picture class="kokko__background-picture">
-      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-      <source media="(min-width: 1024px)" srcset={kokkoBg.srcSet.toString()} />
-      <!-- タブレット（744px以上）→ 中解像度版 -->
-      <source media="(min-width: 744px)" srcset={kokkoBg.srcSet.toString()} />
-      <!-- スマホ（744px未満）→ 最小解像度版 -->
       <img
-        src={kokkoBg.src}
+        src={largestSrc(kokkoBg)}
+        width={kokkoBg.attributes.width}
+        height={kokkoBg.attributes.height}
+        srcset={kokkoBg.srcSet.attribute}
+        sizes="(min-width: 1024px) 91.25vw, (min-width: 744px) 89.06vw, 100vw"
         alt="KOKKO BBQ施設の背景"
         class="kokko__background-image"
+        loading="lazy"
+        decoding="async"
       />
     </picture>
   </figure>

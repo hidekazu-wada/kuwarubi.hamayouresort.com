@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../../../utils/image';
 // 画像
 import { getImage } from 'astro:assets';
 
@@ -71,21 +72,16 @@ const equipment09 = await getImage({
     <article class="equipment__item js-fade-in-up">
       <figure class="equipment__image-wrapper">
         <picture class="equipment__picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={equipment01.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={equipment01.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={equipment01.src}
+            src={largestSrc(equipment01)}
+            width={equipment01.attributes.width}
+            height={equipment01.attributes.height}
+            srcset={equipment01.srcSet.attribute}
+            sizes="(min-width: 1024px) 18.75vw, (min-width: 744px) 22.5vw, 41.67vw"
             alt="大浴場・露天風呂"
             class="equipment__image"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
       </figure>
@@ -94,21 +90,16 @@ const equipment09 = await getImage({
     <article class="equipment__item js-fade-in-up">
       <figure class="equipment__image-wrapper">
         <picture class="equipment__picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={equipment02.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={equipment02.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={equipment02.src}
+            src={largestSrc(equipment02)}
+            width={equipment02.attributes.width}
+            height={equipment02.attributes.height}
+            srcset={equipment02.srcSet.attribute}
+            sizes="(min-width: 1024px) 18.75vw, (min-width: 744px) 22.5vw, 41.67vw"
             alt="ほどほどの森"
             class="equipment__image"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
       </figure>
@@ -117,21 +108,16 @@ const equipment09 = await getImage({
     <article class="equipment__item js-fade-in-up">
       <figure class="equipment__image-wrapper">
         <picture class="equipment__picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={equipment03.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={equipment03.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={equipment03.src}
+            src={largestSrc(equipment03)}
+            width={equipment03.attributes.width}
+            height={equipment03.attributes.height}
+            srcset={equipment03.srcSet.attribute}
+            sizes="(min-width: 1024px) 18.75vw, (min-width: 744px) 22.5vw, 41.67vw"
             alt="Kokko（BBQハウス）"
             class="equipment__image"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
       </figure>
@@ -140,21 +126,16 @@ const equipment09 = await getImage({
     <article class="equipment__item js-fade-in-up">
       <figure class="equipment__image-wrapper">
         <picture class="equipment__picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={equipment04.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={equipment04.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={equipment04.src}
+            src={largestSrc(equipment04)}
+            width={equipment04.attributes.width}
+            height={equipment04.attributes.height}
+            srcset={equipment04.srcSet.attribute}
+            sizes="(min-width: 1024px) 18.75vw, (min-width: 744px) 22.5vw, 41.67vw"
             alt="ランドリールーム"
             class="equipment__image"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
       </figure>
@@ -163,21 +144,16 @@ const equipment09 = await getImage({
     <article class="equipment__item js-fade-in-up">
       <figure class="equipment__image-wrapper">
         <picture class="equipment__picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={equipment05.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={equipment05.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={equipment05.src}
+            src={largestSrc(equipment05)}
+            width={equipment05.attributes.width}
+            height={equipment05.attributes.height}
+            srcset={equipment05.srcSet.attribute}
+            sizes="(min-width: 1024px) 18.75vw, (min-width: 744px) 22.5vw, 41.67vw"
             alt="自動販売機コーナー"
             class="equipment__image"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
       </figure>
@@ -186,21 +162,16 @@ const equipment09 = await getImage({
     <article class="equipment__item js-fade-in-up">
       <figure class="equipment__image-wrapper">
         <picture class="equipment__picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={equipment06.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={equipment06.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={equipment06.src}
+            src={largestSrc(equipment06)}
+            width={equipment06.attributes.width}
+            height={equipment06.attributes.height}
+            srcset={equipment06.srcSet.attribute}
+            sizes="(min-width: 1024px) 18.75vw, (min-width: 744px) 22.5vw, 41.67vw"
             alt="会議室（紅葉）"
             class="equipment__image"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
       </figure>
@@ -209,21 +180,16 @@ const equipment09 = await getImage({
     <article class="equipment__item js-fade-in-up">
       <figure class="equipment__image-wrapper">
         <picture class="equipment__picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={equipment07.srcSet.toString()}
-          />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={equipment07.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
           <img
-            src={equipment07.src}
+            src={largestSrc(equipment07)}
+            width={equipment07.attributes.width}
+            height={equipment07.attributes.height}
+            srcset={equipment07.srcSet.attribute}
+            sizes="(min-width: 1024px) 18.75vw, (min-width: 744px) 22.5vw, 41.67vw"
             alt="会議室（楓）"
             class="equipment__image"
+            loading="lazy"
+            decoding="async"
           />
         </picture>
       </figure>
@@ -232,18 +198,17 @@ const equipment09 = await getImage({
     <article class="equipment__item js-fade-in-up">
       <figure class="equipment__image-wrapper">
         <picture class="equipment__picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={equipment08.srcSet.toString()}
+          <img
+            src={largestSrc(equipment08)}
+            width={equipment08.attributes.width}
+            height={equipment08.attributes.height}
+            srcset={equipment08.srcSet.attribute}
+            sizes="(min-width: 1024px) 18.75vw, (min-width: 744px) 22.5vw, 41.67vw"
+            alt="お食事処"
+            class="equipment__image"
+            loading="lazy"
+            decoding="async"
           />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={equipment08.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
-          <img src={equipment08.src} alt="お食事処" class="equipment__image" />
         </picture>
       </figure>
       <h3 class="equipment__name">レストラン</h3>
@@ -251,18 +216,17 @@ const equipment09 = await getImage({
     <article class="equipment__item js-fade-in-up">
       <figure class="equipment__image-wrapper">
         <picture class="equipment__picture">
-          <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-          <source
-            media="(min-width: 1024px)"
-            srcset={equipment09.srcSet.toString()}
+          <img
+            src={largestSrc(equipment09)}
+            width={equipment09.attributes.width}
+            height={equipment09.attributes.height}
+            srcset={equipment09.srcSet.attribute}
+            sizes="(min-width: 1024px) 18.75vw, (min-width: 744px) 22.5vw, 41.67vw"
+            alt="体育館"
+            class="equipment__image"
+            loading="lazy"
+            decoding="async"
           />
-          <!-- タブレット（744px以上）→ 中解像度版 -->
-          <source
-            media="(min-width: 744px)"
-            srcset={equipment09.srcSet.toString()}
-          />
-          <!-- スマホ（744px未満）→ 最小解像度版 -->
-          <img src={equipment09.src} alt="体育館" class="equipment__image" />
         </picture>
       </figure>
       <h3 class="equipment__name">体育館</h3>

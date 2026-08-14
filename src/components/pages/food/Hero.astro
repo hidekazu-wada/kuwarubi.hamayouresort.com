@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../../../utils/image';
 import LowerPageHeader from '../../../components/ui/LowerPageHeader.astro';
 // 画像
 import { getImage } from 'astro:assets';
@@ -31,15 +32,16 @@ const heroBg = await getImage({
 
   <figure class="hero__image">
     <picture class="hero__picture">
-      <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-      <source media="(min-width: 1024px)" srcset={heroBg.srcSet.toString()} />
-      <!-- タブレット（744px以上）→ 中解像度版 -->
-      <source media="(min-width: 744px)" srcset={heroBg.srcSet.toString()} />
-      <!-- スマホ（744px未満）→ 最小解像度版 -->
       <img
-        src={heroBg.src}
+        src={largestSrc(heroBg)}
+        width={heroBg.attributes.width}
+        height={heroBg.attributes.height}
+        srcset={heroBg.srcSet.attribute}
+        sizes="(min-width: 1024px) 91.25vw, (min-width: 744px) 89.06vw, 100vw"
         alt="食事風景と料理の美しいイメージ"
         class="hero__img"
+        loading="lazy"
+        decoding="async"
       />
     </picture>
   </figure>

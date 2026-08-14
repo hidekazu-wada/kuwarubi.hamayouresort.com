@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../../../utils/image';
 import { getImage } from 'astro:assets';
 import LocationImg1 from '../../../assets/images/top/location/img1.png';
 import LocationImg2 from '../../../assets/images/top/location/img2.png';
@@ -32,18 +33,16 @@ const Parallax = await getImage({
   </header>
   <div class="location__content">
     <picture class="location__image location__image--main">
-      <!-- デスクトップ（1024px以上） -->
-      <source
-        media="(min-width: 1024px)"
-        srcset={locationImg1.srcSet.toString()}
+      <img
+        src={largestSrc(locationImg1)}
+        width={locationImg1.attributes.width}
+        height={locationImg1.attributes.height}
+        srcset={locationImg1.srcSet.attribute}
+        sizes="(min-width: 1024px) 46.09vw, (min-width: 744px) 36vw, 84.17vw"
+        alt="西湖の美しい湖畔の風景"
+        loading="lazy"
+        decoding="async"
       />
-      <!-- タブレット（744px以上） -->
-      <source
-        media="(min-width: 744px)"
-        srcset={locationImg1.srcSet.toString()}
-      />
-      <!-- スマホ（744px未満） -->
-      <img src={locationImg1.src} alt="西湖の美しい湖畔の風景" />
     </picture>
     <div class="location__description">
       <span class="location__description-line"
@@ -69,27 +68,32 @@ const Parallax = await getImage({
       <span class="location__description-line">心地よい場所です。</span>
     </div>
     <picture class="location__image location__image--sub">
-      <!-- デスクトップ（1024px以上） -->
-      <source
-        media="(min-width: 1024px)"
-        srcset={locationImg2.srcSet.toString()}
+      <img
+        src={largestSrc(locationImg2)}
+        width={locationImg2.attributes.width}
+        height={locationImg2.attributes.height}
+        srcset={locationImg2.srcSet.attribute}
+        sizes="(min-width: 1024px) 33.87vw, (min-width: 744px) 40.64vw, 75.83vw"
+        alt="樹海の美しい風景"
+        loading="lazy"
+        decoding="async"
       />
-      <!-- タブレット（744px以上） -->
-      <source
-        media="(min-width: 744px)"
-        srcset={locationImg2.srcSet.toString()}
-      />
-      <!-- スマホ（744px未満） -->
-      <img src={locationImg2.src} alt="樹海の美しい風景" />
     </picture>
   </div>
 
   <!-- パララックス画像 -->
   <div class="parallax-image">
     <picture>
-      <source media="(min-width: 1024px)" srcset={Parallax.srcSet.toString()} />
-      <source media="(min-width: 744px)" srcset={Parallax.srcSet.toString()} />
-      <img src={Parallax.src} alt="湖畔のイラスト" />
+      <img
+        src={largestSrc(Parallax)}
+        width={Parallax.attributes.width}
+        height={Parallax.attributes.height}
+        srcset={Parallax.srcSet.attribute}
+        sizes="(min-width: 1024px) 91.25vw, (min-width: 744px) 89.06vw, 100vw"
+        alt="湖畔のイラスト"
+        loading="lazy"
+        decoding="async"
+      />
     </picture>
   </div>
 </section>

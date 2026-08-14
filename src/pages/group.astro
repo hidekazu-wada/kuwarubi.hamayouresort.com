@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../utils/image';
 // ============================================================
 // 汎用ページテンプレート
 // 使い方：このファイルをコピーして、ファイル名を変更して使用
@@ -300,18 +301,16 @@ const pageClass = 'main-content--group-use';
               <article class="swiper-slide slider-section__slide">
                 <figure class="slider-section__slide-figure">
                   <picture class="slider-section__slide-picture">
-                    <source
-                      media="(min-width: 1024px)"
-                      srcset={slide01.srcSet.toString()}
-                    />
-                    <source
-                      media="(min-width: 744px)"
-                      srcset={slide01.srcSet.toString()}
-                    />
                     <img
-                      src={slide01.src}
+                      src={largestSrc(slide01)}
+                      width={slide01.attributes.width}
+                      height={slide01.attributes.height}
+                      srcset={slide01.srcSet.attribute}
+                      sizes="(min-width: 1024px) 91.25vw, (min-width: 744px) 89.09vw, 100vw"
                       alt="自然に恵まれた環境"
                       class="slider-section__slide-image"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </picture>
                 </figure>
@@ -328,18 +327,16 @@ const pageClass = 'main-content--group-use';
               <article class="swiper-slide slider-section__slide">
                 <figure class="slider-section__slide-figure">
                   <picture class="slider-section__slide-picture">
-                    <source
-                      media="(min-width: 1024px)"
-                      srcset={slide02.srcSet.toString()}
-                    />
-                    <source
-                      media="(min-width: 744px)"
-                      srcset={slide02.srcSet.toString()}
-                    />
                     <img
-                      src={slide02.src}
+                      src={largestSrc(slide02)}
+                      width={slide02.attributes.width}
+                      height={slide02.attributes.height}
+                      srcset={slide02.srcSet.attribute}
+                      sizes="(min-width: 1024px) 91.25vw, (min-width: 744px) 89.09vw, 100vw"
                       alt="バリアフリー対応の施設"
                       class="slider-section__slide-image"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </picture>
                 </figure>
@@ -356,18 +353,16 @@ const pageClass = 'main-content--group-use';
               <article class="swiper-slide slider-section__slide">
                 <figure class="slider-section__slide-figure">
                   <picture class="slider-section__slide-picture">
-                    <source
-                      media="(min-width: 1024px)"
-                      srcset={slide03.srcSet.toString()}
-                    />
-                    <source
-                      media="(min-width: 744px)"
-                      srcset={slide03.srcSet.toString()}
-                    />
                     <img
-                      src={slide03.src}
+                      src={largestSrc(slide03)}
+                      width={slide03.attributes.width}
+                      height={slide03.attributes.height}
+                      srcset={slide03.srcSet.attribute}
+                      sizes="(min-width: 1024px) 91.25vw, (min-width: 744px) 89.09vw, 100vw"
                       alt="充実した設備"
                       class="slider-section__slide-image"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </picture>
                 </figure>
@@ -382,18 +377,16 @@ const pageClass = 'main-content--group-use';
               <article class="swiper-slide slider-section__slide">
                 <figure class="slider-section__slide-figure">
                   <picture class="slider-section__slide-picture">
-                    <source
-                      media="(min-width: 1024px)"
-                      srcset={slide04.srcSet.toString()}
-                    />
-                    <source
-                      media="(min-width: 744px)"
-                      srcset={slide04.srcSet.toString()}
-                    />
                     <img
-                      src={slide04.src}
+                      src={largestSrc(slide04)}
+                      width={slide04.attributes.width}
+                      height={slide04.attributes.height}
+                      srcset={slide04.srcSet.attribute}
+                      sizes="(min-width: 1024px) 91.25vw, (min-width: 744px) 89.09vw, 100vw"
                       alt="想いを込めた食事の時間"
                       class="slider-section__slide-image"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </picture>
                 </figure>
@@ -410,18 +403,16 @@ const pageClass = 'main-content--group-use';
               <article class="swiper-slide slider-section__slide">
                 <figure class="slider-section__slide-figure">
                   <picture class="slider-section__slide-picture">
-                    <source
-                      media="(min-width: 1024px)"
-                      srcset={slide05.srcSet.toString()}
-                    />
-                    <source
-                      media="(min-width: 744px)"
-                      srcset={slide05.srcSet.toString()}
-                    />
                     <img
-                      src={slide05.src}
+                      src={largestSrc(slide05)}
+                      width={slide05.attributes.width}
+                      height={slide05.attributes.height}
+                      srcset={slide05.srcSet.attribute}
+                      sizes="(min-width: 1024px) 91.25vw, (min-width: 744px) 89.09vw, 100vw"
                       alt="豊富なアクティビティ"
                       class="slider-section__slide-image"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </picture>
                 </figure>

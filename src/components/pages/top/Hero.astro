@@ -1,4 +1,5 @@
 ---
+import { largestSrc } from '../../../utils/image';
 import { getImage } from 'astro:assets';
 // Swiper CSS
 import 'swiper/css';
@@ -221,9 +222,11 @@ const heroMovieThumbWebp = await getImage({
   <h1 class="hero__logo">
     <img
       src={logoKuwarubi.src}
+      width={logoKuwarubi.width}
+      height={logoKuwarubi.height}
       alt="光風閣くわるび"
       class="hero__logo only-sp"
-      loading="lazy"
+      loading="eager"
       decoding="async"
     />
   </h1>
@@ -238,16 +241,13 @@ const heroMovieThumbWebp = await getImage({
   <div class="hero__movie">
     <div class="hero__movie-container">
       <picture class="hero__movie-thumbnail">
-        <source
-          srcset={heroMovieThumbWebp.srcSet.attribute}
-          sizes="(min-width: 744px) 515px, 309px"
-          type="image/webp"
-        />
         <img
-          src={heroMovieThumb.src}
+          src={largestSrc(heroMovieThumbWebp)}
+          srcset={heroMovieThumbWebp.srcSet.attribute}
+          sizes="(min-width: 1024px) 19.98vw, (min-width: 744px) 23.9vw, 42.4vw"
+          alt="動画サムネイル"
           width={heroMovieThumb.width}
           height={heroMovieThumb.height}
-          alt="動画サムネイル"
           loading="lazy"
           decoding="async"
         />
