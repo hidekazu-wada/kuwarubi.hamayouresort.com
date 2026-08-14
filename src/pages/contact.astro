@@ -58,9 +58,10 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
         >
           <fieldset class="contact-form__fieldset">
             <div class="contact-form__field contact-form__field--select">
-              <label class="contact-form__label">種別 <span>※</span></label>
+              <label class="contact-form__label" for="contact-type">種別 <span>※</span></label>
               <div class="contact-form__select-wrapper">
-                <select class="contact-form__select" name="type" required>
+                <select class="contact-form__select" name="type"
+                id="contact-type" required>
                   <option value="" class="contact-form__placeholder"
                     >選択してください
                   </option>
@@ -87,65 +88,71 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
               </div>
             </div>
             <div class="contact-form__field">
-              <label class="contact-form__label">お名前 <span>※</span></label>
+              <label class="contact-form__label" for="contact-name">お名前 <span>※</span></label>
               <input
                 type="text"
                 name="name"
+                id="contact-name"
                 class="contact-form__input"
                 placeholder="山田太郎"
                 required
               />
             </div>
             <div class="contact-form__field">
-              <label class="contact-form__label">ふりがな <span>※</span></label>
+              <label class="contact-form__label" for="contact-furigana">ふりがな <span>※</span></label>
               <input
                 type="text"
                 name="furigana"
+                id="contact-furigana"
                 class="contact-form__input"
                 placeholder="やまだたろう"
                 required
               />
             </div>
             <div class="contact-form__field">
-              <label class="contact-form__label">電話番号 <span>※</span></label>
+              <label class="contact-form__label" for="contact-phone">電話番号 <span>※</span></label>
               <input
                 type="tel"
                 name="phone"
+                id="contact-phone"
                 class="contact-form__input"
                 placeholder="0555-12-3456"
                 required
               />
             </div>
             <div class="contact-form__field">
-              <label class="contact-form__label"
+              <label class="contact-form__label" for="contact-email"
                 >メールアドレス <span>※</span></label
               >
               <input
                 type="email"
                 name="email"
+                id="contact-email"
                 class="contact-form__input"
                 placeholder="abc@def.com"
                 required
               />
             </div>
             <div class="contact-form__field">
-              <label class="contact-form__label"
+              <label class="contact-form__label" for="contact-email-confirm"
                 >メールアドレス（再入力） <span>※</span></label
               >
               <input
                 type="email"
                 name="email_confirm"
+                id="contact-email-confirm"
                 class="contact-form__input"
                 placeholder="abc@def.com"
                 required
               />
             </div>
             <div class="contact-form__field contact-form__field--textarea">
-              <label class="contact-form__label"
+              <label class="contact-form__label" for="contact-message"
                 >お問い合わせ内容 <span>※</span></label
               >
               <textarea
                 name="message"
+                id="contact-message"
                 class="contact-form__textarea"
                 placeholder="お問合せ内容をこちらにご入力ください。"
                 required></textarea>
