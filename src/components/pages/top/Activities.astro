@@ -1,7 +1,10 @@
 ---
 import { getImage } from 'astro:assets';
 import MoreButton from '../../ui/MoreButton.astro';
-import { getTopPageActivities } from '../../../lib/activitiesAPI';
+import {
+  getTopPageActivities,
+  getPublishedActivityCount,
+} from '../../../lib/activitiesAPI';
 import { largestSrc, prepareTopSlide } from '../../../utils/image';
 // Swiper CSS
 import 'swiper/css';
@@ -12,6 +15,13 @@ import TitleImage from '../../../assets/images/top/activities/picture-tree.png';
 
 // TOPページ表示用アクティビティを取得
 const topActivities = await getTopPageActivities();
+
+// 見出しの件数は公開中の実数に連動させる。
+// 数字を手で書くと実データとずれるため（以前は実データ9件に対して「２０種類以上」だった）。
+// 未公開の団体プログラム11件を公開すれば、自動で２０になる。
+const publishedCount = await getPublishedActivityCount();
+const toFullWidth = (n: number) =>
+  String(n).replace(/[0-9]/g, (d) => String.fromCharCode(d.charCodeAt(0) + 0xfee0));
 
 // タイトルツリー画像の最適化
 const TitleTree = await getImage({
@@ -35,7 +45,7 @@ const optimizedActivities = await Promise.all(
     <h2 class="activities__title js-fade-in-up">ACTIVITIES</h2>
     <div class="activities__subtitle js-fade-in-up">
       <span class="activities__subtitle-line">自然とふれあい学べる</span>
-      <span class="activities__subtitle-line">２０種類以上の</span>
+      <span class="activities__subtitle-line">{toFullWidth(publishedCount)}種類の</span>
       <span class="activities__subtitle-line">アクティビティ</span>
     </div>
     <picture class="activities__tree">

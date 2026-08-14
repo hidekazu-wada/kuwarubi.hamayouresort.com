@@ -10,9 +10,11 @@ export interface Props {
   priceOptions: FilterOption[];
   durationOptions: FilterOption[];
   weatherOptions: FilterOption[];
+  categoryOptions: FilterOption[];
 }
 
-const { priceOptions, durationOptions, weatherOptions } = Astro.props;
+const { priceOptions, durationOptions, weatherOptions, categoryOptions } =
+  Astro.props;
 ---
 
 <nav class="activity-filters" aria-label="アクティビティフィルター">
@@ -76,6 +78,33 @@ const { priceOptions, durationOptions, weatherOptions } = Astro.props;
       <option value="">天気</option>
       {
         weatherOptions.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))
+      }
+    </select>
+    <svg
+      class="activity-filters__icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="12"
+      height="22"
+      viewBox="0 0 12 22"
+      fill="none"
+    >
+      <path
+        d="M1 21L11 11L1 1"
+        stroke="#054965"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </div>
+
+  <!-- カテゴリ -->
+  <div class="activity-filters__wrapper">
+    <select class="activity-filters__select" name="category">
+      <option value="">カテゴリ</option>
+      {
+        categoryOptions.map((option) => (
           <option value={option.value}>{option.label}</option>
         ))
       }
