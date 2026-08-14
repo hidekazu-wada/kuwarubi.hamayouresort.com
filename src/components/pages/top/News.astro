@@ -6,11 +6,16 @@ import {
   formatDate,
 } from '../../../lib/informationAPI';
 
-// TOPページ用のお知らせとイベント情報を取得（microCMSから）
+// TOPページ用のお知らせとイベント情報を取得
 const informationPosts = await getTopPageInformationPosts();
 const eventPosts = await getTopPageEventPosts();
+
+// 記事が1件も無いときは、見出しと more ボタンだけが残って不格好になるので
+// セクションごと出さない。記事を追加すれば自動的に復活する。
+const hasAnyPost = informationPosts.length > 0 || eventPosts.length > 0;
 ---
 
+{hasAnyPost && (
 <section class="news">
   <div class="news__container">
     <article class="news__section news__section--information">
@@ -23,12 +28,12 @@ const eventPosts = await getTopPageEventPosts();
         <ul class="news__list">
           {
             informationPosts.map((post) => {
-              const formattedDate = formatDate(post.publishedAt || post.createdAt);
+              const formattedDate = formatDate(post.publishedAt);
               return (
                 <li class="news__item">
                   <a href={`/information/${post.slug}`} class="news__link">
                     <article class="news__article">
-                      <time class="news__date" datetime={post.publishedAt || post.createdAt}>
+                      <time class="news__date" datetime={post.publishedAt}>
                         {formattedDate.full}
                       </time>
                       <p class="news__text">{post.title}</p>
@@ -60,12 +65,12 @@ const eventPosts = await getTopPageEventPosts();
         <ul class="news__list">
           {
             eventPosts.map((post) => {
-              const formattedDate = formatDate(post.publishedAt || post.createdAt);
+              const formattedDate = formatDate(post.publishedAt);
               return (
                 <li class="news__item">
                   <a href={`/information/${post.slug}`} class="news__link">
                     <article class="news__article">
-                      <time class="news__date" datetime={post.publishedAt || post.createdAt}>
+                      <time class="news__date" datetime={post.publishedAt}>
                         {formattedDate.full}
                       </time>
                       <p class="news__text">{post.title}</p>
@@ -88,6 +93,7 @@ const eventPosts = await getTopPageEventPosts();
     </article>
   </div>
 </section>
+)}
 
 <style lang="scss">
   // 必要なmixin/functionをインポート

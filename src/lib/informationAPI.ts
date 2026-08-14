@@ -1,83 +1,47 @@
-import { client } from './microcms';
-import type { InformationPost, MicroCMSListResponse } from '../types/microcms';
+// お知らせ・イベント・ブログ記事の取得
+//
+// もともと microCMS を叩いていたが、運用開始までサイト内管理に戻したため
+// src/data/information.ts を読むだけになっている。
+// 呼び出し側の型と関数名はそのまま残してあるので、CMSに戻すときは
+// この中身を差し替えるだけで済む。
+
+import { posts, type InformationPost } from '../data/information';
+
+export type { InformationPost };
+
+/** 公開日の降順（新しい順）に並べる */
+function sortByPublishedDesc(list: InformationPost[]): InformationPost[] {
+  return [...list].sort(
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+}
 
 /**
- * 全てのお知らせを取得
+ * 全てのお知らせを取得（公開日の降順）
  */
 export async function getAllInformationPosts(): Promise<InformationPost[]> {
-  try {
-    const response = await client.get<MicroCMSListResponse<InformationPost>>({
-      endpoint: 'information',
-      queries: {
-        limit: 100, // 最大100件取得
-        orders: '-publishedAt', // 公開日の降順
-      },
-    });
-    return response.contents;
-  } catch (error) {
-    console.error('Failed to fetch information posts:', error);
-    return [];
-  }
+  return sortByPublishedDesc(posts);
 }
 
 /**
  * TOPページ用：お知らせカテゴリーの最新4件を取得
  */
 export async function getTopPageInformationPosts(): Promise<InformationPost[]> {
-  try {
-    const response = await client.get<MicroCMSListResponse<InformationPost>>({
-      endpoint: 'information',
-      queries: {
-        limit: 4,
-        filters: 'category[contains]お知らせ',
-        orders: '-publishedAt',
-      },
-    });
-    return response.contents;
-  } catch (error) {
-    console.error('Failed to fetch top page information posts:', error);
-    return [];
-  }
+  return sortByPublishedDesc(posts.filter((p) => p.category === 'お知らせ')).slice(0, 4);
 }
 
 /**
  * TOPページ用：イベント情報カテゴリーの最新4件を取得
  */
 export async function getTopPageEventPosts(): Promise<InformationPost[]> {
-  try {
-    const response = await client.get<MicroCMSListResponse<InformationPost>>({
-      endpoint: 'information',
-      queries: {
-        limit: 4,
-        filters: 'category[contains]イベント情報',
-        orders: '-publishedAt',
-      },
-    });
-    return response.contents;
-  } catch (error) {
-    console.error('Failed to fetch top page event posts:', error);
-    return [];
-  }
+  return sortByPublishedDesc(posts.filter((p) => p.category === 'イベント情報')).slice(0, 4);
 }
 
 /**
  * TOPページ用：ブログ記事カテゴリーの最新10件を取得
  */
 export async function getTopPageBlogPosts(): Promise<InformationPost[]> {
-  try {
-    const response = await client.get<MicroCMSListResponse<InformationPost>>({
-      endpoint: 'information',
-      queries: {
-        limit: 10,
-        filters: 'category[contains]ブログ記事',
-        orders: '-publishedAt',
-      },
-    });
-    return response.contents;
-  } catch (error) {
-    console.error('Failed to fetch top page blog posts:', error);
-    return [];
-  }
+  return sortByPublishedDesc(posts.filter((p) => p.category === 'ブログ記事')).slice(0, 10);
 }
 
 /**
@@ -86,72 +50,33 @@ export async function getTopPageBlogPosts(): Promise<InformationPost[]> {
 export async function getInformationPostBySlug(
   slug: string
 ): Promise<InformationPost | null> {
-  try {
-    const response = await client.get<MicroCMSListResponse<InformationPost>>({
-      endpoint: 'information',
-      queries: {
-        filters: `slug[equals]${slug}`,
-        limit: 1,
-      },
-    });
-    return response.contents[0] || null;
-  } catch (error) {
-    console.error(`Failed to fetch information post with slug: ${slug}`, error);
-    return null;
-  }
+  return posts.find((p) => p.slug === slug) ?? null;
 }
 
 /**
  * 指定されたslugの前後の記事を取得（同じカテゴリー内のみ）
- * @param slug - 基準となる記事のslug
- * @returns 前後の記事オブジェクト
+ * prev = 古い記事 / next = 新しい記事
  */
 export async function getAdjacentPosts(slug: string): Promise<{
   prev: InformationPost | null;
   next: InformationPost | null;
 }> {
-  try {
-    // 全ての記事を取得
-    const allPosts = await getAllInformationPosts();
+  const all = sortByPublishedDesc(posts);
+  const current = all.find((p) => p.slug === slug);
+  if (!current) return { prev: null, next: null };
 
-    // 現在の記事を見つける
-    const currentPost = allPosts.find((post) => post.slug === slug);
+  const sameCategory = all.filter((p) => p.category === current.category);
+  const i = sameCategory.findIndex((p) => p.slug === slug);
+  if (i === -1) return { prev: null, next: null };
 
-    if (!currentPost) {
-      return { prev: null, next: null };
-    }
-
-    // 現在の記事と同じカテゴリーの記事のみでフィルタリング（日付降順）
-    const sameCategoryPosts = allPosts.filter(
-      (post) => post.category[0] === currentPost.category[0]
-    );
-
-    // 同じカテゴリー内での現在の記事のインデックスを見つける
-    const currentIndex = sameCategoryPosts.findIndex(
-      (post) => post.slug === slug
-    );
-
-    if (currentIndex === -1) {
-      return { prev: null, next: null };
-    }
-
-    // prev = 古い記事（インデックスが大きい方）
-    // next = 新しい記事（インデックスが小さい方）
-    const prev =
-      currentIndex < sameCategoryPosts.length - 1
-        ? sameCategoryPosts[currentIndex + 1]
-        : null;
-    const next = currentIndex > 0 ? sameCategoryPosts[currentIndex - 1] : null;
-
-    return { prev, next };
-  } catch (error) {
-    console.error('Failed to fetch adjacent posts:', error);
-    return { prev: null, next: null };
-  }
+  return {
+    prev: i < sameCategory.length - 1 ? sameCategory[i + 1]! : null,
+    next: i > 0 ? sameCategory[i - 1]! : null,
+  };
 }
 
 /**
- * 日付フォーマット関数（既存のformatDate関数と同じ）
+ * 日付フォーマット関数
  */
 export function formatDate(dateString: string): {
   year: string;

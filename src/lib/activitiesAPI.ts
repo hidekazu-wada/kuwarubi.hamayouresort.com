@@ -1,62 +1,33 @@
-import { client } from './microcms';
-import type { Activity, MicroCMSListResponse } from '../types/microcms';
+// アクティビティの取得
+//
+// もともと microCMS を叩いていたが、運用開始までサイト内管理に戻したため
+// src/data/activities.ts を読むだけになっている。
+// 呼び出し側の型と関数名はそのまま残してあるので、CMSに戻すときは
+// この中身を差し替えるだけで済む。
+
+import { activities, type Activity } from '../data/activities';
+
+export type { Activity };
 
 /**
  * 全てのアクティビティを取得
  */
 export async function getAllActivities(): Promise<Activity[]> {
-  try {
-    const response = await client.get<MicroCMSListResponse<Activity>>({
-      endpoint: 'activities',
-      queries: {
-        limit: 100, // 最大100件取得
-        orders: '-createdAt', // 作成日の降順
-      },
-    });
-    return response.contents;
-  } catch (error) {
-    console.error('Failed to fetch activities:', error);
-    return [];
-  }
+  return [...activities];
 }
 
 /**
  * slugから個別のアクティビティを取得
  */
-export async function getActivityBySlug(
-  slug: string
-): Promise<Activity | null> {
-  try {
-    const response = await client.get<MicroCMSListResponse<Activity>>({
-      endpoint: 'activities',
-      queries: {
-        filters: `slug[equals]${slug}`,
-        limit: 1,
-      },
-    });
-    return response.contents[0] || null;
-  } catch (error) {
-    console.error(`Failed to fetch activity with slug: ${slug}`, error);
-    return null;
-  }
+export async function getActivityBySlug(slug: string): Promise<Activity | null> {
+  return activities.find((a) => a.slug === slug) ?? null;
 }
 
 /**
- * TOPページ用：TOPページ表示するアクティビティを取得（表示順序でソート）
+ * TOPページ用：TOPページに表示するアクティビティを取得（表示順序でソート）
  */
 export async function getTopPageActivities(): Promise<Activity[]> {
-  try {
-    const response = await client.get<MicroCMSListResponse<Activity>>({
-      endpoint: 'activities',
-      queries: {
-        filters: 'showOnTop[equals]true',
-        orders: 'displayOrder', // 表示順序でソート（昇順）
-        limit: 100,
-      },
-    });
-    return response.contents;
-  } catch (error) {
-    console.error('Failed to fetch top page activities:', error);
-    return [];
-  }
+  return activities
+    .filter((a) => a.showOnTop)
+    .sort((a, b) => a.displayOrder - b.displayOrder);
 }

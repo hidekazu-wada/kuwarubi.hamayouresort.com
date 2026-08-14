@@ -2,7 +2,7 @@
 import { getImage } from 'astro:assets';
 import MoreButton from '../../ui/MoreButton.astro';
 import { getTopPageActivities } from '../../../lib/activitiesAPI';
-import { optimizeMicroCMSImage, generateSrcSet } from '../../../utils/image';
+import { largestSrc, prepareTopSlide } from '../../../utils/image';
 // Swiper CSS
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 
 import TitleImage from '../../../assets/images/top/activities/picture-tree.png';
 
-// TOPページ表示用アクティビティを取得（microCMSから）
+// TOPページ表示用アクティビティを取得
 const topActivities = await getTopPageActivities();
 
 // タイトルツリー画像の最適化
@@ -21,30 +21,13 @@ const TitleTree = await getImage({
 });
 
 // 各アクティビティのスライド画像を最適化（gallery[0]を使用）
-const optimizedActivities = topActivities.map((activity) => {
-  // catchphraseColorから適切なクラス名を生成（配列対応）
-  let colorValue = activity.catchphraseColor;
-
-  // 配列の場合は最初の要素を取得（複数選択OFF前の古いデータ対応）
-  if (Array.isArray(colorValue)) {
-    colorValue = colorValue[0];
-  }
-
-  const titleColorClass = colorValue === 'blue' ? 'color-blue' : '';
-
-  return {
+const optimizedActivities = await Promise.all(
+  topActivities.map(async (activity) => ({
     ...activity,
-    optimizedSlideImage: {
-      url: optimizeMicroCMSImage(activity.gallery[0].url, {
-        width: 800,
-        format: 'webp',
-        quality: 85,
-      }),
-      srcSet: generateSrcSet(activity.gallery[0].url, [800]),
-    },
-    titleColorClass,
-  };
-});
+    optimizedSlideImage: await prepareTopSlide(activity.gallery[0]),
+    titleColorClass: activity.catchphraseColor === 'blue' ? 'color-blue' : '',
+  }))
+);
 ---
 
 <section class="activities">
@@ -56,15 +39,16 @@ const optimizedActivities = topActivities.map((activity) => {
       <span class="activities__subtitle-line">アクティビティ</span>
     </div>
     <picture class="activities__tree">
-      <!-- デスクトップ（1024px以上） -->
-      <source
-        media="(min-width: 1024px)"
-        srcset={TitleTree.srcSet.toString()}
+      <img
+        src={largestSrc(TitleTree)}
+        width={TitleTree.attributes.width}
+        height={TitleTree.attributes.height}
+        srcset={TitleTree.srcSet.attribute}
+        sizes="(min-width: 1024px) 8.2vw, (min-width: 744px) 9.84vw, 23.61vw"
+        alt="木のイラスト"
+        loading="lazy"
+        decoding="async"
       />
-      <!-- タブレット（744px以上） -->
-      <source media="(min-width: 744px)" srcset={TitleTree.srcSet.toString()} />
-      <!-- スマホ（744px未満） -->
-      <img src={TitleTree.src} alt="木のイラスト" />
     </picture>
   </header>
 
@@ -82,20 +66,15 @@ const optimizedActivities = topActivities.map((activity) => {
               >
                 <div class="top-activities__image-wrapper">
                   <picture class="top-activities__image">
-                    {/* デスクトップ（1024px以上） */}
-                    <source
-                      media="(min-width: 1024px)"
-                      srcset={activity.optimizedSlideImage.srcSet}
-                    />
-                    {/* タブレット（744px以上） */}
-                    <source
-                      media="(min-width: 744px)"
-                      srcset={activity.optimizedSlideImage.srcSet}
-                    />
-                    {/* スマホ（744px未満） */}
                     <img
                       src={activity.optimizedSlideImage.url}
+                      srcset={activity.optimizedSlideImage.srcSet}
+                      sizes="(min-width: 1024px) 19.53vw, (min-width: 744px) 23.44vw, 69.44vw"
+                      width={activity.optimizedSlideImage.width}
+                      height={activity.optimizedSlideImage.height}
                       alt={`${activity.title}の様子`}
+                      loading="lazy"
+                      decoding="async"
                     />
                   </picture>
                   <h3

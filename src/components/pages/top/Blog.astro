@@ -2,15 +2,27 @@
 import MoreButton from '../../ui/MoreButton.astro';
 import SectionWave from '../../ui/SectionWave.astro';
 import { getTopPageBlogPosts, formatDate } from '../../../lib/informationAPI';
+import { prepareThumbnail } from '../../../utils/image';
 // Swiper CSS
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-// TOPページBlogスライダー用のブログ記事を取得（microCMSから）
+// TOPページBlogスライダー用のブログ記事を取得
 const blogPosts = await getTopPageBlogPosts();
+
+// サムネイルは ImageMetadata なので、ビルド時にWebP化して srcset を作る
+const slides = await Promise.all(
+  blogPosts.map(async (post) => ({
+    post,
+    thumb: post.thumbnail ? await prepareThumbnail(post.thumbnail) : null,
+  }))
+);
+
+// 記事が無いときは見出しと more だけが残るのでセクションごと出さない
 ---
 
+{slides.length > 0 && (
 <section class="blog">
   <SectionWave fillColor="var(--green_1, #e2ecc4)" className="blog__wave" />
   <header class="blog__header">
@@ -24,9 +36,8 @@ const blogPosts = await getTopPageBlogPosts();
   <div class="top-blog__swiper">
     <div class="swiper-wrapper">
       {
-        blogPosts.map((post) => {
-          const formattedDate = formatDate(post.publishedAt || post.createdAt);
-          const thumbnailUrl = post.thumbnail?.url || '/images/default-thumbnail.jpg';
+        slides.map(({ post, thumb }) => {
+          const formattedDate = formatDate(post.publishedAt);
           return (
             <div class="swiper-slide">
               <article class="top-blog__article">
@@ -36,12 +47,20 @@ const blogPosts = await getTopPageBlogPosts();
                     class="top-blog__image-link"
                   >
                     <picture class="top-blog__image">
-                      <img
-                        src={thumbnailUrl}
-                        alt={post.title}
-                      />
+                      {thumb && (
+                        <img
+                          src={thumb.url}
+                          srcset={thumb.srcSet}
+                          sizes="(min-width: 1024px) 19.53vw, (min-width: 744px) 23.44vw, 69.44vw"
+                          width={thumb.width}
+                          height={thumb.height}
+                          alt={post.title}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      )}
                     </picture>
-                    <time class="top-blog__date" datetime={post.publishedAt || post.createdAt}>
+                    <time class="top-blog__date" datetime={post.publishedAt}>
                       <span class="top-blog__date-month">
                         {formattedDate.year}.{formattedDate.month}
                       </span>
@@ -81,6 +100,7 @@ const blogPosts = await getTopPageBlogPosts();
     </div>
   </div>
 </section>
+)}
 
 <style lang="scss">
   // 必要なmixin/functionをインポート

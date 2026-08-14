@@ -5,9 +5,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
-import type { Activity } from '../../types/microcms';
+import type { Activity } from '../../data/activities';
 import { getAllActivities, getActivityBySlug } from '../../lib/activitiesAPI';
-import { optimizeMicroCMSImage, generateSrcSet } from '../../utils/image';
+import {
+  prepareGalleryImage,
+  preparePointBackground,
+  prepareThumbnail,
+} from '../../utils/image';
 
 // 動的ルーティング用のパス生成
 export async function getStaticPaths() {
@@ -30,39 +34,24 @@ if (!activity) {
 const allActivities = await getAllActivities();
 const popularActivities = allActivities.filter((act) => act.isPopular);
 
-// 現在のアクティビティのギャラリー画像（microCMS画像最適化）
-const optimizedGallery = activity.gallery.map((image) => ({
-  url: optimizeMicroCMSImage(image.url, {
-    width: 1050,
-    format: 'webp',
-    quality: 85,
-  }),
-  srcSet: generateSrcSet(image.url, [580, 900, 1050]),
-  alt: `${activity.title}の風景`,
-}));
+// 現在のアクティビティのギャラリー画像（ビルド時にWebP化＋srcset生成）
+const optimizedGallery = await Promise.all(
+  activity.gallery.map(async (image) => ({
+    ...(await prepareGalleryImage(image)),
+    alt: `${activity.title}の風景`,
+  }))
+);
 
 // 現在のアクティビティのポイント背景画像
-const bgImage = {
-  url: optimizeMicroCMSImage(activity.pointBackgroundImage.url, {
-    width: 1920,
-    format: 'webp',
-    quality: 85,
-  }),
-  srcSet: generateSrcSet(activity.pointBackgroundImage.url, [720, 1080, 2316]),
-};
+const bgImage = await preparePointBackground(activity.pointBackgroundImage);
 
 // 人気アクティビティの画像最適化（gallery[0]をサムネイルとして使用）
-const optimizedPopularActivities = popularActivities.map((popularActivity) => ({
-  ...popularActivity,
-  optimizedThumbnail: {
-    url: optimizeMicroCMSImage(popularActivity.gallery[0].url, {
-      width: 500,
-      format: 'webp',
-      quality: 80,
-    }),
-    srcSet: generateSrcSet(popularActivity.gallery[0].url, [460, 480, 500]),
-  },
-}));
+const optimizedPopularActivities = await Promise.all(
+  popularActivities.map(async (popularActivity) => ({
+    ...popularActivity,
+    optimizedThumbnail: await prepareThumbnail(popularActivity.gallery[0]),
+  }))
+);
 
 // 実施可能天気の表示テキストを取得（配列・文字列両対応）
 const weatherDisplayText = (() => {
@@ -177,12 +166,16 @@ const ageGroupDisplayText = (() => {
             optimizedGallery.map((image, index) => (
               <div class="swiper-slide">
                 <picture class="activity-detail__picture">
-                  <source media="(min-width: 1024px)" srcset={image.srcSet} />
-                  <source media="(min-width: 744px)" srcset={image.srcSet} />
                   <img
                     src={image.url}
+                    width={image.width}
+                    height={image.height}
+                    srcset={image.srcSet}
+                    sizes="(min-width: 1024px) 41.02vw, (min-width: 744px) 41.01vw, 80.55vw"
                     alt={`${activity.title}の風景${index + 1}`}
                     class="activity-detail__image"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </picture>
               </div>
@@ -228,15 +221,16 @@ const ageGroupDisplayText = (() => {
   <section class="point" id="highlights">
     <figure class="point__figure">
       <picture class="point__picture">
-        <!-- デスクトップ（1024px以上）→ 最高解像度版 -->
-        <source media="(min-width: 1024px)" srcset={bgImage.srcSet} />
-        <!-- タブレット（744px以上）→ 中解像度版 -->
-        <source media="(min-width: 744px)" srcset={bgImage.srcSet} />
-        <!-- スマホ（744px未満）→ 最小解像度版 -->
         <img
-          class="point__image"
           src={bgImage.url}
+          width={bgImage.width}
+          height={bgImage.height}
+          srcset={bgImage.srcSet}
+          sizes="(min-width: 1024px) 91.25vw, (min-width: 744px) 89.06vw, 100vw"
           alt={`${activity.title}のポイント画像`}
+          class="point__image"
+          loading="lazy"
+          decoding="async"
         />
       </picture>
     </figure>
@@ -428,7 +422,7 @@ const ageGroupDisplayText = (() => {
       <div class="swiper-wrapper">
         {
           optimizedPopularActivities.map((popularActivity) => {
-            // microCMSの新しいフィルターフィールドを使用
+            // フィルター用フィールドを使用
             return (
               <div class="swiper-slide">
                 <a
@@ -438,18 +432,16 @@ const ageGroupDisplayText = (() => {
                   <article class="popular-activities__card">
                     <div class="popular-activities__card-image">
                       <picture class="popular-activities__picture">
-                        <source
-                          media="(min-width: 1024px)"
-                          srcset={popularActivity.optimizedThumbnail.srcSet}
-                        />
-                        <source
-                          media="(min-width: 744px)"
-                          srcset={popularActivity.optimizedThumbnail.srcSet}
-                        />
                         <img
                           src={popularActivity.optimizedThumbnail.url}
+                          width={popularActivity.optimizedThumbnail.width}
+                          height={popularActivity.optimizedThumbnail.height}
+                          srcset={popularActivity.optimizedThumbnail.srcSet}
+                          sizes="(min-width: 1024px) 19.53vw, (min-width: 744px) 23.44vw, 63.89vw"
                           alt={`${popularActivity.title}の様子`}
                           class="popular-activities__img"
+                          loading="lazy"
+                          decoding="async"
                         />
                       </picture>
                     </div>

@@ -10,7 +10,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import LowerPageHeader from '../../components/ui/LowerPageHeader.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 
-// インフォメーションデータのインポート（microCMSから取得）
+// インフォメーションデータのインポート
 import {
   getInformationPostBySlug,
   getAdjacentPosts,
@@ -29,7 +29,7 @@ export async function getStaticPaths() {
 // パラメータからスラッグを取得
 const { slug } = Astro.params;
 
-// インフォメーション記事を取得（microCMSから）
+// インフォメーション記事を取得
 const post = await getInformationPostBySlug(slug);
 
 // 記事が見つからない場合は404（通常はgetStaticPathsで防がれる）
@@ -41,9 +41,9 @@ if (!post) {
 const { prev, next } = await getAdjacentPosts(slug);
 
 // 日付をフォーマット
-const dateInfo = formatDate(post.publishedAt || post.createdAt);
-const prevDateInfo = prev ? formatDate(prev.publishedAt || prev.createdAt) : null;
-const nextDateInfo = next ? formatDate(next.publishedAt || next.createdAt) : null;
+const dateInfo = formatDate(post.publishedAt);
+const prevDateInfo = prev ? formatDate(prev.publishedAt) : null;
+const nextDateInfo = next ? formatDate(next.publishedAt) : null;
 
 // ============================================================
 // TODO: 以下の項目を必ず変更してください
@@ -60,20 +60,21 @@ const pageClass = 'main-content--blog-detail';
 
   <!-- ページヘッダー -->
   <header class="page-header-container">
-    <time class="page-header-container__date" datetime={post.publishedAt || post.createdAt}>
+    <time class="page-header-container__date" datetime={post.publishedAt}>
       <span class="page-header-container__date__year"
         >{dateInfo.year}.{dateInfo.month}</span
       >
       <span class="page-header-container__date__day">{dateInfo.day}</span>
     </time>
     <!-- お知らせ、イベント情報、ブログ記事などのカテゴリ名を入れます -->
-    <span class="page-header-container__category">{post.category[0]}</span>
+    <span class="page-header-container__category">{post.category}</span>
   </header>
 
   <!-- メインコンテンツ -->
   <article class="blog-detail">
     <div class="blog-detail__body">
-      <h2 class="blog-detail__title">{post.title}</h2>
+      {/* 記事タイトルがこのページの主題なので h1 にする */}
+      <h1 class="blog-detail__title">{post.title}</h1>
       <!-- コンテンツ -->
       <div class="blog-detail__content" set:html={post.content} />
     </div>
@@ -87,7 +88,7 @@ const pageClass = 'main-content--blog-detail';
               class="blog-detail__nav-item blog-detail__nav-item--prev"
             >
               <article class="blog-detail__nav-article">
-                <time class="blog-detail__nav-date" datetime={prev.publishedAt || prev.createdAt}>
+                <time class="blog-detail__nav-date" datetime={prev.publishedAt}>
                   <span class="blog-detail__nav-year">
                     {prevDateInfo?.year}.{prevDateInfo?.month}
                   </span>
@@ -105,7 +106,7 @@ const pageClass = 'main-content--blog-detail';
               class="blog-detail__nav-item blog-detail__nav-item--next"
             >
               <article class="blog-detail__nav-article">
-                <time class="blog-detail__nav-date" datetime={next.publishedAt || next.createdAt}>
+                <time class="blog-detail__nav-date" datetime={next.publishedAt}>
                   <span class="blog-detail__nav-year">
                     {nextDateInfo?.year}.{nextDateInfo?.month}
                   </span>
@@ -119,11 +120,11 @@ const pageClass = 'main-content--blog-detail';
       </div>
 
       <a
-        href={`/information?category=${encodeURIComponent(post.category[0])}`}
+        href={`/information?category=${encodeURIComponent(post.category)}`}
         class="blog-detail__list-link"
       >
         <span class="blog-detail__list-text"
-          >{post.category[0] === 'ブログ記事' ? 'ブログ' : post.category[0]}一覧</span
+          >{post.category === 'ブログ記事' ? 'ブログ' : post.category}一覧</span
         >
         <svg
           class="blog-detail__list-icon"

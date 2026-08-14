@@ -7,16 +7,17 @@
 
 // 必須インポート
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { prepareThumbnail } from '../../utils/image';
 import LowerPageHeader from '../../components/ui/LowerPageHeader.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 
-// インフォメーションデータのインポート（microCMSから取得）
+// インフォメーションデータのインポート
 import {
   getAllInformationPosts,
   formatDate,
 } from '../../lib/informationAPI';
 
-// microCMSから全ての記事を取得（既に日付降順でソート済み）
+// 全ての記事を取得（日付降順でソート済み）
 const informationPosts = await getAllInformationPosts();
 
 // カテゴリーの一覧を固定順序で定義（お知らせ → イベント情報 → ブログ記事）
@@ -24,7 +25,15 @@ const categories = ['お知らせ', 'イベント情報', 'ブログ記事'];
 
 // 全ての記事を日付の新しい順にソート
 const sortedPosts = [...informationPosts].sort(
-  (a, b) => new Date(b.publishedAt || b.createdAt).getTime() - new Date(a.publishedAt || a.createdAt).getTime()
+  (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+);
+
+// サムネイルは ImageMetadata なので、ビルド時にWebP化して srcset を作る
+const listItems = await Promise.all(
+  sortedPosts.map(async (post) => ({
+    post,
+    thumb: post.thumbnail ? await prepareThumbnail(post.thumbnail) : null,
+  }))
 );
 
 // ============================================================
@@ -67,32 +76,38 @@ const pageClass = 'main-content--information';
 
       <div class="information-list__items">
         {
-          sortedPosts.map((post) => {
-            const dateInfo = formatDate(post.publishedAt || post.createdAt);
+          listItems.map(({ post, thumb }) => {
+            const dateInfo = formatDate(post.publishedAt);
 
             // ブログカテゴリーの場合は別のHTML構造を使用
-            if (post.category[0] === 'ブログ記事') {
-              const thumbnailUrl = post.thumbnail?.url || '/images/default-thumbnail.jpg';
-
+            if (post.category === 'ブログ記事') {
               return (
                 <article
                   class="information-list__blog-item"
-                  data-category={post.category[0]}
+                  data-category={post.category}
                 >
                   <a
                     href={`/information/${post.slug}`}
                     class="information-list__blog-link"
                   >
                     <figure class="information-list__blog-image">
-                      <img
-                        class="information-list__blog-img"
-                        src={thumbnailUrl}
-                        alt={post.title}
-                      />
+                      {thumb && (
+                        <img
+                          class="information-list__blog-img"
+                          src={thumb.url}
+                          srcset={thumb.srcSet}
+                          sizes="(min-width: 1024px) 19.53vw, (min-width: 744px) 23.44vw, 69.44vw"
+                          width={thumb.width}
+                          height={thumb.height}
+                          alt={post.title}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      )}
                       <figcaption class="information-list__blog-date">
                         <time
                           class="information-list__blog-time"
-                          datetime={post.publishedAt || post.createdAt}
+                          datetime={post.publishedAt}
                         >
                           <span class="information-list__blog-year-month">
                             {dateInfo.year}.{dateInfo.month}
@@ -113,14 +128,14 @@ const pageClass = 'main-content--information';
             return (
               <article
                 class="information-list__item"
-                data-category={post.category[0]}
+                data-category={post.category}
               >
                 <a
                   href={`/information/${post.slug}`}
                   class="information-list__link"
                 >
                   <div class="information-list__content">
-                    <time class="information-list__date" datetime={post.publishedAt || post.createdAt}>
+                    <time class="information-list__date" datetime={post.publishedAt}>
                       <span class="information-list__date-month">
                         {dateInfo.year}.{dateInfo.month}
                       </span>
@@ -130,7 +145,7 @@ const pageClass = 'main-content--information';
                     </time>
                     <div class="information-list__text">
                       <span class="information-list__category">
-                        {post.category[0]}
+                        {post.category}
                       </span>
                       <h3 class="information-list__title">{post.title}</h3>
                     </div>
@@ -140,6 +155,11 @@ const pageClass = 'main-content--information';
             );
           })
         }
+        {listItems.length === 0 && (
+          <p class="information-list__empty">
+            現在、掲載中の記事はありません。
+          </p>
+        )}
       </div>
     </div>
   </section>
@@ -272,6 +292,23 @@ const pageClass = 'main-content--information';
         font-size: ppx(33);
         line-height: ppx(33); /* 100% */
         letter-spacing: ppx(1.65);
+      }
+    }
+
+    // 記事が1件も無いときの案内。運用開始まではここが表示される
+    &__empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--blue_5, #026995);
+      font-size: spx(28);
+      padding: spx(80) 0;
+      @include tablet-up {
+        font-size: ppx(30 * 1.2);
+        padding: ppx(120 * 1.2) 0;
+      }
+      @include desktop-up {
+        font-size: ppx(30);
+        padding: ppx(120) 0;
       }
     }
 

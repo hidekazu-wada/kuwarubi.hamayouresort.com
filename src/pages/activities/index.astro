@@ -7,10 +7,10 @@ import ActivityFilters from '../../components/pages/activities/ActivityFilters.a
 import LowerPageHeader from '../../components/ui/LowerPageHeader.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { getAllActivities } from '../../lib/activitiesAPI';
-import { optimizeMicroCMSImage, generateSrcSet } from '../../utils/image';
+import { prepareThumbnail } from '../../utils/image';
 import type { FilterOption } from '../../components/pages/activities/ActivityFilters.astro';
 
-// microCMSからアクティビティデータを取得
+// アクティビティデータを取得
 const activities = await getAllActivities();
 
 // フィルタオプション生成関数（3つのカテゴリに絞り込み）
@@ -99,17 +99,12 @@ function generateFilterOptions() {
 const filterOptions = generateFilterOptions();
 
 // 各アクティビティのサムネイル画像を最適化（gallery[0]を使用）
-const optimizedActivities = activities.map((activity) => ({
-  ...activity,
-  optimizedThumbnail: {
-    url: optimizeMicroCMSImage(activity.gallery[0].url, {
-      width: 500,
-      format: 'webp',
-      quality: 80,
-    }),
-    srcSet: generateSrcSet(activity.gallery[0].url, [460, 480, 500]),
-  },
-}));
+const optimizedActivities = await Promise.all(
+  activities.map(async (activity) => ({
+    ...activity,
+    optimizedThumbnail: await prepareThumbnail(activity.gallery[0]),
+  }))
+);
 ---
 
 <BaseLayout pageTitle="アクティビティ" pageClass="main-content--activities">
@@ -141,18 +136,16 @@ const optimizedActivities = activities.map((activity) => ({
             >
               <div class="activity-card__image">
                 <picture class="activity-card__picture">
-                  <source
-                    media="(min-width: 1024px)"
-                    srcset={activity.optimizedThumbnail.srcSet}
-                  />
-                  <source
-                    media="(min-width: 744px)"
-                    srcset={activity.optimizedThumbnail.srcSet}
-                  />
                   <img
                     src={activity.optimizedThumbnail.url}
+                    width={activity.optimizedThumbnail.width}
+                    height={activity.optimizedThumbnail.height}
+                    srcset={activity.optimizedThumbnail.srcSet}
+                    sizes="(min-width: 1024px) 19.53vw, (min-width: 744px) 23.44vw, 80vw"
                     alt={`${activity.title}の様子`}
                     class="activity-card__img"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </picture>
               </div>
@@ -315,7 +308,7 @@ const optimizedActivities = activities.map((activity) => ({
         | null;
     }
 
-    // microCMSからデータを動的に取得（グローバル変数経由）
+    // アクティビティデータを取得（グローバル変数経由）
     let activitiesData: Activity[];
     try {
       activitiesData = (window as any).activitiesData;
