@@ -88,10 +88,26 @@ function generateFilterOptions() {
       label: weather,
     }));
 
+  // カテゴリの選択肢を生成
+  // 表示順は既存カテゴリ → 団体プログラムの順。データに無いものは出さないので、
+  // 団体プログラムは11件を公開した時点で自動的に現れる。
+  const CATEGORY_ORDER = ['LAKE SAIKO', 'JUKAI', 'IN DOOR', 'GROUP'];
+  const CATEGORY_LABEL: Record<string, string> = { GROUP: '団体プログラム' };
+  const categorySet = new Set(activities.map((a) => a.category).filter(Boolean));
+  const categoryOptions: FilterOption[] = [
+    ...CATEGORY_ORDER.filter((c) => categorySet.has(c)),
+    // 想定外のカテゴリが増えても取りこぼさない
+    ...[...categorySet].filter((c) => !CATEGORY_ORDER.includes(c)).sort(),
+  ].map((category) => ({
+    value: category,
+    label: CATEGORY_LABEL[category] ?? category,
+  }));
+
   return {
     priceOptions,
     durationOptions,
     weatherOptions,
+    categoryOptions,
   };
 }
 
@@ -99,10 +115,13 @@ function generateFilterOptions() {
 const filterOptions = generateFilterOptions();
 
 // 各アクティビティのサムネイル画像を最適化（gallery[0]を使用）
+// 写真が未入稿のまま公開に切り替えても落ちないよう、画像は任意扱いにする
 const optimizedActivities = await Promise.all(
   activities.map(async (activity) => ({
     ...activity,
-    optimizedThumbnail: await prepareThumbnail(activity.gallery[0]),
+    optimizedThumbnail: activity.gallery[0]
+      ? await prepareThumbnail(activity.gallery[0])
+      : null,
   }))
 );
 ---
@@ -119,6 +138,7 @@ const optimizedActivities = await Promise.all(
         priceOptions={filterOptions.priceOptions}
         durationOptions={filterOptions.durationOptions}
         weatherOptions={filterOptions.weatherOptions}
+        categoryOptions={filterOptions.categoryOptions}
       />
     </div>
     <button class="filter-section__reset"> リセットする </button>
@@ -135,19 +155,23 @@ const optimizedActivities = await Promise.all(
               class="activity-card__link"
             >
               <div class="activity-card__image">
-                <picture class="activity-card__picture">
-                  <img
-                    src={activity.optimizedThumbnail.url}
-                    width={activity.optimizedThumbnail.width}
-                    height={activity.optimizedThumbnail.height}
-                    srcset={activity.optimizedThumbnail.srcSet}
-                    sizes="(min-width: 1024px) 19.53vw, (min-width: 744px) 23.44vw, 80vw"
-                    alt={`${activity.title}の様子`}
-                    class="activity-card__img"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
+                {activity.optimizedThumbnail ? (
+                  <picture class="activity-card__picture">
+                    <img
+                      src={activity.optimizedThumbnail.url}
+                      width={activity.optimizedThumbnail.width}
+                      height={activity.optimizedThumbnail.height}
+                      srcset={activity.optimizedThumbnail.srcSet}
+                      sizes="(min-width: 1024px) 19.53vw, (min-width: 744px) 23.44vw, 80vw"
+                      alt={`${activity.title}の様子`}
+                      class="activity-card__img"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
+                ) : (
+                  <div class="activity-card__img activity-card__img--placeholder" />
+                )}
               </div>
               <div class="activity-card__title">
                 <h3 class="activity-card__name">
@@ -177,38 +201,20 @@ const optimizedActivities = await Promise.all(
             <div class="activity-card__info">
               <div class="activity-card__pricing">
                 <div class="activity-card__badges">
-                  {activity.badges &&
-                    activity.badges.length > 0 &&
-                    (() => {
-                      // badges[0].badgeが配列の場合と文字列の場合の両方に対応
-                      const badgeValues = activity.badges[0]?.badge;
-                      const badgeArray = Array.isArray(badgeValues)
-                        ? badgeValues
-                        : [badgeValues];
-
-                      // 各バッジを個別に表示（2文字ずつ改行）
-                      return badgeArray
-                        .filter((badge) => badge) // 空の値を除外
-                        .map((badgeText) => {
-                          // 4文字のバッジを2文字ずつに分割
-                          const firstTwo = badgeText.slice(0, 2);
-                          const lastTwo = badgeText.slice(2);
-
-                          return (
-                            <div class="activity-card__badge-group">
-                              <span class="activity-card__badge">
-                                {firstTwo}
-                                {lastTwo && (
-                                  <>
-                                    <br />
-                                    {lastTwo}
-                                  </>
-                                )}
-                              </span>
-                            </div>
-                          );
-                        });
-                    })()}
+                  {/* badges は文字列の配列。4文字のものは2文字ずつ改行して出す */}
+                  {activity.badges.map((badgeText) => (
+                    <div class="activity-card__badge-group">
+                      <span class="activity-card__badge">
+                        {badgeText.slice(0, 2)}
+                        {badgeText.slice(2) && (
+                          <>
+                            <br />
+                            {badgeText.slice(2)}
+                          </>
+                        )}
+                      </span>
+                    </div>
+                  ))}
                 </div>
                 <div class="activity-card__price">
                   ¥{activity.basePrice.toLocaleString()}〜
@@ -283,6 +289,7 @@ const optimizedActivities = await Promise.all(
     interface Activity {
       slug: string;
       title: string;
+      category: string;
       basePrice: number;
       filterDurationHours: number | null;
       filterWeather:
@@ -320,7 +327,7 @@ const optimizedActivities = await Promise.all(
       return;
     }
 
-    // フィルタ要素の取得（3つのカテゴリのみ）
+    // フィルタ要素の取得
     const filterSelects = {
       price: document.querySelector(
         'select[name="price"]'
@@ -330,6 +337,9 @@ const optimizedActivities = await Promise.all(
       ) as HTMLSelectElement,
       weather: document.querySelector(
         'select[name="weather"]'
+      ) as HTMLSelectElement,
+      category: document.querySelector(
+        'select[name="category"]'
       ) as HTMLSelectElement,
     };
 
@@ -433,13 +443,15 @@ const optimizedActivities = await Promise.all(
         price: filterSelects.price?.value || '',
         duration: filterSelects.duration?.value || '',
         weather: filterSelects.weather?.value || '',
+        category: filterSelects.category?.value || '',
       };
 
-      // 各フィルターの利用可能な値を収集（3つのカテゴリのみ）
+      // 各フィルターの利用可能な値を収集
       const availableValues: Record<string, Set<string>> = {
         price: new Set(),
         duration: new Set(),
         weather: new Set(),
+        category: new Set(),
       };
 
       // アクティビティデータから現在の選択条件に合致するものを抽出
@@ -472,9 +484,16 @@ const optimizedActivities = await Promise.all(
             matchesCurrentFilters = false;
           }
         }
+        if (currentFilters.category) {
+          if (activity.category !== currentFilters.category) {
+            matchesCurrentFilters = false;
+          }
+        }
 
         // 条件に合致する場合、このアクティビティの選択肢をすべて追加
         if (matchesCurrentFilters) {
+          // カテゴリの選択肢を追加
+          if (activity.category) availableValues.category.add(activity.category);
           // 料金の選択肢を追加
           const price = activity.basePrice;
           if (price >= 500 && price < 1000)
@@ -557,12 +576,13 @@ const optimizedActivities = await Promise.all(
       });
     }
 
-    // フィルタリング関数（3つのカテゴリのみ）
+    // フィルタリング関数
     function filterActivities() {
       const filters = {
         price: filterSelects.price?.value || '',
         duration: filterSelects.duration?.value || '',
         weather: filterSelects.weather?.value || '',
+        category: filterSelects.category?.value || '',
       };
 
       let visibleCount = 0;
@@ -594,6 +614,10 @@ const optimizedActivities = await Promise.all(
           isVisible =
             isVisible &&
             matchesWeatherFilter(activity.filterWeather, filters.weather);
+        }
+
+        if (filters.category) {
+          isVisible = isVisible && activity.category === filters.category;
         }
 
         // カードの表示/非表示
@@ -884,6 +908,11 @@ const optimizedActivities = await Promise.all(
           border-radius: ppx(20);
         }
       }
+    }
+
+    // 写真未入稿のときの箱。カードの高さが変わらないよう同じ寸法を保つ
+    &__img--placeholder {
+      background: var(--blue_2, #e7f3f9);
     }
 
     &__img {

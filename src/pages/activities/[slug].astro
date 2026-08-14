@@ -43,13 +43,18 @@ const optimizedGallery = await Promise.all(
 );
 
 // 現在のアクティビティのポイント背景画像
-const bgImage = await preparePointBackground(activity.pointBackgroundImage);
+// 写真が未入稿のまま公開に切り替えても落ちないよう、画像は任意扱いにする
+const bgImage = activity.pointBackgroundImage
+  ? await preparePointBackground(activity.pointBackgroundImage)
+  : null;
 
 // 人気アクティビティの画像最適化（gallery[0]をサムネイルとして使用）
 const optimizedPopularActivities = await Promise.all(
   popularActivities.map(async (popularActivity) => ({
     ...popularActivity,
-    optimizedThumbnail: await prepareThumbnail(popularActivity.gallery[0]),
+    optimizedThumbnail: popularActivity.gallery[0]
+      ? await prepareThumbnail(popularActivity.gallery[0])
+      : null,
   }))
 );
 
@@ -85,11 +90,8 @@ const extractBadges = () => {
     return { reservationMethods: [], targetAudiences: [] };
   }
 
-  // badges[0].badgeが配列の場合と文字列の場合の両方に対応
-  const badgeValues = activity.badges[0]?.badge;
-
-  // 配列の場合はそのまま、文字列の場合は配列に変換
-  const badgeArray = Array.isArray(badgeValues) ? badgeValues : [badgeValues];
+  // badges は文字列の配列
+  const badgeArray = activity.badges;
 
   // 予約方法を全て抽出（複数対応）
   const reservationMethods = badgeArray.filter(
@@ -159,6 +161,7 @@ const ageGroupDisplayText = (() => {
       </h1>
     </header>
 
+    {optimizedGallery.length > 0 && (
     <section class="activity-detail__gallery">
       <div class="activities-detail__swiper">
         <div class="swiper-wrapper">
@@ -186,6 +189,7 @@ const ageGroupDisplayText = (() => {
         <div class="swiper-pagination activity-detail__pager"></div>
       </div>
     </section>
+    )}
 
     <section class="activity-detail__intro">
       <h2 class="activity-detail__intro-title js-fade-in-up">
@@ -220,6 +224,7 @@ const ageGroupDisplayText = (() => {
   </article>
   <section class="point" id="highlights">
     <figure class="point__figure">
+      {bgImage && (
       <picture class="point__picture">
         <img
           src={bgImage.url}
@@ -233,6 +238,7 @@ const ageGroupDisplayText = (() => {
           decoding="async"
         />
       </picture>
+      )}
     </figure>
     <article class="point__content">
       <header class="point__header">
@@ -431,19 +437,21 @@ const ageGroupDisplayText = (() => {
                 >
                   <article class="popular-activities__card">
                     <div class="popular-activities__card-image">
-                      <picture class="popular-activities__picture">
-                        <img
-                          src={popularActivity.optimizedThumbnail.url}
-                          width={popularActivity.optimizedThumbnail.width}
-                          height={popularActivity.optimizedThumbnail.height}
-                          srcset={popularActivity.optimizedThumbnail.srcSet}
-                          sizes="(min-width: 1024px) 19.53vw, (min-width: 744px) 23.44vw, 63.89vw"
-                          alt={`${popularActivity.title}の様子`}
-                          class="popular-activities__img"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </picture>
+                      {popularActivity.optimizedThumbnail && (
+                        <picture class="popular-activities__picture">
+                          <img
+                            src={popularActivity.optimizedThumbnail.url}
+                            width={popularActivity.optimizedThumbnail.width}
+                            height={popularActivity.optimizedThumbnail.height}
+                            srcset={popularActivity.optimizedThumbnail.srcSet}
+                            sizes="(min-width: 1024px) 19.53vw, (min-width: 744px) 23.44vw, 63.89vw"
+                            alt={`${popularActivity.title}の様子`}
+                            class="popular-activities__img"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </picture>
+                      )}
                     </div>
                     <div class="popular-activities__card-title">
                       <h3 class="popular-activities__activity-name">
@@ -478,37 +486,20 @@ const ageGroupDisplayText = (() => {
                 <div class="popular-activities__card-info">
                   <div class="popular-activities__pricing">
                     <div class="popular-activities__badges">
-                      {popularActivity.badges &&
-                        popularActivity.badges.length > 0 &&
-                        (() => {
-                          // badges[0].badgeが配列か文字列かを判定して処理
-                          const badgeValues = popularActivity.badges[0]?.badge;
-                          const badgeArray = Array.isArray(badgeValues)
-                            ? badgeValues
-                            : [badgeValues];
-
-                          return badgeArray
-                            .filter((badge) => badge)
-                            .map((badgeText) => {
-                              // 2文字ずつ改行するロジック
-                              const firstTwo = badgeText.slice(0, 2);
-                              const lastTwo = badgeText.slice(2);
-
-                              return (
-                                <div class="popular-activities__badge-group">
-                                  <span class="popular-activities__badge">
-                                    {firstTwo}
-                                    {lastTwo && (
-                                      <>
-                                        <br />
-                                        {lastTwo}
-                                      </>
-                                    )}
-                                  </span>
-                                </div>
-                              );
-                            });
-                        })()}
+                      {/* badges は文字列の配列 */}
+                      {popularActivity.badges.map((badgeText) => (
+                        <div class="popular-activities__badge-group">
+                          <span class="popular-activities__badge">
+                            {badgeText.slice(0, 2)}
+                            {badgeText.slice(2) && (
+                              <>
+                                <br />
+                                {badgeText.slice(2)}
+                              </>
+                            )}
+                          </span>
+                        </div>
+                      ))}
                     </div>
                     <div class="popular-activities__price">
                       ¥{popularActivity.basePrice.toLocaleString()}〜
