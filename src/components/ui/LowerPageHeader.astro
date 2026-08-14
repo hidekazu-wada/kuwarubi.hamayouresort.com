@@ -2,18 +2,23 @@
 // LowerPageHeader.astro - 下層ページヘッダーコンポーネント
 
 export interface Props {
-  titleEn: string;    // 英語タイトル
-  titleJa: string;    // 日本語タイトル
+  titleEn: string; // 英語タイトル
+  titleJa: string; // 日本語タイトル
+  // 通常はこのヘッダーがページ唯一の h1 になる。
+  // ページ側に固有の見出し（記事タイトルやプラン名）があってそちらを h1 にしたい場合だけ
+  // 'p' を渡す。h1 が2つあるとページの主題が曖昧になるため。
+  as?: 'h1' | 'p';
 }
 
-const { titleEn, titleJa } = Astro.props;
+const { titleEn, titleJa, as: Heading = 'h1' } = Astro.props;
 ---
 
 <header class="lower-page-header">
-  <div class="lower-page-header__title-group">
-    <h2 class="lower-page-header__title-en">{titleEn}</h2>
-    <p class="lower-page-header__title-ja">{titleJa}</p>
-  </div>
+  {/* 英語と日本語の両方を見出しの中に入れて、検索側に日本語のページ名を届ける */}
+  <Heading class="lower-page-header__title-group">
+    <span class="lower-page-header__title-en">{titleEn}</span>
+    <span class="lower-page-header__title-ja">{titleJa}</span>
+  </Heading>
 </header>
 
 <style lang="scss">
@@ -36,6 +41,8 @@ const { titleEn, titleJa } = Astro.props;
     }
 
     &__title-en {
+      // 元は h2 / p（ブロック要素）。h1 の中の span にしたので明示的に block にする
+      display: block;
       color: var(--blue_5, #026995);
       text-align: center;
       font-family: 'Zen Kaku Gothic New';
@@ -85,6 +92,8 @@ const { titleEn, titleJa } = Astro.props;
     }
 
     &__title-ja {
+      // 元は h2 / p（ブロック要素）。h1 の中の span にしたので明示的に block にする
+      display: block;
       color: var(--blue_5, #026995);
       text-align: center;
       font-family: 'Zen Kaku Gothic New';

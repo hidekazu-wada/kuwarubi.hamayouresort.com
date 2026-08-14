@@ -1,64 +1,131 @@
 ---
+// スタイル・コンポーネントのインポート
+// （import.meta.env より前に置くこと。逆順だと Astro のコンパイルが通らない）
+import '../styles/main.scss';
+import logo from '../assets/images/loading-logo.svg';
+import BottomBar from '../components/BottomBar.astro';
+import MenuOverlay from '../components/MenuOverlay.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Footer from '../components/Footer.astro';
+import BookingModal from '../components/Booking-modal.astro';
+
 // Props定義
 export interface Props {
   pageTitle: string; // ページ固有のタイトル部分
-  ogImage?: string;
+  description?: string; // ページ固有のディスクリプション（未指定なら共通文）
+  ogImage?: string; // OGP画像のパス（サイトルートからの絶対パス）
+  ogType?: 'website' | 'article'; // 記事ページは 'article'
+  noindex?: boolean; // このページだけ検索避けしたいとき
   pageClass?: string; // ページ固有のクラス名
 }
 
 // Propsを受け取る
 const {
   pageTitle,
-  ogImage = '/default-og-image.jpg',
+  description,
+  ogImage = '/ogp.jpg',
+  ogType = 'website',
+  noindex = false,
   pageClass = '',
 } = Astro.props;
 
 // サイト名の定数
 const SITE_NAME = '光風閣くわるび | 大自然に触れ合いながら学べる大型宿泊施設';
 
-// 統一ディスクリプション
+// 統一ディスクリプション（ページ側で description を渡さなかったときのフォールバック）
 const SITE_DESCRIPTION =
   '富士山の麓にある富士河口湖町西湖の大自然で学ぶ！山と湖に囲まれた環境で自然と触れ合いながら成長できる大型宿泊施設。豊富なアクティビティと充実した設備で、忘れられない体験をご提供します。学生研修旅行・企業研修・ワーケーションに最適です。';
+
+const pageDescription = description ?? SITE_DESCRIPTION;
 
 // 完全なタイトルを生成
 const fullTitle = pageTitle ? `${pageTitle} | ${SITE_NAME}` : SITE_NAME;
 
+// canonical / og:url / og:image は絶対URLにする必要がある。
+// Astro.site は astro.config.mjs の site から来る。
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(ogImage, Astro.site);
+
+// 3サイト同時リニューアルまで検索避けを維持する。
+// 公開当日に PUBLIC_ALLOW_INDEXING=true を設定すればサイト全体が公開される。
+const allowIndexing = import.meta.env.PUBLIC_ALLOW_INDEXING === 'true';
+const robotsContent = !allowIndexing || noindex ? 'noindex, nofollow' : 'index, follow';
+
+// 宿泊施設の構造化データ。検索結果に地図・電話・チェックイン時刻を出すために使う。
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'LodgingBusiness',
+  name: 'ホテル光風閣くわるび',
+  description: SITE_DESCRIPTION,
+  url: Astro.site?.toString(),
+  telephone: '+81-555-82-2922',
+  address: {
+    '@type': 'PostalAddress',
+    postalCode: '401-0332',
+    addressCountry: 'JP',
+    addressRegion: '山梨県',
+    addressLocality: '南都留郡富士河口湖町',
+    streetAddress: '西湖1023',
+  },
+  parentOrganization: {
+    '@type': 'Organization',
+    name: '株式会社HAMAYOUリゾート',
+  },
+  sameAs: [
+    'https://www.instagram.com/hamayouresort/',
+    'https://x.com/hamayouresort',
+    'https://www.facebook.com/hamayouresort',
+  ],
+};
+
 // メインSCSSファイルをインポート
-import '../styles/main.scss';
 
 // 画像
-import logo from '../assets/images/loading-logo.svg';
 
 // 共通コンポーネントをインポート
-import BottomBar from '../components/BottomBar.astro';
-import MenuOverlay from '../components/MenuOverlay.astro';
-import Sidebar from '../components/Sidebar.astro';
-import Footer from '../components/Footer.astro';
-import BookingModal from '../components/Booking-modal.astro';
 ---
 
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- initial-scale が無いと iOS Safari が自動ズームアウトして横ずれの原因になる -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Chromeモバイルが電話番号や住所を勝手にリンク化するのを抑える -->
+    <meta name="format-detection" content="telephone=no" />
     <meta name="generator" content={Astro.generator} />
     <title>{fullTitle}</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content={SITE_DESCRIPTION} />
+    <meta name="description" content={pageDescription} />
     <meta
       name="keywords"
       content="大型宿泊施設,学生研修旅行,企業研修,ワーケーション,自然体験,山梨県,河口湖町,西湖,富士山"
     />
-
-    <!-- Noindex for development -->
-    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content={robotsContent} />
 
     <!-- OG Tags -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="光風閣くわるび" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={fullTitle} />
-    <meta property="og:description" content={SITE_DESCRIPTION} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={ogImageURL} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- 構造化データ（宿泊施設） -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
+    ></script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

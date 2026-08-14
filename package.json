@@ -9,9 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "astro": "^5.12.8",
     "gsap": "^3.13.0",
-    "microcms-js-sdk": "^3.2.0",
     "sass": "^1.89.2",
     "swiper": "^11.2.10"
   },

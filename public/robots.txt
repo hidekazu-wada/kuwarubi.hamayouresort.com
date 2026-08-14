@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kuwarubi.hamayouresort.com/sitemap-index.xml
