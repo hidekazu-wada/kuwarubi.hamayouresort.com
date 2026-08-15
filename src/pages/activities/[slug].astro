@@ -1996,6 +1996,9 @@ const ageGroupDisplayText = (() => {
       height: spx(460.8);
       flex-shrink: 0;
       aspect-ratio: 1/1;
+      // 指定が無いと既定の fill になり、4:3 の写真が 1:1 の枠で横に潰れる。
+      // 一覧ページのカード（activity-card__img）と同じ cover に揃える。
+      object-fit: cover;
       border-radius: spx(20);
       @include tablet-up {
         width: ppx($card-width-tpx);
