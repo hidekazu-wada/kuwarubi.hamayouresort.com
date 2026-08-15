@@ -86,11 +86,6 @@ import fn_day2_slide05 from '../assets/images/enjoy/family-nature/day2/slide-05.
 import fn_day2_slide06 from '../assets/images/enjoy/family-nature/day2/slide-06.jpg';
 import fn_day2_slide07 from '../assets/images/enjoy/family-nature/day2/slide-07.jpg';
 
-import fn_day3_slide01 from '../assets/images/enjoy/family-nature/day3/slide-01.jpg';
-import fn_day3_slide02 from '../assets/images/enjoy/family-nature/day3/slide-02.jpg';
-import fn_day3_slide03 from '../assets/images/enjoy/family-nature/day3/slide-03.jpg';
-import fn_day3_slide04 from '../assets/images/enjoy/family-nature/day3/slide-04.jpg';
-import fn_day3_slide05 from '../assets/images/enjoy/family-nature/day3/slide-05.jpg';
 
 // 2. カップル夫婦で自然体験をしたい方（Couples）
 import couples_hero from '../assets/images/enjoy/couples/hero.jpg';
@@ -210,7 +205,7 @@ export const familyNaturePlan: StayPlan = {
           thumbnailTitle: 'チェックイン',
           detailTitle: 'チェックイン',
           description:
-            '静謐な西湖の湖畔に佇むホテルへ、木々のざわめきが出迎えてくれます。チェックインカウンターでは、清々しい山の空気と共に、穏やかなスタッフの笑顔がお待ちしています。',
+            '西湖の森に囲まれたフロントで手続きを済ませます。窓の外はもう、いつもと違う景色です。',
           image: { src: fn_day1_slide01, alt: 'チェックインカウンターの様子' },
         },
         {
@@ -218,47 +213,47 @@ export const familyNaturePlan: StayPlan = {
           thumbnailTitle: '周辺散歩',
           detailTitle: '周辺散歩',
           description:
-            '家族でゆっくりと湖畔を散策。子どもたちは自然の音や香りを感じながら、新しい発見を楽しめます。',
+            '荷物を置いたら、まずは湖畔へ。宿から歩いてすぐの場所に、西湖の水面が広がっています。',
           image: { src: fn_day1_slide02, alt: '西湖湖畔の散歩道' },
         },
         {
-          time: '16:00',
-          thumbnailTitle: '森のサウナ',
-          detailTitle: '森のサウナ',
+          time: '16:30',
+          thumbnailTitle: '湖畔で水遊び',
+          detailTitle: '湖畔で水遊び',
           description:
-            '家族で楽しめる森のサウナ体験。自然の中でリラックスしながら、家族の時間を過ごします。',
-          image: { src: fn_day1_slide03, alt: '森のサウナ施設' },
+            '西湖の水は驚くほど澄んでいます。石を投げたり、足だけ浸かったり。子どもは放っておいても遊び方を見つけます。',
+          image: { src: fn_day1_slide03, alt: '湖畔で遊ぶ子どもたち' },
         },
         {
           time: '18:00',
           thumbnailTitle: '夕　食',
           detailTitle: '夕　食',
           description:
-            '地元の新鮮な食材を使った家族向けの夕食。子どもたちも喜ぶメニューをご用意しています。',
+            '地の食材を使った夕食を、家族そろって囲みます。歩いたあとの食事は格別です。',
           image: { src: fn_day1_slide04, alt: '夕食の料理' },
         },
         {
-          time: '19:00',
+          time: '19:30',
           thumbnailTitle: '入　浴',
           detailTitle: '入　浴',
           description:
-            '家族で温泉を楽しみます。露天風呂から見える自然の景色を家族みんなで眺めながら、ゆったりとした時間を過ごします。',
+            '西湖で唯一の天然自家源泉。千年をかけて湧き出た湯が、一日の疲れをほどきます。',
           image: { src: fn_day1_slide05, alt: '露天風呂' },
         },
         {
           time: '20:30',
-          thumbnailTitle: 'ナイトハイク',
-          detailTitle: 'ナイトハイク',
+          thumbnailTitle: '星空を見上げる',
+          detailTitle: '星空を見上げる',
           description:
-            '家族で星空観察。子どもたちにとっては初めての体験となる、満天の星空を楽しみます。',
-          image: { src: fn_day1_slide06, alt: '星空観察の様子' },
+            '灯りの少ない西湖の夜。宿の前に出るだけで、都会では見えない数の星が見えます。',
+          image: { src: fn_day1_slide06, alt: '西湖の星空' },
         },
         {
           time: '22:00',
           thumbnailTitle: '就　寝',
           detailTitle: '就　寝',
           description:
-            '自然の音を聞きながら、家族みんなでゆっくりと休みます。明日への期待を胸に、心地よい眠りにつきます。',
+            '静かな夜の中で、深い眠りにつきます。',
           image: { src: fn_day1_slide07, alt: '客室の様子' },
         },
       ],
@@ -269,40 +264,44 @@ export const familyNaturePlan: StayPlan = {
       planId: 'family-nature',
       items: [
         {
-          time: '7:00',
+          time: '6:30',
+          thumbnailTitle: '早朝の大浴場',
+          detailTitle: '早朝の大浴場',
+          description:
+            '朝5時から入れる大浴場へ。人の少ない時間に、源泉の湯をゆっくり味わいます。',
+          image: { src: fn_day2_slide01, alt: '早朝の大浴場' },
+        },
+        {
+          time: '7:30',
           thumbnailTitle: '朝　食',
           detailTitle: '朝　食',
           description:
-            '富士山を眺めながらの朝食。家族みんなで一日の始まりを迎えます。',
-          image: { src: fn_day2_slide01, alt: '朝食バイキングの様子' },
+            'ブッフェスタイルの朝食。よく寝てよく歩いた翌朝は、いつもより食が進みます。',
+          image: { src: fn_day2_slide02, alt: '朝食バイキングの様子' },
         },
         {
-          time: '8:30',
-          thumbnailTitle: 'カヌー体験',
-          detailTitle: 'カヌー体験',
-          description:
-            '家族でカヌー体験。湖上から見る富士山は格別で、子どもたちも大喜びです。',
-          image: { src: fn_day2_slide02, alt: '西湖でのカヌー体験' },
-          link: {
-            url: '/activities/canoe',
-            text: 'カヌー体験の詳細を見る',
-          },
-        },
-        {
-          time: '10:00',
-          thumbnailTitle: 'クラフト体験',
-          detailTitle: 'クラフト体験',
-          description:
-            '自然素材を使ったクラフト体験。家族で協力して、思い出の作品を作ります。',
-          image: { src: fn_day2_slide03, alt: 'クラフト体験の様子' },
-        },
-        {
-          time: '11:30',
+          time: '9:30',
           thumbnailTitle: 'チェックアウト',
           detailTitle: 'チェックアウト',
           description:
-            '楽しい時間もあっという間。家族みんなで素敵な思い出を持って帰路につきます。',
-          image: { src: fn_day2_slide04, alt: 'チェックアウトカウンター' },
+            '部屋を空けて、荷物はフロントへ預けます。ここからは身軽に過ごせます。',
+          image: { src: fn_day2_slide03, alt: 'チェックアウトカウンター' },
+        },
+        {
+          time: '10:00',
+          thumbnailTitle: 'カヤック体験',
+          detailTitle: 'カヤック体験',
+          description:
+            '湖に漕ぎ出します。朝の西湖は風がなく、水面が鏡のようになります。',
+          image: { src: fn_day2_slide04, alt: '西湖でのカヤック体験' },
+        },
+        {
+          time: '12:00',
+          thumbnailTitle: '出　発',
+          detailTitle: '出　発',
+          description:
+            '湖と森で過ごした二日間。子どもの記憶に残るのは、たぶん転んだことや濡れたことです。',
+          image: { src: fn_day2_slide05, alt: '西湖湖畔の風景' },
         },
       ],
     },
@@ -349,7 +348,7 @@ export const couplesPlan: StayPlan = {
           thumbnailTitle: 'チェックイン',
           detailTitle: 'チェックイン',
           description:
-            '二人だけの特別な時間の始まり。静寂な湖畔で、心温まるおもてなしをお迎えします。',
+            '静かなフロントで手続きを済ませます。ここから二人だけの時間が始まります。',
           image: { src: cp_day1_slide01, alt: 'チェックインカウンターの様子' },
         },
         {
@@ -357,46 +356,47 @@ export const couplesPlan: StayPlan = {
           thumbnailTitle: '湖畔散策',
           detailTitle: '湖畔散策',
           description:
-            '二人でゆっくりと湖畔を散策。手を繋いで歩く時間は、日常では味わえない特別な時間です。',
+            '宿から歩いてすぐの湖畔へ。人の少ない西湖は、話す声が自然と小さくなります。',
           image: { src: cp_day1_slide02, alt: '湖畔での散策' },
         },
         {
-          time: '16:00',
+          time: '16:30',
           thumbnailTitle: 'プライベートサウナ',
           detailTitle: 'プライベートサウナ',
           description:
-            '二人だけのプライベートサウナ体験。静寂の中で、心も体もリラックスできます。',
+            '森の中に建つ薪サウナ小屋。貸切なので、二人のペースで整えられます。',
           image: { src: cp_day1_slide03, alt: 'プライベートサウナ' },
         },
         {
           time: '18:00',
-          thumbnailTitle: 'ロマンチックディナー',
-          detailTitle: 'ロマンチックディナー',
+          thumbnailTitle: '夕　食',
+          detailTitle: '夕　食',
           description:
-            '富士山を眺めながらの特別なディナー。地元の食材を使った上質な料理をお楽しみください。',
-          image: { src: cp_day1_slide04, alt: 'ロマンチックディナー' },
+            '地の食材を使った夕食を、静かな席で。急がずに、ゆっくりと味わう時間です。',
+          image: { src: cp_day1_slide04, alt: '夕食の料理' },
         },
         {
-          time: '19:00',
-          thumbnailTitle: 'カップル温泉',
-          detailTitle: 'カップル温泉',
+          time: '19:30',
+          thumbnailTitle: '大浴場へ',
+          detailTitle: '大浴場へ',
           description:
-            '二人だけの温泉タイム。星空の下で、心も体も温まる特別な時間を過ごします。',
-          image: { src: cp_day1_slide05, alt: 'カップル温泉' },
+            '男女別の大浴場でそれぞれゆっくり。湯上がりに外へ出れば、もう空には星が出ています。',
+          image: { src: cp_day1_slide05, alt: '露天風呂' },
         },
         {
           time: '20:30',
           thumbnailTitle: '星空観察',
           detailTitle: '星空観察',
           description:
-            '二人で星空を眺める時間。満天の星の下で、特別な夜を過ごします。',
+            '西湖の夜空は、驚くほど星が多い。並んで見上げるだけの時間が、意外と長く感じられます。',
           image: { src: cp_day1_slide06, alt: '星空観察' },
         },
         {
           time: '22:00',
           thumbnailTitle: '就　寝',
           detailTitle: '就　寝',
-          description: '静寂な夜の中で、二人だけの特別な時間を過ごします。',
+          description:
+            '静かな夜の中で、二人だけの特別な時間を過ごします。',
           image: { src: cp_day1_slide07, alt: '客室の様子' },
         },
       ],
@@ -407,38 +407,44 @@ export const couplesPlan: StayPlan = {
       planId: 'couples',
       items: [
         {
-          time: '7:00',
+          time: '6:30',
+          thumbnailTitle: '朝の湖畔へ',
+          detailTitle: '朝の湖畔へ',
+          description:
+            '誰もいない早朝の湖。風のない朝は、水面に逆さ富士が映ります。',
+          image: { src: cp_day2_slide01, alt: '早朝の西湖' },
+        },
+        {
+          time: '7:30',
           thumbnailTitle: '朝　食',
           detailTitle: '朝　食',
           description:
-            '富士山を眺めながらの朝食。二人で一日の始まりを迎えます。',
-          image: { src: cp_day2_slide01, alt: '朝食の様子' },
+            '窓から森を眺めながらの朝食。二日目の予定を相談する時間でもあります。',
+          image: { src: cp_day2_slide02, alt: '朝食の様子' },
         },
         {
-          time: '8:30',
-          thumbnailTitle: 'カップルカヌー',
-          detailTitle: 'カップルカヌー',
+          time: '9:30',
+          thumbnailTitle: 'チェックアウト',
+          detailTitle: 'チェックアウト',
           description:
-            '二人でカヌー体験。湖上で過ごす時間は、特別な思い出になります。',
-          image: { src: cp_day2_slide02, alt: 'カップルカヌー体験' },
+            '部屋を空けて、荷物を預けます。まだ帰りません。',
+          image: { src: cp_day2_slide03, alt: 'チェックアウト' },
         },
         {
           time: '10:00',
-          thumbnailTitle: 'フォトセッション',
-          detailTitle: 'フォトセッション',
-          description: '美しい自然を背景に、二人の思い出を写真に残します。',
-          image: { src: cp_day2_slide03, alt: 'フォトセッション' },
-          link: {
-            url: '/activities/photography',
-            text: 'フォトセッションの詳細を見る',
-          },
+          thumbnailTitle: '二人でSUP',
+          detailTitle: '二人でSUP',
+          description:
+            '水の上に立つと、視線の高さが変わります。並んで漕ぐ、静かな時間。',
+          image: { src: cp_day2_slide04, alt: '西湖でのSUP体験' },
         },
         {
-          time: '11:30',
-          thumbnailTitle: 'チェックアウト',
-          detailTitle: 'チェックアウト',
-          description: '素敵な思い出とともに、二人の特別な時間が終わります。',
-          image: { src: cp_day2_slide04, alt: 'チェックアウト' },
+          time: '12:00',
+          thumbnailTitle: '二人の写真を残す',
+          detailTitle: '二人の写真を残す',
+          description:
+            '美しい自然を背景に、二人の思い出を写真に残します。',
+          image: { src: cp_day2_slide05, alt: '湖畔での記念撮影' },
         },
       ],
     },
@@ -485,7 +491,7 @@ export const relaxationPlan: StayPlan = {
           thumbnailTitle: 'チェックイン',
           detailTitle: 'チェックイン',
           description:
-            '静寂な空間で、ゆったりとした時間の始まり。日常の喧騒から離れて、心を落ち着けます。',
+            '静かなフロントで手続きを済ませます。ここからは、何もしない時間が始まります。',
           image: { src: rl_day1_slide01, alt: 'チェックイン' },
         },
         {
@@ -497,11 +503,11 @@ export const relaxationPlan: StayPlan = {
           image: { src: rl_day1_slide02, alt: '瞑想タイム' },
         },
         {
-          time: '16:00',
+          time: '16:30',
           thumbnailTitle: '温泉リラックス',
           detailTitle: '温泉リラックス',
           description:
-            'ゆったりと温泉でリラックス。時間を忘れて、心も体も癒されます。',
+            '千年をかけて湧き出た源泉に、ただ浸かる。それだけの時間を長めに取ります。',
           image: { src: rl_day1_slide03, alt: '温泉リラックス' },
         },
         {
@@ -509,11 +515,11 @@ export const relaxationPlan: StayPlan = {
           thumbnailTitle: '静寂な夕食',
           detailTitle: '静寂な夕食',
           description:
-            '静寂の中で、ゆっくりと夕食を楽しみます。味わい深い時間を過ごします。',
+            '会話も少なめに、料理と向き合う夕食。音のない食卓は、思いのほか贅沢です。',
           image: { src: rl_day1_slide04, alt: '静寂な夕食' },
         },
         {
-          time: '19:00',
+          time: '19:30',
           thumbnailTitle: '読書タイム',
           detailTitle: '読書タイム',
           description:
@@ -532,7 +538,8 @@ export const relaxationPlan: StayPlan = {
           time: '22:00',
           thumbnailTitle: '就　寝',
           detailTitle: '就　寝',
-          description: '静寂な夜の中で、深い眠りにつきます。',
+          description:
+            '静かな夜の中で、深い眠りにつきます。',
           image: { src: rl_day1_slide07, alt: '客室' },
         },
       ],
@@ -543,34 +550,44 @@ export const relaxationPlan: StayPlan = {
       planId: 'relaxation',
       items: [
         {
-          time: '7:00',
+          time: '6:00',
+          thumbnailTitle: '朝の湯',
+          detailTitle: '朝の湯',
+          description:
+            '夜が明けきる前の大浴場。湯気の向こうが少しずつ明るくなっていきます。',
+          image: { src: rl_day2_slide01, alt: '早朝の大浴場' },
+        },
+        {
+          time: '7:30',
           thumbnailTitle: '朝　食',
           detailTitle: '朝　食',
           description:
-            '自然の中でゆっくりと朝食。一日の始まりを静かに迎えます。',
-          image: { src: rl_day2_slide01, alt: '朝食' },
+            '静かな朝食。急ぐ予定は何もありません。',
+          image: { src: rl_day2_slide02, alt: '朝食' },
         },
         {
-          time: '8:30',
-          thumbnailTitle: 'ヨガセッション',
-          detailTitle: 'ヨガセッション',
-          description: '自然の中でヨガ。心と体を整えて、新たな一日を迎えます。',
-          image: { src: rl_day2_slide02, alt: 'ヨガセッション' },
+          time: '9:30',
+          thumbnailTitle: 'チェックアウト',
+          detailTitle: 'チェックアウト',
+          description:
+            '部屋を空けて、荷物を預けます。まだ森の時間は続きます。',
+          image: { src: rl_day2_slide03, alt: 'チェックアウト' },
         },
         {
           time: '10:00',
           thumbnailTitle: '森林浴',
           detailTitle: '森林浴',
           description:
-            '森の中で森林浴。自然のエネルギーを体いっぱいに感じます。',
-          image: { src: rl_day2_slide03, alt: '森林浴' },
+            '森の中を歩きます。目的地は決めず、足の向くままに。',
+          image: { src: rl_day2_slide04, alt: '森林浴' },
         },
         {
-          time: '11:30',
-          thumbnailTitle: 'チェックアウト',
-          detailTitle: 'チェックアウト',
-          description: 'リフレッシュした心と体で、日常に戻ります。',
-          image: { src: rl_day2_slide04, alt: 'チェックアウト' },
+          time: '12:00',
+          thumbnailTitle: '出　発',
+          detailTitle: '出　発',
+          description:
+            '何もしなかった二日間。それが、いちばん必要だったのかもしれません。',
+          image: { src: rl_day2_slide05, alt: '西湖の森' },
         },
       ],
     },
@@ -617,50 +634,55 @@ export const sightseeingPlan: StayPlan = {
           thumbnailTitle: 'チェックイン',
           detailTitle: 'チェックイン',
           description:
-            '観光の拠点となるホテルにチェックイン。効率的な観光の準備を整えます。',
+            '荷物を置いて、身軽に出かける準備をします。宿は観光の拠点として使えます。',
           image: { src: st_day1_slide01, alt: 'チェックイン' },
         },
         {
           time: '15:30',
           thumbnailTitle: '河口湖観光',
           detailTitle: '河口湖観光',
-          description: '河口湖周辺を観光。美しい湖と富士山の景色を楽しみます。',
-          image: { src: st_day1_slide02, alt: '河口湖観光' },
+          description:
+            '河口湖周辺を観光。美しい湖と富士山の景色を楽しみます。',
+          image: { src: st_day1_slide02, alt: '河口湖の風景' },
         },
         {
-          time: '16:00',
+          time: '16:30',
           thumbnailTitle: '忍野八海',
           detailTitle: '忍野八海',
-          description: '忍野八海を観光。澄んだ湧水と美しい自然を楽しみます。',
-          image: { src: st_day1_slide03, alt: '忍野八海' },
+          description:
+            '富士の伏流水が湧く池を巡ります。水の透明度に驚かされる場所です。',
+          image: { src: st_day1_slide03, alt: '湧水の池' },
         },
         {
           time: '18:00',
           thumbnailTitle: '夕　食',
           detailTitle: '夕　食',
           description:
-            '観光の疲れを癒す、地元の美味しい料理をお楽しみください。',
+            '宿に戻って夕食。歩き回った一日の締めくくりです。',
           image: { src: st_day1_slide04, alt: '夕食' },
         },
         {
-          time: '19:00',
+          time: '19:30',
           thumbnailTitle: '温泉でリフレッシュ',
           detailTitle: '温泉でリフレッシュ',
-          description: '観光の疲れを温泉で癒します。明日への活力を蓄えます。',
+          description:
+            '観光の疲れを温泉で癒します。明日への活力を蓄えます。',
           image: { src: st_day1_slide05, alt: '温泉' },
         },
         {
           time: '20:30',
-          thumbnailTitle: '観光計画',
-          detailTitle: '観光計画',
-          description: '明日の観光計画を立てながら、ゆっくりと過ごします。',
+          thumbnailTitle: '明日の計画を立てる',
+          detailTitle: '明日の計画を立てる',
+          description:
+            '明日の観光計画を立てながら、ゆっくりと過ごします。',
           image: { src: st_day1_slide06, alt: '観光計画' },
         },
         {
           time: '22:00',
           thumbnailTitle: '就　寝',
           detailTitle: '就　寝',
-          description: '明日の観光に備えて、しっかりと休みます。',
+          description:
+            '明日の観光に備えて、しっかりと休みます。',
           image: { src: st_day1_slide07, alt: '客室' },
         },
       ],
@@ -674,31 +696,33 @@ export const sightseeingPlan: StayPlan = {
           time: '7:00',
           thumbnailTitle: '朝　食',
           detailTitle: '朝　食',
-          description: '観光の一日を始める朝食。エネルギーをチャージします。',
+          description:
+            '観光の一日を始める朝食。エネルギーをチャージします。',
           image: { src: st_day2_slide01, alt: '朝食' },
         },
         {
-          time: '8:30',
-          thumbnailTitle: '富士急ハイランド',
-          detailTitle: '富士急ハイランド',
+          time: '9:30',
+          thumbnailTitle: 'チェックアウト',
+          detailTitle: 'チェックアウト',
           description:
-            '富士急ハイランドで一日中楽しみます。絶叫マシンから家族向けアトラクションまで。',
-          image: { src: st_day2_slide02, alt: '富士急ハイランド' },
+            '部屋を空けて荷物を預け、身軽に観光へ出ます。',
+          image: { src: st_day2_slide02, alt: 'チェックアウト' },
         },
         {
           time: '10:00',
+          thumbnailTitle: '富士急ハイランド',
+          detailTitle: '富士急ハイランド',
+          description:
+            '車で30分ほどの遊園地へ。一日たっぷり遊べます。',
+          image: { src: st_day2_slide03, alt: '遊園地へ向かう道' },
+        },
+        {
+          time: '14:00',
           thumbnailTitle: '富士山世界遺産センター',
           detailTitle: '富士山世界遺産センター',
           description:
-            '富士山の文化的価値を学べる施設を観光。歴史と文化に触れます。',
-          image: { src: st_day2_slide03, alt: '富士山世界遺産センター' },
-        },
-        {
-          time: '11:30',
-          thumbnailTitle: 'チェックアウト',
-          detailTitle: 'チェックアウト',
-          description: '充実した観光を終えて、ホテルをチェックアウト。',
-          image: { src: st_day2_slide04, alt: 'チェックアウト' },
+            '富士山の成り立ちと信仰の歴史を学びます。旅の締めくくりにふさわしい場所です。',
+          image: { src: st_day2_slide04, alt: '富士山の眺め' },
         },
       ],
     },
@@ -728,7 +752,7 @@ export const rainyDayPlan: StayPlan = {
     subtitleText: '特別な体験を',
     mainTitle: ['静かな、', '雨音と共に過ごす、', '特別なリラックスタイム'],
     description:
-      '雨の日だからこそ楽しめる、ホテル内での特別な体験をご提案します。温かい温泉でリラックスしたり、静かなライブラリーで読書を楽しんだり、家族や友人とボードゲームを楽しんだり。雨音が心地よいBGMとなる、ゆったりとした時間をお過ごしください。',
+      '雨の日だからこそ、この場所は静かになります。露天風呂で雨に濡れた森の香りを吸い込み、薪サウナで火の音を聴き、屋根の下の炭火で食卓を囲む。雨音がBGMになる、ゆったりとした時間をお過ごしください。',
     heroImage: {
       src: rainy_day_hero,
       alt: '雨の日のリラックスタイム',
@@ -750,14 +774,14 @@ export const rainyDayPlan: StayPlan = {
         },
         {
           time: '15:30',
-          thumbnailTitle: '屋内施設探索',
-          detailTitle: '屋内施設探索',
+          thumbnailTitle: '雨の森を眺める',
+          detailTitle: '雨の森を眺める',
           description:
-            'ホテル内の施設をゆっくりと探索。ラウンジ、ライブラリー、展示コーナーなど、雨の日でも楽しめる施設が充実しています。',
-          image: { src: rd_day1_slide02, alt: 'ホテル内ラウンジ' },
+            '窓の外は雨に濡れた西湖の森。急がずに荷を解いて、雨の日の時間の流れに身体を慣らします。',
+          image: { src: rd_day1_slide02, alt: '雨に濡れた森' },
         },
         {
-          time: '16:00',
+          time: '16:30',
           thumbnailTitle: '温泉でリラックス',
           detailTitle: '温泉でリラックス',
           description:
@@ -766,34 +790,34 @@ export const rainyDayPlan: StayPlan = {
         },
         {
           time: '18:00',
-          thumbnailTitle: '夕　食',
-          detailTitle: '夕　食',
+          thumbnailTitle: 'Kokkoで炭火を囲む',
+          detailTitle: 'Kokkoで炭火を囲む',
           description:
-            '地元の旬の食材を使った会席料理。窓の外の雨景色を眺めながら、ゆっくりとお食事を楽しんでいただけます。',
-          image: { src: rd_day1_slide04, alt: '夕食の料理' },
+            '屋根のあるBBQハウスへ。雨でも濡れずに火を扱えるのが、この場所の良さです。',
+          image: { src: rd_day1_slide04, alt: '屋根付きBBQハウス' },
         },
         {
           time: '19:30',
-          thumbnailTitle: 'ボードゲーム',
-          detailTitle: 'ボードゲーム',
+          thumbnailTitle: '森のサウナ小屋',
+          detailTitle: '森のサウナ小屋',
           description:
-            'ラウンジで家族や友人とボードゲーム。囲碁、将棋、トランプなど、様々なゲームをご用意しています。',
-          image: { src: rd_day1_slide05, alt: 'ボードゲームの様子' },
+            '薪の爆ぜる音と雨音が重なる、夜のサウナ。屋根の下で、外の雨を眺めながらととのいます。',
+          image: { src: rd_day1_slide05, alt: '森のサウナ小屋' },
         },
         {
-          time: '20:30',
-          thumbnailTitle: '星空シアター',
-          detailTitle: '星空シアター',
+          time: '21:00',
+          thumbnailTitle: '雨音とともに',
+          detailTitle: '雨音とともに',
           description:
-            'プラネタリウムのような星空投影を楽しめる特別室。雨の日でも満天の星を堪能できます。',
-          image: { src: rd_day1_slide06, alt: '星空シアター' },
+            '部屋に戻り、静かな夜を過ごします。雨の日にしか聞こえない音があります。',
+          image: { src: rd_day1_slide06, alt: '雨の夜の客室' },
         },
         {
           time: '22:00',
           thumbnailTitle: '就　寝',
           detailTitle: '就　寝',
           description:
-            '雨音が心地よいBGMとなる静かな夜。ゆったりとした客室で、明日への活力を蓄えます。',
+            '雨音を子守唄に、深い眠りにつきます。',
           image: { src: rd_day1_slide07, alt: '客室の様子' },
         },
       ],
@@ -804,60 +828,52 @@ export const rainyDayPlan: StayPlan = {
       planId: 'rainy-day',
       items: [
         {
-          time: '8:00',
+          time: '6:30',
+          thumbnailTitle: '朝の大浴場',
+          detailTitle: '朝の大浴場',
+          description:
+            '雨音を聞きながらの露天風呂。雨に濡れた森の香りは、晴れた日には無いものです。',
+          image: { src: rd_day2_slide01, alt: '朝の露天風呂' },
+        },
+        {
+          time: '7:30',
           thumbnailTitle: '朝　食',
           detailTitle: '朝　食',
           description:
-            '雨に濡れた庭園を眺めながらの朝食。地元の新鮮な食材で作った和洋バイキングをお楽しみください。',
-          image: { src: rd_day2_slide01, alt: '朝食バイキング' },
+            'ブッフェスタイルの朝食。窓を打つ雨を眺めながら、ゆっくりと。',
+          image: { src: rd_day2_slide02, alt: '朝食バイキング' },
         },
         {
           time: '9:30',
-          thumbnailTitle: 'クラフト体験',
-          detailTitle: 'クラフト体験',
+          thumbnailTitle: 'チェックアウト',
+          detailTitle: 'チェックアウト',
           description:
-            '屋内でできるクラフト体験。陶芸、絵付け、アクセサリー作りなど、雨の日だからこそじっくりと取り組めます。',
-          image: { src: rd_day2_slide02, alt: 'クラフト体験の様子' },
-        },
-        {
-          time: '11:00',
-          thumbnailTitle: 'ライブラリー',
-          detailTitle: 'ライブラリー',
-          description:
-            '静かなライブラリーで読書タイム。富士山や地域の歴史に関する本も充実しています。',
-          image: { src: rd_day2_slide03, alt: 'ライブラリーの様子' },
+            '部屋を空けて、荷物を預けます。雨の日はまだ続きます。',
+          image: { src: rd_day2_slide03, alt: 'チェックアウト' },
         },
         {
           time: '12:00',
-          thumbnailTitle: '昼　食',
-          detailTitle: '昼　食',
+          thumbnailTitle: 'Kokkoで昼食',
+          detailTitle: 'Kokkoで昼食',
           description:
-            '雨の日限定の特別メニュー。温かいスープやほうとうなど、体が温まる料理をご用意しています。',
-          image: { src: rd_day2_slide04, alt: '昼食の料理' },
+            '屋根の下で炭火を囲む昼食。雨の日でも、火のある食卓は変わりません。',
+          image: { src: rd_day2_slide04, alt: '屋根付きBBQハウスでの昼食' },
         },
         {
-          time: '13:30',
-          thumbnailTitle: '屋内プール',
-          detailTitle: '屋内プール',
+          time: '14:00',
+          thumbnailTitle: 'サイコサイコー号',
+          detailTitle: 'サイコサイコー号',
           description:
-            '温水の屋内プールで運動不足を解消。ジャグジーも併設されており、リラックスもできます。',
-          image: { src: rd_day2_slide05, alt: '屋内プール' },
+            '薪サウナを積んだサウナカー。雨の日は、水風呂の冷たさがいっそう澄んで感じられます。',
+          image: { src: rd_day2_slide05, alt: 'サウナカー' },
         },
         {
-          time: '15:00',
-          thumbnailTitle: 'ティータイム',
-          detailTitle: 'ティータイム',
+          time: '17:00',
+          thumbnailTitle: '出　発',
+          detailTitle: '出　発',
           description:
-            'ラウンジでアフタヌーンティー。雨音を聞きながら、優雅なひとときをお過ごしください。',
-          image: { src: rd_day2_slide06, alt: 'アフタヌーンティー' },
-        },
-        {
-          time: '16:30',
-          thumbnailTitle: 'チェックアウト準備',
-          detailTitle: 'チェックアウト準備',
-          description:
-            '楽しい時間もあっという間。雨の日ならではの思い出を胸に、帰路の準備をします。',
-          image: { src: rd_day2_slide07, alt: 'チェックアウト準備' },
+            '雨の一日を、ここまで使い切りました。晴れの日とは違う記憶が残ります。',
+          image: { src: rd_day2_slide06, alt: '雨上がりの西湖' },
         },
       ],
     },
