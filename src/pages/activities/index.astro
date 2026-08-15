@@ -936,9 +936,12 @@ const optimizedActivities = await Promise.all(
     }
 
     &__title {
-      width: spx(358.4);
+      // タイトルは9件中8件が折り返すため、1行に収まる件数を増やす目的で
+      // 元の設計値より幅を広げ、左右のパディングを詰めてある
+      // （PC1440pxで 内寸163px → 200px）。bottom 基準なので高さは上に伸びる。
+      width: spx(524);
       height: auto;
-      padding: spx(15) spx(50);
+      padding: spx(15) spx(41);
       flex-shrink: 0;
       border-radius: spx(120);
       background: rgba($color: #fff, $alpha: 0.9);
@@ -950,14 +953,14 @@ const optimizedActivities = await Promise.all(
       transform: translateX(-50%);
       transition: background 0.3s ease;
       @include tablet-up {
-        width: ppx(390 * 1.2);
-        padding: ppx(15) * 1.2 ppx(50) * 1.2;
+        width: ppx(455 * 1.2);
+        padding: ppx(15) * 1.2 ppx(36) * 1.2;
         border-radius: ppx(130 * 1.2);
         bottom: ppx(30 * 1.2);
       }
       @include desktop-up {
-        width: ppx(390);
-        padding: ppx(15) ppx(50);
+        width: ppx(455);
+        padding: ppx(15) ppx(36);
         border-radius: ppx(130);
         bottom: ppx(30);
       }
@@ -968,17 +971,21 @@ const optimizedActivities = await Promise.all(
       text-align: center;
       font-size: spx(28.8);
       font-weight: 400;
-      line-height: spx(28.8); /* 100% */
+      // 元は 100%（行間ゼロ）だったが、実データは大半が2行になるため行間を持たせる
+      line-height: 1.4;
       letter-spacing: spx(-1.44);
       transition: color 0.3s ease;
+      // 日本語を文節で折る。「せのうみツアー／【西湖】」のように意味の切れ目で改行される。
+      // Chrome / Edge のみ対応で、他は通常の折り返しに戻るだけなので害はない。
+      word-break: auto-phrase;
+      // 文節で折れない長い語が枠からはみ出さないための保険
+      overflow-wrap: anywhere;
       @include tablet-up {
         font-size: ppx(32 * 1.2);
-        line-height: ppx(32 * 1.2); /* 100% */
         letter-spacing: ppx(-1.6 * 1.2);
       }
       @include desktop-up {
         font-size: ppx(32);
-        line-height: ppx(32); /* 100% */
         letter-spacing: ppx(-1.6);
       }
     }

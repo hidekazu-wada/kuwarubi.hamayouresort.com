@@ -2010,9 +2010,10 @@ const ageGroupDisplayText = (() => {
     }
 
     &__card-title {
-      width: spx(358.4);
+      // 一覧ページのカードと同じ寸法に揃えてある（activities/index.astro の __title）
+      width: spx(524);
       height: auto;
-      padding: spx(15) spx(50);
+      padding: spx(15) spx(41);
       flex-shrink: 0;
       border-radius: spx(120);
       background: rgba($color: #fff, $alpha: 0.9);
@@ -2024,14 +2025,14 @@ const ageGroupDisplayText = (() => {
       transform: translateX(-50%);
       transition: background 0.3s ease;
       @include tablet-up {
-        width: ppx(390 * 1.2);
-        padding: ppx(15) * 1.2 ppx(50) * 1.2;
+        width: ppx(455 * 1.2);
+        padding: ppx(15) * 1.2 ppx(36) * 1.2;
         border-radius: ppx(130 * 1.2);
         bottom: ppx(30 * 1.2);
       }
       @include desktop-up {
-        width: ppx(390);
-        padding: ppx(15) ppx(50);
+        width: ppx(455);
+        padding: ppx(15) ppx(36);
         border-radius: ppx(130);
         bottom: ppx(30);
       }
@@ -2042,17 +2043,18 @@ const ageGroupDisplayText = (() => {
       text-align: center;
       font-size: spx(28.8);
       font-weight: 400;
-      line-height: spx(28.8); /* 100% */
+      // 元は 100%（行間ゼロ）。一覧ページのカードと同じ扱いに揃えてある
+      line-height: 1.4;
       letter-spacing: spx(-1.44);
       transition: color 0.3s ease;
+      word-break: auto-phrase;
+      overflow-wrap: anywhere;
       @include tablet-up {
         font-size: ppx(32 * 1.2);
-        line-height: ppx(32 * 1.2); /* 100% */
         letter-spacing: ppx(-1.6 * 1.2);
       }
       @include desktop-up {
         font-size: ppx(32);
-        line-height: ppx(32); /* 100% */
         letter-spacing: ppx(-1.6);
       }
     }
