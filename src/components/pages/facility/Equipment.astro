@@ -161,6 +161,19 @@ const equipment09 = await getImage({
     </article>
     <article class="equipment__item js-fade-in-up">
       <figure class="equipment__image-wrapper">
+        {/* 写真が入るまでの仮置き。src/assets/images/facility/equipment/ に
+            画像を置いたら、他のカードと同じ <picture> に差し替える */}
+        <div
+          class="equipment__image equipment__image--placeholder"
+          role="img"
+          aria-label="図書コーナー（写真は準備中）"
+        >
+        </div>
+      </figure>
+      <h3 class="equipment__name">図書コーナー</h3>
+    </article>
+    <article class="equipment__item js-fade-in-up">
+      <figure class="equipment__image-wrapper">
         <picture class="equipment__picture">
           <img
             src={largestSrc(equipment06)}
@@ -380,6 +393,11 @@ const equipment09 = await getImage({
     }
 
     &__picture {
+    }
+
+    // 写真が未入稿のカード用。画像と同じ寸法を保ってレイアウトを崩さない
+    &__image--placeholder {
+      background: var(--blue_2, #e7f3f9);
     }
 
     &__image {
