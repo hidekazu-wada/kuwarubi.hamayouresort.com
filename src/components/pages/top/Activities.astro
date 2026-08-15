@@ -6,6 +6,7 @@ import {
   getPublishedActivityCount,
 } from '../../../lib/activitiesAPI';
 import { largestSrc, prepareTopSlide } from '../../../utils/image';
+import { plainTitle } from '../../../data/activities';
 // Swiper CSS
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -72,7 +73,7 @@ const optimizedActivities = await Promise.all(
               <a
                 href={`/activities/${activity.slug}`}
                 class="top-activities__link"
-                aria-label={`${activity.title}の詳細を見る`}
+                aria-label={`${plainTitle(activity.title)}の詳細を見る`}
               >
                 <div class="top-activities__image-wrapper">
                   <picture class="top-activities__image">
@@ -82,7 +83,7 @@ const optimizedActivities = await Promise.all(
                       sizes="(min-width: 1024px) 19.53vw, (min-width: 744px) 23.44vw, 69.44vw"
                       width={activity.optimizedSlideImage.width}
                       height={activity.optimizedSlideImage.height}
-                      alt={`${activity.title}の様子`}
+                      alt={`${plainTitle(activity.title)}の様子`}
                       loading="lazy"
                       decoding="async"
                     />

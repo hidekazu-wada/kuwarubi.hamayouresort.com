@@ -22,6 +22,11 @@
 //   （activities/index.astro の CATEGORY_ORDER）に足す。
 //   足さなくても選択肢には出る（末尾に回るだけ）。
 //
+// ── タイトルの改行 ──
+// title に \n を入れると、カードと詳細見出しでその位置に改行が入る。
+// 複合語が語中で割れるのを防ぐために使っている（例「ＳＵＰ早朝／プライベートツアー」）。
+// title 属性・alt・パンくずなど1行で扱う場所では plainTitle() で取り除くこと。
+//
 // ── 金額のルール ──
 // 一覧に出る basePrice は、詳細ページ（displayInfo 内）の最安料金に合わせる。
 // 2つがずれたときは詳細ページ側を正とする。
@@ -129,6 +134,12 @@ export interface Activity {
   filterDifficulty: FilterDifficulty;
   filterAgeGroup: FilterAgeGroup;
 }
+
+/**
+ * 表示用の改行を取り除いた1行のタイトル。
+ * <title> / og:title / alt / aria-label / パンくずなど、改行が入ると困る場所で使う。
+ */
+export const plainTitle = (title: string): string => title.replace(/\n/g, '');
 
 export const activities: Activity[] = [
   {
@@ -340,7 +351,7 @@ export const activities: Activity[] = [
   },
   {
     slug: "car-sauna",
-    title: "サイコサイコー号（サウナカー）",
+    title: "サイコサイコー号\n（サウナカー）",
     category: "LAKE SAIKO",
     published: true,
 
@@ -394,7 +405,7 @@ export const activities: Activity[] = [
   },
   {
     slug: "sup-early-morning-private-tour",
-    title: "ＳＵＰ早朝プライベートツアー",
+    title: "ＳＵＰ早朝\nプライベートツアー",
     category: "LAKE SAIKO",
     published: true,
 
@@ -503,7 +514,7 @@ export const activities: Activity[] = [
   },
   {
     slug: "aokigahara-forest-early-morning-private-tour",
-    title: "青木ヶ原樹海早朝プライベートツアー",
+    title: "青木ヶ原樹海早朝\nプライベートツアー",
     category: "JUKAI",
     published: true,
 
@@ -555,7 +566,7 @@ export const activities: Activity[] = [
   },
   {
     slug: "aokigahara-forest-private-tour",
-    title: "青木ヶ原樹海【絶景とパワースポット】プライベートツアー",
+    title: "青木ヶ原樹海\n【絶景とパワースポット】\nプライベートツアー",
     category: "JUKAI",
     published: true,
 

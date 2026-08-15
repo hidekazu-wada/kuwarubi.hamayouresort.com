@@ -7,6 +7,7 @@ import ActivityFilters from '../../components/pages/activities/ActivityFilters.a
 import LowerPageHeader from '../../components/ui/LowerPageHeader.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { getAllActivities } from '../../lib/activitiesAPI';
+import { plainTitle } from '../../data/activities';
 import { prepareThumbnail } from '../../utils/image';
 import type { FilterOption } from '../../components/pages/activities/ActivityFilters.astro';
 
@@ -163,7 +164,7 @@ const optimizedActivities = await Promise.all(
                       height={activity.optimizedThumbnail.height}
                       srcset={activity.optimizedThumbnail.srcSet}
                       sizes="(min-width: 1024px) 19.53vw, (min-width: 744px) 23.44vw, 80vw"
-                      alt={`${activity.title}の様子`}
+                      alt={`${plainTitle(activity.title)}の様子`}
                       class="activity-card__img"
                       loading="lazy"
                       decoding="async"

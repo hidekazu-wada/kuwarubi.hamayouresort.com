@@ -5,7 +5,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
-import type { Activity } from '../../data/activities';
+import { plainTitle, type Activity } from '../../data/activities';
 import { getAllActivities, getActivityBySlug } from '../../lib/activitiesAPI';
 import {
   prepareGalleryImage,
@@ -38,7 +38,7 @@ const popularActivities = allActivities.filter((act) => act.isPopular);
 const optimizedGallery = await Promise.all(
   activity.gallery.map(async (image) => ({
     ...(await prepareGalleryImage(image)),
-    alt: `${activity.title}の風景`,
+    alt: `${plainTitle(activity.title)}の風景`,
   }))
 );
 
@@ -137,7 +137,7 @@ const ageGroupDisplayText = (() => {
 ---
 
 <BaseLayout
-  pageTitle={activity.title}
+  pageTitle={plainTitle(activity.title)}
   pageClass="main-content--activity-detail"
 >
   <article class="activity-detail">
@@ -175,7 +175,7 @@ const ageGroupDisplayText = (() => {
                     height={image.height}
                     srcset={image.srcSet}
                     sizes="(min-width: 1024px) 41.02vw, (min-width: 744px) 41.01vw, 80.55vw"
-                    alt={`${activity.title}の風景${index + 1}`}
+                    alt={`${plainTitle(activity.title)}の風景${index + 1}`}
                     class="activity-detail__image"
                     loading="lazy"
                     decoding="async"
@@ -232,7 +232,7 @@ const ageGroupDisplayText = (() => {
           height={bgImage.height}
           srcset={bgImage.srcSet}
           sizes="(min-width: 1024px) 91.25vw, (min-width: 744px) 89.06vw, 100vw"
-          alt={`${activity.title}のポイント画像`}
+          alt={`${plainTitle(activity.title)}のポイント画像`}
           class="point__image"
           loading="lazy"
           decoding="async"
@@ -445,7 +445,7 @@ const ageGroupDisplayText = (() => {
                             height={popularActivity.optimizedThumbnail.height}
                             srcset={popularActivity.optimizedThumbnail.srcSet}
                             sizes="(min-width: 1024px) 19.53vw, (min-width: 744px) 23.44vw, 63.89vw"
-                            alt={`${popularActivity.title}の様子`}
+                            alt={`${plainTitle(popularActivity.title)}の様子`}
                             class="popular-activities__img"
                             loading="lazy"
                             decoding="async"
@@ -587,7 +587,7 @@ const ageGroupDisplayText = (() => {
       items={[
         { text: 'TOP', href: '/' },
         { text: 'アクティビティ', href: '/activities' },
-        { text: activity.title },
+        { text: plainTitle(activity.title) },
       ]}
     />
   </div>
