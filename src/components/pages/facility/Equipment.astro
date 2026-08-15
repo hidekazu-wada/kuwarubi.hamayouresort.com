@@ -383,6 +383,8 @@ const equipment09 = await getImage({
     }
 
     &__image {
+      // 指定が無いと既定の fill になり、写真の比率と枠の比率がずれた分だけ歪む
+      object-fit: cover;
       display: block;
       width: spx(300);
       height: spx(200);

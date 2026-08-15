@@ -603,6 +603,8 @@ const hodohodoImage05 = await getImage({
     }
 
     &__img {
+      // 指定が無いと既定の fill になり、写真の比率と枠の比率がずれた分だけ歪む
+      object-fit: cover;
       @include tablet-up {
       }
       @include desktop-up {

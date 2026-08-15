@@ -578,6 +578,8 @@ import 'swiper/css/navigation';
       display: block;
       width: spx(640);
       height: spx(390);
+      // 指定が無いと既定の fill になり、写真の比率と枠の比率がずれた分だけ歪む
+      object-fit: cover;
       @include tablet-up {
         width: ppx(1074 * 1.2);
         height: ppx(661 * 1.2);
