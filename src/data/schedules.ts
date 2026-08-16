@@ -76,7 +76,7 @@ import fn_day1_slide03 from '../assets/images/enjoy/family-nature/day1/slide-03.
 import fn_day1_slide04 from '../assets/images/food/dinner/main.jpg';
 import fn_day1_slide05 from '../assets/images/facility/public-bath/img-02.png';
 import fn_day1_slide06 from '../assets/images/enjoy/family-nature/day1/slide-06.jpg';
-import fn_day1_slide07 from '../assets/images/facility/room/slide-03.jpg';
+import fn_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
 import fn_day2_slide01 from '../assets/images/facility/public-bath/img-01.png';
 import fn_day2_slide02 from '../assets/images/food/breakfast/img-01.jpg';
@@ -93,7 +93,7 @@ import cp_day1_slide03 from '../assets/images/activities/hot-spring-bath-and-for
 import cp_day1_slide04 from '../assets/images/food/bbq/img-01.png';
 import cp_day1_slide05 from '../assets/images/facility/hodohodo-forest/img04.png';
 import cp_day1_slide06 from '../assets/images/enjoy/couples/day1/slide-06.jpg';
-import cp_day1_slide07 from '../assets/images/facility/room/slide-02.jpg';
+import cp_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
 import cp_day2_slide01 from '../assets/images/top/location/img2.png';
 import cp_day2_slide02 from '../assets/images/food/breakfast/img-02.jpg';
@@ -109,7 +109,7 @@ import rl_day1_slide03 from '../assets/images/enjoy/relaxation/day1/slide-03.jpg
 import rl_day1_slide04 from '../assets/images/food/dinner/img-02.jpg';
 import rl_day1_slide05 from '../assets/images/activities/hot-spring-bath-and-forest-sauna-hut/gallery-02.jpg';
 import rl_day1_slide06 from '../assets/images/enjoy/relaxation/day1/slide-06.jpg';
-import rl_day1_slide07 from '../assets/images/facility/room/slide-01.jpg';
+import rl_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
 import rl_day2_slide01 from '../assets/images/facility/public-bath/bg.png';
 import rl_day2_slide02 from '../assets/images/food/breakfast/img-03.jpg';
@@ -125,7 +125,7 @@ import st_day1_slide03 from '../assets/images/activities/senoumi-tour-saiko/gall
 import st_day1_slide04 from '../assets/images/food/dinner/img-03.jpg';
 import st_day1_slide05 from '../assets/images/facility/public-bath/img-01.png';
 import st_day1_slide06 from '../assets/images/enjoy/sightseeing/day1/slide-06.jpg';
-import st_day1_slide07 from '../assets/images/facility/room/slide-04.jpg';
+import st_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
 import st_day2_slide01 from '../assets/images/food/breakfast/img-04.jpg';
 import st_day2_slide02 from '../assets/images/enjoy/common/reception.jpg';
@@ -248,7 +248,7 @@ export const familyNaturePlan: StayPlan = {
           detailTitle: '就　寝',
           description:
             '静かな夜の中で、深い眠りにつきます。',
-          image: { src: fn_day1_slide07, alt: '客室の様子' },
+          image: { src: fn_day1_slide07, alt: '窓に富士山が見える夜の客室' },
         },
       ],
     },
@@ -391,7 +391,7 @@ export const couplesPlan: StayPlan = {
           detailTitle: '就　寝',
           description:
             '静かな夜の中で、二人だけの特別な時間を過ごします。',
-          image: { src: cp_day1_slide07, alt: '客室の様子' },
+          image: { src: cp_day1_slide07, alt: '窓に富士山が見える夜の客室' },
         },
       ],
     },
@@ -534,7 +534,7 @@ export const relaxationPlan: StayPlan = {
           detailTitle: '就　寝',
           description:
             '静かな夜の中で、深い眠りにつきます。',
-          image: { src: rl_day1_slide07, alt: '客室' },
+          image: { src: rl_day1_slide07, alt: '窓に富士山が見える夜の客室' },
         },
       ],
     },
@@ -677,7 +677,7 @@ export const sightseeingPlan: StayPlan = {
           detailTitle: '就　寝',
           description:
             '明日の観光に備えて、しっかりと休みます。',
-          image: { src: st_day1_slide07, alt: '客室' },
+          image: { src: st_day1_slide07, alt: '窓に富士山が見える夜の客室' },
         },
       ],
     },
