@@ -115,7 +115,7 @@ import rl_day2_slide01 from '../assets/images/facility/public-bath/daiyokujo.jpg
 import rl_day2_slide02 from '../assets/images/food/breakfast/img-03.jpg';
 import rl_day2_slide03 from '../assets/images/enjoy/common/checkout.jpg';
 import rl_day2_slide04 from '../assets/images/activities/sup-rental/gallery-01.jpg';
-import rl_day2_slide05 from '../assets/images/activities/aokigahara-forest-early-morning-private-tour/gallery-01.jpg';
+import rl_day2_slide05 from '../assets/images/top/location/img1.png';
 
 // 4. 近隣観光メインで西湖を拠点に楽しみたい方（Sightseeing）
 import sightseeing_hero from '../assets/images/enjoy/common/lake-dusk.jpg';
@@ -506,11 +506,11 @@ export const relaxationPlan: StayPlan = {
         },
         {
           time: '18:00',
-          thumbnailTitle: '静寂な夕食',
-          detailTitle: '静寂な夕食',
+          thumbnailTitle: '夕　食',
+          detailTitle: '夕　食',
           description:
-            '会話も少なめに、料理と向き合う夕食。音のない食卓は、思いのほか贅沢です。',
-          image: { src: rl_day1_slide04, alt: '静寂な夕食' },
+            '彩りの多いビュッフェから、好きなものを好きなだけ。次の予定は何もないので、ゆっくりで構いません。',
+          image: { src: rl_day1_slide04, alt: 'ビュッフェスタイルの夕食' },
         },
         {
           time: '19:30',
@@ -581,7 +581,7 @@ export const relaxationPlan: StayPlan = {
           detailTitle: '出　発',
           description:
             '何もしなかった二日間。それが、いちばん必要だったのかもしれません。',
-          image: { src: rl_day2_slide05, alt: '西湖の森' },
+          image: { src: rl_day2_slide05, alt: '富士山と西湖' },
         },
       ],
     },
