@@ -140,7 +140,7 @@ import rd_day1_slide02 from '../assets/images/facility/equipment/img-10.jpg';
 import rd_day1_slide03 from '../assets/images/facility/public-bath/rotenburo.jpg';
 import rd_day1_slide04 from '../assets/images/facility/kokko/img-02.jpg';
 import rd_day1_slide05 from '../assets/images/facility/hodohodo-forest/img02.png';
-import rd_day1_slide06 from '../assets/images/facility/room/slide-05.jpg';
+import rd_day1_slide06 from '../assets/images/facility/equipment/lobby-chair.jpg';
 import rd_day1_slide07 from '../assets/images/facility/room/slide-03.jpg';
 
 import rd_day2_slide01 from '../assets/images/facility/public-bath/rotenburo.jpg';
@@ -811,8 +811,8 @@ export const rainyDayPlan: StayPlan = {
           thumbnailTitle: '雨音とともに読書',
           detailTitle: '雨音とともに読書',
           description:
-            '部屋に戻り、選んだ本の続きを。雨の日にしか聞こえない音が、しおり代わりになります。',
-          image: { src: rd_day1_slide06, alt: '雨の夜の客室' },
+            'ロビーの吊り椅子で、選んだ本の続きを。雨の日にしか聞こえない音が、しおり代わりになります。',
+          image: { src: rd_day1_slide06, alt: 'ロビーの吊り椅子とソファ' },
         },
         {
           time: '22:00',
