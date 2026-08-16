@@ -12,6 +12,7 @@ import equipmentImage06 from '../../../assets/images/facility/equipment/img-06.j
 import equipmentImage07 from '../../../assets/images/facility/equipment/img-07.jpg';
 import equipmentImage08 from '../../../assets/images/facility/equipment/img-08.jpg';
 import equipmentImage09 from '../../../assets/images/facility/equipment/img-09.jpg';
+import equipmentImage10 from '../../../assets/images/facility/equipment/img-10.jpg';
 
 // フォーマット
 
@@ -57,6 +58,11 @@ const equipment08 = await getImage({
 });
 const equipment09 = await getImage({
   src: equipmentImage09,
+  format: 'webp',
+  widths: [300, 360, 480],
+});
+const equipment10 = await getImage({
+  src: equipmentImage10,
   format: 'webp',
   widths: [300, 360, 480],
 });
@@ -161,14 +167,19 @@ const equipment09 = await getImage({
     </article>
     <article class="equipment__item js-fade-in-up">
       <figure class="equipment__image-wrapper">
-        {/* 写真が入るまでの仮置き。src/assets/images/facility/equipment/ に
-            画像を置いたら、他のカードと同じ <picture> に差し替える */}
-        <div
-          class="equipment__image equipment__image--placeholder"
-          role="img"
-          aria-label="図書コーナー（写真は準備中）"
-        >
-        </div>
+        <picture class="equipment__picture">
+          <img
+            src={largestSrc(equipment10)}
+            width={equipment10.attributes.width}
+            height={equipment10.attributes.height}
+            srcset={equipment10.srcSet.attribute}
+            sizes="(min-width: 1024px) 18.75vw, (min-width: 744px) 22.5vw, 41.67vw"
+            alt="図書コーナー"
+            class="equipment__image"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
       </figure>
       <h3 class="equipment__name">図書コーナー</h3>
     </article>
@@ -393,11 +404,6 @@ const equipment09 = await getImage({
     }
 
     &__picture {
-    }
-
-    // 写真が未入稿のカード用。画像と同じ寸法を保ってレイアウトを崩さない
-    &__image--placeholder {
-      background: var(--blue_2, #e7f3f9);
     }
 
     &__image {
