@@ -129,7 +129,7 @@ import st_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
 import st_day2_slide01 from '../assets/images/food/breakfast/img-04.jpg';
 import st_day2_slide02 from '../assets/images/enjoy/common/checkout.jpg';
-import st_day2_slide03 from '../assets/images/activities/aokigahara-forest-private-tour/gallery-03.jpg';
+import st_day2_slide03 from '../assets/images/enjoy/common/ryugu-cave.jpg';
 import st_day2_slide04 from '../assets/images/enjoy/sightseeing/day2/slide-04.jpg';
 import st_day2_slide05 from '../assets/images/enjoy/sightseeing/day2/slide-05.jpg';
 
@@ -708,7 +708,7 @@ export const sightseeingPlan: StayPlan = {
           detailTitle: '樹海散策と竜宮洞穴',
           description:
             '青木ヶ原樹海をライトに歩き、竜宮洞穴へ。溶岩が作った空洞に流れる冷気は、夏でもひんやりとしています。',
-          image: { src: st_day2_slide03, alt: '樹海の遊歩道' },
+          image: { src: st_day2_slide03, alt: '竜宮洞穴の中から見上げた樹海の緑' },
         },
         {
           time: '12:00',
