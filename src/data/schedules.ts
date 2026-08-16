@@ -79,7 +79,7 @@ import fn_day1_slide06 from '../assets/images/enjoy/family-nature/day1/slide-06.
 import fn_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
 import fn_day2_slide01 from '../assets/images/facility/public-bath/daiyokujo.jpg';
-import fn_day2_slide02 from '../assets/images/food/breakfast/img-01.jpg';
+import fn_day2_slide02 from '../assets/images/food/breakfast/img-04.jpg';
 import fn_day2_slide03 from '../assets/images/enjoy/common/checkout.jpg';
 import fn_day2_slide04 from '../assets/images/activities/pedal-boards/gallery-01.jpg';
 import fn_day2_slide05 from '../assets/images/top/location/img1.png';
@@ -143,8 +143,8 @@ import rd_day1_slide05 from '../assets/images/facility/hodohodo-forest/img02.png
 import rd_day1_slide06 from '../assets/images/facility/equipment/lobby-chair.jpg';
 import rd_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
-import rd_day2_slide01 from '../assets/images/facility/public-bath/rotenburo.jpg';
-import rd_day2_slide02 from '../assets/images/food/breakfast/img-01.jpg';
+import rd_day2_slide01 from '../assets/images/facility/public-bath/daiyokujo.jpg';
+import rd_day2_slide02 from '../assets/images/food/breakfast/img-04.jpg';
 import rd_day2_slide03 from '../assets/images/enjoy/common/checkout.jpg';
 import rd_day2_slide04 from '../assets/images/facility/kokko/img-03.png';
 import rd_day2_slide05 from '../assets/images/activities/car-sauna/gallery-01.jpg';
@@ -271,7 +271,7 @@ export const familyNaturePlan: StayPlan = {
           detailTitle: '朝　食',
           description:
             'ブッフェスタイルの朝食。よく寝てよく遊んだ翌朝は、いつもより食が進みます。',
-          image: { src: fn_day2_slide02, alt: '朝食バイキングの様子' },
+          image: { src: fn_day2_slide02, alt: 'ブッフェスタイルの朝食' },
         },
         {
           time: '9:30',
@@ -834,8 +834,8 @@ export const rainyDayPlan: StayPlan = {
           thumbnailTitle: '朝の大浴場',
           detailTitle: '朝の大浴場',
           description:
-            '雨音を聞きながらの露天風呂。雨に濡れた森の香りは、晴れた日には無いものです。',
-          image: { src: rd_day2_slide01, alt: '朝の露天風呂' },
+            '朝いちばんの大浴場へ。窓を打つ雨の音だけが聞こえる、静かな時間です。',
+          image: { src: rd_day2_slide01, alt: '朝の大浴場' },
         },
         {
           time: '7:30',
@@ -843,7 +843,7 @@ export const rainyDayPlan: StayPlan = {
           detailTitle: '朝　食',
           description:
             'ブッフェスタイルの朝食。窓を打つ雨を眺めながら、ゆっくりと。',
-          image: { src: rd_day2_slide02, alt: '朝食バイキング' },
+          image: { src: rd_day2_slide02, alt: 'ブッフェスタイルの朝食' },
         },
         {
           time: '9:30',
@@ -858,8 +858,8 @@ export const rainyDayPlan: StayPlan = {
           thumbnailTitle: 'Kokkoで昼食',
           detailTitle: 'Kokkoで昼食',
           description:
-            '屋根の下で炭火を囲む昼食。雨の日でも、火のある食卓は変わりません。',
-          image: { src: rd_day2_slide04, alt: '屋根付きBBQハウスでの昼食' },
+            '屋根の下のピザ窯で焼き上げる昼食。雨の日でも、火のある食卓は変わりません。',
+          image: { src: rd_day2_slide04, alt: 'ピザ窯で焼き上がったピザ' },
         },
         {
           time: '14:00',
@@ -875,7 +875,7 @@ export const rainyDayPlan: StayPlan = {
           detailTitle: '出　発',
           description:
             '雨の一日を、ここまで使い切りました。晴れの日とは違う記憶が残ります。',
-          image: { src: rd_day2_slide06, alt: '雨上がりの西湖' },
+          image: { src: rd_day2_slide06, alt: '富士山と西湖' },
         },
       ],
     },
