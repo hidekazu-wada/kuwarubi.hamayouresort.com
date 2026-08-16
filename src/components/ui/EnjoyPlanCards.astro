@@ -1,0 +1,337 @@
+---
+// 過ごし方プランのカード（TOPの過ごし方セクションと一覧ページで共有）
+//
+// クラス名は .enjoy__* のまま。もともと TOP の Enjoy.astro にあったものを
+// そのまま抜き出しているので、TOP の見た目は変わらない。
+// 一覧ページ（pages/enjoy/index.astro）からも同じ見た目で使える。
+
+import { getImage } from 'astro:assets';
+import type { StayPlan } from '../../data/schedules';
+
+export interface Props {
+  /** topPageDisplay を持つプランのみ。表示順は呼び出し側で決める */
+  plans: StayPlan[];
+}
+
+const { plans } = Astro.props;
+
+const optimizedPlans = await Promise.all(
+  plans.map(async (plan) => ({
+    ...plan,
+    optimizedImageSp: await getImage({
+      src: plan.topPageDisplay!.imageSp,
+      format: 'webp',
+      widths: [640],
+    }),
+    optimizedImageTabletUp: await getImage({
+      src: plan.topPageDisplay!.imageTabletUp,
+      format: 'webp',
+      widths: [1680],
+    }),
+  }))
+);
+---
+
+<ul class="enjoy__list">
+  {
+    optimizedPlans.map((plan) => (
+      <li class="enjoy__item js-fade-in-up">
+        <a href={`/enjoy/${plan.slug}`}>
+          <article class="enjoy__card">
+            <header class="enjoy__card-header">
+              <h3 class="enjoy__card-title">
+                <span class="enjoy__card-title-line first">
+                  {plan.topPageDisplay!.titleLine1}
+                </span>
+                <span class="enjoy__card-title-line second">
+                  {plan.topPageDisplay!.titleLine2}
+                </span>
+              </h3>
+            </header>
+            <div class="enjoy__card-content">
+              <div class="enjoy__card-media">
+                <picture class="enjoy__card-image">
+                  {/* デスクトップ（1024px以上） */}
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={plan.optimizedImageTabletUp.src}
+                  />
+                  {/* タブレット（744px以上） */}
+                  <source
+                    media="(min-width: 744px)"
+                    srcset={plan.optimizedImageSp.src}
+                  />
+                  {/* スマホ（744px未満） */}
+                  <img
+                    src={plan.optimizedImageSp.src}
+                    alt={plan.topPageDisplay!.imageAlt}
+                  />
+                </picture>
+                <p class="enjoy__card-category">
+                  {plan.topPageDisplay!.category}
+                </p>
+                <button
+                  class="enjoy__card-button"
+                  type="button"
+                  aria-label={`${plan.topPageDisplay!.titleLine2}の詳細を見る`}
+                >
+                  <svg
+                    class="enjoy__card-arrow"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="70"
+                    height="70"
+                    viewBox="0 0 70 70"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle cx="35" cy="35" r="35" fill="white" />
+                    <path
+                      d="M30.333 46.6654L41.9997 34.9987L30.333 23.332"
+                      stroke="#026995"
+                      stroke-width="3.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style lang="scss">
+  @import '../../styles/variables';
+  @import '../../styles/functions';
+  @import '../../styles/mixins';
+
+  .enjoy {
+    &__list {
+      display: flex;
+      flex-flow: column;
+      gap: spx(50);
+      @include tablet-up {
+        gap: ppx(90) * 1.2;
+      }
+      @include desktop-up {
+        gap: ppx(90);
+      }
+    }
+
+    &__item {
+      width: spx(640);
+      border-radius: spx(20) 0 0 spx(20);
+      overflow: hidden;
+      box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.25);
+
+      // ホバーエフェクト
+      @include hover {
+        &:hover {
+          .enjoy__card-image::after {
+            opacity: 1;
+          }
+
+          .enjoy__card-arrow {
+            circle {
+              fill: var(--green_2, #adc400);
+            }
+
+            path {
+              stroke: var(--white, #fff);
+            }
+          }
+        }
+      }
+      margin-left: auto;
+      margin-right: 0;
+      @include tablet-up {
+        width: 70vw;
+        border-radius: ppx(20) * 1.2;
+        filter: drop-shadow(3px 3px 7px rgba(0, 0, 0, 0.1));
+        margin-inline: auto;
+      }
+      @include desktop-up {
+        width: ppx(1917);
+        border-radius: ppx(20);
+      }
+    }
+
+    &__card {
+      display: grid;
+      grid-template:
+        'content' spx(420)
+        'header' spx(135);
+      @include tablet-up {
+        grid-template:
+          'header content' #{ppx(700) * 1.2}
+          / 237fr 1680fr;
+      }
+      @include desktop-up {
+        grid-template:
+          'header content' #{ppx(700)}
+          / 237fr 1680fr;
+      }
+    }
+
+    &__card-header {
+      grid-area: header;
+      background-color: #fff;
+      padding-top: spx(20);
+      padding-left: spx(50);
+      @include tablet-up {
+        padding-top: 0;
+        padding-left: 0;
+        display: grid;
+        place-items: center;
+      }
+      @include desktop-up {
+      }
+    }
+
+    &__card-title {
+      display: flex;
+      flex-flow: column;
+      gap: spx(5);
+      @include tablet-up {
+        writing-mode: vertical-rl;
+        gap: ppx(26) * 1.2;
+      }
+      @include desktop-up {
+        gap: ppx(26);
+      }
+    }
+
+    &__card-title-line {
+      display: block;
+      @include tablet-up {
+        writing-mode: vertical-rl;
+      }
+      @include desktop-up {
+      }
+      &.first {
+        color: var(--green_2, #adc400);
+        font-size: spx(30);
+        line-height: 120%;
+        @include tablet-up {
+          font-size: ppx(30) * 1.2;
+        }
+        @include desktop-up {
+          font-size: ppx(30);
+        }
+      }
+      &.second {
+        color: var(--blue_6, #054965);
+        font-size: spx(39);
+        line-height: 120%;
+        letter-spacing: spx(3.9);
+        @include tablet-up {
+          font-size: ppx(41) * 1.2;
+          letter-spacing: ppx(8.2) * 1.2;
+          margin-top: ppx(9) * 1.2;
+        }
+        @include desktop-up {
+          font-size: ppx(41);
+          letter-spacing: ppx(8.2);
+          margin-top: ppx(9);
+        }
+      }
+    }
+
+    &__card-content {
+      grid-area: content;
+    }
+
+    &__card-media {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__card-image {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      // 半透明白オーバーレイ
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.2);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &__card-category {
+      color: var(--white, #fff);
+      font-family: 'Allura', cursive;
+      font-size: spx(111);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100%;
+      position: absolute;
+      top: spx(29);
+      right: spx(36);
+      @include tablet-up {
+        font-size: ppx(130) * 1.2;
+        top: ppx(115) * 1.2;
+        right: ppx(100) * 1.2;
+      }
+      @include desktop-up {
+        font-size: ppx(130);
+        top: ppx(115);
+        right: ppx(100);
+      }
+    }
+
+    &__card-button {
+      display: none;
+      @include tablet-up {
+        display: block;
+        position: absolute;
+        bottom: ppx(30) * 1.2;
+        right: ppx(50) * 1.2;
+        transition: transform 0.3s ease;
+      }
+      @include desktop-up {
+        bottom: ppx(30);
+        right: ppx(50);
+      }
+    }
+
+    &__card-arrow {
+      @include tablet-up {
+        display: block;
+        width: ppx(70) * 1.2;
+        height: ppx(70) * 1.2;
+        transition: transform 0.3s ease;
+      }
+      @include desktop-up {
+        width: ppx(70);
+        height: ppx(70);
+      }
+
+      circle {
+        transition: fill 0.3s ease;
+      }
+
+      path {
+        transition: stroke 0.3s ease;
+      }
+    }
+  }
+</style>

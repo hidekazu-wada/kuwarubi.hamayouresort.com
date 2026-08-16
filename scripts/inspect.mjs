@@ -25,6 +25,9 @@ const width = Number(arg('width', 1440));
 const height = Number(arg('height', 4000));
 const evalBody = arg('eval', 'return null');
 const shot = arg('shot');
+// 指定したセレクタの位置までスクロールし、ビューポートだけを撮る。
+// 縦に長いページは captureBeyondViewport だと深い位置が白く抜けることがあるため。
+const scrollTo = arg('scroll-to');
 
 if (!url) {
   console.error('--url は必須です');
@@ -151,9 +154,24 @@ const { result } = await send('Runtime.evaluate', {
 console.log(result.value ?? 'null');
 
 if (shot) {
+  if (scrollTo) {
+    await send('Runtime.evaluate', {
+      expression: `(async () => {
+        // html に scroll-behavior: smooth が効いているとスクロールが終わらないので殺す
+        document.documentElement.style.scrollBehavior = 'auto';
+        const el = document.querySelector(${JSON.stringify(scrollTo)});
+        if (el) {
+          const y = el.getBoundingClientRect().top + window.scrollY - 40;
+          window.scrollTo(0, y);
+        }
+        await new Promise((r) => setTimeout(r, 800));
+      })()`,
+      awaitPromise: true,
+    }, sessionId);
+  }
   const { data } = await send('Page.captureScreenshot', {
     format: 'png',
-    captureBeyondViewport: true,
+    captureBeyondViewport: !scrollTo,
   }, sessionId);
   await writeFile(shot, Buffer.from(data, 'base64'));
 }
