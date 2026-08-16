@@ -89,7 +89,7 @@ import fn_day2_slide05 from '../assets/images/top/location/img1.png';
 import couples_hero from '../assets/images/enjoy/couples/hero.jpg';
 import cp_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import cp_day1_slide02 from '../assets/images/enjoy/common/lakeside.jpg';
-import cp_day1_slide03 from '../assets/images/activities/hot-spring-bath-and-forest-sauna-hut/gallery-01.jpg';
+import cp_day1_slide03 from '../assets/images/facility/hodohodo-forest/img08.jpg';
 import cp_day1_slide04 from '../assets/images/food/bbq/img-01.png';
 import cp_day1_slide05 from '../assets/images/facility/hodohodo-forest/img04.png';
 import cp_day1_slide06 from '../assets/images/enjoy/couples/day1/slide-06.jpg';
@@ -107,7 +107,7 @@ import rl_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import rl_day1_slide02 from '../assets/images/facility/equipment/img-10.jpg';
 import rl_day1_slide03 from '../assets/images/enjoy/relaxation/day1/slide-03.jpg';
 import rl_day1_slide04 from '../assets/images/food/dinner/img-02.jpg';
-import rl_day1_slide05 from '../assets/images/activities/hot-spring-bath-and-forest-sauna-hut/gallery-02.jpg';
+import rl_day1_slide05 from '../assets/images/facility/hodohodo-forest/img02.png';
 import rl_day1_slide06 from '../assets/images/enjoy/relaxation/day1/slide-06.jpg';
 import rl_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
@@ -139,7 +139,7 @@ import rd_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import rd_day1_slide02 from '../assets/images/facility/equipment/img-10.jpg';
 import rd_day1_slide03 from '../assets/images/facility/public-bath/rotenburo.jpg';
 import rd_day1_slide04 from '../assets/images/facility/kokko/img-02.jpg';
-import rd_day1_slide05 from '../assets/images/activities/hot-spring-bath-and-forest-sauna-hut/gallery-01.jpg';
+import rd_day1_slide05 from '../assets/images/facility/hodohodo-forest/img02.png';
 import rd_day1_slide06 from '../assets/images/facility/room/slide-05.jpg';
 import rd_day1_slide07 from '../assets/images/facility/room/slide-03.jpg';
 
@@ -359,7 +359,7 @@ export const couplesPlan: StayPlan = {
           detailTitle: 'プライベートサウナ',
           description:
             '森の中に建つ薪サウナ小屋。貸切なので、二人のペースで整えられます。源泉かけ流しの足湯も使えます。',
-          image: { src: cp_day1_slide03, alt: 'プライベートサウナ' },
+          image: { src: cp_day1_slide03, alt: '森の中に建つ薪サウナ小屋' },
         },
         {
           time: '18:00',
@@ -518,7 +518,7 @@ export const relaxationPlan: StayPlan = {
           detailTitle: 'プライベートサウナ',
           description:
             'ほどほどの森の薪サウナを貸切で。火の音と外気だけが、そこにあります。',
-          image: { src: rl_day1_slide05, alt: 'プライベートサウナ' },
+          image: { src: rl_day1_slide05, alt: '薪ストーブに火が入ったサウナ小屋の内観' },
         },
         {
           time: '21:00',
@@ -804,7 +804,7 @@ export const rainyDayPlan: StayPlan = {
           detailTitle: '森のサウナ小屋',
           description:
             '薪の爆ぜる音と雨音が重なる、夜のサウナ。屋根の下で、外の雨を眺めながらととのいます。',
-          image: { src: rd_day1_slide05, alt: '森のサウナ小屋' },
+          image: { src: rd_day1_slide05, alt: '薪ストーブに火が入ったサウナ小屋の内観' },
         },
         {
           time: '21:00',
