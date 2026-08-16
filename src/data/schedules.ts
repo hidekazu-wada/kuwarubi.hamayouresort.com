@@ -95,7 +95,7 @@ import cp_day1_slide05 from '../assets/images/facility/hodohodo-forest/img09.jpg
 import cp_day1_slide06 from '../assets/images/enjoy/common/starry-sky.jpg';
 import cp_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
-import cp_day2_slide01 from '../assets/images/top/location/img1.png';
+import cp_day2_slide01 from '../assets/images/enjoy/common/morning-lake.jpg';
 import cp_day2_slide02 from '../assets/images/food/breakfast/img-02.jpg';
 import cp_day2_slide03 from '../assets/images/enjoy/common/checkout.jpg';
 import cp_day2_slide04 from '../assets/images/top/location/img2.png';
@@ -406,7 +406,7 @@ export const couplesPlan: StayPlan = {
           detailTitle: '朝の湖畔へ',
           description:
             '誰もいない早朝の湖。風のない朝は、水面に逆さ富士が映ります。',
-          image: { src: cp_day2_slide01, alt: '早朝の西湖と富士山' },
+          image: { src: cp_day2_slide01, alt: '風のない早朝の西湖と水面の映り込み' },
         },
         {
           time: '7:30',
