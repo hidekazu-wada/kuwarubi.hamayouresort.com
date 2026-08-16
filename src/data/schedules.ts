@@ -624,20 +624,20 @@ export const sightseeingPlan: StayPlan = {
       planId: 'sightseeing',
       items: [
         {
+          time: '13:30',
+          thumbnailTitle: '新屋山神社を参拝',
+          detailTitle: '新屋山神社を参拝',
+          description:
+            '宿へ向かう前に、富士吉田の新屋山神社へ。金運の神社として知られる社です。木々に囲まれた境内は、それだけで空気が変わります。',
+          image: { src: st_day1_slide02, alt: '木々に囲まれた新屋山神社の社殿' },
+        },
+        {
           time: '15:00',
           thumbnailTitle: 'チェックイン',
           detailTitle: 'チェックイン',
           description:
-            '荷物を置いて、身軽に出かける準備をします。宿は観光の拠点として使えます。',
+            '参拝を済ませてから宿へ。ここからは、静かな観光の拠点として使ってください。',
           image: { src: st_day1_slide01, alt: 'チェックイン' },
-        },
-        {
-          time: '15:30',
-          thumbnailTitle: '新屋山神社を参拝',
-          detailTitle: '新屋山神社を参拝',
-          description:
-            '富士山の北麓に鎮座する、金運の神社として知られる社。木々に囲まれた参道は、それだけで空気が変わります。',
-          image: { src: st_day1_slide02, alt: '森の中の神社の参道' },
         },
         {
           time: '17:30',
