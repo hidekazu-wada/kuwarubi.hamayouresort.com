@@ -405,7 +405,7 @@ export const couplesPlan: StayPlan = {
           thumbnailTitle: '朝の湖畔へ',
           detailTitle: '朝の湖畔へ',
           description:
-            '誰もいない早朝の湖。風のない朝は、水面に逆さ富士が映ります。',
+            '誰もいない早朝の湖。風のない朝は、山影がそのまま水面に映ります。',
           image: { src: cp_day2_slide01, alt: '風のない早朝の西湖と水面の映り込み' },
         },
         {
@@ -437,8 +437,8 @@ export const couplesPlan: StayPlan = {
           thumbnailTitle: 'カフェでひと息',
           detailTitle: 'カフェでひと息',
           description:
-            '歩いたあとは、徒歩圏内のクラフトビール醸造所のカフェへ。旅の余韻を、静かな空間で。',
-          image: { src: cp_day2_slide05, alt: '近隣のカフェ' },
+            '歩いたあとは、近くのカフェでひと息。少し足をのばせば、クラフトビールの醸造所もあります。',
+          image: { src: cp_day2_slide05, alt: '木のテーブルに置かれたコーヒー' },
         },
       ],
     },
