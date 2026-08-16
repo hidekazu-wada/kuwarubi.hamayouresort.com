@@ -80,7 +80,7 @@ import fn_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
 import fn_day2_slide01 from '../assets/images/facility/public-bath/daiyokujo.jpg';
 import fn_day2_slide02 from '../assets/images/food/breakfast/img-01.jpg';
-import fn_day2_slide03 from '../assets/images/enjoy/common/reception.jpg';
+import fn_day2_slide03 from '../assets/images/enjoy/common/checkout.jpg';
 import fn_day2_slide04 from '../assets/images/activities/pedal-boards/gallery-01.jpg';
 import fn_day2_slide05 from '../assets/images/top/location/img1.png';
 
@@ -97,7 +97,7 @@ import cp_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
 import cp_day2_slide01 from '../assets/images/top/location/img2.png';
 import cp_day2_slide02 from '../assets/images/food/breakfast/img-02.jpg';
-import cp_day2_slide03 from '../assets/images/enjoy/common/reception.jpg';
+import cp_day2_slide03 from '../assets/images/enjoy/common/checkout.jpg';
 import cp_day2_slide04 from '../assets/images/activities/aokigahara-forest-private-tour/gallery-01.jpg';
 import cp_day2_slide05 from '../assets/images/enjoy/couples/day2/slide-05.jpg';
 
@@ -113,7 +113,7 @@ import rl_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
 import rl_day2_slide01 from '../assets/images/facility/public-bath/daiyokujo.jpg';
 import rl_day2_slide02 from '../assets/images/food/breakfast/img-03.jpg';
-import rl_day2_slide03 from '../assets/images/enjoy/common/reception.jpg';
+import rl_day2_slide03 from '../assets/images/enjoy/common/checkout.jpg';
 import rl_day2_slide04 from '../assets/images/activities/sup-rental/gallery-01.jpg';
 import rl_day2_slide05 from '../assets/images/activities/aokigahara-forest-early-morning-private-tour/gallery-01.jpg';
 
@@ -128,7 +128,7 @@ import st_day1_slide06 from '../assets/images/enjoy/sightseeing/day1/slide-06.jp
 import st_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
 import st_day2_slide01 from '../assets/images/food/breakfast/img-04.jpg';
-import st_day2_slide02 from '../assets/images/enjoy/common/reception.jpg';
+import st_day2_slide02 from '../assets/images/enjoy/common/checkout.jpg';
 import st_day2_slide03 from '../assets/images/activities/aokigahara-forest-private-tour/gallery-03.jpg';
 import st_day2_slide04 from '../assets/images/enjoy/sightseeing/day2/slide-04.jpg';
 import st_day2_slide05 from '../assets/images/enjoy/sightseeing/day2/slide-05.jpg';
@@ -145,7 +145,7 @@ import rd_day1_slide07 from '../assets/images/facility/room/slide-03.jpg';
 
 import rd_day2_slide01 from '../assets/images/facility/public-bath/rotenburo.jpg';
 import rd_day2_slide02 from '../assets/images/food/breakfast/img-01.jpg';
-import rd_day2_slide03 from '../assets/images/enjoy/common/reception.jpg';
+import rd_day2_slide03 from '../assets/images/enjoy/common/checkout.jpg';
 import rd_day2_slide04 from '../assets/images/facility/kokko/img-03.png';
 import rd_day2_slide05 from '../assets/images/activities/car-sauna/gallery-01.jpg';
 import rd_day2_slide06 from '../assets/images/top/location/img1.png';
@@ -279,7 +279,7 @@ export const familyNaturePlan: StayPlan = {
           detailTitle: 'チェックアウト',
           description:
             '部屋を空けて、荷物はフロントへ預けます。ここからは身軽に過ごせます。',
-          image: { src: fn_day2_slide03, alt: 'チェックアウトカウンター' },
+          image: { src: fn_day2_slide03, alt: 'フロントでルームキーを返却する様子' },
         },
         {
           time: '10:00',
@@ -422,7 +422,7 @@ export const couplesPlan: StayPlan = {
           detailTitle: 'チェックアウト',
           description:
             '部屋を空けて、荷物を預けます。まだ帰りません。',
-          image: { src: cp_day2_slide03, alt: 'チェックアウト' },
+          image: { src: cp_day2_slide03, alt: 'フロントでルームキーを返却する様子' },
         },
         {
           time: '9:30',
@@ -565,7 +565,7 @@ export const relaxationPlan: StayPlan = {
           detailTitle: 'チェックアウト',
           description:
             '部屋を空けて、荷物を預けます。まだ湖の時間は続きます。',
-          image: { src: rl_day2_slide03, alt: 'チェックアウト' },
+          image: { src: rl_day2_slide03, alt: 'フロントでルームキーを返却する様子' },
         },
         {
           time: '10:00',
@@ -700,7 +700,7 @@ export const sightseeingPlan: StayPlan = {
           detailTitle: 'チェックアウト',
           description:
             '部屋を空けて荷物を預け、身軽に観光へ出ます。',
-          image: { src: st_day2_slide02, alt: 'チェックアウト' },
+          image: { src: st_day2_slide02, alt: 'フロントでルームキーを返却する様子' },
         },
         {
           time: '9:30',
@@ -851,7 +851,7 @@ export const rainyDayPlan: StayPlan = {
           detailTitle: 'チェックアウト',
           description:
             '部屋を空けて、荷物を預けます。雨の日はまだ続きます。',
-          image: { src: rd_day2_slide03, alt: 'チェックアウト' },
+          image: { src: rd_day2_slide03, alt: 'フロントでルームキーを返却する様子' },
         },
         {
           time: '12:00',
