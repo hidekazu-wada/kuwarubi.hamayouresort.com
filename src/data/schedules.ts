@@ -716,7 +716,7 @@ export const sightseeingPlan: StayPlan = {
           detailTitle: '吉田のうどんで昼食',
           description:
             '富士吉田の郷土食。驚くほど硬い麺と、味噌と醤油を合わせた汁。地元の人が通う店で味わってください。',
-          image: { src: st_day2_slide04, alt: '郷土料理のうどん' },
+          image: { src: st_day2_slide04, alt: '吉田のうどん。太い麺とキャベツ、天かすの汁' },
         },
         {
           time: '14:00',
@@ -724,7 +724,7 @@ export const sightseeingPlan: StayPlan = {
           detailTitle: '富士パノラマロープウェイ',
           description:
             '河口湖畔から山頂へ。富士山と河口湖を一度に見渡せる、定番にして外せない眺めです。',
-          image: { src: st_day2_slide05, alt: '山頂からの富士山の眺め' },
+          image: { src: st_day2_slide05, alt: '河口湖を見下ろす富士パノラマロープウェイのゴンドラ' },
         },
       ],
     },
