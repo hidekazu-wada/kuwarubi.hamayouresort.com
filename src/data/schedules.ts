@@ -669,7 +669,7 @@ export const sightseeingPlan: StayPlan = {
           detailTitle: '明日の計画を立てる',
           description:
             '明日の観光計画を立てながら、ゆっくりと過ごします。フロントで地元の情報も聞けます。',
-          image: { src: st_day1_slide06, alt: '観光計画' },
+          image: { src: st_day1_slide06, alt: '時間の目盛りが並んだ手帳とペン' },
         },
         {
           time: '22:00',
