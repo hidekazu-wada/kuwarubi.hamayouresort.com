@@ -83,6 +83,51 @@ import aokigaharaForestPrivateTourImg04 from '../assets/images/activities/aokiga
 import aokigaharaForestPrivateTourImg05 from '../assets/images/activities/aokigahara-forest-private-tour/gallery-05.jpg';
 import aokigaharaForestPrivateTourPointBg from '../assets/images/activities/aokigahara-forest-private-tour/point-bg.jpg';
 
+// 団体プログラム（浜遊リゾートの既存サイトから移設）
+import campfireImg01 from '../assets/images/activities/campfire/gallery-01.jpg';
+import campfireImg02 from '../assets/images/activities/campfire/gallery-02.jpg';
+import campfireImg03 from '../assets/images/activities/campfire/gallery-03.jpg';
+import campfireImg04 from '../assets/images/activities/campfire/gallery-04.jpg';
+import campfireImg05 from '../assets/images/activities/campfire/gallery-05.jpg';
+import teamBuildingImg01 from '../assets/images/activities/team-building/gallery-01.jpg';
+import teamBuildingImg02 from '../assets/images/activities/team-building/gallery-02.jpg';
+import teamBuildingImg03 from '../assets/images/activities/team-building/gallery-03.jpg';
+import teamBuildingImg04 from '../assets/images/activities/team-building/gallery-04.jpg';
+import teamBuildingImg05 from '../assets/images/activities/team-building/gallery-05.jpg';
+import treasureHuntImg01 from '../assets/images/activities/treasure-hunt/gallery-01.jpg';
+import treasureHuntImg02 from '../assets/images/activities/treasure-hunt/gallery-02.jpg';
+import treasureHuntImg03 from '../assets/images/activities/treasure-hunt/gallery-03.jpg';
+import raftBuildingImg01 from '../assets/images/activities/raft-building/gallery-01.jpg';
+import raftBuildingImg02 from '../assets/images/activities/raft-building/gallery-02.jpg';
+import raftBuildingImg03 from '../assets/images/activities/raft-building/gallery-03.jpg';
+import raftBuildingImg04 from '../assets/images/activities/raft-building/gallery-04.jpg';
+import raftBuildingImg05 from '../assets/images/activities/raft-building/gallery-05.jpg';
+import kamadoCurryImg01 from '../assets/images/activities/kamado-curry/gallery-01.jpg';
+import kamadoCurryImg02 from '../assets/images/activities/kamado-curry/gallery-02.jpg';
+import kamadoCurryImg03 from '../assets/images/activities/kamado-curry/gallery-03.jpg';
+import kamadoCurryImg04 from '../assets/images/activities/kamado-curry/gallery-04.jpg';
+import houtouMakingImg01 from '../assets/images/activities/houtou-making/gallery-01.jpg';
+import houtouMakingImg02 from '../assets/images/activities/houtou-making/gallery-02.jpg';
+import houtouMakingImg03 from '../assets/images/activities/houtou-making/gallery-03.jpg';
+import houtouMakingImg04 from '../assets/images/activities/houtou-making/gallery-04.jpg';
+import houtouMakingImg05 from '../assets/images/activities/houtou-making/gallery-05.jpg';
+import houtouMakingImg06 from '../assets/images/activities/houtou-making/gallery-06.jpg';
+import kunimasuMysteryImg01 from '../assets/images/activities/kunimasu-mystery/gallery-01.jpg';
+import kunimasuMysteryImg02 from '../assets/images/activities/kunimasu-mystery/gallery-02.jpg';
+import kunimasuMysteryImg03 from '../assets/images/activities/kunimasu-mystery/gallery-03.jpg';
+import survivalBraceletImg01 from '../assets/images/activities/survival-bracelet/gallery-01.jpg';
+import survivalBraceletImg02 from '../assets/images/activities/survival-bracelet/gallery-02.jpg';
+import survivalBraceletImg03 from '../assets/images/activities/survival-bracelet/gallery-03.jpg';
+import jukaiTrailImg01 from '../assets/images/activities/jukai-trail/gallery-01.jpg';
+import jukaiTrailImg02 from '../assets/images/activities/jukai-trail/gallery-02.jpg';
+import jukaiTrailImg03 from '../assets/images/activities/jukai-trail/gallery-03.jpg';
+import jukaiTrailImg04 from '../assets/images/activities/jukai-trail/gallery-04.jpg';
+import jukaiTrailImg05 from '../assets/images/activities/jukai-trail/gallery-05.jpg';
+import kayakGroupImg01 from '../assets/images/activities/kayak-group/gallery-01.jpg';
+import kayakGroupImg02 from '../assets/images/activities/kayak-group/gallery-02.jpg';
+import kayakGroupImg03 from '../assets/images/activities/kayak-group/gallery-03.jpg';
+import kayakGroupImg04 from '../assets/images/activities/kayak-group/gallery-04.jpg';
+
 export type CatchphraseColor = 'white' | 'blue';
 export type FilterWeather = 'all' | 'sunny' | 'light-rain' | 'rainy';
 export type FilterDifficulty = '初心者向け' | '中級者向け' | '上級者向け';
@@ -620,10 +665,9 @@ export const activities: Activity[] = [
     slug: "kunimasu-mystery",
     title: "クニマスの謎を解け",
     category: "GROUP",
-    published: false,
+    published: true,
 
-    // 写真は未入稿。src/assets/images/activities/<slug>/ に置いたら import して差し込む
-    gallery: [],
+    gallery: [kunimasuMysteryImg01, kunimasuMysteryImg02, kunimasuMysteryImg03],
 
     // TOPページ表示
     showOnTop: false,
@@ -673,10 +717,9 @@ export const activities: Activity[] = [
     slug: "jukai-trail",
     title: "樹海トレイル",
     category: "GROUP",
-    published: false,
+    published: true,
 
-    // 写真は未入稿。src/assets/images/activities/<slug>/ に置いたら import して差し込む
-    gallery: [],
+    gallery: [jukaiTrailImg01, jukaiTrailImg02, jukaiTrailImg03, jukaiTrailImg04, jukaiTrailImg05],
 
     // TOPページ表示
     showOnTop: false,
@@ -728,10 +771,9 @@ export const activities: Activity[] = [
     slug: "campfire",
     title: "キャンプファイヤー",
     category: "GROUP",
-    published: false,
+    published: true,
 
-    // 写真は未入稿。src/assets/images/activities/<slug>/ に置いたら import して差し込む
-    gallery: [],
+    gallery: [campfireImg01, campfireImg02, campfireImg03, campfireImg04, campfireImg05],
 
     // TOPページ表示
     showOnTop: false,
@@ -782,10 +824,9 @@ export const activities: Activity[] = [
     slug: "kayak-group",
     title: "カヤック体験",
     category: "GROUP",
-    published: false,
+    published: true,
 
-    // 写真は未入稿。src/assets/images/activities/<slug>/ に置いたら import して差し込む
-    gallery: [],
+    gallery: [kayakGroupImg01, kayakGroupImg02, kayakGroupImg03, kayakGroupImg04],
 
     // TOPページ表示
     showOnTop: false,
@@ -836,10 +877,10 @@ export const activities: Activity[] = [
     slug: "hobie-group",
     title: "足漕ぎカヤック",
     category: "GROUP",
-    published: false,
+    published: true,
 
-    // 写真は未入稿。src/assets/images/activities/<slug>/ に置いたら import して差し込む
-    gallery: [],
+    // 写真は既存の「足漕ぎカヤック HOBIE」と同じものを流用（乗り物が同一のため）
+    gallery: [pedalBoardsImg01, pedalBoardsImg02, pedalBoardsImg03, pedalBoardsImg04, pedalBoardsImg05],
 
     // TOPページ表示
     showOnTop: false,
@@ -890,10 +931,9 @@ export const activities: Activity[] = [
     slug: "raft-building",
     title: "いかだ作り",
     category: "GROUP",
-    published: false,
+    published: true,
 
-    // 写真は未入稿。src/assets/images/activities/<slug>/ に置いたら import して差し込む
-    gallery: [],
+    gallery: [raftBuildingImg01, raftBuildingImg02, raftBuildingImg03, raftBuildingImg04, raftBuildingImg05],
 
     // TOPページ表示
     showOnTop: false,
@@ -944,10 +984,9 @@ export const activities: Activity[] = [
     slug: "kamado-curry",
     title: "かまど炊飯とカレー作り",
     category: "GROUP",
-    published: false,
+    published: true,
 
-    // 写真は未入稿。src/assets/images/activities/<slug>/ に置いたら import して差し込む
-    gallery: [],
+    gallery: [kamadoCurryImg01, kamadoCurryImg02, kamadoCurryImg03, kamadoCurryImg04],
 
     // TOPページ表示
     showOnTop: false,
@@ -999,10 +1038,9 @@ export const activities: Activity[] = [
     slug: "houtou-making",
     title: "ほうとう作り",
     category: "GROUP",
-    published: false,
+    published: true,
 
-    // 写真は未入稿。src/assets/images/activities/<slug>/ に置いたら import して差し込む
-    gallery: [],
+    gallery: [houtouMakingImg01, houtouMakingImg02, houtouMakingImg03, houtouMakingImg04, houtouMakingImg05, houtouMakingImg06],
 
     // TOPページ表示
     showOnTop: false,
@@ -1054,10 +1092,9 @@ export const activities: Activity[] = [
     slug: "treasure-hunt",
     title: "リアル宝探し",
     category: "GROUP",
-    published: false,
+    published: true,
 
-    // 写真は未入稿。src/assets/images/activities/<slug>/ に置いたら import して差し込む
-    gallery: [],
+    gallery: [treasureHuntImg01, treasureHuntImg02, treasureHuntImg03],
 
     // TOPページ表示
     showOnTop: false,
@@ -1108,10 +1145,9 @@ export const activities: Activity[] = [
     slug: "team-building",
     title: "チームビルディング",
     category: "GROUP",
-    published: false,
+    published: true,
 
-    // 写真は未入稿。src/assets/images/activities/<slug>/ に置いたら import して差し込む
-    gallery: [],
+    gallery: [teamBuildingImg01, teamBuildingImg02, teamBuildingImg03, teamBuildingImg04, teamBuildingImg05],
 
     // TOPページ表示
     showOnTop: false,
@@ -1162,10 +1198,9 @@ export const activities: Activity[] = [
     slug: "survival-bracelet",
     title: "サバイバルバンド作り",
     category: "GROUP",
-    published: false,
+    published: true,
 
-    // 写真は未入稿。src/assets/images/activities/<slug>/ に置いたら import して差し込む
-    gallery: [],
+    gallery: [survivalBraceletImg01, survivalBraceletImg02, survivalBraceletImg03],
 
     // TOPページ表示
     showOnTop: false,
