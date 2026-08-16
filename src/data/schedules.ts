@@ -71,7 +71,7 @@ export interface StayPlan {
 // 1. 子供と一緒に自然に触れたい方（Family Nature）
 import family_nature_hero from '../assets/images/enjoy/family-nature/hero.png';
 import fn_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
-import fn_day1_slide02 from '../assets/images/facility/hodohodo-forest/img03.jpg';
+import fn_day1_slide02 from '../assets/images/facility/hodohodo-forest/img06.jpg';
 import fn_day1_slide03 from '../assets/images/enjoy/family-nature/day1/slide-03.jpg';
 import fn_day1_slide04 from '../assets/images/food/dinner/main.jpg';
 import fn_day1_slide05 from '../assets/images/facility/public-bath/img-02.png';
@@ -205,7 +205,10 @@ export const familyNaturePlan: StayPlan = {
           detailTitle: 'ほどほどの森であそぶ',
           description:
             'ホテルに隣接する、宿泊者だけが入れる森。ツリーハウス、ブランコ、トランポリン、アスレチック。放っておいても子どもは遊び方を見つけます。',
-          image: { src: fn_day1_slide02, alt: 'ほどほどの森の遊具' },
+          image: {
+            src: fn_day1_slide02,
+            alt: 'ほどほどの森のターザンロープで遊ぶ子どもたち',
+          },
         },
         {
           time: '17:00',
