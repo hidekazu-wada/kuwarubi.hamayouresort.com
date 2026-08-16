@@ -72,13 +72,13 @@ export interface StayPlan {
 import family_nature_hero from '../assets/images/enjoy/family-nature/hero.png';
 import fn_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import fn_day1_slide02 from '../assets/images/facility/hodohodo-forest/img06.jpg';
-import fn_day1_slide03 from '../assets/images/enjoy/family-nature/day1/slide-03.jpg';
+import fn_day1_slide03 from '../assets/images/facility/hodohodo-forest/img07.jpg';
 import fn_day1_slide04 from '../assets/images/food/dinner/main.jpg';
-import fn_day1_slide05 from '../assets/images/facility/public-bath/img-02.png';
+import fn_day1_slide05 from '../assets/images/facility/public-bath/rotenburo.jpg';
 import fn_day1_slide06 from '../assets/images/enjoy/family-nature/day1/slide-06.jpg';
 import fn_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
-import fn_day2_slide01 from '../assets/images/facility/public-bath/img-01.png';
+import fn_day2_slide01 from '../assets/images/facility/public-bath/daiyokujo.jpg';
 import fn_day2_slide02 from '../assets/images/food/breakfast/img-01.jpg';
 import fn_day2_slide03 from '../assets/images/enjoy/common/reception.jpg';
 import fn_day2_slide04 from '../assets/images/activities/pedal-boards/gallery-01.jpg';
@@ -111,7 +111,7 @@ import rl_day1_slide05 from '../assets/images/activities/hot-spring-bath-and-for
 import rl_day1_slide06 from '../assets/images/enjoy/relaxation/day1/slide-06.jpg';
 import rl_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
-import rl_day2_slide01 from '../assets/images/facility/public-bath/bg.png';
+import rl_day2_slide01 from '../assets/images/facility/public-bath/daiyokujo.jpg';
 import rl_day2_slide02 from '../assets/images/food/breakfast/img-03.jpg';
 import rl_day2_slide03 from '../assets/images/enjoy/common/reception.jpg';
 import rl_day2_slide04 from '../assets/images/activities/sup-rental/gallery-01.jpg';
@@ -123,7 +123,7 @@ import st_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import st_day1_slide02 from '../assets/images/enjoy/sightseeing/day1/slide-02.jpg';
 import st_day1_slide03 from '../assets/images/activities/senoumi-tour-saiko/gallery-05.jpg';
 import st_day1_slide04 from '../assets/images/food/dinner/img-03.jpg';
-import st_day1_slide05 from '../assets/images/facility/public-bath/img-01.png';
+import st_day1_slide05 from '../assets/images/facility/public-bath/daiyokujo.jpg';
 import st_day1_slide06 from '../assets/images/enjoy/sightseeing/day1/slide-06.jpg';
 import st_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
@@ -137,13 +137,13 @@ import st_day2_slide05 from '../assets/images/enjoy/sightseeing/day2/slide-05.jp
 import rainy_day_hero from '../assets/images/enjoy/rainy-day/hero.jpg';
 import rd_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import rd_day1_slide02 from '../assets/images/facility/equipment/img-10.jpg';
-import rd_day1_slide03 from '../assets/images/facility/public-bath/img-02.png';
+import rd_day1_slide03 from '../assets/images/facility/public-bath/rotenburo.jpg';
 import rd_day1_slide04 from '../assets/images/facility/kokko/img-02.jpg';
 import rd_day1_slide05 from '../assets/images/activities/hot-spring-bath-and-forest-sauna-hut/gallery-01.jpg';
 import rd_day1_slide06 from '../assets/images/facility/room/slide-05.jpg';
 import rd_day1_slide07 from '../assets/images/facility/room/slide-03.jpg';
 
-import rd_day2_slide01 from '../assets/images/facility/public-bath/img-01.png';
+import rd_day2_slide01 from '../assets/images/facility/public-bath/rotenburo.jpg';
 import rd_day2_slide02 from '../assets/images/food/breakfast/img-01.jpg';
 import rd_day2_slide03 from '../assets/images/enjoy/common/reception.jpg';
 import rd_day2_slide04 from '../assets/images/facility/kokko/img-03.png';
@@ -216,7 +216,7 @@ export const familyNaturePlan: StayPlan = {
           detailTitle: '足湯でひと休み',
           description:
             '森の中に源泉かけ流しの足湯があります。走り回ったあとの足を、そのまま浸けられます。',
-          image: { src: fn_day1_slide03, alt: '森の足湯' },
+          image: { src: fn_day1_slide03, alt: 'ほどほどの森の源泉かけ流しの足湯' },
         },
         {
           time: '18:00',
@@ -661,7 +661,7 @@ export const sightseeingPlan: StayPlan = {
           detailTitle: '温泉でリフレッシュ',
           description:
             '観光の疲れを温泉で癒します。明日への活力を蓄えます。',
-          image: { src: st_day1_slide05, alt: '温泉' },
+          image: { src: st_day1_slide05, alt: '大浴場' },
         },
         {
           time: '20:30',
@@ -788,7 +788,7 @@ export const rainyDayPlan: StayPlan = {
           detailTitle: '温泉でリラックス',
           description:
             '雨音を聞きながらの露天風呂は格別。雨に濡れた森の香りを感じながら、ゆったりと温泉を楽しみます。',
-          image: { src: rd_day1_slide03, alt: '雨の日の温泉' },
+          image: { src: rd_day1_slide03, alt: '雨の日の露天風呂' },
         },
         {
           time: '18:00',
