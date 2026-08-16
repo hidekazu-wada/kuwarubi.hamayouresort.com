@@ -668,6 +668,8 @@ export const activities: Activity[] = [
     published: true,
 
     gallery: [kunimasuMysteryImg01, kunimasuMysteryImg02, kunimasuMysteryImg03],
+    // 西湖の水際。プログラムの主題そのもの
+    pointBackgroundImage: kunimasuMysteryImg02,
 
     // TOPページ表示
     showOnTop: false,
@@ -720,6 +722,8 @@ export const activities: Activity[] = [
     published: true,
 
     gallery: [jukaiTrailImg01, jukaiTrailImg02, jukaiTrailImg03, jukaiTrailImg04, jukaiTrailImg05],
+    // 苔むした倒木。奥に歩く人
+    pointBackgroundImage: jukaiTrailImg03,
 
     // TOPページ表示
     showOnTop: false,
@@ -774,6 +778,8 @@ export const activities: Activity[] = [
     published: true,
 
     gallery: [campfireImg01, campfireImg02, campfireImg03, campfireImg04, campfireImg05],
+    // 炎が左寄りで、右のカード下に人が来る
+    pointBackgroundImage: campfireImg02,
 
     // TOPページ表示
     showOnTop: false,
@@ -827,6 +833,8 @@ export const activities: Activity[] = [
     published: true,
 
     gallery: [kayakGroupImg01, kayakGroupImg02, kayakGroupImg03, kayakGroupImg04],
+    // 朝もやの湖にカヤックが点在
+    pointBackgroundImage: kayakGroupImg03,
 
     // TOPページ表示
     showOnTop: false,
@@ -881,6 +889,8 @@ export const activities: Activity[] = [
 
     // 写真は既存の「足漕ぎカヤック HOBIE」と同じものを流用（乗り物が同一のため）
     gallery: [pedalBoardsImg01, pedalBoardsImg02, pedalBoardsImg03, pedalBoardsImg04, pedalBoardsImg05],
+    // 既存の足漕ぎカヤック用ポイント背景を流用
+    pointBackgroundImage: pedalBoardsPointBg,
 
     // TOPページ表示
     showOnTop: false,
@@ -934,6 +944,8 @@ export const activities: Activity[] = [
     published: true,
 
     gallery: [raftBuildingImg01, raftBuildingImg02, raftBuildingImg03, raftBuildingImg04, raftBuildingImg05],
+    // いかだを漕ぎ出すところ。水面が横に伸びる
+    pointBackgroundImage: raftBuildingImg02,
 
     // TOPページ表示
     showOnTop: false,
@@ -987,6 +999,8 @@ export const activities: Activity[] = [
     published: true,
 
     gallery: [kamadoCurryImg01, kamadoCurryImg02, kamadoCurryImg03, kamadoCurryImg04],
+    // 鍋を囲む手元が横に広がる
+    pointBackgroundImage: kamadoCurryImg03,
 
     // TOPページ表示
     showOnTop: false,
@@ -1041,6 +1055,8 @@ export const activities: Activity[] = [
     published: true,
 
     gallery: [houtouMakingImg01, houtouMakingImg02, houtouMakingImg03, houtouMakingImg04, houtouMakingImg05, houtouMakingImg06],
+    // 生地をのばす手元。顔なしで横長
+    pointBackgroundImage: houtouMakingImg02,
 
     // TOPページ表示
     showOnTop: false,
@@ -1095,6 +1111,8 @@ export const activities: Activity[] = [
     published: true,
 
     gallery: [treasureHuntImg01, treasureHuntImg02, treasureHuntImg03],
+    // 並木道。地図は帯に切ると読めなくなる
+    pointBackgroundImage: treasureHuntImg02,
 
     // TOPページ表示
     showOnTop: false,
@@ -1148,6 +1166,8 @@ export const activities: Activity[] = [
     published: true,
 
     gallery: [teamBuildingImg01, teamBuildingImg02, teamBuildingImg03, teamBuildingImg04, teamBuildingImg05],
+    // 林道に横一列。横長に収まる
+    pointBackgroundImage: teamBuildingImg02,
 
     // TOPページ表示
     showOnTop: false,
@@ -1201,6 +1221,8 @@ export const activities: Activity[] = [
     published: true,
 
     gallery: [survivalBraceletImg01, survivalBraceletImg02, survivalBraceletImg03],
+    // 火打ち石を削る手元
+    pointBackgroundImage: survivalBraceletImg02,
 
     // TOPページ表示
     showOnTop: false,
