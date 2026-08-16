@@ -121,7 +121,7 @@ import rl_day2_slide05 from '../assets/images/activities/aokigahara-forest-early
 import sightseeing_hero from '../assets/images/enjoy/sightseeing/hero.jpg';
 import st_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import st_day1_slide02 from '../assets/images/enjoy/sightseeing/day1/slide-02.jpg';
-import st_day1_slide03 from '../assets/images/activities/senoumi-tour-saiko/gallery-05.jpg';
+import st_day1_slide03 from '../assets/images/enjoy/common/lake-dusk.jpg';
 import st_day1_slide04 from '../assets/images/food/dinner/img-03.jpg';
 import st_day1_slide05 from '../assets/images/facility/public-bath/daiyokujo.jpg';
 import st_day1_slide06 from '../assets/images/enjoy/sightseeing/day1/slide-06.jpg';
@@ -645,7 +645,7 @@ export const sightseeingPlan: StayPlan = {
           detailTitle: '湖畔の夕景',
           description:
             '宿に戻る前に、湖畔で夕暮れを。日が落ちる時間の西湖は、色が刻々と変わります。',
-          image: { src: st_day1_slide03, alt: '夕暮れの西湖' },
+          image: { src: st_day1_slide03, alt: '夕焼けに染まる西湖の空' },
         },
         {
           time: '18:00',
