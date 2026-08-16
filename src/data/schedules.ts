@@ -91,7 +91,7 @@ import cp_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import cp_day1_slide02 from '../assets/images/enjoy/common/lakeside.jpg';
 import cp_day1_slide03 from '../assets/images/facility/hodohodo-forest/img08.jpg';
 import cp_day1_slide04 from '../assets/images/food/bbq/img-01.png';
-import cp_day1_slide05 from '../assets/images/facility/hodohodo-forest/img04.png';
+import cp_day1_slide05 from '../assets/images/facility/hodohodo-forest/img09.jpg';
 import cp_day1_slide06 from '../assets/images/enjoy/couples/day1/slide-06.jpg';
 import cp_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
@@ -375,7 +375,7 @@ export const couplesPlan: StayPlan = {
           detailTitle: '焚き火バー',
           description:
             'ほどほどの森の焚き火を囲みます。火を見ていると会話が減りますが、それがちょうどいい時間です。',
-          image: { src: cp_day1_slide05, alt: '焚き火バー' },
+          image: { src: cp_day1_slide05, alt: 'ほどほどの森の焚き火バー' },
         },
         {
           time: '21:00',
