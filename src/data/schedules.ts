@@ -117,7 +117,7 @@ import rl_day2_slide03 from '../assets/images/enjoy/common/checkout.jpg';
 import rl_day2_slide04 from '../assets/images/activities/sup-rental/gallery-01.jpg';
 import rl_day2_slide05 from '../assets/images/activities/aokigahara-forest-early-morning-private-tour/gallery-01.jpg';
 
-// 4. 近隣観光メインで最高拠点に楽しみたい方（Sightseeing）
+// 4. 近隣観光メインで西湖を拠点に楽しみたい方（Sightseeing）
 import sightseeing_hero from '../assets/images/enjoy/sightseeing/hero.jpg';
 import st_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import st_day1_slide02 from '../assets/images/enjoy/sightseeing/day1/slide-02.jpg';
@@ -598,17 +598,17 @@ export const relaxationPlan: StayPlan = {
   },
 };
 
-// 4. 近隣観光メインで最高拠点に楽しみたい方
+// 4. 近隣観光メインで西湖を拠点に楽しみたい方
 export const sightseeingPlan: StayPlan = {
   id: 'sightseeing',
   slug: 'sightseeing',
-  title: '近隣観光メインで最高拠点に楽しみたい方',
+  title: '近隣観光メインで西湖を拠点に楽しみたい方',
   description:
     '金運の神社、溶岩洞穴、郷土のうどん、そしてロープウェイ。地元目線で巡る富士北麓です。',
   thumbnail: '観光メインプランのサムネイル',
   hero: {
     subtitleHighlight: '近隣観光を',
-    subtitleText: '最高拠点で',
+    subtitleText: '西湖を拠点に',
     mainTitle: ['富士山周辺を', '効率的に', '満喫しよう'],
     description:
       '西湖を拠点に、富士北麓を巡ります。金運で知られる新屋山神社、溶岩が作った竜宮洞穴、地元の人が通う吉田のうどん、そして河口湖のロープウェイ。宿は静かな拠点として使ってください。',
@@ -901,7 +901,7 @@ export const allStayPlans: StayPlan[] = [
   familyNaturePlan, // 1. 子供と一緒に自然に触れたい方
   couplesPlan, // 2. カップル夫婦で自然体験をしたい方
   relaxationPlan, // 3. 非日常を満喫、ゆったりと過ごしたい方
-  sightseeingPlan, // 4. 近隣観光メインで最高拠点に楽しみたい方
+  sightseeingPlan, // 4. 近隣観光メインで西湖を拠点に楽しみたい方
   rainyDayPlan, // 5. 雨の日でも特別な体験をしたい方
 ];
 
