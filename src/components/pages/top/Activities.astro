@@ -424,23 +424,26 @@ const optimizedActivities = await Promise.all(
       transform: translateX(-50%);
       background-color: rgba($color: #fff, $alpha: 0.9);
       border-radius: spx(130);
-      width: spx(390);
+      // タイトルが2行になるものが大半なので、1行に収まる件数を増やすために
+      // 元の設計値より幅を広げ、左右のパディングを詰めてある。
+      // 一覧ページのカード（activities/index.astro の __title）と同じ考え方。
+      width: spx(456);
       height: auto;
-      padding: spx(15) spx(50);
+      padding: spx(15) spx(36);
       display: grid;
       place-items: center;
       transition: background-color 0.3s ease;
       @include tablet-up {
         bottom: ppx(30) * 1.2;
         border-radius: ppx(130) * 1.2;
-        width: ppx(390) * 1.2;
-        padding: ppx(15) * 1.2 ppx(50) * 1.2;
+        width: ppx(455) * 1.2;
+        padding: ppx(15) * 1.2 ppx(36) * 1.2;
       }
       @include desktop-up {
         bottom: ppx(30);
         border-radius: ppx(130);
-        width: ppx(390);
-        padding: ppx(15) ppx(50);
+        width: ppx(455);
+        padding: ppx(15) ppx(36);
       }
     }
 
@@ -448,9 +451,14 @@ const optimizedActivities = await Promise.all(
       color: var(--blue_6, #054965);
       text-align: center;
       font-size: spx(32);
-      line-height: 100%;
+      // 元は 100%（行間ゼロ）。実データは大半が2行になるため行間を持たせる
+      line-height: 1.4;
       letter-spacing: spx(-1.6);
       transition: color 0.3s ease;
+      // 日本語を文節で折る。Chrome / Edge のみ対応で、他は通常の折り返しに戻るだけ
+      word-break: auto-phrase;
+      // 文節で折れない長い語が枠からはみ出さないための保険
+      overflow-wrap: anywhere;
       @include tablet-up {
         font-size: ppx(32) * 1.2;
         letter-spacing: ppx(-1.6) * 1.2;
