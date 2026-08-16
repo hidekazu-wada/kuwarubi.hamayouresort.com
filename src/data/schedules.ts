@@ -141,7 +141,7 @@ import rd_day1_slide03 from '../assets/images/facility/public-bath/rotenburo.jpg
 import rd_day1_slide04 from '../assets/images/facility/kokko/img-02.jpg';
 import rd_day1_slide05 from '../assets/images/facility/hodohodo-forest/img02.png';
 import rd_day1_slide06 from '../assets/images/facility/equipment/lobby-chair.jpg';
-import rd_day1_slide07 from '../assets/images/facility/room/slide-03.jpg';
+import rd_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
 import rd_day2_slide01 from '../assets/images/facility/public-bath/rotenburo.jpg';
 import rd_day2_slide02 from '../assets/images/food/breakfast/img-01.jpg';
@@ -820,7 +820,7 @@ export const rainyDayPlan: StayPlan = {
           detailTitle: '就　寝',
           description:
             '雨音を子守唄に、深い眠りにつきます。',
-          image: { src: rd_day1_slide07, alt: '客室の様子' },
+          image: { src: rd_day1_slide07, alt: '窓に富士山が見える夜の客室' },
         },
       ],
     },
