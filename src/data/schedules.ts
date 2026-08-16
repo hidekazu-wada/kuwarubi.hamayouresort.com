@@ -90,15 +90,15 @@ import couples_hero from '../assets/images/enjoy/couples/hero.jpg';
 import cp_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import cp_day1_slide02 from '../assets/images/enjoy/common/lakeside.jpg';
 import cp_day1_slide03 from '../assets/images/facility/hodohodo-forest/img08.jpg';
-import cp_day1_slide04 from '../assets/images/food/bbq/img-01.png';
+import cp_day1_slide04 from '../assets/images/food/bbq/hotel-made.jpg';
 import cp_day1_slide05 from '../assets/images/facility/hodohodo-forest/img09.jpg';
-import cp_day1_slide06 from '../assets/images/enjoy/couples/day1/slide-06.jpg';
+import cp_day1_slide06 from '../assets/images/enjoy/common/starry-sky.jpg';
 import cp_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
-import cp_day2_slide01 from '../assets/images/top/location/img2.png';
+import cp_day2_slide01 from '../assets/images/top/location/img1.png';
 import cp_day2_slide02 from '../assets/images/food/breakfast/img-02.jpg';
 import cp_day2_slide03 from '../assets/images/enjoy/common/checkout.jpg';
-import cp_day2_slide04 from '../assets/images/activities/aokigahara-forest-private-tour/gallery-01.jpg';
+import cp_day2_slide04 from '../assets/images/top/location/img2.png';
 import cp_day2_slide05 from '../assets/images/enjoy/couples/day2/slide-05.jpg';
 
 // 3. 非日常を満喫、ゆったりと過ごしたい方（Relaxation）
@@ -108,7 +108,7 @@ import rl_day1_slide02 from '../assets/images/facility/equipment/img-10.jpg';
 import rl_day1_slide03 from '../assets/images/enjoy/relaxation/day1/slide-03.jpg';
 import rl_day1_slide04 from '../assets/images/food/dinner/img-02.jpg';
 import rl_day1_slide05 from '../assets/images/facility/hodohodo-forest/img02.png';
-import rl_day1_slide06 from '../assets/images/enjoy/relaxation/day1/slide-06.jpg';
+import rl_day1_slide06 from '../assets/images/enjoy/common/starry-sky.jpg';
 import rl_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
 import rl_day2_slide01 from '../assets/images/facility/public-bath/daiyokujo.jpg';
@@ -367,7 +367,7 @@ export const couplesPlan: StayPlan = {
           detailTitle: 'ホテルメイドBBQ',
           description:
             '湖畔の屋根付きBBQハウスで、少し贅沢な炭火の夕食を。焼く時間そのものを、ゆっくり楽しんでください。',
-          image: { src: cp_day1_slide04, alt: '炭火のBBQ' },
+          image: { src: cp_day1_slide04, alt: 'ホテルメイドBBQの食材' },
         },
         {
           time: '20:00',
@@ -383,7 +383,7 @@ export const couplesPlan: StayPlan = {
           detailTitle: '星空観察',
           description:
             '西湖の夜空は、驚くほど星が多い。並んで見上げるだけの時間が、意外と長く感じられます。',
-          image: { src: cp_day1_slide06, alt: '星空観察' },
+          image: { src: cp_day1_slide06, alt: '西湖と富士山の上に広がる星空' },
         },
         {
           time: '22:00',
@@ -406,7 +406,7 @@ export const couplesPlan: StayPlan = {
           detailTitle: '朝の湖畔へ',
           description:
             '誰もいない早朝の湖。風のない朝は、水面に逆さ富士が映ります。',
-          image: { src: cp_day2_slide01, alt: '早朝の西湖' },
+          image: { src: cp_day2_slide01, alt: '早朝の西湖と富士山' },
         },
         {
           time: '7:30',
@@ -430,7 +430,7 @@ export const couplesPlan: StayPlan = {
           detailTitle: '樹海ツアー',
           description:
             '青木ヶ原樹海へ。溶岩の上に育った森、溶岩洞窟、絶景ポイント。都会では感じられない地球のダイナミズムに触れる2時間半です。',
-          image: { src: cp_day2_slide04, alt: '青木ヶ原樹海の森' },
+          image: { src: cp_day2_slide04, alt: '青木ヶ原樹海の苔むした溶岩と洞窟' },
         },
         {
           time: '12:00',
@@ -526,7 +526,7 @@ export const relaxationPlan: StayPlan = {
           detailTitle: '星空を見上げる',
           description:
             '満天の星空の下で、何も考えない時間を持ちます。',
-          image: { src: rl_day1_slide06, alt: '西湖の星空' },
+          image: { src: rl_day1_slide06, alt: '西湖と富士山の上に広がる星空' },
         },
         {
           time: '22:00',
