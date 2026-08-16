@@ -502,7 +502,7 @@ export const relaxationPlan: StayPlan = {
           detailTitle: 'ハンモックで読書',
           description:
             '芝生のエリアに吊るされたハンモックへ。揺られながら本を開くと、たいてい途中で眠くなります。それでいいのだと思います。',
-          image: { src: rl_day1_slide03, alt: '芝生のハンモック' },
+          image: { src: rl_day1_slide03, alt: '木陰に吊るされたハンモックチェア' },
         },
         {
           time: '18:00',
