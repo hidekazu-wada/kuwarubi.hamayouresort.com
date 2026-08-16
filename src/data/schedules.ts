@@ -413,8 +413,8 @@ export const couplesPlan: StayPlan = {
           thumbnailTitle: '朝　食',
           detailTitle: '朝　食',
           description:
-            '窓から森を眺めながらの朝食。このあとのツアーに備えて、しっかりと。',
-          image: { src: cp_day2_slide02, alt: '朝食の様子' },
+            '炊きたてのご飯から始まる朝。このあとのツアーに備えて、しっかりと。',
+          image: { src: cp_day2_slide02, alt: '炊きたてのご飯' },
         },
         {
           time: '9:00',
