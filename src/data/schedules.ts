@@ -86,7 +86,7 @@ import fn_day2_slide05 from '../assets/images/top/location/img1.png';
 
 
 // 2. カップル夫婦で自然体験をしたい方（Couples）
-import couples_hero from '../assets/images/enjoy/couples/hero.jpg';
+import couples_hero from '../assets/images/enjoy/common/starry-sky.jpg';
 import cp_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import cp_day1_slide02 from '../assets/images/enjoy/common/lakeside.jpg';
 import cp_day1_slide03 from '../assets/images/facility/hodohodo-forest/img08.jpg';
@@ -102,7 +102,7 @@ import cp_day2_slide04 from '../assets/images/top/location/img2.png';
 import cp_day2_slide05 from '../assets/images/enjoy/couples/day2/slide-05.jpg';
 
 // 3. 非日常を満喫、ゆったりと過ごしたい方（Relaxation）
-import relaxation_hero from '../assets/images/enjoy/relaxation/hero.jpg';
+import relaxation_hero from '../assets/images/enjoy/relaxation/day1/slide-03.jpg';
 import rl_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import rl_day1_slide02 from '../assets/images/facility/equipment/img-10.jpg';
 import rl_day1_slide03 from '../assets/images/enjoy/relaxation/day1/slide-03.jpg';
@@ -118,7 +118,7 @@ import rl_day2_slide04 from '../assets/images/activities/sup-rental/gallery-01.j
 import rl_day2_slide05 from '../assets/images/activities/aokigahara-forest-early-morning-private-tour/gallery-01.jpg';
 
 // 4. 近隣観光メインで西湖を拠点に楽しみたい方（Sightseeing）
-import sightseeing_hero from '../assets/images/enjoy/sightseeing/hero.jpg';
+import sightseeing_hero from '../assets/images/enjoy/common/lake-dusk.jpg';
 import st_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import st_day1_slide02 from '../assets/images/enjoy/sightseeing/day1/slide-02.jpg';
 import st_day1_slide03 from '../assets/images/enjoy/common/lake-dusk.jpg';
@@ -134,7 +134,7 @@ import st_day2_slide04 from '../assets/images/enjoy/sightseeing/day2/slide-04.jp
 import st_day2_slide05 from '../assets/images/enjoy/sightseeing/day2/slide-05.jpg';
 
 // 5. 雨の日でも特別な体験をしたい方（Rainy Day）
-import rainy_day_hero from '../assets/images/enjoy/rainy-day/hero.jpg';
+import rainy_day_hero from '../assets/images/facility/equipment/lobby-chair.jpg';
 import rd_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import rd_day1_slide02 from '../assets/images/facility/equipment/img-10.jpg';
 import rd_day1_slide03 from '../assets/images/facility/public-bath/rotenburo.jpg';
@@ -328,7 +328,7 @@ export const couplesPlan: StayPlan = {
       '湖畔の屋根付きBBQハウスで、少し贅沢な炭火の夕食を。夜は森の焚き火を囲み、翌朝は青木ヶ原樹海へ。都会では感じることのできない自然のスケールに、二人で触れる時間です。',
     heroImage: {
       src: couples_hero,
-      alt: 'カップルで自然体験を楽しむ様子',
+      alt: '西湖と富士山の上に広がる星空',
     },
   },
   days: [
@@ -471,7 +471,7 @@ export const relaxationPlan: StayPlan = {
       'ホテル内の図書コーナーで本を選び、芝生のハンモックで読む。森のサウナで整え、翌朝はSUPで湖の上を漂う。予定を詰めないことが、この二日間の目的です。',
     heroImage: {
       src: relaxation_hero,
-      alt: 'リラクゼーションを楽しむ様子',
+      alt: '木陰に吊るされたハンモックチェア',
     },
   },
   days: [
@@ -614,7 +614,7 @@ export const sightseeingPlan: StayPlan = {
       '西湖を拠点に、富士北麓を巡ります。金運で知られる新屋山神社、溶岩が作った竜宮洞穴、地元の人が通う吉田のうどん、そして河口湖のロープウェイ。宿は静かな拠点として使ってください。',
     heroImage: {
       src: sightseeing_hero,
-      alt: '観光を楽しむ様子',
+      alt: '夕焼けに染まる西湖の空',
     },
   },
   days: [
@@ -757,7 +757,7 @@ export const rainyDayPlan: StayPlan = {
       '雨の日だからこそ、この場所は静かになります。図書コーナーで選んだ本を雨音とともに読み、露天風呂で濡れた森の香りを吸い込み、屋根の下の炭火で食卓を囲む。晴れの日とは違う記憶が残ります。',
     heroImage: {
       src: rainy_day_hero,
-      alt: '雨の日のリラックスタイム',
+      alt: 'ロビーの吊り椅子とソファ',
     },
   },
   days: [
