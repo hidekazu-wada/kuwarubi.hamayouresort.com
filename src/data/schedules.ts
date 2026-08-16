@@ -111,7 +111,7 @@ import rl_day1_slide05 from '../assets/images/facility/hodohodo-forest/img02.png
 import rl_day1_slide06 from '../assets/images/enjoy/common/starry-sky.jpg';
 import rl_day1_slide07 from '../assets/images/facility/room/night-01.jpg';
 
-import rl_day2_slide01 from '../assets/images/facility/public-bath/daiyokujo.jpg';
+import rl_day2_slide01 from '../assets/images/facility/public-bath/rotenburo-steam.jpg';
 import rl_day2_slide02 from '../assets/images/food/breakfast/img-03.jpg';
 import rl_day2_slide03 from '../assets/images/enjoy/common/checkout.jpg';
 import rl_day2_slide04 from '../assets/images/activities/sup-rental/gallery-01.jpg';
@@ -548,8 +548,8 @@ export const relaxationPlan: StayPlan = {
           thumbnailTitle: '朝の湯',
           detailTitle: '朝の湯',
           description:
-            '夜が明けきる前の大浴場。湯気の向こうが少しずつ明るくなっていきます。',
-          image: { src: rl_day2_slide01, alt: '早朝の大浴場' },
+            '朝いちばんの露天風呂へ。湯気の向こうで、森が少しずつ明るくなっていきます。',
+          image: { src: rl_day2_slide01, alt: '湯気の立つ朝の露天風呂' },
         },
         {
           time: '7:30',
