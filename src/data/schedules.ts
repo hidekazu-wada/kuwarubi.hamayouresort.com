@@ -70,94 +70,85 @@ export interface StayPlan {
 
 // 1. 子供と一緒に自然に触れたい方（Family Nature）
 import family_nature_hero from '../assets/images/enjoy/family-nature/hero.png';
-import fn_day1_slide01 from '../assets/images/enjoy/family-nature/day1/slide-01.jpg';
-import fn_day1_slide02 from '../assets/images/enjoy/family-nature/day1/slide-02.jpg';
+import fn_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
+import fn_day1_slide02 from '../assets/images/facility/hodohodo-forest/img03.jpg';
 import fn_day1_slide03 from '../assets/images/enjoy/family-nature/day1/slide-03.jpg';
-import fn_day1_slide04 from '../assets/images/enjoy/family-nature/day1/slide-04.jpg';
-import fn_day1_slide05 from '../assets/images/enjoy/family-nature/day1/slide-05.jpg';
+import fn_day1_slide04 from '../assets/images/food/dinner/main.jpg';
+import fn_day1_slide05 from '../assets/images/facility/public-bath/img-02.png';
 import fn_day1_slide06 from '../assets/images/enjoy/family-nature/day1/slide-06.jpg';
-import fn_day1_slide07 from '../assets/images/enjoy/family-nature/day1/slide-07.jpg';
+import fn_day1_slide07 from '../assets/images/facility/room/slide-03.jpg';
 
-import fn_day2_slide01 from '../assets/images/enjoy/family-nature/day2/slide-01.jpg';
-import fn_day2_slide02 from '../assets/images/enjoy/family-nature/day2/slide-02.jpg';
-import fn_day2_slide03 from '../assets/images/enjoy/family-nature/day2/slide-03.jpg';
-import fn_day2_slide04 from '../assets/images/enjoy/family-nature/day2/slide-04.jpg';
-import fn_day2_slide05 from '../assets/images/enjoy/family-nature/day2/slide-05.jpg';
-import fn_day2_slide06 from '../assets/images/enjoy/family-nature/day2/slide-06.jpg';
-import fn_day2_slide07 from '../assets/images/enjoy/family-nature/day2/slide-07.jpg';
+import fn_day2_slide01 from '../assets/images/facility/public-bath/img-01.png';
+import fn_day2_slide02 from '../assets/images/food/breakfast/img-01.jpg';
+import fn_day2_slide03 from '../assets/images/enjoy/common/reception.jpg';
+import fn_day2_slide04 from '../assets/images/activities/pedal-boards/gallery-01.jpg';
+import fn_day2_slide05 from '../assets/images/top/location/img1.png';
 
 
 // 2. カップル夫婦で自然体験をしたい方（Couples）
 import couples_hero from '../assets/images/enjoy/couples/hero.jpg';
-import cp_day1_slide01 from '../assets/images/enjoy/couples/day1/slide-01.jpg';
-import cp_day1_slide02 from '../assets/images/enjoy/couples/day1/slide-02.jpg';
-import cp_day1_slide03 from '../assets/images/enjoy/couples/day1/slide-03.jpg';
-import cp_day1_slide04 from '../assets/images/enjoy/couples/day1/slide-04.jpg';
-import cp_day1_slide05 from '../assets/images/enjoy/couples/day1/slide-05.jpg';
+import cp_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
+import cp_day1_slide02 from '../assets/images/activities/senoumi-tour-saiko/gallery-02.jpg';
+import cp_day1_slide03 from '../assets/images/activities/hot-spring-bath-and-forest-sauna-hut/gallery-01.jpg';
+import cp_day1_slide04 from '../assets/images/food/bbq/img-01.png';
+import cp_day1_slide05 from '../assets/images/facility/hodohodo-forest/img04.png';
 import cp_day1_slide06 from '../assets/images/enjoy/couples/day1/slide-06.jpg';
-import cp_day1_slide07 from '../assets/images/enjoy/couples/day1/slide-07.jpg';
+import cp_day1_slide07 from '../assets/images/facility/room/slide-02.jpg';
 
-import cp_day2_slide01 from '../assets/images/enjoy/couples/day2/slide-01.jpg';
-import cp_day2_slide02 from '../assets/images/enjoy/couples/day2/slide-02.jpg';
-import cp_day2_slide03 from '../assets/images/enjoy/couples/day2/slide-03.jpg';
-import cp_day2_slide04 from '../assets/images/enjoy/couples/day2/slide-04.jpg';
+import cp_day2_slide01 from '../assets/images/top/location/img2.png';
+import cp_day2_slide02 from '../assets/images/food/breakfast/img-02.jpg';
+import cp_day2_slide03 from '../assets/images/enjoy/common/reception.jpg';
+import cp_day2_slide04 from '../assets/images/activities/aokigahara-forest-private-tour/gallery-01.jpg';
 import cp_day2_slide05 from '../assets/images/enjoy/couples/day2/slide-05.jpg';
-import cp_day2_slide06 from '../assets/images/enjoy/couples/day2/slide-06.jpg';
-import cp_day2_slide07 from '../assets/images/enjoy/couples/day2/slide-07.jpg';
 
 // 3. 非日常を満喫、ゆったりと過ごしたい方（Relaxation）
 import relaxation_hero from '../assets/images/enjoy/relaxation/hero.jpg';
-import rl_day1_slide01 from '../assets/images/enjoy/relaxation/day1/slide-01.jpg';
-import rl_day1_slide02 from '../assets/images/enjoy/relaxation/day1/slide-02.jpg';
+import rl_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
+import rl_day1_slide02 from '../assets/images/facility/equipment/img-10.jpg';
 import rl_day1_slide03 from '../assets/images/enjoy/relaxation/day1/slide-03.jpg';
-import rl_day1_slide04 from '../assets/images/enjoy/relaxation/day1/slide-04.jpg';
-import rl_day1_slide05 from '../assets/images/enjoy/relaxation/day1/slide-05.jpg';
+import rl_day1_slide04 from '../assets/images/food/dinner/img-02.jpg';
+import rl_day1_slide05 from '../assets/images/activities/hot-spring-bath-and-forest-sauna-hut/gallery-02.jpg';
 import rl_day1_slide06 from '../assets/images/enjoy/relaxation/day1/slide-06.jpg';
-import rl_day1_slide07 from '../assets/images/enjoy/relaxation/day1/slide-07.jpg';
+import rl_day1_slide07 from '../assets/images/facility/room/slide-01.jpg';
 
-import rl_day2_slide01 from '../assets/images/enjoy/relaxation/day2/slide-01.jpg';
-import rl_day2_slide02 from '../assets/images/enjoy/relaxation/day2/slide-02.jpg';
-import rl_day2_slide03 from '../assets/images/enjoy/relaxation/day2/slide-03.jpg';
-import rl_day2_slide04 from '../assets/images/enjoy/relaxation/day2/slide-04.jpg';
-import rl_day2_slide05 from '../assets/images/enjoy/relaxation/day2/slide-05.jpg';
-import rl_day2_slide06 from '../assets/images/enjoy/relaxation/day2/slide-06.jpg';
-import rl_day2_slide07 from '../assets/images/enjoy/relaxation/day2/slide-07.jpg';
+import rl_day2_slide01 from '../assets/images/facility/public-bath/bg.png';
+import rl_day2_slide02 from '../assets/images/food/breakfast/img-03.jpg';
+import rl_day2_slide03 from '../assets/images/enjoy/common/reception.jpg';
+import rl_day2_slide04 from '../assets/images/activities/sup-rental/gallery-01.jpg';
+import rl_day2_slide05 from '../assets/images/activities/aokigahara-forest-early-morning-private-tour/gallery-01.jpg';
 
 // 4. 近隣観光メインで最高拠点に楽しみたい方（Sightseeing）
 import sightseeing_hero from '../assets/images/enjoy/sightseeing/hero.jpg';
-import st_day1_slide01 from '../assets/images/enjoy/sightseeing/day1/slide-01.jpg';
+import st_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
 import st_day1_slide02 from '../assets/images/enjoy/sightseeing/day1/slide-02.jpg';
-import st_day1_slide03 from '../assets/images/enjoy/sightseeing/day1/slide-03.jpg';
-import st_day1_slide04 from '../assets/images/enjoy/sightseeing/day1/slide-04.jpg';
-import st_day1_slide05 from '../assets/images/enjoy/sightseeing/day1/slide-05.jpg';
+import st_day1_slide03 from '../assets/images/activities/senoumi-tour-saiko/gallery-05.jpg';
+import st_day1_slide04 from '../assets/images/food/dinner/img-03.jpg';
+import st_day1_slide05 from '../assets/images/facility/public-bath/img-01.png';
 import st_day1_slide06 from '../assets/images/enjoy/sightseeing/day1/slide-06.jpg';
-import st_day1_slide07 from '../assets/images/enjoy/sightseeing/day1/slide-07.jpg';
+import st_day1_slide07 from '../assets/images/facility/room/slide-04.jpg';
 
-import st_day2_slide01 from '../assets/images/enjoy/sightseeing/day2/slide-01.jpg';
-import st_day2_slide02 from '../assets/images/enjoy/sightseeing/day2/slide-02.jpg';
-import st_day2_slide03 from '../assets/images/enjoy/sightseeing/day2/slide-03.jpg';
+import st_day2_slide01 from '../assets/images/food/breakfast/img-04.jpg';
+import st_day2_slide02 from '../assets/images/enjoy/common/reception.jpg';
+import st_day2_slide03 from '../assets/images/activities/aokigahara-forest-private-tour/gallery-03.jpg';
 import st_day2_slide04 from '../assets/images/enjoy/sightseeing/day2/slide-04.jpg';
 import st_day2_slide05 from '../assets/images/enjoy/sightseeing/day2/slide-05.jpg';
-import st_day2_slide06 from '../assets/images/enjoy/sightseeing/day2/slide-06.jpg';
-import st_day2_slide07 from '../assets/images/enjoy/sightseeing/day2/slide-07.jpg';
 
 // 5. 雨の日でも特別な体験をしたい方（Rainy Day）
 import rainy_day_hero from '../assets/images/enjoy/rainy-day/hero.jpg';
-import rd_day1_slide01 from '../assets/images/enjoy/rainy-day/day1/slide-01.jpg';
-import rd_day1_slide02 from '../assets/images/enjoy/rainy-day/day1/slide-02.jpg';
-import rd_day1_slide03 from '../assets/images/enjoy/rainy-day/day1/slide-03.jpg';
-import rd_day1_slide04 from '../assets/images/enjoy/rainy-day/day1/slide-04.jpg';
-import rd_day1_slide05 from '../assets/images/enjoy/rainy-day/day1/slide-05.jpg';
-import rd_day1_slide06 from '../assets/images/enjoy/rainy-day/day1/slide-06.jpg';
-import rd_day1_slide07 from '../assets/images/enjoy/rainy-day/day1/slide-07.jpg';
+import rd_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
+import rd_day1_slide02 from '../assets/images/facility/equipment/img-10.jpg';
+import rd_day1_slide03 from '../assets/images/facility/public-bath/img-02.png';
+import rd_day1_slide04 from '../assets/images/facility/kokko/img-02.jpg';
+import rd_day1_slide05 from '../assets/images/activities/hot-spring-bath-and-forest-sauna-hut/gallery-01.jpg';
+import rd_day1_slide06 from '../assets/images/facility/room/slide-05.jpg';
+import rd_day1_slide07 from '../assets/images/facility/room/slide-03.jpg';
 
-import rd_day2_slide01 from '../assets/images/enjoy/rainy-day/day2/slide-01.jpg';
-import rd_day2_slide02 from '../assets/images/enjoy/rainy-day/day2/slide-02.jpg';
-import rd_day2_slide03 from '../assets/images/enjoy/rainy-day/day2/slide-03.jpg';
-import rd_day2_slide04 from '../assets/images/enjoy/rainy-day/day2/slide-04.jpg';
-import rd_day2_slide05 from '../assets/images/enjoy/rainy-day/day2/slide-05.jpg';
-import rd_day2_slide06 from '../assets/images/enjoy/rainy-day/day2/slide-06.jpg';
-import rd_day2_slide07 from '../assets/images/enjoy/rainy-day/day2/slide-07.jpg';
+import rd_day2_slide01 from '../assets/images/facility/public-bath/img-01.png';
+import rd_day2_slide02 from '../assets/images/food/breakfast/img-01.jpg';
+import rd_day2_slide03 from '../assets/images/enjoy/common/reception.jpg';
+import rd_day2_slide04 from '../assets/images/facility/kokko/img-03.png';
+import rd_day2_slide05 from '../assets/images/activities/car-sauna/gallery-01.jpg';
+import rd_day2_slide06 from '../assets/images/top/location/img1.png';
 
 // TOPページEnjoyセクション用画像
 import top_enjoy_01_sp from '../assets/images/top/enjoy/image-01-sp.png';
