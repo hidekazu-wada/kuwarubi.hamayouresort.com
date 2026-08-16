@@ -88,7 +88,7 @@ import fn_day2_slide05 from '../assets/images/top/location/img1.png';
 // 2. カップル夫婦で自然体験をしたい方（Couples）
 import couples_hero from '../assets/images/enjoy/couples/hero.jpg';
 import cp_day1_slide01 from '../assets/images/enjoy/common/reception.jpg';
-import cp_day1_slide02 from '../assets/images/activities/senoumi-tour-saiko/gallery-02.jpg';
+import cp_day1_slide02 from '../assets/images/enjoy/common/lakeside.jpg';
 import cp_day1_slide03 from '../assets/images/activities/hot-spring-bath-and-forest-sauna-hut/gallery-01.jpg';
 import cp_day1_slide04 from '../assets/images/food/bbq/img-01.png';
 import cp_day1_slide05 from '../assets/images/facility/hodohodo-forest/img04.png';
@@ -351,7 +351,7 @@ export const couplesPlan: StayPlan = {
           detailTitle: '湖畔散策',
           description:
             '宿から歩いてすぐの湖畔へ。人の少ない西湖は、話す声が自然と小さくなります。',
-          image: { src: cp_day1_slide02, alt: '湖畔での散策' },
+          image: { src: cp_day1_slide02, alt: '西湖の湖畔' },
         },
         {
           time: '16:30',
