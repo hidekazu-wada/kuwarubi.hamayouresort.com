@@ -14,9 +14,6 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
 // import { getImage } from 'astro:assets';
 // import sampleImage from '../assets/images/sample.jpg';
 
-// ============================================================
-// TODO: 以下の項目を必ず変更してください
-// ============================================================
 
 // ページ固有のクラス名（page-nameを適切な名前に変更）
 const pageClass = 'main-content--contact';
@@ -26,9 +23,6 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
 ---
 
 <BaseLayout pageTitle="お問い合わせ" pageClass={pageClass}>
-  <!-- ============================================================ -->
-  <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
-  <!-- ============================================================ -->
 
   <!-- ページヘッダー -->
   <div class="page-header-container">
@@ -247,10 +241,9 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
           </div>
         </form>
       </div>
-      <p class="contact-form__recaptcha">
-        This site is protected by reCAPTCHA and the GooglePrivacy Policy and
-        Terms of Service apply.
-      </p>
+      {/* reCAPTCHA は未導入。導入していないのに「保護されています」と書くのは
+          事実と違うので表記を出さない。導入したらここに戻す。
+          スタイルは .contact-form__recaptcha として残してある。 */}
     </div>
   </section>
 

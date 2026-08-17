@@ -45,18 +45,12 @@ const dateInfo = formatDate(post.publishedAt);
 const prevDateInfo = prev ? formatDate(prev.publishedAt) : null;
 const nextDateInfo = next ? formatDate(next.publishedAt) : null;
 
-// ============================================================
-// TODO: 以下の項目を必ず変更してください
-// ============================================================
 
 // ページ固有のクラス名
 const pageClass = 'main-content--blog-detail';
 ---
 
 <BaseLayout pageTitle={post.title} pageClass={pageClass}>
-  <!-- ============================================================ -->
-  <!-- TODO: titleEn, titleJa, Breadcrumbのテキストを変更 -->
-  <!-- ============================================================ -->
 
   <!-- ページヘッダー -->
   <header class="page-header-container">
