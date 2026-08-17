@@ -51,6 +51,13 @@ const ogImageURL = new URL(ogImage, Astro.site);
 const allowIndexing = import.meta.env.PUBLIC_ALLOW_INDEXING === 'true';
 const robotsContent = !allowIndexing || noindex ? 'noindex, nofollow' : 'index, follow';
 
+// GA4。測定IDが未設定なら、タグ自体を出さない。
+// HAMAYOU の各サイト（ホテル・キャンプ場・温泉・採用）は同じ hamayouresort.com 配下なので、
+// 全サイトで同じ測定IDを使う。_ga クッキーが親ドメインに張られるため、
+// サイトをまたいだ回遊が1人・1セッションとして繋がる。
+// サイト別に見たいときは「ホスト名」ディメンションで分ける。
+const ga4Id = import.meta.env.PUBLIC_GA4_ID;
+
 // 宿泊施設の構造化データ。検索結果に地図・電話・チェックイン時刻を出すために使う。
 const structuredData = {
   '@context': 'https://schema.org',
@@ -134,6 +141,23 @@ const structuredData = {
       href="https://fonts.googleapis.com/css2?family=Allura&family=Zen+Kaku+Gothic+New:wght@400;500;900&display=swap"
       rel="stylesheet"
     />
+
+    {/* GA4。PUBLIC_GA4_ID が未設定のあいだは出力されない */}
+    {
+      ga4Id && (
+        <>
+          <script
+            is:inline
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
+          />
+          <script
+            is:inline
+            set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${ga4Id}');`}
+          />
+        </>
+      )
+    }
   </head>
   <body>
     <!-- ローディング要素をbodyの直下の最初に配置 -->
