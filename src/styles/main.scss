@@ -44,3 +44,42 @@ html {
     min-height: 100vh; // 開発用　不要になったら削除
   }
 }
+
+// ============================================================
+// Chromeモバイルの自動リンク検出よけ
+// ============================================================
+// Chromeのスマホ版は住所や郵便番号を勝手にリンクにして下線を引く。
+// format-detection の meta だけでは防げないパターンがあるため、
+// href を持たない <a> で囲む。ブラウザは既にリンクの中を自動リンクしない。
+.no-link {
+  color: inherit;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+// 電話番号は自前で tel: リンクにしてある。
+// こちらは実際にタップして発信できるので pointer-events は殺さない。
+.tel-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+// ============================================================
+// iOS 26 Safari のUIアイランド領域対策
+// ============================================================
+// 画面全体を覆うメニューを開いたとき、画面下のSafariツールバー周辺が
+// 透けることがある。画面下に position: fixed の要素を1つ置くと、
+// Safariがその領域の合成計算を行うようになり透過が止まる。
+// 要素自体は画面外に追い出すので見た目には影響しない。
+// BaseLayout の .ui-island-fix とセットで機能する。
+.ui-island-fix {
+  position: fixed;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background-color: #026995; // サイトの濃い青
+  opacity: 1;
+  z-index: 0;
+  pointer-events: none;
+}

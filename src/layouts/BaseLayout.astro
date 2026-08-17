@@ -160,6 +160,12 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
     }
   </head>
   <body>
+    <!-- iOS 26 Safari のUIアイランド領域が透けるのを防ぐダミー要素。
+         画面下に position: fixed の要素が1つあると、Safariがその領域の
+         合成計算を行うようになり透過が止まる。bottom: -10px で画面外に
+         追い出してあるので見た目には出ない。CSSとセットで機能する。 -->
+    <div class="ui-island-fix" aria-hidden="true"></div>
+
     <!-- ローディング要素をbodyの直下の最初に配置 -->
     <div id="loading" class="loading-overlay">
       <img src={logo.src} alt="loading" />
