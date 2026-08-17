@@ -29,9 +29,18 @@ if (!stayPlan) {
 
 // ページ固有のクラス名
 const pageClass = `main-content--enjoy main-content--enjoy-${stayPlan.id}`;
+// 検索結果に出る説明文。プランの紹介文を120字で切って使う。
+const planDescription = `${stayPlan.title}｜${stayPlan.hero.description
+  .replace(/\s+/g, ' ')
+  .slice(0, 100)}…`;
+
 ---
 
-<BaseLayout pageTitle={stayPlan.title} pageClass={pageClass}>
+<BaseLayout
+  pageTitle={stayPlan.title}
+  description={planDescription}
+  pageClass={pageClass}
+>
   <!-- メインコンテンツ -->
   <Hero heroContent={stayPlan.hero} />
 

@@ -48,9 +48,20 @@ const nextDateInfo = next ? formatDate(next.publishedAt) : null;
 
 // ページ固有のクラス名
 const pageClass = 'main-content--blog-detail';
+// 検索結果に出る説明文。本文HTMLからタグを落として冒頭を使う。
+const postDescription = `${post.content
+  .replace(/<[^>]*>/g, '')
+  .replace(/\s+/g, ' ')
+  .trim()
+  .slice(0, 110)}…`;
+
 ---
 
-<BaseLayout pageTitle={post.title} pageClass={pageClass}>
+<BaseLayout
+  pageTitle={post.title}
+  description={postDescription}
+  pageClass={pageClass}
+>
 
   <!-- ページヘッダー -->
   <header class="page-header-container">

@@ -134,10 +134,17 @@ const ageGroupDisplayText = (() => {
       return '';
   }
 })();
+// 検索結果に出る説明文。導入文の冒頭を120字で切って使う。
+// 改行と連続する空白を潰さないと、metaタグに入れたとき崩れる。
+const activityDescription = `${plainTitle(activity.title)}｜${activity.introText
+  .replace(/\s+/g, ' ')
+  .slice(0, 100)}…`;
+
 ---
 
 <BaseLayout
   pageTitle={plainTitle(activity.title)}
+  description={activityDescription}
   pageClass="main-content--activity-detail"
 >
   <article class="activity-detail">
