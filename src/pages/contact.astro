@@ -42,8 +42,11 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
         </p>
       </header>
       <div class="contact-form__body">
-        <!-- FormspreeのエンドポイントURLを以下のaction属性に貼り付けてください -->
-        <!-- 例: action="https://formspree.io/f/YOUR_FORM_ID" -->
+        {/* 送信完了・エラーの表示先。JSが表示を切り替える */}
+        <div class="contact-form__result" role="status" aria-live="polite" hidden>
+          <p class="contact-form__result-title"></p>
+          <p class="contact-form__result-text"></p>
+        </div>
         <form
           class="contact-form__form"
           action={formspreeEndpoint}
@@ -362,6 +365,68 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
       }
       span {
         color: var(--green_2, #adc400);
+      }
+    }
+
+    // 送信完了・エラーの表示。初期状態は hidden 属性で隠れている
+    &__result {
+      background: var(--white, #fff);
+      border-left: spx(8) solid var(--blue_5, #026995);
+      border-radius: spx(10);
+      padding: spx(40) spx(36);
+      margin-bottom: spx(50);
+      @include tablet-up {
+        border-left-width: ppx(8 * 1.2);
+        border-radius: ppx(10 * 1.2);
+        padding: ppx(48 * 1.2) ppx(44 * 1.2);
+        margin-bottom: ppx(60 * 1.2);
+        margin-right: ppx(130 * 1.2);
+      }
+      @include desktop-up {
+        border-left-width: ppx(8);
+        border-radius: ppx(10);
+        padding: ppx(48) ppx(44);
+        margin-bottom: ppx(60);
+        margin-right: ppx(130);
+      }
+
+      &--error {
+        border-left-color: #b23a26;
+      }
+    }
+
+    &__result-title {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(34);
+      font-weight: 700;
+      line-height: 150%;
+      margin-bottom: spx(18);
+      @include tablet-up {
+        font-size: ppx(38 * 1.2);
+        margin-bottom: ppx(20 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(38);
+        margin-bottom: ppx(20);
+      }
+    }
+
+    .contact-form__result--error &__result-title {
+      color: #b23a26;
+    }
+
+    &__result-text {
+      color: var(--blue_6, #054965);
+      font-family: 'Zen Kaku Gothic New';
+      font-size: spx(26);
+      font-weight: 400;
+      line-height: 180%;
+      @include tablet-up {
+        font-size: ppx(28 * 1.2);
+      }
+      @include desktop-up {
+        font-size: ppx(28);
       }
     }
 
@@ -1114,7 +1179,37 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
     '.contact-form__form'
   ) as HTMLFormElement | null;
   if (form) {
-    form.addEventListener('submit', (e) => {
+    const resultBox = document.querySelector(
+      '.contact-form__result'
+    ) as HTMLElement | null;
+    const resultTitle = document.querySelector(
+      '.contact-form__result-title'
+    ) as HTMLElement | null;
+    const resultText = document.querySelector(
+      '.contact-form__result-text'
+    ) as HTMLElement | null;
+    const submitButton = form.querySelector(
+      '.contact-form__submit'
+    ) as HTMLButtonElement | null;
+    const submitLabel = form.querySelector(
+      '.contact-form__submit-text'
+    ) as HTMLElement | null;
+
+    // 完了・エラーの表示。出したあとその位置までスクロールする
+    const showResult = (isError: boolean, title: string, text: string) => {
+      if (!resultBox || !resultTitle || !resultText) return;
+      resultBox.classList.toggle('contact-form__result--error', isError);
+      resultTitle.textContent = title;
+      resultText.textContent = text;
+      resultBox.hidden = false;
+      resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    form.addEventListener('submit', async (e) => {
+      // 送信は必ずこちらで受け止める。素のPOSTに任せると
+      // Formspree の英語の完了画面へ遷移し、サイトの外に出てしまう
+      e.preventDefault();
+
       // Check required fields
       const requiredFields = form.querySelectorAll('[required]');
       let hasEmptyField = false;
@@ -1130,7 +1225,6 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
       });
 
       if (hasEmptyField) {
-        e.preventDefault();
         alert('必須項目をすべて入力してください。');
         return;
       }
@@ -1145,7 +1239,6 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
 
       if (emailInput && emailConfirmInput) {
         if (emailInput.value !== emailConfirmInput.value) {
-          e.preventDefault();
           alert('メールアドレスが一致しません。もう一度確認してください。');
           emailConfirmInput.focus();
           return;
@@ -1154,9 +1247,49 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
 
       // Check privacy agreement
       if (!privacyCheckbox || !privacyCheckbox.checked) {
-        e.preventDefault();
         alert('個人情報の取り扱いに同意してください。');
         return;
+      }
+
+      // 二重送信を防ぐ
+      const original = submitLabel?.textContent ?? '送信';
+      if (submitButton) submitButton.disabled = true;
+      if (submitLabel) submitLabel.textContent = '送信中...';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          // これが無いと Formspree は HTML のリダイレクトを返す
+          headers: { Accept: 'application/json' },
+        });
+
+        if (response.ok) {
+          form.reset();
+          form.hidden = true;
+          showResult(
+            false,
+            'お問い合わせを受け付けました',
+            'ご入力のメールアドレス宛に控えをお送りしています。数日以内に担当者よりご返信いたしますので、少々お待ちください。'
+          );
+          return;
+        }
+
+        showResult(
+          true,
+          '送信できませんでした',
+          '時間をおいてもう一度お試しください。お急ぎの場合はお電話（0555-82-2922）でご連絡ください。'
+        );
+      } catch {
+        showResult(
+          true,
+          '送信できませんでした',
+          '通信に失敗しました。電波の良い場所でもう一度お試しください。お急ぎの場合はお電話（0555-82-2922）でご連絡ください。'
+        );
+      } finally {
+        if (submitButton) submitButton.disabled = false;
+        if (submitLabel) submitLabel.textContent = original;
+        updateSubmitButton();
       }
     });
   }
