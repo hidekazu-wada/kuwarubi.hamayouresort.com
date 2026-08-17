@@ -54,6 +54,20 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
           method="POST"
           novalidate
         >
+          {/* 迷惑メール対策のハニーポット。Formspree は _gotcha という名前の欄に
+              値が入っていたら、その送信を黙って捨てる。人には見えないので
+              入力されることはなく、自動で全欄を埋めるボットだけが引っかかる。
+              利用者に負担をかけずに済むのが利点。required は付けない。 */}
+          <div class="contact-form__gotcha" aria-hidden="true">
+            <label for="contact-gotcha">この欄は入力しないでください</label>
+            <input
+              type="text"
+              name="_gotcha"
+              id="contact-gotcha"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
           <fieldset class="contact-form__fieldset">
             <div class="contact-form__field contact-form__field--select">
               <label class="contact-form__label" for="contact-type">種別 <span>※</span></label>
@@ -370,6 +384,16 @@ const formspreeEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
     }
 
     // 送信完了・エラーの表示。初期状態は hidden 属性で隠れている
+    // ハニーポットは画面外へ追い出す。display: none だと
+    // 「隠されている＝罠」と判断して避けるボットがいるため使わない。
+    &__gotcha {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
     &__result {
       background: var(--white, #fff);
       border-left: spx(8) solid var(--blue_5, #026995);
