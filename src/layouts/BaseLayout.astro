@@ -57,6 +57,8 @@ const robotsContent = !allowIndexing || noindex ? 'noindex, nofollow' : 'index, 
 // サイトをまたいだ回遊が1人・1セッションとして繋がる。
 // サイト別に見たいときは「ホスト名」ディメンションで分ける。
 const ga4Id = import.meta.env.PUBLIC_GA4_ID;
+// 本番ドメインでのみ発火させるための判定用ホスト名。
+const ga4Host = Astro.site ? new URL(Astro.site).hostname : '';
 
 // 宿泊施設の構造化データ。検索結果に地図・電話・チェックイン時刻を出すために使う。
 const structuredData = {
@@ -142,20 +144,18 @@ const structuredData = {
       rel="stylesheet"
     />
 
-    {/* GA4。PUBLIC_GA4_ID が未設定のあいだは出力されない */}
+    {/* GA4。PUBLIC_GA4_ID が未設定のあいだは出力されない。
+        本番ドメインでしか発火させないので、localhost での確認やプレビューが
+        本番の数字に混ざることはない。判定に使うホスト名は astro.config.mjs の
+        site から取っているので、ドメインが変わっても追従する。 */}
     {
       ga4Id && (
-        <>
-          <script
-            is:inline
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
-          />
-          <script
-            is:inline
-            set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${ga4Id}');`}
-          />
-        </>
+        <script
+          is:inline
+          set:html={`(function(){if(location.hostname!==${JSON.stringify(ga4Host)})return;
+var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=${ga4Id}';document.head.appendChild(s);
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${ga4Id}');})();`}
+        />
       )
     }
   </head>
