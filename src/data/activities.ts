@@ -191,7 +191,7 @@ export const activities: Activity[] = [
     slug: "senoumi-tour-saiko",
     title: "せのうみツアー【西湖】",
     category: "LAKE SAIKO",
-    published: true,
+    published: false, // 自転車が用意できなくなったため非表示。再開できたら true に戻す
 
     gallery: [senoumiTourSaikoImg01, senoumiTourSaikoImg02, senoumiTourSaikoImg03, senoumiTourSaikoImg04, senoumiTourSaikoImg05, senoumiTourSaikoImg06, senoumiTourSaikoImg07],
     pointBackgroundImage: senoumiTourSaikoImg04,
